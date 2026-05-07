@@ -1,0 +1,11 @@
+{
+  "name": "Genesis Vault Pass — Phase 0",
+  "description": "Ultra-scarce vault access before districts crowd. Early positioning across drops and profile perks — not a promise of financial return.",
+  "image": "https://0x.buildingculture.capital/genesis-district-phase0.png",
+  "external_url": "https://0x.buildingculture.capital/genesis-district",
+  "attributes": [
+    { "trait_type": "Tier", "value": "Genesis" },
+    { "trait_type": "Phase", "value": "0" },
+    { "trait_type": "Access", "value": "Early vault" }
+  ]
+}

@@ -1,0 +1,16 @@
+# Monorepo Docker builds (context = b3/).
+**/node_modules
+.git
+.gitignore
+**/.turbo
+**/*.log
+contracts/out
+contracts/cache
+contracts/broadcast
+contracts/lib
+frontend/docker/dotenv-for-build
+frontend/dist
+strapiapp/.tmp
+strapiapp/build
+strapiapp/.cache
+umbrella

@@ -1,0 +1,18 @@
+{
+  "name": "Genesis District — Phase 0",
+  "description": "The first district in the Building Culture ecosystem. A genesis collectible granting early access, rewards, and governance alignment in the on-chain real estate game. Utility is enforced by product rules and future contracts — not implied yield.\n\nPinned content id (IPFS / 4EVERLAND): ujOdGo8WIVlaw7aBn-ocunnYRMoKGN7agZHdfb6MP-g",
+  "image": "https://buildingculture.4everbucket.com/ChatGPT%20Image%2029.%20Apr.%202026,%2019_52_17.png",
+  "external_url": "https://0x.buildingculture.capital/genesis-district",
+  "attributes": [
+    { "trait_type": "Phase", "value": "0" },
+    { "trait_type": "Type", "value": "District" },
+    { "trait_type": "Utility", "value": "Access + Rewards" },
+    { "trait_type": "Chain", "value": "Base" },
+    { "trait_type": "Edition", "value": "Genesis" },
+    { "trait_type": "Storage", "value": "4EVERLAND / 4everbucket" },
+    {
+      "trait_type": "Content ref",
+      "value": "ujOdGo8WIVlaw7aBn-ocunnYRMoKGN7agZHdfb6MP-g"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Use a pre-built image (./scripts/docker-build.sh) then:
+#   docker compose up -d
+# Do not `docker compose build` here — the Dockerfile needs docker/dotenv-for-build first.
+
+services:
+  web:
+    image: ${IMAGE_NAME:-buildingculture-frontend:latest}
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+    restart: unless-stopped

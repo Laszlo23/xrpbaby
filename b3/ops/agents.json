@@ -1,0 +1,111 @@
+{
+  "agents": [
+    {
+      "id": "news-writer-1",
+      "handler": "newsWriter",
+      "fleet": "ops",
+      "role": "content",
+      "systemPrompt": "Draft short markdown digests from on-chain stats; never publish without human review.",
+      "tools": ["ops.strapi.write", "chain.read_stats"],
+      "dailyApiBudgetUsd": 5
+    },
+    {
+      "id": "social-scout-1",
+      "handler": "socialScout",
+      "fleet": "ops",
+      "role": "social",
+      "systemPrompt": "Post concise fleet status to Slack; no Twitter until Phase 1.",
+      "tools": ["ops.slack.post", "chain.read_stats"],
+      "dailyApiBudgetUsd": 2
+    },
+    {
+      "id": "slack-digest-1",
+      "handler": "slackDigest",
+      "fleet": "ops",
+      "role": "observability",
+      "systemPrompt": "Post a 24h ledger summary to Slack.",
+      "tools": ["ops.slack.post"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
+      "id": "raffle-watcher-1",
+      "handler": "raffleWatcher",
+      "fleet": "ops",
+      "role": "risk",
+      "systemPrompt": "Snapshot RaffleTicketCampaign state; Slack alert on phase/commitment changes.",
+      "tools": ["chain.read_stats", "ops.slack.post"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
+      "id": "treasury-guardian-1",
+      "handler": "treasuryGuardian",
+      "fleet": "ops",
+      "role": "treasury",
+      "systemPrompt": "Watch configured treasury EOAs for low native balance.",
+      "tools": ["chain.read_stats", "ops.slack.post"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
+      "id": "leaderboard-updater-1",
+      "handler": "leaderboardUpdater",
+      "fleet": "ops",
+      "role": "indexer",
+      "systemPrompt": "Summarize ChainMintEvent aggregates for leaderboard / ops visibility.",
+      "tools": ["indexer.read"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
+      "id": "seo-publisher-1",
+      "handler": "seoPublisher",
+      "fleet": "ops",
+      "role": "content",
+      "systemPrompt": "Reserved — Lighthouse + Slack-gated publish.",
+      "tools": ["ops.strapi.write"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
+      "id": "x402-monetizer-1",
+      "handler": "x402Monetizer",
+      "fleet": "ops",
+      "role": "monetization",
+      "systemPrompt": "Reserved — x402 settlement + MRR tracking.",
+      "tools": ["http.x402"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
+      "id": "kyc-fraud-watch-1",
+      "handler": "fraudWatchStub",
+      "fleet": "ops",
+      "role": "security",
+      "systemPrompt": "Heartbeat — live throttling in Strapi middleware.",
+      "tools": ["security.rate_limit"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
+      "id": "elias-concierge-1",
+      "handler": "eliasConcierge",
+      "fleet": "product",
+      "role": "hospitality",
+      "systemPrompt": "Guest-facing Vienna concierge — structured itineraries; never email partners without explicit user approval; never guarantee bookings or prices.",
+      "tools": ["email.inbound", "email.outbound", "db.supabase", "calendar.google"],
+      "dailyApiBudgetUsd": 25
+    },
+    {
+      "id": "ags-distributor-1",
+      "handler": "agsDistributor",
+      "fleet": "econ",
+      "role": "distribution",
+      "systemPrompt": "Mint AgentShare NFTs to the agent wallet then transfer to verified community-profile ownerAddress, respecting caps.",
+      "tools": ["chain.ags_mint_transfer", "strapi.read_profiles"],
+      "dailyApiBudgetUsd": 0,
+      "walletAddress": "",
+      "signerSource": "env_private_key",
+      "dailyGasCapWei": "10000000000000000",
+      "perTxAgsCap": 5,
+      "monthlyAgsCap": 30,
+      "allowedContracts": ["AgentShareCampaign"],
+      "agentTypeId": 1,
+      "maxRecipientsPerTick": 5
+    }
+  ]
+}

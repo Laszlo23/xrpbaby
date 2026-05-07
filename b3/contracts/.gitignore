@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+
+# Foundry
+cache/
+broadcast/
+
+# Hardhat (secondary artifacts if generated)
+artifacts/
+artifacts-hh/
+cache_hardhat/
+
+node_modules/

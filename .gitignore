@@ -1,0 +1,25 @@
+.DS_Store
+
+# Node / build
+node_modules/
+dist/
+.output/
+.vinxi/
+.tanstack/
+
+# Logs
+*.log
+
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+.secrets/
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json

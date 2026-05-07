@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vault_drops",
+  "info": {
+    "singularName": "vault-drop",
+    "pluralName": "vault-drops",
+    "displayName": "Vault drop",
+    "description": "Homepage raffle / RWA drop tiles (optional CMS override)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "artist": { "type": "string", "required": true },
+    "assetValueLabel": { "type": "string", "required": true },
+    "worthLabel": { "type": "string", "required": true },
+    "winnerMode": {
+      "type": "enumeration",
+      "enum": ["one", "limited"],
+      "default": "one",
+      "required": true
+    },
+    "winnerCopy": { "type": "string", "required": true },
+    "image": { "type": "string", "required": true },
+    "story": { "type": "text" },
+    "ticketsSold": { "type": "integer", "default": 0, "min": 0 },
+    "totalTickets": { "type": "integer", "default": 1000, "min": 1 },
+    "endsAt": { "type": "datetime", "required": true },
+    "rarity": {
+      "type": "enumeration",
+      "enum": ["common", "rare", "legendary"],
+      "default": "common",
+      "required": true
+    },
+    "campaignAddress": { "type": "string" },
+    "experienceCategory": {
+      "type": "enumeration",
+      "enum": ["stay", "art", "venue"],
+      "default": "stay"
+    },
+    "posterImage": { "type": "string" },
+    "filmstripVideo": { "type": "string" },
+    "sortOrder": { "type": "integer", "default": 0, "min": 0 }
+  }
+}

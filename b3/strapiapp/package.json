@@ -1,0 +1,41 @@
+{
+  "name": "buildingculture-strapi",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A Strapi application",
+  "scripts": {
+    "bootstrap": "node ./scripts/bootstrap-local-env.js",
+    "build": "strapi build",
+    "deploy": "strapi deploy",
+    "develop": "strapi develop",
+    "seed:example": "node ./scripts/seed.js",
+    "agent:smoke": "node ./scripts/agent-smoke.mjs",
+    "start": "strapi start",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@bc/identity": "*",
+    "@mysten/sui": "^2.16.0",
+    "@solana/web3.js": "^1.98.4",
+    "@strapi/plugin-cloud": "5.44.0",
+    "@strapi/plugin-users-permissions": "5.44.0",
+    "@strapi/strapi": "5.44.0",
+    "axios": "1.16.0",
+    "better-sqlite3": "11.3.0",
+    "bs58": "^6.0.0",
+    "fs-extra": "^10.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "mime-types": "^2.1.27",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.0.0",
+    "siwe": "^3.0.0",
+    "styled-components": "^6.0.0",
+    "tweetnacl": "^1.0.3",
+    "viem": "^2.48.4"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=22.x.x",
+    "npm": ">=6.0.0"
+  }
+}

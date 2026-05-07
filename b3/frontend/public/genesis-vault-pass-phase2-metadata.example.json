@@ -1,0 +1,11 @@
+{
+  "name": "Genesis Vault Pass — Phase 2",
+  "description": "Public access tier — join before odds tighten. Holds unlock profile perks per Build Culture rules.",
+  "image": "https://0x.buildingculture.capital/genesis-district-phase0.png",
+  "external_url": "https://0x.buildingculture.capital/genesis-district",
+  "attributes": [
+    { "trait_type": "Tier", "value": "Public Access" },
+    { "trait_type": "Phase", "value": "2" },
+    { "trait_type": "Access", "value": "Vault" }
+  ]
+}

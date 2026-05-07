@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 36" fill="none" aria-hidden="true">
+  <circle cx="18" cy="18" r="16" fill="#0052FF"/>
+  <path d="M18 8c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10z" fill="#fff" opacity=".15"/>
+  <text x="42" y="26" fill="#fafafa" font-family="system-ui, sans-serif" font-size="22" font-weight="700">Base</text>
+</svg>

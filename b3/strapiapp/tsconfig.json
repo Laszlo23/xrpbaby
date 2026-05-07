@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@strapi/typescript-utils/tsconfigs/server.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["types/generated/**/*.ts"],
+  "exclude": ["node_modules", "build", ".cache", "dist", "src"]
+}

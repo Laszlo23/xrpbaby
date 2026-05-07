@@ -1,0 +1,118 @@
+{
+  "strapi": "5.34.x",
+  "contentApiBase": "/api",
+  "adminPanel": "/admin",
+  "notes": "After first boot, bootstrap grants Public role find/findOne on listed types. Agents should use an Admin API Token (Full access) for writes unless using custom wallet routes.",
+  "contentTypes": [
+    {
+      "uid": "api::article.article",
+      "restCollection": "articles",
+      "kind": "collectionType",
+      "draftAndPublish": true,
+      "publicRead": true,
+      "typicalQueries": [
+        "GET /api/articles?populate=*",
+        "GET /api/articles/{documentId}?populate=*"
+      ]
+    },
+    {
+      "uid": "api::author.author",
+      "restCollection": "authors",
+      "kind": "collectionType",
+      "draftAndPublish": false,
+      "publicRead": true
+    },
+    {
+      "uid": "api::category.category",
+      "restCollection": "categories",
+      "kind": "collectionType",
+      "draftAndPublish": false,
+      "publicRead": true
+    },
+    {
+      "uid": "api::global.global",
+      "restCollection": "global",
+      "kind": "singleType",
+      "draftAndPublish": true,
+      "publicRead": true,
+      "typicalQueries": ["GET /api/global?populate=*"]
+    },
+    {
+      "uid": "api::about.about",
+      "restCollection": "about",
+      "kind": "singleType",
+      "draftAndPublish": true,
+      "publicRead": true
+    },
+    {
+      "uid": "api::roadmap-item.roadmap-item",
+      "restCollection": "roadmap-items",
+      "kind": "collectionType",
+      "draftAndPublish": true,
+      "publicRead": true,
+      "publishNote": "Entries must be Published in Admin (or publishedAt set via API) or public list returns empty.",
+      "typicalQueries": ["GET /api/roadmap-items?sort=sortOrder:asc&populate=*"]
+    },
+    {
+      "uid": "api::site-narrative.site-narrative",
+      "restCollection": "site-narrative",
+      "kind": "singleType",
+      "draftAndPublish": false,
+      "publicRead": true,
+      "typicalQueries": ["GET /api/site-narrative"]
+    },
+    {
+      "uid": "api::community-profile.community-profile",
+      "restCollection": "community-profiles",
+      "kind": "collectionType",
+      "draftAndPublish": false,
+      "publicRead": true,
+      "typicalQueries": [
+        "GET /api/community-profiles?filters[slug][$eq]=handle&populate=*"
+      ],
+      "customRoutes": [
+        {
+          "method": "POST",
+          "path": "/api/community-profiles/wallet/nonce",
+          "body": "{ \"address\": \"0x…\" }",
+          "auth": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/api/community-profiles/wallet/verify",
+          "body": "{ \"address\": \"0x…\", \"signature\": \"0x…\" }",
+          "auth": "none",
+          "returns": "JWT for profile session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/community-profiles/my-profile",
+          "auth": "Bearer wallet JWT"
+        },
+        {
+          "method": "POST",
+          "path": "/api/community-profiles/my-profile",
+          "auth": "Bearer wallet JWT",
+          "body": "{ \"data\": { … profile fields } }"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/community-profiles/my-profile",
+          "auth": "Bearer wallet JWT"
+        },
+        {
+          "method": "POST",
+          "path": "/api/community-profiles/my-profile/link-wallet",
+          "auth": "Bearer wallet JWT"
+        }
+      ]
+    }
+  ],
+  "frontendIntegration": {
+    "browserUsesProxy": true,
+    "proxyAllowlistPrefix": "community-profiles",
+    "envServer": "STRAPI_URL",
+    "envBuild": "VITE_STRAPI_URL",
+    "see": "../frontend/src/lib/community-profile/strapi-http.ts"
+  }
+}

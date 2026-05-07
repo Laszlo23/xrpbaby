@@ -1,0 +1,45 @@
+name: agent-runtime
+
+on:
+  push:
+    paths:
+      - "packages/agent-runtime/**"
+      - "packages/contracts-sdk/**"
+      - "frontend/scripts/chain-index-events.ts"
+      - ".github/workflows/agent-runtime.yml"
+  pull_request:
+    paths:
+      - "packages/agent-runtime/**"
+      - "packages/contracts-sdk/**"
+      - "frontend/scripts/chain-index-events.ts"
+      - ".github/workflows/agent-runtime.yml"
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - name: Build + test
+        working-directory: packages/agent-runtime
+        run: |
+          npm run build
+          npm test
+      - name: Build contracts-sdk (indexer smoke)
+        run: npm run build -w @bc/contracts-sdk
+      - name: Prisma generate (chain-index script)
+        working-directory: frontend
+        run: npx prisma generate
+      - name: Chain index smoke (RPC + address resolution)
+        working-directory: frontend
+        env:
+          CHAIN_INDEX_SMOKE: "1"
+          VITE_EVM_CHAIN_ID: "8453"
+          VITE_AGENT_SHARE_CAMPAIGN_ADDRESS: "0x130e320a386b1ff0228492ddd65c380131ba86e9"
+          BASE_RPC_URL: "https://mainnet.base.org"
+        run: npx tsx scripts/chain-index-events.ts

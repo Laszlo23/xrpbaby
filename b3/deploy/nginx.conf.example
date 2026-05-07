@@ -1,0 +1,57 @@
+# Reverse proxy for the single-VPS stack (web + Strapi).
+# Replace app.example.com / api.example.com with your domains.
+# TLS: terminate with certbot (nginx plugin) or Caddy on the host, then include this server block.
+#
+# Upstreams assume docker-compose published:
+#   127.0.0.1:3000  — TanStack Start (web)
+#   127.0.0.1:1337 — Strapi (api)
+
+upstream bc_web {
+    server 127.0.0.1:3000;
+    keepalive 32;
+}
+
+upstream bc_strapi {
+    server 127.0.0.1:1337;
+    keepalive 16;
+}
+
+server {
+    listen 80;
+    server_name app.example.com;
+
+    client_max_body_size 25m;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript application/xml image/svg+xml;
+
+    location / {
+        proxy_pass http://bc_web;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+
+server {
+    listen 80;
+    server_name api.example.com;
+
+    client_max_body_size 50m;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript application/xml;
+
+    location / {
+        proxy_pass http://bc_strapi;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}

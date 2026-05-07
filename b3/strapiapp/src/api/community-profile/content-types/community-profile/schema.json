@@ -1,0 +1,88 @@
+{
+  "kind": "collectionType",
+  "collectionName": "community_profiles",
+  "info": {
+    "singularName": "community-profile",
+    "pluralName": "community-profiles",
+    "displayName": "Community Profile",
+    "description": "Universal community profile (socials, wallets, gallery)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "displayName",
+      "required": true
+    },
+    "displayName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "headline": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "bio": {
+      "type": "text"
+    },
+    "focusTags": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "ownerAddress": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "profile.social-link"
+    },
+    "walletLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "profile.wallet-link"
+    },
+    "visibility": {
+      "type": "json"
+    },
+    "contactEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "contactPriceEth": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "contactDestinationUrl": {
+      "type": "text"
+    },
+    "contactIntro": {
+      "type": "text",
+      "maxLength": 2000
+    }
+  }
+}

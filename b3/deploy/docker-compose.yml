@@ -1,0 +1,96 @@
+# Full Phase-1 stack: Postgres, Strapi, web (TanStack Start SSR), agent-runtime ticks, chain indexer.
+# Copy deploy/.env.example → deploy/.env and fill secrets before `docker compose up`.
+#
+# From this directory:
+#   docker compose --env-file .env up -d
+#
+# Binds HTTP services to loopback only — put nginx (or Caddy) on the host in front.
+
+name: buildingculture
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-buildingculture}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-buildingculture}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+
+  strapi:
+    build:
+      context: ..
+      dockerfile: strapiapp/Dockerfile
+    image: ${STRAPI_IMAGE:-buildingculture-strapi:latest}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: "1337"
+      NODE_ENV: production
+      DATABASE_CLIENT: postgres
+      DATABASE_URL: postgresql://${POSTGRES_USER:-buildingculture}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-buildingculture}
+    ports:
+      - "127.0.0.1:1337:1337"
+
+  web:
+    image: ${WEB_IMAGE:-buildingculture-frontend:latest}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-buildingculture}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-buildingculture}
+    ports:
+      - "127.0.0.1:3000:3000"
+
+  agent-runtime:
+    build:
+      context: ..
+      dockerfile: packages/agent-runtime/Dockerfile
+    image: ${AGENT_RUNTIME_IMAGE:-buildingculture-agent-runtime:latest}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-buildingculture}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-buildingculture}
+      AGENT_TICK_INTERVAL_SEC: ${AGENT_TICK_INTERVAL_SEC:-900}
+    # Optional: mount custom agent graph
+    # volumes:
+    #   - ./agents.json:/app/ops/agents.json:ro
+
+  indexer:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.indexer
+    image: ${INDEXER_IMAGE:-buildingculture-indexer:latest}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-buildingculture}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-buildingculture}
+      INDEXER_INTERVAL_SEC: ${INDEXER_INTERVAL_SEC:-300}
+
+volumes:
+  pgdata:

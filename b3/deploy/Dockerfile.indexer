@@ -1,0 +1,48 @@
+# syntax=docker/dockerfile:1.6
+# Chain indexer: runs `npm run chain:index` on an interval (see deploy/docker-compose.yml).
+# Build from monorepo root (b3):
+#
+#   docker build -f deploy/Dockerfile.indexer -t buildingculture-indexer:latest .
+
+FROM node:22-bookworm-slim AS builder
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openssl ca-certificates python3 make g++ \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY package.json package-lock.json ./
+COPY packages ./packages
+COPY frontend ./frontend
+COPY strapiapp/package.json ./strapiapp/
+COPY ecorwa/package.json ./ecorwa/
+
+RUN npm ci
+
+RUN npm run build -w @bc/contracts-sdk
+
+WORKDIR /app/frontend
+RUN npx prisma generate
+
+FROM node:22-bookworm-slim AS runner
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+  && rm -rf /var/lib/apt/lists/* \
+  && groupadd --system --gid 1001 indexer \
+  && useradd --system --uid 1001 --gid indexer indexer
+
+ENV NODE_ENV=production
+ENV INDEXER_INTERVAL_SEC=300
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/frontend ./frontend
+COPY deploy/scripts/indexer-loop.sh /app/deploy/scripts/indexer-loop.sh
+
+RUN chmod +x /app/deploy/scripts/indexer-loop.sh \
+  && chown -R indexer:indexer /app
+
+USER indexer
+
+ENTRYPOINT ["/app/deploy/scripts/indexer-loop.sh"]

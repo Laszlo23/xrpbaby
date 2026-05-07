@@ -1,0 +1,16 @@
+{
+  "name": "b3-contracts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "hardhat compile",
+    "clean": "hardhat clean",
+    "verify": "hardhat verify"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-foundry": "^3.0.2",
+    "@types/node": "^22.15.3",
+    "hardhat": "^3.4.3",
+    "typescript": "^5.8.3"
+  }
+}

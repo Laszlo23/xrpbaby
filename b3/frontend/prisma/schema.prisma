@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Wallet {
+  id        String   @id @default(cuid())
+  address   String   @unique
+  createdAt DateTime @default(now())
+
+  ledgers          PointLedger[]
+  airdropAllocs    AirdropAllocation[]
+}
+
+model PointLedger {
+  id        String   @id @default(cuid())
+  walletId  String
+  wallet    Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  delta     Int
+  reason    String
+  taskSlug  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([walletId])
+}
+
+model TaskDefinition {
+  id     String  @id @default(cuid())
+  slug   String  @unique
+  title  String
+  points Int
+  active Boolean @default(true)
+}
+
+model AirdropCampaign {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  status      String    @default("draft")
+  snapshotAt  DateTime?
+  merkleRoot  String?
+
+  allocations AirdropAllocation[]
+}
+
+model AirdropAllocation {
+  id              String          @id @default(cuid())
+  campaignId      String
+  campaign        AirdropCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  walletId        String
+  wallet          Wallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  amountWei       String?
+  pointsSnapshot  Int?
+
+  @@index([campaignId])
+  @@index([walletId])
+}
+
+/// Append-only log for @bc/agent-runtime ticks (ops + on-chain intents).
+model AgentActionLog {
+  id        String   @id
+  agentId   String
+  createdAt DateTime @default(now())
+  action    String
+  params    Json?
+  dryRun    Boolean  @default(false)
+  txHash    String?
+  status    String
+  errorMsg  String?
+  costUsd   String?
+
+  @@index([agentId, createdAt(sort: Desc)])
+  @@index([createdAt])
+}
+
+/// Ingested AgentShareCampaign `Minted` logs (server-side indexer).
+model ChainMintEvent {
+  id               String   @id @default(cuid())
+  chainId          Int
+  contractAddress  String
+  blockNumber      BigInt
+  txHash           String
+  logIndex         Int
+  toAddress        String
+  tokenId          String
+  agentTypeId      Int?
+  referrer         String?
+  createdAt        DateTime @default(now())
+
+  @@unique([chainId, txHash, logIndex])
+  @@index([contractAddress, blockNumber])
+  @@index([toAddress])
+}

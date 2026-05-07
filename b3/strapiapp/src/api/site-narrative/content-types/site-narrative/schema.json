@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_narrative",
+  "info": {
+    "singularName": "site-narrative",
+    "pluralName": "site-narratives",
+    "displayName": "Site Narrative",
+    "description": "Hero tagline, subcopy, and CTA — editable without redeploy"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroTagline": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "heroSubcopy": {
+      "type": "text",
+      "required": true
+    },
+    "ctaLabel": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "ctaUrl": {
+      "type": "string",
+      "maxLength": 500
+    }
+  }
+}

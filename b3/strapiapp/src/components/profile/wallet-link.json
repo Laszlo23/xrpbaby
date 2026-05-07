@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_profile_wallet_links",
+  "info": {
+    "displayName": "WalletLink",
+    "icon": "chartBubble"
+  },
+  "options": {},
+  "attributes": {
+    "chain": {
+      "type": "enumeration",
+      "enum": ["evm", "solana", "sui", "bitcoin"],
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string"
+    },
+    "verifiedAt": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Genesis Vault Pass — Phase 1",
+  "description": "Early builder access: vault positioning before public mint widens. Utility is product-defined — see site FAQ.",
+  "image": "https://0x.buildingculture.capital/genesis-district-phase0.png",
+  "external_url": "https://0x.buildingculture.capital/genesis-district",
+  "attributes": [
+    { "trait_type": "Tier", "value": "Early Builder" },
+    { "trait_type": "Phase", "value": "1" },
+    { "trait_type": "Access", "value": "Early vault" }
+  ]
+}

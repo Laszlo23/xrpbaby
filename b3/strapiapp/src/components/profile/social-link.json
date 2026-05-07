@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_profile_social_links",
+  "info": {
+    "displayName": "SocialLink",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "twitter",
+        "linkedin",
+        "github",
+        "discord",
+        "telegram",
+        "instagram",
+        "youtube",
+        "farcaster",
+        "website",
+        "other"
+      ],
+      "required": true,
+      "default": "website"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string"
+    }
+  }
+}

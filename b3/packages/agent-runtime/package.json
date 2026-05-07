@@ -1,0 +1,35 @@
+{
+  "name": "@bc/agent-runtime",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "tick": "node dist/cli/run-tick.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@bc/contracts-sdk": "*",
+    "@bc/proof": "*",
+    "pg": "^8.13.1",
+    "viem": "^2.48.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.5",
+    "@types/pg": "^8.11.10",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

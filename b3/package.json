@@ -1,0 +1,47 @@
+{
+  "name": "b3",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "overrides": {
+    "axios": "1.16.0",
+    "@strapi/admin": {
+      "axios": "1.16.0",
+      "date-fns": "2.30.0"
+    },
+    "@strapi/plugin-cloud": {
+      "@strapi/admin": {
+        "axios": "1.16.0"
+      }
+    }
+  },
+  "workspaces": [
+    "packages/*",
+    "frontend",
+    "ecorwa",
+    "strapiapp"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "contracts:sdk": "node scripts/sync-contracts-sdk.mjs",
+    "verify:frontend": "npm --prefix frontend run verify",
+    "verify:contracts": "cd contracts && forge test && npm run compile",
+    "audit:frontend": "npm --prefix frontend run audit",
+    "test:smoke": "npm --prefix frontend run test:smoke",
+    "test:all": "npm run verify:frontend && npm run verify:contracts"
+  },
+  "devDependencies": {
+    "@strapi/plugin-cloud": "^5.44.0",
+    "@strapi/plugin-users-permissions": "^5.44.0",
+    "@strapi/strapi": "^5.44.0",
+    "@types/node": "^22.15.3",
+    "date-fns": "^2.30.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.4.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

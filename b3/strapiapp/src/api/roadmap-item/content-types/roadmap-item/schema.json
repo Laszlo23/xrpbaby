@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "roadmap_items",
+  "info": {
+    "singularName": "roadmap-item",
+    "pluralName": "roadmap-items",
+    "displayName": "Roadmap Item",
+    "description": "Public roadmap phases for BUILDCHAIN"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "phase": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "quarter": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "body": {
+      "type": "text",
+      "required": true
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
