@@ -1,0 +1,26 @@
+{
+  "reocVersion": "1.0.0",
+  "title": "Example multifamily — demo listing",
+  "description": "Illustrative REOC v1 document; not investment advice.",
+  "propertyId": "4",
+  "registry": "0xc7749bcfdC8d06FC246Be556F4Ead75ac7E1320C",
+  "chainId": 16602,
+  "jurisdiction": "AT",
+  "token": {
+    "address": "0x8ACb3ca6c97f312393bbD0DdBc495143B06B7A22",
+    "symbol": "OGRE-4",
+    "decimals": 18
+  },
+  "documents": [
+    {
+      "kind": "DISCLOSURE",
+      "uri": "https://example.org/docs/disclosure.json",
+      "label": "Issuer disclosure (placeholder)"
+    },
+    {
+      "kind": "OTHER",
+      "storageRoot": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "label": "Bundled docs root (on-chain commitment)"
+    }
+  ]
+}

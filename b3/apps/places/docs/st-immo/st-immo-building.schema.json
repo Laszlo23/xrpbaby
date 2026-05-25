@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ogchain.local/schemas/st-immo-building.json",
+  "title": "StImmoBuilding",
+  "type": "object",
+  "required": [
+    "slug",
+    "buildingTitle",
+    "location",
+    "buildingType",
+    "shortDescription",
+    "buildingStory",
+    "architecturalValue",
+    "investmentVision"
+  ],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "buildingTitle": { "type": "string", "minLength": 1 },
+    "location": { "type": "string", "minLength": 1 },
+    "buildingType": {
+      "type": "string",
+      "enum": ["Residential", "Mixed use", "Landmark development", "Adaptive reuse", "Coastal reference programme"]
+    },
+    "shortDescription": { "type": "string", "minLength": 1 },
+    "buildingStory": { "type": "string", "minLength": 1 },
+    "architecturalValue": { "type": "string", "minLength": 1 },
+    "investmentVision": { "type": "string", "minLength": 1 },
+    "demoPropertyId": { "type": "integer", "enum": [1, 2, 3, 4, 5, 6, 7] },
+    "referenceMetrics": {
+      "type": "object",
+      "properties": {
+        "rentalAreaM2": { "type": "number" },
+        "terraceM2": { "type": "number" },
+        "gardenM2": { "type": "number" },
+        "parkingSpaces": { "type": "number" },
+        "acquisitionEur": { "type": "number" },
+        "grossRentEur": { "type": "number" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

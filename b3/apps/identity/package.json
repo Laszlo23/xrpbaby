@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "contracts:build": "cd contracts && forge build",
     "contracts:test": "cd contracts && forge test",
-    "contracts:export-abi": "cd contracts && forge build && node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync('out/CultureLayerIdentity.sol/CultureLayerIdentity.json','utf8'));fs.mkdirSync('../src/lib/contracts',{recursive:true});fs.writeFileSync('../src/lib/contracts/identityAbi.ts','export const cultureLayerIdentityAbi = '+JSON.stringify(j.abi,null,2)+' as const;\\n');\""
+    "contracts:export-abi": "cd contracts && forge build && node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync('out/CultureLayerIdentity.sol/CultureLayerIdentity.json','utf8'));fs.mkdirSync('../src/lib/contracts',{recursive:true});fs.writeFileSync('../src/lib/contracts/identityAbi.ts','export const cultureLayerIdentityAbi = '+JSON.stringify(j.abi,null,2)+' as const;\\n');\"",
+    "contracts:set-mint-price": "bash ../../scripts/set-identity-mint-price-onchain.sh"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

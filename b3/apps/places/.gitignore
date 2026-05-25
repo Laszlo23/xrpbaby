@@ -1,0 +1,22 @@
+out/
+cache/
+broadcast/
+.env
+.env.*
+!.env.docker.example
+web/.next/
+web/node_modules/
+node_modules/
+deployments/testnet.json
+.DS_Store
+*.log
+web/tsconfig.tsbuildinfo
+# Large camera originals — use compressed assets in public/ for git
+web/public/*.tif
+web/playwright-report/
+web/test-results/
+web/blob-report/
+# Local ST-IMMO email paste target (see docs/st-immo/README.md)
+docs/st-immo/source-emails.md
+# Ad-hoc campaign stills (optional; not required for builds)
+web/public/WhatsApp*

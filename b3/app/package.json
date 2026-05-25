@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "verify": "npm run lint && npm run typecheck && npm run build",
     "audit": "npm audit --omit=dev",
-    "test:unit": "tsx --test src/server/x/verify-proof.test.ts src/server/world/nonce-store.test.ts src/server/world/verify-world-wallet.test.ts src/server/platform/siwe.test.ts src/server/platform/waitlist.test.ts src/server/platform/onboarding-complete.test.ts src/server/pulse/digest.test.ts src/server/pulse/config.test.ts",
+    "test:unit": "tsx --test src/server/x/verify-proof.test.ts src/server/world/nonce-store.test.ts src/server/world/verify-world-wallet.test.ts src/server/platform/siwe.test.ts src/server/platform/waitlist.test.ts src/server/platform/onboarding-complete.test.ts src/server/pulse/digest.test.ts src/server/pulse/config.test.ts src/server/identity/schemas.test.ts src/lib/chainlink-compliance-copy.test.ts",
     "test:smoke": "playwright test",
     "test:all": "npm run verify && npm run test:unit && npm run test:smoke",
     "preview": "vite preview",

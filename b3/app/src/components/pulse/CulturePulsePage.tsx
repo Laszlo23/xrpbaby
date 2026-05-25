@@ -1,11 +1,9 @@
-import { Link } from "@tanstack/react-router";
 import { useAccount, useSignMessage } from "wagmi";
 import { useCallback, useEffect, useState } from "react";
-import { ExternalLink, MessageCircle, Radio } from "lucide-react";
+import { ExternalLink, MessageCircle } from "lucide-react";
 
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { WalletControls } from "@/components/WalletControls";
-import { SiteFooter } from "@/components/SiteFooter";
 
 type Metrics = {
   streams: Record<string, boolean>;
@@ -142,25 +140,8 @@ export function CulturePulsePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white">
-      <header className="border-b border-white/10 px-6 py-5">
-        <Link to="/forest" className="text-sm text-zinc-400 hover:text-white">
-          ← Forest
-        </Link>
-        <div className="mt-4 flex items-center gap-3">
-          <Radio className="h-8 w-8 text-[#C5FF41]" />
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#C5FF41]">Transparency</p>
-            <h1 className="font-display text-3xl font-bold">Culture Pulse</h1>
-          </div>
-        </div>
-        <p className="mt-2 max-w-2xl text-sm text-zinc-400">
-          One public view of forest growth, Web2 and Web3 social streams, and community
-          conversation — anchored on Base daily.
-        </p>
-      </header>
-
-      <main className="mx-auto max-w-3xl px-6 py-10">
+    <div className="text-white">
+      <main className="mx-auto max-w-3xl px-0 py-4 sm:px-0">
         {metrics?.snapshot ? (
           <>
           {metrics.snapshot.live ? (
@@ -315,7 +296,6 @@ export function CulturePulsePage() {
           )}
         </ul>
       </main>
-      <SiteFooter />
     </div>
   );
 }

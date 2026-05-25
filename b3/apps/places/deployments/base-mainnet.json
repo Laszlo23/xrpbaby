@@ -1,0 +1,27 @@
+{
+  "chainId": 8453,
+  "name": "Base Mainnet",
+  "rpcUrl": "https://mainnet.base.org",
+  "explorer": "https://basescan.org",
+  "siteUrl": "https://buildingculture.capital",
+  "deployedAt": "2026-04-18",
+  "deployer": "0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5",
+  "contracts": {
+    "PropertyRegistry": "0x5aca19274B17B97e38da9eA851d91F0CC59DafBf",
+    "PurchaseEscrow": "0xCB3b78bA96AA64b7327c9d95c8DEab10678c85Ad",
+    "PropertyShareFactory": "0x4CA708ca735bBA49D7B2383071EA7FA1B7BDC614",
+    "ComplianceRegistry": "0xa655c0B0037699433F0692356a3A142956103B7a",
+    "WETH9": "0x4412Afca8021F233aE6a41cEFD06b27759C0E9A9",
+    "OgFactory": "0xFf5d617DF0ff0A9B8969906c696CbAc1eCe6518b",
+    "OgRouter": "0x753634Af9E86b26e5394f39496a1097C6f19B868",
+    "MockPriceOracle": "0x84431A9e5c0dEb8160Ab5D03aC2A9BCDb79Cc6Ff",
+    "BinaryPredictionMarket": "0x7D0E418d1a0e73a73C18F146a660346e2C113046",
+    "PropertyShareProof": "0x9D81A95188939C1f708f9E43921C490f4Ef4e064",
+    "OgStaking": "0x3145f34A6CC6Ae34d9112f50885aEe826062ACbB",
+    "SimpleLendingPool": "0x0000000000000000000000000000000000000000",
+    "PlatformSettlementToken": "0x6bF5638a07B8A0b0D80A3B6Ab69440B83BBAf3D0",
+    "PurchaseEscrowERC20": "0x0Ea9948A36c16Dcc6ce1695011646a1f6128dFd0",
+    "PrimaryShareSaleERC20_Property1": "0xE37446E10a28eB2B188B02C6c8dF5d8e3b3d3b32"
+  },
+  "demoProperties": []
+}

@@ -8,7 +8,7 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { BottomNav } from "@/components/BottomNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { AppFooter } from "@/components/AppFooter";
 import { Web3Provider } from "@/components/Web3Provider";
 import { NetworkGuard } from "@/components/NetworkGuard";
 import { Toaster } from "@/components/ui/sonner";
@@ -105,7 +105,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function useHideAppChrome(): boolean {
+function useHideBottomNav(): boolean {
   const { pathname } = useLocation();
   if (pathname === "/") return true;
   if (pathname.startsWith("/join")) return true;
@@ -115,12 +115,12 @@ function useHideAppChrome(): boolean {
 }
 
 function AppChrome() {
-  const hide = useHideAppChrome();
-  if (hide) return null;
+  const hideBottomNav = useHideBottomNav();
+  const footerVariant = hideBottomNav ? "story" : "product";
   return (
     <>
-      <SiteFooter />
-      <BottomNav />
+      <AppFooter variant={footerVariant} withBottomNav={!hideBottomNav} />
+      {!hideBottomNav ? <BottomNav /> : null}
     </>
   );
 }

@@ -1,70 +1,85 @@
 # Building Culture — monorepo (`b3`)
 
-One app, one story: bring places back to life with community, drops, and onchain participation.
+One app, one story: community, drops, onchain identity, and real-estate tokenization — with clear separation between **Play drops**, **NFT marketplace**, and **Places (REOC) securities**.
 
-## Where to go (production)
+## Production URLs
 
 | URL | What you get |
 |-----|----------------|
-| [app.buildingcultureid.space/](https://app.buildingcultureid.space/) | Story landing — who we are |
-| `/play` | Drops & rewards (RWA tickets, Play home) |
-| `/join` | Create your pass (wallet sign-in) |
-| `/forest` | Your community hub — stats, quests, modules |
-| `/signal` | Culture Pulse — live transparency feed |
+| [app.buildingcultureid.space/](https://app.buildingcultureid.space/) | Story landing |
+| `/play` | RWA experience drops & raffle tickets (not property shares) |
+| `/join` | Wallet sign-in / pass |
+| `/forest` | Community hub — stats, quests, modules |
+| `/pass` | Mint Culture Layer `.culture` names on Base (~$1.11 ETH) |
+| `/places` | Hub → [buildingculture.capital](https://buildingculture.capital) invest/trade |
+| `/marketplace` | ERC-721 secondary market (thirdweb) — **not** fractional real estate |
+| `/investors` | Capital overview + Chainlink RWA compliance status |
+| `/id/{name}.culture` | Culture name profile (onchain resolve) |
 
-Legacy hosts (`0x.buildingculture.capital`, `app.buildingculture.capital`) redirect to the unified app during cutover. See [docs/DOMAIN_CUTOVER.md](docs/DOMAIN_CUTOVER.md).
+Legacy hosts redirect during cutover — [docs/DOMAIN_CUTOVER.md](docs/DOMAIN_CUTOVER.md).
 
-## Layout
+## Repository map
 
 | Path | Role |
 |------|------|
-| [`app/`](app/) | **Main TanStack app** — landing, wallet, drops, marketplace, forest hub |
-| [`cms/`](cms/) | Strapi CMS (blog, roadmap, community profiles) |
-| [`contracts/`](contracts/) | BCD and campaign Solidity |
-| [`packages/`](packages/) | Shared `@bc/*` libraries |
-| [`deploy/`](deploy/) | Production Docker stack |
-| [`docs/`](docs/) | Runbooks — start at [docs/README.md](docs/README.md) |
-| [`onboarding/`](onboarding/) | **Deprecated** CRA landing — do not deploy; see [onboarding/DEPRECATED.md](onboarding/DEPRECATED.md) |
-
-Satellite apps (`apps/founding`, `apps/art`, `apps/identity`, etc.) merge into `app/` over time.
+| [`app/`](app/) | **Unified TanStack app** — landing, forest, pass, marketplace, compliance API |
+| [`apps/places/`](apps/places/) | **Real estate on Base** — REOC contracts, DTA/PoR, Next.js at buildingculture.capital |
+| [`apps/identity/`](apps/identity/) | Culture Layer identity mini-app (merging into `app/`) |
+| [`contracts/`](contracts/) | BCD, raffles (`RaffleTicketCampaignVrf` for Chainlink VRF) |
+| [`cms/`](cms/) | Strapi CMS |
+| [`packages/`](packages/) | Shared `@bc/*` SDKs |
+| [`docs/`](docs/) | Runbooks — [docs/README.md](docs/README.md) |
 
 ## Quick start (local)
 
 ```bash
 npm install
-npm run db:start               # Docker Postgres on :55432 + migrations
-npm run dev:platform           # db + migrate + dev → http://localhost:5173
+npm run db:start               # Postgres :55432
+npm run dev:platform           # → http://localhost:5173
 ```
 
-Open:
-
-- **Story:** http://localhost:5173/
-- **Play (drops):** http://localhost:5173/play
-- **Join:** http://localhost:5173/join
-- **Community hub:** http://localhost:5173/forest
-- **Culture Pulse:** http://localhost:5173/signal
+Optional:
 
 ```bash
-npm run dev:healthcheck        # verify server + API
-npm --prefix cms run develop   # Strapi :1337 (optional)
-cd contracts && forge test
+cd apps/places && forge test --match-path 'test/chainlink/*'   # REOC + Chainlink adapters
+cd contracts && forge test                                      # culture contracts
+npm --prefix cms run develop                                    # Strapi :1337
 ```
 
-## Tests
-
-From `app/`:
+## Tests (run before push)
 
 ```bash
-npm run test:unit              # server unit tests
-npm run test:smoke             # Playwright (build + production SSR)
-NODE_OPTIONS='--max-old-space-size=8192' npm run build
+# Unified app — unit + e2e (production SSR)
+cd app
+npm run test:unit
+NODE_OPTIONS='--max-old-space-size=8192' npx playwright test e2e/compliance-places.spec.ts e2e/identity-resolve.spec.ts e2e/pass.spec.ts e2e/shell.spec.ts
+
+# Places REOC / Chainlink stack
+cd ../apps/places
+forge test
 ```
 
-See [app/README.md](app/README.md) and [app/MANUAL_QA_CHECKLIST.md](app/MANUAL_QA_CHECKLIST.md).
+Full gate: `cd app && npm run test:all` (lint, typecheck, build, unit, all e2e).
 
-## Docs
+## Key docs
 
-- [Platform voice](docs/PLATFORM_VOICE.md)
-- [Domain cutover](docs/DOMAIN_CUTOVER.md)
-- [Missing & fixes tracker](docs/MISSING_AND_FIXES.md)
-- [App ops](app/AGENTS.md)
+| Doc | Topic |
+|-----|--------|
+| [CHAINLINK_RWA_COMPLIANCE.md](docs/CHAINLINK_RWA_COMPLIANCE.md) | RWA gap matrix — ACE, DTA, PoR, uRWA |
+| [IDENTITY_RESOLUTION.md](docs/IDENTITY_RESOLUTION.md) | Culture names `/id`, `/n`, API |
+| [IDENTITY_MINT_PRICE.md](docs/IDENTITY_MINT_PRICE.md) | ~$1.11 mint on Base |
+| [MISSING_AND_FIXES.md](docs/MISSING_AND_FIXES.md) | Living tracker |
+| [apps/places/README.md](apps/places/README.md) | Property tokenization stack |
+
+## Product boundaries (read this once)
+
+- **Play `/play`** — experience/raffle drops; use **VRF** raffles for “provably fair” claims.
+- **`/marketplace`** — NFT listings only.
+- **`apps/places`** — fractional **property share** tokens (REOC), compliance-gated; production at buildingculture.capital.
+- **Culture Pulse anchor** — social digest, not asset Proof of Reserve.
+
+## Chainlink alignment (summary)
+
+Places targets **REOC profile D**: uRWA transfer checks, DTA subscribe/redeem, NAV oracle adapter, PoR mint caps. Partner onboarding: [CHAINLINK_PARTNER_ONBOARDING.md](docs/CHAINLINK_PARTNER_ONBOARDING.md).
+
+Do **not** claim full Chainlink ACE/DTA certification until partner sandbox + audit evidence is published.

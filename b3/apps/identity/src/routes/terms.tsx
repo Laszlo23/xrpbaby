@@ -19,8 +19,9 @@ function TermsPage() {
         <h2 className="font-display text-base font-medium text-foreground">The product</h2>
         <p>
           Culture Layer lets you mint a transferable ERC-721 identity NFT tied to a name on
-          supported TLDs (.culture, .build, .home, and others). Minting requires payment in ETH on
-          Base plus network gas fees.
+          supported TLDs (.culture, .build, .home, and others). Minting costs approximately $1.11
+          USD, paid in ETH on Base at the on-chain <code>mintPrice</code>, plus network gas fees.
+          The ETH amount may be updated by the contract owner when exchange rates move.
         </p>
       </section>
       <section className="space-y-3">

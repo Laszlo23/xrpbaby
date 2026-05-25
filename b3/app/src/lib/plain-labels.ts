@@ -1,3 +1,5 @@
+import { identityMintPriceShort } from "@/lib/identity/mint-price";
+
 /** Short, plain-language copy for critical user paths. */
 
 export const plainLabels = {
@@ -38,6 +40,7 @@ export const plainLabels = {
     pulseSubtitle: "See live growth, social streams, and daily updates",
     createPass: "Create your pass",
     readStory: "Read the story",
+    identityMint: `Claim your .culture name (${identityMintPriceShort})`,
   },
   play: {
     tagline: "Play = drops and rewards. Win real-world art and stays with onchain tickets.",

@@ -1,0 +1,380 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --text-muted: #9ca3af;
+  --accent: #ff7a18;
+  --eco: #3f8f6b;
+  --forest: #0f2a1d;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+@layer components {
+  .glass-card {
+    border-radius: 1rem;
+    border: 1px solid rgba(63, 143, 107, 0.18);
+    background-color: rgba(15, 42, 29, 0.45);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(24px);
+    transition:
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s ease,
+      border-color 0.35s ease;
+  }
+
+  .glass-card-interactive:hover {
+    transform: translateY(-3px);
+    border-color: rgba(63, 143, 107, 0.35);
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 122, 24, 0.12);
+  }
+
+  .glass-card-strong {
+    border-radius: 1rem;
+    border: 1px solid rgba(63, 143, 107, 0.28);
+    background: linear-gradient(
+      to bottom right,
+      rgba(30, 77, 58, 0.35),
+      rgba(15, 42, 29, 0.55)
+    );
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(24px);
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+
+  .glass-card-strong:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6);
+  }
+
+  .btn-primary-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary-shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.28) 50%,
+      transparent 60%,
+      transparent 100%
+    );
+    transform: translateX(-120%) skewX(-12deg);
+    pointer-events: none;
+  }
+
+  .btn-primary-shine:hover::after {
+    animation: btn-shine-sweep 0.85s ease-out;
+  }
+
+  @keyframes btn-shine-sweep {
+    0% {
+      transform: translateX(-120%) skewX(-12deg);
+    }
+    100% {
+      transform: translateX(220%) skewX(-12deg);
+    }
+  }
+
+  .text-gradient-gold {
+    background-image: linear-gradient(to right, #fde68a, #fbbf24, #d97706);
+    background-clip: text;
+    color: transparent;
+  }
+
+  /** Eco fintech — primary money / trust highlights */
+  .text-gradient-eco {
+    background-image: linear-gradient(to right, #5aad88, #3f8f6b, #2d6b52);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-action {
+    background-image: linear-gradient(to right, #ff9a4a, #ff7a18, #e05f0c);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-grid {
+    background-color: #0a0a0a;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(15, 42, 29, 0.5),
+      rgba(10, 10, 10, 0.96)
+    );
+  }
+
+  .skyline {
+    background: linear-gradient(180deg, transparent, rgba(63, 143, 107, 0.12), rgba(10, 10, 10, 0.92));
+    opacity: 0.85;
+  }
+}
+
+.animate-in > * {
+  animation: fade-up 0.55s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-in > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.animate-in > *:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.animate-in > *:nth-child(3) {
+  animation-delay: 0.18s;
+}
+
+.animate-in > *:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-fade > * {
+  animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.stagger-fade > *:nth-child(1) {
+  animation-delay: 0s;
+}
+.stagger-fade > *:nth-child(2) {
+  animation-delay: 0.07s;
+}
+.stagger-fade > *:nth-child(3) {
+  animation-delay: 0.14s;
+}
+.stagger-fade > *:nth-child(4) {
+  animation-delay: 0.21s;
+}
+.stagger-fade > *:nth-child(5) {
+  animation-delay: 0.28s;
+}
+.stagger-fade > *:nth-child(6) {
+  animation-delay: 0.35s;
+}
+.stagger-fade > *:nth-child(7) {
+  animation-delay: 0.42s;
+}
+.stagger-fade > *:nth-child(8) {
+  animation-delay: 0.49s;
+}
+
+.stagger-fade-slow > * {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.stagger-fade-slow > *:nth-child(1) {
+  animation-delay: 0.12s;
+}
+.stagger-fade-slow > *:nth-child(2) {
+  animation-delay: 0.22s;
+}
+.stagger-fade-slow > *:nth-child(3) {
+  animation-delay: 0.32s;
+}
+.stagger-fade-slow > *:nth-child(4) {
+  animation-delay: 0.42s;
+}
+.stagger-fade-slow > *:nth-child(5) {
+  animation-delay: 0.52s;
+}
+.stagger-fade-slow > *:nth-child(6) {
+  animation-delay: 0.62s;
+}
+.stagger-fade-slow > *:nth-child(7) {
+  animation-delay: 0.72s;
+}
+.stagger-fade-slow > *:nth-child(8) {
+  animation-delay: 0.82s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in > *,
+  .stagger-fade > *,
+  .stagger-fade-slow > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .animate-marquee {
+    animation: none !important;
+  }
+
+  .glass-card,
+  .glass-card-strong {
+    transition: none;
+  }
+
+  .glass-card-interactive:hover,
+  .glass-card-strong:hover {
+    transform: none;
+  }
+
+  .btn-primary-shine::after {
+    animation: none !important;
+  }
+
+  .hero-decor-grid,
+  .hero-energy-path {
+    animation: none !important;
+  }
+}
+
+/* Hero ambient decor (Building Culture) */
+.hero-decor-grid {
+  animation: hero-decor-drift 50s linear infinite;
+}
+
+@keyframes hero-decor-drift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(56px, 56px);
+  }
+}
+
+.hero-energy-path {
+  stroke-dasharray: 14 28;
+  animation: hero-energy-dash 26s linear infinite;
+}
+
+@keyframes hero-energy-dash {
+  to {
+    stroke-dashoffset: -420;
+  }
+}
+
+/* Incoming slide: subtle scale-settle (composes with Ken Burns on child) */
+@keyframes immersive-bg-enter {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .immersive-bg-enter {
+    animation: immersive-bg-enter 1.95s cubic-bezier(0.18, 0.82, 0.32, 1) forwards;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .immersive-bg-enter {
+    transform: none;
+  }
+}
+
+/* Fullscreen experience funnel — stronger zoom on active slide */
+@keyframes immersive-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .immersive-ken-burns {
+    animation: immersive-ken-burns 30s cubic-bezier(0.25, 0.1, 0.25, 1) 1.85s forwards;
+    will-change: transform;
+  }
+}
+
+@keyframes immersive-beat-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .immersive-beat-enter {
+    animation: immersive-beat-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .immersive-beat-enter {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes immersive-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .immersive-panel-enter {
+    animation: immersive-panel-enter 0.55s ease-out 0.08s both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .immersive-panel-enter {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes immersive-quote-glow {
+  from {
+    box-shadow: 0 0 28px -12px rgba(63, 143, 107, 0.22);
+    opacity: 0.94;
+  }
+  to {
+    box-shadow: 0 0 48px -8px rgba(63, 143, 107, 0.38);
+    opacity: 1;
+  }
+}

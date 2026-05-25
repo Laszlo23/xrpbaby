@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
 import { MarketingShell } from "@/components/MarketingShell";
 import { DisclaimerBanner } from "@/components/investors/DisclaimerBanner";
+import { ChainlinkComplianceStrip } from "@/components/investors/ChainlinkComplianceStrip";
 import { ProductMap } from "@/components/investors/ProductMap";
 import { RoiScenarioExplorer } from "@/components/investors/RoiScenarioExplorer";
 import { TreasuryEntityArchitecture } from "@/components/investors/TreasuryEntityArchitecture";
@@ -55,6 +56,7 @@ function InvestorsPage() {
     >
       <div className="flex flex-col gap-14 md:gap-16">
         <DisclaimerBanner />
+        <ChainlinkComplianceStrip />
 
         <section className="space-y-4">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">

@@ -1,3 +1,5 @@
+import { identityMintPriceShort } from "@/lib/identity/mint-price";
+
 export type EcosystemStatus = "live" | "beta" | "coming-soon";
 
 export type LandingEcosystemApp = {
@@ -47,12 +49,11 @@ export const LANDING_ECOSYSTEM: LandingEcosystemApp[] = [
   {
     id: "bc-id",
     name: "Building Culture ID",
-    description:
-      "Create your onchain identity. Own your digital reputation. Build your profile across the ecosystem.",
+    description: `Claim your .culture name on Base — ${identityMintPriceShort}.`,
     tag: "Identity Layer",
     status: "live",
     layer: "identity",
-    href: "/join",
+    href: "/pass",
   },
   {
     id: "bc-art",
@@ -146,7 +147,7 @@ export const COMMUNITY_MODULES: LandingEcosystemApp[] = [
   {
     id: "pass",
     name: "Culture pass",
-    description: "Your identity across the platform — one profile, many doors.",
+    description: `Claim your .culture name on Base — ${identityMintPriceShort} at mint.`,
     tag: "Identity",
     status: "live",
     layer: "identity",

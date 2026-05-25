@@ -1,0 +1,10 @@
+{
+  "_comment": "Intentionally invalid for REOC v1 JSON Schema validation demos (wrong version, bad ids, empty documents).",
+  "reocVersion": "0.9.0",
+  "title": "Broken example",
+  "propertyId": "not-a-number",
+  "registry": "0xbad",
+  "chainId": "16602",
+  "jurisdiction": "X",
+  "documents": []
+}

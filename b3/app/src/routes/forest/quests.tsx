@@ -5,7 +5,6 @@ import { CheckCircle2, Circle } from "lucide-react";
 
 import { platformModules } from "@/lib/modules";
 import { FOUNDING_DAILY_QUESTS } from "@/lib/founding-quests";
-import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/forest/quests")({
   component: FoundingQuestsPage,
@@ -91,7 +90,6 @@ function FoundingQuestsPage() {
           Open profile & claim tasks
         </Link>
       </main>
-      <SiteFooter />
     </div>
   );
 }

@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { useChainId } from "wagmi";
 
 import { LandingNav } from "@/components/landing/LandingNav";
-import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ModuleBentoGrid } from "@/components/landing/ModuleBentoGrid";
+import { IdentityMintBand } from "@/components/identity/IdentityMintBand";
 import { MemberForestSummary } from "@/components/MemberForestSummary";
 import { bcdStagingHint } from "@/lib/bcd-configured";
 import { plainLabels } from "@/lib/plain-labels";
@@ -83,6 +83,8 @@ function CommunityHubPage() {
 
           <MemberForestSummary />
 
+          {platformModules.identity ? <IdentityMintBand /> : null}
+
           {platformModules.signal ? (
             <Link
               to="/signal"
@@ -110,7 +112,6 @@ function CommunityHubPage() {
           </div>
         </section>
       </main>
-      <LandingFooter />
     </div>
   );
 }

@@ -46,12 +46,14 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as SelfAgentidRouteImport } from './routes/self.agentid'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
+import { Route as NNameRouteImport } from './routes/n/$name'
 import { Route as MarketplaceSellRouteImport } from './routes/marketplace.sell'
 import { Route as MarketplaceListingIdRouteImport } from './routes/marketplace.$listingId'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
 import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
+import { Route as IdNameRouteImport } from './routes/id/$name'
 import { Route as ForestQuestsRouteImport } from './routes/forest/quests'
 import { Route as DropsArtRouteImport } from './routes/drops/art'
 import { Route as DropsSlugRouteImport } from './routes/drops.$slug'
@@ -72,7 +74,10 @@ import { Route as ApiPlatformOnboardingCompleteRouteImport } from './routes/api/
 import { Route as ApiPlatformAnalyticsRouteImport } from './routes/api/platform/analytics'
 import { Route as ApiMemberMeRouteImport } from './routes/api/member/me'
 import { Route as ApiMarketingXPostRouteImport } from './routes/api/marketing/x-post'
+import { Route as ApiIdentityVerifyNameRouteImport } from './routes/api/identity/verify-name'
+import { Route as ApiIdentityResolveRouteImport } from './routes/api/identity/resolve'
 import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
+import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
 import { Route as ApiPulseIngestManualRouteImport } from './routes/api/pulse/ingest/manual'
@@ -265,6 +270,11 @@ const PSlugRoute = PSlugRouteImport.update({
   path: '/p/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NNameRoute = NNameRouteImport.update({
+  id: '/n/$name',
+  path: '/n/$name',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketplaceSellRoute = MarketplaceSellRouteImport.update({
   id: '/sell',
   path: '/sell',
@@ -294,6 +304,11 @@ const LegalCookiesRoute = LegalCookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
   getParentRoute: () => LegalRoute,
+} as any)
+const IdNameRoute = IdNameRouteImport.update({
+  id: '/id/$name',
+  path: '/id/$name',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ForestQuestsRoute = ForestQuestsRouteImport.update({
   id: '/forest/quests',
@@ -398,11 +413,27 @@ const ApiMarketingXPostRoute = ApiMarketingXPostRouteImport.update({
   path: '/api/marketing/x-post',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiIdentityVerifyNameRoute = ApiIdentityVerifyNameRouteImport.update({
+  id: '/api/identity/verify-name',
+  path: '/api/identity/verify-name',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIdentityResolveRoute = ApiIdentityResolveRouteImport.update({
+  id: '/api/identity/resolve',
+  path: '/api/identity/resolve',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiEliasInboundRoute = ApiEliasInboundRouteImport.update({
   id: '/api/elias/inbound',
   path: '/api/elias/inbound',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiComplianceEligibilityRoute =
+  ApiComplianceEligibilityRouteImport.update({
+    id: '/api/compliance/eligibility',
+    path: '/api/compliance/eligibility',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAgentsStatusRoute = ApiAgentsStatusRouteImport.update({
   id: '/api/agents/status',
   path: '/api/agents/status',
@@ -469,12 +500,14 @@ export interface FileRoutesByFullPath {
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
+  '/id/$name': typeof IdNameRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
+  '/n/$name': typeof NNameRoute
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
@@ -489,7 +522,10 @@ export interface FileRoutesByFullPath {
   '/welcome/': typeof WelcomeIndexRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
+  '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/identity/resolve': typeof ApiIdentityResolveRoute
+  '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
@@ -540,12 +576,14 @@ export interface FileRoutesByTo {
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
+  '/id/$name': typeof IdNameRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
+  '/n/$name': typeof NNameRoute
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
@@ -560,7 +598,10 @@ export interface FileRoutesByTo {
   '/welcome': typeof WelcomeIndexRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
+  '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/identity/resolve': typeof ApiIdentityResolveRoute
+  '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
@@ -613,12 +654,14 @@ export interface FileRoutesById {
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
+  '/id/$name': typeof IdNameRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
+  '/n/$name': typeof NNameRoute
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
@@ -633,7 +676,10 @@ export interface FileRoutesById {
   '/welcome/': typeof WelcomeIndexRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
+  '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/identity/resolve': typeof ApiIdentityResolveRoute
+  '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
@@ -687,12 +733,14 @@ export interface FileRouteTypes {
     | '/drops/$slug'
     | '/drops/art'
     | '/forest/quests'
+    | '/id/$name'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
     | '/legal/terms'
     | '/marketplace/$listingId'
     | '/marketplace/sell'
+    | '/n/$name'
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
@@ -707,7 +755,10 @@ export interface FileRouteTypes {
     | '/welcome/'
     | '/api/activity/log'
     | '/api/agents/status'
+    | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/identity/resolve'
+    | '/api/identity/verify-name'
     | '/api/marketing/x-post'
     | '/api/member/me'
     | '/api/platform/analytics'
@@ -758,12 +809,14 @@ export interface FileRouteTypes {
     | '/drops/$slug'
     | '/drops/art'
     | '/forest/quests'
+    | '/id/$name'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
     | '/legal/terms'
     | '/marketplace/$listingId'
     | '/marketplace/sell'
+    | '/n/$name'
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
@@ -778,7 +831,10 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/api/activity/log'
     | '/api/agents/status'
+    | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/identity/resolve'
+    | '/api/identity/verify-name'
     | '/api/marketing/x-post'
     | '/api/member/me'
     | '/api/platform/analytics'
@@ -830,12 +886,14 @@ export interface FileRouteTypes {
     | '/drops/$slug'
     | '/drops/art'
     | '/forest/quests'
+    | '/id/$name'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
     | '/legal/terms'
     | '/marketplace/$listingId'
     | '/marketplace/sell'
+    | '/n/$name'
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
@@ -850,7 +908,10 @@ export interface FileRouteTypes {
     | '/welcome/'
     | '/api/activity/log'
     | '/api/agents/status'
+    | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/identity/resolve'
+    | '/api/identity/verify-name'
     | '/api/marketing/x-post'
     | '/api/member/me'
     | '/api/platform/analytics'
@@ -903,6 +964,8 @@ export interface RootRouteChildren {
   DropsSlugRoute: typeof DropsSlugRoute
   DropsArtRoute: typeof DropsArtRoute
   ForestQuestsRoute: typeof ForestQuestsRoute
+  IdNameRoute: typeof IdNameRoute
+  NNameRoute: typeof NNameRoute
   PSlugRoute: typeof PSlugRoute
   SelfAgentidRoute: typeof SelfAgentidRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
@@ -916,7 +979,10 @@ export interface RootRouteChildren {
   WelcomeIndexRoute: typeof WelcomeIndexRoute
   ApiActivityLogRoute: typeof ApiActivityLogRoute
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
+  ApiComplianceEligibilityRoute: typeof ApiComplianceEligibilityRoute
   ApiEliasInboundRoute: typeof ApiEliasInboundRoute
+  ApiIdentityResolveRoute: typeof ApiIdentityResolveRoute
+  ApiIdentityVerifyNameRoute: typeof ApiIdentityVerifyNameRoute
   ApiMarketingXPostRoute: typeof ApiMarketingXPostRoute
   ApiMemberMeRoute: typeof ApiMemberMeRoute
   ApiPlatformAnalyticsRoute: typeof ApiPlatformAnalyticsRoute
@@ -1195,6 +1261,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/n/$name': {
+      id: '/n/$name'
+      path: '/n/$name'
+      fullPath: '/n/$name'
+      preLoaderRoute: typeof NNameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/marketplace/sell': {
       id: '/marketplace/sell'
       path: '/sell'
@@ -1236,6 +1309,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/legal/cookies'
       preLoaderRoute: typeof LegalCookiesRouteImport
       parentRoute: typeof LegalRoute
+    }
+    '/id/$name': {
+      id: '/id/$name'
+      path: '/id/$name'
+      fullPath: '/id/$name'
+      preLoaderRoute: typeof IdNameRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/forest/quests': {
       id: '/forest/quests'
@@ -1377,11 +1457,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMarketingXPostRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/identity/verify-name': {
+      id: '/api/identity/verify-name'
+      path: '/api/identity/verify-name'
+      fullPath: '/api/identity/verify-name'
+      preLoaderRoute: typeof ApiIdentityVerifyNameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/resolve': {
+      id: '/api/identity/resolve'
+      path: '/api/identity/resolve'
+      fullPath: '/api/identity/resolve'
+      preLoaderRoute: typeof ApiIdentityResolveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/elias/inbound': {
       id: '/api/elias/inbound'
       path: '/api/elias/inbound'
       fullPath: '/api/elias/inbound'
       preLoaderRoute: typeof ApiEliasInboundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compliance/eligibility': {
+      id: '/api/compliance/eligibility'
+      path: '/api/compliance/eligibility'
+      fullPath: '/api/compliance/eligibility'
+      preLoaderRoute: typeof ApiComplianceEligibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/agents/status': {
@@ -1507,6 +1608,8 @@ const rootRouteChildren: RootRouteChildren = {
   DropsSlugRoute: DropsSlugRoute,
   DropsArtRoute: DropsArtRoute,
   ForestQuestsRoute: ForestQuestsRoute,
+  IdNameRoute: IdNameRoute,
+  NNameRoute: NNameRoute,
   PSlugRoute: PSlugRoute,
   SelfAgentidRoute: SelfAgentidRoute,
   SitemapXmlRoute: SitemapXmlRoute,
@@ -1520,7 +1623,10 @@ const rootRouteChildren: RootRouteChildren = {
   WelcomeIndexRoute: WelcomeIndexRoute,
   ApiActivityLogRoute: ApiActivityLogRoute,
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
+  ApiComplianceEligibilityRoute: ApiComplianceEligibilityRoute,
   ApiEliasInboundRoute: ApiEliasInboundRoute,
+  ApiIdentityResolveRoute: ApiIdentityResolveRoute,
+  ApiIdentityVerifyNameRoute: ApiIdentityVerifyNameRoute,
   ApiMarketingXPostRoute: ApiMarketingXPostRoute,
   ApiMemberMeRoute: ApiMemberMeRoute,
   ApiPlatformAnalyticsRoute: ApiPlatformAnalyticsRoute,

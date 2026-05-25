@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { LandingNav } from "@/components/landing/LandingNav";
-import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingProblem } from "@/components/landing/LandingProblem";
 import { LandingVision } from "@/components/landing/LandingVision";
 import { LandingEcosystem } from "@/components/landing/LandingEcosystem";
@@ -48,7 +47,6 @@ export function LandingPage() {
         <LandingFuture />
         <LandingFinalCta />
       </main>
-      <LandingFooter />
     </motion.div>
   );
 }

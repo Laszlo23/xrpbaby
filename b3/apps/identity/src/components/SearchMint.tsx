@@ -5,7 +5,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { formatEther } from "viem";
 import {
   useAccount,
   useConnect,
@@ -19,6 +18,7 @@ import { identityContractAddress, isContractConfigured } from "@/lib/chain/confi
 import { cultureLayerIdentityAbi } from "@/lib/contracts/identityAbi";
 import { tldLabelToId } from "@/lib/chain/tlds";
 import { saveIdentityForWallet } from "@/lib/identityStorage";
+import { formatIdentityMintPrice } from "@/lib/mint-price";
 
 const TLDS = [".culture", ".build", ".home", ".eco", ".capital", ".city"];
 
@@ -29,13 +29,6 @@ type HomeSearch = {
 
 function hasBrowserWallet(): boolean {
   return typeof window !== "undefined" && Boolean(window.ethereum);
-}
-
-function formatMintPrice(wei: bigint | undefined): string {
-  if (wei === undefined) return "—";
-  const eth = formatEther(wei);
-  const trimmed = eth.replace(/\.?0+$/, "");
-  return trimmed || "0";
 }
 
 export function SearchMint({ id }: { id?: string }) {
@@ -327,7 +320,7 @@ export function SearchMint({ id }: { id?: string }) {
             <>
               <span className="text-muted-foreground">·</span>
               <span className="text-muted-foreground">
-                {formatMintPrice(mintPriceWei)} ETH
+                {formatIdentityMintPrice(mintPriceWei)}
               </span>
             </>
           )}

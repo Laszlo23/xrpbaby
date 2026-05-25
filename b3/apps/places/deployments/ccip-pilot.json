@@ -1,0 +1,21 @@
+{
+  "status": "pilot-config-only",
+  "note": "CCIP token pools require Chainlink partner onboarding. Do not use until ACE + CCIP sandbox is provisioned.",
+  "homeChain": {
+    "chainId": 8453,
+    "name": "Base"
+  },
+  "pilotDestination": {
+    "chainId": 84532,
+    "name": "Base Sepolia"
+  },
+  "contracts": {
+    "router": "",
+    "tokenPool": "",
+    "aceComplianceModule": ""
+  },
+  "env": {
+    "CHAINLINK_ACE_COMPLIANCE_ADDRESS": "",
+    "CHAINLINK_CCIP_ROUTER": ""
+  }
+}

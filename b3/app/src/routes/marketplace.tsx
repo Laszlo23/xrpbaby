@@ -107,7 +107,10 @@ function MarketplaceLayout() {
       <div className="mx-auto max-w-6xl space-y-8 px-4 pt-8 md:px-8 md:pt-10">
         <MarketplaceTicketsStrip />
         <Outlet />
-        <footer className="border-t border-white/[0.06] pb-8 pt-6 text-center md:text-left">
+        <div
+          role="note"
+          className="border-t border-white/[0.06] pb-8 pt-6 text-center md:text-left"
+        >
           <p className="text-[11px] text-zinc-600">
             Secondary sales may involve fees set by the marketplace contract.{" "}
             <Link to="/faq" className="text-zinc-400 underline-offset-2 hover:text-white">
@@ -118,7 +121,7 @@ function MarketplaceLayout() {
               Terms
             </Link>
           </p>
-        </footer>
+        </div>
       </div>
     </div>
   );

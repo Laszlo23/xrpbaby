@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { XpBar } from "./XpBar";
 import { useMiniApp } from "@/providers/MiniAppProvider";
 import { TASK_CATALOG } from "@/lib/mini/tasks";
+import { identityMintPriceShort } from "@/lib/mint-price";
 
 type MeResponse = {
   xp: number;
@@ -43,7 +44,7 @@ export function MiniHome() {
             : "Culture Layer Quests"}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Mint your identity. Complete quests. Climb the ranks.
+          Mint your identity ({identityMintPriceShort}). Complete quests. Climb the ranks.
         </p>
       </div>
 

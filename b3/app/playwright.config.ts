@@ -25,6 +25,10 @@ export default defineConfig({
     env: {
       ...process.env,
       PORT: "3000",
+      VITE_IDENTITY_CHAIN_ID: process.env.VITE_IDENTITY_CHAIN_ID ?? "8453",
+      VITE_IDENTITY_CONTRACT_ADDRESS:
+        process.env.VITE_IDENTITY_CONTRACT_ADDRESS ??
+        "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863",
     },
   },
 });

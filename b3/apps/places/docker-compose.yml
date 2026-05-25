@@ -1,0 +1,84 @@
+# Build from repository root. Compose loads `.env` in this directory for variable substitution.
+# Populate contract addresses in `.env` before `docker compose build` (see `.env.docker.example`
+# and `deployments/README.md`). Client-side `NEXT_PUBLIC_*` values are inlined at image build time.
+#
+# Wallet sign-in (SIWE sessions): set `DATABASE_URL` + `SESSION_SECRET` in `.env`, apply
+# `web/sql/schema.sql` then `web/sql/community_schema.sql` once (see `web/sql/README.md`).
+#
+# Same-server Postgres (optional): set `POSTGRES_PASSWORD`, then e.g.
+#   DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+# Start with: `docker compose --profile db up -d` (adds the `postgres` service). Apply SQL (from repo root):
+#   cat web/sql/schema.sql | docker compose --profile db exec -T postgres psql -U ogchain -d ogchain
+#   cat web/sql/community_schema.sql | docker compose --profile db exec -T postgres psql -U ogchain -d ogchain
+# Or bind Postgres to localhost only by adding `ports: ["127.0.0.1:5432:5432"]` under `postgres` and use `psql` on the host.
+#
+#   docker compose build --no-cache && docker compose up -d
+services:
+  web:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://buildingculture.capital}
+        NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: ${NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:-}
+        NEXT_PUBLIC_OG_RPC: ${NEXT_PUBLIC_OG_RPC:-https://evmrpc-testnet.0g.ai}
+        NEXT_PUBLIC_EXPLORER: ${NEXT_PUBLIC_EXPLORER:-https://chainscan-galileo.0g.ai}
+        NEXT_PUBLIC_REGISTRY: ${NEXT_PUBLIC_REGISTRY:-}
+        NEXT_PUBLIC_SHARE_FACTORY: ${NEXT_PUBLIC_SHARE_FACTORY:-}
+        NEXT_PUBLIC_COMPLIANCE_REGISTRY: ${NEXT_PUBLIC_COMPLIANCE_REGISTRY:-}
+        NEXT_PUBLIC_WETH: ${NEXT_PUBLIC_WETH:-}
+        NEXT_PUBLIC_ROUTER: ${NEXT_PUBLIC_ROUTER:-}
+        NEXT_PUBLIC_LENDING_POOL: ${NEXT_PUBLIC_LENDING_POOL:-}
+        NEXT_PUBLIC_PREDICTION_MARKET: ${NEXT_PUBLIC_PREDICTION_MARKET:-}
+        NEXT_PUBLIC_PROOF_NFT: ${NEXT_PUBLIC_PROOF_NFT:-}
+        NEXT_PUBLIC_STAKING: ${NEXT_PUBLIC_STAKING:-}
+        NEXT_PUBLIC_GUESTBOOK: ${NEXT_PUBLIC_GUESTBOOK:-}
+        NEXT_PUBLIC_BASE_RPC: ${NEXT_PUBLIC_BASE_RPC:-https://mainnet.base.org}
+        NEXT_PUBLIC_BASE_EXPLORER: ${NEXT_PUBLIC_BASE_EXPLORER:-https://basescan.org}
+        NEXT_PUBLIC_BASE_REGISTRY: ${NEXT_PUBLIC_BASE_REGISTRY:-}
+        NEXT_PUBLIC_BASE_SHARE_FACTORY: ${NEXT_PUBLIC_BASE_SHARE_FACTORY:-}
+        NEXT_PUBLIC_BASE_COMPLIANCE_REGISTRY: ${NEXT_PUBLIC_BASE_COMPLIANCE_REGISTRY:-}
+        NEXT_PUBLIC_BASE_WETH: ${NEXT_PUBLIC_BASE_WETH:-}
+        NEXT_PUBLIC_BASE_ROUTER: ${NEXT_PUBLIC_BASE_ROUTER:-}
+        NEXT_PUBLIC_BASE_LENDING_POOL: ${NEXT_PUBLIC_BASE_LENDING_POOL:-}
+        NEXT_PUBLIC_BASE_PREDICTION_MARKET: ${NEXT_PUBLIC_BASE_PREDICTION_MARKET:-}
+        NEXT_PUBLIC_BASE_PROOF_NFT: ${NEXT_PUBLIC_BASE_PROOF_NFT:-}
+        NEXT_PUBLIC_BASE_STAKING: ${NEXT_PUBLIC_BASE_STAKING:-}
+        NEXT_PUBLIC_BASE_GUESTBOOK: ${NEXT_PUBLIC_BASE_GUESTBOOK:-}
+        NEXT_PUBLIC_BASE_GOVERNANCE_SAFE: ${NEXT_PUBLIC_BASE_GOVERNANCE_SAFE:-}
+        NEXT_PUBLIC_VERIFF_HOST: ${NEXT_PUBLIC_VERIFF_HOST:-https://api.veriff.me}
+        NEXT_PUBLIC_VERIFF_API_KEY: ${NEXT_PUBLIC_VERIFF_API_KEY:-}
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # SIWE cookie sessions + Postgres (see web/src/app/api/auth/siwe/verify/route.ts)
+      - DATABASE_URL=${DATABASE_URL:-}
+      - SESSION_SECRET=${SESSION_SECRET:-}
+      # Veriff session API (see web/src/app/api/kyc/session/route.ts) — HMAC secret is runtime-only, not in client bundle
+      - VERIFF_API_BASE=${VERIFF_API_BASE:-}
+      - VERIFF_API_KEY=${VERIFF_API_KEY:-}
+      - VERIFF_SHARED_SECRET=${VERIFF_SHARED_SECRET:-}
+      - VERIFF_CALLBACK_URL=${VERIFF_CALLBACK_URL:-}
+
+  # Optional local Postgres on this host (profile so external-DB deployments stay unchanged).
+  postgres:
+    profiles: ["db"]
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ogchain}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required when using profile db}
+      POSTGRES_DB: ${POSTGRES_DB:-ogchain}
+    volumes:
+      - ogchain_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  ogchain_pgdata:

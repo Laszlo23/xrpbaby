@@ -1,0 +1,12 @@
+{
+  "sales": [
+    {
+      "propertyId": "1",
+      "chainId": 8453,
+      "saleAddress": "0xE37446E10a28eB2B188B02C6c8dF5d8e3b3d3b32",
+      "paymentToken": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "paymentDecimals": 6,
+      "paymentSymbol": "USDC"
+    }
+  ]
+}

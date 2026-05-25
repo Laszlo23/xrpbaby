@@ -24,6 +24,8 @@ forge build
 forge test
 ```
 
+**Provably fair raffles:** [`src/RaffleTicketCampaignVrf.sol`](src/RaffleTicketCampaignVrf.sol) uses Chainlink VRF on Base. Legacy [`RaffleTicketCampaign.sol`](src/RaffleTicketCampaign.sol) uses commit–reveal blockhash — not for production fairness claims.
+
 Config: [`foundry.toml`](foundry.toml) — `solc` 0.8.24, optimizer 200, `via_ir = true` (avoids “stack too deep” in large script constructors). Remappings: [`remappings.txt`](remappings.txt).
 
 ## Deploy (recommended: `forge script`)

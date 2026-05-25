@@ -1,0 +1,25 @@
+{
+  "chainId": 16602,
+  "name": "0G Galileo Testnet",
+  "rpcUrl": "https://evmrpc-testnet.0g.ai",
+  "explorer": "https://chainscan-galileo.0g.ai",
+  "faucet": "https://faucet.0g.ai",
+  "siteUrl": "",
+  "deployedAt": "",
+  "deployer": "",
+  "contracts": {
+    "PropertyRegistry": "0x0000000000000000000000000000000000000000",
+    "PurchaseEscrow": "0x0000000000000000000000000000000000000000",
+    "PropertyShareFactory": "0x0000000000000000000000000000000000000000",
+    "ComplianceRegistry": "0x0000000000000000000000000000000000000000",
+    "WETH9": "0x0000000000000000000000000000000000000000",
+    "OgFactory": "0x0000000000000000000000000000000000000000",
+    "OgRouter": "0x0000000000000000000000000000000000000000",
+    "MockPriceOracle": "0x0000000000000000000000000000000000000000",
+    "BinaryPredictionMarket": "0x0000000000000000000000000000000000000000",
+    "PropertyShareProof": "0x0000000000000000000000000000000000000000",
+    "OgStaking": "0x0000000000000000000000000000000000000000",
+    "SimpleLendingPool": "0x0000000000000000000000000000000000000000"
+  },
+  "demoProperties": []
+}

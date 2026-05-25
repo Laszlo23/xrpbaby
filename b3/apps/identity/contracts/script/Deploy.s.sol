@@ -7,7 +7,8 @@ import {CultureLayerIdentity} from "../src/CultureLayerIdentity.sol";
 contract Deploy is Script {
     function run() external returns (CultureLayerIdentity) {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        uint256 mintPrice = vm.envOr("MINT_PRICE_WEI", uint256(3_330_000_000_000_000));
+        // Default ~$1.11 USD at $3,000/ETH — override via MINT_PRICE_WEI or scripts/identity-mint-price-wei.mjs
+        uint256 mintPrice = vm.envOr("MINT_PRICE_WEI", uint256(370_000_000_000_000));
 
         address deployer = vm.addr(deployerPrivateKey);
         vm.startBroadcast(deployerPrivateKey);

@@ -14,7 +14,7 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 /// a future `blockhash(entropyBlock)` so the owner cannot grind `secret` against the final ticket
 /// set alone (must commit `keccak256(secret)` before the entropy block is known).
 /// @dev Reveal must occur within ~256 blocks after `entropyBlock` or `blockhash` returns zero and
-/// `revealDraw` reverts — operate a manual fallback / VRF upgrade for production raffles.
+/// `revealDraw` reverts — use `RaffleTicketCampaignVrf` (Chainlink VRF on Base) for production raffles.
 contract RaffleTicketCampaign is ERC721Enumerable, Ownable, ReentrancyGuard {
     enum Phase {
         Active,

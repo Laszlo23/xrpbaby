@@ -1,5 +1,10 @@
 import { expect, test } from "./fixtures/skip-onboarding";
 
+async function expectSingleFooter(page: import("@playwright/test").Page) {
+  await expect(page.getByRole("contentinfo")).toBeVisible();
+  await expect(page.getByRole("contentinfo")).toHaveCount(1);
+}
+
 test.describe("app shell chrome", () => {
   test("BottomNav hidden on landing", async ({ page }) => {
     await page.goto("/");
@@ -18,10 +23,10 @@ test.describe("app shell chrome", () => {
     await expect(page.locator(".nav-dock")).toBeVisible();
   });
 
-  test("landing has single footer (LandingFooter)", async ({ page }) => {
-    await page.goto("/");
-    await expect(page.getByRole("contentinfo")).toBeVisible();
-    const footers = page.getByRole("contentinfo");
-    await expect(footers).toHaveCount(1);
+  test("single global footer on story and product routes", async ({ page }) => {
+    for (const path of ["/", "/forest", "/signal", "/play", "/pass"] as const) {
+      await page.goto(path);
+      await expectSingleFooter(page);
+    }
   });
 });

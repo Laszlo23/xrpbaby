@@ -1,0 +1,10 @@
+.git
+.github
+**/node_modules
+web/.next
+lib/openzeppelin-contracts
+cache
+out
+broadcast
+# Huge camera originals — keep JPGs in repo for runtime; optional: add more patterns
+web/public/*.tif

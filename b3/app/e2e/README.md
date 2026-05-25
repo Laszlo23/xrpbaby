@@ -11,6 +11,9 @@
 | `play.spec.ts` | Drops home and bottom nav |
 | `signal.spec.ts` | Culture Pulse page |
 | `shell.spec.ts` | BottomNav / footer visibility |
+| `pass.spec.ts` | TLD mint dashboard |
+| `identity-resolve.spec.ts` | `/n/` gateway, resolve API, profile |
+| `compliance-places.spec.ts` | Eligibility API, `/places`, `/investors` strip |
 
 Shared setup: `fixtures/skip-onboarding.ts` (skips Elias modal), `fixtures/api-helpers.ts`, `fixtures/mock-siwe.ts`.
 

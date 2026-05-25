@@ -9,7 +9,8 @@ contract CultureLayerIdentityTest is Test {
     address public alice = address(0xA11CE);
     address public bob = address(0xB0B);
 
-    uint256 constant PRICE = 0.00333 ether;
+    // ~$1.11 USD at $3,000/ETH (see scripts/identity-mint-price-wei.mjs)
+    uint256 constant PRICE = 370_000_000_000_000;
 
     function setUp() public {
         nft = new CultureLayerIdentity(address(this), PRICE);
