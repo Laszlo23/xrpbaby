@@ -1,0 +1,237 @@
+{
+  "project_context": {
+    "name": "The Founding Builders",
+    "tagline": "Help Bring Places Back To Life",
+    "description": "A gamified pre-launch experience for Building Culture Dollar ($BCD) token. Mix of Duolingo, Clash of Clans, and Farcaster. Transforms visitors into active community members through XP and quests.",
+    "target_platform": "Expo React Native (Hybrid fullstack, Mobile-first)",
+    "countdown_target": "May 30, 2026 12:00:00 UTC"
+  },
+  "theme_archetype": {
+    "theme": "DARK",
+    "archetype": "5 (Luxury) mixed with 7 (Electric/Gaming) & 2 (Performance Pro)",
+    "vibe": "Premium, mysterious, rewarding, gamified web3, high engagement."
+  },
+  "design_system": {
+    "colors": {
+      "background": {
+        "primary": "#0A0A0A",
+        "surface": "#1A1A1A",
+        "surface_elevated": "#27272A",
+        "glass": "rgba(26, 26, 26, 0.65)"
+      },
+      "brand": {
+        "gold": "#FFD700",
+        "emerald": "#50C878",
+        "soft_blue": "#89CFF0",
+        "charcoal": "#1A1A1A"
+      },
+      "text": {
+        "primary": "#FFFFFF",
+        "secondary": "#A1A1AA",
+        "disabled": "#52525B",
+        "inverse": "#000000"
+      },
+      "status": {
+        "success": "#50C878",
+        "warning": "#F59E0B",
+        "error": "#EF4444",
+        "info": "#3B82F6"
+      },
+      "gradients": {
+        "gold_glow": ["#FFD700", "#B8860B"],
+        "emerald_growth": ["#50C878", "#059669"],
+        "mystery_dark": ["#1A1A1A", "#0A0A0A"]
+      }
+    },
+    "typography": {
+      "families": {
+        "heading": "Outfit, system-ui",
+        "body": "Manrope, system-ui"
+      },
+      "sizes": {
+        "h1": { "fontSize": 48, "lineHeight": 56, "fontWeight": "800", "letterSpacing": -1 },
+        "h2": { "fontSize": 32, "lineHeight": 40, "fontWeight": "700", "letterSpacing": -0.5 },
+        "h3": { "fontSize": 24, "lineHeight": 32, "fontWeight": "700" },
+        "body_large": { "fontSize": 18, "lineHeight": 28, "fontWeight": "500" },
+        "body": { "fontSize": 16, "lineHeight": 24, "fontWeight": "400" },
+        "small": { "fontSize": 14, "lineHeight": 20, "fontWeight": "500" },
+        "overline": { "fontSize": 12, "lineHeight": 16, "fontWeight": "800", "letterSpacing": 2, "textTransform": "uppercase" }
+      }
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "2xl": 48,
+      "3xl": 64
+    },
+    "borders": {
+      "radius": {
+        "sm": 8,
+        "md": 12,
+        "lg": 16,
+        "xl": 24,
+        "pill": 9999
+      },
+      "width": {
+        "thin": 1,
+        "thick": 2
+      },
+      "color": "rgba(255, 255, 255, 0.1)"
+    },
+    "shadows": {
+      "glow_gold": {
+        "shadowColor": "#FFD700",
+        "shadowOffset": { "width": 0, "height": 4 },
+        "shadowOpacity": 0.4,
+        "shadowRadius": 12,
+        "elevation": 8
+      },
+      "glow_emerald": {
+        "shadowColor": "#50C878",
+        "shadowOffset": { "width": 0, "height": 4 },
+        "shadowOpacity": 0.4,
+        "shadowRadius": 12,
+        "elevation": 8
+      },
+      "surface": {
+        "shadowColor": "#000000",
+        "shadowOffset": { "width": 0, "height": 8 },
+        "shadowOpacity": 0.5,
+        "shadowRadius": 24,
+        "elevation": 5
+      }
+    }
+  },
+  "component_strategy": {
+    "buttons": {
+      "primary": "Use TouchableOpacity wrapping a LinearGradient (Gold or Emerald) with primary inverse text (Black) and pill border-radius. Add scale animation on press.",
+      "secondary": "Use TouchableOpacity with glassmorphic BlurView or solid Charcoal background and thin white/10 border.",
+      "glass": "Use expo-blur (BlurView) with 'dark' tint and border-radius. Use exclusively for overlapping modals and overlays to maintain high contrast."
+    },
+    "cards": {
+      "quest_card": "Deep charcoal surface, thin white border (1px solid rgba(255,255,255,0.05)), rounded-2xl. Use subtle gold/emerald gradient borders for completed states."
+    },
+    "navigation": {
+      "bottom_tab": "Glassmorphism BlurView tab bar anchored to bottom. Use soft blue accents for active states. Haptic feedback on switch."
+    },
+    "progress_bars": {
+      "xp_bar": "Container view with 16px radius, dark background. Inner view with LinearGradient (emerald_growth), animated width using Reanimated."
+    }
+  },
+  "game_mechanics": {
+    "levels": [
+      { "id": 1, "name": "Explorer", "xp_threshold": 0 },
+      { "id": 2, "name": "Builder", "xp_threshold": 500 },
+      { "id": 3, "name": "Creator", "xp_threshold": 1500 },
+      { "id": 4, "name": "Architect", "xp_threshold": 3000 },
+      { "id": 5, "name": "Visionary", "xp_threshold": 5000 },
+      { "id": 6, "name": "Founder", "xp_threshold": 10000 }
+    ],
+    "xp_rewards": {
+      "daily_login": 25,
+      "visit_ecosystem": 50,
+      "create_bc_id": 250,
+      "complete_profile": 100,
+      "share_farcaster": 150,
+      "share_x": 150,
+      "invite_friend": 500,
+      "friend_registers": 1000,
+      "daily_quest": 200,
+      "weekly_mission": 1000
+    },
+    "keys": ["Builder Keys", "Culture Keys", "Vision Keys", "Founder Keys"]
+  },
+  "screens": {
+    "splash_hero": {
+      "layout": "Fullscreen background image (village_abandoned) with dark overlay gradient.",
+      "content": "Massive countdown timer in Gold. Headline: 'Building Culture Dollar Launch'. Subhead: 'The community is rebuilding the future...'.",
+      "ctas": "Primary 'Start Building' (Gold Glow). Secondary 'View Leaderboard' (Glass)."
+    },
+    "onboarding": {
+      "layout": "Bottom sheet or modal over splash.",
+      "content": "Auth inputs (username, email, password), Referral code input. Clean dark UI with high-contrast text inputs."
+    },
+    "home_dashboard": {
+      "header": "Avatar, Username, Level Badge, and progress bar to next level.",
+      "hero_visual": "The Village - crossfade or swap village states based on global community progress (abandoned -> thriving).",
+      "mayor_greeting": "Floating AI Mayor avatar with soft blue chat bubble offering today's tip.",
+      "quick_actions": "Horizontal scroll of today's Daily Quests."
+    },
+    "quests_missions": {
+      "layout": "Tabs for 'Daily Quests', 'Ecosystem', and 'Global Missions'.",
+      "ecosystem_quests": "List of apps (BC App, BC ID, WohnAI, etc.) with 'Visit (+50 XP)' buttons.",
+      "global_missions": "Massive shared progress bar for all users (e.g., 'Restore the Park: 45,000/100,000 Actions')."
+    },
+    "inventory_spin": {
+      "layout": "Bento-style grid for Keys (Builder, Culture, Vision, Founder).",
+      "spin_wheel": "Large 3D wheel asset, 'Spin (1 Free/Day)' CTA. Result overlay with Mystery Box."
+    },
+    "leaderboard": {
+      "layout": "Tabs: Global XP, Top Referrers, Weekly.",
+      "content": "Ranked list. Top 3 have special Gold/Emerald/Blue halos."
+    },
+    "profile": {
+      "layout": "Avatar profile picture, Founding Score metric, XP metric.",
+      "badges": "Grid of dynamic evolving badges.",
+      "referral": "Big share block with code and 'Share on X/Farcaster' buttons."
+    },
+    "social_feed": {
+      "content": "Live ticker/feed of actions: 'User123 just earned a Founder Key!', 'The Café has been restored!'"
+    }
+  },
+  "media": {
+    "images": [
+      {
+        "category": "hero_background",
+        "slug_name": "village_abandoned",
+        "url": "https://static.prod-images.emergentagent.com/jobs/5c4a8477-0624-4b0c-9ea6-2251c4236bbc/images/b580d75b7dae65229582b58b0c5885d36aa8b8286aeb2e6df5d56bb140527464.png",
+        "description": "Starting state of the village. Use on splash and early game."
+      },
+      {
+        "category": "hero_background",
+        "slug_name": "village_thriving",
+        "url": "https://static.prod-images.emergentagent.com/jobs/5c4a8477-0624-4b0c-9ea6-2251c4236bbc/images/b707a86ed49f9cc41dbb05ae88afe35617b353e70a613186d0200ff3d86bc81c.png",
+        "description": "Fully restored village. Use for high-level players, launch day, and global mission success states."
+      },
+      {
+        "category": "character",
+        "slug_name": "ai_mayor",
+        "url": "https://static.prod-images.emergentagent.com/jobs/5c4a8477-0624-4b0c-9ea6-2251c4236bbc/images/855af00ba2ac1959fbaf54bc38cb7c6cdfe450708789d05493ff6a3476a27627.png",
+        "description": "Mayor Culture avatar. Use next to tooltips and onboarding chat bubbles."
+      },
+      {
+        "category": "inventory",
+        "slug_name": "founder_key",
+        "url": "https://static.prod-images.emergentagent.com/jobs/5c4a8477-0624-4b0c-9ea6-2251c4236bbc/images/1061e049a5bd9f034cf8c7be4c951b7c9d5e7fbd3fbebb1165e792b41038368d.png",
+        "description": "Visual asset for the Founder Key or top-tier rewards."
+      },
+      {
+        "category": "inventory",
+        "slug_name": "mystery_box",
+        "url": "https://static.prod-images.emergentagent.com/jobs/5c4a8477-0624-4b0c-9ea6-2251c4236bbc/images/260bc3ebee955bb7f92786f9e0ce5b201db80a5d7600fa51977e2e2c5d44f782.png",
+        "description": "Loot box visual for Spin the Wheel results or daily rewards."
+      },
+      {
+        "category": "game_asset",
+        "slug_name": "spin_wheel",
+        "url": "https://static.prod-images.emergentagent.com/jobs/5c4a8477-0624-4b0c-9ea6-2251c4236bbc/images/aa3ee79d5237d596109dada0ca985b4e4b5339d2350a24cbd6307a2d91863373.png",
+        "description": "The Spin the Wheel graphic for the daily spin tab."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "CRITICAL: This is an Expo React Native app. Do NOT use HTML tags (<div>, <span>) or Tailwind CSS classes directly in the components unless specifically configured through NativeWind. Assume pure StyleSheet by default unless NativeWind is present.",
+    "Use React Native primitives: <View>, <Text>, <ScrollView>, <TouchableOpacity>, <Image>.",
+    "Use 'react-native-reanimated' for fluid, 60fps gesture and entrance animations.",
+    "Use 'expo-linear-gradient' for all gradients (Gold/Emerald glows).",
+    "Use 'expo-blur' <BlurView> for glassmorphism panels. Set tint='dark' and specify intensity.",
+    "Apply test IDs to EVERY interactive or key metric element. Use testID='id' for React Native and data-testid='id' if web support is required via React Native for Web (or add both to be safe).",
+    "Use StyleSheet.create for styling, avoiding inline styles where possible.",
+    "Mobile-first responsive means relying on flexbox (flex: 1), percentage widths, and Dimensions API where necessary.",
+    "Do NOT use placeholder text or dummy image URLs. Only use the media URLs provided in this JSON.",
+    "Set the countdown timer to exactly May 30, 2026 12:00:00 UTC."
+  ]
+}

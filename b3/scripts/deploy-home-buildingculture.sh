@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build b3/umbrella (Vite SPA), rsync dist to VPS, ensure nginx static SPA, obtain TLS if missing.
+# Build b3/apps/hub (Vite SPA), rsync dist to VPS, ensure nginx static SPA, obtain TLS if missing.
 #
 #   export DEPLOY_HOST=root@your.vps.ip
 #   export CERTBOT_EMAIL=you@domain.com   # required first time for Let's Encrypt
@@ -16,13 +16,13 @@ REMOTE_ROOT="${REMOTE_ROOT:-/var/www/home-buildingculture}"
 
 cd "$B3_ROOT"
 
-echo "==> Install (workspace) + build umbrella"
+echo "==> Install (workspace) + build apps/hub"
 npm install --no-audit --no-fund
-npm --prefix umbrella run build
+npm --prefix apps/hub run build
 
 echo "==> Rsync dist → ${HOST}:${REMOTE_ROOT}/"
 ssh -o BatchMode=yes "$HOST" "mkdir -p '${REMOTE_ROOT}'"
-rsync -az --delete -e "ssh -o BatchMode=yes" "${B3_ROOT}/umbrella/dist/" "${HOST}:${REMOTE_ROOT}/"
+rsync -az --delete -e "ssh -o BatchMode=yes" "${B3_ROOT}/apps/hub/dist/" "${HOST}:${REMOTE_ROOT}/"
 
 DEPLOY_HOST="$HOST" PUBLIC_DOMAIN="$DOMAIN" REMOTE_ROOT="$REMOTE_ROOT" "$SCRIPT_DIR/install-nginx-home-on-server.sh"
 
@@ -30,7 +30,8 @@ echo "==> TLS (Let's Encrypt via nginx plugin)"
 ssh -o BatchMode=yes "$HOST" bash -s -- "$DOMAIN" "${CERTBOT_EMAIL:-}" <<'REMOTE'
 set -euo pipefail
 DOMAIN="$1"
-EMAIL="$2"
+# SSH may omit an empty second argv; ${2-} avoids set -u when $2 is unset.
+EMAIL="${2-}"
 LE="/etc/letsencrypt/live/${DOMAIN}/fullchain.pem"
 
 if [[ -f "$LE" ]]; then

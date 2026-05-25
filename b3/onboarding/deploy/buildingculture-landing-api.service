@@ -1,0 +1,16 @@
+[Unit]
+Description=Building Culture Landing API (app.buildingcultureid.space)
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/buildingculture-landing/backend
+EnvironmentFile=/opt/buildingculture-landing/backend/.env
+ExecStart=/opt/buildingculture-landing/backend/.venv/bin/uvicorn server:app --host 127.0.0.1 --port 8020
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,71 @@
+name: app
+
+on:
+  push:
+    paths:
+      - "app/**"
+      - "packages/**"
+      - ".github/workflows/app.yml"
+  pull_request:
+    paths:
+      - "app/**"
+      - "packages/**"
+      - ".github/workflows/app.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci -d ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install workspaces
+        run: npm ci
+      - name: Prisma generate
+        working-directory: app
+        run: npx prisma generate
+      - name: Prisma migrate deploy
+        working-directory: app
+        env:
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci?schema=public
+        run: npx prisma migrate deploy
+      - name: Lint
+        working-directory: app
+        run: npm run lint
+      - name: Typecheck
+        working-directory: app
+        run: npm run typecheck
+      - name: Build
+        working-directory: app
+        run: npm run build
+        env:
+          DATABASE_URL: postgresql://user:pass@localhost:5432/ci?schema=public
+      - name: Unit tests
+        working-directory: app
+        run: npm run test:unit
+      - name: Install Playwright
+        working-directory: app
+        run: npx playwright install chromium --with-deps
+      - name: Smoke tests
+        working-directory: app
+        run: npm run test:smoke
+        env:
+          CI: "true"
+          DATABASE_URL: postgresql://user:pass@localhost:5432/ci?schema=public

@@ -1,0 +1,10 @@
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27018:27017"
+    volumes:
+      - founding_builders_mongo:/data/db
+
+volumes:
+  founding_builders_mongo:

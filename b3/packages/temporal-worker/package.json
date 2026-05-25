@@ -1,0 +1,25 @@
+{
+  "name": "@bc/temporal-worker",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "temporal:dev": "temporal server start-dev",
+    "worker": "tsx src/worker.ts",
+    "start-workflow": "tsx src/run-workflow.ts"
+  },
+  "dependencies": {
+    "@bc/bcd-orchestration": "*",
+    "@temporalio/activity": "^1.11.7",
+    "@temporalio/client": "^1.11.7",
+    "@temporalio/worker": "^1.11.7",
+    "@temporalio/workflow": "^1.11.7",
+    "twitter-api-v2": "^1.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

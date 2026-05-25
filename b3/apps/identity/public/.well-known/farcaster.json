@@ -1,0 +1,28 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Culture Layer",
+    "homeUrl": "https://mini.buildingcultureid.space/",
+    "iconUrl": "https://mini.buildingcultureid.space/mini/icon-1024.png",
+    "splashImageUrl": "https://mini.buildingcultureid.space/mini/splash-200.png",
+    "splashBackgroundColor": "#0a0a0a",
+    "subtitle": "Onchain identity quests",
+    "description": "Mint your .culture identity, complete social quests, and climb the leaderboard on Base.",
+    "primaryCategory": "social",
+    "tags": ["identity", "base", "nft", "social", "culture"],
+    "requiredChains": ["eip155:8453"],
+    "requiredCapabilities": [
+      "actions.ready",
+      "actions.signIn",
+      "actions.composeCast",
+      "wallet.getEthereumProvider"
+    ],
+    "heroImageUrl": "https://mini.buildingcultureid.space/mini/og-1200x630.png",
+    "ogImageUrl": "https://mini.buildingcultureid.space/mini/og-1200x630.png"
+  }
+}

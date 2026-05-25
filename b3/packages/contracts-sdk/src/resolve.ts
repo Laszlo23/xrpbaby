@@ -1,5 +1,9 @@
 import type { Address } from "viem";
-import { deploymentAddresses8453, getDeploymentAddress } from "./generated/addresses.js";
+import {
+  deploymentAddresses8453,
+  getDeploymentAddress,
+  type DeploymentContractName,
+} from "./generated/addresses.js";
 
 export type EnvLike = Record<string, string | undefined>;
 
@@ -10,6 +14,9 @@ function parseAddr(v: string | undefined): Address | undefined {
 
 /** Base mainnet chain id (canonical deployment file `8453.json`). */
 export const BASE_MAINNET_CHAIN_ID = 8453;
+
+/** Base Sepolia testnet (`84532.json`). */
+export const BASE_SEPOLIA_CHAIN_ID = 84532;
 
 export function resolveBcdTokenAddress(chainId: number, env: EnvLike): Address | undefined {
   return parseAddr(env.VITE_BCD_TOKEN_ADDRESS) ?? getDeploymentAddress("BuildingCultureDollar", chainId);
@@ -22,10 +29,14 @@ export function resolveBcdGenesisClaimAddress(chainId: number, env: EnvLike): Ad
 export function resolveBcdSaleAddress(chainId: number, env: EnvLike): Address | undefined {
   const fromEnv = parseAddr(env.VITE_BCD_SALE_ADDRESS);
   if (fromEnv) return fromEnv;
-  if (chainId !== BASE_MAINNET_CHAIN_ID) return undefined;
-  const book = deploymentAddresses8453 as Record<string, `0x${string}` | undefined>;
-  const listed = book["BCDFixedPriceSale"];
-  return listed ? (listed.toLowerCase() as Address) : undefined;
+  const listed = getDeploymentAddress("BCDFixedPriceSale" as DeploymentContractName, chainId);
+  if (listed) return listed;
+  if (chainId === BASE_MAINNET_CHAIN_ID) {
+    const book = deploymentAddresses8453 as Record<string, `0x${string}` | undefined>;
+    const legacy = book["BCDFixedPriceSale"];
+    return legacy ? (legacy.toLowerCase() as Address) : undefined;
+  }
+  return undefined;
 }
 
 export function resolveRaffleCampaignAddress(chainId: number, env: EnvLike): Address | undefined {

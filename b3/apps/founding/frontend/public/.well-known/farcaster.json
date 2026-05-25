@@ -1,0 +1,17 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjg3Mzk0NCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDUwMmNlOUZCMTgxNGNiMDM4NDM5NjdFQzVFMEQ4RjZBQTNBM0MyZTEifQ",
+    "payload": "eyJkb21haW4iOiJtaW5iYXBwLmJ1aWxkaW5nY3VsdHVyZWlkLnNwYWNlIn0",
+    "signature": "BmDYG17q/cxs9rkegZq3rZzkcBK16sVT7KFllzI9nT0gC+XmPOpTzIw+rmmqt6cYaYdXoMO3HKXH3c7h+r2CwRs="
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Founding Builders",
+    "iconUrl": "https://miniapp.buildingcultureid.space/icon.png",
+    "homeUrl": "https://miniapp.buildingcultureid.space/",
+    "splashImageUrl": "https://miniapp.buildingcultureid.space/splash.png",
+    "splashBackgroundColor": "#0A0F0D",
+    "subtitle": "Help bring places back to life",
+    "description": "Gamified pre-launch for Building Culture Dollar ($BCD)."
+  }
+}

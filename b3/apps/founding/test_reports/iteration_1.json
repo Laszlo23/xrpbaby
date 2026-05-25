@@ -1,0 +1,42 @@
+{
+  "summary": "Backend-only smoke + integration testing of The Founding Builders FastAPI. Built /app/backend/tests/test_founding_builders.py with 39 pytest cases covering auth, countdown, stats, feed, leaderboard, ecosystem, quests (daily + community), mystery box, spin (24h cooldown), profile completion, daily login, share endpoints, level-up + badge auto-add, AI Mayor chat (Claude Sonnet 4.6 via emergentintegrations), and auth guards. 39/39 passed (100%) after fixing one minor in-memory staleness bug in /api/mystery-box/open boost branch.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/mystery-box/open", "issue": "Boost-reward branch decremented mystery_boxes in DB but not in the in-memory user dict, so the response payload returned a stale count (off by 1). Fixed by adding user['mystery_boxes'] = user.get('mystery_boxes',1)-1 in the else branch of open_mystery_box."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_founding_builders.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Bug already fixed by testing agent (mystery-box boost in-memory decrement). Please review the 3-line patch in /app/backend/server.py around the else branch of open_mystery_box.",
+    "Optional: harden /api/auth/register so referral codes are matched case-insensitively. Current code calls body.referral_code.upper() but referral codes are already uppercase – verified working.",
+    "Optional: replace deprecated FastAPI @app.on_event('startup'/'shutdown') with lifespan handlers (Starlette deprecation warning)."
+  ],
+  "critical_code_review_comments": [
+    "server.py is ~700 lines and starting to mix routes for many domains (auth, quests, mystery box, mayor). Consider splitting into routers per domain before adding more features.",
+    "MAYOR_SYSTEM string is hard-coded in server.py; consider moving the long system prompt to a constants module.",
+    "level_for_xp() correctly recomputes level on read so badges/level shape stay consistent; no MongoDB _id leaks observed in any tested response (verified for /auth/me, /feed, /leaderboard, /mayor/history, /quests/community).",
+    "award_xp() correctly auto-adds the level-up badge and pushes a feed event when the level id increases.",
+    "Spin cooldown uses datetime.fromisoformat(last_spin) — last_spin is stored as ISO string via now().isoformat(); works correctly because now() is timezone-aware (UTC). Good.",
+    "Mystery box probabilities (0.35 key / 0.50 xp / 0.15 boost) work and DB $inc is used to avoid race conditions."
+  ],
+  "updated_files": [
+    "/app/backend/server.py (single 1-line fix in mystery-box boost branch)",
+    "/app/backend/tests/test_founding_builders.py (new comprehensive pytest suite)"
+  ],
+  "success_rate": {"backend": "100% (39/39)", "frontend": "n/a (skipped per request)"},
+  "seed_data_creation": "Created multiple TEST_-prefixed users during the run (TEST_primary_*, TEST_reg_*, TEST_ref_*, TEST_mb_*, TEST_spin_*, TEST_prof_*, TEST_dl_*, TEST_share_*, TEST_lvl_*). They live in the founding_builders DB and are safe to keep or purge by username regex /^TEST_/.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Pytest suite at /app/backend/tests/test_founding_builders.py is the regression baseline. It auto-registers fresh users (no reliance on smoke account) and exercises every problem-statement bullet including referral XP, level-up to Builder at 500 XP, deterministic 3 daily quests, mystery-box 400 when empty, spin cooldown 400, profile +100 one-time, daily-login idempotent, share X/Farcaster/Telegram XP amounts, AI Mayor (Claude Sonnet 4.6) reply >10 chars + history, and 12 auth-guard cases. Mayor LLM call adds ~5-15s latency per run.",
+  "rca_of_issue": "Mystery-box boost branch RCA: In server.py open_mystery_box(), the if/elif branches updated user['mystery_boxes'] in memory after the DB $inc, but the final else (boost reward, ~15% of rolls) only mutated the DB. As a result the response computed by public_user(user) reported the pre-decrement value. Reproduced ~1 in 7 runs in test_open_consumes_and_rewards. Fix: add user['mystery_boxes'] = user.get('mystery_boxes', 1) - 1 right after the DB update_one call in the boost branch. Verified by full pytest re-run (39/39 green)."
+}

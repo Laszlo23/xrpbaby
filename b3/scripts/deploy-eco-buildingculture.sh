@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build ecorwa (workspace), rsync dist to VPS, ensure nginx static SPA, obtain TLS if missing.
+# Build apps/eco (workspace), rsync dist to VPS, ensure nginx static SPA, obtain TLS if missing.
 #
 #   export DEPLOY_HOST=root@your.vps.ip
 #   export CERTBOT_EMAIL=you@domain.com   # required first time for Let's Encrypt
@@ -17,13 +17,13 @@ REMOTE_ROOT="${REMOTE_ROOT:-/var/www/eco-buildingculture}"
 cd "$B3_ROOT"
 export VITE_ECO_HUB_LANDING_URL="${VITE_ECO_HUB_LANDING_URL:-https://${DOMAIN}}"
 
-echo "==> Install (workspace) + build ecorwa with VITE_ECO_HUB_LANDING_URL=${VITE_ECO_HUB_LANDING_URL}"
+echo "==> Install (workspace) + build apps/eco with VITE_ECO_HUB_LANDING_URL=${VITE_ECO_HUB_LANDING_URL}"
 npm install --no-audit --no-fund
-npm --prefix ecorwa run build
+npm --prefix apps/eco run build
 
 echo "==> Rsync dist → ${HOST}:${REMOTE_ROOT}/"
 ssh -o BatchMode=yes "$HOST" "mkdir -p '${REMOTE_ROOT}'"
-rsync -az --delete -e "ssh -o BatchMode=yes" "${B3_ROOT}/ecorwa/dist/" "${HOST}:${REMOTE_ROOT}/"
+rsync -az --delete -e "ssh -o BatchMode=yes" "${B3_ROOT}/apps/eco/dist/" "${HOST}:${REMOTE_ROOT}/"
 
 DEPLOY_HOST="$HOST" PUBLIC_DOMAIN="$DOMAIN" REMOTE_ROOT="$REMOTE_ROOT" "$SCRIPT_DIR/install-nginx-eco-static-on-server.sh"
 
@@ -31,7 +31,7 @@ echo "==> TLS (Let's Encrypt via nginx plugin)"
 ssh -o BatchMode=yes "$HOST" bash -s -- "$DOMAIN" "${CERTBOT_EMAIL:-}" <<'REMOTE'
 set -euo pipefail
 DOMAIN="$1"
-EMAIL="$2"
+EMAIL="${2-}"
 LE="/etc/letsencrypt/live/${DOMAIN}/fullchain.pem"
 
 if [[ -f "$LE" ]]; then

@@ -1,0 +1,10 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+# Root app .env (PRIVATE_KEY, MINT_PRICE_WEI) — forge runs from contracts/
+dotenv = "../.env"
+remappings = [
+  "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+  "forge-std/=lib/forge-std/src/",
+]

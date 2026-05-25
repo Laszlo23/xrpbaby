@@ -20,7 +20,7 @@ COPY frontend/prisma ./frontend/prisma
 COPY ecorwa/package.json ./ecorwa/
 COPY strapiapp/package.json ./strapiapp/
 
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 RUN npm run build -w @bc/contracts-sdk \
   && npm run build -w @bc/proof \

@@ -29,7 +29,7 @@ services:
   strapi:
     build:
       context: ..
-      dockerfile: strapiapp/Dockerfile
+      dockerfile: cms/Dockerfile
     image: ${STRAPI_IMAGE:-buildingculture-strapi:latest}
     restart: unless-stopped
     depends_on:

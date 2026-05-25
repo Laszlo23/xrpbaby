@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Reads b3/contracts/deployments/<chain>.json + forge out/*.json
+ * Reads b3/contracts/deployments/*.json + forge out/*.json
  * and writes b3/packages/contracts-sdk/src/generated/*
  */
 import fs from "node:fs";
@@ -12,10 +12,8 @@ const b3Root = path.resolve(__dirname, "..");
 const contractsRoot = path.join(b3Root, "contracts");
 const sdkRoot = path.join(b3Root, "packages", "contracts-sdk", "src", "generated");
 const outRoot = path.join(contractsRoot, "out");
+const deploymentsDir = path.join(contractsRoot, "deployments");
 
-const DEPLOYMENT_FILE = path.join(contractsRoot, "deployments", "8453.json");
-
-/** Solidity artifact name → kebab-case file + stable export symbol */
 const ABI_ARTIFACTS = [
   { contract: "BuildingCultureDollar", file: "building-culture-dollar", export: "buildingCultureDollarAbi" },
   { contract: "BCDGenesisClaim", file: "bcd-genesis-claim", export: "bcdGenesisClaimAbi" },
@@ -34,36 +32,60 @@ function ensureDir(p) {
   fs.mkdirSync(p, { recursive: true });
 }
 
+function listDeploymentFiles() {
+  if (!fs.existsSync(deploymentsDir)) return [];
+  return fs
+    .readdirSync(deploymentsDir)
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => path.join(deploymentsDir, f));
+}
+
 function main() {
-  if (!fs.existsSync(DEPLOYMENT_FILE)) {
-    console.error("Missing", DEPLOYMENT_FILE);
+  const deploymentFiles = listDeploymentFiles();
+  if (deploymentFiles.length === 0) {
+    console.error("No contracts/deployments/*.json files found");
     process.exit(1);
   }
-  const deployment = readJson(DEPLOYMENT_FILE);
-  const chainId = deployment.chainId;
-  const contracts = deployment.contracts ?? {};
 
   ensureDir(sdkRoot);
   ensureDir(path.join(sdkRoot, "abis"));
 
-  const entries = Object.entries(contracts)
-    .map(([name, addr]) => `  "${name}": "${String(addr).toLowerCase()}" as const,`)
+  const chainBlocks = [];
+  const chainIds = [];
+
+  for (const file of deploymentFiles) {
+    const deployment = readJson(file);
+    const chainId = deployment.chainId;
+    if (!chainId) {
+      console.warn("skip (no chainId):", file);
+      continue;
+    }
+    chainIds.push(chainId);
+    const contracts = deployment.contracts ?? {};
+    const entries = Object.entries(contracts)
+      .map(([name, addr]) => `  "${name}": "${String(addr).toLowerCase()}" as const,`)
+      .join("\n");
+    chainBlocks.push(`export const deploymentAddresses${chainId} = {
+${entries}
+} as const;`);
+  }
+
+  const getDeploymentCases = chainIds
+    .map((id) => `  if (chain === ${id}) return deploymentAddresses${id}[name];`)
     .join("\n");
 
   const addressesTs = `/* eslint-disable -- generated */
-/** Canonical deployment addresses (chain ${chainId}). Do not edit by hand — update contracts/deployments/${chainId}.json and re-run \`npm run contracts:sdk\` from b3/. */
-export const deploymentAddresses${chainId} = {
-${entries}
-} as const;
+${chainBlocks.join("\n\n")}
 
-export type DeploymentContractName = keyof typeof deploymentAddresses${chainId};
+export type DeploymentContractName =
+  | keyof typeof deploymentAddresses${chainIds[0] ?? 8453};
 
 export function getDeploymentAddress(
   name: DeploymentContractName,
   chain: number,
 ): \`0x\${string}\` | undefined {
-  if (chain !== ${chainId}) return undefined;
-  return deploymentAddresses${chainId}[name];
+${getDeploymentCases}
+  return undefined;
 }
 `;
 
@@ -76,14 +98,13 @@ export function getDeploymentAddress(
       continue;
     }
     const art = readJson(artifactPath);
-    const abiJson = JSON.stringify(art.abi, null, 2);
     const abiTs = `/* eslint-disable -- generated from forge out/${contract}.sol/${contract}.json */
-export const ${exportName} = ${abiJson} as const;
+export const ${exportName} = ${JSON.stringify(art.abi, null, 2)} as const;
 `;
     fs.writeFileSync(path.join(sdkRoot, "abis", `${file}.ts`), abiTs);
   }
 
-  console.log("contracts-sdk generated OK:", sdkRoot);
+  console.log("contracts-sdk generated OK:", sdkRoot, "chains:", chainIds.join(", "));
 }
 
 main();

@@ -1,0 +1,107 @@
+{
+  "theme": "Dark",
+  "archetype": "Archetype 5 (Luxury) + Archetype 7 (Electric & Neon)",
+  "brand_direction": "Earthy luxury (obsidian + sage/copper accents) AND Modern Web3 (near-black + electric cyan/lime accents)",
+  "typography": {
+    "headings": {
+      "font_family": "Cabinet Grotesk, sans-serif",
+      "weights": ["300", "700", "900"],
+      "classes": "font-bold tracking-tighter text-white"
+    },
+    "body": {
+      "font_family": "Manrope, sans-serif",
+      "weights": ["400", "500"],
+      "classes": "leading-relaxed text-zinc-400"
+    },
+    "labels_and_data": {
+      "font_family": "JetBrains Mono, monospace",
+      "classes": "uppercase tracking-[0.2em] text-xs font-semibold text-cyan-400"
+    }
+  },
+  "colors": {
+    "backgrounds": {
+      "primary": "#050505",
+      "secondary": "#0A0A0A",
+      "tertiary": "#121212"
+    },
+    "accents": {
+      "earthy_luxury": {
+        "sage": "#839788",
+        "copper": "#C47C59"
+      },
+      "modern_web3": {
+        "cyan": "#00E5FF",
+        "lime": "#C5FF41"
+      }
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "muted": "#52525B"
+    },
+    "surfaces": {
+      "glass": "bg-white/5 backdrop-blur-xl border border-white/10",
+      "glass_active": "bg-white/10 backdrop-blur-2xl border border-cyan-400/30",
+      "card_solid": "bg-[#0A0A0A] border border-white/5"
+    }
+  },
+  "visual_enhancers": {
+    "noise": "Add a subtle CSS noise overlay to backgrounds to kill digital flatness and enhance the cinematic feel.",
+    "glow": "Use drop-shadows with cyan/lime for active Web3 states, e.g., drop-shadow-[0_0_15px_rgba(0,229,255,0.3)].",
+    "gradients": "Avoid generic fullscreen gradients. Use localized radial glows (blur-3xl opacity-20) behind key components like the BCD token visual."
+  },
+  "layout_and_spacing": {
+    "generous_spacing": "Use py-24 to py-32 for section padding to give cinematic breathing room.",
+    "grids": "Use Mode A (Tetris Grid) for visual sections, and asymmetric overlapping layouts for storytelling. Never fill 100% of the grid perfectly.",
+    "containers": "Use max-w-7xl mx-auto for content framing, but allow hero images to break out full-width (w-full)."
+  },
+  "motion_and_interactions": {
+    "scrolling": "Implement React Lenis for momentum-based smooth scrolling to give the site a premium weight.",
+    "reveals": "Use Framer Motion staggered Y-axis reveals (initial={opacity: 0, y: 30}) for text blocks.",
+    "parallax": "Apply subtle y-axis transforms on scroll to hero and section background images.",
+    "hover": "Scale up images slightly (scale-105) and increase glass border opacity or glow on hover."
+  },
+  "components_and_tech": {
+    "icons": "Use lucide-react (default). For technical flow diagrams, ensure line weights are consistent (e.g., 1.5px).",
+    "ui_components": "Use custom raw HTML/Tailwind for marketing layout flexibility (avoid rigid Shadcn cards). Use Shadcn only for complex logic like Waitlist Input, Form, and Dialogs.",
+    "buttons": "Primary CTA: Copper or Cyan background with dark text, scale-105 on hover. Secondary CTA: Outline border-white/20 hover:border-cyan-400 text-white."
+  },
+  "media": {
+    "image_urls": {
+      "hero_transformation": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/c264ba30-33b6-4731-a932-7fc464e21fe0/images/ffa6e34b9d8207960c67940ae4add8c6025b0e76282b7afa244599ae3aeb7116.png",
+        "description": "Hero Section: Beautiful community space transformation.",
+        "category": "hero"
+      },
+      "problem_timeline": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/c264ba30-33b6-4731-a932-7fc464e21fe0/images/49db059429e4ad699c9820a21916c145159959342d302b686e2d776840a48a06.png",
+        "description": "The Problem Section: Abandoned building timeline visual.",
+        "category": "background"
+      },
+      "impact_gallery": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/c264ba30-33b6-4731-a932-7fc464e21fe0/images/59fb479c86939a8ba425e0595ffc25f8f005e73b9923172dee18c60331b85c82.png",
+        "description": "Real World Impact Section: Thriving community at dusk.",
+        "category": "feature"
+      },
+      "investor_abstract": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/c264ba30-33b6-4731-a932-7fc464e21fe0/images/026f404e6f5078dc801c6e95b623ebb64e332bb062b3d9a98d7750c8484f13e2.png",
+        "description": "For Investors Section: Abstract web3 architecture representing digital physical integration.",
+        "category": "feature"
+      }
+    }
+  },
+  "instructions_to_main_agent": {
+    "general": "Build a single-page React app (marketing landing page) using a cinematic, scroll-driven narrative. Mix Earthy Luxury (copper, sage, architectural photography) with Web3 (cyan/lime glow, glass nodes).",
+    "section_1_hero": "Fullscreen height (min-h-screen). Absolute positioning for 'hero_transformation' with a dark overlay (bg-black/40 to bg-black/60) to ensure text legibility. Large heading 'We Bring Places Back To Life.' Two CTAs.",
+    "section_2_problem": "Create a vertical layout with an interactive timeline line. Use 'problem_timeline' image as a sticky side visual or a parallax backdrop for the text.",
+    "section_3_vision": "Focus on minimal, massive typography (Cabinet Grotesk). Center the narrative.",
+    "section_4_ecosystem": "Create a CSS/Framer Motion 'network' of 7 cards using glassmorphism. Add 'Beta' badges (JetBrains Mono, text-xs, border border-cyan-400 text-cyan-400 rounded-full px-2) to the links. Treat external links as target='_blank'.",
+    "section_5_culture_layer": "Design a 5-step flow diagram with arrows: Identity -> Community -> Property -> Investment -> Reward. Use Lucide icons and glowing cyan accent lines between steps.",
+    "section_6_bcd": "Center a bold visual element representing the BCD Token. Use CSS radial-gradient to make it glow from behind. Surround with orbiting or connected UI nodes.",
+    "section_7_impact": "Bento grid or asymmetrical layout using 'impact_gallery' image to ground the digital ecosystem in reality.",
+    "section_8_investor": "Side-by-side or overlapping block layout using 'investor_abstract' image. Convey a highly premium, institutional feel.",
+    "section_9_future": "Vertical roadmap timeline with Shipped vs Upcoming distinct states (muted vs bright).",
+    "section_10_footer": "Final Waitlist capture. Use Shadcn Input and Button for email submission. Large 'Let's Talk' or final statement. Ensure the form is mocked to show success state on submit.",
+    "testing": "MUST include data-testid on all interactive elements (buttons, inputs, links). Use descriptive IDs like data-testid='hero-cta-explore'."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "chainId": 84532,
+  "name": "Base Sepolia",
+  "contracts": {
+    "BuildingCultureDollar": "0x11c57fd49daf5f3b3e89c9c6d7c06849957fe552",
+    "BCDGenesisClaim": "0x7192b8d144ac6904ed3b9a381011b4af7e58b2cb",
+    "CulturePulseAnchor": "0x64f0009581a7007cc31040664e5d2d635f6a84fd"
+  },
+  "deployedAt": "2026-05-23T21:10:45.709Z",
+  "note": "BCD + CulturePulseAnchor deployed Base Sepolia 2026-05-23"
+}

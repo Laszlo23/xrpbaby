@@ -74,6 +74,31 @@ After deploy, use the contract address and constructor args from the broadcast o
 - **Foundry:** `forge verify-contract <address> <path>:<ContractName> --chain <id> --etherscan-api-key $ETHERSCAN_API_KEY` (many L2s share the Etherscan v2 API key flow — check your chain’s docs).
 - **Hardhat:** `npx hardhat verify --network <name> <address> ...` after configuring [`hardhat.config.ts`](hardhat.config.ts) and your API key in `.env`.
 
+## 0G Chain — Agent ID (hackathon proof)
+
+This repo includes a minimal ERC-721 **Agent ID** primitive for 0G hackathon proof:
+
+- Contract: `src/AgentId.sol`
+- Deploy script: `script/DeployAgentId.s.sol`
+
+### Deploy to 0G Chain mainnet
+
+0G docs: [Deploy Contracts on 0G Chain](https://docs.0g.ai/developer-hub/building-on-0g/contracts-on-0g/deploy-contracts)
+
+```sh
+cd b3/contracts
+
+# PRIVATE_KEY must be a 32-byte hex string (0x + 64 hex chars)
+export PRIVATE_KEY="0x..."
+
+forge script script/DeployAgentId.s.sol:DeployAgentIdScript \
+  --rpc-url "https://evmrpc.0g.ai" \
+  --broadcast \
+  -vvvv
+```
+
+The script deploys `AgentId` and mints token `#1` to the deployer by default.
+
 ## `forge create` (advanced)
 
 Use only for **single** contracts with a small constructor. Encode args with `cast abi-encode` or pass `--constructor-args` per the Foundry book. For this repo, prefer the scripts above.
