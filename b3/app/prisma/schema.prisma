@@ -10,6 +10,7 @@ datasource db {
 /// Unified platform member (wallet-first; optional email / Farcaster).
 model Member {
   id            String   @id @default(cuid())
+  privyUserId   String?  @unique
   walletAddress String?  @unique
   farcasterFid  Int?     @unique
   email         String?  @unique
@@ -25,6 +26,7 @@ model Member {
   activities      ActivityEvent[]
   rewardGrants    RewardGrant[]
   socialComments  SocialComment[]
+  packPurchases   PackPurchase[]
 }
 
 model Wallet {
@@ -106,6 +108,22 @@ model RewardGrant {
   createdAt  DateTime @default(now())
 
   @@index([memberId])
+}
+
+/// Idempotent record of Stripe pack checkout → Culture Points.
+model PackPurchase {
+  id              String   @id @default(cuid())
+  memberId        String
+  member          Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  walletId        String
+  packSlug        String
+  usdCents        Int
+  pointsGranted   Int
+  stripeSessionId String   @unique
+  createdAt       DateTime @default(now())
+
+  @@index([memberId])
+  @@index([walletId])
 }
 
 /// Ingested social post (Farcaster, X, Meta, TikTok, or native curator).

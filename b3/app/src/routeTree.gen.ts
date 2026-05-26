@@ -35,6 +35,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WelcomeIndexRouteImport } from './routes/welcome/index'
+import { Route as WalletIndexRouteImport } from './routes/wallet/index'
 import { Route as SignalIndexRouteImport } from './routes/signal/index'
 import { Route as PlacesIndexRouteImport } from './routes/places/index'
 import { Route as PassIndexRouteImport } from './routes/pass/index'
@@ -43,6 +44,7 @@ import { Route as ForestIndexRouteImport } from './routes/forest/index'
 import { Route as EarthIndexRouteImport } from './routes/earth/index'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as WalletPacksRouteImport } from './routes/wallet/packs'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as SelfAgentidRouteImport } from './routes/self.agentid'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
@@ -65,6 +67,8 @@ import { Route as DotwellKnownAgentDotjsonRouteImport } from './routes/[.]well-k
 import { Route as ApiX402PremiumRouteImport } from './routes/api/x402/premium'
 import { Route as ApiWorldWalletVerifyRouteImport } from './routes/api/world/wallet-verify'
 import { Route as ApiWorldWalletNonceRouteImport } from './routes/api/world/wallet-nonce'
+import { Route as ApiWebhooksStripeRouteImport } from './routes/api/webhooks/stripe'
+import { Route as ApiWalletSyncRouteImport } from './routes/api/wallet/sync'
 import { Route as ApiRewardsSummaryRouteImport } from './routes/api/rewards/summary'
 import { Route as ApiPulseMetricsRouteImport } from './routes/api/pulse/metrics'
 import { Route as ApiPulseFeedRouteImport } from './routes/api/pulse/feed'
@@ -80,6 +84,7 @@ import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
+import { Route as ApiWalletPacksCheckoutRouteImport } from './routes/api/wallet/packs/checkout'
 import { Route as ApiPulseIngestManualRouteImport } from './routes/api/pulse/ingest/manual'
 import { Route as ApiPulseDigestDayIdRouteImport } from './routes/api/pulse/digest/$dayId'
 import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/pulse/attestation/latest'
@@ -215,6 +220,11 @@ const WelcomeIndexRoute = WelcomeIndexRouteImport.update({
   path: '/welcome/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WalletIndexRoute = WalletIndexRouteImport.update({
+  id: '/wallet/',
+  path: '/wallet/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignalIndexRoute = SignalIndexRouteImport.update({
   id: '/signal/',
   path: '/signal/',
@@ -253,6 +263,11 @@ const DocsIndexRoute = DocsIndexRouteImport.update({
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletPacksRoute = WalletPacksRouteImport.update({
+  id: '/wallet/packs',
+  path: '/wallet/packs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapXmlRoute = SitemapXmlRouteImport.update({
@@ -367,6 +382,16 @@ const ApiWorldWalletNonceRoute = ApiWorldWalletNonceRouteImport.update({
   path: '/api/world/wallet-nonce',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWebhooksStripeRoute = ApiWebhooksStripeRouteImport.update({
+  id: '/api/webhooks/stripe',
+  path: '/api/webhooks/stripe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWalletSyncRoute = ApiWalletSyncRouteImport.update({
+  id: '/api/wallet/sync',
+  path: '/api/wallet/sync',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiRewardsSummaryRoute = ApiRewardsSummaryRouteImport.update({
   id: '/api/rewards/summary',
   path: '/api/rewards/summary',
@@ -444,6 +469,11 @@ const ApiActivityLogRoute = ApiActivityLogRouteImport.update({
   path: '/api/activity/log',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWalletPacksCheckoutRoute = ApiWalletPacksCheckoutRouteImport.update({
+  id: '/api/wallet/packs/checkout',
+  path: '/api/wallet/packs/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPulseIngestManualRoute = ApiPulseIngestManualRouteImport.update({
   id: '/api/pulse/ingest/manual',
   path: '/api/pulse/ingest/manual',
@@ -511,6 +541,7 @@ export interface FileRoutesByFullPath {
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/wallet/packs': typeof WalletPacksRoute
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
@@ -519,6 +550,7 @@ export interface FileRoutesByFullPath {
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
   '/signal/': typeof SignalIndexRoute
+  '/wallet/': typeof WalletIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
@@ -535,12 +567,15 @@ export interface FileRoutesByFullPath {
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
+  '/api/wallet/sync': typeof ApiWalletSyncRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
+  '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRoutesByTo {
@@ -587,6 +622,7 @@ export interface FileRoutesByTo {
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/wallet/packs': typeof WalletPacksRoute
   '/blog': typeof BlogIndexRoute
   '/docs': typeof DocsIndexRoute
   '/earth': typeof EarthIndexRoute
@@ -595,6 +631,7 @@ export interface FileRoutesByTo {
   '/pass': typeof PassIndexRoute
   '/places': typeof PlacesIndexRoute
   '/signal': typeof SignalIndexRoute
+  '/wallet': typeof WalletIndexRoute
   '/welcome': typeof WelcomeIndexRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
@@ -611,12 +648,15 @@ export interface FileRoutesByTo {
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
+  '/api/wallet/sync': typeof ApiWalletSyncRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
+  '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRoutesById {
@@ -665,6 +705,7 @@ export interface FileRoutesById {
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/wallet/packs': typeof WalletPacksRoute
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
@@ -673,6 +714,7 @@ export interface FileRoutesById {
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
   '/signal/': typeof SignalIndexRoute
+  '/wallet/': typeof WalletIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
@@ -689,12 +731,15 @@ export interface FileRoutesById {
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
+  '/api/wallet/sync': typeof ApiWalletSyncRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
+  '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRouteTypes {
@@ -744,6 +789,7 @@ export interface FileRouteTypes {
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
+    | '/wallet/packs'
     | '/blog/'
     | '/docs/'
     | '/earth/'
@@ -752,6 +798,7 @@ export interface FileRouteTypes {
     | '/pass/'
     | '/places/'
     | '/signal/'
+    | '/wallet/'
     | '/welcome/'
     | '/api/activity/log'
     | '/api/agents/status'
@@ -768,12 +815,15 @@ export interface FileRouteTypes {
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
+    | '/api/wallet/sync'
+    | '/api/webhooks/stripe'
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
+    | '/api/wallet/packs/checkout'
     | '/api/pulse/feed/$id/comments'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -820,6 +870,7 @@ export interface FileRouteTypes {
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
+    | '/wallet/packs'
     | '/blog'
     | '/docs'
     | '/earth'
@@ -828,6 +879,7 @@ export interface FileRouteTypes {
     | '/pass'
     | '/places'
     | '/signal'
+    | '/wallet'
     | '/welcome'
     | '/api/activity/log'
     | '/api/agents/status'
@@ -844,12 +896,15 @@ export interface FileRouteTypes {
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
+    | '/api/wallet/sync'
+    | '/api/webhooks/stripe'
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
+    | '/api/wallet/packs/checkout'
     | '/api/pulse/feed/$id/comments'
   id:
     | '__root__'
@@ -897,6 +952,7 @@ export interface FileRouteTypes {
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
+    | '/wallet/packs'
     | '/blog/'
     | '/docs/'
     | '/earth/'
@@ -905,6 +961,7 @@ export interface FileRouteTypes {
     | '/pass/'
     | '/places/'
     | '/signal/'
+    | '/wallet/'
     | '/welcome/'
     | '/api/activity/log'
     | '/api/agents/status'
@@ -921,12 +978,15 @@ export interface FileRouteTypes {
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
+    | '/api/wallet/sync'
+    | '/api/webhooks/stripe'
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
+    | '/api/wallet/packs/checkout'
     | '/api/pulse/feed/$id/comments'
   fileRoutesById: FileRoutesById
 }
@@ -969,6 +1029,7 @@ export interface RootRouteChildren {
   PSlugRoute: typeof PSlugRoute
   SelfAgentidRoute: typeof SelfAgentidRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
+  WalletPacksRoute: typeof WalletPacksRoute
   BlogIndexRoute: typeof BlogIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
   EarthIndexRoute: typeof EarthIndexRoute
@@ -976,6 +1037,7 @@ export interface RootRouteChildren {
   PassIndexRoute: typeof PassIndexRoute
   PlacesIndexRoute: typeof PlacesIndexRoute
   SignalIndexRoute: typeof SignalIndexRoute
+  WalletIndexRoute: typeof WalletIndexRoute
   WelcomeIndexRoute: typeof WelcomeIndexRoute
   ApiActivityLogRoute: typeof ApiActivityLogRoute
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
@@ -992,12 +1054,15 @@ export interface RootRouteChildren {
   ApiPulseFeedRoute: typeof ApiPulseFeedRouteWithChildren
   ApiPulseMetricsRoute: typeof ApiPulseMetricsRoute
   ApiRewardsSummaryRoute: typeof ApiRewardsSummaryRoute
+  ApiWalletSyncRoute: typeof ApiWalletSyncRoute
+  ApiWebhooksStripeRoute: typeof ApiWebhooksStripeRoute
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
   ApiPulseAttestationLatestRoute: typeof ApiPulseAttestationLatestRoute
   ApiPulseDigestDayIdRoute: typeof ApiPulseDigestDayIdRoute
   ApiPulseIngestManualRoute: typeof ApiPulseIngestManualRoute
+  ApiWalletPacksCheckoutRoute: typeof ApiWalletPacksCheckoutRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1184,6 +1249,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WelcomeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wallet/': {
+      id: '/wallet/'
+      path: '/wallet'
+      fullPath: '/wallet/'
+      preLoaderRoute: typeof WalletIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signal/': {
       id: '/signal/'
       path: '/signal'
@@ -1238,6 +1310,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet/packs': {
+      id: '/wallet/packs'
+      path: '/wallet/packs'
+      fullPath: '/wallet/packs'
+      preLoaderRoute: typeof WalletPacksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap/xml': {
@@ -1394,6 +1473,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWorldWalletNonceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/webhooks/stripe': {
+      id: '/api/webhooks/stripe'
+      path: '/api/webhooks/stripe'
+      fullPath: '/api/webhooks/stripe'
+      preLoaderRoute: typeof ApiWebhooksStripeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/wallet/sync': {
+      id: '/api/wallet/sync'
+      path: '/api/wallet/sync'
+      fullPath: '/api/wallet/sync'
+      preLoaderRoute: typeof ApiWalletSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/rewards/summary': {
       id: '/api/rewards/summary'
       path: '/api/rewards/summary'
@@ -1497,6 +1590,13 @@ declare module '@tanstack/react-router' {
       path: '/api/activity/log'
       fullPath: '/api/activity/log'
       preLoaderRoute: typeof ApiActivityLogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/wallet/packs/checkout': {
+      id: '/api/wallet/packs/checkout'
+      path: '/api/wallet/packs/checkout'
+      fullPath: '/api/wallet/packs/checkout'
+      preLoaderRoute: typeof ApiWalletPacksCheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/pulse/ingest/manual': {
@@ -1613,6 +1713,7 @@ const rootRouteChildren: RootRouteChildren = {
   PSlugRoute: PSlugRoute,
   SelfAgentidRoute: SelfAgentidRoute,
   SitemapXmlRoute: SitemapXmlRoute,
+  WalletPacksRoute: WalletPacksRoute,
   BlogIndexRoute: BlogIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
   EarthIndexRoute: EarthIndexRoute,
@@ -1620,6 +1721,7 @@ const rootRouteChildren: RootRouteChildren = {
   PassIndexRoute: PassIndexRoute,
   PlacesIndexRoute: PlacesIndexRoute,
   SignalIndexRoute: SignalIndexRoute,
+  WalletIndexRoute: WalletIndexRoute,
   WelcomeIndexRoute: WelcomeIndexRoute,
   ApiActivityLogRoute: ApiActivityLogRoute,
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
@@ -1636,12 +1738,15 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPulseFeedRoute: ApiPulseFeedRouteWithChildren,
   ApiPulseMetricsRoute: ApiPulseMetricsRoute,
   ApiRewardsSummaryRoute: ApiRewardsSummaryRoute,
+  ApiWalletSyncRoute: ApiWalletSyncRoute,
+  ApiWebhooksStripeRoute: ApiWebhooksStripeRoute,
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
   ApiPulseAttestationLatestRoute: ApiPulseAttestationLatestRoute,
   ApiPulseDigestDayIdRoute: ApiPulseDigestDayIdRoute,
   ApiPulseIngestManualRoute: ApiPulseIngestManualRoute,
+  ApiWalletPacksCheckoutRoute: ApiWalletPacksCheckoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

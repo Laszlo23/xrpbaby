@@ -68,6 +68,8 @@ Full gate: `cd app && npm run test:all` (lint, typecheck, build, unit, all e2e).
 | [CHAINLINK_RWA_COMPLIANCE.md](docs/CHAINLINK_RWA_COMPLIANCE.md) | RWA gap matrix — ACE, DTA, PoR, uRWA |
 | [IDENTITY_RESOLUTION.md](docs/IDENTITY_RESOLUTION.md) | Culture names `/id`, `/n`, API |
 | [IDENTITY_MINT_PRICE.md](docs/IDENTITY_MINT_PRICE.md) | ~$1.11 mint on Base |
+| [ADDRESSES.md](docs/ADDRESSES.md) | Contract addresses (Base, Places, identity) |
+| [SMART_WALLET_AND_PACKS.md](docs/SMART_WALLET_AND_PACKS.md) | Privy wallet, Stripe packs, Culture Points |
 | [MISSING_AND_FIXES.md](docs/MISSING_AND_FIXES.md) | Living tracker |
 | [apps/places/README.md](apps/places/README.md) | Property tokenization stack |
 

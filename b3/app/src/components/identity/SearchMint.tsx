@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { usePrivy } from "@privy-io/react-auth";
 import {
   useAccount,
   useConnect,
@@ -13,6 +14,7 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+import { privyEnabled } from "@/lib/privy-env";
 import {
   identityChainId,
   identityContractAddress,
@@ -31,6 +33,23 @@ type PassSearch = {
 
 function hasBrowserWallet(): boolean {
   return typeof window !== "undefined" && Boolean(window.ethereum);
+}
+
+function SearchMintPrivyLogin({ onError }: { onError: (msg: string) => void }) {
+  const { login, ready } = usePrivy();
+  return (
+    <button
+      type="button"
+      disabled={!ready}
+      onClick={() => {
+        onError("");
+        login();
+      }}
+      className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
+    >
+      Sign in for wallet →
+    </button>
+  );
 }
 
 export function SearchMint({ id }: { id?: string }) {
@@ -183,6 +202,10 @@ export function SearchMint({ id }: { id?: string }) {
     }
 
     if (!isConnected || !address) {
+      if (privyEnabled) {
+        setMintError("Sign in to create your Base smart wallet, then mint.");
+        return;
+      }
       if (!hasBrowserWallet()) {
         setMintError("Install MetaMask or another browser wallet extension.");
         window.open("https://metamask.io/download/", "_blank", "noopener,noreferrer");
@@ -281,24 +304,28 @@ export function SearchMint({ id }: { id?: string }) {
               ))}
             </select>
           </div>
-          <button
-            type="button"
-            onClick={() => void handleMint()}
-            disabled={mintDisabled}
-            className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <span className="relative z-10">
-              {isConnecting
-                ? "Connecting…"
-                : !isConnected
-                  ? "Connect wallet →"
-                  : wrongChain
-                    ? "Switch network →"
-                    : isMinting
-                      ? "Minting…"
-                      : "Mint identity →"}
-            </span>
-          </button>
+          {privyEnabled && !isConnected ? (
+            <SearchMintPrivyLogin onError={setMintError} />
+          ) : (
+            <button
+              type="button"
+              onClick={() => void handleMint()}
+              disabled={mintDisabled}
+              className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <span className="relative z-10">
+                {isConnecting
+                  ? "Connecting…"
+                  : !isConnected
+                    ? "Connect wallet →"
+                    : wrongChain
+                      ? "Switch network →"
+                      : isMinting
+                        ? "Minting…"
+                        : "Mint identity →"}
+              </span>
+            </button>
+          )}
         </div>
       </motion.div>
 

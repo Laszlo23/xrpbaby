@@ -1,0 +1,78 @@
+{
+  "updated": "2026-05-26",
+  "deployer": "0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5",
+  "networks": {
+    "8453": {
+      "name": "Base",
+      "explorer": "https://basescan.org",
+      "culture": {
+        "BuildingCultureDollar": "0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72",
+        "BCDGenesisClaim": "0x2bae6b04d0d1c8016cc863509395b68eb0021f58",
+        "RaffleTicketCampaign": "0xb1a88bf677400c23430b643a07229af832130ad8",
+        "AgentShareCampaign": "0x130e320a386b1ff0228492ddd65c380131ba86e9",
+        "CulturePulseAnchor": "0x503f8ad17c0fcdd84fbdbf7f51b41b39b02ebbae"
+      },
+      "identity": {
+        "CultureLayerIdentity": "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863"
+      },
+      "places": {
+        "PropertyRegistry": "0x5aca19274B17B97e38da9eA851d91F0CC59DafBf",
+        "PropertyShareFactory": "0x4CA708ca735bBA49D7B2383071EA7FA1B7BDC614",
+        "ComplianceRegistry": "0xa655c0B0037699433F0692356a3A142956103B7a",
+        "PurchaseEscrow": "0xCB3b78bA96AA64b7327c9d95c8DEab10678c85Ad",
+        "PurchaseEscrowERC20": "0x0Ea9948A36c16Dcc6ce1695011646a1f6128dFd0",
+        "WETH9": "0x4412Afca8021F233aE6a41cEFD06b27759C0E9A9",
+        "OgFactory": "0xFf5d617DF0ff0A9B8969906c696CbAc1eCe6518b",
+        "OgRouter": "0x753634Af9E86b26e5394f39496a1097C6f19B868",
+        "MockPriceOracle": "0x84431A9e5c0dEb8160Ab5D03aC2A9BCDb79Cc6Ff",
+        "BinaryPredictionMarket": "0x7D0E418d1a0e73a73C18F146a660346e2C113046",
+        "PropertyShareProof": "0x9D81A95188939C1f708f9E43921C490f4Ef4e064",
+        "OgStaking": "0x3145f34A6CC6Ae34d9112f50885aEe826062ACbB",
+        "PlatformSettlementToken": "0x6bF5638a07B8A0b0D80A3B6Ab69440B83BBAf3D0",
+        "PrimaryShareSaleERC20_Property1": "0xE37446E10a28eB2B188B02C6c8dF5d8e3b3d3b32",
+        "SimpleLendingPool": "0x0000000000000000000000000000000000000000",
+        "GovernanceSafe": "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c"
+      },
+      "placesTokens": {
+        "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+      },
+      "art": {
+        "BuildingCultureTicket": "0x2f10aAF159aeCf78d76a610b87210BF81775b62F",
+        "BuildingCultureHub": "0x698672950e7e43f52ca819cb4df67ffade5a6dac"
+      },
+      "envOnly": {
+        "VITE_MARKETPLACE_CONTRACT_ADDRESS": "set in production env — thirdweb Marketplace V3"
+      }
+    },
+    "84532": {
+      "name": "Base Sepolia",
+      "explorer": "https://sepolia.basescan.org",
+      "culture": {
+        "BuildingCultureDollar": "0x11c57fd49daf5f3b3e89c9c6d7c06849957fe552",
+        "BCDGenesisClaim": "0x7192b8d144ac6904ed3b9a381011b4af7e58b2cb",
+        "CulturePulseAnchor": "0x64f0009581a7007cc31040664e5d2d635f6a84fd"
+      }
+    },
+    "16602": {
+      "name": "0G Galileo Testnet",
+      "explorer": "https://chainscan-galileo.0g.ai",
+      "places": {
+        "PropertyRegistry": "0xc7749bcfdc8d06fc246be556f4ead75ac7e1320c",
+        "PropertyShareFactory": "0x54f15b19e23d920aaf91bab343b5972c6d340d24",
+        "ComplianceRegistry": "0x502ce9FB1814cb03843967EC5E0D8F6AA3A3C2e1",
+        "WETH9": "0x54e1cfe67f727c32a90ea6fe7b5f7614fd4c09c0",
+        "OgFactory": "0xEd2aF0e6417CaCC15DF755E80Afb94Ad35Aca1B2",
+        "OgRouter": "0xbe345d1c11e3b55d4091f3031322be3ef4e62273",
+        "BinaryPredictionMarket": "0x4369d653dec1ffda40fea02ba6fc3c4fd912c9a8"
+      }
+    }
+  },
+  "sources": {
+    "culture8453": "contracts/deployments/8453.json",
+    "culture84532": "contracts/deployments/84532.json",
+    "placesBase": "apps/places/deployments/base-mainnet.json",
+    "placesTestnet": "apps/places/deployments/testnet.json",
+    "primarySales": "apps/places/web/src/data/primary-sales.json",
+    "art8453": "apps/art/contracts/broadcast/Deploy.s.sol/8453/run-latest.json"
+  }
+}

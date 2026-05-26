@@ -3,7 +3,7 @@ import type { PrismaClient } from "@prisma/client";
 export async function ensureWalletAndMember(
   prisma: PrismaClient,
   address: string,
-  opts?: { intent?: string; email?: string },
+  opts?: { intent?: string; email?: string; privyUserId?: string },
 ) {
   const normalized = address.toLowerCase();
   let wallet = await prisma.wallet.findUnique({ where: { address: normalized } });
@@ -12,7 +12,13 @@ export async function ensureWalletAndMember(
   }
 
   let member = await prisma.member.findFirst({
-    where: { OR: [{ walletId: wallet.id }, { walletAddress: normalized }] },
+    where: {
+      OR: [
+        { walletId: wallet.id },
+        { walletAddress: normalized },
+        ...(opts?.privyUserId ? [{ privyUserId: opts.privyUserId }] : []),
+      ],
+    },
   });
 
   if (!member) {
@@ -20,17 +26,32 @@ export async function ensureWalletAndMember(
       data: {
         walletAddress: normalized,
         walletId: wallet.id,
+        privyUserId: opts?.privyUserId,
         intent: opts?.intent,
         email: opts?.email,
         supporterTier: "community",
         forestStage: "seedling",
       },
     });
-  } else if (opts?.intent && !member.intent) {
-    member = await prisma.member.update({
-      where: { id: member.id },
-      data: { intent: opts.intent },
-    });
+  } else {
+    const updates: {
+      intent?: string;
+      privyUserId?: string;
+      walletId?: string;
+      walletAddress?: string;
+    } = {};
+    if (opts?.intent && !member.intent) updates.intent = opts.intent;
+    if (opts?.privyUserId && member.privyUserId !== opts.privyUserId) {
+      updates.privyUserId = opts.privyUserId;
+    }
+    if (!member.walletId) updates.walletId = wallet.id;
+    if (!member.walletAddress) updates.walletAddress = normalized;
+    if (Object.keys(updates).length > 0) {
+      member = await prisma.member.update({
+        where: { id: member.id },
+        data: updates,
+      });
+    }
   }
 
   return { wallet, member };

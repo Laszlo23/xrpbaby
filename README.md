@@ -71,5 +71,7 @@ Places targets **REOC profile D**: uRWA transfer checks, DTA-style subscribe/red
 
 ## More docs
 
-Start here: [`b3/docs/README.md`](b3/docs/README.md)
+- **All addresses:** [`b3/docs/ADDRESSES.md`](b3/docs/ADDRESSES.md) (and [`ADDRESSES.json`](b3/docs/ADDRESSES.json))
+- **Smart wallet & packs:** [`b3/docs/SMART_WALLET_AND_PACKS.md`](b3/docs/SMART_WALLET_AND_PACKS.md)
+- Start here: [`b3/docs/README.md`](b3/docs/README.md)
 

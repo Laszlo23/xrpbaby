@@ -6,6 +6,8 @@ Runbooks for deploy, domain cutover, pulse, BCD, and platform ops.
 
 | Doc | Description |
 |-----|-------------|
+| [ADDRESSES.md](ADDRESSES.md) | All contract addresses (Base, Places, identity, testnets) |
+| [SMART_WALLET_AND_PACKS.md](SMART_WALLET_AND_PACKS.md) | Privy smart wallet, Stripe packs, Culture Points |
 | [MISSING_AND_FIXES.md](MISSING_AND_FIXES.md) | Living tracker — what's fixed, what's open |
 | [IDENTITY_MINT_PRICE.md](IDENTITY_MINT_PRICE.md) | TLD mint ~$1.11 on Base (on-chain + ops) |
 | [IDENTITY_RESOLUTION.md](IDENTITY_RESOLUTION.md) | Culture names resolve in-app (`/id`, `/n`, API) |

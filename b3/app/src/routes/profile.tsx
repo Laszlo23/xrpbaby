@@ -282,8 +282,8 @@ function ProfilePage() {
               Your builder profile
             </h1>
             <p className="mx-auto max-w-md text-sm leading-relaxed text-muted-foreground">
-              Connect a wallet to earn XP, complete quests, view your points ledger, and unlock
-              Genesis vault phases — progression is stored locally for now.
+              Sign in or connect a wallet to earn Culture Points, buy packs, complete quests, and
+              unlock Genesis vault phases.
             </p>
             <div className="flex justify-center pt-2">
               <WalletControls />
@@ -322,6 +322,15 @@ function ProfilePage() {
               <p className="font-heading font-semibold text-foreground">Genesis District</p>
               <p className="mt-2 text-xs text-muted-foreground">
                 Vault passes and phased access — unlock after you connect.
+              </p>
+            </Link>
+            <Link
+              to="/wallet/packs"
+              className="glass rounded-xl border border-white/10 p-5 transition hover:border-[#C5FF41]/35 sm:col-span-3"
+            >
+              <p className="font-heading font-semibold text-foreground">Culture packs</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Buy Culture Points with card ($0.70–$7.7M tiers) after you sign in.
               </p>
             </Link>
           </div>
