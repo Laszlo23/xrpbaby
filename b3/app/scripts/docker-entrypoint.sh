@@ -7,7 +7,7 @@ if [ -n "${DATABASE_URL:-}" ]; then
   max="${PRISMA_MIGRATE_RETRIES:-20}"
   delay="${PRISMA_MIGRATE_DELAY_S:-2}"
   while :; do
-    if npx prisma migrate deploy; then
+    if ./node_modules/.bin/prisma migrate deploy; then
       break
     fi
     i=$((i + 1))

@@ -43,6 +43,7 @@ COPY --from=builder /repo/app/node_modules ./node_modules
 COPY --from=builder /repo/app/dist ./dist
 COPY --from=builder /repo/app/prisma ./prisma
 COPY --from=builder /repo/app/scripts/docker-entrypoint.sh ./docker-entrypoint.sh
+COPY --from=builder /repo/app/scripts/serve-production.mjs ./scripts/serve-production.mjs
 
 ENV NODE_ENV=production
 ENV PORT=3000

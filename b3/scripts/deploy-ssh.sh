@@ -16,6 +16,10 @@ APP_PORT="${APP_PORT:-3010}"
 CONTAINER_NAME="${CONTAINER_NAME:-buildingculture-web}"
 USE_COMPOSE="${USE_DOCKER_COMPOSE:-1}"
 SSH_OPTS=( -o BatchMode=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=240 )
+SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_wgsdex}"
+if [[ -f "$SSH_KEY" ]]; then
+  SSH_OPTS=( -i "$SSH_KEY" "${SSH_OPTS[@]}" )
+fi
 
 if [[ "$USE_COMPOSE" == "1" ]]; then
   echo "==> Checking $HOST:${REMOTE_DIR}/app/.env for POSTGRES_PASSWORD (compose stack)"
