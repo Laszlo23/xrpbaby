@@ -32,6 +32,12 @@ export const Route = createFileRoute("/api/wallet/sync")({
         }
 
         const auth = await verifyPrivyAccessToken(request.headers.get("authorization"));
+        const privyConfigured =
+          Boolean(process.env.PRIVY_APP_ID?.trim() || process.env.VITE_PRIVY_APP_ID?.trim()) &&
+          Boolean(process.env.PRIVY_APP_SECRET?.trim());
+        if (privyConfigured && !("userId" in auth)) {
+          return json({ ok: false, error: auth.error }, auth.status);
+        }
         const privyUserId = "userId" in auth ? auth.userId : undefined;
 
         let farcasterFid: number | undefined;
