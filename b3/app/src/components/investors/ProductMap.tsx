@@ -32,7 +32,7 @@ export function ProductMap() {
         <h3 className="font-heading text-lg font-semibold text-white">App</h3>
         <p className="mt-2 text-sm leading-relaxed text-zinc-500">
           Primary product surface: wallet, marketplace, missions, XP / points ledger, community
-          profile, and experiments such as x402-protected APIs—where players actually stack BCD
+          profile, and experiments such as x402-protected APIs—where players actually stack BCC
           story and receipts.
         </p>
         <a

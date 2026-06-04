@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 
 import { platformModules } from "@/lib/modules";
 import { chainlinkComplianceCopy } from "@/lib/chainlink-compliance-copy";
+import { complianceHint, complianceStatusLabel } from "@/lib/compliance-eligibility-copy";
+import { BCC_SYMBOL } from "@/lib/bcc-config";
 
-const PLACES_SITE = import.meta.env.VITE_PLACES_SITE_URL?.trim() || "https://buildingculture.capital";
+const PLACES_SITE =
+  import.meta.env.VITE_PLACES_SITE_URL?.trim() || "https://buildingculture.capital";
 
 type Eligibility = {
   ok?: boolean;
+  configured?: boolean;
   status?: string;
   canHoldRestrictedShares?: boolean;
+  placesUrl?: string;
 };
 
 export const Route = createFileRoute("/places/")({
@@ -46,13 +51,45 @@ function PlacesPage() {
       <p className="mt-4 max-w-xl text-zinc-400">{chainlinkComplianceCopy.body}</p>
 
       {isConnected && eligibility ? (
-        <p className="mt-4 text-sm text-zinc-300">
-          Wallet compliance: <span className="font-mono text-[#00E5FF]">{eligibility.status ?? "unknown"}</span>
-          {eligibility.canHoldRestrictedShares ? " · eligible for restricted shares" : " · verification may be required"}
-        </p>
+        <div className="mt-4 max-w-xl space-y-2 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm">
+          <p className="text-zinc-300">
+            Wallet compliance:{" "}
+            <span className="font-mono text-[#00E5FF]">
+              {complianceStatusLabel(eligibility.status)}
+            </span>
+            {eligibility.canHoldRestrictedShares ? (
+              <span className="text-emerald-400"> · eligible for restricted shares</span>
+            ) : null}
+          </p>
+          <p className="text-zinc-500">{complianceHint(eligibility)}</p>
+          {eligibility.configured && eligibility.status === "none" ? (
+            <a
+              href={`${eligibility.placesUrl ?? PLACES_SITE}/invest`}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-block text-[#C5FF41] underline underline-offset-2"
+            >
+              Start Places verification ↗
+            </a>
+          ) : null}
+        </div>
       ) : (
-        <p className="mt-4 text-sm text-zinc-500">Connect a wallet to check compliance eligibility.</p>
+        <p className="mt-4 text-sm text-zinc-500">
+          Connect a wallet to check compliance eligibility.
+        </p>
       )}
+
+      <p className="mt-4 max-w-xl text-sm text-zinc-500">
+        Culture passes, marketplace NFTs, and social quests use{" "}
+        <Link to="/profile" className="text-[#00E5FF] underline underline-offset-2">
+          points on Profile
+        </Link>
+        . Pay with {BCC_SYMBOL} (−11.11%) on{" "}
+        <Link to="/pass" className="text-[#00E5FF] underline underline-offset-2">
+          Pass
+        </Link>{" "}
+        when your wallet holds BCC.
+      </p>
 
       <div className="mt-8 flex flex-wrap gap-4">
         <a
@@ -85,8 +122,8 @@ function PlacesPage() {
       </div>
 
       <p className="mt-10 max-w-lg text-xs text-zinc-600">
-        NFT marketplace at /marketplace is separate from property share securities. Play /play drops are experience
-        raffles — not Places tokenized real estate.
+        NFT marketplace at /marketplace is separate from property share securities. Play /play drops
+        are experience raffles — not Places tokenized real estate.
       </p>
     </div>
   );

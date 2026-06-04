@@ -19,9 +19,9 @@ export const Route = createFileRoute("/presale")({
     pageHead({
       title: `Presale — ${BCD_SYMBOL}`,
       description:
-        "Fixed-supply presale round for Building Culture Dollar: on-chain caps, optional allowlist, same token at public launch—no separate redeemable copy token required.",
+        "Fixed-supply presale round for Building Culture Coin: on-chain caps, optional allowlist, same token at public launch—no separate redeemable copy token required.",
       path: "/presale",
-      keywords: ["BCD presale", "Building Culture Dollar", "token sale", "BCDFixedPriceSale"],
+      keywords: ["BCC presale", "Building Culture Coin", "token sale", "BCDFixedPriceSale"],
     }),
   component: PresalePage,
 });
@@ -186,7 +186,7 @@ function PresalePage() {
             <li>
               Connect a wallet on the configured chain and click{" "}
               <strong className="font-medium text-zinc-200">Open purchase flow</strong> above (same
-              UI as “Get BCD” elsewhere).
+              UI as “Get $BCC” elsewhere).
             </li>
             <li>
               Public rounds anyone can participate; private rounds load a merkle proof (hosted JSON

@@ -37,6 +37,8 @@ LAUNCH_DATE_UTC = os.environ.get("LAUNCH_DATE_UTC", "2026-05-30T12:00:00Z")
 NEYNAR_API_KEY = os.environ.get("NEYNAR_API_KEY", "")
 NEYNAR_CLIENT_ID = os.environ.get("NEYNAR_CLIENT_ID", "")
 NEYNAR_API_BASE = "https://api.neynar.com/v2"
+HUB_API_ORIGIN = os.environ.get("HUB_API_ORIGIN", "https://app.buildingcultureid.space").rstrip("/")
+PLATFORM_INTERNAL_SECRET = os.environ.get("PLATFORM_INTERNAL_SECRET", "")
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
@@ -80,6 +82,7 @@ ECOSYSTEM_APPS = [
     {"slug": "bc-id", "name": "Building Culture ID", "url": "https://buildingcultureid.space", "xp": 200, "description": "Claim your sovereign Building Culture identity."},
     {"slug": "bc-art", "name": "Building Culture Art", "url": "https://art.buildingcultureid.space", "xp": 150, "description": "Where culture becomes canvas."},
     {"slug": "wohnai", "name": "WohnAI", "url": "https://wohnai.buildingcultureid.space", "xp": 150, "description": "The AI that rebuilds places, one home at a time."},
+    {"slug": "bcdai", "name": "BCDAI", "url": "https://bcdai.buildingcultureid.space", "xp": 150, "description": "Trade smarter — AI copilots and copy-trading on Base & Solana."},
     {"slug": "bc-home", "name": "Building Culture Home", "url": "https://home.buildingculture.capital", "xp": 100, "description": "Where lives are rooted again."},
     {"slug": "bc-game", "name": "Building Culture Game", "url": "https://game.buildingculture.capital", "xp": 100, "description": "Play your way into the new economy."},
 ]
@@ -292,6 +295,24 @@ def fetch_farcaster_username(fid: int) -> Optional[str]:
     except requests.RequestException:
         log.warning("neynar user lookup failed for fid=%s", fid)
         return None
+
+
+def sync_farcaster_to_hub(wallet_address: str, fid: int) -> None:
+    """Mirror FID link to unified Postgres Member when wallet is known."""
+    if not PLATFORM_INTERNAL_SECRET or not wallet_address:
+        return
+    try:
+        requests.post(
+            f"{HUB_API_ORIGIN}/api/social/link-farcaster-internal",
+            json={"walletAddress": wallet_address.lower(), "fid": fid},
+            headers={
+                "Content-Type": "application/json",
+                "X-Platform-Internal-Secret": PLATFORM_INTERNAL_SECRET,
+            },
+            timeout=15,
+        )
+    except requests.RequestException:
+        log.warning("hub farcaster sync failed for fid=%s", fid)
 
 
 async def get_current_user(creds: HTTPAuthorizationCredentials = Depends(bearer)) -> Dict[str, Any]:
@@ -511,6 +532,9 @@ async def link_farcaster(body: LinkFarcasterIn, user: Dict[str, Any] = Depends(g
     }
     await db.users.update_one({"id": user["id"]}, {"$set": updates})
     user.update(updates)
+    wallet = user.get("wallet_address") or user.get("embedded_wallet")
+    if isinstance(wallet, str) and wallet.startswith("0x"):
+        sync_farcaster_to_hub(wallet, body.fid)
     await push_feed("farcaster", user["username"], f"{user['username']} connected Farcaster (FID {body.fid}).")
     return public_user(user)
 

@@ -79,6 +79,7 @@ export const footerEcosystemLinks: { label: string; href: string; icon: LucideIc
   { label: "Home", href: "https://home.buildingculture.capital", icon: Home },
   { label: "Art", href: "/drops/art", icon: Palette },
   { label: "WohnAI", href: "https://wohnai.buildingcultureid.space", icon: Bot },
+  { label: "BCDAI", href: "https://bcdai.buildingcultureid.space", icon: Zap },
   { label: "Game", href: "https://game.buildingculture.capital", icon: Gamepad2 },
 ];
 
@@ -86,13 +87,15 @@ export const footerLayerLinks: InternalFooterLink[] = [
   { to: "/signal", label: "Culture Pulse", icon: Sparkles },
   { to: "/earth", label: "Earth lane", icon: Globe },
   { to: "/drops/art", label: "Art drops", icon: Palette },
+  { to: "/0g/agentid", label: "0G Agent ID (hackathon)", icon: Bot },
+  { to: "/trading-agent", label: "Trading agent (x402)", icon: Zap },
 ];
 
 export const footerCompanyLinks: { to: string; label: string; icon: LucideIcon }[] = [
   { to: "/guide", label: "Sites guide", icon: Compass },
   { to: "/about", label: "About", icon: Info },
   { to: "/team", label: "Team", icon: Users },
-  { to: "/mission", label: "Mission (BCD)", icon: Flag },
+  { to: "/mission", label: "Mission (BCC)", icon: Flag },
   { to: "/investors", label: "Investors", icon: PieChart },
   { to: "/roadmap", label: "Roadmap", icon: MapPin },
   { to: "/faq", label: "FAQ", icon: HelpCircle },

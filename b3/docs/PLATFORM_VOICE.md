@@ -8,7 +8,7 @@ Use this when writing UI, Elias replies, and marketing.
 |---------|--------|
 | Sign in | Create your pass, Sign in |
 | Rewards | Culture Points, forest credits |
-| Token | Culture Dollar (BCD), community credits |
+| Token | Culture Coin (BCC), community credits |
 | NFT / mint | Unlock, pass, recorded |
 | Platform | The forest, our community |
 | Growth | Seedling → sapling → tree → grove |

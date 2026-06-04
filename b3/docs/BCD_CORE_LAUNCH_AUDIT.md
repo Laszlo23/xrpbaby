@@ -1,4 +1,4 @@
-# BCD core launch audit (token + fixed-price sale)
+# BCC core launch audit (token + fixed-price sale)
 
 Scope: `BuildingCultureDollar` + `BCDFixedPriceSale` (and their wiring). This is an internal engineering audit to drive a launch plan; it is **not** a third‑party security audit.
 

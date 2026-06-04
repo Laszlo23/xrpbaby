@@ -229,7 +229,12 @@ export const postCompleteFarcasterSocialTask = createServerFn({ method: "POST" }
         }
 
         const addr = address.toLowerCase();
-        const { wallet } = await ensureWalletAndMember(prisma, addr);
+        const { wallet, member } = await ensureWalletAndMember(prisma, addr);
+
+        if (!member.farcasterFid) {
+          const { syncMemberSupportScore } = await import("@/server/social/support-score-sync");
+          await syncMemberSupportScore(prisma, member.id).catch(() => {});
+        }
 
         const existing = await prisma.pointLedger.findFirst({
           where: {
@@ -251,12 +256,30 @@ export const postCompleteFarcasterSocialTask = createServerFn({ method: "POST" }
         }
 
         if (task.points > 0) {
+          const { resolveTargetSupportMultiplier, applyPointsMultiplier } =
+            await import("@/server/social/reward-multiplier");
+          let awarded = task.points;
+          let multiplier = 1;
+          if (data.taskSlug === "follow-farcaster") {
+            const rawTarget = process.env.NEYNAR_TARGET_FID?.trim();
+            const targetFid = rawTarget ? Number.parseInt(rawTarget, 10) : null;
+            const resolved = await resolveTargetSupportMultiplier(
+              prisma,
+              Number.isFinite(targetFid) && targetFid! > 0 ? targetFid : null,
+            );
+            multiplier = resolved.multiplier;
+            awarded = applyPointsMultiplier(task.points, multiplier);
+          }
           await prisma.pointLedger.create({
             data: {
               walletId: wallet.id,
-              delta: task.points,
+              delta: awarded,
               reason: "task_completion",
               taskSlug: data.taskSlug,
+              metadata:
+                multiplier > 1
+                  ? ({ supportMultiplier: multiplier, basePoints: task.points } as object)
+                  : undefined,
             },
           });
         }

@@ -1,4 +1,4 @@
-# BCD pre-launch runbook (Safe-owned) + go/no-go
+# BCC pre-launch runbook (Safe-owned) + go/no-go
 
 This runbook turns `BCD_TOKENOMICS_LAUNCH.md` and `BCD_LAUNCH_AUDIT_AND_LP.md` into a concrete execution checklist.
 

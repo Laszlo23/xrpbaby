@@ -1,0 +1,16 @@
+{
+  "chainId": 8453,
+  "name": "Base",
+  "bccToken": "0xb890a5289f789f1346032ccc1847939e855fab07",
+  "uniswapUrl": "https://app.uniswap.org/swap?outputCurrency=0xB890a5289F789f1346032Ccc1847939e855FAb07&chain=base",
+  "bccDiscountBps": 1111,
+  "contracts": {
+    "BccTwapOracle": "",
+    "MockBccUsdOracle": "0x46C96e0A459ea441873FA8c3077f42b5e1E9cB4f",
+    "CultureLayerIdentityV2": "0x9942095ab0a9512e432aeacd623e929cfb474058",
+    "BuildingCultureHubV2": "0x97FDaEaFDbEF34918CFD223549C3d1e98E95c7c3",
+    "BuildingCultureTicketV2": "0x4F92e47Ab0f6f233Ffe76b2c3ddbF2729719C8D6",
+    "PrimaryShareSaleBcc": ""
+  },
+  "deployInstructions": "See b3/docs/BCC_TOKEN.md and scripts/deploy-bcc-oracle.sh"
+}

@@ -3,7 +3,11 @@ import { describe, it } from "node:test";
 
 import { SiweMessage } from "siwe";
 
-import { consumeNonceIfValid, createWalletAuthNonce, rememberNonce } from "@/server/world/nonce-store";
+import {
+  consumeNonceIfValid,
+  createWalletAuthNonce,
+  rememberNonce,
+} from "@/server/world/nonce-store";
 import { requireSiweAuth } from "./siwe.ts";
 
 describe("requireSiweAuth", () => {

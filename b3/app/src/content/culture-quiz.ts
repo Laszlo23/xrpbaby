@@ -44,7 +44,7 @@ export function shuffleQuestionChoices(q: CultureQuizQuestion): CultureQuizQuest
 const STATIC_FAQ: CultureQuizQuestion[] = [
   {
     id: "faq-bcd-role",
-    prompt: "In this app, Building Culture Dollar (BCD) is mainly framed as:",
+    prompt: "In this app, Building Culture Coin ($BCC) is mainly framed as:",
     choices: [
       "A guaranteed investment return",
       "An economic and narrative layer you stack toward drops",
@@ -53,20 +53,20 @@ const STATIC_FAQ: CultureQuizQuestion[] = [
     ],
     correctIndex: 1,
     explain:
-      "BCD is the app’s economic layer—a story and balance you grow toward drops; pricing UX may still settle in native gas tokens until BCD-invoice raffles ship.",
+      "$BCC is the app’s economic layer—a story and balance you grow toward drops; pricing UX may still settle in native gas tokens until $BCC-invoice raffles ship.",
   },
   {
     id: "faq-mint-settlement",
     prompt: "When a live on-chain raffle mint is wired up, ticket payment is typically settled in:",
     choices: [
-      "BCD only",
+      "$BCC only",
       "The chain’s native gas token (e.g. ETH on L2)",
       "Credit card only",
       "Bank wire only",
     ],
     correctIndex: 1,
     explain:
-      "Today’s live campaigns settle mints in the chain’s native asset for gas; the UI may still lead with BCD as the pricing story.",
+      "Today’s live campaigns settle mints in the chain’s native asset for gas; the UI may still lead with $BCC as the pricing story.",
   },
   {
     id: "faq-wallet",
@@ -109,7 +109,7 @@ const STATIC_FAQ: CultureQuizQuestion[] = [
   },
   {
     id: "faq-no-guarantee",
-    prompt: "Does buying or claiming BCD guarantee profit or access to specific assets?",
+    prompt: "Does buying or claiming $BCC guarantee profit or access to specific assets?",
     choices: [
       "Yes — rarity implies legal entitlement",
       "No — no guarantees; jurisdictions and drop rules vary",
@@ -122,7 +122,7 @@ const STATIC_FAQ: CultureQuizQuestion[] = [
   },
   {
     id: "faq-mission-link",
-    prompt: "Where can you read more about the mission, BCD, and genesis programs?",
+    prompt: "Where can you read more about the mission, $BCC, and genesis programs?",
     choices: [
       "Only the marketplace listings",
       "The Mission page (/mission)",

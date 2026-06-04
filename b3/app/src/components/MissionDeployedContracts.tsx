@@ -164,7 +164,7 @@ export function MissionDeployedContracts() {
           {sale ? (
             <div className="space-y-2">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-                BCD fixed-price sale · BCDFixedPriceSale
+                BCDFixedPriceSale · BCDFixedPriceSale
               </p>
               <AddrLink chainId={chainId} address={sale} label="Contract" />
             </div>
@@ -175,7 +175,7 @@ export function MissionDeployedContracts() {
               <AddrLink chainId={chainId} address={bcd} label={`${BCD_SYMBOL} token`} />
             ) : null}
             {genesis ? (
-              <AddrLink chainId={chainId} address={genesis} label="BCD genesis claim" />
+              <AddrLink chainId={chainId} address={genesis} label={`${BCD_SYMBOL} genesis claim`} />
             ) : null}
             {marketplace ? (
               <AddrLink chainId={chainId} address={marketplace} label="Marketplace (thirdweb)" />

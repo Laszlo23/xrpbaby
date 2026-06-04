@@ -44,9 +44,7 @@ export function TreasuryEntityArchitecture() {
             </ul>
           </div>
           <div className="space-y-2">
-            <p className="text-xs font-mono uppercase tracking-wider text-rose-400/90">
-              Poor fits
-            </p>
+            <p className="text-xs font-mono uppercase tracking-wider text-rose-400/90">Poor fits</p>
             <ul className="list-inside list-disc space-y-1.5 text-sm text-zinc-400 marker:text-rose-600/70">
               <li>Direct real estate owner (use SPVs)</li>
               <li>Global operating company</li>
@@ -84,8 +82,8 @@ export function TreasuryEntityArchitecture() {
             <div>
               <p className="font-medium text-zinc-200">Investor intake</p>
               <p className="mt-1 text-sm text-zinc-400">
-                Investors may contribute USDC, USD, or EUR into a Delaware gateway entity—only
-                under counsel-approved subscription documents and bank / stablecoin rails.
+                Investors may contribute USDC, USD, or EUR into a Delaware gateway entity—only under
+                counsel-approved subscription documents and bank / stablecoin rails.
               </p>
             </div>
           </li>
@@ -131,10 +129,14 @@ export function TreasuryEntityArchitecture() {
           </div>
           <ul className="list-inside list-disc space-y-2 text-sm text-zinc-400 marker:text-zinc-600">
             <li>Flexible investor and LLC agreement design (including web3-style mechanics).</li>
-            <li>Often easier U.S. investor onboarding vs. some European operating companies alone.</li>
+            <li>
+              Often easier U.S. investor onboarding vs. some European operating companies alone.
+            </li>
             <li>Familiar to crypto-native funds and U.S. angels.</li>
-            <li>Room to embed DAO signals, treasury rights, and governance mechanics in contracts—if
-              lawfully structured.</li>
+            <li>
+              Room to embed DAO signals, treasury rights, and governance mechanics in contracts—if
+              lawfully structured.
+            </li>
           </ul>
         </div>
 
@@ -146,8 +148,8 @@ export function TreasuryEntityArchitecture() {
           <ul className="space-y-3 text-sm text-amber-100/85">
             <li>
               <strong className="font-medium text-amber-50">FATCA / CRS:</strong> international
-              investors through a U.S. gateway can trigger reporting—plan for accounting, AML /
-              KYC, investor registry, and tax reporting early.
+              investors through a U.S. gateway can trigger reporting—plan for accounting, AML / KYC,
+              investor registry, and tax reporting early.
             </li>
             <li>
               <strong className="font-medium text-amber-50">SEC / securities:</strong> if tokens
@@ -183,8 +185,8 @@ export function TreasuryEntityArchitecture() {
         <p className="text-zinc-400">
           A practical model: the DAO publishes governance signals; the Delaware operating agreement
           explicitly recognizes those signals; multisig or managers execute approved actions; a
-          foundation or steward retains narrowly defined emergency powers. That stack aims for
-          legal enforceability and operational clarity without pretending an on-chain vote replaces
+          foundation or steward retains narrowly defined emergency powers. That stack aims for legal
+          enforceability and operational clarity without pretending an on-chain vote replaces
           corporate law.
         </p>
       </div>
@@ -242,7 +244,8 @@ export function TreasuryEntityArchitecture() {
             <span className="text-zinc-300">Switzerland</span> — treasury + institutional layer
           </li>
           <li>
-            <span className="text-zinc-300">Liechtenstein</span> — governance / legal wrapper where used
+            <span className="text-zinc-300">Liechtenstein</span> — governance / legal wrapper where
+            used
           </li>
           <li>
             <span className="text-zinc-300">DAO</span> — community coordination

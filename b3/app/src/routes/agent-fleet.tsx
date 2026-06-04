@@ -49,7 +49,7 @@ function AgentFleetPage() {
           Eleven agents — <span className="text-zinc-100">one orchestrated fleet</span>
         </>
       }
-      subtitle="CEO routing, growth & social (including a funded marketing wallet), trading personas for BCD treasury discipline, and x402 monetization — designed to register on ERC-8004 ecosystems such as 8004scan."
+      subtitle="CEO routing, growth & social (including a funded marketing wallet), trading personas for BCC treasury discipline, and x402 monetization — designed to register on ERC-8004 ecosystems such as 8004scan."
       actions={
         <>
           <Button variant="secondary" className="rounded-full" asChild>
@@ -79,7 +79,7 @@ function AgentFleetPage() {
               <p className="leading-relaxed text-amber-100/85">
                 This page describes agent roles for builders. Trading and treasury execution belong
                 in audited scripts, multisigs, and legal review — not in anonymous hot wallets.
-                Nothing here guarantees profit or liquidity for BCD.
+                Nothing here guarantees profit or liquidity for BCC.
               </p>
             </div>
           </div>
@@ -298,7 +298,7 @@ function AgentFleetPage() {
               story.
             </li>
             <li>
-              Move BCD / ETH only through treasury policy — extend `@bc/bcd-orchestration` /
+              Move BCC / ETH only through treasury policy — extend `@bc/bcd-orchestration` /
               Temporal worker on the server with real queues.
             </li>
           </ol>

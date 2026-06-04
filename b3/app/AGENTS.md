@@ -24,10 +24,11 @@
 | `/join` | Smart wallet + intent quiz |
 | `/forest` | Module hub |
 
-## BCD
+## BCC (Building Culture Coin)
 
-- **`VITE_BCD_CHAIN_ID`:** `8453` mainnet, `84532` Base Sepolia staging.
-- Deploy Sepolia: `scripts/deploy-bcd-base-sepolia.sh` then `npm run contracts:sdk`.
+- **Token (Base `8453`):** `0xb890a5289f789f1346032ccc1847939e855fab07` — see `docs/BCC_TOKEN.md`.
+- **`VITE_BCC_TOKEN_ADDRESS`**, **`VITE_BCC_UNISWAP_URL`**, **`VITE_BCC_DISCOUNT_BPS`** in `.env.example`.
+- Legacy genesis/sale env still uses `VITE_BCD_*` keys where applicable.
 
 ## Strapi CMS
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { animate, motion, useMotionValue, useTransform, type MotionValue } from "framer-motion";
 
+import { BCC_ADDRESS } from "@bc/bcc-kit";
+
 import { getLayerAccent, getLayerIcon } from "@/lib/ecosystem-layers";
 import {
   LANDING_ECOSYSTEM,
@@ -137,13 +139,13 @@ export function LandingBcd() {
   const outer = projects.filter((_, i) => i % 2 === 1);
 
   return (
-    <section id="bcd" className="relative w-full overflow-hidden bg-[#070707] py-28 sm:py-36">
+    <section id="bcc" className="relative w-full overflow-hidden bg-[#070707] py-28 sm:py-36">
       <div className="absolute inset-0 bc-noise" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00E5FF]/15 blur-3xl" />
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C47C59]/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
-        <p className="mono-label">BUILDING CULTURE DOLLAR</p>
+        <p className="mono-label">BUILDING CULTURE COIN</p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -155,7 +157,7 @@ export function LandingBcd() {
         </motion.h2>
 
         <p className="mx-auto mt-8 max-w-2xl text-base text-zinc-400 sm:text-lg">
-          The Building Culture Dollar (BCD) is the future utility layer that ties every product,
+          The Building Culture Coin ($BCC) is the future utility layer that ties every product,
           every place and every participant into a single, transparent economy.
         </p>
 
@@ -206,7 +208,7 @@ export function LandingBcd() {
                 }}
               />
               <div className="relative font-display text-2xl font-black text-white sm:text-4xl">
-                BCD
+                $BCC
               </div>
             </motion.div>
           </motion.div>
@@ -216,8 +218,20 @@ export function LandingBcd() {
           Hover icons for names · tap to open products
         </p>
 
-        <p className="mx-auto mt-10 max-w-xl font-mono text-sm tracking-[0.15em] text-zinc-500 uppercase sm:mt-16">
-          A future utility layer · not financial advice
+        <p className="mx-auto mt-6 max-w-xl break-all font-mono text-[10px] tracking-[0.12em] text-zinc-500 uppercase sm:text-[11px]">
+          $BCC on Base ·{" "}
+          <a
+            href={`https://basescan.org/token/${BCC_ADDRESS}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#00E5FF]/90 underline-offset-2 hover:underline"
+          >
+            {BCC_ADDRESS}
+          </a>
+        </p>
+
+        <p className="mx-auto mt-10 max-w-xl font-mono text-sm tracking-[0.15em] text-zinc-500 uppercase sm:mt-12">
+          Live on Base · not financial advice
         </p>
       </div>
     </section>

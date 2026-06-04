@@ -12,13 +12,13 @@ export const Route = createFileRoute("/investors")({
     pageHead({
       title: "Investors — Building Culture Capital",
       description:
-        "Investor overview: Building Culture Capital, BUILDCHAIN surfaces, BCD narrative, illustrative economics — not an offer or financial advice.",
+        "Investor overview: Building Culture Capital, BUILDCHAIN surfaces, BCC narrative, illustrative economics — not an offer or financial advice.",
       path: "/investors",
       keywords: [
         "Building Culture Capital",
         "BUILDCHAIN",
         "investors",
-        "BCD",
+        "BCC",
         "treasury",
         "RWA",
         "Delaware LLC",
@@ -42,7 +42,7 @@ function InvestorsPage() {
           </span>
         </>
       }
-      subtitle="An angel-friendly map of our umbrella brand, product surfaces (app + game), and the Building Culture Dollar (BCD) story inside BUILDCHAIN. Illustrative numbers only—see disclaimers."
+      subtitle="An angel-friendly map of our umbrella brand, product surfaces (app + game), and the Building Culture Coin ($BCC) story inside BUILDCHAIN. Illustrative numbers only—see disclaimers."
       actions={
         <a
           href="https://app.buildingcultureid.space/"
@@ -67,7 +67,7 @@ function InvestorsPage() {
             opaque. We combine{" "}
             <strong className="font-medium text-zinc-200">fair, inspectable drops</strong> with an
             app layer that makes participation legible: wallets, marketplace, missions, and XP tied
-            to <strong className="font-medium text-zinc-200">Building Culture Dollar (BCD)</strong>{" "}
+            to <strong className="font-medium text-zinc-200">Building Culture Coin ($BCC)</strong>{" "}
             as the in-app economic story—without claiming guaranteed returns on any token.
           </p>
         </section>
@@ -85,17 +85,17 @@ function InvestorsPage() {
 
         <section className="space-y-4">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
-            BCD + BUILDCHAIN (accurate constraints)
+            $BCC + BUILDCHAIN (accurate constraints)
           </h2>
           <p>
-            BCD is how we discuss value inside the product: balances, “Get BCD” previews, and
+            $BCC is how we discuss value inside the product: balances, “Get $BCC” previews, and
             mission-driven storytelling. Where configured, the UI can read an ERC20 balance; where
             not, we label demo balances honestly.
           </p>
           <p>
             <strong className="font-medium text-zinc-200">Settlement today</strong> follows the
             deployed raffle path in the chain’s native gas token unless and until contracts accept
-            BCD for mints—we say that loudly so expectations stay aligned (
+            $BCC for mints—we say that loudly so expectations stay aligned (
             <Link to="/faq" className="text-zinc-200 underline">
               FAQ
             </Link>
@@ -321,7 +321,7 @@ function InvestorsPage() {
                 to="/mission"
                 className="font-medium text-zinc-200 underline-offset-4 hover:text-white"
               >
-                Mission (BCD)
+                Mission ($BCC)
               </Link>{" "}
               — treasury narrative, genesis claim context.
             </li>

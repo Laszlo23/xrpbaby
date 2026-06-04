@@ -1,12 +1,12 @@
 {
-  "updated": "2026-05-26",
+  "updated": "2026-06-04",
   "deployer": "0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5",
   "networks": {
     "8453": {
       "name": "Base",
       "explorer": "https://basescan.org",
       "culture": {
-        "BuildingCultureDollar": "0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72",
+        "BuildingCultureDollar": "0xb890a5289f789f1346032ccc1847939e855fab07",
         "BCDGenesisClaim": "0x2bae6b04d0d1c8016cc863509395b68eb0021f58",
         "RaffleTicketCampaign": "0xb1a88bf677400c23430b643a07229af832130ad8",
         "AgentShareCampaign": "0x130e320a386b1ff0228492ddd65c380131ba86e9",
@@ -14,6 +14,19 @@
       },
       "identity": {
         "CultureLayerIdentity": "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863"
+      },
+      "bcc": {
+        "BCC": "0xb890a5289f789f1346032ccc1847939e855fab07",
+        "BCD_legacy": "0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72",
+        "BccTwapOracle": "",
+        "MockBccUsdOracle": "0x46C96e0A459ea441873FA8c3077f42b5e1E9cB4f",
+        "CultureLayerIdentityV2": "0x9942095ab0a9512e432aeacd623e929cfb474058",
+        "BuildingCultureHubV2": "0x97FDaEaFDbEF34918CFD223549C3d1e98E95c7c3",
+        "BuildingCultureTicketV2": "0x4F92e47Ab0f6f233Ffe76b2c3ddbF2729719C8D6",
+        "PrimaryShareSaleBcc": ""
+      },
+      "marketplace": {
+        "thirdwebMarketplaceV3": "0x3af9EB7784C1843BD8385D1F41dE78d4B83AEcf4"
       },
       "places": {
         "PropertyRegistry": "0x5aca19274B17B97e38da9eA851d91F0CC59DafBf",
@@ -44,6 +57,14 @@
         "VITE_MARKETPLACE_CONTRACT_ADDRESS": "set in production env — thirdweb Marketplace V3"
       }
     },
+    "56": {
+      "name": "BNB Smart Chain",
+      "explorer": "https://bscscan.com",
+      "identity": {
+        "CultureLayerIdentity": ""
+      },
+      "note": "Deploy with scripts/deploy-identity-bsc.sh; fill address in deployments/56.json"
+    },
     "84532": {
       "name": "Base Sepolia",
       "explorer": "https://sepolia.basescan.org",
@@ -68,6 +89,8 @@
     }
   },
   "sources": {
+    "bcc8453": "contracts/deployments/bcc-8453.json",
+    "identity56": "apps/identity/contracts/deployments/56.json",
     "culture8453": "contracts/deployments/8453.json",
     "culture84532": "contracts/deployments/84532.json",
     "placesBase": "apps/places/deployments/base-mainnet.json",

@@ -1,112 +1,17 @@
 /**
  * Server-only x402 handler — imported dynamically from API route handlers only.
- * Thirdweb x402: createThirdwebClient → facilitator → settlePayment on GET (x-payment / payment-signature).
  */
-import { createThirdwebClient } from "thirdweb";
-import { facilitator, settlePayment } from "thirdweb/x402";
-
 import { homeDrops } from "@/content/home-drops";
-import { resolveX402ResourceUrl } from "@/lib/x402-resource-url";
-import { getX402SettlementChain } from "@/lib/x402-network";
+import {
+  handleX402Options,
+  settleX402Get,
+  x402CorsHeadersFor,
+} from "@/server/x402-settle";
 
-let facilitatorSingleton: ReturnType<typeof facilitator> | null = null;
+/** @deprecated use x402CorsHeadersFor */
+export const premiumCorsHeadersFor = x402CorsHeadersFor;
 
-function getServerWalletAddress(): `0x${string}` {
-  const w = process.env.X402_SERVER_WALLET_ADDRESS?.trim();
-  if (!w || !/^0x[a-fA-F0-9]{40}$/.test(w)) {
-    throw new Error(
-      "X402_SERVER_WALLET_ADDRESS is missing or invalid. Set a 0x-prefixed 40-hex address for the x402 server wallet.",
-    );
-  }
-  return w as `0x${string}`;
-}
-
-function getThirdwebServerClient() {
-  const secretKey = process.env.THIRDWEB_SECRET_KEY?.trim();
-  if (!secretKey) {
-    throw new Error("THIRDWEB_SECRET_KEY is required for server-side thirdweb (x402).");
-  }
-  return createThirdwebClient({ secretKey });
-}
-
-function getX402Facilitator() {
-  if (!facilitatorSingleton) {
-    facilitatorSingleton = facilitator({
-      client: getThirdwebServerClient(),
-      serverWalletAddress: getServerWalletAddress(),
-    });
-  }
-  return facilitatorSingleton;
-}
-
-const corsMethodsAndHeaders: Record<string, string> = {
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers":
-    "Content-Type, x-payment, payment-signature, X-Payment, Payment-Signature",
-  "Access-Control-Expose-Headers": "*",
-};
-
-/**
- * Defaults: allow browsers only from `PUBLIC_APP_ORIGIN` and optional `X402_CORS_ORIGINS`
- * (comma-separated). Agents/curl (no `Origin`) get `*`. Set `X402_ALLOW_ANY_ORIGIN=1` only if
- * you intentionally need global `*` (not recommended for production).
- */
-export function premiumCorsHeadersFor(request: Request): Record<string, string> {
-  if (process.env.X402_ALLOW_ANY_ORIGIN === "1" || process.env.X402_ALLOW_ANY_ORIGIN === "true") {
-    return { ...corsMethodsAndHeaders, "Access-Control-Allow-Origin": "*" };
-  }
-
-  const origin = request.headers.get("origin");
-  const pub = process.env.PUBLIC_APP_ORIGIN?.replace(/\/$/, "").trim();
-  const extras = (process.env.X402_CORS_ORIGINS ?? "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
-  const allowed = new Set<string>([...(pub ? [pub] : []), ...extras]);
-
-  if (!origin) {
-    return { ...corsMethodsAndHeaders, "Access-Control-Allow-Origin": "*" };
-  }
-
-  if (allowed.size === 0) {
-    return { ...corsMethodsAndHeaders, "Access-Control-Allow-Origin": "*" };
-  }
-
-  if (allowed.has(origin)) {
-    return {
-      ...corsMethodsAndHeaders,
-      "Access-Control-Allow-Origin": origin,
-      Vary: "Origin",
-    };
-  }
-
-  return { ...corsMethodsAndHeaders };
-}
-
-export function handlePremiumOptions(request: Request): Response {
-  const origin = request.headers.get("origin");
-  if (
-    origin &&
-    !(process.env.X402_ALLOW_ANY_ORIGIN === "1" || process.env.X402_ALLOW_ANY_ORIGIN === "true")
-  ) {
-    const pub = process.env.PUBLIC_APP_ORIGIN?.replace(/\/$/, "").trim();
-    const extras = (process.env.X402_CORS_ORIGINS ?? "")
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean);
-    const allowed = new Set<string>([...(pub ? [pub] : []), ...extras]);
-    if (allowed.size > 0 && !allowed.has(origin)) {
-      return new Response(null, { status: 403 });
-    }
-  }
-  return new Response(null, { status: 204, headers: premiumCorsHeadersFor(request) });
-}
-
-function optionalPayTo(): string | undefined {
-  const raw = process.env.X402_PAY_TO?.trim();
-  if (!raw || !/^0x[a-fA-F0-9]{40}$/.test(raw)) return undefined;
-  return raw;
-}
+export const handlePremiumOptions = handleX402Options;
 
 function x402Price(): string {
   return (process.env.X402_PRICE?.trim() || "$0.01") as string;
@@ -132,45 +37,16 @@ function buildPremiumDropAnnouncementsFeed() {
 
 export async function handlePremiumX402Get(request: Request): Promise<Response> {
   try {
-    const paymentData =
-      request.headers.get("payment-signature") ?? request.headers.get("x-payment");
-    const resourceUrl = resolveX402ResourceUrl(request);
-
-    const result = await settlePayment({
-      resourceUrl,
-      method: "GET",
-      paymentData,
-      network: getX402SettlementChain(),
-      price: x402Price(),
-      facilitator: getX402Facilitator(),
-      payTo: optionalPayTo(),
-      routeConfig: {
+    return await settleX402Get(
+      request,
+      {
+        price: x402Price(),
         description: "Premium BUILDCHAIN drop teaser feed (JSON, x402)",
-        mimeType: "application/json",
       },
-    });
-
-    const cors = premiumCorsHeadersFor(request);
-
-    if (result.status === 200) {
-      return Response.json(buildPremiumDropAnnouncementsFeed(), {
-        headers: { ...cors, ...result.responseHeaders },
-      });
-    }
-
-    return new Response(JSON.stringify(result.responseBody), {
-      status: result.status,
-      headers: {
-        "Content-Type": "application/json",
-        ...result.responseHeaders,
-        ...cors,
-      },
-    });
+      buildPremiumDropAnnouncementsFeed,
+    );
   } catch (e) {
     const message = e instanceof Error ? e.message : "x402 configuration or settlement failed";
-    return Response.json(
-      { error: message },
-      { status: 503, headers: premiumCorsHeadersFor(request) },
-    );
+    return Response.json({ error: message }, { status: 503, headers: x402CorsHeadersFor(request) });
   }
 }

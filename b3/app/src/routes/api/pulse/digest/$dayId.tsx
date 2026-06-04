@@ -11,8 +11,8 @@ export const Route = createFileRoute("/api/pulse/digest/$dayId")({
         const prisma = getPrisma();
         if (!prisma) return json({ ok: false, error: "no_database" }, 503);
 
-        const dayId = params.dayId;
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(dayId)) {
+        const dayId = params?.dayId;
+        if (!dayId || !/^\d{4}-\d{2}-\d{2}$/.test(dayId)) {
           return json({ ok: false, error: "invalid_day" }, 400);
         }
 

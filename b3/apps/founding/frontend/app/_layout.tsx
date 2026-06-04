@@ -8,6 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { useIconFonts } from "@/src/hooks/use-icon-fonts";
 import { AuthProvider } from "@/src/contexts/AuthContext";
+import { BuyBccButton } from "@/src/components/BuyBccButton";
 import { colors } from "@/src/theme";
 
 SplashScreen.preventAutoHideAsync();
@@ -34,6 +35,7 @@ export default function RootLayout() {
                 animation: "fade",
               }}
             />
+            <BuyBccButton />
           </View>
         </AuthProvider>
       </SafeAreaProvider>

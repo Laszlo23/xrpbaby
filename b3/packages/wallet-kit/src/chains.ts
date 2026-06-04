@@ -138,7 +138,7 @@ export function isBscChainId(chainId: number): boolean {
 
 /**
  * Chain ID where `VITE_BCD_TOKEN_ADDRESS` is deployed.
- * Defaults to **B3 mainnet (8333)** for legacy installs; set `8453` when BCD ERC-20 is on Base mainnet.
+ * Defaults to **B3 mainnet (8333)** for legacy installs; set `8453` when BCC ERC-20 is on Base mainnet.
  */
 export function parseBcdChainId(): number {
   const raw = import.meta.env.VITE_BCD_CHAIN_ID as string | undefined;
@@ -153,7 +153,7 @@ export function isBcdChain(chainId: number): boolean {
   return chainId === parseBcdChainId();
 }
 
-/** Short network name for wallet prompts (BCD balance). */
+/** Short network name for wallet prompts (BCC balance). */
 export function getBcdChainShortLabel(): string {
   const id = parseBcdChainId();
   if (id === base.id) return "Base";

@@ -2,6 +2,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount } from "wagmi";
+import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import {
   CULTURE_PACKS,
   formatCulturePoints,
@@ -13,6 +14,7 @@ async function startCheckout(
   pack: PackDefinition,
   address: `0x${string}`,
   accessToken: string | null,
+  network?: "base" | "bsc",
 ) {
   const res = await fetch("/api/wallet/packs/checkout", {
     method: "POST",
@@ -20,7 +22,11 @@ async function startCheckout(
       "Content-Type": "application/json",
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
     },
-    body: JSON.stringify({ packSlug: pack.slug, walletAddress: address }),
+    body: JSON.stringify({
+      packSlug: pack.slug,
+      walletAddress: address,
+      ...(network ? { network } : {}),
+    }),
   });
   const data = (await res.json()) as { ok?: boolean; url?: string; error?: string };
   if (!res.ok || !data.ok || !data.url) {
@@ -71,6 +77,7 @@ function PackGrid({
 export function PackCheckoutActionsPrivy() {
   const { authenticated, getAccessToken } = usePrivy();
   const { address, isConnected } = useAccount();
+  const { activeNetworkId } = useCultureNetwork();
   const [busySlug, setBusySlug] = useState<string | null>(null);
 
   async function buyPack(pack: PackDefinition) {
@@ -81,7 +88,7 @@ export function PackCheckoutActionsPrivy() {
     setBusySlug(pack.slug);
     try {
       const token = authenticated ? await getAccessToken() : null;
-      await startCheckout(pack, address, token);
+      await startCheckout(pack, address, token, activeNetworkId);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not start checkout");
     } finally {
@@ -94,6 +101,7 @@ export function PackCheckoutActionsPrivy() {
 
 export function PackCheckoutActionsLegacy() {
   const { address, isConnected } = useAccount();
+  const { activeNetworkId } = useCultureNetwork();
   const [busySlug, setBusySlug] = useState<string | null>(null);
 
   async function buyPack(pack: PackDefinition) {
@@ -103,7 +111,7 @@ export function PackCheckoutActionsLegacy() {
     }
     setBusySlug(pack.slug);
     try {
-      await startCheckout(pack, address, null);
+      await startCheckout(pack, address, null, activeNetworkId);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Could not start checkout");
     } finally {

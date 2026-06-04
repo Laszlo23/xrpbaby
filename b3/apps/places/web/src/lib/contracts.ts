@@ -138,3 +138,18 @@ export const primaryShareSaleErc20Abi = parseAbi([
   "function pricePerShare() view returns (uint256)",
   "function buyWholeShares(uint256 wholeShares)",
 ]);
+
+/** [`PrimaryShareSaleBcc`](../src/PrimaryShareSaleBcc.sol) — BCC payment at oracle + 11.11% discount */
+export const primaryShareSaleBccAbi = parseAbi([
+  "function shareToken() view returns (address)",
+  "function bccToken() view returns (address)",
+  "function pricePerShareUsdc() view returns (uint256)",
+  "function quoteBccCost(uint256 wholeShares) view returns (uint256)",
+  "function buyWholeSharesWithBcc(uint256 wholeShares)",
+]);
+
+export {
+  BCC_ADDRESS as BCC_TOKEN_ADDRESS,
+  BCC_DISCOUNT_LABEL,
+  BCC_SYMBOL,
+} from "@bc/bcc-kit";

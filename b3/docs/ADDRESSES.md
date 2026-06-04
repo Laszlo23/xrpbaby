@@ -3,15 +3,26 @@
 Canonical registry for Building Culture (`b3`).  
 **Source of truth:** deployment JSON under each package; this file is a human-readable index.
 
-Last updated from repo state: **2026-05-26**
+Last updated from repo state: **2026-06-04** — see [CONTRACTS_AUDIT.md](./CONTRACTS_AUDIT.md) for latest bytecode audit.
 
 | Network | Chain ID | Explorer |
 |---------|----------|----------|
 | Base mainnet | `8453` | https://basescan.org |
+| BNB Smart Chain | `56` | https://bscscan.com |
 | Base Sepolia | `84532` | https://sepolia.basescan.org |
 | 0G Galileo testnet | `16602` | https://chainscan-galileo.0g.ai |
+| 0G Chain mainnet | `16661` | https://chainscan.0g.ai |
 
 **Deployer (many Base deploys):** `0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5`
+
+---
+
+## Ecosystem satellites (URLs)
+
+| Product | URL | Notes |
+|---------|-----|--------|
+| BCDAI | [bcdai.buildingcultureid.space](https://bcdai.buildingcultureid.space/) | AI trading terminal; Cloud Run backend — see [BCDAI_ECOSYSTEM.md](./BCDAI_ECOSYSTEM.md) |
+| WohnAI | [wohnai.buildingcultureid.space](https://wohnai.buildingcultureid.space/) | AI real estate agent |
 
 ---
 
@@ -21,13 +32,32 @@ From [`contracts/deployments/8453.json`](../contracts/deployments/8453.json) and
 
 | Contract | Address | Role |
 |----------|---------|------|
-| BuildingCultureDollar (BCD) | `0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72` | Platform token |
+| BuildingCultureCoin (BCC) | `0xb890a5289f789f1346032ccc1847939e855fab07` | **Canonical** platform token (`bcc-8453.json`) |
+| BuildingCultureDollar (BCD, legacy) | `0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72` | First deploy; `BCDGenesisClaim` still mints BCD |
 | BCDGenesisClaim | `0x2bae6b04d0d1c8016cc863509395b68eb0021f58` | Genesis claim |
 | RaffleTicketCampaign | `0xb1a88bf677400c23430b643a07229af832130ad8` | Raffle tickets (blockhash entropy; use VRF variant for production) |
 | AgentShareCampaign | `0x130e320a386b1ff0228492ddd65c380131ba86e9` | Agent share campaign |
 | CulturePulseAnchor | `0x503f8ad17c0fcdd84fbdbf7f51b41b39b02ebbae` | Daily culture digest anchor (not asset PoR) |
 
 **Not in `8453.json` (configure via env only):** DailyCheckIn, GenesisVaultPass tiers, BCDFixedPriceSale, thirdweb Marketplace V3 — set `VITE_*` in deploy env. See deployment file `note` field.
+
+### DailyCheckIn (UTC-day streak)
+
+Deploy on Base (gas-only `checkIn()`):
+
+```bash
+cd contracts
+source .env   # PRIVATE_KEY, optional BASE_RPC_URL
+forge script script/DeployDailyCheckIn.s.sol:DeployDailyCheckInScript \
+  --rpc-url "$BASE_RPC_URL" --broadcast --verify
+```
+
+Then set **both** (same address):
+
+- `VITE_DAILY_CHECKIN_ADDRESS=0x…` (browser / wagmi)
+- `DAILY_CHECKIN_CONTRACT_ADDRESS=0x…` (server tx verification in `postCompleteDailyChainCheckIn`)
+
+Profile **Daily & quests** and **Points ledger** call `checkIn()` → SIWE → task `daily-checkin-onchain` in Postgres + local profile XP via `claimDaily`.
 
 ---
 
@@ -38,6 +68,37 @@ From [`contracts/deployments/8453.json`](../contracts/deployments/8453.json) and
 | CultureLayerIdentity | `0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863` | `.culture` name NFTs; `mintPrice` ~$1.11 USD in ETH |
 
 Docs: [IDENTITY_MINT_PRICE.md](./IDENTITY_MINT_PRICE.md), [IDENTITY_RESOLUTION.md](./IDENTITY_RESOLUTION.md)
+
+---
+
+## Base mainnet (`8453`) — BCC market token
+
+From [`contracts/deployments/bcc-8453.json`](../contracts/deployments/bcc-8453.json). Docs: [BCC_TOKEN.md](./BCC_TOKEN.md)
+
+| Contract / token | Address | Role |
+|------------------|---------|------|
+| BCC (ERC-20) | `0xb890a5289f789f1346032ccc1847939e855fab07` | Fair-launch market token; 11.11% pay-with-BCC discount |
+| MockBccUsdOracle | `0x46C96e0A459ea441873FA8c3077f42b5e1E9cB4f` | BCC/USD pricing for v2 mints |
+| CultureLayerIdentityV2 | `0x9942095ab0a9512e432aeacd623e929cfb474058` | Identity mint + `mintWithBcc` |
+| BuildingCultureHubV2 | `0x97FDaEaFDbEF34918CFD223549C3d1e98E95c7c3` | Art tickets + `mintTicketsWithBcc` |
+| BuildingCultureTicketV2 | `0x4F92e47Ab0f6f233Ffe76b2c3ddbF2729719C8D6` | Ticket NFT for hub v2 |
+| BccTwapOracle | *(not deployed)* | Production TWAP oracle — see deploy scripts |
+| PrimaryShareSaleBcc | *(not deployed)* | Places shares + `buyWholeSharesWithBcc` |
+
+Uniswap: `https://app.uniswap.org/swap?outputCurrency=0xB890a5289F789f1346032Ccc1847939e855FAb07&chain=base`
+
+---
+
+## BNB Smart Chain (`56`) — Culture Layer identity
+
+From [`apps/identity/contracts/deployments/56.json`](../apps/identity/contracts/deployments/56.json).  
+Deploy: `b3/scripts/deploy-identity-bsc.sh` (requires `PRIVATE_KEY` in `apps/identity/.env`).
+
+| Contract | Address | Role |
+|----------|---------|------|
+| CultureLayerIdentity | *(pending deploy)* | `.culture` name NFTs; `mintPrice` ~$1.11 USD in BNB |
+
+After deploy, set `VITE_IDENTITY_BSC_CONTRACT_ADDRESS` and update `deployments/56.json` + this table.
 
 ---
 
@@ -132,6 +193,23 @@ From [`apps/places/deployments/testnet.json`](../apps/places/deployments/testnet
 | OgFactory | `0xEd2aF0e6417CaCC15DF755E80Afb94Ad35Aca1B2` |
 | OgRouter | `0xbe345d1c11e3b55d4091f3031322be3ef4e62273` |
 | BinaryPredictionMarket | `0x4369d653dec1ffda40fea02ba6fc3c4fd912c9a8` |
+
+---
+
+## 0G Chain mainnet (`16661`) — Agent ID (hackathon)
+
+From [0G_HACKATHON_SUBMISSION.md](./0G_HACKATHON_SUBMISSION.md). RPC: `https://evmrpc.0g.ai`
+
+| Contract | Address | Role |
+|----------|---------|------|
+| AgentId (ERC-721) | `0x0451b1d37058ad57df22d7185aabc6b0a36fc41e` | Ownable Agent ID primitive |
+
+| Transaction | Hash |
+|-------------|------|
+| Deploy | `0x4629018662bf4f8f1cf6438c749d56307c1fcb4aa79e044f8692c31c88572d3e` |
+| Mint #1 | `0xf920a643320272e067b137e11b85f07afe40e4dfb820e3de3754d68dc945d7d9` |
+
+In-app proof: `/0g/agentid` (`app/src/routes/0g.agentid.tsx`).
 
 ---
 

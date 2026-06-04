@@ -17,7 +17,7 @@ From Clanker docs:
 - **Fee control / routing** must match your rules.\n
   In your current system this is enforced by `BCDFixedPriceSale` routing payments directly to `treasury` and by explicit `feeBps` math (`b3/contracts/src/BCDFixedPriceSale.sol`).
 
-## Option A (recommended): Hybrid — keep BCD core, use Clanker as a *market layer token*
+## Option A (recommended): Hybrid — keep BCC core, use Clanker as a *market layer token*
 
 ### Concept
 
@@ -25,7 +25,7 @@ From Clanker docs:
   - `BuildingCultureDollar` cap + mint permissions
   - `BCDFixedPriceSale` for your exact pricing + fee routing rules
 - Use Clanker to launch a **separate token** for market/liquidity + distribution experiments.\n
-  That token can represent marketing/community value, while BCD remains the in-app accounting unit.
+  That token can represent marketing/community value, while BCC remains the in-app accounting unit.
 
 ### Pros
 
@@ -47,7 +47,7 @@ Example (illustrative):\n
 - Safe: 8,500 bps (85%)\n
 - Dev: 1,500 bps (15%)\n
 
-This achieves “dev gets a piece” without impacting your BCD sale fee routing at all.
+This achieves “dev gets a piece” without impacting your BCC sale fee routing at all.
 
 ## Option B: Clanker as primary token (high effort + forced compromises)
 
@@ -67,18 +67,18 @@ This achieves “dev gets a piece” without impacting your BCD sale fee routing
 
 ### When Option B is rational
 
-- You explicitly want Clanker’s standardized token+pool system, and you’re okay rewriting your current BCD sale primitives.\n
+- You explicitly want Clanker’s standardized token+pool system, and you’re okay rewriting your current BCC sale primitives.\n
 - You want a permissionless “deployer UX” and accept the constraints for speed.
 
 ## Recommendation
 
 Given your single non-negotiable (“fee control must match our rules”), Option A is the path that preserves correctness:\n
-- Keep BCD + `BCDFixedPriceSale` as canonical\n
+- Keep BCC + `BCDFixedPriceSale` as canonical\n
 - Use Clanker as an **additional launch / market token layer** that routes LP fees to Safe + dev
 
 ## Next decisions (to make Option A concrete)
 
-1. Pick the Clanker token’s role (community/points/market token) and its relationship to BCD.\n
+1. Pick the Clanker token’s role (community/points/market token) and its relationship to BCC.\n
 2. Choose a reward split (bps) between Safe and dev.\n
 3. Decide whether you deploy Clanker via:\n
    - Clanker hosted API (needs API key), or\n

@@ -1,4 +1,4 @@
-# BCD on Base Sepolia (84532)
+# BCC on Base Sepolia (84532)
 
 ## Prerequisites
 

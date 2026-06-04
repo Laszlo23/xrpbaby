@@ -32,11 +32,11 @@ import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 export const Route = createFileRoute("/mission")({
   head: () =>
     pageHead({
-      title: "Mission — Building Culture Dollar",
+      title: "Mission — Building Culture Coin",
       description:
-        "Building Culture DAO mission: genesis BCD, honest drops UX, treasury programs — on-chain first, DAO voting next.",
+        "Building Culture DAO mission: genesis BCC, honest drops UX, treasury programs — on-chain first, DAO voting next.",
       path: "/mission",
-      keywords: ["Building Culture Dollar", "BCD", "DAO", "mission", "BUILDCHAIN"],
+      keywords: ["Building Culture Coin", "BCC", "DAO", "mission", "BUILDCHAIN"],
     }),
   component: MissionPage,
 });
@@ -111,7 +111,7 @@ function MissionPage() {
           genesis &amp; the path to DAO votes
         </>
       }
-      subtitle="Fair drops stay verifiable while we grow a treasury that funds real venues, art, and travel—BCD aligns builders, patrons, and the communities we enter together."
+      subtitle="Fair drops stay verifiable while we grow a treasury that funds real venues, art, and travel—$BCC aligns builders, patrons, and the communities we enter together."
       actions={
         <>
           <Link to="/forest" className="text-neon underline">
@@ -139,7 +139,7 @@ function MissionPage() {
               <p className="text-zinc-400">
                 {BRAND_DISPLAY_NAME} proves the receipts for culture: tickets, treasury flow, and an
                 app layer that respects what collectors care about—not hidden odds. Building Culture
-                Dollar (BCD) is the treasury-aligned token brand for this loop: genesis first,
+                Coin ($BCC) is the treasury-aligned token brand for this loop: genesis first,
                 programmatic culture second, DAO voting wired when the legal and custody model is
                 intentional—not rushed.
               </p>
@@ -179,7 +179,7 @@ function MissionPage() {
                     Paid in native gas token during legacy campaigns
                   </td>
                   <td className="border-b border-white/[0.06] px-4 py-3">
-                    Dedicated raffle accepting BCD via allowance
+                    Dedicated raffle accepting $BCC via allowance
                   </td>
                 </tr>
                 <tr>
@@ -208,7 +208,7 @@ function MissionPage() {
             </table>
           </div>
           <p className="mt-4 text-[13px] text-zinc-600">
-            No guaranteed returns—BCD is a coordination &amp; access layer, not a promise of
+            No guaranteed returns—$BCC is a coordination &amp; access layer, not a promise of
             profits. Regulatory treatment depends on how you distribute and communicate;{" "}
             <Link to="/legal/terms" className="text-zinc-400 underline-offset-4 hover:text-white">
               legal
@@ -226,7 +226,7 @@ function MissionPage() {
             {[
               {
                 icon: Coins,
-                title: "BCD genesis",
+                title: "$BCC genesis",
                 body: "Merkle claim + treasury fee optional; proofs hosted or pasted for controlled cohorts.",
               },
               {
@@ -289,7 +289,7 @@ function MissionPage() {
                   <div>
                     <p className="font-medium text-zinc-200">Economy tools</p>
                     <p className="mt-1 text-sm text-zinc-600">
-                      Use Get BCD for the primer; Pulse Coach explains drops, XP, and settlement
+                      Use Get $BCC for the primer; Pulse Coach explains drops, XP, and settlement
                       honesty.
                     </p>
                   </div>
@@ -302,7 +302,7 @@ function MissionPage() {
                     className="rounded-full"
                     onClick={openGetBcd}
                   >
-                    Get BCD
+                    Get $BCC
                   </Button>
                   <Button
                     type="button"
@@ -340,7 +340,7 @@ function MissionPage() {
             {row(
               checklist.tokenConfigured,
               "Live balance reads",
-              token ? `${BCD_SYMBOL} token wired for wallets.` : "Add VITE_BCD_TOKEN_ADDRESS",
+              token ? `${BCD_SYMBOL} token wired for wallets.` : "Add VITE_BCC_TOKEN_ADDRESS",
             )}
           </div>
         </section>

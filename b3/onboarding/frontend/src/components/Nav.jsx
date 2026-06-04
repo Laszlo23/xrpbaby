@@ -17,7 +17,7 @@ import { ECOSYSTEM_EXTERNAL_CTA } from "../lib/media";
 const NAV_ITEMS = [
   { label: "Vision", href: "#vision", icon: Sparkles },
   { label: "Ecosystem", href: "#ecosystem", icon: Layers },
-  { label: "BCD", href: "#bcd", icon: Coins },
+  { label: "$BCC", href: "#bcc", icon: Coins },
   { label: "Impact", href: "#impact", icon: TrendingUp },
   { label: "Investors", href: "#investors", icon: Briefcase },
   { label: "Roadmap", href: "#future", icon: Map },

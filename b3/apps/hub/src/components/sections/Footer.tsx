@@ -27,7 +27,7 @@ const cols = [
   {
     title: "build",
     links: [
-      { l: "$BCD token", h: "#", i: Coins },
+      { l: "$BCC token", h: "#", i: Coins },
       { l: "mini app", h: "https://miniapp-generator-fid-873944-260306170037188.neynar.app?fid=873944", i: Sparkles },
       { l: "community guide", h: "/guide", i: BookOpen },
       { l: "github", h: "#", i: Github },
@@ -154,7 +154,7 @@ export const Footer = () => {
           </div>
 
           <p className="mt-8 max-w-4xl text-[11px] leading-relaxed text-muted-foreground/70">
-            disclaimer: $BCD and related products are experimental software deployed on public blockchain networks. nothing on this site constitutes financial, legal or investment advice. digital assets are volatile and may lose value. participate only with what you can afford to lose. always do your own research.
+            disclaimer: $BCC and related products are experimental software deployed on public blockchain networks. nothing on this site constitutes financial, legal or investment advice. digital assets are volatile and may lose value. participate only with what you can afford to lose. always do your own research.
           </p>
         </div>
       </div>

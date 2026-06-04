@@ -24,6 +24,8 @@ test.describe("play drops home", () => {
 
   test("wallet controls present", async ({ page }) => {
     await page.goto("/play");
-    await expect(page.getByRole("button", { name: /Connect|Wallet|Account/i }).first()).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /Connect|Wallet|Account/i }).first(),
+    ).toBeVisible();
   });
 });

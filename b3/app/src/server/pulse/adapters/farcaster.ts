@@ -28,8 +28,7 @@ export class FarcasterPulseAdapter implements PulseIngestAdapter {
     const c = client();
     if (!c) return [];
 
-    const query =
-      process.env.PULSE_FARCASTER_SEARCH?.trim() ?? "building culture";
+    const query = process.env.PULSE_FARCASTER_SEARCH?.trim() ?? "building culture";
 
     try {
       const search = await c.searchCasts({ q: query, limit: 25 });

@@ -1,7 +1,7 @@
-# PRD — The Founding Builders ($BCD pre-launch)
+# PRD — The Founding Builders ($BCC pre-launch)
 
 ## Vision
-A viral, gamified pre-launch experience for **Building Culture Dollar ($BCD)**. Not a token page — a community game where every action helps "bring places back to life". Mobile-first, dark mode, premium feel (Duolingo × Clash of Clans × Pokemon GO × Farcaster).
+A viral, gamified pre-launch experience for **Building Culture Coin ($BCC)**. Not a token page — a community game where every action helps "bring places back to life". Mobile-first, dark mode, premium feel (Duolingo × Clash of Clans × Pokemon GO × Farcaster).
 
 ## Stack
 - Backend: FastAPI + MongoDB (motor), JWT auth (bcrypt + PyJWT), Claude Sonnet 4.6 AI Mayor via emergentintegrations

@@ -3,6 +3,9 @@ import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { fetchEcosystem } from "../lib/bcApi";
 import { getLayerAccent, getLayerIcon } from "../lib/ecosystemLayers";
 
+/** BCC ERC-20 on Base mainnet — Building Culture Coin */
+export const BCC_TOKEN_ADDRESS = "0xb890a5289f789f1346032ccc1847939e855fab07";
+
 const FALLBACK_PROJECTS = [
   { id: "bc-capital", name: "BC Capital", tag: "Vision", layer: "vision", status: "beta", url: "https://buildingculture.capital" },
   { id: "bc-app", name: "BC App", tag: "Core", layer: "core", status: "beta", url: "https://app.buildingculture.capital" },
@@ -10,6 +13,7 @@ const FALLBACK_PROJECTS = [
   { id: "bc-id", name: "BC ID", tag: "Identity", layer: "identity", status: "live", url: "https://buildingcultureid.space" },
   { id: "bc-art", name: "BC Art", tag: "Art", layer: "art", status: "live", url: "https://art.buildingcultureid.space" },
   { id: "wohnai", name: "WohnAI", tag: "AI Agent", layer: "ai", status: "live", url: "https://wohnai.buildingcultureid.space/" },
+  { id: "bcdai", name: "BCDAI", tag: "AI Trading", layer: "ai", status: "live", url: "https://bcdai.buildingcultureid.space/" },
   { id: "bc-game", name: "BC Game", tag: "Engage", layer: "engagement", status: "beta", url: "https://game.buildingculture.capital" },
   { id: "bc-miniapp", name: "MiniApp", tag: "Growth", layer: "growth", status: "coming-soon", url: null },
 ];
@@ -46,7 +50,7 @@ const OrbitIcon = ({ project, baseAngle, radius, ringRotation }) => {
         rel={project.url ? "noopener noreferrer" : undefined}
         title={project.name}
         aria-label={project.name}
-        data-testid={`bcd-orbit-${project.id}`}
+        data-testid={`bcc-orbit-${project.id}`}
         className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/70 backdrop-blur-md transition-colors hover:border-white/35 sm:h-11 sm:w-11"
         style={{ boxShadow: `0 0 22px -6px ${accent}80` }}
         whileHover={{ scale: 1.12 }}
@@ -109,7 +113,7 @@ const getOrbitRadii = () => {
   return { inner: 152, outer: 208 };
 };
 
-export const BCD = () => {
+export const BCC = () => {
   const [projects, setProjects] = useState(FALLBACK_PROJECTS);
   const [radii, setRadii] = useState(getOrbitRadii);
 
@@ -133,8 +137,8 @@ export const BCD = () => {
 
   return (
     <section
-      id="bcd"
-      data-testid="bcd-section"
+      id="bcc"
+      data-testid="bcc-section"
       className="relative w-full overflow-hidden bg-[#070707] py-28 sm:py-36"
     >
       <div className="absolute inset-0 bc-noise" />
@@ -142,27 +146,27 @@ export const BCD = () => {
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C47C59]/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
-        <p className="mono-label">BUILDING CULTURE DOLLAR</p>
+        <p className="mono-label">BUILDING CULTURE COIN</p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-4 font-display text-[40px] font-bold leading-[1] tracking-tight text-white sm:text-7xl"
-          data-testid="bcd-headline"
+          data-testid="bcc-headline"
         >
           One Ecosystem. <br />
           One <span className="bc-text-gradient">Currency.</span>
         </motion.h2>
 
         <p className="mx-auto mt-8 max-w-2xl text-base text-zinc-400 sm:text-lg">
-          The Building Culture Dollar (BCD) is the future utility layer that ties every product, every place
+          Building Culture Coin ($BCC) is the utility layer on Base that ties every product, every place,
           and every participant into a single, transparent economy.
         </p>
 
         <div className="relative mx-auto mt-16 flex items-center justify-center sm:mt-20">
           <div
             className="relative h-[min(92vw,380px)] w-[min(92vw,380px)] sm:h-[460px] sm:w-[460px] lg:h-[520px] lg:w-[520px]"
-            data-testid="bcd-token-visual"
+            data-testid="bcc-token-visual"
           >
             <div
               className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#00E5FF]/25"
@@ -208,7 +212,7 @@ export const BCD = () => {
                   background: "radial-gradient(circle, rgba(0,229,255,0.35) 0%, transparent 65%)",
                 }}
               />
-              <div className="relative font-display text-2xl font-black text-white sm:text-4xl">BCD</div>
+              <div className="relative font-display text-2xl font-black text-white sm:text-4xl">$BCC</div>
             </motion.div>
           </div>
         </div>
@@ -217,12 +221,27 @@ export const BCD = () => {
           Hover icons for names · tap to open products
         </p>
 
-        <p className="mx-auto mt-10 max-w-xl text-sm font-mono uppercase tracking-[0.15em] text-zinc-500 sm:mt-16">
-          A future utility layer · not financial advice
+        <p
+          className="mx-auto mt-6 max-w-xl break-all font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500 sm:text-[11px]"
+          data-testid="bcc-token-address"
+        >
+          $BCC on Base ·{" "}
+          <a
+            href={`https://basescan.org/token/${BCC_TOKEN_ADDRESS}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#00E5FF]/90 underline-offset-2 hover:underline"
+          >
+            {BCC_TOKEN_ADDRESS}
+          </a>
+        </p>
+
+        <p className="mx-auto mt-10 max-w-xl text-sm font-mono uppercase tracking-[0.15em] text-zinc-500 sm:mt-12">
+          Live on Base · not financial advice
         </p>
       </div>
     </section>
   );
 };
 
-export default BCD;
+export default BCC;

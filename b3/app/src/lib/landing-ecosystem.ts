@@ -76,6 +76,16 @@ export const LANDING_ECOSYSTEM: LandingEcosystemApp[] = [
     externalUrl: "https://wohnai.buildingcultureid.space/",
   },
   {
+    id: "bcdai",
+    name: "BCDAI",
+    description:
+      "Autonomous crypto OS — AI copilots, copy trading, visual IF/THEN rules, and MEV-aware routing on Base & Solana.",
+    tag: "AI Trading Terminal",
+    status: "live",
+    layer: "ai",
+    externalUrl: "https://bcdai.buildingcultureid.space/",
+  },
+  {
     id: "bc-game",
     name: "Building Culture Game",
     description:
@@ -119,7 +129,7 @@ export const COMMUNITY_MODULES: LandingEcosystemApp[] = [
   },
   {
     id: "bcd",
-    name: "Culture Dollar (BCD)",
+    name: "Culture Coin (BCC)",
     description: "Community credits — earn, hold, and use with care.",
     tag: "Community credits",
     status: "beta",

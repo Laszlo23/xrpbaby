@@ -320,7 +320,7 @@ export function GetBcdModal() {
     if (!isRoundConfigured) return "Round not configured on-chain";
     if (salePaused) return "Sale paused";
     if (!roundActive) return "Round inactive";
-    if (!bcdWeiParsed || bcdWeiParsed <= 0n) return "Enter a valid BCD amount";
+    if (!bcdWeiParsed || bcdWeiParsed <= 0n) return `Enter a valid ${BCD_SYMBOL} amount`;
     if (!payQuote) return "—";
     if (isPrivateRound && !privateReady) return "Load private eligibility (or paste JSON)";
     if (
@@ -394,8 +394,8 @@ export function GetBcdModal() {
         <DialogHeader>
           <DialogTitle className="font-heading text-xl">Get {BCD_SYMBOL}</DialogTitle>
           <DialogDescription className="text-zinc-500">
-            Building Culture Dollar is your on-app currency for drops—stack it, then mint tickets
-            when campaigns go live.
+            Building Culture Coin is your on-app currency for drops—stack it, then mint tickets when
+            campaigns go live.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-2">
@@ -505,7 +505,7 @@ export function GetBcdModal() {
                   {wrongChain ? (
                     <p className="text-xs text-amber-500">
                       Connected to chain {walletChainId}; switch to {bcdChainId} (
-                      {bcdChain?.name ?? "BCD network"}
+                      {bcdChain?.name ?? `${BCD_SYMBOL} network`}
                       ).
                     </p>
                   ) : null}

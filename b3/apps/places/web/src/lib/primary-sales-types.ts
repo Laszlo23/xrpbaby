@@ -7,5 +7,8 @@ export type PrimarySalesFile = {
     paymentToken: `0x${string}`;
     paymentDecimals: number;
     paymentSymbol: string;
+    /** Optional BCC rail (`PrimaryShareSaleBcc`) — 11.11% discount vs USDC list */
+    bccSaleAddress?: `0x${string}` | "";
+    bccDiscountBps?: number;
   }>;
 };

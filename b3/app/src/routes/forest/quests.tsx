@@ -24,9 +24,10 @@ function FoundingQuestsPage() {
         member?: { recentActivities?: { type: string }[] } | null;
       };
       if (!data.ok || !data.member) return;
-      const fromLedger = data.member.recentActivities
-        ?.filter((a) => a.type.startsWith("task_completion"))
-        .map((a) => a.type.replace("task_completion:", "")) ?? [];
+      const fromLedger =
+        data.member.recentActivities
+          ?.filter((a) => a.type.startsWith("task_completion"))
+          .map((a) => a.type.replace("task_completion:", "")) ?? [];
       setCompletedSlugs(fromLedger);
     } catch {
       /* ignore */
@@ -65,10 +66,7 @@ function FoundingQuestsPage() {
           {FOUNDING_DAILY_QUESTS.map((q) => {
             const done = completedSlugs.includes(q.slug);
             return (
-              <li
-                key={q.slug}
-                className="flex gap-4 rounded-xl border border-white/10 px-4 py-4"
-              >
+              <li key={q.slug} className="flex gap-4 rounded-xl border border-white/10 px-4 py-4">
                 {done ? (
                   <CheckCircle2 className="h-5 w-5 shrink-0 text-[#C5FF41]" />
                 ) : (

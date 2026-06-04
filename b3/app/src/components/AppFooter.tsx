@@ -22,7 +22,8 @@ import { getEcoHubLandingUrl } from "@/lib/hub-landing";
 type FooterVariant = "story" | "product";
 
 function FooterColumnTitle({ label, variant }: { label: string; variant: FooterVariant }) {
-  const accent = variant === "story" ? "bg-[#C5FF41]/80" : "bg-neon/80 shadow-[0_0_10px_rgb(0_82_255/50%)]";
+  const accent =
+    variant === "story" ? "bg-[#C5FF41]/80" : "bg-neon/80 shadow-[0_0_10px_rgb(0_82_255/50%)]";
   return (
     <div className="mb-4 flex items-center gap-2.5">
       <span className={`h-1 w-1 rounded-full ${accent}`} aria-hidden />
@@ -53,7 +54,11 @@ function FooterLinkRow({
   if (hash) {
     return (
       <Link to={to} hash={hash} className={className}>
-        <Icon className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`} strokeWidth={1.75} aria-hidden />
+        <Icon
+          className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`}
+          strokeWidth={1.75}
+          aria-hidden
+        />
         <span>{children}</span>
       </Link>
     );
@@ -61,7 +66,11 @@ function FooterLinkRow({
 
   return (
     <Link to={to} className={className}>
-      <Icon className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`} strokeWidth={1.75} aria-hidden />
+      <Icon
+        className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`}
+        strokeWidth={1.75}
+        aria-hidden
+      />
       <span>{children}</span>
     </Link>
   );
@@ -75,7 +84,7 @@ function FooterExternalLink({
 }: {
   href: string;
   label: string;
-  Icon: ExternalFooterLink["Icon"];
+  Icon: LucideIcon | ExternalFooterLink["Icon"];
   variant: FooterVariant;
 }) {
   const hoverIcon = variant === "story" ? "group-hover:text-[#00E5FF]" : "group-hover:text-neon";
@@ -86,7 +95,10 @@ function FooterExternalLink({
       rel="noreferrer noopener"
       className="group flex items-start gap-3 rounded-lg px-2 py-2 -mx-2 text-sm text-zinc-400 transition-colors hover:bg-white/[0.05] hover:text-zinc-100"
     >
-      <Icon className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`} aria-hidden />
+      <Icon
+        className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`}
+        aria-hidden
+      />
       <span className="flex items-center gap-1">
         {label}
         <ArrowUpRight size={12} className="opacity-60" aria-hidden />
@@ -129,11 +141,16 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
             className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgb(0_82_255/35%)] to-transparent"
             aria-hidden
           />
-          <div className="pointer-events-none absolute -left-24 top-20 h-48 w-48 rounded-full bg-neon/[0.06] blur-3xl" aria-hidden />
+          <div
+            className="pointer-events-none absolute -left-24 top-20 h-48 w-48 rounded-full bg-neon/[0.06] blur-3xl"
+            aria-hidden
+          />
         </>
       ) : null}
 
-      <div className={`relative mx-auto max-w-7xl px-5 sm:px-8 ${isStory ? "" : "max-w-6xl sm:px-6 md:px-10"}`}>
+      <div
+        className={`relative mx-auto max-w-7xl px-5 sm:px-8 ${isStory ? "" : "max-w-6xl sm:px-6 md:px-10"}`}
+      >
         {isStory ? (
           <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <motion.div>
@@ -160,7 +177,9 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
           <div>
             <FooterColumnTitle label="Product" variant={variant} />
-            <ul className="space-y-1">{footerProductLinks.map((item) => renderInternalLink(item, variant))}</ul>
+            <ul className="space-y-1">
+              {footerProductLinks.map((item) => renderInternalLink(item, variant))}
+            </ul>
           </div>
           <div>
             <FooterColumnTitle label="Ecosystem" variant={variant} />
@@ -170,7 +189,12 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
                 if (external) {
                   return (
                     <li key={item.href}>
-                      <FooterExternalLink href={item.href} label={item.label} Icon={item.icon} variant={variant} />
+                      <FooterExternalLink
+                        href={item.href}
+                        label={item.label}
+                        Icon={item.icon}
+                        variant={variant}
+                      />
                     </li>
                   );
                 }
@@ -186,7 +210,9 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
           </div>
           <div>
             <FooterColumnTitle label="Layers" variant={variant} />
-            <ul className="space-y-1">{footerLayerLinks.map((item) => renderInternalLink(item, variant))}</ul>
+            <ul className="space-y-1">
+              {footerLayerLinks.map((item) => renderInternalLink(item, variant))}
+            </ul>
             {isStory ? (
               <ul className="mt-4 space-y-1">
                 {footerStoryHashLinks.map((item) => (
@@ -203,11 +229,18 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
             <FooterColumnTitle label="Community" variant={variant} />
             <ul className="space-y-1">
               {footerCommunityLinks.map((item) => renderInternalLink(item, variant))}
-              {footerSocialLinks().slice(0, 4).map((s) => (
-                <li key={s.href}>
-                  <FooterExternalLink href={s.href} label={s.label} Icon={s.Icon} variant={variant} />
-                </li>
-              ))}
+              {footerSocialLinks()
+                .slice(0, 4)
+                .map((s) => (
+                  <li key={s.href}>
+                    <FooterExternalLink
+                      href={s.href}
+                      label={s.label}
+                      Icon={s.Icon}
+                      variant={variant}
+                    />
+                  </li>
+                ))}
             </ul>
           </div>
           <div>
@@ -222,11 +255,21 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
               ))}
               {ecoHubUrl ? (
                 <li>
-                  <FooterExternalLink href={ecoHubUrl} label="Revival & hubs" Icon={BookOpen} variant={variant} />
+                  <FooterExternalLink
+                    href={ecoHubUrl}
+                    label="Revival & hubs"
+                    Icon={BookOpen}
+                    variant={variant}
+                  />
                 </li>
               ) : null}
               <li>
-                <FooterExternalLink href={footerContactMailto} label="Contact" Icon={BookOpen} variant={variant} />
+                <FooterExternalLink
+                  href={footerContactMailto}
+                  label="Contact"
+                  Icon={BookOpen}
+                  variant={variant}
+                />
               </li>
             </ul>
             <div className="mt-6">
@@ -248,7 +291,9 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
           <p className="font-mono text-xs text-zinc-500">
             © {year} {BRAND_DISPLAY_NAME} — BUILT BY PEOPLE.
           </p>
-          <p className="text-xs text-zinc-500">Vienna · Austria · Worldwide · Not financial advice.</p>
+          <p className="text-xs text-zinc-500">
+            Vienna · Austria · Worldwide · Not financial advice.
+          </p>
         </div>
       </div>
     </footer>

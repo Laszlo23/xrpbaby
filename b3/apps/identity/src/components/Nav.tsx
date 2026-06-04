@@ -8,9 +8,18 @@ import {
   User,
   Users,
 } from "lucide-react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useAccount, useConnect } from "wagmi";
 import { useWalletIdentities } from "@/hooks/useWalletIdentities";
+import { useWeb3Auth } from "@/providers/Web3AuthContext";
 import { BrandLogo } from "@/components/BrandLogo";
+
+// The @privy-io SDK behind CultureSignInButton calls crypto.randomUUID() at
+// module scope, which the Cloudflare Workers runtime forbids in global scope.
+// Load it lazily so it is only ever evaluated on the client, never during SSR.
+const CultureSignInButton = lazy(() =>
+  import("@bc/culture-auth/react").then((m) => ({ default: m.CultureSignInButton })),
+);
 
 const iconProps = { size: 14, strokeWidth: 1.75, "aria-hidden": true as const };
 
@@ -61,12 +70,21 @@ function hasBrowserWallet(): boolean {
   return typeof window !== "undefined" && Boolean(window.ethereum);
 }
 
+function isPrivyEnabled(): boolean {
+  const id = import.meta.env.VITE_PRIVY_APP_ID as string | undefined;
+  return Boolean(id?.trim());
+}
+
 export function Nav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isHome = pathname === "/";
+  const { privyActive } = useWeb3Auth();
   const { isConnected } = useAccount();
   const { connect, connectors, isPending: isConnecting } = useConnect();
   const { data: walletIds } = useWalletIdentities();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const primary = walletIds?.primary;
 
@@ -126,7 +144,16 @@ export function Nav() {
         </motion.div>
 
         <motion.div className="flex items-center gap-2">
-          {!isConnected && hasBrowserWallet() && (
+          {privyActive && mounted && !isConnected && isPrivyEnabled() && (
+            <Suspense fallback={null}>
+              <CultureSignInButton
+                label="Sign in"
+                className="hidden rounded-full border border-border-strong px-3 py-1.5 text-xs text-muted-foreground transition hover:text-foreground md:inline-flex"
+              />
+            </Suspense>
+          )}
+
+          {!isConnected && !isPrivyEnabled() && hasBrowserWallet() && (
             <button
               type="button"
               disabled={isConnecting}

@@ -25,7 +25,7 @@ Legacy hosts redirect during cutover — [docs/DOMAIN_CUTOVER.md](docs/DOMAIN_CU
 | [`app/`](app/) | **Unified TanStack app** — landing, forest, pass, marketplace, compliance API |
 | [`apps/places/`](apps/places/) | **Real estate on Base** — REOC contracts, DTA/PoR, Next.js at buildingculture.capital |
 | [`apps/identity/`](apps/identity/) | Culture Layer identity mini-app (merging into `app/`) |
-| [`contracts/`](contracts/) | BCD, raffles (`RaffleTicketCampaignVrf` for Chainlink VRF) |
+| [`contracts/`](contracts/) | BCC, raffles (`RaffleTicketCampaignVrf` for Chainlink VRF) |
 | [`cms/`](cms/) | Strapi CMS |
 | [`packages/`](packages/) | Shared `@bc/*` SDKs |
 | [`docs/`](docs/) | Runbooks — [docs/README.md](docs/README.md) |

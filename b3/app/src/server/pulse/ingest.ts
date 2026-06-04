@@ -20,10 +20,7 @@ export function allAdapters(): PulseIngestAdapter[] {
   ];
 }
 
-export async function upsertFeedItems(
-  prisma: PrismaClient,
-  items: IngestItem[],
-): Promise<number> {
+export async function upsertFeedItems(prisma: PrismaClient, items: IngestItem[]): Promise<number> {
   let n = 0;
   for (const item of items) {
     await prisma.socialFeedItem.upsert({

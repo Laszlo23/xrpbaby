@@ -110,7 +110,7 @@ export function CommunityPulse() {
             Pulse Coach (AI)
           </button>
           <span className="max-w-xs text-center text-[13px] leading-snug text-zinc-600 md:max-w-none md:text-left">
-            Personalized next steps for drops, XP &amp; BCD—runs on-device chat UI, model on the
+            Personalized next steps for drops, XP &amp; BCC—runs on-device chat UI, model on the
             server.
           </span>
         </div>

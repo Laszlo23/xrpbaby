@@ -25,6 +25,7 @@ export const Route = createFileRoute("/api/member/me")({
         const member = await prisma.member.findFirst({
           where: { walletAddress: addr },
           include: {
+            socialAccounts: true,
             wallet: {
               include: {
                 ledgers: { orderBy: { createdAt: "desc" }, take: 20 },
@@ -37,8 +38,8 @@ export const Route = createFileRoute("/api/member/me")({
         if (!member) {
           return json({ ok: true, member: null });
         }
-        const balance =
-          member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
+        const balance = member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
+        const { memberToSocialPayload } = await import("@/server/social/support-score-sync");
         return json({
           ok: true,
           member: {
@@ -51,6 +52,7 @@ export const Route = createFileRoute("/api/member/me")({
             culturePoints: balance,
             recentActivities: member.activities,
             rewards: member.rewardGrants,
+            ...memberToSocialPayload(member),
           },
         });
       },

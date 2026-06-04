@@ -91,6 +91,15 @@
       "dailyApiBudgetUsd": 25
     },
     {
+      "id": "trading-sugar-1",
+      "handler": "tradingSugar",
+      "fleet": "ops",
+      "role": "trading",
+      "systemPrompt": "Fetch Aerodrome (sugar-sdk) quotes for ETH→BCC on Base. Paper mode only — propose trades to humans; never sign.",
+      "tools": ["trading.sugar_quote"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
       "id": "ags-distributor-1",
       "handler": "agsDistributor",
       "fleet": "econ",

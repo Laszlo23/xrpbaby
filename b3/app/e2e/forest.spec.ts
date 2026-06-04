@@ -20,7 +20,10 @@ test.describe("forest community hub", () => {
 
   test("create pass CTA goes to join", async ({ page }) => {
     await page.goto("/forest");
-    await page.getByRole("link", { name: /Create your pass/i }).first().click();
+    await page
+      .getByRole("link", { name: /Create your pass/i })
+      .first()
+      .click();
     await expect(page).toHaveURL(/\/join$/);
   });
 

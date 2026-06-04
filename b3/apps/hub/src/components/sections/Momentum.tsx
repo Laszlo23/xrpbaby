@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const steps = [
   { w: "week 01", t: "idea", d: "an ecosystem for ownership." },
   { w: "week 02", t: "build", d: "protocol, app, eco layer in motion." },
-  { w: "week 03", t: "mainnet", d: "$BCD live. real transactions." },
+  { w: "week 03", t: "mainnet", d: "$BCC live. real transactions." },
   { w: "week 04", t: "mini apps", d: "shipped on farcaster." },
   { w: "week 05", t: "hackathons", d: "the network compounds." },
 ];

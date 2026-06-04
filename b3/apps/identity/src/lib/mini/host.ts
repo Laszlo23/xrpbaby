@@ -1,10 +1,15 @@
-import { MINI_APP_HOST, isMiniAppHost } from "./site";
+import { SITE_ORIGIN } from "@/lib/seo/site";
+import { isMiniAppHost } from "./site";
+
+const MARKETING_HOST = new URL(SITE_ORIGIN).hostname;
 
 export function getHostname(): string {
   if (typeof window !== "undefined") {
     return window.location.hostname;
   }
-  return MINI_APP_HOST;
+  // SSR has no Host header here — default to the public marketing domain so we
+  // do not treat buildingcultureid.space as the mini app host during hydration.
+  return MARKETING_HOST;
 }
 
 export function isMiniAppContext(): boolean {

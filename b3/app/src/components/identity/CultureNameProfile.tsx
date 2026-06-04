@@ -4,7 +4,8 @@ import { useState } from "react";
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { cultureGatewayPath, cultureProfileUrl } from "@/lib/identity/urls";
-import { identityChainId } from "@/lib/identity/config";
+import { explorerAddressUrl } from "@/lib/explorer";
+import { getIdentityNetwork } from "@/lib/identity/networks";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 
 type Props = {
@@ -24,8 +25,7 @@ export function CultureNameProfile({ resolved, paramName }: Props) {
   const [verifyError, setVerifyError] = useState("");
   const [verifying, setVerifying] = useState(false);
 
-  const displayName =
-    resolved.fullName || paramName.toLowerCase();
+  const displayName = resolved.fullName || paramName.toLowerCase();
   const isOwner =
     verified ||
     (resolved.status === "claimed" &&
@@ -73,7 +73,8 @@ export function CultureNameProfile({ resolved, paramName }: Props) {
         <p className="mono-label mt-8 !text-[#C5FF41]">INVALID NAME</p>
         <h1 className="mt-4 font-display text-3xl font-bold">{paramName}</h1>
         <p className="mt-4 text-zinc-400">
-          Use lowercase letters and numbers, like <code className="text-zinc-200">laszlo.culture</code>.
+          Use lowercase letters and numbers, like{" "}
+          <code className="text-zinc-200">laszlo.culture</code>.
         </p>
       </div>
     );
@@ -133,14 +134,17 @@ export function CultureNameProfile({ resolved, paramName }: Props) {
 
       <div className="mt-8 max-w-xl space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-sm">
         <p className="text-zinc-400">
-          This is your <strong className="text-white">culture namespace</strong> on Base — not an ICANN
-          domain, but a real onchain name that resolves in {BRAND_DISPLAY_NAME} and share links.
+          This is your <strong className="text-white">culture namespace</strong> on Base — not an
+          ICANN domain, but a real onchain name that resolves in {BRAND_DISPLAY_NAME} and share
+          links.
         </p>
         {resolved.owner ? (
           <p className="font-mono text-zinc-300">Owner: {shortAddress(resolved.owner)}</p>
         ) : null}
         {resolved.mintedAt ? (
-          <p className="text-zinc-500">Minted: {new Date(resolved.mintedAt).toLocaleDateString()}</p>
+          <p className="text-zinc-500">
+            Minted: {new Date(resolved.mintedAt).toLocaleDateString()}
+          </p>
         ) : null}
         <p className="break-all text-zinc-500">
           Share: <span className="text-[#00E5FF]">{profileUrl}</span>
@@ -172,12 +176,15 @@ export function CultureNameProfile({ resolved, paramName }: Props) {
         </Link>
         {resolved.contractAddress ? (
           <a
-            href={`https://${identityChainId === 8453 ? "basescan.org" : "sepolia.basescan.org"}/address/${resolved.contractAddress}`}
+            href={explorerAddressUrl(
+              resolved.chainId ?? getIdentityNetwork("base").chainId,
+              resolved.contractAddress,
+            )}
             target="_blank"
             rel="noreferrer noopener"
             className="text-zinc-400 hover:text-white"
           >
-            Contract on Basescan
+            Contract on explorer
           </a>
         ) : null}
       </div>

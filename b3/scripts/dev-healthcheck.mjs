@@ -72,6 +72,22 @@ const nonceOk = nonce.status === 200;
 console.log(`${nonceOk ? "OK" : "FAIL"} GET /api/platform/siwe-nonce → ${nonce.status}`);
 if (!nonceOk) failures.push(nonce.url);
 
+const marketHealth = await get("/api/market/health");
+let marketJson = null;
+try {
+  marketJson = await (await fetch(`${base}/api/market/health`)).json();
+} catch {
+  /* ignore */
+}
+const marketOk =
+  marketHealth.status === 200 &&
+  marketJson?.marketplace?.configured &&
+  marketJson?.marketplace?.thirdweb;
+console.log(
+  `${marketOk ? "OK" : "FAIL"} GET /api/market/health → ${marketHealth.status} (marketplace+thirdweb)`,
+);
+if (!marketOk) failures.push(`${base}/api/market/health`);
+
 if (failures.length) {
   console.error("\nFailed checks:", failures.join(", "));
   console.error("Start the app: npm run dev:platform");

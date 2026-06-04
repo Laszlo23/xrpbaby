@@ -1,16 +1,16 @@
-# BCD product map (earn → spend → IRL)
+# BCC product map (earn → spend → IRL)
 
-Internal reference for how **Building Culture Dollar (BCD)** ties the **digital lane** (0x / BUILDCHAIN app) to the **physical lane** (eco hubs, revival — see `ecorwa`). Adjust as prod contracts and legal constraints firm up.
+Internal reference for how **Building Culture Coin (BCC)** ties the **digital lane** (0x / BUILDCHAIN app) to the **physical lane** (eco hubs, revival — see `ecorwa`). Adjust as prod contracts and legal constraints firm up.
 
 ## Today (implemented or partially wired)
 
 | Flow | Mechanism | Notes |
 |------|-----------|--------|
 | **Earn / accumulate BCD** | Genesis merkle claim (`BCDGenesisClaim`), optional sale contract, in-app **demo balance** when token unset | Configure `VITE_BCD_TOKEN_ADDRESS`, `VITE_BCD_GENESIS_CLAIM_ADDRESS`, etc. |
-| **Spend BCD (story)** | Ticket mint UX, missions, leaderboard narrative | Raffle settlement paths vary by deployed bytecode; UI explains ETH vs BCD where relevant (`faq`, `GetBcdModal`). |
-| **Spend BCD (target)** | **RaffleTicketCampaign** supports BCD-style settlement when wired | See Solidity NatSpec in `RaffleTicketCampaign.sol`. |
+| **Spend BCC (story)** | Ticket mint UX, missions, leaderboard narrative | Raffle settlement paths vary by deployed bytecode; UI explains ETH vs BCC where relevant (`faq`, `GetBcdModal`). |
+| **Spend BCC (target)** | **RaffleTicketCampaign** supports BCD-style settlement when wired | See Solidity NatSpec in `RaffleTicketCampaign.sol`. |
 | **View balance** | `useBcdBalance` on chain **`VITE_BCD_CHAIN_ID`** (defaults **8333** B3) | Must match token deployment; prompt uses `getBcdChainShortLabel()`. |
-| **Tickets / experiences** | `VITE_RAFFLE_CAMPAIGN_ADDRESS` on **`VITE_EVM_NETWORK`** (default Base) | Separate chain from BCD is OK — users may switch networks for tickets vs BCD until unified deployment. |
+| **Tickets / experiences** | `VITE_RAFFLE_CAMPAIGN_ADDRESS` on **`VITE_EVM_NETWORK`** (default Base) | Separate chain from BCC is OK — users may switch networks for tickets vs BCC until unified deployment. |
 
 ## Roadmap (hub lane — not implemented)
 

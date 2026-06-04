@@ -22,7 +22,7 @@ Set in `onboarding/frontend/.env`:
 REACT_APP_PLATFORM_ORIGIN=http://localhost:5173
 ```
 
-## 3. BCD Base Sepolia
+## 3. BCC Base Sepolia
 
 ```bash
 export BASE_SEPOLIA_RPC_URL=...

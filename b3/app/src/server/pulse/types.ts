@@ -1,10 +1,4 @@
-export type PulsePlatform =
-  | "farcaster"
-  | "x"
-  | "facebook"
-  | "instagram"
-  | "tiktok"
-  | "native";
+export type PulsePlatform = "farcaster" | "x" | "facebook" | "instagram" | "tiktok" | "native";
 
 export type IngestItem = {
   platform: PulsePlatform;

@@ -13,6 +13,13 @@ B3_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 HOST="${DEPLOY_HOST:?set DEPLOY_HOST}"
 DOMAIN="${PUBLIC_DOMAIN:-home.buildingculture.capital}"
 REMOTE_ROOT="${REMOTE_ROOT:-/var/www/home-buildingculture}"
+SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_wgsdex}"
+SSH_CMD=(ssh -o BatchMode=yes)
+RSYNC_SSH=(ssh -o BatchMode=yes)
+if [[ -f "$SSH_KEY" ]]; then
+  SSH_CMD=(ssh -i "$SSH_KEY" -o BatchMode=yes)
+  RSYNC_SSH=(ssh -i "$SSH_KEY" -o BatchMode=yes)
+fi
 
 cd "$B3_ROOT"
 
@@ -21,13 +28,13 @@ npm install --no-audit --no-fund
 npm --prefix apps/hub run build
 
 echo "==> Rsync dist → ${HOST}:${REMOTE_ROOT}/"
-ssh -o BatchMode=yes "$HOST" "mkdir -p '${REMOTE_ROOT}'"
-rsync -az --delete -e "ssh -o BatchMode=yes" "${B3_ROOT}/apps/hub/dist/" "${HOST}:${REMOTE_ROOT}/"
+"${SSH_CMD[@]}" "$HOST" "mkdir -p '${REMOTE_ROOT}'"
+rsync -az --delete -e "${RSYNC_SSH[*]}" "${B3_ROOT}/apps/hub/dist/" "${HOST}:${REMOTE_ROOT}/"
 
 DEPLOY_HOST="$HOST" PUBLIC_DOMAIN="$DOMAIN" REMOTE_ROOT="$REMOTE_ROOT" "$SCRIPT_DIR/install-nginx-home-on-server.sh"
 
 echo "==> TLS (Let's Encrypt via nginx plugin)"
-ssh -o BatchMode=yes "$HOST" bash -s -- "$DOMAIN" "${CERTBOT_EMAIL:-}" <<'REMOTE'
+"${SSH_CMD[@]}" "$HOST" bash -s -- "$DOMAIN" "${CERTBOT_EMAIL:-}" <<'REMOTE'
 set -euo pipefail
 DOMAIN="$1"
 # SSH may omit an empty second argv; ${2-} avoids set -u when $2 is unset.
@@ -56,7 +63,10 @@ if ! command -v certbot >/dev/null 2>&1; then
   fi
 fi
 
-sudo certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos --email "$EMAIL" --redirect
+sudo certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos --email "$EMAIL" --redirect || {
+  echo "warning: certbot failed for ${DOMAIN} (DNS may not point to this host). Static/nginx config is installed."
+  exit 0
+}
 REMOTE
 
 echo "==> Deploy finished. Open https://${DOMAIN}/"

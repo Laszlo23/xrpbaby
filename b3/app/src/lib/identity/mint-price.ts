@@ -1,30 +1,61 @@
 import { formatEther } from "viem";
+import type { IdentityNetworkId } from "@/lib/identity/networks";
+import { getIdentityNetwork } from "@/lib/identity/networks";
 
-/** Product price: ~$1.11 USD, paid in ETH at on-chain `mintPrice`. */
+/** Product price: ~$1.11 USD, paid in native gas token at on-chain `mintPrice`. */
 export const IDENTITY_MINT_TARGET_USD = 1.11;
 
 /** Default wei at $3,000/ETH — use `node scripts/identity-mint-price-wei.mjs` to refresh. */
 export const IDENTITY_MINT_PRICE_WEI_DEFAULT = 370_000_000_000_000n;
 
-export const IDENTITY_MAINNET_ADDRESS =
-  "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863" as const;
+export const IDENTITY_MAINNET_ADDRESS = "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863" as const;
 
-export const identityMintPriceTagline = `~$${IDENTITY_MINT_TARGET_USD} on Base (paid in ETH)`;
+/** Set after BSC deploy — override via VITE_IDENTITY_BSC_CONTRACT_ADDRESS */
+export const IDENTITY_BSC_MAINNET_ADDRESS = "" as const;
 
-export const identityMintPriceShort = `~$${IDENTITY_MINT_TARGET_USD} in ETH`;
+export const identityMintPriceTagline = `~$${IDENTITY_MINT_TARGET_USD} on Base or BNB Chain`;
 
-function trimEthDisplay(eth: string): string {
-  return eth.replace(/\.?0+$/, "") || "0";
+export const identityMintPriceShort = `~$${IDENTITY_MINT_TARGET_USD} native`;
+
+function trimNativeDisplay(amount: string): string {
+  return amount.replace(/\.?0+$/, "") || "0";
 }
 
-/** User-facing mint price: live ETH from chain + USD product price. */
-export function formatIdentityMintPrice(wei: bigint | undefined): string {
-  if (wei === undefined) return identityMintPriceTagline;
-  const eth = trimEthDisplay(formatEther(wei));
-  return `${eth} ETH (~$${IDENTITY_MINT_TARGET_USD})`;
+export type MintPriceFormatOptions = {
+  networkId?: IdentityNetworkId;
+  symbol?: "ETH" | "BNB" | (string & {});
+};
+
+function resolveSymbol(opts?: MintPriceFormatOptions): string {
+  if (opts?.symbol) return opts.symbol;
+  const id = opts?.networkId ?? "base";
+  return getIdentityNetwork(id).nativeSymbol;
 }
 
-export function formatIdentityMintPriceEthOnly(wei: bigint | undefined): string {
+/** User-facing mint price: live native amount from chain + USD product price. */
+export function formatIdentityMintPrice(
+  wei: bigint | undefined,
+  opts?: MintPriceFormatOptions,
+): string {
+  const symbol = resolveSymbol(opts);
+  const net = getIdentityNetwork(opts?.networkId ?? "base");
+  if (wei === undefined) {
+    return `~$${IDENTITY_MINT_TARGET_USD} on ${net.chainLabel} (paid in ${symbol})`;
+  }
+  const native = trimNativeDisplay(formatEther(wei));
+  return `${native} ${symbol} (~$${IDENTITY_MINT_TARGET_USD})`;
+}
+
+export function formatIdentityMintPriceNativeOnly(
+  wei: bigint | undefined,
+  opts?: MintPriceFormatOptions,
+): string {
   if (wei === undefined) return "—";
-  return `${trimEthDisplay(formatEther(wei))} ETH`;
+  const symbol = resolveSymbol(opts);
+  return `${trimNativeDisplay(formatEther(wei))} ${symbol}`;
+}
+
+/** @deprecated Use formatIdentityMintPriceNativeOnly */
+export function formatIdentityMintPriceEthOnly(wei: bigint | undefined): string {
+  return formatIdentityMintPriceNativeOnly(wei, { symbol: "ETH" });
 }

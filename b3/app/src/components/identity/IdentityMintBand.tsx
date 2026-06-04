@@ -1,22 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { useReadContract } from "wagmi";
-import {
-  identityContractAddress,
-  isIdentityContractConfigured,
-} from "@/lib/identity/config";
+import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import { formatIdentityMintPrice, identityMintPriceShort } from "@/lib/identity/mint-price";
 import { cultureLayerIdentityAbi } from "@/lib/identity/identityAbi";
 import { IDENTITY_TLD_OPTIONS } from "@/lib/identity/tlds";
 
 export function IdentityMintBand() {
+  const { identity } = useCultureNetwork();
   const { data: mintPriceWei } = useReadContract({
-    address: identityContractAddress,
+    address: identity.identityContractAddress || undefined,
     abi: cultureLayerIdentityAbi,
     functionName: "mintPrice",
-    query: { enabled: isIdentityContractConfigured },
+    chainId: identity.identityChainId,
+    query: { enabled: identity.isIdentityContractConfigured },
   });
 
-  const priceLabel = formatIdentityMintPrice(mintPriceWei);
+  const priceLabel = formatIdentityMintPrice(mintPriceWei, {
+    networkId: identity.networkId,
+  });
 
   return (
     <section className="mt-12 overflow-hidden rounded-3xl border border-[#C5FF41]/35 bg-gradient-to-br from-[#C5FF41]/10 via-transparent to-[#00E5FF]/10 p-6 sm:p-8">
@@ -25,8 +26,8 @@ export function IdentityMintBand() {
         Claim your .culture name
       </h2>
       <p className="mt-2 max-w-xl text-sm text-zinc-400">
-        Mint a transferable identity NFT on Base — {identityMintPriceShort}. Live:{" "}
-        <span className="font-mono text-zinc-200">{priceLabel}</span>
+        Mint a transferable identity NFT on {identity.identityChainLabel} — {identityMintPriceShort}
+        . Live: <span className="font-mono text-zinc-200">{priceLabel}</span>
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         {IDENTITY_TLD_OPTIONS.map((tld) => (

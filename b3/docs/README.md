@@ -1,12 +1,13 @@
 # Building Culture docs index
 
-Runbooks for deploy, domain cutover, pulse, BCD, and platform ops.
+Runbooks for deploy, domain cutover, pulse, BCC, and platform ops.
 
 ## Start here
 
 | Doc | Description |
 |-----|-------------|
-| [ADDRESSES.md](ADDRESSES.md) | All contract addresses (Base, Places, identity, testnets) |
+| [0G_HACKATHON_SUBMISSION.md](0G_HACKATHON_SUBMISSION.md) | 0G APAC Hackathon — Agent ID proof, on-chain links, judge repro |
+| [ADDRESSES.md](ADDRESSES.md) | All contract addresses (Base, Places, identity, 0G, testnets) |
 | [SMART_WALLET_AND_PACKS.md](SMART_WALLET_AND_PACKS.md) | Privy smart wallet, Stripe packs, Culture Points |
 | [MISSING_AND_FIXES.md](MISSING_AND_FIXES.md) | Living tracker — what's fixed, what's open |
 | [IDENTITY_MINT_PRICE.md](IDENTITY_MINT_PRICE.md) | TLD mint ~$1.11 on Base (on-chain + ops) |
@@ -14,6 +15,7 @@ Runbooks for deploy, domain cutover, pulse, BCD, and platform ops.
 | [CHAINLINK_RWA_COMPLIANCE.md](CHAINLINK_RWA_COMPLIANCE.md) | RWA / RE tokenization vs Chainlink ACE, DTA, PoR |
 | [CHAINLINK_PARTNER_ONBOARDING.md](CHAINLINK_PARTNER_ONBOARDING.md) | Chainlink sandbox / partner track |
 | [DOMAIN_CUTOVER.md](DOMAIN_CUTOVER.md) | Unified app at `app.buildingcultureid.space` |
+| [BCDAI_ECOSYSTEM.md](BCDAI_ECOSYSTEM.md) | BCDAI satellite — listings, subdomain, Privy/auth checklist |
 | [PLATFORM_VOICE.md](PLATFORM_VOICE.md) | Copy and tone guidelines |
 | [CROSS_DOMAIN_UNIFIED_ENTRY.md](CROSS_DOMAIN_UNIFIED_ENTRY.md) | Single-host nginx topology |
 
@@ -34,7 +36,7 @@ Runbooks for deploy, domain cutover, pulse, BCD, and platform ops.
 | [PULSE_SOCIAL_APIS.md](PULSE_SOCIAL_APIS.md) | Social API wiring |
 | [PULSE_CRON.md](PULSE_CRON.md) | Ingest cron on VPS |
 
-## BCD & contracts
+## BCC & contracts
 
 | Doc | Description |
 |-----|-------------|

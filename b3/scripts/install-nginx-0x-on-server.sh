@@ -13,9 +13,15 @@ HOST="${DEPLOY_HOST:?set DEPLOY_HOST}"
 APP_PORT="${APP_PORT:-3010}"
 DOMAIN="${PUBLIC_DOMAIN:-0x.buildingculture.capital}"
 
+SSH_OPTS=( -o BatchMode=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=240 )
+SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_wgsdex}"
+if [[ -f "$SSH_KEY" ]]; then
+  SSH_OPTS=( -i "$SSH_KEY" "${SSH_OPTS[@]}" )
+fi
+
 echo "==> Nginx on $HOST — ${DOMAIN} → 127.0.0.1:${APP_PORT}"
 
-ssh -o BatchMode=yes "$HOST" bash -s -- "$APP_PORT" "$DOMAIN" <<'REMOTE'
+ssh "${SSH_OPTS[@]}" "$HOST" bash -s -- "$APP_PORT" "$DOMAIN" <<'REMOTE'
 set -euo pipefail
 APP_PORT="$1"
 DOMAIN="$2"

@@ -13,6 +13,10 @@ HOST="${DEPLOY_HOST:?set DEPLOY_HOST, e.g. user@203.0.113.10}"
 REMOTE_DIR="${DEPLOY_PATH:-/opt/buildingculture}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SSH_OPTS=( -o BatchMode=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=240 )
+SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_wgsdex}"
+if [[ -f "$SSH_KEY" ]]; then
+  SSH_OPTS=( -i "$SSH_KEY" "${SSH_OPTS[@]}" )
+fi
 
 if [[ ! -f "$ROOT/deploy/.env" ]]; then
   echo "error: create $ROOT/deploy/.env from deploy/.env.example first"
@@ -27,8 +31,17 @@ rsync -avz --delete \
   -e "ssh ${SSH_OPTS[*]}" \
   --exclude '**/node_modules' \
   --exclude '**/.git' \
+  --exclude '**/.venv' \
+  --exclude 'apps/founding/frontend/.metro-cache' \
+  --exclude 'apps/places' \
+  --exclude 'apps/identity/dist' \
+  --exclude 'apps/art/dist' \
+  --exclude 'apps/eco/dist' \
+  --exclude 'apps/hub/dist' \
+  --exclude 'apps/signal/dist' \
   --exclude 'app/.env' \
   --exclude 'cms/.tmp' \
+  --exclude 'cms/public/uploads/*' \
   --exclude 'contracts/cache' \
   --exclude 'contracts/out' \
   "$ROOT/" "$HOST:$REMOTE_DIR/"

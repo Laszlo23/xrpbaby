@@ -19,7 +19,14 @@ dist/
 !**/.env.example
 .secrets/
 
-# Editor
+# Editor / local IDE
 .idea/
 .vscode/*
 !.vscode/extensions.json
+.cursor/
+**/.cursor/
+
+# Local caches / venvs
+**/.metro-cache/
+**/.venv/
+.python-version

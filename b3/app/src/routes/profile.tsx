@@ -27,6 +27,9 @@ import { toast } from "sonner";
 import { explorerAddressUrl } from "@/lib/explorer";
 import { CommunityProfilePanel } from "@/components/community-profile/CommunityProfilePanel";
 import { PointsLedgerSection } from "@/components/PointsLedgerSection";
+import { DailyOnChainCheckIn } from "@/components/DailyOnChainCheckIn";
+import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
+import { getDailyCheckInAddress } from "@/lib/daily-checkin";
 import { WalletPortfolio } from "@/components/wallet-portfolio/WalletPortfolio";
 import { dailyCultureChallenge } from "@/lib/daily-culture-challenge";
 import {
@@ -68,6 +71,8 @@ const QUESTS = [
 function ProfilePage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
+  const { signSiwe, signing: siweSigning } = usePointsSiweSign();
+  const dailyCheckInContract = getDailyCheckInAddress();
   const campaign = getCampaignAddress();
   const genesis = getBcdGenesisClaimAddress();
   const tokenBcd = getBcdTokenAddress();
@@ -414,7 +419,7 @@ function ProfilePage() {
 
         {progress?.bcdTutorialSeen ? (
           <p className="text-xs font-mono text-amber-200/85">
-            Building Culture cadence · opened Get BCD
+            Building Culture cadence · opened Get $BCC
           </p>
         ) : null}
 
@@ -454,19 +459,32 @@ function ProfilePage() {
           <h2 className="font-heading text-lg font-bold text-foreground">Daily & quests</h2>
         </div>
         <p className="text-xs text-muted-foreground leading-relaxed">
-          Progress is stored in your browser per wallet — not synced across devices.
+          {dailyCheckInContract
+            ? "Daily streak is recorded on-chain (UTC day). Profile XP and leaderboard points sync after your check-in tx."
+            : "Progress is stored in your browser per wallet until DailyCheckIn is deployed."}
         </p>
-        <Button
-          type="button"
-          onClick={onDaily}
-          className="w-full gradient-neon text-neon-foreground font-heading uppercase tracking-wider"
-        >
-          {genesisReadsPending
-            ? "Claim daily (+50 XP)"
-            : genesisDailyBonus > 0
-              ? `Claim daily (+50 + ${genesisDailyBonus} vault XP)`
-              : "Claim daily (+50 XP)"}
-        </Button>
+
+        {dailyCheckInContract ? (
+          <DailyOnChainCheckIn
+            compact
+            signSiwe={signSiwe}
+            signingDisabled={siweSigning}
+            genesisVaultBonusXp={genesisReadsPending ? 0 : genesisDailyBonus}
+            onLocalDailyClaim={refresh}
+          />
+        ) : (
+          <Button
+            type="button"
+            onClick={onDaily}
+            className="w-full gradient-neon text-neon-foreground font-heading uppercase tracking-wider"
+          >
+            {genesisReadsPending
+              ? "Claim daily (+50 XP)"
+              : genesisDailyBonus > 0
+                ? `Claim daily (+50 + ${genesisDailyBonus} vault XP)`
+                : "Claim daily (+50 XP)"}
+          </Button>
+        )}
 
         <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-3 space-y-2">
           <p className="text-[11px] font-semibold text-emerald-100/95">

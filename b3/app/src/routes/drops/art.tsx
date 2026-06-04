@@ -1,21 +1,36 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { platformModules } from "@/lib/modules";
+import { pageHead } from "@/lib/seo";
+import { ArtDropsLanding } from "@/modules/art/ArtDropsLanding";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/drops/art")({
+  head: () =>
+    pageHead({
+      title: "Building Culture Art — Culture belongs to everyone",
+      description:
+        "Onchain raffles for museum-scale paintings by Angeli & Scheibl. Buy a ticket for a chance to win the physical artwork.",
+      path: "/drops/art",
+      keywords: ["art", "raffle", "Angeli", "Scheibl", "Building Culture", "Base"],
+    }),
   component: ArtDropsPage,
 });
 
 function ArtDropsPage() {
   if (!platformModules.art) {
-    return <p className="p-8 text-white">Art module off.</p>;
+    return (
+      <div className="min-h-screen bg-[#050505] p-8 text-white">
+        <p>Art module off.</p>
+        <Link to="/forest" className="mt-4 inline-block text-sm text-zinc-400">
+          ← Forest
+        </Link>
+      </div>
+    );
   }
+
   return (
-    <div className="min-h-screen bg-[#050505] p-8 text-white">
-      <Link to="/forest" className="text-sm text-zinc-400">
-        ← Forest
-      </Link>
-      <h1 className="mt-6 font-display text-3xl font-bold">Art drops</h1>
-      <p className="mt-4 text-zinc-400">Community art raffles from apps/art — shared BCD settlement when wired.</p>
+    <div className="art-module dark">
+      <ArtDropsLanding />
     </div>
   );
 }

@@ -17,7 +17,7 @@ export class InstagramPulseAdapter implements PulseIngestAdapter {
     if (!envFlag("INSTAGRAM_STREAM")) return false;
     return Boolean(
       process.env.FACEBOOK_ACCESS_TOKEN?.trim() &&
-        process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID?.trim(),
+      process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID?.trim(),
     );
   }
 
@@ -27,10 +27,7 @@ export class InstagramPulseAdapter implements PulseIngestAdapter {
     const token = process.env.FACEBOOK_ACCESS_TOKEN!.trim();
     const igUserId = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID!.trim();
     const url = new URL(`https://graph.facebook.com/v21.0/${igUserId}/media`);
-    url.searchParams.set(
-      "fields",
-      "id,caption,timestamp,permalink,like_count,comments_count",
-    );
+    url.searchParams.set("fields", "id,caption,timestamp,permalink,like_count,comments_count");
     url.searchParams.set("access_token", token);
     url.searchParams.set("limit", "25");
 

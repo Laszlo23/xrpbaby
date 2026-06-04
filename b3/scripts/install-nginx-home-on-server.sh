@@ -11,10 +11,15 @@ set -euo pipefail
 HOST="${DEPLOY_HOST:?set DEPLOY_HOST}"
 DOMAIN="${PUBLIC_DOMAIN:-home.buildingculture.capital}"
 REMOTE_ROOT="${REMOTE_ROOT:-/var/www/home-buildingculture}"
+SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_wgsdex}"
+SSH_CMD=(ssh -o BatchMode=yes)
+if [[ -f "$SSH_KEY" ]]; then
+  SSH_CMD=(ssh -i "$SSH_KEY" -o BatchMode=yes)
+fi
 
 echo "==> Nginx static SPA on $HOST — ${DOMAIN} → root ${REMOTE_ROOT}"
 
-ssh -o BatchMode=yes "$HOST" bash -s -- "$DOMAIN" "$REMOTE_ROOT" <<'REMOTE'
+"${SSH_CMD[@]}" "$HOST" bash -s -- "$DOMAIN" "$REMOTE_ROOT" <<'REMOTE'
 set -euo pipefail
 DOMAIN="$1"
 REMOTE_ROOT="$2"

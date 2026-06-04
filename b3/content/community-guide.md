@@ -64,9 +64,10 @@ Content is maintained from the project repo so every surface stays aligned.
 | Term | Meaning |
 |------|---------|
 | **BUILDCHAIN** | The product layer: tickets, drops, quests, marketplace, and culture-first gameplay. |
-| **BCD** | Building Culture Dollar — the app’s economic / narrative layer for balances and drops (see in-app FAQ for how it maps to live mints). |
+| **BCC** | Building Culture Coin — the app’s economic / narrative layer for balances and drops (see in-app FAQ for how it maps to live mints). |
 | **0x vs app** | Same application; two hostnames for flexibility (marketing vs production bookmarks). |
 | **Eco** | Story-first surface for physical revival and hubs — not a separate chain. |
+| **BCDAI** | [bcdai.buildingcultureid.space](https://bcdai.buildingcultureid.space/) — AI trading co-pilot (copy trading, automation rules) on Base & Solana. |
 
 ---
 

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { base } from "viem/chains";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import {
   useAccount,
   useChainId,
+  useReadContract,
   useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
@@ -13,17 +13,33 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { dailyCheckInAbi } from "@/lib/abis/daily-checkin";
+import { getDefaultChain } from "@/lib/chains";
+import { getDailyCheckInAddress, utcCheckInDayIndex } from "@/lib/daily-checkin";
 import { postCompleteDailyChainCheckIn } from "@/lib/points-fns";
+import { claimDaily } from "@/lib/playerProgress";
 
 type Props = {
   signSiwe: () => Promise<{ prepared: string; signature: string } | undefined>;
   signingDisabled: boolean;
-  onBalance: (balance: number) => void;
+  onBalance?: (balance: number) => void;
+  /** Profile XP (+50 / vault bonus) after a successful on-chain check-in. */
+  onLocalDailyClaim?: () => void;
+  /** When set, syncs local `claimDaily` with genesis vault bonus after chain tx. */
+  genesisVaultBonusXp?: number;
+  compact?: boolean;
 };
 
-export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Props) {
-  const contractAddress = import.meta.env.VITE_DAILY_CHECKIN_ADDRESS as `0x${string}` | undefined;
-  const { isConnected } = useAccount();
+export function DailyOnChainCheckIn({
+  signSiwe,
+  signingDisabled,
+  onBalance,
+  onLocalDailyClaim,
+  genesisVaultBonusXp = 0,
+  compact = false,
+}: Props) {
+  const contractAddress = getDailyCheckInAddress();
+  const wantChain = getDefaultChain();
+  const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
   const completeDaily = useServerFn(postCompleteDailyChainCheckIn);
@@ -32,6 +48,18 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
   const { isLoading: confirming, isSuccess } = useWaitForTransactionReceipt({ hash });
   const [claiming, setClaiming] = useState(false);
   const processedHash = useRef<string | null>(null);
+
+  const todayIndex = utcCheckInDayIndex();
+
+  const { data: lastDay, refetch: refetchLastDay } = useReadContract({
+    address: contractAddress,
+    abi: dailyCheckInAbi,
+    functionName: "lastCheckInDay",
+    args: address ? [address] : undefined,
+    query: { enabled: !!contractAddress && !!address },
+  });
+
+  const onChainDoneToday = lastDay !== undefined && lastDay === todayIndex;
 
   useEffect(() => {
     if (!isSuccess || !hash || processedHash.current === hash) return;
@@ -49,7 +77,7 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
             message: signed.prepared,
             signature: signed.signature,
             txHash: hash,
-            chainId: base.id,
+            chainId: wantChain.id,
           },
         });
         if (!res.ok) {
@@ -57,12 +85,21 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
           processedHash.current = null;
           return;
         }
-        if (res.alreadyCompleted) {
-          toast.message("Already credited for today");
-        } else {
-          toast.success("Daily on-chain check-in recorded");
+
+        if (address && onLocalDailyClaim) {
+          const local = claimDaily(address, { genesisVaultBonusXp });
+          if (local.ok) {
+            onLocalDailyClaim();
+          }
         }
-        onBalance(res.balance);
+
+        if (res.alreadyCompleted) {
+          toast.message("On-chain check-in verified · points already credited today");
+        } else {
+          toast.success("Daily check-in saved on-chain (+ ledger points)");
+        }
+        onBalance?.(res.balance);
+        void refetchLastDay();
       } catch (e) {
         toast.error(e instanceof Error ? e.message : "Sign failed");
         processedHash.current = null;
@@ -71,16 +108,27 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
         setHash(undefined);
       }
     })();
-  }, [completeDaily, hash, isSuccess, onBalance, signSiwe]);
+  }, [
+    address,
+    completeDaily,
+    genesisVaultBonusXp,
+    hash,
+    isSuccess,
+    onBalance,
+    onLocalDailyClaim,
+    refetchLastDay,
+    signSiwe,
+    wantChain.id,
+  ]);
 
   async function runCheckIn() {
     if (!contractAddress) {
-      toast.error("Set VITE_DAILY_CHECKIN_ADDRESS after deploying DailyCheckIn.");
+      toast.error("Deploy DailyCheckIn and set VITE_DAILY_CHECKIN_ADDRESS.");
       return;
     }
     try {
-      if (chainId !== base.id) {
-        await switchChainAsync({ chainId: base.id });
+      if (chainId !== wantChain.id) {
+        await switchChainAsync({ chainId: wantChain.id });
       }
       const h = await writeContractAsync({
         address: contractAddress,
@@ -89,7 +137,13 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
       });
       setHash(h);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Transaction failed");
+      const msg = e instanceof Error ? e.message : "Transaction failed";
+      if (/AlreadyCheckedIn|already checked/i.test(msg)) {
+        toast.message("Already checked in on-chain today (UTC day)");
+        void refetchLastDay();
+        return;
+      }
+      toast.error(msg);
     }
   }
 
@@ -98,12 +152,11 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
   if (!contractAddress) {
     return (
       <div className="rounded-2xl border border-dashed border-white/10 bg-black/10 p-4">
-        <p className="text-sm font-medium text-white">Daily on-chain loop</p>
+        <p className="text-sm font-medium text-white">Daily check-in (on-chain)</p>
         <p className="mt-1 text-xs text-zinc-500">
-          Deploy <span className="font-mono text-[10px]">DailyCheckIn.sol</span>, then set client{" "}
-          <span className="font-mono text-[10px]">VITE_DAILY_CHECKIN_ADDRESS</span> and server{" "}
-          <span className="font-mono text-[10px]">DAILY_CHECKIN_CONTRACT_ADDRESS</span> (+ optional{" "}
-          <span className="font-mono text-[10px]">BASE_RPC_URL</span>).
+          Deploy <span className="font-mono text-[10px]">contracts/script/DeployDailyCheckIn.s.sol</span>
+          , then set <span className="font-mono text-[10px]">VITE_DAILY_CHECKIN_ADDRESS</span> and server{" "}
+          <span className="font-mono text-[10px]">DAILY_CHECKIN_CONTRACT_ADDRESS</span>.
         </p>
       </div>
     );
@@ -111,19 +164,29 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
 
   const busy = txPending || confirming || claiming || signingDisabled;
 
+  const shellClass = compact
+    ? "space-y-2"
+    : "rounded-2xl border border-white/[0.06] bg-black/20 p-4 space-y-2";
+
   return (
-    <div className="rounded-2xl border border-white/[0.06] bg-black/20 p-4 space-y-2">
-      <p className="font-medium text-white">Daily on-chain check-in (Base)</p>
-      <p className="text-xs text-zinc-500">
-        Sends a Base transaction once per UTC day, then sign with SIWE to credit points. Gas
-        required.
+    <div className={shellClass}>
+      <p className={compact ? "text-[11px] font-semibold text-emerald-100/95" : "font-medium text-white"}>
+        Daily check-in on {wantChain.name}
       </p>
+      <p className="text-xs text-zinc-500">
+        One <span className="font-mono">checkIn()</span> tx per UTC day — stored on-chain (
+        <span className="font-mono">CheckedIn</span> event + <span className="font-mono">lastCheckInDay</span>
+        ). Then sign to credit leaderboard points; profile XP applies when configured.
+      </p>
+      {onChainDoneToday ? (
+        <p className="text-xs text-emerald-400/90">On-chain: checked in for today (UTC day {todayIndex.toString()}).</p>
+      ) : null}
       <Button
         type="button"
-        variant="secondary"
+        variant={compact ? "outline" : "secondary"}
         size="sm"
         className="rounded-full"
-        disabled={busy}
+        disabled={busy || onChainDoneToday}
         onClick={() => void runCheckIn()}
       >
         {busy ? (
@@ -131,10 +194,12 @@ export function DailyOnChainCheckIn({ signSiwe, signingDisabled, onBalance }: Pr
             <Loader2 className="h-4 w-4 animate-spin" />
             {confirming || txPending ? "Confirming tx…" : claiming ? "Recording…" : "Working…"}
           </span>
-        ) : chainId !== base.id ? (
-          "Switch to Base & check in"
+        ) : onChainDoneToday ? (
+          "Checked in on-chain today"
+        ) : chainId !== wantChain.id ? (
+          `Switch to ${wantChain.name} & check in`
         ) : (
-          "Do it — send check-in tx"
+          "Check in on-chain"
         )}
       </Button>
     </div>

@@ -16,8 +16,7 @@ export class FacebookPulseAdapter implements PulseIngestAdapter {
   isEnabled(): boolean {
     if (!envFlag("FACEBOOK_STREAM")) return false;
     return Boolean(
-      process.env.FACEBOOK_ACCESS_TOKEN?.trim() &&
-        process.env.FACEBOOK_PAGE_ID?.trim(),
+      process.env.FACEBOOK_ACCESS_TOKEN?.trim() && process.env.FACEBOOK_PAGE_ID?.trim(),
     );
   }
 

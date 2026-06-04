@@ -18,7 +18,7 @@ When addresses are in production, verify against explorer:
 
 | Contract | Env keys | Risk notes |
 |----------|----------|------------|
-| **RaffleTicketCampaign** | `VITE_RAFFLE_CAMPAIGN_ADDRESS` | Mint caps, treasury, BCD approval paths if enabled |
+| **RaffleTicketCampaign** | `VITE_RAFFLE_CAMPAIGN_ADDRESS` | Mint caps, treasury, BCC approval paths if enabled |
 | **BuildingCultureDollar** | `VITE_BCD_TOKEN_ADDRESS` | Mint authority, cap, pause |
 | **BCDGenesisClaim** | `VITE_BCD_GENESIS_MERKLE_ROOT_HEX`, claim fee | Merkle root rotation, fee recipient |
 | **BCDFixedPriceSale** | `VITE_BCD_SALE_ADDRESS`, `VITE_BCD_SALE_ROUND_ID`, optional `VITE_BCD_SALE_ELIGIBILITY_BASE` | Round windows, merkle roots, fee bps, pause, payment token (ETH vs ERC-20) |

@@ -16,9 +16,7 @@ export const Route = createFileRoute("/api/pulse/attestation/latest")({
         }
 
         const explorer =
-          att.chainId === 84532
-            ? "https://sepolia.basescan.org"
-            : "https://basescan.org";
+          att.chainId === 84532 ? "https://sepolia.basescan.org" : "https://basescan.org";
 
         return json({
           ok: true,

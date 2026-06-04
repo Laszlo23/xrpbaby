@@ -10,7 +10,7 @@ import Problem from "./sections/Problem";
 import Vision from "./sections/Vision";
 import Ecosystem from "./sections/Ecosystem";
 import CultureLayer from "./sections/CultureLayer";
-import BCD from "./sections/BCD";
+import BCC from "./sections/BCC";
 import Impact from "./sections/Impact";
 import Investors from "./sections/Investors";
 import Future from "./sections/Future";
@@ -31,7 +31,7 @@ const Landing = () => {
         <Vision />
         <Ecosystem />
         <CultureLayer />
-        <BCD />
+        <BCC />
         <Impact />
         <Investors />
         <Future />

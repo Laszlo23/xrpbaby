@@ -19,8 +19,11 @@ export const Route = createFileRoute("/api/pulse/feed/$id/comments")({
         const prisma = getPrisma();
         if (!prisma) return json({ ok: false, error: "no_database" }, 503);
 
+        const feedItemId = params?.id;
+        if (!feedItemId) return json({ ok: false, error: "invalid_params" }, 400);
+
         const comments = await prisma.socialComment.findMany({
-          where: { feedItemId: params.id, hidden: false },
+          where: { feedItemId, hidden: false },
           orderBy: { createdAt: "desc" },
           take: 100,
           include: {
@@ -48,6 +51,9 @@ export const Route = createFileRoute("/api/pulse/feed/$id/comments")({
         const limited = checkRateLimit(request, "pulse-comment", 30);
         if (!limited.ok) return json({ ok: false, error: "rate_limited" }, 429);
 
+        const feedItemId = params?.id;
+        if (!feedItemId) return json({ ok: false, error: "invalid_params" }, 400);
+
         const { getPrisma } = await import("@/server/db/prisma");
         const prisma = getPrisma();
         if (!prisma) return json({ ok: false, error: "no_database" }, 503);
@@ -63,7 +69,7 @@ export const Route = createFileRoute("/api/pulse/feed/$id/comments")({
         }
 
         const feed = await prisma.socialFeedItem.findUnique({
-          where: { id: params.id },
+          where: { id: feedItemId },
         });
         if (!feed) return json({ ok: false, error: "not_found" }, 404);
 
@@ -72,7 +78,7 @@ export const Route = createFileRoute("/api/pulse/feed/$id/comments")({
 
         const comment = await prisma.socialComment.create({
           data: {
-            feedItemId: params.id,
+            feedItemId,
             memberId: member.id,
             body: parsed.data.body.trim(),
           },

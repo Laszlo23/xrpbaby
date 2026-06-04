@@ -119,6 +119,15 @@ ECOSYSTEM: List[dict] = [
         "layer": "ai",
     },
     {
+        "id": "bcdai",
+        "name": "BCDAI",
+        "url": "https://bcdai.buildingcultureid.space/",
+        "description": "Autonomous crypto OS — AI copilots, copy trading, visual IF/THEN rules, and MEV-aware routing on Base & Solana.",
+        "tag": "AI Trading Terminal",
+        "status": "live",
+        "layer": "ai",
+    },
+    {
         "id": "bc-game",
         "name": "Building Culture Game",
         "url": "https://game.buildingculture.capital",

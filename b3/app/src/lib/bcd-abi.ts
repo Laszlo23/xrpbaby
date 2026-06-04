@@ -1,6 +1,6 @@
 import { parseAbi } from "viem";
 
-/** Minimal ERC20 surface for BCD balance / approvals (future sale + raffle). */
+/** Minimal ERC20 surface for BCC balance / approvals (future sale + raffle). */
 export const erc20Abi = parseAbi([
   "function balanceOf(address account) view returns (uint256)",
   "function allowance(address owner, address spender) view returns (uint256)",

@@ -1,4 +1,4 @@
-# BCD launch — audit scope, liquidity, and owner mint policy
+# BCC launch — audit scope, liquidity, and owner mint policy
 
 Concise operations companion to [`BCD_TOKENOMICS_LAUNCH.md`](BCD_TOKENOMICS_LAUNCH.md) and the on-chain sale plan.
 
@@ -17,7 +17,7 @@ Deliverables to request: differential report vs current tag, invariant list, pri
 ## Liquidity / LP runbook
 
 1. Confirm **sale rounds** (`BCDFixedPriceSale`) completed or paused; treasury has received proceeds.
-2. Multisig **`ownerMint`** (or treasury policy via vesting schedules) allocates BCD reserved for liquidity per tokenomics doc.
+2. Multisig **`ownerMint`** (or treasury policy via vesting schedules) allocates BCC reserved for liquidity per tokenomics doc.
 3. Add DEX liquidity on Base (pair with chosen quote asset — e.g. WETH/USDC): use Safe transactions; snapshot pool address and LP token id if applicable.
 4. Optional: LP lock / transfer LP position to custody; document timelines and disclosures per product/counsel.
 5. Publish pool links (Basescan + Dune/DefiLlama if desired).

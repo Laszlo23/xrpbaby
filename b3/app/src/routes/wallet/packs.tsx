@@ -7,6 +7,7 @@ import {
   PackCheckoutActionsLegacy,
   PackCheckoutActionsPrivy,
 } from "@/components/wallet/PackCheckoutActions";
+import { NetworkSelector } from "@/components/wallet/NetworkSelector";
 import { ModuleShell } from "@/components/ModuleShell";
 import { WalletControls } from "@/components/WalletControls";
 import { pageHead } from "@/lib/seo";
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/wallet/packs")({
     pageHead({
       title: "Culture packs",
       description:
-        "Buy Culture Points with USD. Loyalty credits for quests, perks, and future BCD redemption.",
+        "Buy Culture Points with USD. Loyalty credits for quests, perks, and future BCC redemption.",
       path: "/wallet/packs",
     }),
   component: WalletPacksPage,
@@ -61,10 +62,11 @@ function WalletPacksPage() {
     <ModuleShell
       moduleId="pass"
       title="Culture packs"
-      subtitle="USD checkout via Stripe. Points are loyalty credits — not securities. Redeem for BCD when liquidity allows."
+      subtitle="USD checkout via Stripe. Points are loyalty credits — not securities. Redeem for BCC when liquidity allows."
     >
       <div className="mx-auto max-w-3xl space-y-8">
         <div className="flex flex-col items-center gap-4">
+          <NetworkSelector />
           <WalletControls />
           {balance !== null && (
             <p className="font-mono text-sm text-[#C5FF41]">

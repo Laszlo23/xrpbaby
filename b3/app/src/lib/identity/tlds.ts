@@ -1,11 +1,4 @@
-export const TLD_LABELS = [
-  "culture",
-  "build",
-  "home",
-  "eco",
-  "capital",
-  "city",
-] as const;
+export const TLD_LABELS = ["culture", "build", "home", "eco", "capital", "city"] as const;
 
 export type TldLabel = (typeof TLD_LABELS)[number];
 

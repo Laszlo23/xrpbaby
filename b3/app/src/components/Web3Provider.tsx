@@ -15,6 +15,25 @@ import { WagmiThirdwebSync } from "@/components/WagmiThirdwebSync";
 import { FarcasterMiniAppBridge } from "@/components/FarcasterMiniAppBridge";
 import { WorldMiniAppBridge } from "@/components/WorldMiniAppBridge";
 import { PrivyMemberSync } from "@/components/PrivyMemberSync";
+import { PrivyWagmiSync } from "@/components/PrivyWagmiSync";
+import { CultureNetworkProvider } from "@/contexts/CultureNetworkContext";
+import { thirdwebClient } from "@/lib/thirdweb-client";
+
+function Web3Core({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <FarcasterMiniAppBridge />
+      <WorldMiniAppBridge />
+      {privyEnabled ? (
+        <>
+          <PrivyWagmiSync />
+          <PrivyMemberSync />
+        </>
+      ) : null}
+      <CultureNetworkProvider>{children}</CultureNetworkProvider>
+    </>
+  );
+}
 
 const worldMiniAppId =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_WORLD_MINI_APP_ID?.trim()) ||
@@ -30,15 +49,24 @@ const queryClient = new QueryClient({
 });
 
 function Web3Inner({ children }: { children: React.ReactNode }) {
+  const core = thirdwebClient ? (
+    <ThirdwebProvider>
+      <WagmiThirdwebSync />
+      <Web3Core>{children}</Web3Core>
+    </ThirdwebProvider>
+  ) : (
+    <Web3Core>{children}</Web3Core>
+  );
+
+  if (!worldMiniAppId) {
+    return core;
+  }
+
   return (
-    <MiniKitProvider props={{ wagmiConfig: privyEnabled ? wagmiConfigPrivy : wagmiConfig, appId: worldMiniAppId }}>
-      <ThirdwebProvider>
-        <WagmiThirdwebSync />
-        <FarcasterMiniAppBridge />
-        <WorldMiniAppBridge />
-        {privyEnabled ? <PrivyMemberSync /> : null}
-        {children}
-      </ThirdwebProvider>
+    <MiniKitProvider
+      props={{ wagmiConfig: privyEnabled ? wagmiConfigPrivy : wagmiConfig, appId: worldMiniAppId }}
+    >
+      {core}
     </MiniKitProvider>
   );
 }

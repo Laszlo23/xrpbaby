@@ -43,7 +43,7 @@ services:
       DATABASE_CLIENT: postgres
       DATABASE_URL: postgresql://${POSTGRES_USER:-buildingculture}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-buildingculture}
     ports:
-      - "127.0.0.1:1337:1337"
+      - "127.0.0.1:${STRAPI_HOST_PORT:-1337}:1337"
 
   web:
     image: ${WEB_IMAGE:-buildingculture-frontend:latest}
@@ -57,7 +57,7 @@ services:
       PORT: "3000"
       DATABASE_URL: postgresql://${POSTGRES_USER:-buildingculture}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-buildingculture}
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:${WEB_HOST_PORT:-3000}:3000"
 
   agent-runtime:
     build:

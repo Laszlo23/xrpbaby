@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { EliasIntentModal } from "@/components/EliasIntentModal";
+import { eliasOrbEnabled } from "@/lib/elias-feature";
 
 const ONBOARDING_STORAGE_KEY = "bc_elias_onboarding_v1";
 
@@ -29,7 +30,7 @@ function routeNudge(pathname: string): { title: string; hint: string; cta?: stri
   if (pathname.startsWith("/mission")) {
     return {
       title: "Mission",
-      hint: "Ask Pulse Coach for a simple checklist for today (and how BCD fits).",
+      hint: "Ask Pulse Coach for a simple checklist for today (and how BCC fits).",
       cta: "Ask Elias",
     };
   }
@@ -45,6 +46,7 @@ function routeNudge(pathname: string): { title: string; hint: string; cta?: stri
 }
 
 export function EliasOnboarding() {
+  const enabled = eliasOrbEnabled();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
   const [hasShownNudge, setHasShownNudge] = useState(false);
@@ -73,6 +75,8 @@ export function EliasOnboarding() {
         : undefined,
     });
   }, [nudge, hasShownNudge]);
+
+  if (!enabled) return null;
 
   return (
     <EliasIntentModal

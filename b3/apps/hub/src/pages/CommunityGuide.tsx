@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { AnchorHTMLAttributes } from "react";
-import raw from "../../../content/community-guide.md?raw";
+import raw from "../../../../content/community-guide.md?raw";
 
 function MarkdownAnchor({
   href,

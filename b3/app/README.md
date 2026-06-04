@@ -16,6 +16,7 @@ The unified web app: story landing, drops, onboarding, community hub, marketplac
 | `/investors` | Capital overview + Chainlink RWA compliance strip |
 | `/id/{name}` | Culture name profile; `/n/{name}` short gateway |
 | `/earth` | Earth lane — hubs and regeneration |
+| `/0g/agentid` | 0G APAC Hackathon — Agent ID on-chain proof (ChainScan links) |
 | `/marketplace` | ERC-721 secondary market (not property shares) |
 | `/profile` | Your wallet, XP, and settings |
 
@@ -69,6 +70,16 @@ RWA / real estate compliance:
 API: `GET /api/compliance/eligibility?wallet=0x…` — shared with `/places` hub.
 
 See [CHAINLINK_RWA_COMPLIANCE.md](../docs/CHAINLINK_RWA_COMPLIANCE.md).
+
+0G APAC Hackathon proof page (`/0g/agentid`):
+
+| Variable | Notes |
+|----------|--------|
+| `VITE_OG_AGENT_ID_CONTRACT_ADDRESS` | AgentId ERC-721 on 0G mainnet (`16661`) |
+| `VITE_OG_AGENT_ID_DEPLOY_TX` | Deploy transaction hash |
+| `VITE_OG_AGENT_ID_MINT_TX` | Mint transaction hash |
+
+Defaults match mainnet deployment in [0G_HACKATHON_SUBMISSION.md](../docs/0G_HACKATHON_SUBMISSION.md) when unset.
 
 Global footer mounts once in `__root.tsx` (`AppFooter`); marketplace disclaimer is a `role="note"` block, not a second landmark.
 

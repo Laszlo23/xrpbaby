@@ -14,7 +14,7 @@ export function DisclaimerBanner({ dense }: { dense?: boolean }) {
           <p className="text-amber-100/85">
             This page is for discussion only. Nothing here is an offer to sell securities or a
             solicitation to buy. Figures are illustrative placeholders or toy scenarios—not audited
-            forecasts, accounting, or tax advice. BCD and related mechanics may implicate
+            forecasts, accounting, or tax advice. BCC and related mechanics may implicate
             regulations in your jurisdiction; retain counsel before running paid campaigns or
             promoting tokens.
           </p>

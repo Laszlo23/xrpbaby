@@ -8,10 +8,7 @@ export function envFlag(name: string, defaultOn = false): boolean {
 
 export const pulseStreamFlags = () => ({
   farcaster: Boolean(process.env.NEYNAR_API_KEY?.trim()),
-  x: Boolean(
-    process.env.X_CONSUMER_KEY?.trim() &&
-      process.env.X_ACCESS_TOKEN?.trim(),
-  ),
+  x: Boolean(process.env.X_CONSUMER_KEY?.trim() && process.env.X_ACCESS_TOKEN?.trim()),
   facebook: envFlag("FACEBOOK_STREAM"),
   tiktok: envFlag("TIKTOK_STREAM"),
   instagram: envFlag("INSTAGRAM_STREAM"),
@@ -34,9 +31,7 @@ export function pulseAnchorAddress(): `0x${string}` | undefined {
 }
 
 export function pulseAttestPrivateKey(): `0x${string}` | undefined {
-  const k =
-    process.env.PULSE_ATTEST_PRIVATE_KEY?.trim() ??
-    process.env.PRIVATE_KEY?.trim();
+  const k = process.env.PULSE_ATTEST_PRIVATE_KEY?.trim() ?? process.env.PRIVATE_KEY?.trim();
   if (k && /^0x[a-fA-F0-9]{64}$/.test(k)) return k as `0x${string}`;
   return undefined;
 }

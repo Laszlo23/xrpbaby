@@ -5,13 +5,13 @@ on:
     paths:
       - "packages/agent-runtime/**"
       - "packages/contracts-sdk/**"
-      - "frontend/scripts/chain-index-events.ts"
+      - "app/scripts/chain-index-events.ts"
       - ".github/workflows/agent-runtime.yml"
   pull_request:
     paths:
       - "packages/agent-runtime/**"
       - "packages/contracts-sdk/**"
-      - "frontend/scripts/chain-index-events.ts"
+      - "app/scripts/chain-index-events.ts"
       - ".github/workflows/agent-runtime.yml"
 
 jobs:
@@ -33,10 +33,10 @@ jobs:
       - name: Build contracts-sdk (indexer smoke)
         run: npm run build -w @bc/contracts-sdk
       - name: Prisma generate (chain-index script)
-        working-directory: frontend
+        working-directory: app
         run: npx prisma generate
       - name: Chain index smoke (RPC + address resolution)
-        working-directory: frontend
+        working-directory: app
         env:
           CHAIN_INDEX_SMOKE: "1"
           VITE_EVM_CHAIN_ID: "8453"

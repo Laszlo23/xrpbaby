@@ -7,7 +7,7 @@ export function HeroVaultCtas(props: { onBeginJourney?: () => void }) {
   const onBegin = props.onBeginJourney;
 
   return (
-    <div className="mt-4 flex flex-col gap-2 sm:mt-5">
+    <div className="mt-3 flex flex-col gap-2 sm:mt-4">
       <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-2.5">
         <a
           href="#vault"

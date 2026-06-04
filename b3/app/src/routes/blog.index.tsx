@@ -9,9 +9,9 @@ export const Route = createFileRoute("/blog/")({
     pageHead({
       title: "Blog",
       description:
-        "Updates and explainers from BUILDCHAIN — fair drops on Base, missions, BCD, and how we build in public.",
+        "Updates and explainers from BUILDCHAIN — fair drops on Base, missions, BCC, and how we build in public.",
       path: "/blog",
-      keywords: ["BUILDCHAIN", "blog", "Base", "RWA", "drops", "BCD"],
+      keywords: ["BUILDCHAIN", "blog", "Base", "RWA", "drops", "BCC"],
     }),
   component: BlogIndexPage,
 });

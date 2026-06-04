@@ -1,4 +1,4 @@
-# BCD payer wallet — chain verification, funding paths, Farcaster payouts
+# BCC payer wallet — chain verification, funding paths, Farcaster payouts
 
 Operational companion to [`BCD_PRELAUNCH_RUNBOOK.md`](BCD_PRELAUNCH_RUNBOOK.md) for funding a **hot wallet** that pays players or rewards on **Base**.
 
@@ -8,7 +8,7 @@ From [`contracts/deployments/8453.json`](../contracts/deployments/8453.json) and
 
 | Contract | Base (8453) |
 |----------|----------------|
-| **BuildingCultureDollar (BCD)** | `0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72` |
+| **BuildingCultureDollar (BCC)** | `0xb890a5289f789f1346032ccc1847939e855fab07` |
 | **BCDGenesisClaim** | `0x2bae6b04d0d1c8016cc863509395b68eb0021f58` |
 
 Production frontend may override the token via **`VITE_BCD_TOKEN_ADDRESS`** / **`VITE_BCD_CHAIN_ID`** — always reconcile deployed env with this table before treasury actions.
@@ -38,7 +38,7 @@ Pick **one** primary path (compliance and treasury policy apply — not legal ad
 
 ```mermaid
 flowchart TD
-  start[Need BCD in payer wallet]
+  start[Need BCC in payer wallet]
   treasury[Treasury Safe ownerMint to hot wallet]
   sale[BCDFixedPriceSale purchase with ETH or USDC]
   genesis[Payer address in genesis merkle then claim]
@@ -60,7 +60,7 @@ After mint or purchase, fund **gas** on the payer wallet (**ETH on Base**) for E
 
 ## 4. Farcaster game integration (player payouts)
 
-The repo does **not** map Farcaster IDs to BCD transfers. Your game layer must:
+The repo does **not** map Farcaster IDs to BCC transfers. Your game layer must:
 
 1. **Resolve payout recipient** — each winner needs a **Base `0x…` address** (custody wallet, Warpcast-linked wallet, etc.). Typical patterns:
    - User connects wallet in mini-app / frame → store verified address for `fid`.

@@ -9,7 +9,11 @@ test.describe("RWA compliance flows", () => {
       "/api/compliance/eligibility?wallet=0x0000000000000000000000000000000000000001",
     );
     expect(good.ok()).toBeTruthy();
-    const data = (await good.json()) as { ok?: boolean; wallet?: string; chainlink?: { matrixDoc?: string } };
+    const data = (await good.json()) as {
+      ok?: boolean;
+      wallet?: string;
+      chainlink?: { matrixDoc?: string };
+    };
     expect(data.ok).toBe(true);
     expect(data.wallet).toBe("0x0000000000000000000000000000000000000001");
     expect(data.chainlink?.matrixDoc).toContain("CHAINLINK");

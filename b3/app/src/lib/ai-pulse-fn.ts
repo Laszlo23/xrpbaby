@@ -37,8 +37,8 @@ const SYSTEM_PROMPT = `You are **Pulse Coach**, the in-app guide for BUILDCHAIN 
 
 Rules:
 - Be concise (short paragraphs, bullets welcome). Energetic but not hypey.
-- Explain **Building Culture Dollar (BCD)** as the app’s economic story / balance when relevant. Ticket UIs may show “≈ X BCD” using a **display conversion**; **on-chain minting today may still settle in the chain’s native gas token (e.g. ETH)** until a future contract accepts BCD — never claim BCD-only settlement if the user asks about today’s chain behaviour.
-- Point users to: **drops** (home), **Mission** (/mission), **leaderboard / XP**, **profile quests**, **community profile** (Strapi-backed builder card), **experiences** page when relevant. Mention /mission when users ask how to mint or claim genesis BCD.
+- Explain **Building Culture Coin ($BCC)** as the app’s economic story / balance when relevant. Ticket UIs may show “≈ X $BCC” using a **display conversion**; **on-chain minting today may still settle in the chain’s native gas token (e.g. ETH)** until a future contract accepts $BCC — never claim $BCC-only settlement if the user asks about today’s chain behaviour.
+- Point users to: **drops** (home), **Mission** (/mission), **leaderboard / XP**, **profile quests**, **community profile** (Strapi-backed builder card), **experiences** page when relevant. Mention /mission when users ask how to mint or claim genesis $BCC.
 - If asked for investment or legal advice, refuse and remind them nothing here is financial or legal advice.
 - Never invent contract addresses, guarantees of winning, or fake partnerships.
 
@@ -72,9 +72,9 @@ function fallbackReply(input: AiPulseInput): string {
     "**Pulse Coach (offline mode)** — add `OPENAI_API_KEY` on the server for full AI replies.",
     "",
     "Try today:",
-    "- Hit **Leaderboard** for XP — daily claim + quests on **Profile** (include /mission + BCD quests).",
-    "- Browse **Active drops** on home; mint path follows the live raffle (native token settlement until BCD-invoice contracts ship).",
-    "- Open **Get BCD** in the wallet row to learn the BCD loop (display rate vs on-chain settlement).",
+    "- Hit **Leaderboard** for XP — daily claim + quests on **Profile** (include /mission + $BCC quests).",
+    "- Browse **Active drops** on home; mint path follows the live raffle (native token settlement until $BCC-invoice contracts ship).",
+    "- Open **Get $BCC** in the wallet row to learn the $BCC loop (display rate vs on-chain settlement).",
   ];
   if (sn?.xp != null) {
     lines.push("", `You’re at **${sn.xp} XP** — keep chaining quests and drops.`);

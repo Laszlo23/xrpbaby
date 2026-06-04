@@ -133,6 +133,19 @@ test.describe("smoke", () => {
     await expect(page.getByRole("heading", { name: /Culture Pulse/i })).toBeVisible();
   });
 
+  test("0G Agent ID proof page loads with chainscan links", async ({ page }) => {
+    await page.goto("/0g/agentid");
+    await expect(page.getByText("Agent ID (on-chain proof)")).toBeVisible();
+    await expect(
+      page.locator("article").getByText("0x0451b1d37058ad57df22d7185aabc6b0a36fc41e").first(),
+    ).toBeVisible();
+    await expect(page.getByRole("link", { name: /View on 0G ChainScan/i }).first()).toHaveAttribute(
+      "href",
+      /chainscan\.0g\.ai\/address\/0x0451b1d37058ad57df22d7185aabc6b0a36fc41e/,
+    );
+    await expect(page.getByRole("button", { name: /Copy X post/i })).toBeVisible();
+  });
+
   test("pulse metrics API", async ({ request }) => {
     const res = await request.get("/api/pulse/metrics");
     expect([200, 404, 503]).toContain(res.status());
@@ -179,6 +192,22 @@ test.describe("smoke", () => {
     expect(json.nonce?.length).toBeGreaterThanOrEqual(8);
   });
 
+  test("market manifest API", async ({ request }) => {
+    const res = await request.get("/api/market/manifest");
+    expect(res.ok()).toBeTruthy();
+    const json = (await res.json()) as { product?: string; endpoints?: { sample_mint?: string } };
+    expect(json.product).toBe("buildchain_market_v1");
+    expect(json.endpoints?.sample_mint).toContain("/api/market/sample-mint");
+  });
+
+  test("market sample-mint API", async ({ request }) => {
+    const res = await request.get("/api/market/sample-mint?handle=buildchain-demo&tld=.culture");
+    expect([200, 409]).toContain(res.status());
+    const json = (await res.json()) as { kind?: string; metadata?: { name?: string } };
+    expect(json.kind).toBe("culture_layer_identity");
+    expect(json.metadata?.name).toBeTruthy();
+  });
+
   test("agent.json monetization card", async ({ request }) => {
     const res = await request.get("/.well-known/agent.json");
     expect(res.ok()).toBeTruthy();
@@ -190,6 +219,9 @@ test.describe("smoke", () => {
     expect(json.schema_version).toBeTruthy();
     expect(
       json.resources?.some((r) => r.protocol === "x402" && r.url?.includes("/api/x402/premium")),
+    ).toBeTruthy();
+    expect(
+      json.resources?.some((r) => r.id === "buildchain_market_sample_mint_v1"),
     ).toBeTruthy();
     expect(json.deeplinks?.presale).toContain("/presale");
   });

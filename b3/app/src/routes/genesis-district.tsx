@@ -277,7 +277,7 @@ function GenesisDistrictPage() {
 
         <section className="flex flex-wrap gap-3">
           <Button variant="secondary" className="rounded-full" asChild>
-            <Link to="/mission">Mission (BCD)</Link>
+            <Link to="/mission">Mission (BCC)</Link>
           </Button>
           <Button variant="outline" className="rounded-full" asChild>
             <Link to="/faq">FAQ</Link>

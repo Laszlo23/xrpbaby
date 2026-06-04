@@ -9,11 +9,12 @@ const nameSchema = z.object({
     .min(3)
     .max(64)
     .regex(/^[a-z0-9]+(\.[a-z]+)?$/i, "invalid_culture_name"),
+  network: z.enum(["base", "bsc"]).optional(),
 });
 
 export const fetchCultureNameResolution = createServerFn({ method: "POST" })
   .inputValidator((raw: unknown) => nameSchema.parse(raw))
   .handler(async ({ data }): Promise<ResolvedCultureName> => {
     const { resolveCultureName } = await import("@/server/identity/resolve");
-    return resolveCultureName(data.name);
+    return resolveCultureName(data.name, data.network);
   });

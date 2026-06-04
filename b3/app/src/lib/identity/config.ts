@@ -1,29 +1,51 @@
-import { base, baseSepolia } from "viem/chains";
+import {
+  DEFAULT_IDENTITY_NETWORK_ID,
+  getIdentityNetwork,
+  getIdentityNetworkByChainId,
+  isIdentityNetworkId,
+  listIdentityNetworks,
+  type IdentityNetworkId,
+} from "@/lib/identity/networks";
 
-const chainId = Number(
-  import.meta.env.VITE_IDENTITY_CHAIN_ID ??
-    import.meta.env.VITE_EVM_CHAIN_ID ??
-    "8453",
-);
+export type { IdentityNetworkId, IdentityNetworkConfig } from "@/lib/identity/networks";
+export {
+  getIdentityNetwork,
+  listIdentityNetworks,
+  getIdentityNetworkByChainId,
+  isIdentityNetworkId,
+  DEFAULT_IDENTITY_NETWORK_ID,
+};
 
-export const identityChain = chainId === base.id ? base : baseSepolia;
+/** @deprecated Prefer `getIdentityNetwork(activeId)` from CultureNetworkContext */
+const defaultNet = getIdentityNetwork(DEFAULT_IDENTITY_NETWORK_ID);
 
-export const identityChainId = identityChain.id;
+export const identityChain = defaultNet.chain;
+export const identityChainId = defaultNet.chainId;
+export const identityChainLabel = defaultNet.chainLabel;
+export const identityContractAddress = defaultNet.contractAddress;
+export const isIdentityContractConfigured = defaultNet.isConfigured;
 
-export const identityChainLabel =
-  identityChain.id === base.id ? ("Base mainnet" as const) : ("Base Sepolia" as const);
-
-export const identityContractAddress = (import.meta.env.VITE_IDENTITY_CONTRACT_ADDRESS ||
-  "") as `0x${string}`;
-
-export const isIdentityContractConfigured =
-  identityContractAddress.length === 42 && identityContractAddress.startsWith("0x");
+export function getIdentityConfigForNetwork(id: IdentityNetworkId) {
+  const net = getIdentityNetwork(id);
+  return {
+    networkId: net.id,
+    identityChain: net.chain,
+    identityChainId: net.chainId,
+    identityChainLabel: net.chainLabel,
+    identityContractAddress: net.contractAddress,
+    isIdentityContractConfigured: net.isConfigured,
+    nativeSymbol: net.nativeSymbol,
+    explorerAddressUrl: net.explorerAddressUrl,
+  };
+}
 
 export {
   IDENTITY_MAINNET_ADDRESS,
+  IDENTITY_BSC_MAINNET_ADDRESS,
   IDENTITY_MINT_PRICE_WEI_DEFAULT,
   IDENTITY_MINT_TARGET_USD,
   formatIdentityMintPrice,
+  formatIdentityMintPriceNativeOnly,
   formatIdentityMintPriceEthOnly,
   identityMintPriceShort,
   identityMintPriceTagline,

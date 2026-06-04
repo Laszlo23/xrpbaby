@@ -13,7 +13,10 @@ test.describe("landing flow", () => {
 
   test("join CTA navigates to /join", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: /Join free/i }).first().click();
+    await page
+      .getByRole("link", { name: /Join free/i })
+      .first()
+      .click();
     await expect(page).toHaveURL(/\/join$/);
     await expect(page.getByRole("heading", { name: /Create your pass/i })).toBeVisible();
   });
@@ -39,7 +42,10 @@ test.describe("landing flow", () => {
     await page.locator("#join").scrollIntoViewIfNeeded();
     const input = page.locator("#join").getByPlaceholder(/your@email.com/i);
     await input.fill("not-an-email");
-    await page.locator("#join").getByRole("button", { name: /Email updates/i }).click();
+    await page
+      .locator("#join")
+      .getByRole("button", { name: /Email updates/i })
+      .click();
     await expect(page.locator("#join").getByText(/valid email/i)).toBeVisible();
   });
 });

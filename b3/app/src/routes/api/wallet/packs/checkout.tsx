@@ -8,6 +8,7 @@ import { verifyPrivyAccessToken } from "@/server/wallet/privy-auth";
 const bodySchema = z.object({
   packSlug: z.string().min(1),
   walletAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+  network: z.enum(["base", "bsc"]).optional(),
 });
 
 function platformOrigin(): string {
@@ -56,11 +57,9 @@ export const Route = createFileRoute("/api/wallet/packs/checkout")({
         const privyUserId = "userId" in auth ? auth.userId : undefined;
 
         const { ensureWalletAndMember } = await import("@/server/platform/member");
-        const { member, wallet } = await ensureWalletAndMember(
-          prisma,
-          parsed.data.walletAddress,
-          { privyUserId },
-        );
+        const { member, wallet } = await ensureWalletAndMember(prisma, parsed.data.walletAddress, {
+          privyUserId,
+        });
 
         const origin = platformOrigin();
         const stripe = new Stripe(stripeKey);
@@ -87,6 +86,7 @@ export const Route = createFileRoute("/api/wallet/packs/checkout")({
             wallet: wallet.address,
             memberId: member.id,
             points: String(pack.culturePoints),
+            preferredNetwork: parsed.data.network ?? "base",
           },
           success_url: `${origin}/wallet/packs?checkout=success&pack=${pack.slug}`,
           cancel_url: `${origin}/wallet/packs?checkout=cancel`,

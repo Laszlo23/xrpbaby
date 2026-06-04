@@ -1,3 +1,4 @@
+import { computeSupportScore, type VerifiedAccountInput } from "@bc/support-score";
 import type { OnchainIdentity } from "@/lib/chain/identityContract";
 import type { FarcasterProfile, ResolvedName, SocialBadge } from "./types";
 
@@ -63,13 +64,17 @@ export function computeCultureScore(
   basename: ResolvedName | null,
   isFounding: boolean,
 ): number {
-  let score = 0;
-  if (farcaster) {
-    score += Math.min(farcaster.followerCount, 50_000);
-    score += Math.min(farcaster.followingCount, 5_000);
-    score += farcaster.verifiedAccounts.length * 250;
-  }
-  if (basename) score += 500;
-  if (isFounding) score += 2_000;
-  return score;
+  const verifiedAccounts: VerifiedAccountInput[] =
+    farcaster?.verifiedAccounts.map((v) => ({
+      platform: v.platform,
+      username: v.username,
+    })) ?? [];
+
+  return computeSupportScore({
+    neynarScore: null,
+    verifiedAccounts,
+    culturePoints: 0,
+    isFounding,
+    completedSocialQuests: 0,
+  }) + (farcaster ? Math.min(farcaster.followerCount, 50_000) + Math.min(farcaster.followingCount, 5_000) : 0);
 }

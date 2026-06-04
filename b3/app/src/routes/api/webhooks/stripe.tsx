@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import Stripe from "stripe";
 import { getPackBySlug } from "@/lib/packs";
 import { grantPackPurchase } from "@/server/wallet/grant-pack-purchase";
+import { enqueueBccSettlement } from "@/server/wallet/enqueue-bcc-settlement";
 
 export const Route = createFileRoute("/api/webhooks/stripe")({
   server: {
@@ -73,11 +74,19 @@ export const Route = createFileRoute("/api/webhooks/stripe")({
           stripeSessionId: session.id,
         });
 
+        const bccQueue = await enqueueBccSettlement(prisma, {
+          memberId: member.id,
+          walletId: walletRow.id,
+          pack,
+          stripeSessionId: session.id,
+        });
+
         return new Response(
           JSON.stringify({
             received: true,
             alreadyGranted: result.alreadyGranted,
             pointsGranted: result.pointsGranted,
+            bccSettlementQueued: !bccQueue.alreadyQueued,
           }),
           { status: 200, headers: { "Content-Type": "application/json" } },
         );

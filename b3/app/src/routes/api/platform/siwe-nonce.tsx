@@ -1,9 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import {
-  createWalletAuthNonce,
-  rememberNonce,
-} from "@/server/platform/siwe";
+import { createWalletAuthNonce, rememberNonce } from "@/server/platform/siwe";
 
 export const Route = createFileRoute("/api/platform/siwe-nonce")({
   server: {

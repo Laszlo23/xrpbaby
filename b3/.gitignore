@@ -16,3 +16,10 @@ frontend/docker/dotenv-for-build
 
 # Agent wallet material (generate with scripts/generate-agent-wallets.mjs --write-secrets)
 .secrets/
+
+# Local IDE / caches (never commit)
+.cursor/
+**/.metro-cache/
+**/.venv/
+**/__pycache__/
+*.pyc

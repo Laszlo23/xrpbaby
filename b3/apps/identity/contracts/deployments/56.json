@@ -1,0 +1,14 @@
+{
+  "chainId": 56,
+  "name": "BNB Smart Chain",
+  "explorer": "https://bscscan.com",
+  "rpcUrl": "https://bsc-dataseed.binance.org",
+  "deployedAt": null,
+  "deployer": null,
+  "mintPriceWei": "1850000000000000",
+  "mintPriceNote": "~$1.11 USD at $600/BNB — refresh with scripts/identity-mint-price-wei.mjs --native bnb",
+  "contracts": {
+    "CultureLayerIdentity": ""
+  },
+  "deployInstructions": "Run b3/scripts/deploy-identity-bsc.sh with PRIVATE_KEY in apps/identity/.env, then set VITE_IDENTITY_BSC_CONTRACT_ADDRESS"
+}

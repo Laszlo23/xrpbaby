@@ -144,28 +144,28 @@ export function CulturePulsePage() {
       <main className="mx-auto max-w-3xl px-0 py-4 sm:px-0">
         {metrics?.snapshot ? (
           <>
-          {metrics.snapshot.live ? (
-            <p className="mb-3 text-xs text-zinc-500">
-              Live counts (run <code className="rounded bg-white/10 px-1">npm run pulse:ingest</code> to
-              snapshot)
-            </p>
-          ) : null}
-          <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {[
-              { label: "Members", value: metrics.snapshot.memberCount },
-              { label: "Waitlist", value: metrics.snapshot.waitlistCount },
-              { label: "Culture Points", value: metrics.snapshot.culturePoints },
-              { label: "24h activity", value: metrics.snapshot.activity24h },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center"
-              >
-                <p className="text-2xl font-bold text-[#C5FF41]">{s.value}</p>
-                <p className="mt-1 text-xs text-zinc-500">{s.label}</p>
-              </div>
-            ))}
-          </section>
+            {metrics.snapshot.live ? (
+              <p className="mb-3 text-xs text-zinc-500">
+                Live counts (run{" "}
+                <code className="rounded bg-white/10 px-1">npm run pulse:ingest</code> to snapshot)
+              </p>
+            ) : null}
+            <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                { label: "Members", value: metrics.snapshot.memberCount },
+                { label: "Waitlist", value: metrics.snapshot.waitlistCount },
+                { label: "Culture Points", value: metrics.snapshot.culturePoints },
+                { label: "24h activity", value: metrics.snapshot.activity24h },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center"
+                >
+                  <p className="text-2xl font-bold text-[#C5FF41]">{s.value}</p>
+                  <p className="mt-1 text-xs text-zinc-500">{s.label}</p>
+                </div>
+              ))}
+            </section>
           </>
         ) : (
           <p className="text-sm text-zinc-500">
@@ -204,9 +204,7 @@ export function CulturePulsePage() {
               type="button"
               onClick={() => setFilter(f)}
               className={`rounded-full px-4 py-1.5 text-xs capitalize ${
-                filter === f
-                  ? "bg-[#C5FF41] text-black"
-                  : "border border-white/15 text-zinc-400"
+                filter === f ? "bg-[#C5FF41] text-black" : "border border-white/15 text-zinc-400"
               }`}
             >
               {f}
@@ -222,10 +220,7 @@ export function CulturePulsePage() {
             </li>
           ) : (
             filtered.map((item) => (
-              <li
-                key={item.id}
-                className="rounded-xl border border-white/10 bg-white/[0.02] p-5"
-              >
+              <li key={item.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs uppercase tracking-wider text-zinc-500">
                     {PLATFORM_LABEL[item.platform] ?? item.platform}
@@ -255,9 +250,7 @@ export function CulturePulsePage() {
                 ) : null}
                 <button
                   type="button"
-                  onClick={() =>
-                    setExpandedId(expandedId === item.id ? null : item.id)
-                  }
+                  onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
                   className="mt-3 inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-white"
                 >
                   <MessageCircle className="h-3.5 w-3.5" />

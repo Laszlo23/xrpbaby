@@ -31,7 +31,7 @@ export const ERC8004_ECOSYSTEM_LINKS = {
 
 /**
  * Eleven starter agents: CEO orchestrates; growth + social capture attention;
- * trading personas describe BCD movement policy (execution remains in treasury scripts / contracts).
+ * trading personas describe BCC movement policy (execution remains in treasury scripts / contracts).
  */
 export const AGENT_FLEET: FleetAgent[] = [
   {
@@ -104,11 +104,11 @@ export const AGENT_FLEET: FleetAgent[] = [
   {
     id: 5,
     slug: "trading-bcd-treasury",
-    name: "Trading — BCD Treasury",
-    tagline: "Moves BCD per treasury playbook (accumulate, distribute, LP hints).",
+    name: "Trading — BCC Treasury",
+    tagline: "Moves BCC per treasury playbook (accumulate, distribute, LP hints).",
     role: "trading",
     summary:
-      "Operational face for BCD movement: routing rewards, liquidity adds, and transparency posts. Does not promise profit — executes policies approved by CEO + counsel.",
+      "Operational face for BCC movement: routing rewards, liquidity adds, and transparency posts. Does not promise profit — executes policies approved by CEO + counsel.",
     walletStrategy:
       "Hardware or multisig treasury; swaps only through approved routers with slippage caps.",
     monetization: ["Spread capture on OTC/partner deals", "Treasury yield where legally viable"],

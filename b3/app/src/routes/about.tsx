@@ -54,20 +54,20 @@ function AboutPage() {
           <div className="pointer-events-none absolute -left-20 top-0 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgb(245_158_11/0.2),transparent_70%)]" />
           <div className="relative space-y-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-amber-200/80">
-              Building Culture Dollar
+              Building Culture Coin
             </p>
             <h2 className="font-heading text-xl font-semibold tracking-tight text-white md:text-2xl">
-              XP · BCD · drops—one loop
+              XP · $BCC · drops—one loop
             </h2>
             <p className="max-w-3xl text-sm leading-relaxed text-zinc-400 md:text-[15px]">
-              BCD is how we talk about value inside BUILDCHAIN: earn XP, grow your BCD balance (live
-              ERC20 read when configured, demo label otherwise), and mint tickets into fair draws.
-              On-chain settlement still follows today’s raffle contract—native token out until we
-              ship a BCD-denominated mint path—so the product stays transparent while the economy
-              layers in.
+              Building Culture Coin ($BCC) is how we talk about value inside BUILDCHAIN: earn XP,
+              grow your $BCC balance (live ERC20 read when configured, demo label otherwise), and
+              mint tickets into fair draws. On-chain settlement still follows today’s raffle
+              contract—native token out until we ship a $BCC-denominated mint path—so the product
+              stays transparent while the economy layers in.
             </p>
             <p className="text-xs text-zinc-600">
-              Use <span className="font-mono text-zinc-500">Get BCD</span> in the wallet row for a
+              Use <span className="font-mono text-zinc-500">Get $BCC</span> in the wallet row for a
               fixed-rate preview; a sale contract + env wiring unlocks the primary buy button when
               it exists.
             </p>

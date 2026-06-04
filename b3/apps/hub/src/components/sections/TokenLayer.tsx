@@ -7,7 +7,7 @@ export const TokenLayer = () => {
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold">03 — currency</p>
           <h2 className="mt-6 font-display text-4xl text-balance md:text-6xl lg:text-7xl">
-            building culture <span className="italic text-gold">dollar.</span>
+            building culture <span className="italic text-gold">coin.</span>
           </h2>
           <div className="mt-10 space-y-3 font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground">
             <p><span className="text-eco">●</span> live on mainnet</p>
@@ -48,15 +48,15 @@ export const TokenLayer = () => {
           <div className="relative">
             <div className="absolute inset-0 -m-20 animate-pulse-glow rounded-full bg-gold-gradient opacity-40 blur-3xl" />
             <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-gold-gradient glow-gold md:h-52 md:w-52">
-              <div className="font-display text-3xl text-primary-foreground md:text-4xl">$BCD</div>
+              <div className="font-display text-3xl text-primary-foreground md:text-4xl">$BCC</div>
             </div>
           </div>
 
           {/* floating tx mockups */}
           {[
-            { x: "-65%", y: "-30%", label: "transfer · 0.42 BCD", delay: 0 },
-            { x: "55%", y: "-40%", label: "mint · 1.00 BCD", delay: 1.2 },
-            { x: "-55%", y: "45%", label: "swap · 12.8 BCD", delay: 2.4 },
+            { x: "-65%", y: "-30%", label: "transfer · 0.42 $BCC", delay: 0 },
+            { x: "55%", y: "-40%", label: "mint · 1.00 $BCC", delay: 1.2 },
+            { x: "-55%", y: "45%", label: "swap · 12.8 $BCC", delay: 2.4 },
           ].map((tx, i) => (
             <motion.div
               key={i}

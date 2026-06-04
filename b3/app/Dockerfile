@@ -19,7 +19,10 @@ RUN npm -w @bc/contracts-sdk run build \
   && npm -w @bc/wallet-kit run build \
   && npm -w @bc/identity run build \
   && npm -w @bc/proof run build \
-  && npm -w @bc/registry run build
+  && npm -w @bc/registry run build \
+  && npm -w @bc/bcc-kit run build \
+  && npm -w @bc/culture-auth run build \
+  && npm -w @bc/bcd-orchestration run build
 
 COPY app ./app
 COPY app/docker/dotenv-for-build ./app/.env
@@ -37,7 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends openssl ca-cert
 
 COPY --from=builder /repo/app/package.json ./package.json
 COPY --from=builder /repo/app/node_modules ./node_modules
-COPY --from=builder /repo/app/.output ./.output
+COPY --from=builder /repo/app/dist ./dist
 COPY --from=builder /repo/app/prisma ./prisma
 COPY --from=builder /repo/app/scripts/docker-entrypoint.sh ./docker-entrypoint.sh
 

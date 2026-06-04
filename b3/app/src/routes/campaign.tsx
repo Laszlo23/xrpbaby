@@ -3,13 +3,14 @@ import { pageHead } from "@/lib/seo";
 import { useEffect, useMemo, useState } from "react";
 import {
   useAccount,
+  useBalance,
   useChainId,
   useReadContract,
   useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { formatEther } from "viem";
+import { formatEther, parseEther } from "viem";
 import { Bot, Copy, Gift, Share2, Sparkles, Wallet } from "lucide-react";
 import { toast } from "sonner";
 import { MarketingHero } from "@/components/MarketingHero";
@@ -48,6 +49,22 @@ export const Route = createFileRoute("/campaign")({
   },
   component: CampaignPage,
 });
+
+/** Rough gas headroom on top of `mintPriceWei` for preflight checks (not exact gas). */
+const MINT_GAS_BUFFER_WEI = parseEther("0.0003");
+
+function mintFundsErrorMessage(err: unknown): string {
+  const raw =
+    err && typeof err === "object" && "shortMessage" in err
+      ? String((err as { shortMessage?: unknown }).shortMessage)
+      : err instanceof Error
+        ? err.message
+        : "";
+  if (/insufficient funds/i.test(raw)) {
+    return "Not enough ETH on this network for the mint price plus gas. Fund the wallet on Base, then try again.";
+  }
+  return raw || "Transaction failed";
+}
 
 function CampaignPage() {
   const search = Route.useSearch();
@@ -99,6 +116,19 @@ function CampaignPage() {
     query: { enabled: !!campaignAddr && !!address },
   });
 
+  const { data: nativeBalance } = useBalance({
+    address,
+    chainId: wantChain.id,
+    query: { enabled: !!address && isConnected },
+  });
+
+  const mintCostWei =
+    priceWei !== undefined ? priceWei + MINT_GAS_BUFFER_WEI : undefined;
+  const insufficientForMint =
+    mintCostWei !== undefined &&
+    nativeBalance?.value !== undefined &&
+    nativeBalance.value < mintCostWei;
+
   const { writeContract, data: hash, isPending, error: writeError } = useWriteContract();
   const { isLoading: confirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
@@ -113,7 +143,7 @@ function CampaignPage() {
   }, [isSuccess, refetchClaim, hash]);
 
   useEffect(() => {
-    if (writeError) toast.error(writeError.message);
+    if (writeError) toast.error(mintFundsErrorMessage(writeError));
   }, [writeError]);
 
   const shareText = useMemo(() => {
@@ -148,7 +178,7 @@ function CampaignPage() {
   };
 
   const onMint = () => {
-    if (!campaignAddr || !priceWei || wrongChain) return;
+    if (!campaignAddr || !priceWei || wrongChain || insufficientForMint) return;
     captureMintClicked({
       quantity: 1,
       price_wei: priceWei.toString(),
@@ -319,6 +349,23 @@ function CampaignPage() {
               <li>
                 Price: <span className="text-foreground">{formatEther(priceWei)} ETH</span>
               </li>
+              {isConnected && nativeBalance !== undefined ? (
+                <li>
+                  Your balance:{" "}
+                  <span
+                    className={
+                      insufficientForMint ? "text-amber-200" : "text-foreground"
+                    }
+                  >
+                    {formatEther(nativeBalance.value)} ETH
+                  </span>
+                  {insufficientForMint && mintCostWei !== undefined ? (
+                    <span className="block text-xs text-amber-200/90">
+                      Need at least ~{formatEther(mintCostWei)} ETH (mint + gas).
+                    </span>
+                  ) : null}
+                </li>
+              ) : null}
               <li>
                 Today: {mintsToday !== undefined ? String(mintsToday) : "…"} /{" "}
                 {dailyCap !== undefined ? String(dailyCap) : "…"} mints
@@ -332,6 +379,14 @@ function CampaignPage() {
               <li>Network: {chainLabel}</li>
             </ul>
           )}
+
+          {insufficientForMint && priceWei !== undefined ? (
+            <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-100/95">
+              Add ETH on <strong>{wantChain.name}</strong> to your connected wallet. This mint
+              costs <strong>{formatEther(priceWei)} ETH</strong> plus a small gas fee (you have{" "}
+              {nativeBalance ? formatEther(nativeBalance.value) : "…"} ETH).
+            </div>
+          ) : null}
 
           {wrongChain && (
             <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm">
@@ -356,6 +411,7 @@ function CampaignPage() {
                 !campaignAddr ||
                 !isConnected ||
                 wrongChain ||
+                insufficientForMint ||
                 isPending ||
                 confirming ||
                 priceWei === undefined

@@ -7,7 +7,7 @@ export type PlayerProgress = {
   xp: number;
   questsCompleted: string[];
   lastDailyClaimAt: number | null;
-  /** User opened Get BCD / economy primer (local flag). */
+  /** User opened Get BCC / economy primer (local flag). */
   bcdTutorialSeen?: boolean;
   /** Elias entry quiz — last chosen intent id (see `elias-intents.ts`). */
   eliasPrimaryIntent?: string | null;
@@ -121,7 +121,7 @@ export function grantFirstMintBonus(walletAddress: string): PlayerProgress {
   return p;
 }
 
-/** One-time XP after genesis BCD merkle claim (called from Mission UI after tx success). */
+/** One-time XP after genesis BCC merkle claim (called from Mission UI after tx success). */
 export function grantGenesisClaimQuest(walletAddress: string): PlayerProgress {
   const q = "bcd_genesis_claimed";
   const xpReward = 75;
@@ -133,7 +133,7 @@ export function grantGenesisClaimQuest(walletAddress: string): PlayerProgress {
   return p;
 }
 
-/** Credits holder quest when wallet already has BCD (e.g. return visit). Idempotent XP. */
+/** Credits holder quest when wallet already has BCC (e.g. return visit). Idempotent XP. */
 export function grantBcdHolderQuest(walletAddress: string): PlayerProgress {
   const q = "bcd_holder";
   const xpReward = 25;
@@ -176,7 +176,7 @@ export function grantGenesisDistrictHolderQuest(walletAddress: string): PlayerPr
   return p;
 }
 
-/** Marks that the wallet has engaged with the BCD economy UX (Get BCD modal). Idempotent. */
+/** Marks that the wallet has engaged with the BCC economy UX (Get BCC modal). Idempotent. */
 export function markBcdTutorialSeen(walletAddress: string): PlayerProgress {
   const p = loadProgress(walletAddress);
   if (p.bcdTutorialSeen) return p;

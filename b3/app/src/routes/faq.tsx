@@ -14,25 +14,36 @@ const ITEMS: { q: string; a: ReactNode }[] = [
     q: "Which URL should I use?",
     a: (
       <>
-        Use{" "}
-        <strong className="font-medium text-zinc-300">app.buildingcultureid.space</strong> for
-        everything in one place: the story at <Link to="/" className="text-zinc-200 underline">/</Link>
-        , drops at <Link to="/play" className="text-zinc-200 underline">/play</Link>, your pass at{" "}
-        <Link to="/join" className="text-zinc-200 underline">/join</Link>, and your hub at{" "}
-        <Link to="/forest" className="text-zinc-200 underline">/forest</Link>. Legacy{" "}
-        <strong className="font-medium text-zinc-300">0x</strong> and{" "}
+        Use <strong className="font-medium text-zinc-300">app.buildingcultureid.space</strong> for
+        everything in one place: the story at{" "}
+        <Link to="/" className="text-zinc-200 underline">
+          /
+        </Link>
+        , drops at{" "}
+        <Link to="/play" className="text-zinc-200 underline">
+          /play
+        </Link>
+        , your pass at{" "}
+        <Link to="/join" className="text-zinc-200 underline">
+          /join
+        </Link>
+        , and your hub at{" "}
+        <Link to="/forest" className="text-zinc-200 underline">
+          /forest
+        </Link>
+        . Legacy <strong className="font-medium text-zinc-300">0x</strong> and{" "}
         <strong className="font-medium text-zinc-300">app.buildingculture.capital</strong> hosts
         redirect here during cutover. Brand sites like buildingculture.capital stay separate.
       </>
     ),
   },
   {
-    q: "What is Building Culture Dollar (BCD)?",
-    a: "BCD is the app’s economic layer—a narrative and wallet balance you stack toward drops. Ticket rows show “≈ X BCD” using a fixed display rate from env until campaigns price tickets directly in BCD.",
+    q: "What is Building Culture Coin ($BCC)?",
+    a: "$BCC is the app’s economic layer—a narrative and wallet balance you stack toward drops. Ticket rows show “≈ X $BCC” using a fixed display rate from env until campaigns price tickets directly in $BCC.",
   },
   {
-    q: "Do I pay for tickets in BCD today?",
-    a: "Not yet on-chain. The live raffle contract settles each mint in the chain’s native gas token (e.g. ETH on B3). The UI leads with BCD as the pricing story and spells out ETH settlement so expectations stay honest until a BCD-invoice raffle ships.",
+    q: "Do I pay for tickets in $BCC today?",
+    a: "Not yet on-chain. The live raffle contract settles each mint in the chain’s native gas token (e.g. ETH on B3). The UI leads with $BCC as the pricing story and spells out ETH settlement so expectations stay honest until a $BCC-invoice raffle ships.",
   },
   {
     q: "Where is the Building Culture mission and genesis claim?",
@@ -40,7 +51,7 @@ const ITEMS: { q: string; a: ReactNode }[] = [
       <>
         See{" "}
         <Link to="/mission" className="text-zinc-200 underline underline-offset-2 hover:text-white">
-          Mission (BCD)
+          Mission ($BCC)
         </Link>
         —that page explains the treasury narrative, roadmap (including future on-chain DAO votes),
         and hosts the merkle genesis card when{" "}
@@ -50,8 +61,8 @@ const ITEMS: { q: string; a: ReactNode }[] = [
     ),
   },
   {
-    q: "Does buying or claiming BCD guarantee profit or access to specific assets?",
-    a: "No guarantees. Genesis/fee mechanics may be regulated in your jurisdiction—get counsel before running large paid campaigns. Drops and experiences have their own rules; BCD is framed as culture coordination and access storytelling, not an investment product.",
+    q: "Does buying or claiming $BCC guarantee profit or access to specific assets?",
+    a: "No guarantees. Genesis/fee mechanics may be regulated in your jurisdiction—get counsel before running large paid campaigns. Drops and experiences have their own rules; $BCC is framed as culture coordination and access storytelling, not an investment product.",
   },
   {
     q: "What is BUILDCHAIN, in one breath?",

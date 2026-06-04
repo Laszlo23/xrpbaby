@@ -11,7 +11,8 @@ contract DailyCheckIn {
 
     function checkIn() external {
         uint256 day = block.timestamp / 86400;
-        if (lastCheckInDay[msg.sender] == day) revert DailyCheckIn__AlreadyCheckedIn();
+        uint256 last = lastCheckInDay[msg.sender];
+        if (last != 0 && last == day) revert DailyCheckIn__AlreadyCheckedIn();
         lastCheckInDay[msg.sender] = day;
         emit CheckedIn(msg.sender, day);
     }

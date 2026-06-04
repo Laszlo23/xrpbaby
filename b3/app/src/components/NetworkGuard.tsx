@@ -24,7 +24,8 @@ export function NetworkGuard() {
 
   return (
     <div className="sticky top-0 z-50 border-b border-destructive/40 bg-destructive/15 px-4 py-2 text-center text-xs text-foreground">
-      <span className="font-medium">Wrong network.</span> Switch to {want.name} to mint and play.{" "}
+      <span className="font-medium">Wrong network.</span> Switch to {want.name} to mint, pay, and
+      play.{" "}
       <button
         type="button"
         disabled={isPending}

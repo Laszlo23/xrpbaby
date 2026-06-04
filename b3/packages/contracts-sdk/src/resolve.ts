@@ -18,8 +18,16 @@ export const BASE_MAINNET_CHAIN_ID = 8453;
 /** Base Sepolia testnet (`84532.json`). */
 export const BASE_SEPOLIA_CHAIN_ID = 84532;
 
+/** Canonical BCC (Building Culture Coin) on Base mainnet — fair launch ERC-20. */
+export const BCC_TOKEN_ADDRESS_MAINNET = "0xb890a5289f789f1346032ccc1847939e855fab07" as const;
+
 export function resolveBcdTokenAddress(chainId: number, env: EnvLike): Address | undefined {
-  return parseAddr(env.VITE_BCD_TOKEN_ADDRESS) ?? getDeploymentAddress("BuildingCultureDollar", chainId);
+  const fromBcc = parseAddr(env.VITE_BCC_TOKEN_ADDRESS);
+  if (fromBcc) return fromBcc;
+  const fromBcd = parseAddr(env.VITE_BCD_TOKEN_ADDRESS);
+  if (fromBcd) return fromBcd;
+  if (chainId === BASE_MAINNET_CHAIN_ID) return BCC_TOKEN_ADDRESS_MAINNET;
+  return getDeploymentAddress("BuildingCultureDollar", chainId);
 }
 
 export function resolveBcdGenesisClaimAddress(chainId: number, env: EnvLike): Address | undefined {

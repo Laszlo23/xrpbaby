@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { checkRateLimit, readJsonBody } from "@/server/platform/rate-limit";
-import { verifyPrivyAccessToken } from "@/server/wallet/privy-auth";
+import { verifyPrivyAccessToken, getPrivyFarcasterLink } from "@/server/wallet/privy-auth";
 
 const bodySchema = z.object({
   walletAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
@@ -34,15 +34,29 @@ export const Route = createFileRoute("/api/wallet/sync")({
         const auth = await verifyPrivyAccessToken(request.headers.get("authorization"));
         const privyUserId = "userId" in auth ? auth.userId : undefined;
 
-        const { ensureWalletAndMember, grantWelcomeRewards } = await import(
-          "@/server/platform/member"
-        );
-        const { wallet, member } = await ensureWalletAndMember(
-          prisma,
-          parsed.data.walletAddress,
-          { privyUserId },
-        );
+        let farcasterFid: number | undefined;
+        let farcasterUsername: string | undefined;
+        if (privyUserId) {
+          const fc = await getPrivyFarcasterLink(privyUserId);
+          if (fc) {
+            farcasterFid = fc.fid;
+            farcasterUsername = fc.username;
+          }
+        }
+
+        const { ensureWalletAndMember, grantWelcomeRewards } =
+          await import("@/server/platform/member");
+        const { wallet, member } = await ensureWalletAndMember(prisma, parsed.data.walletAddress, {
+          privyUserId,
+          farcasterFid,
+          farcasterUsername,
+        });
         await grantWelcomeRewards(prisma, member.id, wallet.id);
+
+        if (member.farcasterFid) {
+          const { syncMemberSupportScore } = await import("@/server/social/support-score-sync");
+          await syncMemberSupportScore(prisma, member.id).catch(() => {});
+        }
 
         return json({ ok: true, memberId: member.id, walletId: wallet.id });
       },

@@ -1,5 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3000";
+
 export default defineConfig({
   testDir: "e2e",
   fullyParallel: true,
@@ -8,16 +10,18 @@ export default defineConfig({
   reporter: "list",
   use: {
     ...devices["Desktop Chrome"],
-    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3000",
+    baseURL,
     trace: "on-first-retry",
   },
   /**
    * Production SSR (`npm run start`) avoids the duplicate-React dev SSR failure documented in
    * `docs/BC_UMBRELLA_VERIFY.md`. CI always rebuilds before listening.
+   *
+   * Local: `PLAYWRIGHT_REUSE_SERVER=1 PLAYWRIGHT_BASE_URL=http://localhost:5173 npm run dev` first.
    */
   webServer: {
     command: "npm run build && PORT=3000 npm run start",
-    url: "http://127.0.0.1:3000",
+    url: baseURL,
     // Do not reuse a random process on :3000 — a static or stale server can pass page loads (SPA)
     // while server handlers (/sitemap.xml, /api/*, /.well-known/*) return 404.
     reuseExistingServer: process.env.PLAYWRIGHT_REUSE_SERVER === "1",
@@ -27,8 +31,7 @@ export default defineConfig({
       PORT: "3000",
       VITE_IDENTITY_CHAIN_ID: process.env.VITE_IDENTITY_CHAIN_ID ?? "8453",
       VITE_IDENTITY_CONTRACT_ADDRESS:
-        process.env.VITE_IDENTITY_CONTRACT_ADDRESS ??
-        "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863",
+        process.env.VITE_IDENTITY_CONTRACT_ADDRESS ?? "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863",
     },
   },
 });

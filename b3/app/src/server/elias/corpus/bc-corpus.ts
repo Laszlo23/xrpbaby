@@ -36,9 +36,9 @@ For sensitive booking flows, Elias directs to the concierge route.`,
   },
   {
     id: "bcd_economy",
-    title: "BCD tokens & quests",
+    title: "BCC tokens & quests",
     tags: ["bcd", "token", "economy", "xp", "quest", "rewards"],
-    body: `BCD anchors in-app economies: drops, ticketing, quests. Profiles track XP locally; Genesis claim is a
+    body: `BCC anchors in-app economies: drops, ticketing, quests. Profiles track XP locally; Genesis claim is a
 distinct merkle path. Sale flows activate when deployed. Always verify contract addresses via official env.`,
   },
   {

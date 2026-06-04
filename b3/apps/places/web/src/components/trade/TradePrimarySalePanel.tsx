@@ -10,7 +10,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { useCompliance } from "@/components/ComplianceStatus";
-import { erc20Abi, primaryShareSaleErc20Abi } from "@/lib/contracts";
+import { erc20Abi, primaryShareSaleBccAbi, primaryShareSaleErc20Abi, BCC_DISCOUNT_LABEL } from "@/lib/contracts";
 import { getListingsChainId } from "@/lib/listings-config";
 import { nativeCurrencySymbol } from "@/lib/native-currency-label";
 import { usePrimarySaleQuote } from "@/lib/use-primary-sale-quote";
@@ -32,15 +32,7 @@ export function TradePrimarySalePanel({ selected, title, explorer }: Props) {
   const listingsNative = nativeCurrencySymbol();
   const { blocked } = useCompliance();
   const [wholeStr, setWholeStr] = useState("1");
-
-  const quote = usePrimarySaleQuote(selected?.tokenAddress, selected?.id);
-  const config = quote.config;
-  const saleAddr = quote.saleAddress;
-  const onChainSale = quote.onChainSale;
-  const pricePerShare = quote.pricePerShare;
-  const paymentToken = quote.paymentToken;
-  const effectiveDecimals = quote.effectiveDecimals;
-  const paySymbol = quote.paySymbol;
+  const [payWithBcc, setPayWithBcc] = useState(false);
 
   const wholeShares = useMemo(() => {
     const t = wholeStr.trim();
@@ -53,8 +45,21 @@ export function TradePrimarySalePanel({ selected, title, explorer }: Props) {
     }
   }, [wholeStr]);
 
-  const totalCost =
-    pricePerShare !== undefined && wholeShares > 0n ? wholeShares * pricePerShare : undefined;
+  const quote = usePrimarySaleQuote(selected?.tokenAddress, selected?.id, { payWithBcc, wholeShares });
+  const config = quote.config;
+  const saleAddr = quote.activeSaleAddress ?? quote.saleAddress;
+  const onChainSale = quote.activeOnChain ?? (payWithBcc ? quote.bccOnChainSale : quote.onChainSale);
+  const pricePerShare = quote.pricePerShare;
+  const paymentToken = quote.paymentToken;
+  const effectiveDecimals = quote.effectiveDecimals;
+  const paySymbol = quote.paySymbol;
+  const bccEnabled = Boolean(config?.bccSaleAddress && config.bccSaleAddress !== zero);
+
+  const totalCost = payWithBcc
+    ? quote.bccCost
+    : pricePerShare !== undefined && wholeShares > 0n
+      ? wholeShares * pricePerShare
+      : undefined;
 
   const { data: payBal } = useReadContract({
     address: paymentToken !== zero ? paymentToken : undefined,
@@ -97,6 +102,15 @@ export function TradePrimarySalePanel({ selected, title, explorer }: Props) {
 
   function buy() {
     if (!address || saleAddr === zero || wholeShares < 1n || blocked) return;
+    if (payWithBcc) {
+      writeBuy({
+        address: saleAddr,
+        abi: primaryShareSaleBccAbi,
+        functionName: "buyWholeSharesWithBcc",
+        args: [wholeShares],
+      });
+      return;
+    }
     writeBuy({
       address: saleAddr,
       abi: primaryShareSaleErc20Abi,
@@ -214,9 +228,13 @@ export function TradePrimarySalePanel({ selected, title, explorer }: Props) {
         <div className="rounded-xl border border-white/[0.06] bg-black/30 px-4 py-3 text-sm">
           <p className="text-[10px] uppercase tracking-wide text-zinc-500">Price per whole share</p>
           <p className="mt-1 font-mono text-white">
-            {pricePerShare !== undefined
-              ? `${formatUnits(pricePerShare, effectiveDecimals)} ${paySymbol}`
-              : "—"}
+            {payWithBcc
+              ? quote.bccCost !== undefined && wholeShares >= 1n
+                ? `${formatUnits(quote.bccCost / wholeShares, effectiveDecimals)} BCC (${BCC_DISCOUNT_LABEL})`
+                : "—"
+              : pricePerShare !== undefined
+                ? `${formatUnits(pricePerShare, effectiveDecimals)} ${paySymbol}`
+                : "—"}
           </p>
           <p className="mt-3 text-[10px] uppercase tracking-wide text-zinc-500">Total due</p>
           <p className="mt-1 font-mono text-emerald-300/90">
@@ -227,6 +245,20 @@ export function TradePrimarySalePanel({ selected, title, explorer }: Props) {
             {payBal !== undefined ? `${formatUnits(payBal, effectiveDecimals)} ${paySymbol}` : "—"}
           </p>
         </div>
+
+        {bccEnabled ? (
+          <button
+            type="button"
+            onClick={() => setPayWithBcc((v) => !v)}
+            className={`w-full rounded-full border px-3 py-2 font-mono text-[10px] uppercase tracking-wider ${
+              payWithBcc
+                ? "border-emerald-500/50 bg-emerald-950/40 text-emerald-200"
+                : "border-white/15 text-zinc-400 hover:text-white"
+            }`}
+          >
+            {payWithBcc ? "Paying with BCC" : `Pay with BCC (${BCC_DISCOUNT_LABEL})`}
+          </button>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-2 border-t border-white/[0.06] px-6 py-4">

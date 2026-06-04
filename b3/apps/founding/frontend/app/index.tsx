@@ -59,12 +59,12 @@ export default function Index() {
           <Animated.View entering={FadeInDown.delay(200).duration(700)} style={styles.brandRow}>
             <View style={styles.brandBadge}>
               <Ionicons name="diamond" size={14} color={colors.gold} />
-              <Text style={styles.brandText}>$BCD · The Founding Builders</Text>
+              <Text style={styles.brandText}>$BCC · The Founding Builders</Text>
             </View>
           </Animated.View>
 
           <Animated.View entering={FadeIn.delay(350).duration(800)}>
-            <Text style={styles.eyebrow}>Building Culture Dollar Launch</Text>
+            <Text style={styles.eyebrow}>Building Culture Coin Launch</Text>
             <Text style={styles.headline}>Help bring places{"\n"}back to life.</Text>
             <Text style={styles.subhead}>
               The community is rebuilding the future.{"\n"}Every action restores a street, a home, a café.

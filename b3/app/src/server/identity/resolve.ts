@@ -9,7 +9,10 @@ import { getIdentityPublicClient } from "@/server/identity/client";
 
 export type { CultureNameStatus, ResolvedCultureName } from "@/lib/identity/resolve-types";
 
-export async function resolveCultureName(input: string): Promise<ResolvedCultureName> {
+export async function resolveCultureName(
+  input: string,
+  networkId?: import("@/lib/identity/networks").IdentityNetworkId,
+): Promise<ResolvedCultureName> {
   const raw = input.trim().toLowerCase();
   const parsed = parseIdentityFullName(raw);
 
@@ -23,7 +26,7 @@ export async function resolveCultureName(input: string): Promise<ResolvedCulture
   }
 
   const fullName = `${parsed.handle}.${parsed.tld}`;
-  const cfg = getIdentityServerConfig();
+  const cfg = getIdentityServerConfig(networkId);
 
   if (!cfg.configured) {
     return {
@@ -38,7 +41,7 @@ export async function resolveCultureName(input: string): Promise<ResolvedCulture
     };
   }
 
-  const client = getIdentityPublicClient();
+  const client = getIdentityPublicClient(cfg.networkId);
   if (!client) {
     return {
       ok: true,

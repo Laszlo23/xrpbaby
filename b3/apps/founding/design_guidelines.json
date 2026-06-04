@@ -2,7 +2,7 @@
   "project_context": {
     "name": "The Founding Builders",
     "tagline": "Help Bring Places Back To Life",
-    "description": "A gamified pre-launch experience for Building Culture Dollar ($BCD) token. Mix of Duolingo, Clash of Clans, and Farcaster. Transforms visitors into active community members through XP and quests.",
+    "description": "A gamified pre-launch experience for Building Culture Coin ($BCC) token. Mix of Duolingo, Clash of Clans, and Farcaster. Transforms visitors into active community members through XP and quests.",
     "target_platform": "Expo React Native (Hybrid fullstack, Mobile-first)",
     "countdown_target": "May 30, 2026 12:00:00 UTC"
   },
@@ -147,7 +147,7 @@
   "screens": {
     "splash_hero": {
       "layout": "Fullscreen background image (village_abandoned) with dark overlay gradient.",
-      "content": "Massive countdown timer in Gold. Headline: 'Building Culture Dollar Launch'. Subhead: 'The community is rebuilding the future...'.",
+      "content": "Massive countdown timer in Gold. Headline: 'Building Culture Coin Launch'. Subhead: 'The community is rebuilding the future...'.",
       "ctas": "Primary 'Start Building' (Gold Glow). Secondary 'View Leaderboard' (Glass)."
     },
     "onboarding": {

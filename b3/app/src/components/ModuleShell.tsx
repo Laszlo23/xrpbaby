@@ -28,10 +28,7 @@ export function ModuleShell({
   return (
     <div className="bc-surface min-h-screen text-white">
       <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8">
-        <Link
-          to={backTo}
-          className="text-sm text-zinc-500 transition-colors hover:text-white"
-        >
+        <Link to={backTo} className="text-sm text-zinc-500 transition-colors hover:text-white">
           {backLabel}
         </Link>
 

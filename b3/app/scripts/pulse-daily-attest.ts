@@ -29,7 +29,7 @@ async function main() {
   const rpc =
     chainId === 84532
       ? process.env.BASE_SEPOLIA_RPC_URL
-      : process.env.BASE_MAINNET_RPC_URL ?? process.env.VITE_BASE_RPC_URL;
+      : (process.env.BASE_MAINNET_RPC_URL ?? process.env.VITE_BASE_RPC_URL);
 
   if (!anchor || !pk || !rpc) {
     console.error("Set PULSE_ANCHOR_ADDRESS, PRIVATE_KEY, and RPC URL");
@@ -43,9 +43,7 @@ async function main() {
     return;
   }
   if (existing && existing.chainId !== chainId) {
-    console.log(
-      `Re-attesting ${dayId} on chain ${chainId} (was ${existing.chainId})`,
-    );
+    console.log(`Re-attesting ${dayId} on chain ${chainId} (was ${existing.chainId})`);
     await prisma.pulseAttestation.delete({ where: { dayId } });
   }
 

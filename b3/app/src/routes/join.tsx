@@ -4,6 +4,9 @@ import { useAccount, useChainId, useSignMessage } from "wagmi";
 import { Loader2 } from "lucide-react";
 
 import { WalletControls } from "@/components/WalletControls";
+import { ConnectFarcasterButton } from "@bc/culture-auth/react";
+import { NeynarConnectBoundary } from "@/components/NeynarConnectBoundary";
+import { SupportScorePanel } from "@/components/SupportScorePanel";
 import { platformForestUrl } from "@/lib/platform-url";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { plainLabels } from "@/lib/plain-labels";
@@ -72,12 +75,18 @@ function JoinPage() {
         </Link>
       </header>
       <main className="mx-auto max-w-lg px-6 py-16 text-center">
-        <p className="text-xs uppercase tracking-[0.2em] text-[#C5FF41]">{plainLabels.join.eyebrow}</p>
-        <h1 className="mt-4 font-display text-4xl font-bold tracking-tight">{plainLabels.join.title}</h1>
+        <p className="text-xs uppercase tracking-[0.2em] text-[#C5FF41]">
+          {plainLabels.join.eyebrow}
+        </p>
+        <h1 className="mt-4 font-display text-4xl font-bold tracking-tight">
+          {plainLabels.join.title}
+        </h1>
         <p className="mt-4 text-zinc-400">{plainLabels.join.subtitle}</p>
 
         <div className="mt-10 flex flex-col gap-2 text-left">
-          <p className="text-xs uppercase tracking-wider text-zinc-500">{plainLabels.join.intentPrompt}</p>
+          <p className="text-xs uppercase tracking-wider text-zinc-500">
+            {plainLabels.join.intentPrompt}
+          </p>
           {INTENTS.map((item) => (
             <button
               key={item.id}
@@ -98,6 +107,18 @@ function JoinPage() {
         <div className="mt-8">
           <WalletControls className="mx-auto" />
         </div>
+
+        {isConnected && address ? (
+          <div className="mt-6 space-y-4 text-left">
+            <NeynarConnectBoundary className="flex justify-center">
+              <ConnectFarcasterButton
+                className="flex justify-center"
+                label="Connect Farcaster (optional)"
+              />
+            </NeynarConnectBoundary>
+            <SupportScorePanel />
+          </div>
+        ) : null}
 
         <input
           type="email"

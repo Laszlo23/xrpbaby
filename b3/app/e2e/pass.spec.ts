@@ -5,9 +5,7 @@ test.describe("pass / identity", () => {
     await page.goto("/pass");
     await expect(page.getByRole("heading", { name: /claim your culture name/i })).toBeVisible();
     await expect(page.getByPlaceholder("yourname")).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: /mint identity|connect wallet/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("button", { name: /mint identity|connect wallet/i })).toBeVisible();
   });
 
   test("forest identity band links to pass", async ({ page }) => {

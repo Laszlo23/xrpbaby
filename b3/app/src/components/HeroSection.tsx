@@ -267,8 +267,8 @@ function HeroHudAside({
         <div className="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:repeating-linear-gradient(0deg,transparent,transparent_3px,rgb(255_255_255/0.5)_3px,rgb(255_255_255/0.5)_4px)]" />
       </div>
 
-      <p className="mt-3 hidden text-right font-mono text-[9px] uppercase leading-relaxed tracking-[0.28em] text-zinc-600 xl:block">
-        Swipe · arrows · pause on hover
+      <p className="mt-3 text-center font-mono text-[9px] uppercase leading-relaxed tracking-[0.22em] text-zinc-600 lg:hidden">
+        Swipe or use Previous / Next
       </p>
     </aside>
   );
@@ -406,7 +406,7 @@ export function HeroSection() {
       <EliasIntentModal open={intentOpen} onOpenChange={setIntentOpen} />
       <section
         id="connect"
-        className="relative flex min-h-[58svh] scroll-mt-24 flex-col overflow-hidden sm:min-h-[62svh] md:min-h-[65svh] md:scroll-mt-28 lg:min-h-[min(72vh,760px)]"
+        className="relative flex min-h-[52svh] scroll-mt-24 flex-col overflow-hidden sm:min-h-[56svh] md:min-h-[58svh] md:scroll-mt-28 lg:min-h-[min(64vh,680px)]"
         onMouseEnter={() => setPauseCarousel(true)}
         onMouseLeave={() => setPauseCarousel(false)}
         aria-roledescription="carousel"
@@ -455,7 +455,7 @@ export function HeroSection() {
               return (
                 <div
                   key={`${slide.videoSrc}-${index}`}
-                  className="relative min-h-[58svh] w-full min-w-0 shrink-0 grow-0 basis-full sm:min-h-[62svh] md:min-h-[65svh] lg:min-h-[min(72vh,760px)]"
+                  className="relative min-h-[52svh] w-full min-w-0 shrink-0 grow-0 basis-full sm:min-h-[56svh] md:min-h-[58svh] lg:min-h-[min(64vh,680px)]"
                   aria-hidden={!isActive}
                 >
                   <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -472,7 +472,7 @@ export function HeroSection() {
                   <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-black/10 to-black/72" />
                   <div className="pointer-events-none absolute inset-0 z-[1] ring-1 ring-inset ring-white/[0.04]" />
 
-                  <div className="relative z-10 mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center px-4 pb-[calc(9.5rem+env(safe-area-inset-bottom))] pt-12 sm:px-6 sm:pb-[calc(10rem+env(safe-area-inset-bottom))] sm:pt-14 md:px-10 md:pb-[calc(9.5rem+env(safe-area-inset-bottom))] md:pt-12 lg:pt-10">
+                  <div className="relative z-10 mx-auto flex min-h-full w-full max-w-6xl flex-col justify-start px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-6 sm:px-6 sm:pb-[calc(7rem+env(safe-area-inset-bottom))] sm:pt-8 md:px-10 md:pb-[calc(7.5rem+env(safe-area-inset-bottom))] md:pt-7 lg:pt-6">
                     <div className="mb-4 flex justify-center md:hidden">
                       <WalletControls className="justify-center" />
                     </div>
@@ -503,7 +503,7 @@ export function HeroSection() {
                           </p>
                         </div>
 
-                        <h1 className="font-hero-display mt-4 text-[1.75rem] font-bold leading-[1.06] tracking-[0.02em] sm:mt-5 sm:text-[2.15rem] md:text-[2.75rem] md:leading-[1.04] md:tracking-[0.025em] lg:text-[3.25rem] lg:tracking-[0.03em]">
+                        <h1 className="font-hero-display mt-3 text-[1.75rem] font-bold leading-[1.06] tracking-[0.02em] sm:mt-4 sm:text-[2.15rem] md:text-[2.75rem] md:leading-[1.04] md:tracking-[0.025em] lg:text-[3.25rem] lg:tracking-[0.03em]">
                           <span className="sr-only">
                             {slide.title} {slide.titleAccent}
                           </span>
@@ -587,47 +587,64 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Controls */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-3 pb-5 sm:gap-4 sm:pb-6 md:pb-8">
-          <div className="pointer-events-auto flex w-full max-w-6xl flex-col gap-4 px-4 sm:px-6 md:flex-row md:items-end md:justify-between md:gap-6 md:px-10">
-            <div className="flex items-center justify-center gap-2 md:justify-start">
-              {slides.map((slide, i) => (
-                <button
-                  key={`carousel-dot-${i}`}
-                  type="button"
-                  onClick={() => scrollTo(i)}
-                  className={cn(
-                    "group relative h-2 rounded-full transition-all duration-300",
-                    selected === i ? "w-10" : "w-2 hover:bg-white/40",
-                    selected === i ? ACCENT_DOT[slide.accent] : "bg-white/20",
-                  )}
-                  aria-label={`Go to slide ${i + 1}: ${slide.eyebrow}`}
-                  aria-current={selected === i ? "true" : undefined}
-                />
-              ))}
-            </div>
+        {/* Carousel navigation — pinned above stats, labeled for clarity */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-2 pb-3 sm:gap-2.5 sm:pb-4 md:pb-5">
+          <div className="pointer-events-auto flex w-full max-w-6xl flex-col gap-3 px-4 sm:px-6 md:px-10">
+            <p
+              className="text-center font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 sm:text-[11px]"
+              aria-live="polite"
+            >
+              Scene {selected + 1} of {slides.length}
+              <span className="text-zinc-600"> · </span>
+              {activeSlide.eyebrow}
+            </p>
 
-            <div className="pointer-events-auto flex items-center justify-center gap-2 md:justify-end">
+            <div className="flex items-center justify-between gap-3">
               <button
                 type="button"
                 onClick={scrollPrev}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/55 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.08)] backdrop-blur-xl transition hover:bg-white/10"
-                aria-label="Previous slide"
+                className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-white/18 bg-black/55 px-3 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.08)] backdrop-blur-xl transition hover:bg-white/10 sm:h-11 sm:px-4"
+                aria-label={`Previous scene: ${slides[(selected - 1 + slides.length) % slides.length]?.eyebrow ?? ""}`}
               >
-                <ArrowLeft className="h-5 w-5" />
+                <ArrowLeft className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
+                <span className="hidden text-xs font-medium sm:inline">Previous</span>
               </button>
+
+              <div
+                className="flex min-w-0 flex-1 items-center justify-center gap-1.5 sm:gap-2"
+                role="tablist"
+                aria-label="Choose a scene"
+              >
+                {slides.map((slide, i) => (
+                  <button
+                    key={`carousel-dot-${i}`}
+                    type="button"
+                    role="tab"
+                    onClick={() => scrollTo(i)}
+                    className={cn(
+                      "group relative h-2 rounded-full transition-all duration-300",
+                      selected === i ? "w-8 sm:w-10" : "w-2 hover:bg-white/40",
+                      selected === i ? ACCENT_DOT[slide.accent] : "bg-white/20",
+                    )}
+                    aria-label={`Scene ${i + 1}: ${slide.eyebrow}`}
+                    aria-selected={selected === i}
+                  />
+                ))}
+              </div>
+
               <button
                 type="button"
                 onClick={scrollNext}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/55 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.08)] backdrop-blur-xl transition hover:bg-white/10"
-                aria-label="Next slide"
+                className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-white/18 bg-black/55 px-3 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.08)] backdrop-blur-xl transition hover:bg-white/10 sm:h-11 sm:px-4"
+                aria-label={`Next scene: ${slides[(selected + 1) % slides.length]?.eyebrow ?? ""}`}
               >
-                <ArrowRight className="h-5 w-5" />
+                <span className="hidden text-xs font-medium sm:inline">Next</span>
+                <ArrowRight className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
               </button>
             </div>
           </div>
 
-          <div className="pointer-events-none w-full max-w-4xl border-t border-white/[0.08] px-4 pt-4 shadow-[0_-1px_0_rgb(255_255_255/0.04)] sm:px-6 sm:pt-5 md:mx-auto md:px-10">
+          <div className="pointer-events-none w-full max-w-4xl border-t border-white/[0.08] px-4 pt-3 shadow-[0_-1px_0_rgb(255_255_255/0.04)] sm:px-6 sm:pt-3.5 md:mx-auto md:px-10">
             <div className="mx-auto grid grid-cols-2 gap-x-6 gap-y-4 md:grid-cols-4 md:gap-x-8">
               {[
                 { label: "Total won", value: "$2.4M" },

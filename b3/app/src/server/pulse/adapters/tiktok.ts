@@ -16,10 +16,7 @@ export class TikTokPulseAdapter implements PulseIngestAdapter {
 
   isEnabled(): boolean {
     if (!envFlag("TIKTOK_STREAM")) return false;
-    return Boolean(
-      process.env.TIKTOK_ACCESS_TOKEN?.trim() &&
-        process.env.TIKTOK_OPEN_ID?.trim(),
-    );
+    return Boolean(process.env.TIKTOK_ACCESS_TOKEN?.trim() && process.env.TIKTOK_OPEN_ID?.trim());
   }
 
   async ingest(since: Date): Promise<IngestItem[]> {
@@ -28,7 +25,10 @@ export class TikTokPulseAdapter implements PulseIngestAdapter {
     const token = process.env.TIKTOK_ACCESS_TOKEN!.trim();
     const openId = process.env.TIKTOK_OPEN_ID!.trim();
     const url = new URL("https://open.tiktokapis.com/v2/video/list/");
-    url.searchParams.set("fields", "id,title,create_time,share_url,like_count,comment_count,view_count");
+    url.searchParams.set(
+      "fields",
+      "id,title,create_time,share_url,like_count,comment_count,view_count",
+    );
 
     try {
       const res = await fetch(url.toString(), {

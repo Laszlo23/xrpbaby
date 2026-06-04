@@ -14,7 +14,7 @@ const ideas = [
   {
     tag: "Q3",
     title: "eco yield",
-    body: "real-world green projects backing $BCD. value that grows things.",
+    body: "real-world green projects backing $BCC. value that grows things.",
   },
   {
     tag: "Q4",

@@ -16,6 +16,12 @@
     "contracts:set-mint-price": "bash ../../scripts/set-identity-mint-price-onchain.sh"
   },
   "dependencies": {
+    "@bc/bcc-kit": "file:../../../packages/bcc-kit",
+    "@bc/culture-auth": "file:../../../packages/culture-auth",
+    "@bc/support-score": "file:../../../packages/support-score",
+    "@neynar/react": "^1.2.0",
+    "@privy-io/react-auth": "3.28.0",
+    "@privy-io/wagmi": "^4.0.8",
     "@cloudflare/vite-plugin": "^1.25.5",
     "@farcaster/miniapp-sdk": "^0.3.0",
     "@farcaster/miniapp-wagmi-connector": "^2.0.0",

@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { CultureAuthProvider } from "@bc/culture-auth/react";
+import { BuyBccButton } from "@/components/BuyBccChrome";
 
 function NotFoundComponent() {
   return (
@@ -117,7 +119,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <CultureAuthProvider accentColor="#C5FF41" includeQueryClient={false}>
+        <Outlet />
+        <BuyBccButton />
+      </CultureAuthProvider>
     </QueryClientProvider>
   );
 }

@@ -48,10 +48,10 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "bcd-mission-and-builder-loop",
-    title: "BCD, mission, and the builder loop",
+    title: "BCC, mission, and the builder loop",
     publishedAt: "2026-05-02",
     excerpt:
-      "Building Culture Dollar (BCD), XP, missions — how the loop ties drops to long-term participation.",
+      "Building Culture Coin (BCC), XP, missions — how the loop ties drops to long-term participation.",
     author: "BUILDCHAIN",
     html: `
 <p>Short-term hype burns out; loops keep communities alive. BUILDCHAIN ties drops to <strong>missions</strong>, <strong>XP</strong>, and longer arcs like genesis claims — so showing up week after week still matters.</p>

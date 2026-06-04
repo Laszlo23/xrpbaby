@@ -232,7 +232,7 @@ export function MissionGenesisClaim() {
           Genesis claim
         </p>
         <p className="mt-3 text-sm leading-relaxed text-zinc-500">
-          When the Building Culture Dollar contracts are deployed, set{" "}
+          When the Building Culture Coin contracts are deployed, set{" "}
           <span className="font-mono text-zinc-400">VITE_BCD_GENESIS_CLAIM_ADDRESS</span>,{" "}
           <span className="font-mono text-zinc-400">VITE_BCD_TOKEN_ADDRESS</span>, and{" "}
           <span className="font-mono text-zinc-400">VITE_BCD_CHAIN_ID</span> (e.g.{" "}
@@ -293,7 +293,7 @@ export function MissionGenesisClaim() {
 
   const primaryLabel = wrongChain
     ? `Switch to ${bcdChain?.name ?? getBcdChainShortLabel()}`
-    : "Claim BCD";
+    : `Claim ${BCD_SYMBOL}`;
 
   return (
     <div className="rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-500/[0.06] via-black/30 to-[rgb(0_40_100/0.22)] p-6 md:p-8">
@@ -301,7 +301,7 @@ export function MissionGenesisClaim() {
         Genesis claim
       </p>
       <h3 className="mt-3 font-heading text-xl font-semibold text-white md:text-2xl">
-        Mint your BCD allocation
+        Mint your {BCD_SYMBOL} allocation
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-zinc-500">
         Whitelist wallets claim once via merkle proof. The app can load proofs from a static host (
@@ -311,7 +311,7 @@ export function MissionGenesisClaim() {
       </p>
 
       <p className="mt-2 text-xs text-zinc-600">
-        BCD contracts target{" "}
+        {BCD_SYMBOL} contracts target{" "}
         <span className="font-mono text-zinc-400">
           {bcdChain?.name ?? `chain ${bcdChainId}`} ({bcdChainId})
         </span>
@@ -334,7 +334,7 @@ export function MissionGenesisClaim() {
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="rounded-xl border border-white/[0.06] bg-black/25 px-3 py-2.5">
-          <p className="text-[10px] uppercase tracking-widest text-zinc-600">BCD genesis claim</p>
+          <p className="text-[10px] uppercase tracking-widest text-zinc-600">{`${BCD_SYMBOL} genesis claim`}</p>
           <a
             href={explorerAddressUrl(bcdChainId, genesis as Address)}
             target="_blank"
@@ -457,7 +457,7 @@ export function MissionGenesisClaim() {
           <Link to="/faq" className="text-zinc-400 underline-offset-2 hover:text-white">
             FAQ
           </Link>
-          . Raffle tickets may still settle in native gas token until a BCD-accepting raffle ships.
+          . Raffle tickets may still settle in native gas token until a $BCC-accepting raffle ships.
         </p>
       </div>
     </div>

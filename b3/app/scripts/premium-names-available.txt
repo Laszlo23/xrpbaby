@@ -1,0 +1,17 @@
+# Available premium Culture Layer names (scan 2026-06-04) — mint with mint-premium-identities.ts
+punk.culture
+punk.build
+punk.home
+punk.eco
+punk.capital
+punk.city
+bcc.culture
+art.culture
+art.build
+art.home
+art.eco
+art.capital
+city.home
+city.eco
+city.capital
+city.city

@@ -21,8 +21,28 @@ export default defineConfig({
     resolve: {
       dedupe: ["react", "react-dom"],
     },
+    optimizeDeps: {
+      include: [
+        "@privy-io/react-auth",
+        "@privy-io/wagmi",
+        "@bc/culture-auth",
+        "@neynar/react",
+        "thirdweb",
+      ],
+    },
     ssr: {
-      noExternal: ["@bc/contracts-sdk", "@bc/proof", "@bc/identity", "@bc/registry"],
+      noExternal: [
+        "@bc/contracts-sdk",
+        "@bc/proof",
+        "@bc/identity",
+        "@bc/registry",
+        "@bc/bcc-kit",
+        "@bc/culture-auth",
+        "@privy-io/react-auth",
+        "@privy-io/wagmi",
+        "@neynar/react",
+        "thirdweb",
+      ],
     },
   },
 });

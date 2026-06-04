@@ -26,7 +26,7 @@ Other docs reference this address by anchor; do not redefine it elsewhere.
 - `ECON_LIVE=0` default in non-prod; only enable with multisig-approved runbooks.
 - `AGENTS_PAUSED=1` is the **kill-switch** — stops scheduled ticks without redeploying.
 
-## BCD monetary policy
+## BCC monetary policy
 
 - `BuildingCultureDollar.ownerMint` is gated (`ownerMintDisabled`) — do not re-enable without published schedule + multisig + (if required) timelock.
 

@@ -27,7 +27,10 @@ type ChatTurn = { role: "user" | "assistant"; content: string };
 
 const PRESETS = [
   { label: "What should I do today?", message: "What should I focus on today on BUILDCHAIN?" },
-  { label: "BCD vs ETH mint", message: "Explain BCD pricing vs how mints settle on-chain today." },
+  {
+    label: "$BCC vs ETH mint",
+    message: "Explain $BCC pricing vs how mints settle on-chain today.",
+  },
   { label: "Rank up faster", message: "How do I climb the leaderboard and earn XP faster?" },
 ] as const;
 
@@ -126,8 +129,8 @@ export function AiPulseCoach() {
             Pulse Coach
           </DialogTitle>
           <DialogDescription className="text-left text-zinc-500">
-            AI tips for drops, XP, and BCD — not financial advice. On-chain facts may change; verify
-            in the app and contracts.
+            AI tips for drops, XP, and $BCC — not financial advice. On-chain facts may change;
+            verify in the app and contracts.
           </DialogDescription>
         </DialogHeader>
 

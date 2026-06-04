@@ -6,10 +6,14 @@ import {
 } from "wagmi/chains";
 import { defineChain } from "viem";
 
+/** Safe in Vite and in Node unit tests (no import.meta.env). */
+const viteEnv =
+  typeof import.meta !== "undefined" && import.meta.env ? import.meta.env : ({} as ImportMetaEnv);
+
 function bsc4everlandHttpUrl(): string {
-  const custom = import.meta.env.VITE_BSC_HTTP_URL as string | undefined;
+  const custom = viteEnv.VITE_BSC_HTTP_URL as string | undefined;
   if (custom?.trim()) return custom.trim();
-  const key = import.meta.env.VITE_4EVERLAND_BSC_API_KEY as string | undefined;
+  const key = viteEnv.VITE_4EVERLAND_BSC_API_KEY as string | undefined;
   if (key?.trim()) return `https://bsc-mainnet.4everland.org/v1/${key.trim()}`;
   return bscChain.rpcUrls.default.http[0];
 }
@@ -20,7 +24,7 @@ export const b3Mainnet = defineChain({
   name: "B3 Mainnet",
   nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
   rpcUrls: {
-    default: { http: [import.meta.env.VITE_B3_MAINNET_RPC_URL ?? "https://mainnet-rpc.b3.fun"] },
+    default: { http: [viteEnv.VITE_B3_MAINNET_RPC_URL ?? "https://mainnet-rpc.b3.fun"] },
   },
   blockExplorers: {
     default: { name: "B3 Explorer", url: "https://explorer.b3.fun" },
@@ -33,7 +37,7 @@ export const b3Testnet = defineChain({
   name: "B3 Testnet",
   nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
   rpcUrls: {
-    default: { http: [import.meta.env.VITE_B3_TESTNET_RPC_URL ?? "https://testnet-rpc.b3.fun"] },
+    default: { http: [viteEnv.VITE_B3_TESTNET_RPC_URL ?? "https://testnet-rpc.b3.fun"] },
   },
   blockExplorers: {
     default: { name: "B3 Testnet Explorer", url: "https://testnet-explorer.b3.fun" },
@@ -46,7 +50,7 @@ export const base: WagmiChain = {
   rpcUrls: {
     ...baseChain.rpcUrls,
     default: {
-      http: [import.meta.env.VITE_BASE_RPC_URL ?? baseChain.rpcUrls.default.http[0]],
+      http: [viteEnv.VITE_BASE_RPC_URL ?? baseChain.rpcUrls.default.http[0]],
     },
   },
 };
@@ -57,7 +61,7 @@ export const baseSepolia: WagmiChain = {
   rpcUrls: {
     ...baseSepoliaChain.rpcUrls,
     default: {
-      http: [import.meta.env.VITE_BASE_SEPOLIA_RPC_URL ?? baseSepoliaChain.rpcUrls.default.http[0]],
+      http: [viteEnv.VITE_BASE_SEPOLIA_RPC_URL ?? baseSepoliaChain.rpcUrls.default.http[0]],
     },
   },
 };
@@ -78,13 +82,13 @@ export type SupportedB3Chain = typeof b3Mainnet | typeof b3Testnet;
 export type EvmNetworkId = "base" | "base-sepolia" | "b3" | "b3-testnet" | "bsc";
 
 export function parseEvmNetwork(): EvmNetworkId {
-  const v = import.meta.env.VITE_EVM_NETWORK as string | undefined;
+  const v = viteEnv.VITE_EVM_NETWORK as string | undefined;
   if (v === "base") return "base";
   if (v === "base-sepolia") return "base-sepolia";
   if (v === "b3") return "b3";
   if (v === "b3-testnet") return "b3-testnet";
   if (v === "bsc" || v === "bnb") return "bsc";
-  const legacy = import.meta.env.VITE_B3_NETWORK as string | undefined;
+  const legacy = viteEnv.VITE_B3_NETWORK as string | undefined;
   if (legacy === "mainnet") return "b3";
   if (legacy === "testnet") return "b3-testnet";
   return "base";
@@ -113,7 +117,7 @@ export function getDefaultChain(): WagmiChain {
 /** Include World Chain in wagmi when `VITE_ENABLE_WORLD_CHAIN` is not `0` (default: enabled). */
 export function includeWorldChainInWallet(): boolean {
   const v =
-    (typeof import.meta !== "undefined" && import.meta.env?.VITE_ENABLE_WORLD_CHAIN) ||
+    (typeof import.meta !== "undefined" && viteEnv.VITE_ENABLE_WORLD_CHAIN) ||
     (typeof process !== "undefined" && process.env?.VITE_ENABLE_WORLD_CHAIN);
   return v !== "0";
 }
@@ -147,10 +151,10 @@ export function isBscChainId(chainId: number): boolean {
 
 /**
  * Chain ID where `VITE_BCD_TOKEN_ADDRESS` is deployed.
- * Defaults to **B3 mainnet (8333)** for legacy installs; set `8453` when BCD ERC-20 is on Base mainnet.
+ * Defaults to **B3 mainnet (8333)** for legacy installs; set `8453` when BCC ERC-20 is on Base mainnet.
  */
 export function parseBcdChainId(): number {
-  const raw = import.meta.env.VITE_BCD_CHAIN_ID as string | undefined;
+  const raw = viteEnv.VITE_BCD_CHAIN_ID as string | undefined;
   if (raw?.trim()) {
     const n = Number(raw.trim());
     if (Number.isFinite(n) && n > 0) return Math.trunc(n);
@@ -162,7 +166,7 @@ export function isBcdChain(chainId: number): boolean {
   return chainId === parseBcdChainId();
 }
 
-/** Short network name for wallet prompts (BCD balance). */
+/** Short network name for wallet prompts (BCC balance). */
 export function getBcdChainShortLabel(): string {
   const id = parseBcdChainId();
   if (id === base.id) return "Base";
@@ -182,7 +186,7 @@ export const worldChain = defineChain({
     default: {
       http: [
         (typeof import.meta !== "undefined" &&
-          (import.meta.env?.VITE_WORLD_CHAIN_RPC_URL as string | undefined)?.trim()) ||
+          (viteEnv.VITE_WORLD_CHAIN_RPC_URL as string | undefined)?.trim()) ||
           "https://worldchain-mainnet.gateway.tmrwdao.org",
       ],
     },
@@ -196,7 +200,7 @@ export type MarketplaceNetworkId = "base" | "base-sepolia";
 
 /** Chain where the thirdweb Marketplace contract is deployed. */
 export function parseMarketplaceNetwork(): MarketplaceNetworkId {
-  const v = import.meta.env.VITE_MARKETPLACE_NETWORK as string | undefined;
+  const v = viteEnv.VITE_MARKETPLACE_NETWORK as string | undefined;
   if (v === "base-sepolia") return "base-sepolia";
   return "base";
 }

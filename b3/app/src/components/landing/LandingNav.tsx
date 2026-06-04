@@ -20,7 +20,7 @@ import { LANDING_MEDIA } from "@/lib/landing-media";
 const NAV_ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
   { label: "Vision", href: "#vision", icon: Sparkles },
   { label: "Ecosystem", href: "#ecosystem", icon: Layers },
-  { label: "BCD", href: "#bcd", icon: Coins },
+  { label: "$BCC", href: "#bcc", icon: Coins },
   { label: "Impact", href: "#impact", icon: TrendingUp },
   { label: "Investors", href: "#investors", icon: Briefcase },
   { label: "Roadmap", href: "#future", icon: Map },

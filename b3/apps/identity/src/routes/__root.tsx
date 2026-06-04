@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { Web3Provider } from "@/providers/Web3Provider";
+import { BuyBccButton } from "@/components/BuyBccChrome";
 import { MiniAppProvider } from "@/providers/MiniAppProvider";
 import { MiniAppRootShell } from "@/components/mini/MiniAppRootShell";
 import { defaultMeta, faviconLinks } from "@/lib/seo/meta";
@@ -118,6 +119,7 @@ function RootComponent() {
           <MiniAppRootShell>
             <Outlet />
           </MiniAppRootShell>
+          <BuyBccButton />
           <Toaster theme="dark" position="bottom-center" />
         </MiniAppProvider>
       </Web3Provider>

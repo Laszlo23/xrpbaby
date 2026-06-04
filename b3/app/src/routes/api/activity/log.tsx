@@ -42,9 +42,7 @@ export const Route = createFileRoute("/api/activity/log")({
           return json({ ok: false, error: auth.error }, auth.status);
         }
 
-        const { ensureWalletAndMember, logActivity } = await import(
-          "@/server/platform/member"
-        );
+        const { ensureWalletAndMember, logActivity } = await import("@/server/platform/member");
         const { member } = await ensureWalletAndMember(prisma, auth.address);
         const event = await logActivity(prisma, {
           memberId: member.id,

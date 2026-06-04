@@ -1,13 +1,15 @@
 import type { PrivyClientConfig } from "@privy-io/react-auth";
-import { base } from "@/lib/chains";
+import { base, bsc } from "@/lib/chains";
 import { privyClientId } from "@/lib/privy-env";
 
-/** Privy dashboard: enable Embedded wallets, Smart wallets (Base), and Export wallet. */
+/** Privy dashboard: enable Embedded wallets, Smart wallets (Base + BNB Chain), and Export wallet. */
 export function buildPrivyConfig(): PrivyClientConfig {
   return {
-    loginMethods: ["email", "google", "apple", "wallet"],
+    // Social + email only in Privy modal. Wallet via WalletControls "External wallet" (connectWallet).
+    // Omitting Privy's built-in "wallet" / "farcaster" login methods avoids invalid React child crashes in the modal UI.
+    loginMethods: ["email", "google", "apple"],
     defaultChain: base,
-    supportedChains: [base],
+    supportedChains: [base, bsc],
     appearance: {
       showWalletLoginFirst: false,
       theme: "dark",

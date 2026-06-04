@@ -164,7 +164,7 @@ export function CultureQuizGame({ sharedScoreHint }: { sharedScoreHint?: number 
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-zinc-400">
               <li>
                 Mixed from live pool cards (categories, worth bands, slugs) and FAQ-aligned basics
-                (wallet, BCD narrative, mission).
+                (wallet, BCC narrative, mission).
               </li>
               <li>
                 Connect a wallet to earn one-time quest XP on first completion ({XP_FINISH}) and on

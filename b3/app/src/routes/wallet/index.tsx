@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAccount, useChainId } from "wagmi";
-import { base } from "@/lib/chains";
-import { identityChainId } from "@/lib/identity/config";
+import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
+import { NetworkSelector } from "@/components/wallet/NetworkSelector";
 import { pointsRedeemEnabled } from "@/lib/redemption-policy";
 import { privyEnabled } from "@/lib/privy-env";
+import { getIdentityNetwork } from "@/lib/identity/networks";
 import { ModuleShell } from "@/components/ModuleShell";
 import { WalletControls } from "@/components/WalletControls";
 import { WalletExportSection } from "@/components/wallet/WalletExportSection";
@@ -13,7 +14,8 @@ export const Route = createFileRoute("/wallet/")({
   head: () =>
     pageHead({
       title: "Your wallet",
-      description: "Base smart wallet, export keys, Culture Points packs, and identity mint.",
+      description:
+        "Smart wallet on Base and BNB Chain — export keys, Culture Points packs, and identity mint.",
       path: "/wallet",
     }),
   component: WalletPage,
@@ -22,17 +24,23 @@ export const Route = createFileRoute("/wallet/")({
 function WalletPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
+  const { activeNetworkId, identity } = useCultureNetwork();
+  const activeNet = getIdentityNetwork(activeNetworkId);
 
-  const onBase = chainId === base.id;
-  const canMintIdentity = chainId === identityChainId;
+  const onActiveChain = chainId === identity.identityChainId;
+  const explorerUrl = address ? activeNet.explorerAddressUrl(address) : null;
 
   return (
     <ModuleShell
       moduleId="pass"
       title="Your culture wallet"
-      subtitle="Smart wallet on Base — sign in, buy packs, mint your .culture name, export keys when you need self-custody."
+      subtitle="Smart wallet on Base and BNB Chain — sign in, buy packs, mint your .culture name, export keys when you need self-custody."
     >
       <div className="mx-auto max-w-lg space-y-8">
+        <div className="flex justify-center">
+          <NetworkSelector />
+        </div>
+
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
           <p className="mono-label text-zinc-500">Connection</p>
           <div className="mt-4 flex justify-center">
@@ -45,11 +53,13 @@ function WalletPage() {
                 <dd className="mt-1 break-all text-zinc-200">{address}</dd>
               </div>
               <div>
-                <dt className="text-zinc-500">Network</dt>
+                <dt className="text-zinc-500">Identity network</dt>
                 <dd className="mt-1 text-zinc-300">
-                  {onBase ? "Base mainnet" : `Chain ${chainId}`}
-                  {!onBase && (
-                    <span className="ml-2 text-amber-400">Switch to Base for packs &amp; mint</span>
+                  {activeNet.chainLabel}
+                  {!onActiveChain && isConnected && (
+                    <span className="ml-2 text-amber-400">
+                      Wallet on chain {chainId} — switch to {activeNet.chainLabel} to mint
+                    </span>
                   )}
                 </dd>
               </div>
@@ -75,21 +85,24 @@ function WalletPage() {
           </Link>
           <Link
             to="/pass"
+            search={{ network: activeNetworkId }}
             className="rounded-2xl border border-[#00E5FF]/25 bg-[#00E5FF]/10 p-5 transition hover:border-[#00E5FF]/50"
           >
             <p className="font-display text-lg font-semibold text-white">Mint .culture ID</p>
             <p className="mt-1 text-sm text-zinc-400">
-              {canMintIdentity ? "On-chain identity NFT" : "Switch to Base to mint"}
+              {identity.isIdentityContractConfigured
+                ? `Mint on ${activeNet.chainLabel}`
+                : `${activeNet.chainLabel} contract pending`}
             </p>
           </Link>
         </section>
 
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-          <p className="mono-label text-zinc-500">Redeem for BCD</p>
+          <p className="mono-label text-zinc-500">Redeem for BCC</p>
           <p className="mt-2 text-sm text-zinc-400">
             {pointsRedeemEnabled
               ? "Redemption is enabled when pool liquidity meets program minimums."
-              : "Coming when BCD has enough on-chain liquidity. Culture Points stay in your ledger until then."}
+              : "Coming when BCC has enough on-chain liquidity. Culture Points stay in your ledger until then."}
           </p>
           <Link
             to="/profile"
@@ -99,14 +112,14 @@ function WalletPage() {
           </Link>
         </section>
 
-        {address && (
+        {explorerUrl && (
           <a
-            href={`https://basescan.org/address/${address}`}
+            href={explorerUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="block text-center font-mono text-xs text-zinc-500 hover:text-zinc-300"
           >
-            View on Basescan
+            View on {activeNetworkId === "bsc" ? "BscScan" : "Basescan"}
           </a>
         )}
       </div>

@@ -6,14 +6,22 @@ import { WagmiProvider as WagmiProviderPrivy } from "@privy-io/wagmi";
 import { WagmiProvider as WagmiProviderVanilla } from "wagmi";
 import { base } from "viem/chains";
 import { useMemo, useState } from "react";
+import {
+  buildPrivyConfig,
+  createCultureWagmiConfig,
+} from "@bc/culture-auth";
+import { CultureMemberSync } from "@bc/culture-auth/react";
 import { AnalyticsRouteListener } from "@/components/AnalyticsRouteListener";
+import { BuyBccChrome } from "@/components/BuyBccChrome";
 import { legacyTestnetEnabled, ogGalileo } from "@/lib/chain";
 import { privyAppId, privyEnabled } from "@/lib/privy-env";
-import { wagmiConfigPrivy, wagmiConfigVanilla } from "@/wagmi";
+import { wagmiConfigVanilla } from "@/wagmi";
 
-/** Default web app client from Privy dashboard (override with `NEXT_PUBLIC_PRIVY_CLIENT_ID`). */
 const DEFAULT_PRIVY_CLIENT_ID =
   "client-WY6YUv2Pa1JUftGa3dMubEKjQvQQ34NqD1E3o2RETGWfX";
+
+const SYNC_API_ORIGIN =
+  process.env.NEXT_PUBLIC_PLATFORM_ORIGIN?.trim() || "https://0x.buildingculture.capital";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -28,36 +36,38 @@ export function Providers({ children }: { children: React.ReactNode }) {
       }),
   );
 
+  const supportedChains = legacyTestnetEnabled ? [base, ogGalileo] : [base];
+
   const privyConfig = useMemo(
-    () => ({
-      defaultChain: base,
-      supportedChains: legacyTestnetEnabled ? [base, ogGalileo] : [base],
-      walletConnectCloudProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
-      appearance: {
-        showWalletLoginFirst: true,
-      },
-      embeddedWallets: {
-        ethereum: {
-          createOnLogin: "off" as const,
-        },
-      },
-    }),
-    [],
+    () =>
+      buildPrivyConfig({
+        clientId: process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID ?? DEFAULT_PRIVY_CLIENT_ID,
+        walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+        supportedChains,
+        createOnLogin: "users-without-wallets",
+      }),
+    [supportedChains],
   );
 
-  const clientId = process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID ?? DEFAULT_PRIVY_CLIENT_ID;
+  const wagmiConfigPrivy = useMemo(
+    () => createCultureWagmiConfig({ chains: supportedChains }),
+    [supportedChains],
+  );
 
   const inner = (
     <QueryClientProvider client={queryClient}>
       {privyEnabled ? (
         <WagmiProviderPrivy config={wagmiConfigPrivy}>
+          <CultureMemberSync syncApiOrigin={SYNC_API_ORIGIN} />
           <AnalyticsRouteListener />
           {children}
+          <BuyBccChrome />
         </WagmiProviderPrivy>
       ) : (
         <WagmiProviderVanilla config={wagmiConfigVanilla}>
           <AnalyticsRouteListener />
           {children}
+          <BuyBccChrome />
         </WagmiProviderVanilla>
       )}
     </QueryClientProvider>
@@ -68,7 +78,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <PrivyProvider appId={privyAppId} clientId={clientId} config={privyConfig}>
+    <PrivyProvider appId={privyAppId} config={privyConfig}>
       {inner}
     </PrivyProvider>
   );

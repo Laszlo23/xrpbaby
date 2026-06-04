@@ -1,6 +1,6 @@
 # Building Culture — Revival & eco hubs (landing)
 
-This app is the **physical-lane** front door: community-owned revival, Austria hubs (e.g. Bernhardsthal), and nomad/builder narrative. The **digital-lane** experience market (ticket NFTs, draws, BCD) lives at the BUILDCHAIN app — linked via `VITE_BUILDCHAIN_APP_URL`.
+This app is the **physical-lane** front door: community-owned revival, Austria hubs (e.g. Bernhardsthal), and nomad/builder narrative. The **digital-lane** experience market (ticket NFTs, draws, BCC) lives at the BUILDCHAIN app — linked via `VITE_BUILDCHAIN_APP_URL`.
 
 ## Hosting decision (multi-app architecture)
 

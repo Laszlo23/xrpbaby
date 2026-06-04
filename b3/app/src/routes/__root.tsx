@@ -14,6 +14,7 @@ import { NetworkGuard } from "@/components/NetworkGuard";
 import { Toaster } from "@/components/ui/sonner";
 import { BcdEconomyProvider } from "@/contexts/BcdEconomyContext";
 import { GetBcdModal } from "@/components/GetBcdModal";
+import { BuyBccButton } from "@/components/bcc/BuyBccModal";
 import { AiCoachProvider } from "@/contexts/AiCoachContext";
 import { AiPulseCoach } from "@/components/AiPulseCoach";
 import { EliasOrb } from "@/components/EliasOrb";
@@ -25,6 +26,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootTechnicalMeta } from "@/lib/seo";
 
 import appCss from "../styles.css?url";
+import "@neynar/react/dist/style.css";
 
 function NotFoundComponent() {
   return (
@@ -142,6 +144,7 @@ function RootComponent() {
             <AppChrome />
           </div>
           <GetBcdModal />
+          <BuyBccButton />
           <EliasOnboarding />
           <EliasOrb />
           <AiPulseCoach />

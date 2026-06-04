@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Web3Provider } from "@bc/wallet-kit";
+import { CultureAuthProvider } from "@bc/culture-auth/react";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,7 +13,8 @@ import TermsPage from "./pages/legal/TermsPage.tsx";
 import PropertyPage from "./pages/PropertyPage.tsx";
 import CommunityGuide from "./pages/CommunityGuide.tsx";
 import { ThemedStoryline } from "./pages/ThemedStoryline.tsx";
-import { wagmiConfig } from "@/lib/wagmi-config";
+import { BuyBccButton } from "@/components/BuyBccChrome";
+import { FarcasterLinkChrome } from "@/components/FarcasterLinkChrome";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,8 @@ const AppShell = () => (
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <BuyBccButton />
+      {enableWeb3 ? <FarcasterLinkChrome /> : null}
     </BrowserRouter>
   </TooltipProvider>
 );
@@ -46,9 +49,9 @@ const AppShell = () => (
 const App = () => (
   <QueryClientProvider client={queryClient}>
     {enableWeb3 ? (
-      <Web3Provider wagmiConfig={wagmiConfig} includeQueryClient={false}>
+      <CultureAuthProvider accentColor="#C5FF41" includeQueryClient={false}>
         <AppShell />
-      </Web3Provider>
+      </CultureAuthProvider>
     ) : (
       <AppShell />
     )}

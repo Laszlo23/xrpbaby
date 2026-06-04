@@ -54,7 +54,7 @@ export const ROADMAP_UPCOMING = [
     note: "Communities raising capital from communities",
   },
   {
-    title: "BCD Utility Launch",
+    title: "BCC Utility Launch",
     note: "Single currency for the entire ecosystem",
   },
   {

@@ -13,6 +13,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@bc/bcc-kit": "file:../../../packages/bcc-kit",
+    "@bc/culture-auth": "file:../../../packages/culture-auth",
+    "@privy-io/react-auth": "^3.27.1",
+    "@privy-io/wagmi": "^4.0.8",
     "@base-org/account": "^2.5.5",
     "@bc/registry": "*",
     "@bc/wallet-kit": "*",

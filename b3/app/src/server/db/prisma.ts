@@ -5,11 +5,20 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 type PrismaClientType = import("@prisma/client").PrismaClient;
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClientType };
+const globalForPrisma = globalThis as unknown as {
+  prisma?: PrismaClientType;
+  prismaUrl?: string;
+};
 
 export function getPrisma(): PrismaClientType | null {
   const url = process.env.DATABASE_URL?.trim();
   if (!url) return null;
+
+  if (globalForPrisma.prisma && globalForPrisma.prismaUrl !== url) {
+    void globalForPrisma.prisma.$disconnect().catch(() => {});
+    globalForPrisma.prisma = undefined;
+    globalForPrisma.prismaUrl = undefined;
+  }
 
   if (!globalForPrisma.prisma) {
     try {
@@ -19,6 +28,7 @@ export function getPrisma(): PrismaClientType | null {
       globalForPrisma.prisma = new PrismaClient({
         log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
       });
+      globalForPrisma.prismaUrl = url;
     } catch (e) {
       console.warn("Prisma client init failed (invalid DATABASE_URL or missing native binary):", e);
       return null;

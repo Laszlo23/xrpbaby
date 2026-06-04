@@ -33,3 +33,32 @@ export async function verifyPrivyAccessToken(
     return { error: "invalid_token", status: 401 };
   }
 }
+
+export type PrivyFarcasterLink = {
+  fid: number;
+  username?: string;
+};
+
+/** Extract linked Farcaster account from Privy user linked accounts. */
+export async function getPrivyFarcasterLink(userId: string): Promise<PrivyFarcasterLink | null> {
+  const privy = getPrivyClient();
+  if (!privy) return null;
+  try {
+    const user = await privy.getUser(userId);
+    const linked = user.linkedAccounts ?? [];
+    for (const acct of linked) {
+      if (acct.type === "farcaster") {
+        const fid = Number((acct as { fid?: number }).fid);
+        if (Number.isFinite(fid) && fid > 0) {
+          return {
+            fid,
+            username: (acct as { username?: string }).username,
+          };
+        }
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}

@@ -2,7 +2,7 @@
  * Index AgentShareCampaign `Minted` logs into Postgres (`ChainMintEvent`).
  *
  * Usage (from repo root):
- *   cd frontend && DATABASE_URL=... VITE_AGENT_SHARE_CAMPAIGN_ADDRESS=0x... npx tsx scripts/chain-index-events.ts
+ *   cd app && DATABASE_URL=... VITE_AGENT_SHARE_CAMPAIGN_ADDRESS=0x... npx tsx scripts/chain-index-events.ts
  *
  * Optional: INDEX_FROM_BLOCK (default: max indexed block + 1, or 0), BASE_RPC_URL, VITE_EVM_CHAIN_ID (8453).
  */

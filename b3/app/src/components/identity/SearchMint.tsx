@@ -14,15 +14,23 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import { privyEnabled } from "@/lib/privy-env";
+import { usePrivyWalletAddress } from "@/lib/privy-wallet";
 import {
-  identityChainId,
-  identityContractAddress,
-  isIdentityContractConfigured,
-} from "@/lib/identity/config";
-import { formatIdentityMintPrice } from "@/lib/identity/mint-price";
+  formatIdentityMintPrice,
+  formatIdentityMintPriceNativeOnly,
+} from "@/lib/identity/mint-price";
+import { getIdentityNetwork } from "@/lib/identity/networks";
 import { cultureGatewayPath } from "@/lib/identity/urls";
 import { cultureLayerIdentityAbi } from "@/lib/identity/identityAbi";
+import { cultureLayerIdentityV2Abi, erc20ApproveAbi } from "@/lib/identity/identityV2Abi";
+import {
+  BCC_DISCOUNT_LABEL,
+  getBccTokenAddress,
+  getIdentityV2ContractAddress,
+} from "@/lib/bcc-config";
+import { BCC_SYMBOL } from "@bc/bcc-kit";
 import { saveIdentityForWallet } from "@/lib/identity/identityStorage";
 import { IDENTITY_TLD_OPTIONS, tldLabelToId } from "@/lib/identity/tlds";
 
@@ -57,7 +65,24 @@ export function SearchMint({ id }: { id?: string }) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const search = useSearch({ strict: false }) as PassSearch;
-  const { address, isConnected, chainId } = useAccount();
+  const { activeNetworkId, identity } = useCultureNetwork();
+  const activeNet = getIdentityNetwork(activeNetworkId);
+  const {
+    identityChainId,
+    identityContractAddress,
+    isIdentityContractConfigured,
+    identityChainLabel,
+    nativeSymbol,
+  } = identity;
+  const contractAddress = identityContractAddress || undefined;
+  const identityV2Address = getIdentityV2ContractAddress();
+  const bccEnabled = activeNetworkId === "base" && Boolean(identityV2Address);
+  const [payWithBcc, setPayWithBcc] = useState(false);
+  const mintContractAddress = payWithBcc && identityV2Address ? identityV2Address : contractAddress;
+  const privyAddress = usePrivyWalletAddress();
+  const { address: wagmiAddress, isConnected: wagmiConnected, chainId } = useAccount();
+  const address = privyEnabled ? (privyAddress ?? wagmiAddress) : wagmiAddress;
+  const isConnected = privyEnabled ? Boolean(privyAddress ?? wagmiAddress) : wagmiConnected;
   const { connect, connectors, isPending: isConnecting, error: connectError } = useConnect();
   const { switchChainAsync } = useSwitchChain();
 
@@ -68,13 +93,19 @@ export function SearchMint({ id }: { id?: string }) {
 
   useEffect(() => {
     if (search.name) setName(search.name);
-    if (search.tld && IDENTITY_TLD_OPTIONS.includes(search.tld as (typeof IDENTITY_TLD_OPTIONS)[number])) {
+    if (
+      search.tld &&
+      IDENTITY_TLD_OPTIONS.includes(search.tld as (typeof IDENTITY_TLD_OPTIONS)[number])
+    ) {
       setTld(search.tld);
     }
   }, [search.name, search.tld]);
 
   const clean =
-    name.trim().toLowerCase().replace(/[^a-z0-9]/g, "") || "yourname";
+    name
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "") || "yourname";
   const tldLabel = tld.replace(/^\./, "");
   const fullIdentity = `${clean}.${tldLabel}`;
   const fullIdentityDisplay = `${clean}${tld}`;
@@ -92,10 +123,11 @@ export function SearchMint({ id }: { id?: string }) {
     tldId !== null;
 
   const { data: mintPriceWei } = useReadContract({
-    address: identityContractAddress,
-    abi: cultureLayerIdentityAbi,
-    functionName: "mintPrice",
-    query: { enabled: isIdentityContractConfigured },
+    address: mintContractAddress,
+    abi: payWithBcc ? cultureLayerIdentityV2Abi : cultureLayerIdentityAbi,
+    functionName: payWithBcc ? "quoteMintWithBcc" : "mintPrice",
+    chainId: identityChainId,
+    query: { enabled: Boolean(mintContractAddress) && isIdentityContractConfigured },
   });
 
   const {
@@ -103,10 +135,11 @@ export function SearchMint({ id }: { id?: string }) {
     isFetching: isCheckingAvailability,
     isError: availabilityError,
   } = useReadContract({
-    address: identityContractAddress,
+    address: contractAddress,
     abi: cultureLayerIdentityAbi,
     functionName: "isAvailable",
     args: [debouncedHandle, tldId ?? 0],
+    chainId: identityChainId,
     query: { enabled: canCheckAvailability },
   });
 
@@ -141,13 +174,7 @@ export function SearchMint({ id }: { id?: string }) {
       return { label: "available", className: "text-[#C5FF41]" };
     }
     return { label: "taken", className: "text-red-400" };
-  }, [
-    availabilityError,
-    clean,
-    isAvailable,
-    isCheckingAvailability,
-    isIdentityContractConfigured,
-  ]);
+  }, [availabilityError, clean, isAvailable, isCheckingAvailability, isIdentityContractConfigured]);
 
   useEffect(() => {
     if (!isConfirmed || !address) return;
@@ -203,7 +230,7 @@ export function SearchMint({ id }: { id?: string }) {
 
     if (!isConnected || !address) {
       if (privyEnabled) {
-        setMintError("Sign in to create your Base smart wallet, then mint.");
+        setMintError(`Sign in to create your ${activeNet.chainLabel} smart wallet, then mint.`);
         return;
       }
       if (!hasBrowserWallet()) {
@@ -224,7 +251,7 @@ export function SearchMint({ id }: { id?: string }) {
       try {
         await switchChainAsync({ chainId: identityChainId });
       } catch {
-        setMintError("Switch to Base to mint your identity.");
+        setMintError(`Switch to ${identityChainLabel} to mint your identity.`);
       }
       return;
     }
@@ -239,9 +266,43 @@ export function SearchMint({ id }: { id?: string }) {
       return;
     }
 
+    if (!mintContractAddress) {
+      setMintError(`${identityChainLabel} identity contract not configured yet.`);
+      return;
+    }
+
+    if (payWithBcc && identityV2Address) {
+      const bccToken = getBccTokenAddress();
+      writeContract(
+        {
+          address: bccToken,
+          abi: erc20ApproveAbi,
+          functionName: "approve",
+          args: [identityV2Address, mintPriceWei],
+          chainId: identityChainId,
+        },
+        {
+          onSuccess: () => {
+            writeContract({
+              address: identityV2Address,
+              abi: cultureLayerIdentityV2Abi,
+              functionName: "mintWithBcc",
+              args: [clean, tldId],
+              chainId: identityChainId,
+            });
+          },
+          onError: (err) => {
+            const msg = err instanceof Error ? err.message : `${BCC_SYMBOL} approve failed.`;
+            setMintError(msg.length > 120 ? `${msg.slice(0, 120)}…` : msg);
+          },
+        },
+      );
+      return;
+    }
+
     writeContract(
       {
-        address: identityContractAddress,
+        address: mintContractAddress,
         abi: cultureLayerIdentityAbi,
         functionName: "mint",
         args: [clean, tldId],
@@ -268,7 +329,8 @@ export function SearchMint({ id }: { id?: string }) {
     <motion.div id={id} className="relative w-full max-w-3xl">
       {!isIdentityContractConfigured && import.meta.env.DEV && (
         <p className="mb-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-center font-mono text-[11px] text-amber-200">
-          Set VITE_IDENTITY_CONTRACT_ADDRESS in .env.local to enable minting.
+          Set VITE_IDENTITY_CONTRACT_ADDRESS (Base) or VITE_IDENTITY_BSC_CONTRACT_ADDRESS (BNB
+          Chain) in .env.local to enable minting on {activeNet.chainLabel}.
         </p>
       )}
 
@@ -346,16 +408,36 @@ export function SearchMint({ id }: { id?: string }) {
           {isIdentityContractConfigured && (
             <>
               <span className="text-zinc-600">·</span>
-              <span className="text-zinc-400">{formatIdentityMintPrice(mintPriceWei)}</span>
+              <span className="text-zinc-400">
+                {payWithBcc
+                  ? `${formatIdentityMintPriceNativeOnly(mintPriceWei, { networkId: "base", symbol: BCC_SYMBOL })} (${BCC_DISCOUNT_LABEL})`
+                  : formatIdentityMintPrice(mintPriceWei, {
+                      networkId: activeNetworkId,
+                      symbol: nativeSymbol,
+                    })}
+              </span>
             </>
           )}
         </div>
+        {bccEnabled ? (
+          <button
+            type="button"
+            onClick={() => setPayWithBcc((v) => !v)}
+            className={`rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-wider ${
+              payWithBcc
+                ? "border-[#C5FF41]/50 bg-[#C5FF41]/15 text-[#C5FF41]"
+                : "border-white/15 text-zinc-400 hover:text-white"
+            }`}
+          >
+            {payWithBcc
+              ? `Paying with ${BCC_SYMBOL}`
+              : `Pay with ${BCC_SYMBOL} (${BCC_DISCOUNT_LABEL})`}
+          </button>
+        ) : null}
         {(mintError || connectError) && (
           <p className="max-w-md text-center font-mono text-[11px] text-red-400">
             {mintError ??
-              (connectError instanceof Error
-                ? connectError.message
-                : "Could not connect wallet.")}
+              (connectError instanceof Error ? connectError.message : "Could not connect wallet.")}
           </p>
         )}
       </motion.div>

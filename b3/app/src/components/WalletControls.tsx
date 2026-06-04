@@ -5,6 +5,7 @@ import type { Connector } from "wagmi";
 import { BcdWalletBadge } from "@/components/BcdWalletBadge";
 import { WorldWalletSiweButton } from "@/components/WorldWalletSiweButton";
 import { privyEnabled } from "@/lib/privy-env";
+import { usePrivyWalletAddress } from "@/lib/privy-wallet";
 
 function shortAddr(a: string) {
   return `${a.slice(0, 6)}…${a.slice(-4)}`;
@@ -31,33 +32,35 @@ function connectorLabel(c: Connector): string {
 
 function PrivyWalletControls({ className = "" }: { className?: string }) {
   const { ready, authenticated, login, logout, connectWallet } = usePrivy();
-  const { address, isConnected } = useAccount();
+  const address = usePrivyWalletAddress();
 
   if (!ready) {
-    return (
-      <p className={`font-mono text-[10px] text-zinc-500 ${className}`}>Loading wallet…</p>
-    );
+    return <p className={`font-mono text-[10px] text-zinc-500 ${className}`}>Loading wallet…</p>;
   }
 
-  if (!authenticated || !isConnected || !address) {
+  if (!authenticated) {
     return (
       <div className={`flex max-w-md flex-wrap items-center justify-center gap-2 ${className}`}>
         <button
           type="button"
-          onClick={() => login()}
+          onClick={() => void login()}
           className="rounded-full border border-[#C5FF41]/40 bg-[#C5FF41]/15 px-4 py-2 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-[#C5FF41] transition hover:bg-[#C5FF41]/25 sm:text-[11px]"
         >
           Sign in
         </button>
         <button
           type="button"
-          onClick={() => connectWallet()}
+          onClick={() => void connectWallet()}
           className="rounded-full border border-white/15 bg-black/30 px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-100 transition hover:border-[var(--base-blue)]/40 sm:text-[11px]"
         >
           External wallet
         </button>
       </div>
     );
+  }
+
+  if (!address) {
+    return <p className={`font-mono text-[10px] text-zinc-500 ${className}`}>Setting up wallet…</p>;
   }
 
   return (

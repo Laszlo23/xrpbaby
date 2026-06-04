@@ -98,7 +98,7 @@ function isVideoCoverSrc(src: string) {
   return /\.(mp4|webm|ogg)(\?|$)/i.test(src);
 }
 
-/** Parse first decimal in a label like "0.05 ETH" for demo BCD display. */
+/** Parse first decimal in a label like "0.05 ETH" for demo BCC display. */
 function ethWeiFromTicketLabel(label: string): bigint | undefined {
   const m = label.match(/(\d+(?:\.\d+)?)/);
   if (!m) return undefined;

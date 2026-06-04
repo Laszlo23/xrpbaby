@@ -1,4 +1,4 @@
-# BCD monetization with agent identity (Marker-style)
+# BCC monetization with agent identity (Marker-style)
 
 This doc locks **which SKUs agents should sell first**, how **x402** is configured, where **`/.well-known/agent.json`** lives, and how **attribution** query params reach PostHog.
 
@@ -6,9 +6,10 @@ This doc locks **which SKUs agents should sell first**, how **x402** is configur
 
 | Priority | SKU | What it is | Where it lives |
 |----------|-----|------------|----------------|
-| **Primary** | **Paid agent-readable feed** | JSON drop teasers sold per request via HTTP 402 + `x-payment` | [`GET /api/x402/premium`](/b3/frontend/src/routes/api/x402/premium.tsx), handler [`x402-premium.ts`](/b3/frontend/src/server/x402-premium.ts) |
-| **Secondary** | **BCD acquisition funnel** | Same ERC-20 as the app; fixed-price sale + fees to protocol | [`/presale`](/b3/frontend/src/routes/presale.tsx) → opens **Get BCD** modal (`BCDFixedPriceSale`) |
-| **Tertiary** | **Marketplace volume** | Platform fee via Thirdweb Marketplace V3 | Env `VITE_MARKETPLACE_*` · [`marketplace-config.ts`](/b3/frontend/src/lib/marketplace-config.ts) |
+| **Primary** | **Rentable trading agent** | Aerodrome quotes / pools / unsigned swaps on Base via x402 | [`GET /api/trading/quote`](/b3/app/src/routes/api/trading/quote.tsx) · [TRADING_AGENT_SUGAR.md](./TRADING_AGENT_SUGAR.md) |
+| **Secondary** | **Paid agent-readable feed** | JSON drop teasers sold per request via HTTP 402 + `x-payment` | [`GET /api/x402/premium`](/b3/app/src/routes/api/x402/premium.tsx), handler [`x402-premium.ts`](/b3/app/src/server/x402-premium.ts) |
+| **Tertiary** | **BCD acquisition funnel** | Same ERC-20 as the app; fixed-price sale + fees to protocol | [`/presale`](/b3/app/src/routes/presale.tsx) → opens **Get BCC** modal (`BCDFixedPriceSale`) |
+| **Quaternary** | **Marketplace volume** | Platform fee via Thirdweb Marketplace V3 | Env `VITE_MARKETPLACE_*` · [`marketplace-config.ts`](/b3/app/src/lib/marketplace-config.ts) |
 
 **Do not** add a separate “copy presale token” purely for agents; monetization flows through the rows above.
 

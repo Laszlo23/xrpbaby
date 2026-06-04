@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { isAddress } from "viem";
 
+import { resolveComplianceRpc } from "@/server/compliance/rpc";
 import { getIdentityServerConfig } from "@/server/identity/config";
 
 export type ComplianceEligibility = {
@@ -30,11 +31,10 @@ export const Route = createFileRoute("/api/compliance/eligibility")({
           return json({ ok: false, error: "invalid_wallet" }, 400);
         }
 
-        const registry = process.env.COMPLIANCE_REGISTRY_ADDRESS?.trim() as `0x${string}` | undefined;
-        const rpcUrl =
-          process.env.VITE_BASE_RPC_URL?.trim() ||
-          process.env.BASE_RPC_URL?.trim() ||
-          "https://mainnet.base.org";
+        const registry = process.env.COMPLIANCE_REGISTRY_ADDRESS?.trim() as
+          | `0x${string}`
+          | undefined;
+        const rpcUrl = resolveComplianceRpc();
         const chainCfg = getIdentityServerConfig();
 
         let status: ComplianceEligibility["status"] = "unconfigured";
@@ -51,8 +51,18 @@ export const Route = createFileRoute("/api/compliance/eligibility")({
               "function kycBypass() view returns (bool)",
             ]);
             const [statusRaw, verified, bypass] = await Promise.all([
-              client.readContract({ address: registry, abi, functionName: "statusOf", args: [wallet] }),
-              client.readContract({ address: registry, abi, functionName: "isVerified", args: [wallet] }),
+              client.readContract({
+                address: registry,
+                abi,
+                functionName: "statusOf",
+                args: [wallet],
+              }),
+              client.readContract({
+                address: registry,
+                abi,
+                functionName: "isVerified",
+                args: [wallet],
+              }),
               client.readContract({ address: registry, abi, functionName: "kycBypass", args: [] }),
             ]);
             const labels = ["none", "pending", "verified", "revoked"] as const;
@@ -63,6 +73,11 @@ export const Route = createFileRoute("/api/compliance/eligibility")({
           }
         }
 
+        const placesUrl =
+          process.env.VITE_PLACES_SITE_URL?.trim() ||
+          process.env.PLACES_SITE_URL?.trim() ||
+          "https://buildingculture.capital";
+
         const result: ComplianceEligibility = {
           ok: true,
           wallet: wallet.toLowerCase(),
@@ -71,7 +86,7 @@ export const Route = createFileRoute("/api/compliance/eligibility")({
           canHoldRestrictedShares: canHold,
           chainId: chainCfg.chainId,
           complianceRegistry: registry,
-          placesUrl: process.env.PLACES_SITE_URL?.trim() || "https://buildingculture.capital",
+          placesUrl,
           chainlink: {
             aceConfigured: !!process.env.CHAINLINK_ACE_COMPLIANCE_ADDRESS?.trim(),
             porConfigured: !!process.env.PROPERTY_RESERVE_FEED_ADDRESS?.trim(),

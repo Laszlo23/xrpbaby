@@ -11,7 +11,7 @@ Do **not** set `ECON_LIVE=1` in production until **all** items below are true.
   - AgentShareCampaign
 - [ ] Raffle v2 (or current audited revision) deployed; `entropyBlock` semantics verified on Base (`close()` sets entropy; `revealDraw` reverts before `entropyBlock + 1`).
 - [ ] AGS / vault contracts with **`Pausable`**: pause and unpause exercised once from the Safe.
-- [ ] BCD `ownerMintDisabled` is **true**, or genesis window still open with `disableOwnerMintForever()` queued for right after window end.
+- [ ] BCC `ownerMintDisabled` is **true**, or genesis window still open with `disableOwnerMintForever()` queued for right after window end.
 
 ## Data / infra
 

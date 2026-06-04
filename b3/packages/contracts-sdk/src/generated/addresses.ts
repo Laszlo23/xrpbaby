@@ -1,6 +1,6 @@
 /* eslint-disable -- generated */
 export const deploymentAddresses8453 = {
-  "BuildingCultureDollar": "0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72" as const,
+  "BuildingCultureDollar": "0xb890a5289f789f1346032ccc1847939e855fab07" as const,
   "BCDGenesisClaim": "0x2bae6b04d0d1c8016cc863509395b68eb0021f58" as const,
   "RaffleTicketCampaign": "0xb1a88bf677400c23430b643a07229af832130ad8" as const,
   "AgentShareCampaign": "0x130e320a386b1ff0228492ddd65c380131ba86e9" as const,
@@ -21,6 +21,9 @@ export function getDeploymentAddress(
   chain: number,
 ): `0x${string}` | undefined {
   if (chain === 8453) return deploymentAddresses8453[name];
-  if (chain === 84532) return deploymentAddresses84532[name];
+  if (chain === 84532) {
+    if (!(name in deploymentAddresses84532)) return undefined;
+    return deploymentAddresses84532[name as keyof typeof deploymentAddresses84532];
+  }
   return undefined;
 }

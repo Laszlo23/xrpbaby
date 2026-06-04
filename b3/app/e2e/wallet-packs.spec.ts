@@ -22,4 +22,16 @@ test.describe("wallet and packs", () => {
       await expect(page.getByRole("button", { name: /connect wallet/i })).toBeVisible();
     }
   });
+
+  test("pass page shows Base / BNB network selector", async ({ page }) => {
+    await page.goto("/pass");
+    await expect(page.getByRole("group", { name: /identity network/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^base$/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^bnb$/i })).toBeVisible();
+  });
+
+  test("buy BCC button visible on pass page", async ({ page }) => {
+    await page.goto("/pass");
+    await expect(page.getByRole("button", { name: /buy bcc/i })).toBeVisible();
+  });
 });

@@ -11,7 +11,21 @@ export const Route = createFileRoute("/api/identity/resolve")({
         if (!name) {
           return json({ ok: false, error: "missing_name" }, 400);
         }
-        const result = await resolveCultureName(name);
+        const networkParam = url.searchParams.get("network")?.trim().toLowerCase();
+        const networkId =
+          networkParam === "bsc"
+            ? ("bsc" as const)
+            : networkParam === "base"
+              ? ("base" as const)
+              : undefined;
+        const chainIdParam = url.searchParams.get("chainId");
+        const networkFromChain =
+          chainIdParam === "56"
+            ? ("bsc" as const)
+            : chainIdParam === "8453"
+              ? ("base" as const)
+              : undefined;
+        const result = await resolveCultureName(name, networkId ?? networkFromChain);
         return json(result);
       },
     },

@@ -14,6 +14,7 @@ import {
   Rocket,
   Send,
   Sparkles,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 
@@ -150,6 +151,7 @@ export function LandingFooter() {
               links={[
                 { l: "Art", h: "/drops/art", Icon: Palette },
                 { l: "WohnAI", h: "https://wohnai.buildingcultureid.space", Icon: Bot },
+                { l: "BCDAI", h: "https://bcdai.buildingcultureid.space", Icon: Zap },
                 { l: "Game", h: "https://game.buildingculture.capital", Icon: Gamepad2 },
                 { l: "Community", h: "/forest", Icon: Rocket },
               ]}

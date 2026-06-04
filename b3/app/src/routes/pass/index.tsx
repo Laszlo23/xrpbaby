@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { DomainCard3D } from "@/components/identity/DomainCard3D";
 import { IdentityParticles } from "@/components/identity/Particles";
 import { SearchMint } from "@/components/identity/SearchMint";
+import { NetworkSelector } from "@/components/wallet/NetworkSelector";
 import { ModuleShell } from "@/components/ModuleShell";
 import { identityMintPriceTagline } from "@/lib/identity/mint-price";
 import { cultureGatewayPath } from "@/lib/identity/urls";
@@ -13,11 +14,12 @@ export const Route = createFileRoute("/pass/")({
   validateSearch: (search: Record<string, unknown>) => ({
     name: typeof search.name === "string" ? search.name : undefined,
     tld: typeof search.tld === "string" ? search.tld : undefined,
+    network: search.network === "bsc" || search.network === "base" ? search.network : undefined,
   }),
   head: () =>
     pageHead({
       title: "Claim your .culture name",
-      description: `Mint your Culture Layer identity on Base — ${identityMintPriceTagline}. Transferable .culture, .build, .home, and more.`,
+      description: `Mint your Culture Layer identity on Base or BNB Chain — ${identityMintPriceTagline}. Transferable .culture, .build, .home, and more.`,
       path: "/pass",
     }),
   component: PassPage,
@@ -32,7 +34,7 @@ function PassPage() {
     <ModuleShell
       moduleId="pass"
       title="Claim your culture name"
-      subtitle={`Mint a transferable identity NFT on Base. ${identityMintPriceTagline}.`}
+      subtitle={`Mint a transferable identity NFT on Base or BNB Chain. ${identityMintPriceTagline}.`}
       hideHero
     >
       <PassMintDashboard />
@@ -44,7 +46,7 @@ function PassMintDashboard() {
   const [previewName, setPreviewName] = useState("yourname");
   const [previewTld, setPreviewTld] = useState("culture");
 
-  const badges = useMemo(() => ["founding eligible", "base native", "transferable"], []);
+  const badges = useMemo(() => ["founding eligible", "multichain", "transferable"], []);
 
   return (
     <div className="relative">
@@ -59,9 +61,12 @@ function PassMintDashboard() {
             </span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm text-zinc-400">
-            Search availability, connect your wallet, and mint in one flow.
+            Pick Base or BNB Chain, search availability, connect your wallet, and mint in one flow.
           </p>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-6 flex justify-center">
+            <NetworkSelector />
+          </div>
+          <div className="mt-6 flex justify-center">
             <SearchMint id="mint" />
           </div>
         </div>
@@ -73,7 +78,10 @@ function PassMintDashboard() {
             const target = e.target as HTMLElement;
             if (target instanceof HTMLInputElement && target.placeholder === "yourname") {
               setPreviewName(
-                target.value.trim().toLowerCase().replace(/[^a-z0-9]/g, "") || "yourname",
+                target.value
+                  .trim()
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]/g, "") || "yourname",
               );
             }
             if (target instanceof HTMLSelectElement) {
@@ -93,8 +101,9 @@ function PassMintDashboard() {
           <p className="font-mono text-xs uppercase tracking-widest text-zinc-500">After mint</p>
           <ul className="mt-4 list-inside list-disc space-y-2">
             <li>
-              Your share link: <code className="text-zinc-300">{cultureGatewayPath("yourname.culture")}</code>{" "}
-              → profile (no extra domain to buy)
+              Your share link:{" "}
+              <code className="text-zinc-300">{cultureGatewayPath("yourname.culture")}</code> →
+              profile (no extra domain to buy)
             </li>
             <li>Canonical profile at /id/handle.tld with onchain owner resolution</li>
             <li>Founding members: first 5,000 mints on .culture</li>

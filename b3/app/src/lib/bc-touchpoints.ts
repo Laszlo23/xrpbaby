@@ -40,9 +40,9 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
   },
   {
     id: "mission",
-    label: "Mission & BCD",
+    label: "Mission & $BCC",
     href: "/mission",
-    hint: "Culture Dollar, genesis claim, long-horizon build.",
+    hint: "Culture Coin, genesis claim, long-horizon build.",
   },
   {
     id: "community_guide",
@@ -61,6 +61,12 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
     label: "Culture pass",
     href: "/pass",
     hint: "Identity across the platform.",
+  },
+  {
+    id: "bcdai",
+    label: "BCDAI trading terminal",
+    absoluteUrl: "https://bcdai.buildingcultureid.space/",
+    hint: "AI copilots, copy trading, and MEV-aware routing on Base & Solana.",
   },
   {
     id: "faq",

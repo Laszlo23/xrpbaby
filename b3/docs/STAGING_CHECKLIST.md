@@ -56,7 +56,7 @@ Record **chain id**, **RPC provider**, and **contract addresses** used (`VITE_*`
 
 ## 5. Contracts / chain facts (optional script)
 
-For BCD on Base, run [`scripts/verify-bcd-base-onchain.sh`](../scripts/verify-bcd-base-onchain.sh) (requires `cast`) and compare to [`docs/BCD_PAYER_WALLET.md`](BCD_PAYER_WALLET.md).
+For BCC on Base, run [`scripts/verify-bcd-base-onchain.sh`](../scripts/verify-bcd-base-onchain.sh) (requires `cast`) and compare to [`docs/BCD_PAYER_WALLET.md`](BCD_PAYER_WALLET.md).
 
 ## 6. Rollback
 

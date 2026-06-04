@@ -1,6 +1,6 @@
 # The Founding Builders — local development
 
-Gamified pre-launch app for Building Culture Dollar ($BCD). Stack: **FastAPI + MongoDB** backend, **Expo 54** frontend.
+Gamified pre-launch app for Building Culture Coin ($BCC). Stack: **FastAPI + MongoDB** backend, **Expo 54** frontend.
 
 ## Prerequisites
 

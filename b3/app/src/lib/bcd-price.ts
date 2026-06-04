@@ -1,12 +1,12 @@
 import { formatUnits } from "viem";
 
-/** Convert ETH wei ticket price to equivalent BCD amount (integer scale, 18 decimals display). */
+/** Convert ETH wei ticket price to equivalent BCC amount (integer scale, 18 decimals display). */
 export function ethWeiToBcdAmountWei(ethWei: bigint, bcdPerWholeEth: bigint): bigint {
   if (bcdPerWholeEth <= 0n) return 0n;
   return (ethWei * bcdPerWholeEth) / 10n ** 18n;
 }
 
-/** Human-readable BCD amount from ETH wei using env ratio (18 decimals). */
+/** Human-readable BCC amount from ETH wei using env ratio (18 decimals). */
 export function formatEthWeiAsBcd(ethWei: bigint, bcdPerWholeEth: bigint): string {
   const bcdWei = ethWeiToBcdAmountWei(ethWei, bcdPerWholeEth);
   const s = formatUnits(bcdWei, 18);
@@ -17,7 +17,7 @@ export function formatEthWeiAsBcd(ethWei: bigint, bcdPerWholeEth: bigint): strin
   return n.toLocaleString(undefined, { maximumFractionDigits: 6 });
 }
 
-/** Preview BCD received for ETH amount (wei) at fixed rate. */
+/** Preview BCC received for ETH amount (wei) at fixed rate. */
 export function ethWeiToBcdPreview(ethWei: bigint, bcdPerWholeEth: bigint): bigint {
   return ethWeiToBcdAmountWei(ethWei, bcdPerWholeEth);
 }

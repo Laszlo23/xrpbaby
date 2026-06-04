@@ -35,11 +35,8 @@ export const Route = createFileRoute("/api/platform/onboarding-complete")({
           return json({ ok: false, error: auth.error }, auth.status);
         }
 
-        const {
-          ensureWalletAndMember,
-          grantWelcomeRewards,
-          logActivity,
-        } = await import("@/server/platform/member");
+        const { ensureWalletAndMember, grantWelcomeRewards, logActivity } =
+          await import("@/server/platform/member");
         const { wallet, member } = await ensureWalletAndMember(prisma, auth.address, {
           intent: parsed.data.intent,
           email: parsed.data.email,

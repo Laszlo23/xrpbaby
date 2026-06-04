@@ -37,9 +37,15 @@ export function useMiniApp() {
 }
 
 export function MiniAppProvider({ children }: { children: React.ReactNode }) {
-  const isMiniApp = isMiniAppContext();
-  const [isReady, setIsReady] = useState(!isMiniApp);
+  const [isMiniApp, setIsMiniApp] = useState(false);
+  const [isReady, setIsReady] = useState(true);
   const [user, setUser] = useState<MiniAppUser | null>(null);
+
+  useEffect(() => {
+    const mini = isMiniAppContext();
+    setIsMiniApp(mini);
+    if (mini) setIsReady(false);
+  }, []);
 
   const bootstrap = useCallback(async () => {
     if (!isMiniApp) return;

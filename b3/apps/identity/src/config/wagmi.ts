@@ -1,10 +1,10 @@
 import { createConfig, http } from "wagmi";
 import { base, baseSepolia } from "wagmi/chains";
 import { injected } from "wagmi/connectors";
-import { farcasterMiniApp } from "@farcaster/miniapp-wagmi-connector";
 import { appChain, rpcUrl } from "@/lib/chain/config";
 
-const connectors = [farcasterMiniApp(), injected({ shimDisconnect: true })];
+/** Injected wallet only on the marketing site; mini app adds Farcaster connector in its shell. */
+const connectors = [injected({ shimDisconnect: true })];
 
 export const wagmiConfig = createConfig({
   chains: [base, baseSepolia],

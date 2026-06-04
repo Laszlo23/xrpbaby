@@ -18,6 +18,11 @@ model Member {
   intent        String?  // explore | build | gather
   supporterTier String   @default("community") // community | founding | elder
   forestStage   String   @default("seedling") // seedling | sapling | tree | grove
+  farcasterUsername String?
+  neynarScore       Float?
+  supportScore      Int?
+  supportScoreMeta  Json?
+  socialSyncedAt    DateTime?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -27,6 +32,25 @@ model Member {
   rewardGrants    RewardGrant[]
   socialComments  SocialComment[]
   packPurchases   PackPurchase[]
+  bccSettlements  BccSettlement[]
+  socialAccounts  SocialAccount[]
+}
+
+/// Linked social identity (Farcaster-verified X/TikTok/GitHub or direct Farcaster link).
+model SocialAccount {
+  id         String   @id @default(cuid())
+  memberId   String
+  member     Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  platform   String   // farcaster | x | tiktok | github
+  handle     String?
+  externalId String?
+  verified   Boolean  @default(false)
+  source     String   @default("neynar") // neynar | privy | manual
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([memberId, platform])
+  @@index([platform, handle])
 }
 
 model Wallet {
@@ -124,6 +148,28 @@ model PackPurchase {
 
   @@index([memberId])
   @@index([walletId])
+}
+
+/// Stripe pack purchase → BCC settlement obligation (treasury buys/mints BCC + 11.11% bonus).
+model BccSettlement {
+  id              String    @id @default(cuid())
+  memberId        String
+  member          Member    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  walletId        String
+  packSlug        String?
+  stripeSessionId String?   @unique
+  usdCents        Int
+  /// Target BCC wei to credit (base purchase equivalent at quote time).
+  bccOwedWei      String
+  /// Extra BCC wei from 11.11% pack benefit.
+  bonusBccWei     String
+  status          String    @default("pending")
+  note            String?
+  createdAt       DateTime  @default(now())
+  creditedAt      DateTime?
+
+  @@index([memberId])
+  @@index([status])
 }
 
 /// Ingested social post (Farcaster, X, Meta, TikTok, or native curator).

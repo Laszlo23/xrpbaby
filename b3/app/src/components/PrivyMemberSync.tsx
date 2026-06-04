@@ -1,11 +1,11 @@
 import { usePrivy } from "@privy-io/react-auth";
 import { useEffect, useRef } from "react";
-import { useAccount } from "wagmi";
+import { usePrivyWalletAddress } from "@/lib/privy-wallet";
 
 /** Links Privy user + embedded wallet to Postgres member on login. */
 export function PrivyMemberSync() {
   const { authenticated, user, getAccessToken } = usePrivy();
-  const { address } = useAccount();
+  const address = usePrivyWalletAddress();
   const lastSync = useRef<string | null>(null);
 
   useEffect(() => {

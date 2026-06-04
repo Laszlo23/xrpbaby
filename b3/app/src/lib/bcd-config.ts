@@ -1,4 +1,5 @@
 import type { Address } from "viem";
+import { BCC_ADDRESS, BCC_SYMBOL as BCC_KIT_SYMBOL } from "@bc/bcc-kit";
 import {
   resolveBcdGenesisClaimAddress,
   resolveBcdSaleAddress,
@@ -32,13 +33,17 @@ function envBigInt(key: string, fallback: bigint): bigint {
   }
 }
 
-/** BCD minted per 1 whole ETH (display conversion for ticket pricing). Default 1000. */
+/** BCC minted per 1 whole ETH (display conversion for ticket pricing). Default 1000. */
 export function getBcdPerWholeEth(): bigint {
   return envBigInt("VITE_BCD_PER_ETH", 1000n);
 }
 
 export function getBcdTokenAddress(): Address | undefined {
-  return resolveBcdTokenAddress(parseBcdChainId(), env());
+  const chainId = parseBcdChainId();
+  const fromEnv = env().VITE_BCC_TOKEN_ADDRESS ?? env().VITE_BCD_TOKEN_ADDRESS;
+  if (fromEnv && /^0x[a-fA-F0-9]{40}$/.test(fromEnv)) return fromEnv as Address;
+  if (chainId === 8453) return BCC_ADDRESS;
+  return resolveBcdTokenAddress(chainId, env());
 }
 
 export function getBcdSaleAddress(): Address | undefined {
@@ -87,7 +92,13 @@ export function showLegacyEthSettlement(): boolean {
   return envBool("VITE_SHOW_LEGACY_ETH_SETTLEMENT", true);
 }
 
-export const BCD_SYMBOL = (import.meta.env.VITE_BCD_SYMBOL as string | undefined) || "BCD";
+/** @deprecated alias — prefer BCC_SYMBOL for new copy */
+export const BCD_SYMBOL =
+  (import.meta.env.VITE_BCC_SYMBOL as string | undefined) ||
+  (import.meta.env.VITE_BCD_SYMBOL as string | undefined) ||
+  BCC_KIT_SYMBOL;
+
+export const BCC_SYMBOL = BCD_SYMBOL;
 
 export function getDemoBcdBalanceDisplay(): string {
   const raw = import.meta.env.VITE_BCD_DEMO_BALANCE as string | undefined;

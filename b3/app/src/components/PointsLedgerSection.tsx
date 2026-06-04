@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { SiweMessage } from "siwe";
-import { useAccount, useChainId, useSignMessage } from "wagmi";
+import { useAccount } from "wagmi";
 import { Check, Loader2, Shield } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -13,18 +12,23 @@ import {
   postCompleteXProofTask,
   postPointsBalance,
 } from "@/lib/points-fns";
-import { communityTelegramUrl, farcasterFollowProfileUrl } from "@/lib/community-links";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
+import { communityTelegramUrl, farcasterFollowProfileUrl } from "@/lib/community-links";
 import { getPublicAppOrigin } from "@/lib/app-origin";
 import { warpcastComposeUrl } from "@/lib/campaign-share";
 import { buildXIntentUrls, extractTweetIdFromUrl } from "@/lib/twitter-intents";
 import { DailyOnChainCheckIn } from "@/components/DailyOnChainCheckIn";
+import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
+import { SupportScorePanel } from "@/components/SupportScorePanel";
+import { SupportSuggestions } from "@/components/SupportSuggestions";
+import { SupporterLeaderboard } from "@/components/SupporterLeaderboard";
+import { ConnectFarcasterButton } from "@bc/culture-auth/react";
+import { NeynarConnectBoundary } from "@/components/NeynarConnectBoundary";
 import { Input } from "@/components/ui/input";
 
 export function PointsLedgerSection() {
   const { address, isConnected } = useAccount();
-  const chainId = useChainId();
-  const { signMessageAsync, isPending: signing } = useSignMessage();
+  const { signSiwe, signing: siweSigning } = usePointsSiweSign();
   const fetchBalance = useServerFn(postPointsBalance);
   const completeTask = useServerFn(postCompleteTaskWithSiwe);
   const completeFarcasterTask = useServerFn(postCompleteFarcasterSocialTask);
@@ -82,26 +86,10 @@ export function PointsLedgerSection() {
     void refresh();
   }, [refresh]);
 
-  async function signSiweLedger(): Promise<{ prepared: string; signature: string } | undefined> {
-    if (!address || !chainId) return undefined;
-    const message = new SiweMessage({
-      domain: typeof window !== "undefined" ? window.location.host : "localhost",
-      address,
-      statement: `Sign in to ${BRAND_DISPLAY_NAME} points ledger.`,
-      uri: typeof window !== "undefined" ? window.location.origin : "",
-      version: "1",
-      chainId,
-      nonce: crypto.randomUUID(),
-    });
-    const prepared = message.prepareMessage();
-    const signature = await signMessageAsync({ message: prepared });
-    return { prepared, signature };
-  }
-
   async function claimVisitMarketplaceTask() {
     setLoading(true);
     try {
-      const signed = await signSiweLedger();
+      const signed = await signSiwe();
       if (!signed) return;
       const res = await completeTask({
         data: {
@@ -131,7 +119,7 @@ export function PointsLedgerSection() {
   async function claimConnectTask() {
     setLoading(true);
     try {
-      const signed = await signSiweLedger();
+      const signed = await signSiwe();
       if (!signed) return;
       const res = await completeTask({
         data: {
@@ -169,7 +157,7 @@ export function PointsLedgerSection() {
     }
     setLoading(true);
     try {
-      const signed = await signSiweLedger();
+      const signed = await signSiwe();
       if (!signed) return;
       const res = await completeXProof({
         data: {
@@ -205,7 +193,7 @@ export function PointsLedgerSection() {
     }
     setLoading(true);
     try {
-      const signed = await signSiweLedger();
+      const signed = await signSiwe();
       if (!signed) return;
       const res = await completeTelegramProof({
         data: {
@@ -238,7 +226,7 @@ export function PointsLedgerSection() {
   ) {
     setLoading(true);
     try {
-      const signed = await signSiweLedger();
+      const signed = await signSiwe();
       if (!signed) return;
       const res = await completeFarcasterTask({
         data: {
@@ -338,7 +326,7 @@ export function PointsLedgerSection() {
             type="button"
             variant={taskDone("connect-wallet") ? "outline" : "secondary"}
             size="sm"
-            disabled={loading || signing || taskDone("connect-wallet")}
+            disabled={loading || siweSigning || taskDone("connect-wallet")}
             className="rounded-full border-emerald-500/30"
             onClick={() => void claimConnectTask()}
           >
@@ -347,7 +335,7 @@ export function PointsLedgerSection() {
                 <Check className="h-4 w-4 shrink-0" aria-hidden />
                 Wallet connected (+25)
               </span>
-            ) : signing ? (
+            ) : siweSigning ? (
               "Signing…"
             ) : (
               "Sign for connect bonus (+25)"
@@ -421,7 +409,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || signing || taskDone("visit-marketplace")}
+                disabled={loading || siweSigning || taskDone("visit-marketplace")}
                 onClick={() => void claimVisitMarketplaceTask()}
               >
                 {taskDone("visit-marketplace") ? "Credited" : "Sign & claim (+15)"}
@@ -431,10 +419,22 @@ export function PointsLedgerSection() {
         </div>
 
         <DailyOnChainCheckIn
-          signSiwe={signSiweLedger}
-          signingDisabled={loading || signing}
+          signSiwe={signSiwe}
+          signingDisabled={loading || siweSigning}
           onBalance={(b) => setBalance(b)}
         />
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <NeynarConnectBoundary>
+            <ConnectFarcasterButton
+              label="Link Farcaster for verified quests"
+              onLinked={() => void refresh()}
+            />
+          </NeynarConnectBoundary>
+          <SupportScorePanel />
+          <SupportSuggestions />
+          <SupporterLeaderboard />
+        </div>
 
         <div className="space-y-5">
           <div>
@@ -442,9 +442,10 @@ export function PointsLedgerSection() {
               Farcaster · grow the round
             </h3>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
-              Follow, like, and cast to help people discover {BRAND_DISPLAY_NAME} while we&apos;re
-              in active fundraising — each step is a real signal, not throwaway engagement. Tap{" "}
-              <strong className="text-zinc-300">Do it</strong>, finish in Warpcast, then{" "}
+              Link Farcaster above, then follow, like, and cast to help people discover{" "}
+              {BRAND_DISPLAY_NAME} while we&apos;re in active fundraising — each step is a real
+              signal, not throwaway engagement. Tap <strong className="text-zinc-300">Do it</strong>
+              , finish in Warpcast, then{" "}
               <strong className="text-zinc-300">Verify &amp; claim</strong>. Your wallet must appear
               as a <strong className="text-zinc-300">verified address</strong> on your Farcaster
               profile so we can match you fairly.
@@ -485,7 +486,7 @@ export function PointsLedgerSection() {
                   type="button"
                   variant="secondary"
                   className="min-h-11 rounded-full px-6"
-                  disabled={loading || signing || taskDone("follow-farcaster")}
+                  disabled={loading || siweSigning || taskDone("follow-farcaster")}
                   onClick={() => void claimFarcasterTask("follow-farcaster")}
                 >
                   {taskDone("follow-farcaster") ? "Credited" : "Verify & claim"}
@@ -527,7 +528,7 @@ export function PointsLedgerSection() {
                   type="button"
                   variant="secondary"
                   className="min-h-11 rounded-full px-6"
-                  disabled={loading || signing || taskDone("like-cast-farcaster")}
+                  disabled={loading || siweSigning || taskDone("like-cast-farcaster")}
                   onClick={() => void claimFarcasterTask("like-cast-farcaster")}
                 >
                   {taskDone("like-cast-farcaster") ? "Credited" : "Verify & claim"}
@@ -567,7 +568,7 @@ export function PointsLedgerSection() {
                   type="button"
                   variant="secondary"
                   className="min-h-11 rounded-full px-6"
-                  disabled={loading || signing || taskDone("share-app-farcaster")}
+                  disabled={loading || siweSigning || taskDone("share-app-farcaster")}
                   onClick={() => void claimFarcasterTask("share-app-farcaster")}
                 >
                   {taskDone("share-app-farcaster") ? "Credited" : "Verify & claim"}
@@ -640,7 +641,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || signing || taskDone("x-reply-official")}
+                disabled={loading || siweSigning || taskDone("x-reply-official")}
                 onClick={() => void claimXProofTask("x-reply-official", proofReply)}
               >
                 {taskDone("x-reply-official") ? "Credited" : "Verify & claim"}
@@ -693,7 +694,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || signing || taskDone("x-retweet-official")}
+                disabled={loading || siweSigning || taskDone("x-retweet-official")}
                 onClick={() => void claimXProofTask("x-retweet-official", proofRetweet)}
               >
                 {taskDone("x-retweet-official") ? "Credited" : "Verify & claim"}
@@ -741,7 +742,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || signing || taskDone("x-quote-official")}
+                disabled={loading || siweSigning || taskDone("x-quote-official")}
                 onClick={() => void claimXProofTask("x-quote-official", proofQuote)}
               >
                 {taskDone("x-quote-official") ? "Credited" : "Verify & claim"}
@@ -805,7 +806,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || signing || taskDone("telegram-join-buildingculture")}
+                disabled={loading || siweSigning || taskDone("telegram-join-buildingculture")}
                 onClick={() => void claimTelegramTask(proofTelegram)}
               >
                 {taskDone("telegram-join-buildingculture") ? "Credited" : "Verify & claim"}
