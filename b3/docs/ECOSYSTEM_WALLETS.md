@@ -42,8 +42,9 @@ Restart `npm run dev`. After that, connected wallets show real on-chain status: 
 | **x402 revenue** | `X402_SERVER_WALLET_ADDRESS` / `X402_PAY_TO` | — (receives USDC/ETH) | Trading agent + premium feed payments. |
 | **Agent distributor** | `AGENT_AGS_DISTRIBUTOR_PRIVATE_KEY` | ETH | Only when `ECON_LIVE=1` — automated agent ticks. |
 | **Deploy / mint EOA** | `PRIVATE_KEY` in `contracts/.env` | Small ETH | Deploy scripts and **optional** identity mints — **not** the treasury. |
+| **Alchemy CLI Agent Wallet** | EVM `0x7ff3943d368c0ec6b0476766463e6002538b93ab` · Solana `32weqCQJ2VgdQE79yUtU1QYmvrE7kMTEWL8FRzi2uho2` | ETH on Base · SOL on Solana | CLI/agent onchain actions via `alchemy wallet connect --mode session`. Demo harness: `alchemy-demo/` (`npm run alchemy:demo`). See [ops/AGENT_WALLET_INVENTORY.md](../ops/AGENT_WALLET_INVENTORY.md). |
 
-Do **not** confuse the deployer EOA (`0x2CCf…` from forge env) with the treasury Safe.
+Do **not** confuse the deployer EOA (`0x2CCf…` from forge env) with the treasury Safe or the Alchemy Agent Wallet.
 
 ---
 
@@ -55,7 +56,7 @@ Do **not** confuse the deployer EOA (`0x2CCf…` from forge env) with the treasu
 | **Buy** | Floating **Buy BCC** button (Uniswap) on every app page |
 | **Pay with BCC (−11.11%)** | Identity v2 `mintWithBcc`, Art Hub v2 tickets, Places `PrimaryShareSaleBcc` when addresses set |
 | **Oracle** | `VITE_BCC_ORACLE_ADDRESS` — mock/TWAP for BCC-priced checkouts |
-| **Market API** | `/api/market/bcc`, trading quote-bcc |
+| **Market API** | `/api/market/bcc`, `/api/market/bcc/solana-route`, `/api/trading/arbitrage-scan` |
 | **Agents** | `trading-bcd-treasury` persona in fleet docs |
 
 Env already set in typical `app/.env`: BCC token, oracle, identity v2, art hub v2. Missing for full Places BCC checkout: `VITE_PLACES_BCC_SALE_ADDRESS` after deploy. Full bytecode audit: [CONTRACTS_AUDIT.md](./CONTRACTS_AUDIT.md) (`npm run contracts:audit`).

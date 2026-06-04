@@ -16,7 +16,7 @@ The unified web app: story landing, drops, onboarding, community hub, marketplac
 | `/investors` | Capital overview + Chainlink RWA compliance strip |
 | `/id/{name}` | Culture name profile; `/n/{name}` short gateway |
 | `/earth` | Earth lane — hubs and regeneration |
-| `/0g/agentid` | 0G APAC Hackathon — Agent ID on-chain proof (ChainScan links) |
+| `/0g/agentid` | BUILDCHAIN Agent ID — 0G hackathon on-chain proof (ChainScan links) |
 | `/marketplace` | ERC-721 secondary market (not property shares) |
 | `/profile` | Your wallet, XP, and settings |
 
@@ -80,6 +80,8 @@ See [CHAINLINK_RWA_COMPLIANCE.md](../docs/CHAINLINK_RWA_COMPLIANCE.md).
 | `VITE_OG_AGENT_ID_MINT_TX` | Mint transaction hash |
 
 Defaults match mainnet deployment in [0G_HACKATHON_SUBMISSION.md](../docs/0G_HACKATHON_SUBMISSION.md) when unset.
+
+Judges: [0G_HACKATHON_JUDGE_README.md](../docs/0G_HACKATHON_JUDGE_README.md). E2E: `npx playwright test e2e/og-agentid.spec.ts`. Static metadata: `public/0g/agentid/1.json`.
 
 Global footer mounts once in `__root.tsx` (`AppFooter`); marketplace disclaimer is a `role="note"` block, not a second landmark.
 

@@ -15,8 +15,23 @@ One app, one story: community, drops, onchain identity, and real-estate tokeniza
 | `/marketplace` | ERC-721 secondary market (thirdweb) — **not** fractional real estate |
 | `/investors` | Capital overview + Chainlink RWA compliance status |
 | `/id/{name}.culture` | Culture name profile (onchain resolve) |
+| `/0g/agentid` | **BUILDCHAIN Agent ID** — 0G hackathon on-chain proof ([judge README](docs/0G_HACKATHON_JUDGE_README.md)) |
 
 Legacy hosts redirect during cutover — [docs/DOMAIN_CUTOVER.md](docs/DOMAIN_CUTOVER.md).
+
+### 0G APAC Hackathon (judges)
+
+| Resource | Link |
+|----------|------|
+| Live proof | [app.buildingcultureid.space/0g/agentid](https://app.buildingcultureid.space/0g/agentid) |
+| Judge README | [docs/0G_HACKATHON_JUDGE_README.md](docs/0G_HACKATHON_JUDGE_README.md) |
+| Submission pack | [docs/0G_HACKATHON_SUBMISSION.md](docs/0G_HACKATHON_SUBMISSION.md) |
+| Contract (0G `16661`) | `0x0451b1d37058ad57df22d7185aabc6b0a36fc41e` |
+
+```bash
+cd app && npm install && npm run dev   # → /0g/agentid
+cd contracts && forge test --match-contract AgentId
+```
 
 ## Repository map
 

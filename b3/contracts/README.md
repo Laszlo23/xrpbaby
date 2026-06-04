@@ -101,6 +101,16 @@ forge script script/DeployAgentId.s.sol:DeployAgentIdScript \
 
 The script deploys `AgentId` and mints token `#1` to the deployer by default.
 
+### Verify on ChainScan (mainnet)
+
+```sh
+export ETHERSCAN_API_KEY="..."   # ChainScan API key (see 0G deploy docs)
+export AGENT_ID_OWNER="0x..."    # deployer / initialOwner from constructor
+./scripts/verify-agentid-0g.sh
+```
+
+Hackathon judge README: [`../docs/0G_HACKATHON_JUDGE_README.md`](../docs/0G_HACKATHON_JUDGE_README.md).
+
 ## `forge create` (advanced)
 
 Use only for **single** contracts with a small constructor. Encode args with `cast abi-encode` or pass `--constructor-args` per the Foundry book. For this repo, prefer the scripts above.

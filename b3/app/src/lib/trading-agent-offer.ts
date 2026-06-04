@@ -15,6 +15,13 @@ export type TradingAgentOffer = {
   pricing: {
     quote: { price_env: string; default_usd: string; method: string; path: string };
     quote_bcc: { price_env: string; default_usd: string; method: string; path: string };
+    arbitrage_scan: {
+      price_env: string;
+      default_usd: string;
+      method: string;
+      path: string;
+      note: string;
+    };
     pools: { price_env: string; default_usd: string; method: string; path: string };
     swap_preview: {
       price_env: string;
@@ -58,7 +65,7 @@ export function buildTradingAgentOffer(): TradingAgentOffer {
     product: "buildchain_trading_agent_v1",
     name: "BUILDCHAIN Trading Agent",
     description:
-      "Rentable Aerodrome quotes and pool intelligence on Base (sugar-sdk). Pay per call via x402; unsigned swap previews for your wallet to sign.",
+      "Rentable Aerodrome quotes, multichain BCC arbitrage scan (Base + Solana), and pool intelligence. Pay per call via x402; unsigned swap previews for your wallet to sign.",
     chainId: 8453,
     dex: "aerodrome",
     sdk: "velodrome-sugar-sdk@0.4.2",
@@ -75,6 +82,13 @@ export function buildTradingAgentOffer(): TradingAgentOffer {
         default_usd: "0.05",
         method: "GET",
         path: "/api/trading/quote-bcc",
+      },
+      arbitrage_scan: {
+        price_env: "X402_TRADING_QUOTE_PRICE",
+        default_usd: "0.05",
+        method: "GET",
+        path: "/api/trading/arbitrage-scan",
+        note: "Read-only multichain spread scan (Base + Solana). No custody or auto-execution.",
       },
       pools: {
         price_env: "X402_TRADING_POOLS_PRICE",

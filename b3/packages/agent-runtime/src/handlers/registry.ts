@@ -11,6 +11,7 @@ import { runSeoPublisherTick } from "./seo-publisher.js";
 import { runX402MonetizerTick } from "./x402-monetizer.js";
 import { runFraudWatchStubTick } from "./fraud-watch-stub.js";
 import { runTradingSugarTick } from "./trading-sugar.js";
+import { runTradingArbitrageTick } from "./trading-arbitrage.js";
 
 export type HandlerFn = (agent: AgentRecord, dbUrl: string) => Promise<LedgerInsert | LedgerInsert[]>;
 
@@ -26,4 +27,5 @@ export const HANDLER_REGISTRY: Record<string, HandlerFn> = {
   x402Monetizer: async (a, _db) => runX402MonetizerTick(a as OpsAgentRecord),
   fraudWatchStub: async (a, _db) => runFraudWatchStubTick(a as OpsAgentRecord),
   tradingSugar: async (a, _db) => runTradingSugarTick(a as OpsAgentRecord),
+  tradingArbitrage: async (a, _db) => runTradingArbitrageTick(a as OpsAgentRecord),
 };

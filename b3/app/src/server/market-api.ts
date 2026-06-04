@@ -113,6 +113,8 @@ export async function handleMarketBccGet(request: Request): Promise<Response> {
     tradingAgentReachable: tradingHealth.ok,
     quoteBccUrl: `${offer.related.trading_quote_bcc}${url.searchParams.has("eth_amount") ? "" : `?eth_amount=${ethAmount}`}`,
     note: "BCC is acquired on Uniswap or via ETH→USDC Aerodrome proxy quote; BCC is not routed on Aerodrome.",
+    solanaRouteUrl: `${offer.endpoints.bcc_solana_route}?sol=1`,
+    arbitrageScanUrl: offer.related.trading_arbitrage_scan,
   });
 }
 

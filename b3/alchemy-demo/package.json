@@ -1,0 +1,14 @@
+{
+  "name": "alchemy-demo",
+  "version": "1.0.0",
+  "description": "Alchemy CLI + Agent Wallet demo (Solana + Base EVM)",
+  "type": "module",
+  "scripts": {
+    "demo": "node demo-script.js",
+    "demo:solana": "node demo-script.js --solana",
+    "demo:evm": "node demo-script.js --evm",
+    "demo:devnet": "node demo-script.js --devnet"
+  },
+  "keywords": ["alchemy", "solana", "base", "agent-wallet"],
+  "license": "ISC"
+}

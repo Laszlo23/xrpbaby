@@ -2,24 +2,34 @@
 
 This doc is the “single source of truth” for HackQuest submission fields and judge verification.
 
+**Judges:** start at [0G_HACKATHON_JUDGE_README.md](./0G_HACKATHON_JUDGE_README.md) (architecture, repro, form copy).
+
 Hackathon page: [0G APAC Hackathon](https://www.hackquest.io/hackathons/0G-APAC-Hackathon)
 
 ## 1) Basic project info (copy/paste)
 
-- **Project name**: BUILDCHAIN — Agent ID proof
-- **One‑sentence description (≤30 words)**: A BUILDCHAIN extension that deploys an ownable Agent ID (ERC‑721) on 0G Chain mainnet and exposes verifiable proof links + a lightweight in‑app “agent identity” lane.
-- **What problem it solves**: Gives AI agents a transferable, on‑chain identity primitive (“Agent ID”) that can be referenced by apps, users, and automation.
-- **0G component(s) used**: **0G Chain** (mainnet deployment) + **Agent ID** concept implemented as an ownable ERC‑721.
+- **Project name**: BUILDCHAIN Agent ID
+- **Track**: Agentic Infrastructure & OpenClaw Lab (Track 1)
+- **Pitch**: We're building **BUILDCHAIN Agent ID**, an on-chain identity layer for AI agents on the 0G Chain. Using ERC-721, agents receive portable, user-owned identities that can be verified and integrated across decentralized applications.
+- **One‑sentence description (≤30 words)**: BUILDCHAIN Agent ID: ERC-721 on 0G Chain gives AI agents portable, user-owned identities verifiable across decentralized applications.
+- **What problem it solves**: AI agents lack portable, user-owned identity that dApps can verify on-chain; we anchor that with ERC-721 on 0G mainnet plus a judge-ready proof page.
+- **0G component(s) used**: **0G Chain** (mainnet deployment) + **Agent ID** (ownable ERC‑721).
 
 ## 2) Code repository
 
 - Repo: https://github.com/Laszlo23/xrpbaby (monorepo; hackathon code under `b3/`)
+- **Judge README**: [0G_HACKATHON_JUDGE_README.md](./0G_HACKATHON_JUDGE_README.md)
 - Key paths:
   - `b3/contracts/src/AgentId.sol`
   - `b3/contracts/script/DeployAgentId.s.sol`
   - `b3/app/src/routes/0g.agentid.tsx`
+  - `b3/app/public/0g/agentid/1.json` — ERC‑721 metadata for token `#1`
 
 ## 3) 0G integration proof (required)
+
+### Live proof (production)
+
+- **Proof page**: https://app.buildingcultureid.space/0g/agentid
 
 ### On-chain proof (0G Chain mainnet)
 
@@ -38,22 +48,31 @@ Hackathon page: [0G APAC Hackathon](https://www.hackquest.io/hackathons/0G-APAC-
 - **Mint tx**: `0xf920a643320272e067b137e11b85f07afe40e4dfb820e3de3754d68dc945d7d9`
   - Explorer: `https://chainscan.0g.ai/tx/0xf920a643320272e067b137e11b85f07afe40e4dfb820e3de3754d68dc945d7d9`
 
+### HackQuest form — “0G On-Chain Integration Proof” (≤300 chars)
+
+```
+AgentId ERC-721 on 0G mainnet (16661). Contract: 0x0451b1d37058ad57df22d7185aabc6b0a36fc41e. Explorer: https://chainscan.0g.ai/address/0x0451b1d37058ad57df22d7185aabc6b0a36fc41e#code. Live proof: https://app.buildingcultureid.space/0g/agentid
+```
+
+Also on proof page: **Copy HQ on-chain**.
+
 ## 4) Demo video (required)
 
 - **Video (≤3 min)**: TODO — add Loom/YouTube link here after upload
 - **Operator guide**: [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md) — shot list, X template, HackQuest fields
-- **In-app**: http://localhost:5173/0g/agentid — **Copy X post**, demo script, ChainScan buttons
+- **In-app**: http://localhost:5173/0g/agentid or https://app.buildingcultureid.space/0g/agentid
 
 ### Record this (2:30 — leaves buffer)
 
 | Time | Action | Say this |
 |------|--------|----------|
-| 0:00 | Show `http://localhost:5173/` or production URL | "BUILDCHAIN gives AI agents a portable on-chain identity on 0G Chain." |
-| 0:20 | Navigate to `/0g/agentid` | "This is our hackathon proof page — contract address, deploy tx, and mint tx." |
+| 0:00 | Show production or local `/0g/agentid` | "We're building BUILDCHAIN Agent ID — an on-chain identity layer for AI agents on 0G Chain." |
+| 0:20 | Stay on proof page | "Hackathon proof — contract, deploy tx, mint tx, HackQuest copy buttons." |
 | 0:40 | Click **View on 0G ChainScan** | "AgentId is an ownable ERC-721 on 0G mainnet, chain 16661." |
 | 1:00 | Open deploy + mint tx links | "Deploy and mint are verifiable on ChainScan — not a mock UI." |
-| 1:20 | Open repo: `b3/contracts/src/AgentId.sol` | "Minimal surface area: mint, base URI, ownable — easy to audit." |
-| 1:45 | Run `cd b3/app && npm run dev` (optional cut) | "Judges can reproduce locally in under a minute." |
+| 1:15 | Open `/0g/agentid/1.json` | "Token #1 metadata is served from the app for tokenURI." |
+| 1:30 | Open repo: `b3/contracts/src/AgentId.sol` | "Minimal surface: mint, base URI, ownable — easy to audit." |
+| 1:50 | Optional: `cd b3/app && npm run dev` | "Judges reproduce locally in under a minute — see judge README." |
 | 2:10 | Close on contract address on screen | "Agent ID = ownership anchor for agents, apps, and automation on 0G." |
 
 ### One-liner for judges
@@ -62,7 +81,7 @@ Hackathon page: [0G APAC Hackathon](https://www.hackquest.io/hackathons/0G-APAC-
 
 ## 5) README / documentation (required)
 
-Judges should be able to reproduce:
+Judges should read [0G_HACKATHON_JUDGE_README.md](./0G_HACKATHON_JUDGE_README.md), then reproduce:
 
 ```bash
 cd b3/app
@@ -74,6 +93,8 @@ Then open `/0g/agentid`.
 
 The proof page reads `VITE_OG_AGENT_ID_*` at build time (see `app/.env.example`). Defaults match the mainnet deployment above when env is unset.
 
+Contract verification (optional): `b3/contracts/scripts/verify-agentid-0g.sh` (needs `ETHERSCAN_API_KEY` + `AGENT_ID_OWNER`).
+
 ## 6) Public X post (required)
 
 - **Post URL**: TODO — paste after you publish
@@ -81,29 +102,36 @@ The proof page reads `VITE_OG_AGENT_ID_*` at build time (see `app/.env.example`)
 
 ### Copy/paste X template
 
-BUILDCHAIN — Agent ID proof on @0G_labs
+```
+BUILDCHAIN Agent ID on @0G_labs
 
-We deployed a minimal Agent ID (ERC‑721) on 0G Chain mainnet and wired an in‑app proof page with explorer links.
+On-chain identity layer for AI agents on 0G Chain — ERC-721 portable, user-owned IDs for dApps. Mainnet deploy + proof page:
 
 Contract: 0x0451b1d37058ad57df22d7185aabc6b0a36fc41e
 
-Proof: /0g/agentid
+Proof: https://app.buildingcultureid.space/0g/agentid
 
 #0GHackathon #BuildOn0G
 @0G_labs @0g_CN @0g_Eco @HackQuest_
+```
+
+Attach a **screenshot** of the proof page or a short screen recording.
 
 ## 7) Related docs
 
-- [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md) — video + X checklist (start here)
+- [0G_HACKATHON_JUDGE_README.md](./0G_HACKATHON_JUDGE_README.md) — **start here (judges)**
+- [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md) — video + X checklist (operators)
 - [ADDRESSES.md](./ADDRESSES.md) — 0G mainnet AgentId registry entry
 - [../app/README.md](../app/README.md) — `/0g/agentid` route and env vars
 
 ## 8) Pre-submit checklist
 
 - [ ] Demo video uploaded (≤3 min) — link in §4 above
-- [ ] Public X post with `#0GHackathon` `#BuildOn0G` — link in §6 above
-- [ ] HackQuest project form filled (name, description, repo, video, X link)
+- [ ] Public X post with `#0GHackathon` `#BuildOn0G` + screenshot — link in §6 above
+- [ ] HackQuest project form filled (name, description, repo, video, X link, components, contract)
 - [ ] `/0g/agentid` loads with ChainScan links (local or production)
-- [ ] Contract verified on ChainScan (if not already)
-- [ ] `cd b3/contracts && forge test` passes (includes `AgentId.t.sol`)
-- [x] `cd b3/app && npm run verify` passes (lint + typecheck + build)
+- [ ] `/0g/agentid/1.json` returns metadata
+- [ ] Contract verified on ChainScan (optional — run `verify-agentid-0g.sh`)
+- [ ] `cd b3/contracts && forge test --match-contract AgentId` passes
+- [ ] `cd b3/app && npx playwright test e2e/og-agentid.spec.ts` passes
+- [ ] `cd b3/app && npm run typecheck && npm run build` passes

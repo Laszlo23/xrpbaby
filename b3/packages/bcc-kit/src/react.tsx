@@ -10,6 +10,8 @@ import {
   BCC_DISCOUNT_LABEL,
   BCC_SYMBOL,
   BCC_UNISWAP_URL,
+  buildJumperSolToBccUrl,
+  buildSolanaToBccRoutes,
 } from "./index.js";
 
 const ACCENT = "#C5FF41";
@@ -54,6 +56,9 @@ export type BuyBccModalProps = {
 
 /** Controlled modal: render it and drive `open`/`onClose` yourself. */
 export function BuyBccModal({ open, onClose, note }: BuyBccModalProps) {
+  const [tab, setTab] = useState<"base" | "solana">("base");
+  const solanaRoutes = buildSolanaToBccRoutes();
+
   useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {
@@ -119,25 +124,84 @@ export function BuyBccModal({ open, onClose, note }: BuyBccModalProps) {
           <p style={{ margin: "10px 0 0", fontSize: 13, color: "#c4f0ff" }}>{note}</p>
         ) : null}
 
-        <a
-          href={BCC_UNISWAP_URL}
-          target="_blank"
-          rel="noreferrer noopener"
-          style={{
-            display: "block",
-            marginTop: 20,
-            textAlign: "center",
-            borderRadius: 9999,
-            padding: "13px 20px",
-            fontSize: 14,
-            fontWeight: 700,
-            color: "#0a0a0a",
-            textDecoration: "none",
-            background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT_2})`,
-          }}
-        >
-          Buy {BCC_SYMBOL} on Uniswap →
-        </a>
+        <div style={{ marginTop: 16, display: "flex", gap: 8 }}>
+          {(["base", "solana"] as const).map((id) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setTab(id)}
+              style={{
+                flex: 1,
+                borderRadius: 9999,
+                padding: "8px 12px",
+                fontSize: 12,
+                fontWeight: 700,
+                border: tab === id ? `1px solid ${ACCENT}` : "1px solid rgba(255,255,255,0.12)",
+                background: tab === id ? "rgba(197,255,65,0.12)" : "rgba(0,0,0,0.35)",
+                color: tab === id ? ACCENT : "#a1a1aa",
+                cursor: "pointer",
+              }}
+            >
+              {id === "base" ? "On Base" : "From Solana"}
+            </button>
+          ))}
+        </div>
+
+        {tab === "base" ? (
+          <a
+            href={BCC_UNISWAP_URL}
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{
+              display: "block",
+              marginTop: 16,
+              textAlign: "center",
+              borderRadius: 9999,
+              padding: "13px 20px",
+              fontSize: 14,
+              fontWeight: 700,
+              color: "#0a0a0a",
+              textDecoration: "none",
+              background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT_2})`,
+            }}
+          >
+            Buy {BCC_SYMBOL} on Uniswap →
+          </a>
+        ) : (
+          <div style={{ marginTop: 16 }}>
+            <p style={{ margin: "0 0 12px", fontSize: 12, color: "#a1a1aa", lineHeight: 1.5 }}>
+              Bridge or swap from Solana to {BCC_SYMBOL} on Base (Phantom, etc.).
+            </p>
+            <a
+              href={buildJumperSolToBccUrl("SOL")}
+              target="_blank"
+              rel="noreferrer noopener"
+              style={{
+                display: "block",
+                textAlign: "center",
+                borderRadius: 9999,
+                padding: "13px 20px",
+                fontSize: 14,
+                fontWeight: 700,
+                color: "#fff",
+                textDecoration: "none",
+                background: "linear-gradient(90deg, #9945FF, #00E5FF)",
+              }}
+            >
+              Jumper: SOL → {BCC_SYMBOL} →
+            </a>
+            <ul style={{ margin: "12px 0 0", padding: 0, listStyle: "none", fontSize: 12 }}>
+              {solanaRoutes.slice(1, 4).map((r) => (
+                <li key={r.id} style={{ marginTop: 8 }}>
+                  <a href={r.primaryHref} target="_blank" rel="noreferrer noopener" style={{ color: ACCENT }}>
+                    {r.label}
+                  </a>
+                  <span style={{ color: "#71717a" }}> — {r.description}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div
           style={{

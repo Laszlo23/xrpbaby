@@ -100,6 +100,15 @@
       "dailyApiBudgetUsd": 0
     },
     {
+      "id": "trading-arbitrage-1",
+      "handler": "tradingArbitrage",
+      "fleet": "ops",
+      "role": "trading",
+      "systemPrompt": "Run multichain BCC arbitrage scan (Base vs Solana). Log actionable spreads; never execute bridges or swaps without human approval.",
+      "tools": ["trading.arbitrage_scan"],
+      "dailyApiBudgetUsd": 0
+    },
+    {
       "id": "ags-distributor-1",
       "handler": "agsDistributor",
       "fleet": "econ",

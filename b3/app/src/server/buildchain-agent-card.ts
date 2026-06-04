@@ -85,6 +85,22 @@ export function buildBuildchainAgentCard(): BuildchainAgentCard {
         price_env: trading.pricing.swap_preview.price_env,
       },
       {
+        id: "buildchain_trading_arbitrage_scan_v1",
+        description: trading.pricing.arbitrage_scan.note,
+        protocol: "x402",
+        method: "GET",
+        url: `${base}${trading.pricing.arbitrage_scan.path}`,
+        price_env: trading.pricing.arbitrage_scan.price_env,
+      },
+      {
+        id: "buildchain_market_bcc_solana_v1",
+        description: "Solana → BCC buy routes (Jumper, deBridge) + price estimate.",
+        protocol: "https",
+        method: "GET",
+        url: market.endpoints.bcc_solana_route,
+        price_env: "",
+      },
+      {
         id: "buildchain_market_listings_v1",
         description: "thirdweb Marketplace V3 listings on Base (JSON for agents).",
         protocol: "https",

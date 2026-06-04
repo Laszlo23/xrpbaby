@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "tsx --test src/index.test.ts"
+    "test": "tsx --test src/index.test.ts src/solana.test.ts"
   },
   "peerDependencies": {
     "react": ">=18"

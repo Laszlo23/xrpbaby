@@ -17,12 +17,14 @@ export type MarketOffer = {
     config: string;
     listings: string;
     bcc: string;
+    bcc_solana_route: string;
     sample_mint: string;
     health: string;
   };
   related: {
     trading_manifest: string;
     trading_quote_bcc: string;
+    trading_arbitrage_scan: string;
     marketplace_ui: string;
     identity_pass_ui: string;
   };
@@ -42,12 +44,14 @@ export function buildMarketOffer(): MarketOffer {
       config: `${base}/api/market/config`,
       listings: `${base}/api/market/listings`,
       bcc: `${base}/api/market/bcc`,
+      bcc_solana_route: `${base}/api/market/bcc/solana-route`,
       sample_mint: `${base}/api/market/sample-mint`,
       health: `${base}/api/market/health`,
     },
     related: {
       trading_manifest: `${base}/api/trading/manifest`,
       trading_quote_bcc: `${base}/api/trading/quote-bcc?eth_amount=0.01`,
+      trading_arbitrage_scan: `${base}/api/trading/arbitrage-scan?sol_amount=1&eth_amount=0.01`,
       marketplace_ui: `${base}/marketplace`,
       identity_pass_ui: `${base}/pass`,
     },

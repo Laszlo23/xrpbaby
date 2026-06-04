@@ -30,6 +30,7 @@ On-chain pools + unsigned swap calldata
 |-----|------|----------------|
 | Quote | `GET /api/trading/quote?from_token=eth&to_token=usdc&amount=0.01` | $0.05 |
 | Quote BCC | `GET /api/trading/quote-bcc?eth_amount=0.01` (Aerodrome ETH→USDC + Uniswap BCC link) | $0.05 |
+| Arbitrage scan | `GET /api/trading/arbitrage-scan?sol_amount=1&eth_amount=0.01` (Base + Solana spreads, read-only) | $0.05 |
 | Pools | `GET /api/trading/pools?token=aero&limit=10` | $0.03 |
 | Swap preview | `GET /api/trading/swap-preview?from_token=…&to_token=…&amount=…&wallet=0x…` | $0.15 |
 | Health / manifest | free | — |
@@ -93,7 +94,7 @@ Add `https://bcdai.buildingcultureid.space` to `X402_CORS_ORIGINS` if browser cl
 
 ## Agent runtime
 
-`trading-sugar-1` in `ops/agents.json` calls the platform API when `TRADING_AGENT_INTERNAL_SECRET` + `PUBLIC_APP_ORIGIN` are set.
+`trading-sugar-1` and `trading-arbitrage-1` in `ops/agents.json` call the platform API when `TRADING_AGENT_INTERNAL_SECRET` + `PUBLIC_APP_ORIGIN` are set. See [BCC_SOLANA_AND_ARBITRAGE.md](./BCC_SOLANA_AND_ARBITRAGE.md).
 
 ## Production checklist
 

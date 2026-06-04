@@ -166,6 +166,39 @@ export async function handleTradingQuoteBccGet(request: Request): Promise<Respon
   );
 }
 
+export async function handleTradingArbitrageScanGet(request: Request): Promise<Response> {
+  const url = new URL(request.url);
+  const qs = new URLSearchParams();
+  const sol = url.searchParams.get("sol_amount")?.trim() || url.searchParams.get("sol")?.trim();
+  const eth = url.searchParams.get("eth_amount")?.trim();
+  const minBps = url.searchParams.get("min_spread_bps")?.trim();
+  if (sol) qs.set("sol_amount", sol);
+  if (eth) qs.set("eth_amount", eth);
+  if (minBps) qs.set("min_spread_bps", minBps);
+
+  return paidOrInternal(
+    request,
+    {
+      price: x402TradingQuotePrice(),
+      description:
+        "Multichain BCC arbitrage scan: Base Aerodrome/Uniswap vs Solana Jupiter (read-only, x402)",
+    },
+    async () => {
+      const r = await proxyTradingAgent(`/arbitrage/scan?${qs.toString()}`, {
+        method: "GET",
+        timeoutMs: 180_000,
+      });
+      if (!r.ok) throw new Error(r.error);
+      return {
+        ok: true,
+        sku: "buildchain_trading_arbitrage_scan_v1",
+        ...((r.data as object) ?? {}),
+        rentedAt: new Date().toISOString(),
+      };
+    },
+  );
+}
+
 export async function handleTradingSwapPreviewGet(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const fromToken = url.searchParams.get("from_token")?.trim();

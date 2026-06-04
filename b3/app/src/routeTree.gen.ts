@@ -79,6 +79,7 @@ import { Route as ApiTradingQuoteRouteImport } from './routes/api/trading/quote'
 import { Route as ApiTradingPoolsRouteImport } from './routes/api/trading/pools'
 import { Route as ApiTradingManifestRouteImport } from './routes/api/trading/manifest'
 import { Route as ApiTradingHealthRouteImport } from './routes/api/trading/health'
+import { Route as ApiTradingArbitrageScanRouteImport } from './routes/api/trading/arbitrage-scan'
 import { Route as ApiSocialSyncScoreRouteImport } from './routes/api/social/sync-score'
 import { Route as ApiSocialSuggestionsRouteImport } from './routes/api/social/suggestions'
 import { Route as ApiSocialLinkFarcasterInternalRouteImport } from './routes/api/social/link-farcaster-internal'
@@ -110,6 +111,7 @@ import { Route as ApiSocialNeynarAuthorizeRouteImport } from './routes/api/socia
 import { Route as ApiPulseIngestManualRouteImport } from './routes/api/pulse/ingest/manual'
 import { Route as ApiPulseDigestDayIdRouteImport } from './routes/api/pulse/digest/$dayId'
 import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/pulse/attestation/latest'
+import { Route as ApiMarketBccSolanaRouteRouteImport } from './routes/api/market/bcc/solana-route'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 
 const TradingAgentRoute = TradingAgentRouteImport.update({
@@ -464,6 +466,11 @@ const ApiTradingHealthRoute = ApiTradingHealthRouteImport.update({
   path: '/api/trading/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTradingArbitrageScanRoute = ApiTradingArbitrageScanRouteImport.update({
+  id: '/api/trading/arbitrage-scan',
+  path: '/api/trading/arbitrage-scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSocialSyncScoreRoute = ApiSocialSyncScoreRouteImport.update({
   id: '/api/social/sync-score',
   path: '/api/social/sync-score',
@@ -624,6 +631,11 @@ const ApiPulseAttestationLatestRoute =
     path: '/api/pulse/attestation/latest',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiMarketBccSolanaRouteRoute = ApiMarketBccSolanaRouteRouteImport.update({
+  id: '/solana-route',
+  path: '/solana-route',
+  getParentRoute: () => ApiMarketBccRoute,
+} as any)
 const ApiPulseFeedIdCommentsRoute = ApiPulseFeedIdCommentsRouteImport.update({
   id: '/$id/comments',
   path: '/$id/comments',
@@ -695,7 +707,7 @@ export interface FileRoutesByFullPath {
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
-  '/api/market/bcc': typeof ApiMarketBccRoute
+  '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
   '/api/market/listings': typeof ApiMarketListingsRoute
@@ -715,6 +727,7 @@ export interface FileRoutesByFullPath {
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
   '/api/social/sync-score': typeof ApiSocialSyncScoreRoute
+  '/api/trading/arbitrage-scan': typeof ApiTradingArbitrageScanRoute
   '/api/trading/health': typeof ApiTradingHealthRoute
   '/api/trading/manifest': typeof ApiTradingManifestRoute
   '/api/trading/pools': typeof ApiTradingPoolsRoute
@@ -727,6 +740,7 @@ export interface FileRoutesByFullPath {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -798,7 +812,7 @@ export interface FileRoutesByTo {
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
-  '/api/market/bcc': typeof ApiMarketBccRoute
+  '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
   '/api/market/listings': typeof ApiMarketListingsRoute
@@ -818,6 +832,7 @@ export interface FileRoutesByTo {
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
   '/api/social/sync-score': typeof ApiSocialSyncScoreRoute
+  '/api/trading/arbitrage-scan': typeof ApiTradingArbitrageScanRoute
   '/api/trading/health': typeof ApiTradingHealthRoute
   '/api/trading/manifest': typeof ApiTradingManifestRoute
   '/api/trading/pools': typeof ApiTradingPoolsRoute
@@ -830,6 +845,7 @@ export interface FileRoutesByTo {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -903,7 +919,7 @@ export interface FileRoutesById {
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
-  '/api/market/bcc': typeof ApiMarketBccRoute
+  '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
   '/api/market/listings': typeof ApiMarketListingsRoute
@@ -923,6 +939,7 @@ export interface FileRoutesById {
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
   '/api/social/sync-score': typeof ApiSocialSyncScoreRoute
+  '/api/trading/arbitrage-scan': typeof ApiTradingArbitrageScanRoute
   '/api/trading/health': typeof ApiTradingHealthRoute
   '/api/trading/manifest': typeof ApiTradingManifestRoute
   '/api/trading/pools': typeof ApiTradingPoolsRoute
@@ -935,6 +952,7 @@ export interface FileRoutesById {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -1029,6 +1047,7 @@ export interface FileRouteTypes {
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
     | '/api/social/sync-score'
+    | '/api/trading/arbitrage-scan'
     | '/api/trading/health'
     | '/api/trading/manifest'
     | '/api/trading/pools'
@@ -1041,6 +1060,7 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/api/market/bcc/solana-route'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -1132,6 +1152,7 @@ export interface FileRouteTypes {
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
     | '/api/social/sync-score'
+    | '/api/trading/arbitrage-scan'
     | '/api/trading/health'
     | '/api/trading/manifest'
     | '/api/trading/pools'
@@ -1144,6 +1165,7 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/api/market/bcc/solana-route'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -1236,6 +1258,7 @@ export interface FileRouteTypes {
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
     | '/api/social/sync-score'
+    | '/api/trading/arbitrage-scan'
     | '/api/trading/health'
     | '/api/trading/manifest'
     | '/api/trading/pools'
@@ -1248,6 +1271,7 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/api/market/bcc/solana-route'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -1314,7 +1338,7 @@ export interface RootRouteChildren {
   ApiEliasInboundRoute: typeof ApiEliasInboundRoute
   ApiIdentityResolveRoute: typeof ApiIdentityResolveRoute
   ApiIdentityVerifyNameRoute: typeof ApiIdentityVerifyNameRoute
-  ApiMarketBccRoute: typeof ApiMarketBccRoute
+  ApiMarketBccRoute: typeof ApiMarketBccRouteWithChildren
   ApiMarketConfigRoute: typeof ApiMarketConfigRoute
   ApiMarketHealthRoute: typeof ApiMarketHealthRoute
   ApiMarketListingsRoute: typeof ApiMarketListingsRoute
@@ -1334,6 +1358,7 @@ export interface RootRouteChildren {
   ApiSocialLinkFarcasterInternalRoute: typeof ApiSocialLinkFarcasterInternalRoute
   ApiSocialSuggestionsRoute: typeof ApiSocialSuggestionsRoute
   ApiSocialSyncScoreRoute: typeof ApiSocialSyncScoreRoute
+  ApiTradingArbitrageScanRoute: typeof ApiTradingArbitrageScanRoute
   ApiTradingHealthRoute: typeof ApiTradingHealthRoute
   ApiTradingManifestRoute: typeof ApiTradingManifestRoute
   ApiTradingPoolsRoute: typeof ApiTradingPoolsRoute
@@ -1845,6 +1870,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTradingHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/trading/arbitrage-scan': {
+      id: '/api/trading/arbitrage-scan'
+      path: '/api/trading/arbitrage-scan'
+      fullPath: '/api/trading/arbitrage-scan'
+      preLoaderRoute: typeof ApiTradingArbitrageScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/social/sync-score': {
       id: '/api/social/sync-score'
       path: '/api/social/sync-score'
@@ -2062,6 +2094,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPulseAttestationLatestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/market/bcc/solana-route': {
+      id: '/api/market/bcc/solana-route'
+      path: '/solana-route'
+      fullPath: '/api/market/bcc/solana-route'
+      preLoaderRoute: typeof ApiMarketBccSolanaRouteRouteImport
+      parentRoute: typeof ApiMarketBccRoute
+    }
     '/api/pulse/feed/$id/comments': {
       id: '/api/pulse/feed/$id/comments'
       path: '/$id/comments'
@@ -2102,6 +2141,18 @@ const MarketplaceRouteChildren: MarketplaceRouteChildren = {
 
 const MarketplaceRouteWithChildren = MarketplaceRoute._addFileChildren(
   MarketplaceRouteChildren,
+)
+
+interface ApiMarketBccRouteChildren {
+  ApiMarketBccSolanaRouteRoute: typeof ApiMarketBccSolanaRouteRoute
+}
+
+const ApiMarketBccRouteChildren: ApiMarketBccRouteChildren = {
+  ApiMarketBccSolanaRouteRoute: ApiMarketBccSolanaRouteRoute,
+}
+
+const ApiMarketBccRouteWithChildren = ApiMarketBccRoute._addFileChildren(
+  ApiMarketBccRouteChildren,
 )
 
 interface ApiPulseFeedRouteChildren {
@@ -2174,7 +2225,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiEliasInboundRoute: ApiEliasInboundRoute,
   ApiIdentityResolveRoute: ApiIdentityResolveRoute,
   ApiIdentityVerifyNameRoute: ApiIdentityVerifyNameRoute,
-  ApiMarketBccRoute: ApiMarketBccRoute,
+  ApiMarketBccRoute: ApiMarketBccRouteWithChildren,
   ApiMarketConfigRoute: ApiMarketConfigRoute,
   ApiMarketHealthRoute: ApiMarketHealthRoute,
   ApiMarketListingsRoute: ApiMarketListingsRoute,
@@ -2194,6 +2245,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiSocialLinkFarcasterInternalRoute: ApiSocialLinkFarcasterInternalRoute,
   ApiSocialSuggestionsRoute: ApiSocialSuggestionsRoute,
   ApiSocialSyncScoreRoute: ApiSocialSyncScoreRoute,
+  ApiTradingArbitrageScanRoute: ApiTradingArbitrageScanRoute,
   ApiTradingHealthRoute: ApiTradingHealthRoute,
   ApiTradingManifestRoute: ApiTradingManifestRoute,
   ApiTradingPoolsRoute: ApiTradingPoolsRoute,

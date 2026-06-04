@@ -1,0 +1,13 @@
+{
+  "name": "BUILDCHAIN Agent ID #1",
+  "description": "BUILDCHAIN Agent ID — on-chain identity layer for AI agents on 0G Chain. ERC-721 portable, user-owned identity verifiable across dApps.",
+  "image": "https://app.buildingcultureid.space/og-default.png",
+  "external_url": "https://app.buildingcultureid.space/0g/agentid",
+  "attributes": [
+    { "trait_type": "Chain", "value": "0G Chain mainnet" },
+    { "trait_type": "Chain ID", "value": "16661" },
+    { "trait_type": "Contract", "value": "0x0451b1d37058ad57df22d7185aabc6b0a36fc41e" },
+    { "trait_type": "Token ID", "value": "1" },
+    { "trait_type": "Project", "value": "BUILDCHAIN" }
+  ]
+}

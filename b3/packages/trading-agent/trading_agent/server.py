@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 
 from trading_agent.config import base_rpc_uri, default_bcc_address, trading_paper_mode
 from trading_agent.manifest import build_manifest
+from trading_agent.arbitrage import arbitrage_scan
 from trading_agent.service import TradingService
 
 logger = logging.getLogger("trading_agent")
@@ -107,6 +108,23 @@ async def quote_bcc(
 ) -> dict:
     try:
         return await _service.bcc_buy_quote(eth_amount=eth_amount, use_decimals=use_decimals)
+    except Exception as e:
+        raise HTTPException(502, str(e)) from e
+
+
+@app.get("/arbitrage/scan")
+async def arbitrage(
+    sol_amount: float = Query(1.0, ge=0.001, le=10_000),
+    eth_amount: float = Query(0.01, ge=0.0001, le=100),
+    min_spread_bps: int = Query(50, ge=0, le=5000),
+) -> dict:
+    try:
+        return await arbitrage_scan(
+            _service,
+            sol_amount=sol_amount,
+            eth_amount=eth_amount,
+            min_spread_bps=min_spread_bps,
+        )
     except Exception as e:
         raise HTTPException(502, str(e)) from e
 

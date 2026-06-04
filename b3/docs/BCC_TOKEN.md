@@ -13,7 +13,7 @@ Shared kit: [`packages/bcc-kit`](../packages/bcc-kit) (`@bc/bcc-kit`).
 
 ## Buy BCC modal (all apps)
 
-Button-only floating **Buy BCC** pill opens a modal linking to Uniswap. Mounted in:
+Button-only floating **Buy BCC** pill opens a modal with **On Base** (Uniswap) and **From Solana** (Jumper / deBridge / Rango). Mounted in:
 
 - `b3/app` — [`BuyBccModal.tsx`](../app/src/components/bcc/BuyBccModal.tsx)
 - `apps/places/web`, `apps/identity`, `apps/art`, `apps/signal`, `apps/eco`, `apps/hub` — `@bc/bcc-kit/react`
@@ -74,6 +74,10 @@ VITE_PLACES_BCC_SALE_ADDRESS=
 Stripe checkout stays **USD**. On `checkout.session.completed`, the app enqueues a **`BccSettlement`** row (Postgres) with `bccOwedWei` + `bonusBccWei` (11.11% benefit).
 
 **Operational dependency:** treasury must buy/mint BCC via on-ramp or market maker, then mark settlement `credited`. See [`enqueue-bcc-settlement.ts`](../app/src/server/wallet/enqueue-bcc-settlement.ts).
+
+## Solana wallets
+
+BCC is still on Base; Solana users bridge via aggregators. See [BCC_SOLANA_AND_ARBITRAGE.md](./BCC_SOLANA_AND_ARBITRAGE.md) and `GET /api/market/bcc/solana-route`.
 
 ## BSC / BNB identity
 

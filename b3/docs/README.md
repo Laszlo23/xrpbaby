@@ -6,7 +6,9 @@ Runbooks for deploy, domain cutover, pulse, BCC, and platform ops.
 
 | Doc | Description |
 |-----|-------------|
-| [0G_HACKATHON_SUBMISSION.md](0G_HACKATHON_SUBMISSION.md) | 0G APAC Hackathon — Agent ID proof, on-chain links, judge repro |
+| [0G_HACKATHON_JUDGE_README.md](0G_HACKATHON_JUDGE_README.md) | **0G hackathon — judges start here** (architecture, repro, HackQuest copy) |
+| [0G_HACKATHON_SUBMISSION.md](0G_HACKATHON_SUBMISSION.md) | 0G APAC Hackathon — submission pack, checklist, on-chain links |
+| [0G_HACKATHON_VIDEO_AND_X.md](0G_HACKATHON_VIDEO_AND_X.md) | Demo video shot list + X post operator guide |
 | [ADDRESSES.md](ADDRESSES.md) | All contract addresses (Base, Places, identity, 0G, testnets) |
 | [SMART_WALLET_AND_PACKS.md](SMART_WALLET_AND_PACKS.md) | Privy smart wallet, Stripe packs, Culture Points |
 | [MISSING_AND_FIXES.md](MISSING_AND_FIXES.md) | Living tracker — what's fixed, what's open |

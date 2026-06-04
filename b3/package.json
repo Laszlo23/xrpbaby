@@ -42,6 +42,7 @@
     "db:migrate": "cd app && npx prisma migrate deploy",
     "contracts:sdk": "node scripts/sync-contracts-sdk.mjs",
     "contracts:audit": "node scripts/audit-contracts.mjs",
+    "alchemy:demo": "npm --prefix alchemy-demo run demo",
     "pulse:ingest": "npm --prefix app run pulse:ingest",
     "pulse:seed": "npm --prefix app run pulse:seed",
     "pulse:attest": "npm --prefix app run pulse:attest",

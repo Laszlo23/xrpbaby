@@ -6,7 +6,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @title AgentId
-/// @notice Minimal ERC-721 “Agent ID” primitive for 0G hackathon proof.
+/// @notice BUILDCHAIN Agent ID — ERC-721 on-chain identity layer for AI agents on 0G Chain.
 /// @dev Ownable mint keeps the surface area tiny for audits and judge review.
 contract AgentId is ERC721, Ownable {
     using Strings for uint256;

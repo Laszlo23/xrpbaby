@@ -14,6 +14,7 @@
 | `pass.spec.ts` | TLD mint dashboard |
 | `identity-resolve.spec.ts` | `/n/` gateway, resolve API, profile |
 | `compliance-places.spec.ts` | Eligibility API, `/places`, `/investors` strip |
+| `og-agentid.spec.ts` | 0G hackathon proof page + `/0g/agentid/1.json` metadata |
 
 Shared setup: `fixtures/skip-onboarding.ts` (skips Elias modal), `fixtures/api-helpers.ts`, `fixtures/mock-siwe.ts`.
 
