@@ -7,7 +7,10 @@ export const Route = createFileRoute("/0g/agentid")({
     handlers: {
       GET: async ({ request }) => {
         const url = new URL(request.url);
-        const proofUrl = `${url.origin}/0g/agentid`;
+        const proto =
+          request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ??
+          url.protocol.replace(":", "");
+        const proofUrl = `${proto}://${url.host}/0g/agentid`;
         const html = buildOgAgentIdProofHtml(proofUrl || OG_PRODUCTION_PROOF_URL);
         return new Response(html, {
           headers: {
