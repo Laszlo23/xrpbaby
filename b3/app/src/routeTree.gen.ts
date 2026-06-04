@@ -106,6 +106,7 @@ import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
+import { Route as R0gAgentid1DotjsonRouteImport } from './routes/0g/agentid/1[.]json'
 import { Route as ApiWalletPacksCheckoutRouteImport } from './routes/api/wallet/packs/checkout'
 import { Route as ApiSocialNeynarAuthorizeRouteImport } from './routes/api/social/neynar/authorize'
 import { Route as ApiPulseIngestManualRouteImport } from './routes/api/pulse/ingest/manual'
@@ -604,6 +605,11 @@ const ApiActivityLogRoute = ApiActivityLogRouteImport.update({
   path: '/api/activity/log',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R0gAgentid1DotjsonRoute = R0gAgentid1DotjsonRouteImport.update({
+  id: '/1.json',
+  path: '/1.json',
+  getParentRoute: () => R0gAgentidRoute,
+} as any)
 const ApiWalletPacksCheckoutRoute = ApiWalletPacksCheckoutRouteImport.update({
   id: '/api/wallet/packs/checkout',
   path: '/api/wallet/packs/checkout',
@@ -671,7 +677,7 @@ export interface FileRoutesByFullPath {
   '/trading-agent': typeof TradingAgentRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
-  '/0g/agentid': typeof R0gAgentidRoute
+  '/0g/agentid': typeof R0gAgentidRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -701,6 +707,7 @@ export interface FileRoutesByFullPath {
   '/signal/': typeof SignalIndexRoute
   '/wallet/': typeof WalletIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
+  '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
@@ -776,7 +783,7 @@ export interface FileRoutesByTo {
   '/trading-agent': typeof TradingAgentRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
-  '/0g/agentid': typeof R0gAgentidRoute
+  '/0g/agentid': typeof R0gAgentidRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -806,6 +813,7 @@ export interface FileRoutesByTo {
   '/signal': typeof SignalIndexRoute
   '/wallet': typeof WalletIndexRoute
   '/welcome': typeof WelcomeIndexRoute
+  '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
@@ -883,7 +891,7 @@ export interface FileRoutesById {
   '/trading-agent': typeof TradingAgentRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
-  '/0g/agentid': typeof R0gAgentidRoute
+  '/0g/agentid': typeof R0gAgentidRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -913,6 +921,7 @@ export interface FileRoutesById {
   '/signal/': typeof SignalIndexRoute
   '/wallet/': typeof WalletIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
+  '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
@@ -1021,6 +1030,7 @@ export interface FileRouteTypes {
     | '/signal/'
     | '/wallet/'
     | '/welcome/'
+    | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agents/status'
     | '/api/compliance/eligibility'
@@ -1126,6 +1136,7 @@ export interface FileRouteTypes {
     | '/signal'
     | '/wallet'
     | '/welcome'
+    | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agents/status'
     | '/api/compliance/eligibility'
@@ -1232,6 +1243,7 @@ export interface FileRouteTypes {
     | '/signal/'
     | '/wallet/'
     | '/welcome/'
+    | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agents/status'
     | '/api/compliance/eligibility'
@@ -1309,7 +1321,7 @@ export interface RootRouteChildren {
   TradingAgentRoute: typeof TradingAgentRoute
   DotwellKnownAgentDotjsonRoute: typeof DotwellKnownAgentDotjsonRoute
   DotwellKnownFarcasterDotjsonRoute: typeof DotwellKnownFarcasterDotjsonRoute
-  R0gAgentidRoute: typeof R0gAgentidRoute
+  R0gAgentidRoute: typeof R0gAgentidRouteWithChildren
   AuthLoginRoute: typeof AuthLoginRoute
   AuthLogoutRoute: typeof AuthLogoutRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -2059,6 +2071,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiActivityLogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/0g/agentid/1.json': {
+      id: '/0g/agentid/1.json'
+      path: '/1.json'
+      fullPath: '/0g/agentid/1.json'
+      preLoaderRoute: typeof R0gAgentid1DotjsonRouteImport
+      parentRoute: typeof R0gAgentidRoute
+    }
     '/api/wallet/packs/checkout': {
       id: '/api/wallet/packs/checkout'
       path: '/api/wallet/packs/checkout'
@@ -2143,6 +2162,18 @@ const MarketplaceRouteWithChildren = MarketplaceRoute._addFileChildren(
   MarketplaceRouteChildren,
 )
 
+interface R0gAgentidRouteChildren {
+  R0gAgentid1DotjsonRoute: typeof R0gAgentid1DotjsonRoute
+}
+
+const R0gAgentidRouteChildren: R0gAgentidRouteChildren = {
+  R0gAgentid1DotjsonRoute: R0gAgentid1DotjsonRoute,
+}
+
+const R0gAgentidRouteWithChildren = R0gAgentidRoute._addFileChildren(
+  R0gAgentidRouteChildren,
+)
+
 interface ApiMarketBccRouteChildren {
   ApiMarketBccSolanaRouteRoute: typeof ApiMarketBccSolanaRouteRoute
 }
@@ -2196,7 +2227,7 @@ const rootRouteChildren: RootRouteChildren = {
   TradingAgentRoute: TradingAgentRoute,
   DotwellKnownAgentDotjsonRoute: DotwellKnownAgentDotjsonRoute,
   DotwellKnownFarcasterDotjsonRoute: DotwellKnownFarcasterDotjsonRoute,
-  R0gAgentidRoute: R0gAgentidRoute,
+  R0gAgentidRoute: R0gAgentidRouteWithChildren,
   AuthLoginRoute: AuthLoginRoute,
   AuthLogoutRoute: AuthLogoutRoute,
   BlogSlugRoute: BlogSlugRoute,
