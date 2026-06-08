@@ -48,7 +48,10 @@ export type SampleMintPayload = {
 };
 
 function sanitizeHandle(raw: string): string {
-  return raw.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 32);
+  return raw
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")
+    .slice(0, 32);
 }
 
 export async function buildSampleMintPayload(opts: {

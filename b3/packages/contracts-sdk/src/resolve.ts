@@ -21,6 +21,10 @@ export const BASE_SEPOLIA_CHAIN_ID = 84532;
 /** Canonical BCC (Building Culture Coin) on Base mainnet — fair launch ERC-20. */
 export const BCC_TOKEN_ADDRESS_MAINNET = "0xb890a5289f789f1346032ccc1847939e855fab07" as const;
 
+/** thirdweb Marketplace V3 on Base mainnet — see docs/ADDRESSES.json marketplace.thirdwebMarketplaceV3 */
+export const THIRDWEB_MARKETPLACE_V3_BASE_MAINNET =
+  "0x3af9EB7784C1843BD8385D1F41dE78d4B83AEcf4" as const;
+
 export function resolveBcdTokenAddress(chainId: number, env: EnvLike): Address | undefined {
   const fromBcc = parseAddr(env.VITE_BCC_TOKEN_ADDRESS);
   if (fromBcc) return fromBcc;
@@ -60,16 +64,26 @@ export function resolveDailyCheckInAddress(_chainId: number, env: EnvLike): Addr
   return parseAddr(env.VITE_DAILY_CHECKIN_ADDRESS) ?? parseAddr(env.DAILY_CHECKIN_CONTRACT_ADDRESS);
 }
 
-export function resolveGenesisVaultPassPhase0Address(_chainId: number, env: EnvLike): Address | undefined {
-  return parseAddr(env.VITE_GENESIS_VAULT_PASS_PHASE0) ?? parseAddr(env.VITE_GENESIS_DISTRICT_CONTRACT);
+export function resolveGenesisVaultPassPhase0Address(chainId: number, env: EnvLike): Address | undefined {
+  return (
+    parseAddr(env.VITE_GENESIS_VAULT_PASS_PHASE0) ??
+    parseAddr(env.VITE_GENESIS_DISTRICT_CONTRACT) ??
+    getDeploymentAddress("GenesisVaultPassPhase0" as DeploymentContractName, chainId)
+  );
 }
 
-export function resolveGenesisVaultPassPhase1Address(_chainId: number, env: EnvLike): Address | undefined {
-  return parseAddr(env.VITE_GENESIS_VAULT_PASS_PHASE1);
+export function resolveGenesisVaultPassPhase1Address(chainId: number, env: EnvLike): Address | undefined {
+  return (
+    parseAddr(env.VITE_GENESIS_VAULT_PASS_PHASE1) ??
+    getDeploymentAddress("GenesisVaultPassPhase1" as DeploymentContractName, chainId)
+  );
 }
 
-export function resolveGenesisVaultPassPhase2Address(_chainId: number, env: EnvLike): Address | undefined {
-  return parseAddr(env.VITE_GENESIS_VAULT_PASS_PHASE2);
+export function resolveGenesisVaultPassPhase2Address(chainId: number, env: EnvLike): Address | undefined {
+  return (
+    parseAddr(env.VITE_GENESIS_VAULT_PASS_PHASE2) ??
+    getDeploymentAddress("GenesisVaultPassPhase2" as DeploymentContractName, chainId)
+  );
 }
 
 export function resolveDistinctLegacyGenesisDistrictAddress(_chainId: number, env: EnvLike): Address | undefined {
@@ -80,8 +94,14 @@ export function resolveDistinctLegacyGenesisDistrictAddress(_chainId: number, en
   return leg;
 }
 
-export function resolveMarketplaceContractAddress(_chainId: number, env: EnvLike): Address | undefined {
-  return parseAddr(env.VITE_MARKETPLACE_CONTRACT_ADDRESS);
+export function resolveMarketplaceContractAddress(chainId: number, env: EnvLike): Address | undefined {
+  const fromEnv =
+    parseAddr(env.VITE_MARKETPLACE_CONTRACT_ADDRESS) ??
+    parseAddr(env.THIRDWEB_MARKETPLACE_CONTRACT_ADDRESS) ??
+    parseAddr(env.MARKETPLACE_CONTRACT_ADDRESS);
+  if (fromEnv) return fromEnv;
+  if (chainId === BASE_MAINNET_CHAIN_ID) return THIRDWEB_MARKETPLACE_V3_BASE_MAINNET;
+  return undefined;
 }
 
 export function resolvePitNftContractAddress(_chainId: number, env: EnvLike): Address | undefined {

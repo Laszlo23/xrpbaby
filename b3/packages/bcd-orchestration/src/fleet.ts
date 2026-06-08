@@ -211,6 +211,41 @@ export const TASK_ROUTE_HINTS: Record<
     backups: [9],
     notes: "CEO orchestrates; Analytics supplies metrics.",
   },
+  grove_tick: {
+    primary: 3,
+    backups: [0],
+    notes: "Grove marketing tick via HTTP/cron proxy.",
+  },
+  smoke_verify: {
+    primary: 0,
+    backups: [9],
+    notes: "Production smoke before deploy or after incident.",
+  },
+  deploy_app: {
+    primary: 0,
+    backups: [9],
+    notes: "CEO queues git pull, tests, deploy-ssh, post-deploy smoke.",
+  },
+  deploy_contract: {
+    primary: 0,
+    backups: [5],
+    notes: "Forge broadcast with deployer wallet; capped weekly.",
+  },
+  git_sync: {
+    primary: 0,
+    backups: [],
+    notes: "Pull latest main on VPS repo mount.",
+  },
+  seo_publish: {
+    primary: 8,
+    backups: [0],
+    notes: "SEO publisher with Lighthouse gate.",
+  },
+  weekly_learnings: {
+    primary: 0,
+    backups: [9],
+    notes: "Slack brief from AgentOutcome store.",
+  },
 };
 
 export function suggestAgentForTask(taskKey: string): FleetAgent | undefined {

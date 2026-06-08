@@ -34,7 +34,7 @@ Off-chain artifacts (documents, rich media) use HTTPS/IPFS-style storage pattern
 | **PoR** | `PropertyReserveFeed` — mint caps vs attested backing |
 | **Oracles** | `ChainlinkPriceOracle` (production); `MockPriceOracle` deprecated on mainnet |
 | **DeFi** | `OgRouter`, optional `SimpleLendingPool` (IPriceOracle; **not live on mainnet** until NAV+PoR) |
-| **Web** | buildingculture.capital — invest, trade, KYC webhook → onchain verify |
+| **Web** | app.buildingcultureid.space — invest, trade, KYC webhook → onchain verify |
 
 **Chainlink alignment:** [docs/standards/chainlink-alignment-v1.md](docs/standards/chainlink-alignment-v1.md) (REOC profile D). Matrix: [../../docs/CHAINLINK_RWA_COMPLIANCE.md](../../docs/CHAINLINK_RWA_COMPLIANCE.md).
 

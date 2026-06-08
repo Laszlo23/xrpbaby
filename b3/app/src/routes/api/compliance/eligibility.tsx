@@ -76,7 +76,7 @@ export const Route = createFileRoute("/api/compliance/eligibility")({
         const placesUrl =
           process.env.VITE_PLACES_SITE_URL?.trim() ||
           process.env.PLACES_SITE_URL?.trim() ||
-          "https://buildingculture.capital";
+          "https://places.buildingcultureid.space";
 
         const result: ComplianceEligibility = {
           ok: true,

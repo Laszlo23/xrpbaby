@@ -4,7 +4,7 @@ Parallel track to engineering adapters in `apps/places/`. Production ACE/DTA req
 
 ## Use case summary
 
-**Building Culture Places** — fractional real-estate share tokens (REOC v1 profile D) on **Base mainnet**, distributed via **buildingculture.capital** and unified app **app.buildingcultureid.space**.
+**Building Culture Places** — fractional real-estate share tokens (REOC v1 profile D) on **Base mainnet**, distributed via **places.buildingcultureid.space** and unified app **app.buildingcultureid.space**.
 
 - Token: `RestrictedPropertyShareToken` with uRWA + compliance backend
 - Primary: `PropertyShareDTA` (subscribe/redeem)

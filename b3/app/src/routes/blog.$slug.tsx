@@ -1,25 +1,29 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { pageHead } from "@/lib/seo";
 import { MarketingShell } from "@/components/MarketingShell";
 import { JsonLd } from "@/components/JsonLd";
-import { getPostBySlug, type BlogPost } from "@/content/blog/posts";
+import { getBlogPostBySlug, type MarkdownBlogPost } from "@/content/blog/markdown-posts";
 import { Calendar, ArrowLeft } from "lucide-react";
 import { getPublicAppOrigin } from "@/lib/app-origin";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
-    const post = getPostBySlug(params.slug);
+    const post = getBlogPostBySlug(params.slug);
     if (!post) return {};
     return pageHead({
-      title: post.title,
-      description: post.excerpt,
+      title: post.seoTitle ?? post.title,
+      description: post.seoDescription ?? post.excerpt,
       path: `/blog/${post.slug}`,
       ogType: "article",
-      keywords: ["BUILDCHAIN", "blog", post.slug],
+      articlePublishedTime: post.publishedAt,
+      articleModifiedTime: post.publishedAt,
+      keywords: ["BUILDCHAIN", "blog", ...post.tags, post.slug],
     });
   },
   loader: ({ params }) => {
-    const post = getPostBySlug(params.slug);
+    const post = getBlogPostBySlug(params.slug);
     if (!post) throw notFound();
     return post;
   },
@@ -39,7 +43,7 @@ function formatDate(iso: string) {
 }
 
 function BlogPostPage() {
-  const post = Route.useLoaderData() as BlogPost;
+  const post = Route.useLoaderData() as MarkdownBlogPost;
   const origin = getPublicAppOrigin().replace(/\/$/, "");
   const url = `${origin}/blog/${post.slug}`;
 
@@ -86,10 +90,9 @@ function BlogPostPage() {
           <span>{post.author}</span>
         </div>
 
-        <div
-          className="prose-blog mt-8 space-y-5 [&_h2]:font-heading [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-white [&_li]:text-zinc-400 [&_p]:text-zinc-400 [&_strong]:text-zinc-200 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5"
-          dangerouslySetInnerHTML={{ __html: post.html.trim() }}
-        />
+        <div className="prose-blog mt-8 max-w-none space-y-5 [&_h2]:font-heading [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-white [&_li]:text-zinc-400 [&_p]:text-zinc-400 [&_strong]:text-zinc-200 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
+        </div>
       </MarketingShell>
     </>
   );

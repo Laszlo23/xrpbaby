@@ -37,6 +37,33 @@ const FALLBACK_ROADMAP: StrapiRoadmapItem[] = [
     body: "Snapshot ledger balances into Merkle trees or distributor contracts when tokenomics land.",
     sortOrder: 3,
   },
+  {
+    id: 4,
+    title: "Ankommen AI on BC",
+    slug: "ankommen",
+    phase: "Now",
+    quarter: "Beta",
+    body: "Austria newcomer companion — multi-agent RAG, 14 languages, Telegram/Farcaster mini apps at ankommen.buildingcultureid.space.",
+    sortOrder: 4,
+  },
+  {
+    id: 5,
+    title: "KinderStimme (For Kids)",
+    slug: "forkids",
+    phase: "Next",
+    quarter: "2026",
+    body: "OCPP beta — KI-Familienagent, encrypted Evidence Vault with Base anchors, transparency index at forkids.buildingcultureid.space.",
+    sortOrder: 5,
+  },
+  {
+    id: 6,
+    title: "Impact lane integration",
+    slug: "impact-lane",
+    phase: "Next",
+    quarter: "2026",
+    body: "Shared BC identity, BCC utility hooks, and cross-referrals from /forest and the Telegram Community Arcade.",
+    sortOrder: 6,
+  },
 ];
 
 export const Route = createFileRoute("/roadmap")({

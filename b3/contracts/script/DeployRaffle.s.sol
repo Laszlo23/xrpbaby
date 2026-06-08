@@ -10,7 +10,7 @@ contract DeployRaffleScript is Script {
         address treasury = vm.envAddress("TREASURY");
         uint256 priceWei = vm.envOr("MINT_PRICE_WEI", uint256(0.001 ether));
         uint256 maxSupply = vm.envOr("MAX_SUPPLY", uint256(1000));
-        string memory baseUri = vm.envOr("BASE_URI", string("https://0x.buildingculture.capital/ipfs/"));
+        string memory baseUri = vm.envOr("BASE_URI", string("https://0x.buildingcultureid.space/ipfs/"));
 
         vm.startBroadcast(pk);
 

@@ -22,7 +22,7 @@ export function propertyStoryPath(slug: PropertySlug): string {
 
 /**
  * Absolute or relative URL for a property story.
- * @param baseUrl — e.g. `https://eco.buildingculture.capital` (no trailing slash required).
+ * @param baseUrl — e.g. `https://eco.buildingcultureid.space` (no trailing slash required).
  */
 export function propertyUrl(slug: PropertySlug, baseUrl?: string): string {
   const path = propertyStoryPath(slug);

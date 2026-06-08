@@ -13,7 +13,7 @@ SCAN_API="${OG_CHAINSCAN_API_URL:-https://chainscan.0g.ai/open/api}"
 # Match DeployAgentId.s.sol defaults used for mainnet deploy.
 NAME="${AGENT_ID_NAME:-0G Agent ID}"
 SYMBOL="${AGENT_ID_SYMBOL:-AGENTID}"
-BASE_URI="${AGENT_ID_BASE_URI:-https://app.buildingculture.capital/0g/agentid/}"
+BASE_URI="${AGENT_ID_BASE_URI:-https://app.buildingcultureid.space/0g/agentid/}"
 OWNER="${AGENT_ID_OWNER:-}"
 
 if [[ -z "${ETHERSCAN_API_KEY:-}" ]]; then

@@ -1,16 +1,62 @@
 # Observability
 
-## Frontend (`b3/frontend`)
+## App runtime (`b3/app`)
 
-- **Sentry** — initialized when `VITE_SENTRY_DSN` is set (see `src/lib/sentry.ts`). Use environment-specific DSNs; never commit DSNs with org secrets in public forks.
+- **Sentry**: initialized when `VITE_SENTRY_DSN` is set (see `app/src/lib/sentry.ts`).
+- **PostHog**: product funnel events and `agent_ref` attribution in `app/src/lib/analytics.ts`.
+- **Database audit logs**:
+  - `ActivityEvent` for user/product actions.
+  - `AgentActionLog` for agent runtime actions (surfaced on `/agent-fleet`).
 
-## Agent runtime (`@bc/agent-runtime`)
+## Reliability gates (P0)
 
-- Primary audit trail: Postgres `AgentActionLog` (surfaced on `/agent-fleet`).
-- **Datadog** — forward logs by running the worker under `DD_LOGS_INJECTION=true` with your Datadog Agent, or ship structured JSON to stdout and ingest via log drain. The Datadog MCP can query once the integration is live in your org.
+These endpoints must stay healthy before campaign scale-up:
+
+- `GET /api/pulse/metrics`
+- `GET /api/market/bcc`
+- `GET /api/market/health`
+- `GET /api/trading/health`
+- `GET /api/marketing/grove/tick`
+
+## Monitoring workflow
+
+### 1) Production smoke
+
+Run:
+
+```bash
+./scripts/production-smoke.sh https://app.buildingcultureid.space
+```
+
+Notes:
+
+- Default is strict mode (`STRICT_SMOKE=1`) and fails on degraded pulse metrics.
+- Set `STRICT_SMOKE=0` only for temporary triage windows.
+
+### 2) Four-hour reliability loop (blitz mode)
+
+```bash
+BASE=https://app.buildingcultureid.space
+curl -s "$BASE/api/pulse/metrics" | jq .
+curl -s "$BASE/api/market/bcc" | jq .
+curl -s "$BASE/api/market/health" | jq .
+curl -s "$BASE/api/trading/health" | jq .
+curl -s "$BASE/api/marketing/grove/tick" | jq .
+```
+
+Record status in active REA reliability tickets.
 
 ## Alerts
 
-- `slack-digest` — daily summary of ledger actions.
-- `treasury-guardian` — low native balance on configured EOAs.
-- `raffle-watcher` — phase / commitment changes on the raffle contract.
+- `slack-digest`: daily summary of ledger actions.
+- `treasury-guardian`: low native balance on configured EOAs.
+- `raffle-watcher`: phase/commitment changes on raffle contract.
+- `grove-health`: endpoint degradation for Grove/Pulse/Market (recommended; wire via cron or monitor).
+
+## Incident rule
+
+If any reliability gate endpoint degrades:
+
+1. Pause demand-scale activities.
+2. Post outage owner + ETA.
+3. Restore service before resuming campaigns.

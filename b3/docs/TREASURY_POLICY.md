@@ -26,6 +26,23 @@ Other docs reference this address by anchor; do not redefine it elsewhere.
 - `ECON_LIVE=0` default in non-prod; only enable with multisig-approved runbooks.
 - `AGENTS_PAUSED=1` is the **kill-switch** — stops scheduled ticks without redeploying.
 
+## Autonomous agent wallet caps (CEO orchestrator)
+
+When `ceo-orchestrator-0` runs with deployer/ops keys configured:
+
+| Cap | Default env | Scope |
+|-----|-------------|--------|
+| Ops gas / day | `AGENT_OPS_DAILY_GAS_CAP_ETH=0.05` | Hot ops wallet txs |
+| Deployer gas / day | `AGENT_DEPLOYER_DAILY_GAS_CAP_ETH=0.05` | Contract deploys, owner txs |
+| Deploy spend / day | `AGENT_DAILY_DEPLOY_CAP_USD=50` | App + infra deploy tasks |
+| Contract deploys / week | `AGENT_WEEKLY_CONTRACT_DEPLOY_CAP=1` | `forge script --broadcast` |
+
+**Never autonomous:** treasury Safe (`0xCe03…`) — no private key in agent env.
+
+**Emergency:** `AGENTS_PAUSED=1` stops all ticks including wallet signing.
+
+**Cap escalation:** CEO may queue higher-cap tasks only when `AgentOutcome.rewardScore` exceeds the 7-day baseline (see `packages/agent-runtime/src/outcome/prompt-promotion.ts`).
+
 ## BCC monetary policy
 
 - `BuildingCultureDollar.ownerMint` is gated (`ownerMintDisabled`) — do not re-enable without published schedule + multisig + (if required) timelock.

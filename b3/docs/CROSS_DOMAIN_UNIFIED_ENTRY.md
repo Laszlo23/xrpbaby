@@ -1,17 +1,17 @@
-# Unified ingress across `.capital` hostnames
+# Unified ingress across `.buildingcultureid.space` hostnames
 
-The app shell cannot replace DNS on its own. Use this playbook when collapsing **Eco**, **Capital**, **0x**, and **App** behind one “front door.”
+The app shell cannot replace DNS on its own. Use this playbook when collapsing **Eco**, **Capital**, **0x**, and **App** behind one `*.buildingcultureid.space` front door.
 
 ## Recommended patterns
 
 **Path-based reverse proxy**
 
-- Canonical apex (e.g. `buildingculture.capital`) terminates TLS.
+- Canonical apex (e.g. `buildingcultureid.space`) terminates TLS.
 - Route examples (illustrative):
   - `/` → marketing splash or redirect to `/app`
-  - `/app/*` → `app.buildingculture.capital`
-  - `/eco/*` → `eco.buildingculture.capital`
-  - `/0x/*` → `0x.buildingculture.capital`
+  - `/app/*` → `app.buildingcultureid.space`
+  - `/eco/*` → `eco.buildingcultureid.space`
+  - `/0x/*` → `0x.buildingcultureid.space`
 - Keeps SSR/CORS headers explicit; avoids cookie fragmentation if subdomains diverge.
 
 **Hub page + deeplinks**

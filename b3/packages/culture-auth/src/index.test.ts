@@ -11,7 +11,7 @@ import { isCultureNetworkId } from "./networks.js";
 test("auth hub URLs encode returnUrl", () => {
   const url = authHubLoginUrl("https://art.buildingcultureid.space/mint");
   assert.match(url, /returnUrl=/);
-  assert.ok(url.startsWith("https://0x.buildingculture.capital/auth/login"));
+  assert.ok(url.startsWith("https://app.buildingcultureid.space/auth/login"));
 });
 
 test("auth hub logout URL", () => {
@@ -21,11 +21,11 @@ test("auth hub logout URL", () => {
 
 test("shouldUseAuthHub detects cross-origin", () => {
   assert.equal(
-    shouldUseAuthHub("https://buildingcultureid.space", "https://0x.buildingculture.capital"),
+    shouldUseAuthHub("https://buildingcultureid.space", "https://app.buildingcultureid.space"),
     true,
   );
   assert.equal(
-    shouldUseAuthHub("https://0x.buildingculture.capital", "https://0x.buildingculture.capital"),
+    shouldUseAuthHub("https://app.buildingcultureid.space", "https://app.buildingcultureid.space"),
     false,
   );
 });
@@ -33,6 +33,7 @@ test("shouldUseAuthHub detects cross-origin", () => {
 test("isAllowedReturnUrl accepts ecosystem domains", () => {
   assert.equal(isAllowedReturnUrl("https://art.buildingcultureid.space/"), true);
   assert.equal(isAllowedReturnUrl("https://bcdai.buildingcultureid.space/"), true);
+  assert.equal(isAllowedReturnUrl("https://0x.buildingculture.capital/"), true);
   assert.equal(isAllowedReturnUrl("https://evil.example/phish"), false);
 });
 

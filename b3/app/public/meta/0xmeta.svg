@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BUILDCHAIN 0x</title>
+  <desc id="desc">BUILDCHAIN on-chain mission and market surfaces.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07070a" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="80" y="80" width="1040" height="470" rx="32" fill="#0a0a0a" stroke="#27272a" stroke-width="2" />
+  <text x="130" y="220" font-family="JetBrains Mono, Menlo, monospace" font-size="120" font-weight="700" fill="#00e5ff">0x</text>
+  <text x="350" y="220" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="700" fill="#ffffff">BUILDCHAIN</text>
+  <text x="130" y="320" font-family="Inter, Arial, sans-serif" font-size="30" fill="#a1a1aa">Culture, passes, and fair drops on Base.</text>
+  <text x="130" y="390" font-family="Inter, Arial, sans-serif" font-size="32" fill="#c5ff41">$BCC " marketplace " missions</text>
+</svg>

@@ -338,6 +338,17 @@ function ProfilePage() {
                 Buy Culture Points with card ($0.70–$7.7M tiers) after you sign in.
               </p>
             </Link>
+            <a
+              href="https://places.buildingcultureid.space/dashboard"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="glass rounded-xl border border-white/10 p-5 transition hover:border-[#00E5FF]/35 sm:col-span-3"
+            >
+              <p className="font-heading font-semibold text-foreground">RWA portfolio (Places)</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Property shares, watchlist, and BCC benefits on the Places investor dashboard.
+              </p>
+            </a>
           </div>
 
           <p className="text-center text-[11px] text-zinc-600">

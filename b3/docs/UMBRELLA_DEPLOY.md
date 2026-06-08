@@ -1,6 +1,6 @@
-# Umbrella site — `home.buildingculture.capital`
+# Umbrella site — `home.buildingcultureid.space`
 
-The marketing umbrella (links hub) lives in [`b3/umbrella`](../umbrella/). It is a **static Vite SPA** — deploy the `dist/` folder behind nginx with `try_files` (same pattern as `eco.buildingculture.capital`).
+The marketing umbrella (links hub) lives in [`b3/umbrella`](../umbrella/). It is a **static Vite SPA** — deploy the `dist/` folder behind nginx with `try_files` (same pattern as `eco.buildingcultureid.space`).
 
 ## DNS
 
@@ -21,7 +21,7 @@ export CERTBOT_EMAIL=ops@yourdomain.com   # required the first time for Let's En
 
 Optional overrides:
 
-- `PUBLIC_DOMAIN` — default `home.buildingculture.capital`
+- `PUBLIC_DOMAIN` — default `home.buildingcultureid.space`
 - `REMOTE_ROOT` — default `/var/www/home-buildingculture`
 
 ## What the script does
@@ -29,7 +29,7 @@ Optional overrides:
 1. `npm install` at workspace root, then `npm --prefix umbrella run build`
 2. `rsync` `umbrella/dist/` → `${REMOTE_ROOT}/` on the server
 3. Installs or patches nginx: [`scripts/install-nginx-home-on-server.sh`](../scripts/install-nginx-home-on-server.sh) → `sites-available/buildingculture-home.conf`
-4. Runs `certbot --nginx -d home.buildingculture.capital` if no certificate exists yet
+4. Runs `certbot --nginx -d home.buildingcultureid.space` if no certificate exists yet
 
 ## Reference nginx
 
@@ -38,20 +38,20 @@ See [`infra/nginx-home-buildingculture.example.conf`](../infra/nginx-home-buildi
 ## Verify
 
 ```bash
-curl -sI https://home.buildingculture.capital | head -n 5
+curl -sI https://home.buildingcultureid.space | head -n 5
 ```
 
 Expect **200** on `/` and `Cache-Control: no-cache` on `/index.html`.
 
 ## Apex domain
 
-**`buildingculture.capital` (apex)** is intentionally separate: use it for a marketing splash or redirect as you prefer. The umbrella “hub” product surface described on the site is served from **`home.buildingculture.capital`**.
+**`buildingcultureid.space` (apex)** is intentionally separate: use it for a marketing splash or redirect as you prefer. The umbrella “hub” product surface described on the site is served from **`home.buildingcultureid.space`**.
 
 ## Related surfaces
 
 | Subdomain | Role |
 |-----------|------|
-| `home.buildingculture.capital` | Umbrella links / narrative (this deploy) |
-| `0x.buildingculture.capital` | Market (TanStack app, proxied port — see `install-nginx-0x-on-server.sh`) |
-| `app.buildingculture.capital` | Live dApp |
-| `eco.buildingculture.capital` | Eco static hub (`deploy-eco-buildingculture.sh`) |
+| `home.buildingcultureid.space` | Umbrella links / narrative (this deploy) |
+| `0x.buildingcultureid.space` | Market (TanStack app, proxied port — see `install-nginx-0x-on-server.sh`) |
+| `app.buildingcultureid.space` | Live dApp |
+| `eco.buildingcultureid.space` | Eco static hub (`deploy-eco-buildingculture.sh`) |

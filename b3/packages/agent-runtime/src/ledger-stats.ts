@@ -19,6 +19,18 @@ export async function ledgerActionCounts24h(
   return r.rows;
 }
 
+export async function queryLedgerStats24h(databaseUrl: string): Promise<{
+  totalRows: number;
+  byAction: { action: string; count: number }[];
+}> {
+  const rows = await ledgerActionCounts24h(databaseUrl);
+  const totalRows = rows.reduce((sum, r) => sum + Number(r.n), 0);
+  return {
+    totalRows,
+    byAction: rows.map((r) => ({ action: r.action, count: Number(r.n) })),
+  };
+}
+
 export async function chainMintStats(databaseUrl: string): Promise<{
   total: number;
   topRecipients: { toAddress: string; n: number }[];

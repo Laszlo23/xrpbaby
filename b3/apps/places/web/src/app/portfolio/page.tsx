@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { formatEther, zeroAddress } from "viem";
 import { useAccount, useBalance, useReadContracts } from "wagmi";
 import { ComplianceStatus } from "@/components/ComplianceStatus";
@@ -12,6 +12,7 @@ import { erc20Abi } from "@/lib/contracts";
 import { useProtocolAddresses } from "@/lib/use-protocol-addresses";
 import { usePropertyShareList } from "@/lib/usePropertyShareList";
 import { getEstimatedYieldPercent } from "@/lib/demo-properties";
+import { BCC_DISCOUNT_LABEL, BCC_SYMBOL } from "@/lib/contracts";
 
 function parseShareFloat(wei: bigint): number {
   const s = formatEther(wei);
@@ -21,6 +22,20 @@ function parseShareFloat(wei: bigint): number {
 
 export default function PortfolioPage() {
   const { address, isConnected } = useAccount();
+  const [watchlistIds, setWatchlistIds] = useState<string[]>([]);
+
+  const refreshWatchlist = useCallback(async () => {
+    if (!address) return;
+    const res = await fetch(`/api/watchlist?wallet=${address}`);
+    if (res.ok) {
+      const data = (await res.json()) as { propertyIds: string[] };
+      setWatchlistIds(data.propertyIds);
+    }
+  }, [address]);
+
+  useEffect(() => {
+    void refreshWatchlist();
+  }, [refreshWatchlist]);
   const { weth } = useProtocolAddresses();
 
   const { data: nativeBal } = useBalance({ address, query: { enabled: !!address } });
@@ -118,12 +133,13 @@ export default function PortfolioPage() {
   return (
     <div className="mx-auto w-full max-w-[1280px] space-y-12 pb-16">
       <header className="space-y-3 text-center sm:text-left">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-eco-muted">Dashboard</p>
-        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Portfolio</h1>
+        <p className="mono-label !text-bc-lime">Investor dashboard</p>
+        <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">Your RWA portfolio</h1>
         <p className="max-w-2xl text-sm leading-relaxed text-muted">
-          Wallet balances, property exposure, and reference charts. USD uses per-share references — not mark-to-market.{" "}
-          <Link href="/guide" className="text-action hover:underline">
-            Operator guide
+          Total invested, yield references, NFT/share holdings, and {BCC_SYMBOL} benefits. USD uses per-share references — not
+          mark-to-market.{" "}
+          <Link href="/marketplace" className="text-bc-cyan hover:underline">
+            Browse marketplace
           </Link>
         </p>
       </header>
@@ -264,23 +280,43 @@ export default function PortfolioPage() {
             </div>
           </div>
 
+          <div className="bc-glass-strong rounded-2xl p-6">
+            <h2 className="text-sm font-medium text-white">{BCC_SYMBOL} benefits</h2>
+            <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+              Hold {BCC_SYMBOL} for {BCC_DISCOUNT_LABEL} on eligible primary share purchases. Use the Buy {BCC_SYMBOL} button in
+              the site chrome when configured.
+            </p>
+          </div>
+
+          {watchlistIds.length > 0 ? (
+            <div className="bc-glass rounded-2xl p-6">
+              <h2 className="text-sm font-medium text-white">Watchlist</h2>
+              <ul className="mt-3 space-y-2">
+                {watchlistIds.map((pid) => (
+                  <li key={pid}>
+                    <Link href={`/marketplace/${pid}`} className="text-sm text-bc-cyan hover:underline">
+                      Property #{pid}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
           <div className="glass-card border-dashed border-eco/30 p-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-sm font-medium text-white">Yield & rewards</h2>
                 <p className="mt-1 text-xs leading-relaxed text-zinc-500">
-                  When live, rental or revenue distributions follow each issuer&apos;s policy and disclosures. This UI does not
-                  settle cash flows on-chain yet — production stacks typically add a revenue distributor contract and verified
-                  inputs (oracle, attestations, or issuer-signed proofs), which operators wire per deployment.
+                  Claimable rewards and rental income follow issuer policy. Stake native ETH for protocol rewards where enabled.
                 </p>
               </div>
-              <button
-                type="button"
-                disabled
-                className="rounded-full border border-white/10 px-4 py-2 text-xs font-medium text-zinc-500"
+              <Link
+                href="/stake"
+                className="rounded-full border border-bc-lime/40 px-4 py-2 text-xs font-medium text-bc-lime hover:bg-bc-lime/10"
               >
-                Claim (roadmap)
-              </button>
+                Staking →
+              </Link>
             </div>
           </div>
 

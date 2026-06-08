@@ -12,7 +12,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY web/ ./
 
 # Site + WalletConnect
-ARG NEXT_PUBLIC_SITE_URL=https://buildingculture.capital
+ARG NEXT_PUBLIC_SITE_URL=https://app.buildingcultureid.space
 ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
 ARG NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
 ENV NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=${NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}

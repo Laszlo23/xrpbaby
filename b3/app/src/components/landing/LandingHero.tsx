@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Briefcase, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 import { trackLandingEvent } from "@/lib/landing-api";
@@ -113,10 +113,19 @@ export function LandingHero() {
           transition={{ delay: 0.7, duration: 0.8 }}
           className="mt-10 flex flex-col gap-3 sm:flex-row"
         >
+          <Link
+            to="/places"
+            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "invest_now" })}
+            className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-7 py-4 text-[15px] font-semibold text-black transition-all hover:scale-[1.02] hover:bg-white"
+          >
+            <Briefcase size={16} aria-hidden />
+            Invest now
+            <ArrowUpRight size={16} aria-hidden />
+          </Link>
           <a
             href="#ecosystem"
             onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "explore" })}
-            className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-7 py-4 text-[15px] font-semibold text-black transition-all hover:scale-[1.02] hover:bg-white"
+            className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-[15px] font-semibold text-white backdrop-blur-md transition-all hover:border-[#00E5FF]/60 hover:bg-white/10"
           >
             {plainLabels.landing.ctaExplore}
             <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
@@ -124,7 +133,7 @@ export function LandingHero() {
           <Link
             to="/join"
             onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "join" })}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-[15px] font-semibold text-white backdrop-blur-md transition-all hover:border-[#00E5FF]/60 hover:bg-white/10"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-zinc-300 transition-all hover:border-white/40 hover:text-white"
           >
             {plainLabels.landing.ctaJoin}
           </Link>

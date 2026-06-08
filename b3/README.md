@@ -11,7 +11,7 @@ One app, one story: community, drops, onchain identity, and real-estate tokeniza
 | `/join` | Wallet sign-in / pass |
 | `/forest` | Community hub — stats, quests, modules |
 | `/pass` | Mint Culture Layer `.culture` names on Base (~$1.11 ETH) |
-| `/places` | Hub → [buildingculture.capital](https://buildingculture.capital) invest/trade |
+| `/places` | Hub → [places.buildingcultureid.space](https://places.buildingcultureid.space) invest/trade |
 | `/marketplace` | ERC-721 secondary market (thirdweb) — **not** fractional real estate |
 | `/investors` | Capital overview + Chainlink RWA compliance status |
 | `/id/{name}.culture` | Culture name profile (onchain resolve) |
@@ -38,8 +38,9 @@ cd contracts && forge test --match-contract AgentId
 | Path | Role |
 |------|------|
 | [`app/`](app/) | **Unified TanStack app** — landing, forest, pass, marketplace, compliance API |
-| [`apps/places/`](apps/places/) | **Real estate on Base** — REOC contracts, DTA/PoR, Next.js at buildingculture.capital |
-| [`apps/identity/`](apps/identity/) | Culture Layer identity mini-app (merging into `app/`) |
+| [`apps/places/`](apps/places/) | **Real estate on Base** — REOC contracts, DTA/PoR, Next.js at places.buildingcultureid.space |
+| [`apps/identity/contracts/`](apps/identity/contracts/) | Culture Layer identity deploy contracts (UI in `app/` at `/pass`, `/id/*`) |
+| [`apps/art/contracts/`](apps/art/contracts/) | Art drop hub contracts (UI in `app/` at `/drops/art`) |
 | [`contracts/`](contracts/) | BCC, raffles (`RaffleTicketCampaignVrf` for Chainlink VRF) |
 | [`cms/`](cms/) | Strapi CMS |
 | [`packages/`](packages/) | Shared `@bc/*` SDKs |
@@ -92,7 +93,7 @@ Full gate: `cd app && npm run test:all` (lint, typecheck, build, unit, all e2e).
 
 - **Play `/play`** — experience/raffle drops; use **VRF** raffles for “provably fair” claims.
 - **`/marketplace`** — NFT listings only.
-- **`apps/places`** — fractional **property share** tokens (REOC), compliance-gated; production at buildingculture.capital.
+- **`apps/places`** — fractional **property share** tokens (REOC), compliance-gated; production at places.buildingcultureid.space.
 - **Culture Pulse anchor** — social digest, not asset Proof of Reserve.
 
 ## Chainlink alignment (summary)

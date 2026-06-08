@@ -15,11 +15,7 @@ test.describe("pass / identity", () => {
   test("forest identity band links to pass", async ({ page }) => {
     await page.goto("/forest");
     const cta = page.getByRole("link", { name: /claim your name/i });
-    if ((await cta.count()) === 0) {
-      test.skip();
-      return;
-    }
-    await cta.click();
-    await expect(page).toHaveURL(/\/pass/);
+    await expect(cta).toBeVisible({ timeout: 15_000 });
+    await expect(cta).toHaveAttribute("href", /\/pass/);
   });
 });

@@ -2,6 +2,8 @@
 
 [BCDAI](https://bcdai.buildingcultureid.space/) is the Building Culture **AI trading terminal** (copy trading, visual IF/THEN rules, MEV-aware routing on Base & Solana). It runs on Google Cloud Run; the canonical BC-branded URL is **`https://bcdai.buildingcultureid.space/`**.
 
+Canonical ecosystem entrypoint remains **`https://app.buildingcultureid.space`**. BCDAI is a satellite surface in that ecosystem.
+
 Infra: [`infra/nginx-bcdai-buildingcultureid.conf.example`](../infra/nginx-bcdai-buildingcultureid.conf.example) or GCP Cloud Run custom domain mapping.
 
 ## Listed in ecosystem registries
@@ -23,13 +25,15 @@ In [Privy dashboard](https://dashboard.privy.io), confirm **`bcdai.buildingcultu
 
 ### 2. Sign-in via auth hub (cross-origin)
 
-When the user is on `bcdai.buildingcultureid.space`, redirect login through the central hub:
+When the user is on `bcdai.buildingcultureid.space`, redirect login through the central app auth route:
 
 ```
 https://app.buildingcultureid.space/auth/login?returnUrl=https://bcdai.buildingcultureid.space/
 ```
 
 If BCDAI is moved into the monorepo, use `@bc/culture-auth` `CultureSignInButton` / `useCultureWallet().signIn()` instead.
+
+Note: keep auth and member-sync flows on `*.buildingcultureid.space`; do not route new traffic through legacy external domains.
 
 Return URLs under `*.buildingcultureid.space` are allowed by [`packages/culture-auth/src/auth-hub.ts`](../packages/culture-auth/src/auth-hub.ts).
 

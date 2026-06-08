@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
 import { MarketingShell } from "@/components/MarketingShell";
-import { listPostsSorted } from "@/content/blog/posts";
+import { listBlogPostsSorted, type MarkdownBlogPost } from "@/content/blog/markdown-posts";
 import { BookOpen, Calendar } from "lucide-react";
 
 export const Route = createFileRoute("/blog/")({
@@ -13,6 +13,7 @@ export const Route = createFileRoute("/blog/")({
       path: "/blog",
       keywords: ["BUILDCHAIN", "blog", "Base", "RWA", "drops", "BCC"],
     }),
+  loader: () => listBlogPostsSorted(),
   component: BlogIndexPage,
 });
 
@@ -29,7 +30,7 @@ function formatDate(iso: string) {
 }
 
 function BlogIndexPage() {
-  const posts = listPostsSorted();
+  const posts = Route.useLoaderData() as MarkdownBlogPost[];
 
   return (
     <MarketingShell
@@ -48,7 +49,11 @@ function BlogIndexPage() {
       <div className="space-y-6">
         <p className="text-zinc-400">
           Posts ship from this repo first; Strapi-backed feeds can layer on later. Subscribe by
-          bookmarking — we keep the good stuff indexable and readable.
+          bookmarking or via{" "}
+          <a href="/blog/feed.xml" className="text-zinc-200 underline underline-offset-2">
+            RSS
+          </a>{" "}
+          — we keep the good stuff indexable and readable.
         </p>
 
         <ul className="space-y-4">

@@ -14,7 +14,7 @@ export const Route = createFileRoute("/legal/imprint")({
   component: ImprintPage,
 });
 
-const CONTACT_EMAIL = "office@buildingculture.capital";
+const CONTACT_EMAIL = "office@buildingcultureid.space";
 
 function ImprintPage() {
   return (

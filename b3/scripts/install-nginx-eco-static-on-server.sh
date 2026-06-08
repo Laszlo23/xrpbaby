@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Static SPA for eco.buildingculture.capital — root + try_files → index.html.
+# Static SPA for eco.buildingcultureid.space — root + try_files → index.html.
 # Run after rsync of Vite dist to REMOTE_ROOT.
 #
 #   export DEPLOY_HOST=root@your.vps.ip
-#   export PUBLIC_DOMAIN=eco.buildingculture.capital
+#   export PUBLIC_DOMAIN=eco.buildingcultureid.space
 #   export REMOTE_ROOT=/var/www/eco-buildingculture
 #   ./scripts/install-nginx-eco-static-on-server.sh
 #
 set -euo pipefail
 HOST="${DEPLOY_HOST:?set DEPLOY_HOST}"
-DOMAIN="${PUBLIC_DOMAIN:-eco.buildingculture.capital}"
+DOMAIN="${PUBLIC_DOMAIN:-eco.buildingcultureid.space}"
 REMOTE_ROOT="${REMOTE_ROOT:-/var/www/eco-buildingculture}"
 SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_wgsdex}"
 SSH_CMD=(ssh -o BatchMode=yes)

@@ -10,7 +10,7 @@
 | **Contract** | `0x0451b1d37058ad57df22d7185aabc6b0a36fc41e` |
 | **Explorer** | [ChainScan contract](https://chainscan.0g.ai/address/0x0451b1d37058ad57df22d7185aabc6b0a36fc41e#code) |
 
-Copy/paste pack for operators: [0G_HACKATHON_SUBMISSION.md](./0G_HACKATHON_SUBMISSION.md) · Video + X: [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md)
+Copy/paste pack for operators: [0G_HACKATHON_SUBMISSION.md](./0G_HACKATHON_SUBMISSION.md) · Video + X: [0G_HACKATHON_VIDEO_AND_X.md](./archive/0G_HACKATHON_VIDEO_AND_X.md)
 
 ---
 
@@ -119,7 +119,7 @@ https://github.com/Laszlo23/xrpbaby — Judge README: b3/docs/0G_HACKATHON_JUDGE
 
 | Deliverable | Status | Action |
 |-------------|--------|--------|
-| Demo video ≤3 min | Paste URL in submission doc | [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md) |
+| Demo video ≤3 min | Paste URL in submission doc | [0G_HACKATHON_VIDEO_AND_X.md](./archive/0G_HACKATHON_VIDEO_AND_X.md) |
 | Public X post | Paste tweet URL in submission doc | Use **Copy X post** on proof page |
 | HackQuest submit | — | [HackQuest project form](https://www.hackquest.io/hackathons/0G-APAC-Hackathon) |
 
@@ -127,6 +127,8 @@ https://github.com/Laszlo23/xrpbaby — Judge README: b3/docs/0G_HACKATHON_JUDGE
 
 - Bind Agent ID to `/.well-known/agent.json` and x402 trading SKUs ([TRADING_AGENT_SUGAR.md](./TRADING_AGENT_SUGAR.md))
 - Persist agent manifests on **0G Storage** and reference roots from `tokenURI`
+
+**Note:** The same `b3/` app hosts other Building Culture modules (e.g. `/studio`, ecosystem landing). For this hackathon, verify only `/0g/agentid` and `AgentId.sol` — see [0G_HACKATHON_SUBMISSION.md](./0G_HACKATHON_SUBMISSION.md) §9.
 
 ## Copy for forms
 

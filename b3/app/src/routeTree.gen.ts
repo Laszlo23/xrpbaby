@@ -37,6 +37,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WelcomeIndexRouteImport } from './routes/welcome/index'
 import { Route as WalletIndexRouteImport } from './routes/wallet/index'
+import { Route as TgIndexRouteImport } from './routes/tg/index'
+import { Route as StudioIndexRouteImport } from './routes/studio/index'
 import { Route as SignalIndexRouteImport } from './routes/signal/index'
 import { Route as PlacesIndexRouteImport } from './routes/places/index'
 import { Route as PassIndexRouteImport } from './routes/pass/index'
@@ -46,6 +48,8 @@ import { Route as EarthIndexRouteImport } from './routes/earth/index'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as WalletPacksRouteImport } from './routes/wallet/packs'
+import { Route as TgDevRouteImport } from './routes/tg/dev'
+import { Route as StudioProjectIdRouteImport } from './routes/studio/$projectId'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as SelfAgentidRouteImport } from './routes/self.agentid'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
@@ -61,6 +65,7 @@ import { Route as ForestQuestsRouteImport } from './routes/forest/quests'
 import { Route as DropsArtRouteImport } from './routes/drops/art'
 import { Route as DropsSlugRouteImport } from './routes/drops.$slug'
 import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
+import { Route as BlogFeedDotxmlRouteImport } from './routes/blog/feed[.]xml'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthLogoutRouteImport } from './routes/auth/logout'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
@@ -71,6 +76,7 @@ import { Route as ApiX402PremiumRouteImport } from './routes/api/x402/premium'
 import { Route as ApiWorldWalletVerifyRouteImport } from './routes/api/world/wallet-verify'
 import { Route as ApiWorldWalletNonceRouteImport } from './routes/api/world/wallet-nonce'
 import { Route as ApiWebhooksStripeRouteImport } from './routes/api/webhooks/stripe'
+import { Route as ApiWebhooksQuidliRouteImport } from './routes/api/webhooks/quidli'
 import { Route as ApiWalletSyncRouteImport } from './routes/api/wallet/sync'
 import { Route as ApiWalletLogoutRouteImport } from './routes/api/wallet/logout'
 import { Route as ApiTradingSwapPreviewRouteImport } from './routes/api/trading/swap-preview'
@@ -80,6 +86,12 @@ import { Route as ApiTradingPoolsRouteImport } from './routes/api/trading/pools'
 import { Route as ApiTradingManifestRouteImport } from './routes/api/trading/manifest'
 import { Route as ApiTradingHealthRouteImport } from './routes/api/trading/health'
 import { Route as ApiTradingArbitrageScanRouteImport } from './routes/api/trading/arbitrage-scan'
+import { Route as ApiTgTasksRouteImport } from './routes/api/tg/tasks'
+import { Route as ApiTgQuestsRouteImport } from './routes/api/tg/quests'
+import { Route as ApiTgMeRouteImport } from './routes/api/tg/me'
+import { Route as ApiTgLeaderboardRouteImport } from './routes/api/tg/leaderboard'
+import { Route as ApiTgHomeRouteImport } from './routes/api/tg/home'
+import { Route as ApiTgAuthRouteImport } from './routes/api/tg/auth'
 import { Route as ApiSocialSyncScoreRouteImport } from './routes/api/social/sync-score'
 import { Route as ApiSocialSuggestionsRouteImport } from './routes/api/social/suggestions'
 import { Route as ApiSocialLinkFarcasterInternalRouteImport } from './routes/api/social/link-farcaster-internal'
@@ -90,10 +102,12 @@ import { Route as ApiPulseFeedRouteImport } from './routes/api/pulse/feed'
 import { Route as ApiPlatformWaitlistRouteImport } from './routes/api/platform/waitlist'
 import { Route as ApiPlatformSiweNonceRouteImport } from './routes/api/platform/siwe-nonce'
 import { Route as ApiPlatformOnboardingCompleteRouteImport } from './routes/api/platform/onboarding-complete'
+import { Route as ApiPlatformFunnelBaselineRouteImport } from './routes/api/platform/funnel-baseline'
 import { Route as ApiPlatformAnalyticsRouteImport } from './routes/api/platform/analytics'
 import { Route as ApiMemberMeRouteImport } from './routes/api/member/me'
 import { Route as ApiMemberLeaderboardRouteImport } from './routes/api/member/leaderboard'
 import { Route as ApiMarketingXPostRouteImport } from './routes/api/marketing/x-post'
+import { Route as ApiMarketXrpQuoteRouteImport } from './routes/api/market/xrp-quote'
 import { Route as ApiMarketSampleMintRouteImport } from './routes/api/market/sample-mint'
 import { Route as ApiMarketManifestRouteImport } from './routes/api/market/manifest'
 import { Route as ApiMarketListingsRouteImport } from './routes/api/market/listings'
@@ -108,10 +122,19 @@ import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
 import { Route as R0gAgentid1DotjsonRouteImport } from './routes/0g/agentid/1[.]json'
 import { Route as ApiWalletPacksCheckoutRouteImport } from './routes/api/wallet/packs/checkout'
+import { Route as ApiTgWalletTonConnectedRouteImport } from './routes/api/tg/wallet/ton-connected'
+import { Route as ApiTgTasksCompleteRouteImport } from './routes/api/tg/tasks/complete'
+import { Route as ApiTgQuestsClaimRouteImport } from './routes/api/tg/quests/claim'
+import { Route as ApiTgLearnModulesRouteImport } from './routes/api/tg/learn/modules'
+import { Route as ApiTgLearnCompleteRouteImport } from './routes/api/tg/learn/complete'
+import { Route as ApiStudioPreviewProjectIdRouteImport } from './routes/api/studio/preview.$projectId'
 import { Route as ApiSocialNeynarAuthorizeRouteImport } from './routes/api/social/neynar/authorize'
 import { Route as ApiPulseIngestManualRouteImport } from './routes/api/pulse/ingest/manual'
 import { Route as ApiPulseDigestDayIdRouteImport } from './routes/api/pulse/digest/$dayId'
 import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/pulse/attestation/latest'
+import { Route as ApiMarketingGroveXPostRouteImport } from './routes/api/marketing/grove/x-post'
+import { Route as ApiMarketingGroveTickRouteImport } from './routes/api/marketing/grove/tick'
+import { Route as ApiMarketingGroveFarcasterPostRouteImport } from './routes/api/marketing/grove/farcaster-post'
 import { Route as ApiMarketBccSolanaRouteRouteImport } from './routes/api/market/bcc/solana-route'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 
@@ -255,6 +278,16 @@ const WalletIndexRoute = WalletIndexRouteImport.update({
   path: '/wallet/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TgIndexRoute = TgIndexRouteImport.update({
+  id: '/tg/',
+  path: '/tg/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioIndexRoute = StudioIndexRouteImport.update({
+  id: '/studio/',
+  path: '/studio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignalIndexRoute = SignalIndexRouteImport.update({
   id: '/signal/',
   path: '/signal/',
@@ -298,6 +331,16 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const WalletPacksRoute = WalletPacksRouteImport.update({
   id: '/wallet/packs',
   path: '/wallet/packs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TgDevRoute = TgDevRouteImport.update({
+  id: '/tg/dev',
+  path: '/tg/dev',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioProjectIdRoute = StudioProjectIdRouteImport.update({
+  id: '/studio/$projectId',
+  path: '/studio/$projectId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapXmlRoute = SitemapXmlRouteImport.update({
@@ -375,6 +418,11 @@ const DocsSlugRoute = DocsSlugRouteImport.update({
   path: '/docs/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogFeedDotxmlRoute = BlogFeedDotxmlRouteImport.update({
+  id: '/blog/feed.xml',
+  path: '/blog/feed.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
@@ -427,6 +475,11 @@ const ApiWebhooksStripeRoute = ApiWebhooksStripeRouteImport.update({
   path: '/api/webhooks/stripe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWebhooksQuidliRoute = ApiWebhooksQuidliRouteImport.update({
+  id: '/api/webhooks/quidli',
+  path: '/api/webhooks/quidli',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWalletSyncRoute = ApiWalletSyncRouteImport.update({
   id: '/api/wallet/sync',
   path: '/api/wallet/sync',
@@ -470,6 +523,36 @@ const ApiTradingHealthRoute = ApiTradingHealthRouteImport.update({
 const ApiTradingArbitrageScanRoute = ApiTradingArbitrageScanRouteImport.update({
   id: '/api/trading/arbitrage-scan',
   path: '/api/trading/arbitrage-scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgTasksRoute = ApiTgTasksRouteImport.update({
+  id: '/api/tg/tasks',
+  path: '/api/tg/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgQuestsRoute = ApiTgQuestsRouteImport.update({
+  id: '/api/tg/quests',
+  path: '/api/tg/quests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgMeRoute = ApiTgMeRouteImport.update({
+  id: '/api/tg/me',
+  path: '/api/tg/me',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgLeaderboardRoute = ApiTgLeaderboardRouteImport.update({
+  id: '/api/tg/leaderboard',
+  path: '/api/tg/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgHomeRoute = ApiTgHomeRouteImport.update({
+  id: '/api/tg/home',
+  path: '/api/tg/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgAuthRoute = ApiTgAuthRouteImport.update({
+  id: '/api/tg/auth',
+  path: '/api/tg/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiSocialSyncScoreRoute = ApiSocialSyncScoreRouteImport.update({
@@ -524,6 +607,12 @@ const ApiPlatformOnboardingCompleteRoute =
     path: '/api/platform/onboarding-complete',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPlatformFunnelBaselineRoute =
+  ApiPlatformFunnelBaselineRouteImport.update({
+    id: '/api/platform/funnel-baseline',
+    path: '/api/platform/funnel-baseline',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPlatformAnalyticsRoute = ApiPlatformAnalyticsRouteImport.update({
   id: '/api/platform/analytics',
   path: '/api/platform/analytics',
@@ -542,6 +631,11 @@ const ApiMemberLeaderboardRoute = ApiMemberLeaderboardRouteImport.update({
 const ApiMarketingXPostRoute = ApiMarketingXPostRouteImport.update({
   id: '/api/marketing/x-post',
   path: '/api/marketing/x-post',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMarketXrpQuoteRoute = ApiMarketXrpQuoteRouteImport.update({
+  id: '/api/market/xrp-quote',
+  path: '/api/market/xrp-quote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiMarketSampleMintRoute = ApiMarketSampleMintRouteImport.update({
@@ -615,6 +709,37 @@ const ApiWalletPacksCheckoutRoute = ApiWalletPacksCheckoutRouteImport.update({
   path: '/api/wallet/packs/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTgWalletTonConnectedRoute = ApiTgWalletTonConnectedRouteImport.update({
+  id: '/api/tg/wallet/ton-connected',
+  path: '/api/tg/wallet/ton-connected',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgTasksCompleteRoute = ApiTgTasksCompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => ApiTgTasksRoute,
+} as any)
+const ApiTgQuestsClaimRoute = ApiTgQuestsClaimRouteImport.update({
+  id: '/claim',
+  path: '/claim',
+  getParentRoute: () => ApiTgQuestsRoute,
+} as any)
+const ApiTgLearnModulesRoute = ApiTgLearnModulesRouteImport.update({
+  id: '/api/tg/learn/modules',
+  path: '/api/tg/learn/modules',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTgLearnCompleteRoute = ApiTgLearnCompleteRouteImport.update({
+  id: '/api/tg/learn/complete',
+  path: '/api/tg/learn/complete',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiStudioPreviewProjectIdRoute =
+  ApiStudioPreviewProjectIdRouteImport.update({
+    id: '/api/studio/preview/$projectId',
+    path: '/api/studio/preview/$projectId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiSocialNeynarAuthorizeRoute =
   ApiSocialNeynarAuthorizeRouteImport.update({
     id: '/api/social/neynar/authorize',
@@ -635,6 +760,22 @@ const ApiPulseAttestationLatestRoute =
   ApiPulseAttestationLatestRouteImport.update({
     id: '/api/pulse/attestation/latest',
     path: '/api/pulse/attestation/latest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketingGroveXPostRoute = ApiMarketingGroveXPostRouteImport.update({
+  id: '/api/marketing/grove/x-post',
+  path: '/api/marketing/grove/x-post',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMarketingGroveTickRoute = ApiMarketingGroveTickRouteImport.update({
+  id: '/api/marketing/grove/tick',
+  path: '/api/marketing/grove/tick',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMarketingGroveFarcasterPostRoute =
+  ApiMarketingGroveFarcasterPostRouteImport.update({
+    id: '/api/marketing/grove/farcaster-post',
+    path: '/api/marketing/grove/farcaster-post',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiMarketBccSolanaRouteRoute = ApiMarketBccSolanaRouteRouteImport.update({
@@ -681,6 +822,7 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
@@ -696,6 +838,8 @@ export interface FileRoutesByFullPath {
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/studio/$projectId': typeof StudioProjectIdRoute
+  '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -705,6 +849,8 @@ export interface FileRoutesByFullPath {
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
   '/signal/': typeof SignalIndexRoute
+  '/studio/': typeof StudioIndexRoute
+  '/tg/': typeof TgIndexRoute
   '/wallet/': typeof WalletIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
@@ -720,10 +866,12 @@ export interface FileRoutesByFullPath {
   '/api/market/listings': typeof ApiMarketListingsRoute
   '/api/market/manifest': typeof ApiMarketManifestRoute
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
+  '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
+  '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
   '/api/platform/waitlist': typeof ApiPlatformWaitlistRoute
@@ -734,6 +882,12 @@ export interface FileRoutesByFullPath {
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
   '/api/social/sync-score': typeof ApiSocialSyncScoreRoute
+  '/api/tg/auth': typeof ApiTgAuthRoute
+  '/api/tg/home': typeof ApiTgHomeRoute
+  '/api/tg/leaderboard': typeof ApiTgLeaderboardRoute
+  '/api/tg/me': typeof ApiTgMeRoute
+  '/api/tg/quests': typeof ApiTgQuestsRouteWithChildren
+  '/api/tg/tasks': typeof ApiTgTasksRouteWithChildren
   '/api/trading/arbitrage-scan': typeof ApiTradingArbitrageScanRoute
   '/api/trading/health': typeof ApiTradingHealthRoute
   '/api/trading/manifest': typeof ApiTradingManifestRoute
@@ -743,15 +897,25 @@ export interface FileRoutesByFullPath {
   '/api/trading/swap-preview': typeof ApiTradingSwapPreviewRoute
   '/api/wallet/logout': typeof ApiWalletLogoutRoute
   '/api/wallet/sync': typeof ApiWalletSyncRoute
+  '/api/webhooks/quidli': typeof ApiWebhooksQuidliRoute
   '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
+  '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
+  '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
+  '/api/marketing/grove/x-post': typeof ApiMarketingGroveXPostRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
   '/api/social/neynar/authorize': typeof ApiSocialNeynarAuthorizeRoute
+  '/api/studio/preview/$projectId': typeof ApiStudioPreviewProjectIdRoute
+  '/api/tg/learn/complete': typeof ApiTgLearnCompleteRoute
+  '/api/tg/learn/modules': typeof ApiTgLearnModulesRoute
+  '/api/tg/quests/claim': typeof ApiTgQuestsClaimRoute
+  '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
+  '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
@@ -787,6 +951,7 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
@@ -802,6 +967,8 @@ export interface FileRoutesByTo {
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/studio/$projectId': typeof StudioProjectIdRoute
+  '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
   '/blog': typeof BlogIndexRoute
   '/docs': typeof DocsIndexRoute
@@ -811,6 +978,8 @@ export interface FileRoutesByTo {
   '/pass': typeof PassIndexRoute
   '/places': typeof PlacesIndexRoute
   '/signal': typeof SignalIndexRoute
+  '/studio': typeof StudioIndexRoute
+  '/tg': typeof TgIndexRoute
   '/wallet': typeof WalletIndexRoute
   '/welcome': typeof WelcomeIndexRoute
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
@@ -826,10 +995,12 @@ export interface FileRoutesByTo {
   '/api/market/listings': typeof ApiMarketListingsRoute
   '/api/market/manifest': typeof ApiMarketManifestRoute
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
+  '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
+  '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
   '/api/platform/waitlist': typeof ApiPlatformWaitlistRoute
@@ -840,6 +1011,12 @@ export interface FileRoutesByTo {
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
   '/api/social/sync-score': typeof ApiSocialSyncScoreRoute
+  '/api/tg/auth': typeof ApiTgAuthRoute
+  '/api/tg/home': typeof ApiTgHomeRoute
+  '/api/tg/leaderboard': typeof ApiTgLeaderboardRoute
+  '/api/tg/me': typeof ApiTgMeRoute
+  '/api/tg/quests': typeof ApiTgQuestsRouteWithChildren
+  '/api/tg/tasks': typeof ApiTgTasksRouteWithChildren
   '/api/trading/arbitrage-scan': typeof ApiTradingArbitrageScanRoute
   '/api/trading/health': typeof ApiTradingHealthRoute
   '/api/trading/manifest': typeof ApiTradingManifestRoute
@@ -849,15 +1026,25 @@ export interface FileRoutesByTo {
   '/api/trading/swap-preview': typeof ApiTradingSwapPreviewRoute
   '/api/wallet/logout': typeof ApiWalletLogoutRoute
   '/api/wallet/sync': typeof ApiWalletSyncRoute
+  '/api/webhooks/quidli': typeof ApiWebhooksQuidliRoute
   '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
+  '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
+  '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
+  '/api/marketing/grove/x-post': typeof ApiMarketingGroveXPostRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
   '/api/social/neynar/authorize': typeof ApiSocialNeynarAuthorizeRoute
+  '/api/studio/preview/$projectId': typeof ApiStudioPreviewProjectIdRoute
+  '/api/tg/learn/complete': typeof ApiTgLearnCompleteRoute
+  '/api/tg/learn/modules': typeof ApiTgLearnModulesRoute
+  '/api/tg/quests/claim': typeof ApiTgQuestsClaimRoute
+  '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
+  '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
@@ -895,6 +1082,7 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
@@ -910,6 +1098,8 @@ export interface FileRoutesById {
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/studio/$projectId': typeof StudioProjectIdRoute
+  '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -919,6 +1109,8 @@ export interface FileRoutesById {
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
   '/signal/': typeof SignalIndexRoute
+  '/studio/': typeof StudioIndexRoute
+  '/tg/': typeof TgIndexRoute
   '/wallet/': typeof WalletIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
@@ -934,10 +1126,12 @@ export interface FileRoutesById {
   '/api/market/listings': typeof ApiMarketListingsRoute
   '/api/market/manifest': typeof ApiMarketManifestRoute
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
+  '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
+  '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
   '/api/platform/waitlist': typeof ApiPlatformWaitlistRoute
@@ -948,6 +1142,12 @@ export interface FileRoutesById {
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
   '/api/social/sync-score': typeof ApiSocialSyncScoreRoute
+  '/api/tg/auth': typeof ApiTgAuthRoute
+  '/api/tg/home': typeof ApiTgHomeRoute
+  '/api/tg/leaderboard': typeof ApiTgLeaderboardRoute
+  '/api/tg/me': typeof ApiTgMeRoute
+  '/api/tg/quests': typeof ApiTgQuestsRouteWithChildren
+  '/api/tg/tasks': typeof ApiTgTasksRouteWithChildren
   '/api/trading/arbitrage-scan': typeof ApiTradingArbitrageScanRoute
   '/api/trading/health': typeof ApiTradingHealthRoute
   '/api/trading/manifest': typeof ApiTradingManifestRoute
@@ -957,15 +1157,25 @@ export interface FileRoutesById {
   '/api/trading/swap-preview': typeof ApiTradingSwapPreviewRoute
   '/api/wallet/logout': typeof ApiWalletLogoutRoute
   '/api/wallet/sync': typeof ApiWalletSyncRoute
+  '/api/webhooks/quidli': typeof ApiWebhooksQuidliRoute
   '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
+  '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
+  '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
+  '/api/marketing/grove/x-post': typeof ApiMarketingGroveXPostRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
   '/api/social/neynar/authorize': typeof ApiSocialNeynarAuthorizeRoute
+  '/api/studio/preview/$projectId': typeof ApiStudioPreviewProjectIdRoute
+  '/api/tg/learn/complete': typeof ApiTgLearnCompleteRoute
+  '/api/tg/learn/modules': typeof ApiTgLearnModulesRoute
+  '/api/tg/quests/claim': typeof ApiTgQuestsClaimRoute
+  '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
+  '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
@@ -1004,6 +1214,7 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/logout'
     | '/blog/$slug'
+    | '/blog/feed.xml'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -1019,6 +1230,8 @@ export interface FileRouteTypes {
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
+    | '/studio/$projectId'
+    | '/tg/dev'
     | '/wallet/packs'
     | '/blog/'
     | '/docs/'
@@ -1028,6 +1241,8 @@ export interface FileRouteTypes {
     | '/pass/'
     | '/places/'
     | '/signal/'
+    | '/studio/'
+    | '/tg/'
     | '/wallet/'
     | '/welcome/'
     | '/0g/agentid/1.json'
@@ -1043,10 +1258,12 @@ export interface FileRouteTypes {
     | '/api/market/listings'
     | '/api/market/manifest'
     | '/api/market/sample-mint'
+    | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
+    | '/api/platform/funnel-baseline'
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
     | '/api/platform/waitlist'
@@ -1057,6 +1274,12 @@ export interface FileRouteTypes {
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
     | '/api/social/sync-score'
+    | '/api/tg/auth'
+    | '/api/tg/home'
+    | '/api/tg/leaderboard'
+    | '/api/tg/me'
+    | '/api/tg/quests'
+    | '/api/tg/tasks'
     | '/api/trading/arbitrage-scan'
     | '/api/trading/health'
     | '/api/trading/manifest'
@@ -1066,15 +1289,25 @@ export interface FileRouteTypes {
     | '/api/trading/swap-preview'
     | '/api/wallet/logout'
     | '/api/wallet/sync'
+    | '/api/webhooks/quidli'
     | '/api/webhooks/stripe'
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/market/bcc/solana-route'
+    | '/api/marketing/grove/farcaster-post'
+    | '/api/marketing/grove/tick'
+    | '/api/marketing/grove/x-post'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
     | '/api/social/neynar/authorize'
+    | '/api/studio/preview/$projectId'
+    | '/api/tg/learn/complete'
+    | '/api/tg/learn/modules'
+    | '/api/tg/quests/claim'
+    | '/api/tg/tasks/complete'
+    | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
     | '/api/pulse/feed/$id/comments'
   fileRoutesByTo: FileRoutesByTo
@@ -1110,6 +1343,7 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/logout'
     | '/blog/$slug'
+    | '/blog/feed.xml'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -1125,6 +1359,8 @@ export interface FileRouteTypes {
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
+    | '/studio/$projectId'
+    | '/tg/dev'
     | '/wallet/packs'
     | '/blog'
     | '/docs'
@@ -1134,6 +1370,8 @@ export interface FileRouteTypes {
     | '/pass'
     | '/places'
     | '/signal'
+    | '/studio'
+    | '/tg'
     | '/wallet'
     | '/welcome'
     | '/0g/agentid/1.json'
@@ -1149,10 +1387,12 @@ export interface FileRouteTypes {
     | '/api/market/listings'
     | '/api/market/manifest'
     | '/api/market/sample-mint'
+    | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
+    | '/api/platform/funnel-baseline'
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
     | '/api/platform/waitlist'
@@ -1163,6 +1403,12 @@ export interface FileRouteTypes {
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
     | '/api/social/sync-score'
+    | '/api/tg/auth'
+    | '/api/tg/home'
+    | '/api/tg/leaderboard'
+    | '/api/tg/me'
+    | '/api/tg/quests'
+    | '/api/tg/tasks'
     | '/api/trading/arbitrage-scan'
     | '/api/trading/health'
     | '/api/trading/manifest'
@@ -1172,15 +1418,25 @@ export interface FileRouteTypes {
     | '/api/trading/swap-preview'
     | '/api/wallet/logout'
     | '/api/wallet/sync'
+    | '/api/webhooks/quidli'
     | '/api/webhooks/stripe'
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/market/bcc/solana-route'
+    | '/api/marketing/grove/farcaster-post'
+    | '/api/marketing/grove/tick'
+    | '/api/marketing/grove/x-post'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
     | '/api/social/neynar/authorize'
+    | '/api/studio/preview/$projectId'
+    | '/api/tg/learn/complete'
+    | '/api/tg/learn/modules'
+    | '/api/tg/quests/claim'
+    | '/api/tg/tasks/complete'
+    | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
     | '/api/pulse/feed/$id/comments'
   id:
@@ -1217,6 +1473,7 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/logout'
     | '/blog/$slug'
+    | '/blog/feed.xml'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -1232,6 +1489,8 @@ export interface FileRouteTypes {
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
+    | '/studio/$projectId'
+    | '/tg/dev'
     | '/wallet/packs'
     | '/blog/'
     | '/docs/'
@@ -1241,6 +1500,8 @@ export interface FileRouteTypes {
     | '/pass/'
     | '/places/'
     | '/signal/'
+    | '/studio/'
+    | '/tg/'
     | '/wallet/'
     | '/welcome/'
     | '/0g/agentid/1.json'
@@ -1256,10 +1517,12 @@ export interface FileRouteTypes {
     | '/api/market/listings'
     | '/api/market/manifest'
     | '/api/market/sample-mint'
+    | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
+    | '/api/platform/funnel-baseline'
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
     | '/api/platform/waitlist'
@@ -1270,6 +1533,12 @@ export interface FileRouteTypes {
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
     | '/api/social/sync-score'
+    | '/api/tg/auth'
+    | '/api/tg/home'
+    | '/api/tg/leaderboard'
+    | '/api/tg/me'
+    | '/api/tg/quests'
+    | '/api/tg/tasks'
     | '/api/trading/arbitrage-scan'
     | '/api/trading/health'
     | '/api/trading/manifest'
@@ -1279,15 +1548,25 @@ export interface FileRouteTypes {
     | '/api/trading/swap-preview'
     | '/api/wallet/logout'
     | '/api/wallet/sync'
+    | '/api/webhooks/quidli'
     | '/api/webhooks/stripe'
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/market/bcc/solana-route'
+    | '/api/marketing/grove/farcaster-post'
+    | '/api/marketing/grove/tick'
+    | '/api/marketing/grove/x-post'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
     | '/api/social/neynar/authorize'
+    | '/api/studio/preview/$projectId'
+    | '/api/tg/learn/complete'
+    | '/api/tg/learn/modules'
+    | '/api/tg/quests/claim'
+    | '/api/tg/tasks/complete'
+    | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
     | '/api/pulse/feed/$id/comments'
   fileRoutesById: FileRoutesById
@@ -1325,6 +1604,7 @@ export interface RootRouteChildren {
   AuthLoginRoute: typeof AuthLoginRoute
   AuthLogoutRoute: typeof AuthLogoutRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogFeedDotxmlRoute: typeof BlogFeedDotxmlRoute
   DocsSlugRoute: typeof DocsSlugRoute
   DropsSlugRoute: typeof DropsSlugRoute
   DropsArtRoute: typeof DropsArtRoute
@@ -1334,6 +1614,8 @@ export interface RootRouteChildren {
   PSlugRoute: typeof PSlugRoute
   SelfAgentidRoute: typeof SelfAgentidRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
+  StudioProjectIdRoute: typeof StudioProjectIdRoute
+  TgDevRoute: typeof TgDevRoute
   WalletPacksRoute: typeof WalletPacksRoute
   BlogIndexRoute: typeof BlogIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
@@ -1342,6 +1624,8 @@ export interface RootRouteChildren {
   PassIndexRoute: typeof PassIndexRoute
   PlacesIndexRoute: typeof PlacesIndexRoute
   SignalIndexRoute: typeof SignalIndexRoute
+  StudioIndexRoute: typeof StudioIndexRoute
+  TgIndexRoute: typeof TgIndexRoute
   WalletIndexRoute: typeof WalletIndexRoute
   WelcomeIndexRoute: typeof WelcomeIndexRoute
   ApiActivityLogRoute: typeof ApiActivityLogRoute
@@ -1356,10 +1640,12 @@ export interface RootRouteChildren {
   ApiMarketListingsRoute: typeof ApiMarketListingsRoute
   ApiMarketManifestRoute: typeof ApiMarketManifestRoute
   ApiMarketSampleMintRoute: typeof ApiMarketSampleMintRoute
+  ApiMarketXrpQuoteRoute: typeof ApiMarketXrpQuoteRoute
   ApiMarketingXPostRoute: typeof ApiMarketingXPostRoute
   ApiMemberLeaderboardRoute: typeof ApiMemberLeaderboardRoute
   ApiMemberMeRoute: typeof ApiMemberMeRoute
   ApiPlatformAnalyticsRoute: typeof ApiPlatformAnalyticsRoute
+  ApiPlatformFunnelBaselineRoute: typeof ApiPlatformFunnelBaselineRoute
   ApiPlatformOnboardingCompleteRoute: typeof ApiPlatformOnboardingCompleteRoute
   ApiPlatformSiweNonceRoute: typeof ApiPlatformSiweNonceRoute
   ApiPlatformWaitlistRoute: typeof ApiPlatformWaitlistRoute
@@ -1370,6 +1656,12 @@ export interface RootRouteChildren {
   ApiSocialLinkFarcasterInternalRoute: typeof ApiSocialLinkFarcasterInternalRoute
   ApiSocialSuggestionsRoute: typeof ApiSocialSuggestionsRoute
   ApiSocialSyncScoreRoute: typeof ApiSocialSyncScoreRoute
+  ApiTgAuthRoute: typeof ApiTgAuthRoute
+  ApiTgHomeRoute: typeof ApiTgHomeRoute
+  ApiTgLeaderboardRoute: typeof ApiTgLeaderboardRoute
+  ApiTgMeRoute: typeof ApiTgMeRoute
+  ApiTgQuestsRoute: typeof ApiTgQuestsRouteWithChildren
+  ApiTgTasksRoute: typeof ApiTgTasksRouteWithChildren
   ApiTradingArbitrageScanRoute: typeof ApiTradingArbitrageScanRoute
   ApiTradingHealthRoute: typeof ApiTradingHealthRoute
   ApiTradingManifestRoute: typeof ApiTradingManifestRoute
@@ -1379,14 +1671,22 @@ export interface RootRouteChildren {
   ApiTradingSwapPreviewRoute: typeof ApiTradingSwapPreviewRoute
   ApiWalletLogoutRoute: typeof ApiWalletLogoutRoute
   ApiWalletSyncRoute: typeof ApiWalletSyncRoute
+  ApiWebhooksQuidliRoute: typeof ApiWebhooksQuidliRoute
   ApiWebhooksStripeRoute: typeof ApiWebhooksStripeRoute
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
+  ApiMarketingGroveFarcasterPostRoute: typeof ApiMarketingGroveFarcasterPostRoute
+  ApiMarketingGroveTickRoute: typeof ApiMarketingGroveTickRoute
+  ApiMarketingGroveXPostRoute: typeof ApiMarketingGroveXPostRoute
   ApiPulseAttestationLatestRoute: typeof ApiPulseAttestationLatestRoute
   ApiPulseDigestDayIdRoute: typeof ApiPulseDigestDayIdRoute
   ApiPulseIngestManualRoute: typeof ApiPulseIngestManualRoute
   ApiSocialNeynarAuthorizeRoute: typeof ApiSocialNeynarAuthorizeRoute
+  ApiStudioPreviewProjectIdRoute: typeof ApiStudioPreviewProjectIdRoute
+  ApiTgLearnCompleteRoute: typeof ApiTgLearnCompleteRoute
+  ApiTgLearnModulesRoute: typeof ApiTgLearnModulesRoute
+  ApiTgWalletTonConnectedRoute: typeof ApiTgWalletTonConnectedRoute
   ApiWalletPacksCheckoutRoute: typeof ApiWalletPacksCheckoutRoute
 }
 
@@ -1588,6 +1888,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WalletIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tg/': {
+      id: '/tg/'
+      path: '/tg'
+      fullPath: '/tg/'
+      preLoaderRoute: typeof TgIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/': {
+      id: '/studio/'
+      path: '/studio'
+      fullPath: '/studio/'
+      preLoaderRoute: typeof StudioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signal/': {
       id: '/signal/'
       path: '/signal'
@@ -1649,6 +1963,20 @@ declare module '@tanstack/react-router' {
       path: '/wallet/packs'
       fullPath: '/wallet/packs'
       preLoaderRoute: typeof WalletPacksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tg/dev': {
+      id: '/tg/dev'
+      path: '/tg/dev'
+      fullPath: '/tg/dev'
+      preLoaderRoute: typeof TgDevRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/$projectId': {
+      id: '/studio/$projectId'
+      path: '/studio/$projectId'
+      fullPath: '/studio/$projectId'
+      preLoaderRoute: typeof StudioProjectIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap/xml': {
@@ -1756,6 +2084,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/feed.xml': {
+      id: '/blog/feed.xml'
+      path: '/blog/feed.xml'
+      fullPath: '/blog/feed.xml'
+      preLoaderRoute: typeof BlogFeedDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
@@ -1826,6 +2161,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWebhooksStripeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/webhooks/quidli': {
+      id: '/api/webhooks/quidli'
+      path: '/api/webhooks/quidli'
+      fullPath: '/api/webhooks/quidli'
+      preLoaderRoute: typeof ApiWebhooksQuidliRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/wallet/sync': {
       id: '/api/wallet/sync'
       path: '/api/wallet/sync'
@@ -1887,6 +2229,48 @@ declare module '@tanstack/react-router' {
       path: '/api/trading/arbitrage-scan'
       fullPath: '/api/trading/arbitrage-scan'
       preLoaderRoute: typeof ApiTradingArbitrageScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/tasks': {
+      id: '/api/tg/tasks'
+      path: '/api/tg/tasks'
+      fullPath: '/api/tg/tasks'
+      preLoaderRoute: typeof ApiTgTasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/quests': {
+      id: '/api/tg/quests'
+      path: '/api/tg/quests'
+      fullPath: '/api/tg/quests'
+      preLoaderRoute: typeof ApiTgQuestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/me': {
+      id: '/api/tg/me'
+      path: '/api/tg/me'
+      fullPath: '/api/tg/me'
+      preLoaderRoute: typeof ApiTgMeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/leaderboard': {
+      id: '/api/tg/leaderboard'
+      path: '/api/tg/leaderboard'
+      fullPath: '/api/tg/leaderboard'
+      preLoaderRoute: typeof ApiTgLeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/home': {
+      id: '/api/tg/home'
+      path: '/api/tg/home'
+      fullPath: '/api/tg/home'
+      preLoaderRoute: typeof ApiTgHomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/auth': {
+      id: '/api/tg/auth'
+      path: '/api/tg/auth'
+      fullPath: '/api/tg/auth'
+      preLoaderRoute: typeof ApiTgAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/social/sync-score': {
@@ -1959,6 +2343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPlatformOnboardingCompleteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/platform/funnel-baseline': {
+      id: '/api/platform/funnel-baseline'
+      path: '/api/platform/funnel-baseline'
+      fullPath: '/api/platform/funnel-baseline'
+      preLoaderRoute: typeof ApiPlatformFunnelBaselineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/platform/analytics': {
       id: '/api/platform/analytics'
       path: '/api/platform/analytics'
@@ -1985,6 +2376,13 @@ declare module '@tanstack/react-router' {
       path: '/api/marketing/x-post'
       fullPath: '/api/marketing/x-post'
       preLoaderRoute: typeof ApiMarketingXPostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/market/xrp-quote': {
+      id: '/api/market/xrp-quote'
+      path: '/api/market/xrp-quote'
+      fullPath: '/api/market/xrp-quote'
+      preLoaderRoute: typeof ApiMarketXrpQuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/market/sample-mint': {
@@ -2085,6 +2483,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWalletPacksCheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/tg/wallet/ton-connected': {
+      id: '/api/tg/wallet/ton-connected'
+      path: '/api/tg/wallet/ton-connected'
+      fullPath: '/api/tg/wallet/ton-connected'
+      preLoaderRoute: typeof ApiTgWalletTonConnectedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/tasks/complete': {
+      id: '/api/tg/tasks/complete'
+      path: '/complete'
+      fullPath: '/api/tg/tasks/complete'
+      preLoaderRoute: typeof ApiTgTasksCompleteRouteImport
+      parentRoute: typeof ApiTgTasksRoute
+    }
+    '/api/tg/quests/claim': {
+      id: '/api/tg/quests/claim'
+      path: '/claim'
+      fullPath: '/api/tg/quests/claim'
+      preLoaderRoute: typeof ApiTgQuestsClaimRouteImport
+      parentRoute: typeof ApiTgQuestsRoute
+    }
+    '/api/tg/learn/modules': {
+      id: '/api/tg/learn/modules'
+      path: '/api/tg/learn/modules'
+      fullPath: '/api/tg/learn/modules'
+      preLoaderRoute: typeof ApiTgLearnModulesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tg/learn/complete': {
+      id: '/api/tg/learn/complete'
+      path: '/api/tg/learn/complete'
+      fullPath: '/api/tg/learn/complete'
+      preLoaderRoute: typeof ApiTgLearnCompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/studio/preview/$projectId': {
+      id: '/api/studio/preview/$projectId'
+      path: '/api/studio/preview/$projectId'
+      fullPath: '/api/studio/preview/$projectId'
+      preLoaderRoute: typeof ApiStudioPreviewProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/social/neynar/authorize': {
       id: '/api/social/neynar/authorize'
       path: '/api/social/neynar/authorize'
@@ -2111,6 +2551,27 @@ declare module '@tanstack/react-router' {
       path: '/api/pulse/attestation/latest'
       fullPath: '/api/pulse/attestation/latest'
       preLoaderRoute: typeof ApiPulseAttestationLatestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketing/grove/x-post': {
+      id: '/api/marketing/grove/x-post'
+      path: '/api/marketing/grove/x-post'
+      fullPath: '/api/marketing/grove/x-post'
+      preLoaderRoute: typeof ApiMarketingGroveXPostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketing/grove/tick': {
+      id: '/api/marketing/grove/tick'
+      path: '/api/marketing/grove/tick'
+      fullPath: '/api/marketing/grove/tick'
+      preLoaderRoute: typeof ApiMarketingGroveTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketing/grove/farcaster-post': {
+      id: '/api/marketing/grove/farcaster-post'
+      path: '/api/marketing/grove/farcaster-post'
+      fullPath: '/api/marketing/grove/farcaster-post'
+      preLoaderRoute: typeof ApiMarketingGroveFarcasterPostRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/market/bcc/solana-route': {
@@ -2198,6 +2659,30 @@ const ApiPulseFeedRouteWithChildren = ApiPulseFeedRoute._addFileChildren(
   ApiPulseFeedRouteChildren,
 )
 
+interface ApiTgQuestsRouteChildren {
+  ApiTgQuestsClaimRoute: typeof ApiTgQuestsClaimRoute
+}
+
+const ApiTgQuestsRouteChildren: ApiTgQuestsRouteChildren = {
+  ApiTgQuestsClaimRoute: ApiTgQuestsClaimRoute,
+}
+
+const ApiTgQuestsRouteWithChildren = ApiTgQuestsRoute._addFileChildren(
+  ApiTgQuestsRouteChildren,
+)
+
+interface ApiTgTasksRouteChildren {
+  ApiTgTasksCompleteRoute: typeof ApiTgTasksCompleteRoute
+}
+
+const ApiTgTasksRouteChildren: ApiTgTasksRouteChildren = {
+  ApiTgTasksCompleteRoute: ApiTgTasksCompleteRoute,
+}
+
+const ApiTgTasksRouteWithChildren = ApiTgTasksRoute._addFileChildren(
+  ApiTgTasksRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -2231,6 +2716,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
   AuthLogoutRoute: AuthLogoutRoute,
   BlogSlugRoute: BlogSlugRoute,
+  BlogFeedDotxmlRoute: BlogFeedDotxmlRoute,
   DocsSlugRoute: DocsSlugRoute,
   DropsSlugRoute: DropsSlugRoute,
   DropsArtRoute: DropsArtRoute,
@@ -2240,6 +2726,8 @@ const rootRouteChildren: RootRouteChildren = {
   PSlugRoute: PSlugRoute,
   SelfAgentidRoute: SelfAgentidRoute,
   SitemapXmlRoute: SitemapXmlRoute,
+  StudioProjectIdRoute: StudioProjectIdRoute,
+  TgDevRoute: TgDevRoute,
   WalletPacksRoute: WalletPacksRoute,
   BlogIndexRoute: BlogIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
@@ -2248,6 +2736,8 @@ const rootRouteChildren: RootRouteChildren = {
   PassIndexRoute: PassIndexRoute,
   PlacesIndexRoute: PlacesIndexRoute,
   SignalIndexRoute: SignalIndexRoute,
+  StudioIndexRoute: StudioIndexRoute,
+  TgIndexRoute: TgIndexRoute,
   WalletIndexRoute: WalletIndexRoute,
   WelcomeIndexRoute: WelcomeIndexRoute,
   ApiActivityLogRoute: ApiActivityLogRoute,
@@ -2262,10 +2752,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMarketListingsRoute: ApiMarketListingsRoute,
   ApiMarketManifestRoute: ApiMarketManifestRoute,
   ApiMarketSampleMintRoute: ApiMarketSampleMintRoute,
+  ApiMarketXrpQuoteRoute: ApiMarketXrpQuoteRoute,
   ApiMarketingXPostRoute: ApiMarketingXPostRoute,
   ApiMemberLeaderboardRoute: ApiMemberLeaderboardRoute,
   ApiMemberMeRoute: ApiMemberMeRoute,
   ApiPlatformAnalyticsRoute: ApiPlatformAnalyticsRoute,
+  ApiPlatformFunnelBaselineRoute: ApiPlatformFunnelBaselineRoute,
   ApiPlatformOnboardingCompleteRoute: ApiPlatformOnboardingCompleteRoute,
   ApiPlatformSiweNonceRoute: ApiPlatformSiweNonceRoute,
   ApiPlatformWaitlistRoute: ApiPlatformWaitlistRoute,
@@ -2276,6 +2768,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiSocialLinkFarcasterInternalRoute: ApiSocialLinkFarcasterInternalRoute,
   ApiSocialSuggestionsRoute: ApiSocialSuggestionsRoute,
   ApiSocialSyncScoreRoute: ApiSocialSyncScoreRoute,
+  ApiTgAuthRoute: ApiTgAuthRoute,
+  ApiTgHomeRoute: ApiTgHomeRoute,
+  ApiTgLeaderboardRoute: ApiTgLeaderboardRoute,
+  ApiTgMeRoute: ApiTgMeRoute,
+  ApiTgQuestsRoute: ApiTgQuestsRouteWithChildren,
+  ApiTgTasksRoute: ApiTgTasksRouteWithChildren,
   ApiTradingArbitrageScanRoute: ApiTradingArbitrageScanRoute,
   ApiTradingHealthRoute: ApiTradingHealthRoute,
   ApiTradingManifestRoute: ApiTradingManifestRoute,
@@ -2285,14 +2783,22 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTradingSwapPreviewRoute: ApiTradingSwapPreviewRoute,
   ApiWalletLogoutRoute: ApiWalletLogoutRoute,
   ApiWalletSyncRoute: ApiWalletSyncRoute,
+  ApiWebhooksQuidliRoute: ApiWebhooksQuidliRoute,
   ApiWebhooksStripeRoute: ApiWebhooksStripeRoute,
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
+  ApiMarketingGroveFarcasterPostRoute: ApiMarketingGroveFarcasterPostRoute,
+  ApiMarketingGroveTickRoute: ApiMarketingGroveTickRoute,
+  ApiMarketingGroveXPostRoute: ApiMarketingGroveXPostRoute,
   ApiPulseAttestationLatestRoute: ApiPulseAttestationLatestRoute,
   ApiPulseDigestDayIdRoute: ApiPulseDigestDayIdRoute,
   ApiPulseIngestManualRoute: ApiPulseIngestManualRoute,
   ApiSocialNeynarAuthorizeRoute: ApiSocialNeynarAuthorizeRoute,
+  ApiStudioPreviewProjectIdRoute: ApiStudioPreviewProjectIdRoute,
+  ApiTgLearnCompleteRoute: ApiTgLearnCompleteRoute,
+  ApiTgLearnModulesRoute: ApiTgLearnModulesRoute,
+  ApiTgWalletTonConnectedRoute: ApiTgWalletTonConnectedRoute,
   ApiWalletPacksCheckoutRoute: ApiWalletPacksCheckoutRoute,
 }
 export const routeTree = rootRouteImport

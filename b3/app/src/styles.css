@@ -206,6 +206,31 @@
     padding-bottom: calc(6.25rem + env(safe-area-inset-bottom, 0px));
   }
 
+  /** Floating controls — left side on mobile so Profile tab stays clear */
+  .bottom-floating-safe {
+    bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .bottom-floating-high {
+    bottom: calc(8.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  @media (min-width: 640px) {
+    .bottom-floating-safe {
+      bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .bottom-floating-high {
+      bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  /** Modal sheet: between top safe area and dock nav */
+  .inset-sheet-above-nav {
+    top: max(0.75rem, env(safe-area-inset-top, 0px));
+    bottom: calc(6.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
   .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
@@ -601,7 +626,7 @@ html.bcd-mint-celebrate::before {
   --radius: 0.5rem;
   --background: oklch(0.16 0.012 280);
   --foreground: oklch(0.96 0.008 80);
-  --card: oklch(0.20 0.014 280);
+  --card: oklch(0.2 0.014 280);
   --card-foreground: oklch(0.96 0.008 80);
   --popover: oklch(0.18 0.012 280);
   --popover-foreground: oklch(0.96 0.008 80);
@@ -615,15 +640,16 @@ html.bcd-mint-celebrate::before {
   --accent-foreground: oklch(0.98 0.008 80);
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: oklch(0.98 0.008 80);
-  --border: oklch(0.30 0.018 280 / 60%);
-  --input: oklch(0.30 0.018 280 / 60%);
+  --border: oklch(0.3 0.018 280 / 60%);
+  --input: oklch(0.3 0.018 280 / 60%);
   --ring: oklch(0.82 0.12 78);
   --gold: oklch(0.82 0.12 78);
   --ember: oklch(0.62 0.18 28);
   --font-display: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --gradient-aurora: radial-gradient(ellipse at top, oklch(0.28 0.08 60 / 0.4), transparent 60%),
-    radial-gradient(ellipse at bottom, oklch(0.22 0.10 300 / 0.35), transparent 60%);
+  --gradient-aurora:
+    radial-gradient(ellipse at top, oklch(0.28 0.08 60 / 0.4), transparent 60%),
+    radial-gradient(ellipse at bottom, oklch(0.22 0.1 300 / 0.35), transparent 60%);
   --gradient-gold: linear-gradient(135deg, oklch(0.86 0.13 82), oklch(0.72 0.14 50));
   --shadow-glow: 0 0 80px -10px oklch(0.82 0.12 78 / 0.35);
   --shadow-deep: 0 30px 80px -20px oklch(0 0 0 / 0.6);
@@ -690,7 +716,11 @@ html.bcd-mint-celebrate::before {
   border: 1px solid oklch(1 0 0 / 0.06);
 }
 .art-module .exhibition-vignette {
-  background: radial-gradient(ellipse at center, transparent 30%, oklch(0.14 0.012 280 / 0.85) 100%);
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    oklch(0.14 0.012 280 / 0.85) 100%
+  );
 }
 .art-module .exhibition-panel {
   border: 1px solid oklch(1 0 0 / 0.06);

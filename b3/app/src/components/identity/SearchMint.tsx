@@ -3,7 +3,7 @@
 import { useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { startTransition, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { usePrivy } from "@privy-io/react-auth";
 import {
@@ -45,13 +45,21 @@ function hasBrowserWallet(): boolean {
 
 function SearchMintPrivyLogin({ onError }: { onError: (msg: string) => void }) {
   const { login, ready } = usePrivy();
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   return (
     <button
       type="button"
-      disabled={!ready}
+      disabled={!ready || !hydrated}
       onClick={() => {
         onError("");
-        login();
+        startTransition(() => {
+          void login();
+        });
       }}
       className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
     >

@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # Ensure nginx proxies PUBLIC_DOMAIN → 127.0.0.1:APP_PORT (default 0x subdomain → 3010).
-# If /etc/nginx/sites-available/0x.buildingculture.capital already exists (Certbot), only
+# If /etc/nginx/sites-available/0x.buildingcultureid.space already exists (Certbot), only
 # updates proxy_pass port inside it. Otherwise writes sites-available/buildingculture-0x.conf.
 #
 #   export DEPLOY_HOST=root@your.vps.ip
 #   export APP_PORT=3010
-#   export PUBLIC_DOMAIN=0x.buildingculture.capital
+#   export PUBLIC_DOMAIN=0x.buildingcultureid.space
 #   ./scripts/install-nginx-0x-on-server.sh
 #
 set -euo pipefail
 HOST="${DEPLOY_HOST:?set DEPLOY_HOST}"
 APP_PORT="${APP_PORT:-3010}"
-DOMAIN="${PUBLIC_DOMAIN:-0x.buildingculture.capital}"
+DOMAIN="${PUBLIC_DOMAIN:-0x.buildingcultureid.space}"
 
 SSH_OPTS=( -o BatchMode=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=240 )
 SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_wgsdex}"

@@ -19,7 +19,10 @@ export function ArtFooter() {
           >
             Contract
           </a>
-          <a href="https://buildingcultureid.space/" className="transition hover:text-foreground">
+          <a
+            href="https://app.buildingcultureid.space/"
+            className="transition hover:text-foreground"
+          >
             Identity
           </a>
           <a href="/faq" className="transition hover:text-foreground">

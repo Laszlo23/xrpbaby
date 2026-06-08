@@ -10,6 +10,6 @@
 
 ## Environment
 
-- `SIWE_ALLOWED_DOMAINS` — comma-separated hostnames allowed in SIWE messages (e.g. `app.buildingculture.capital`).
+- `SIWE_ALLOWED_DOMAINS` — comma-separated hostnames allowed in SIWE messages (e.g. `app.buildingcultureid.space`).
 - `WALLET_AUTH_CHAIN_IDS` — defaults to `8453` (Base).
 - `STRAPI_API_TOKEN` — use for server-to-server reads (e.g. `/docs` in the frontend).

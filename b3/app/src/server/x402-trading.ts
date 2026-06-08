@@ -151,10 +151,14 @@ export async function handleTradingQuoteBccGet(request: Request): Promise<Respon
     request,
     {
       price: x402TradingQuotePrice(),
-      description: "ETH→BCC path with Aerodrome or Uniswap fallback (BUILDCHAIN trading agent, x402)",
+      description:
+        "ETH→BCC path with Aerodrome or Uniswap fallback (BUILDCHAIN trading agent, x402)",
     },
     async () => {
-      const r = await proxyTradingAgent(`/quote/bcc?${qs.toString()}`, { method: "GET", timeoutMs: 180_000 });
+      const r = await proxyTradingAgent(`/quote/bcc?${qs.toString()}`, {
+        method: "GET",
+        timeoutMs: 180_000,
+      });
       if (!r.ok) throw new Error(r.error);
       return {
         ok: true,

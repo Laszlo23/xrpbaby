@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY package.json package-lock.json ./
 COPY packages/contracts-sdk ./packages/contracts-sdk
 COPY packages/proof ./packages/proof
+COPY packages/bcd-orchestration ./packages/bcd-orchestration
 COPY packages/agent-runtime ./packages/agent-runtime
 COPY frontend/package.json ./frontend/
 COPY frontend/prisma ./frontend/prisma
@@ -24,6 +25,7 @@ RUN npm ci --legacy-peer-deps
 
 RUN npm run build -w @bc/contracts-sdk \
   && npm run build -w @bc/proof \
+  && npm run build -w @bc/bcd-orchestration \
   && npm run build -w @bc/agent-runtime
 
 FROM node:22-bookworm-slim AS runner

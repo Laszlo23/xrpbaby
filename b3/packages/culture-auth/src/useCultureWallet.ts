@@ -27,6 +27,13 @@ export function useCultureWallet(authHubOrigin: string = DEFAULT_AUTH_HUB_ORIGIN
         window.location.href = authHubLoginUrl(window.location.href, authHubOrigin);
         return;
       }
+      // Avoid triggering auth state updates during hydration-sensitive render windows.
+      if (typeof window !== "undefined" && typeof window.requestAnimationFrame === "function") {
+        window.requestAnimationFrame(() => {
+          void login();
+        });
+        return;
+      }
       void login();
     },
     signOut: (returnUrl?: string) => {

@@ -62,6 +62,8 @@ export const complianceAbi = parseAbi([
 export const registryAbi = parseAbi([
   "function nextPropertyId() view returns (uint256)",
   "function propertyExists(uint256 propertyId) view returns (bool)",
+  "function registerProperty(bytes32 externalRefHash, bytes32 metadataHash, address initialRecordOwner) returns (uint256 propertyId)",
+  "function addDocument(uint256 propertyId, bytes32 docKind, bytes32 storageRoot)",
 ]);
 
 export const routerAbi = parseAbi([
@@ -84,6 +86,7 @@ export const pairAbi = parseAbi([
 
 export const shareFactoryAbi = parseAbi([
   "function tokenByPropertyId(uint256 propertyId) view returns (address)",
+  "function createPropertyShare(uint256 propertyId, string name_, string symbol_, string metadataURI_, uint256 supplyCap_, address admin, uint256 initialSupply, address initialReceiver) returns (address token)",
 ]);
 
 export const erc20Abi = parseAbi([

@@ -13,6 +13,7 @@ fi
 
 BASE="${1:-${PUBLIC_APP_ORIGIN:-https://app.buildingcultureid.space}}"
 BASE="${BASE%/}"
+STRICT_SMOKE="${STRICT_SMOKE:-1}"
 
 echo "Production smoke: $BASE"
 fail=0
@@ -72,15 +73,159 @@ else
   fail=1
 fi
 
-# Pulse metrics needs Prisma native engine; prebuilt worker bundle may return 500 until Node adapter deploy.
+check_json_ok() {
+  local path="$1"
+  local allow_unreachable="${2:-0}"
+  local data
+  if ! data=$(curl -s --max-time 20 "${BASE}${path}"); then
+    echo "FAIL ${path} → request_failed"
+    fail=1
+    return
+  fi
+  if [[ "$allow_unreachable" == "1" ]]; then
+    if printf "%s" "$data" | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{const j=JSON.parse(d);if(j&&j.ok)process.exit(0);if(j&&j.reachable===false)process.exit(2);process.exit(1)}catch{process.exit(1)}})"; then
+      echo "OK  ${path} → ok:true"
+      return
+    else
+      local rc=$?
+      if [[ "$rc" -eq 2 ]]; then
+        echo "WARN ${path} → reachable:false (upstream trading agent offline)"
+        return
+      fi
+      echo "FAIL ${path} → ok:false_or_invalid_json"
+      fail=1
+      return
+    fi
+  fi
+  if printf "%s" "$data" | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{const j=JSON.parse(d);process.exit(j && j.ok ? 0 : 1)}catch{process.exit(1)}})"; then
+    echo "OK  ${path} → ok:true"
+  else
+    echo "FAIL ${path} → ok:false_or_invalid_json"
+    fail=1
+  fi
+}
+
 metrics_code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE}/api/pulse/metrics")
 if [[ "$metrics_code" =~ ^2 ]]; then
   echo "OK  /api/pulse/metrics → $metrics_code"
-elif [[ "$metrics_code" == "503" || "$metrics_code" == "500" ]]; then
-  echo "WARN /api/pulse/metrics → $metrics_code (DB/worker runtime — Pulse Coach still uses OpenAI directly)"
+elif [[ "$STRICT_SMOKE" == "0" ]] && [[ "$metrics_code" == "503" || "$metrics_code" == "500" ]]; then
+  echo "WARN /api/pulse/metrics → $metrics_code (strict mode disabled)"
 else
   echo "FAIL /api/pulse/metrics → $metrics_code"
   fail=1
+fi
+
+check_json_ok "/api/market/bcc"
+check_json_ok "/api/market/health"
+check_json_ok "/api/trading/health" "1"
+check_json_ok "/api/marketing/grove/tick"
+
+echo "--- Telegram Mini App ---"
+for path in /tg /tonconnect-manifest.json /meta/tonconnect-icon.png; do
+  check "$path"
+done
+
+if curl -s "${BASE}/tonconnect-manifest.json" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    const ok =
+      typeof j.url === 'string' && j.url.includes('/tg') &&
+      typeof j.iconUrl === 'string' && /\.png$/i.test(j.iconUrl) &&
+      typeof j.name === 'string';
+    process.exit(ok ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  /tonconnect-manifest.json → valid TON Connect manifest (PNG icon)"
+else
+  echo "FAIL /tonconnect-manifest.json → invalid or missing required fields"
+  fail=1
+fi
+
+check_tg_api() {
+  local method="$1"
+  local path="$2"
+  local data="${3:-}"
+  local response code body
+  if [[ "$method" == "POST" ]]; then
+    response=$(curl -s -w $'\n%{http_code}' -X POST "${BASE}${path}" \
+      -H "Content-Type: application/json" -d "${data}")
+  else
+    response=$(curl -s -w $'\n%{http_code}' "${BASE}${path}")
+  fi
+  code=$(printf '%s' "$response" | tail -n 1)
+  body=$(printf '%s' "$response" | sed '$d')
+  if [[ "$code" == "401" ]] && printf '%s' "$body" | grep -q "missing_init_data"; then
+    echo "OK  ${method} ${path} → 401 missing_init_data (TELEGRAM_BOT_TOKEN live)"
+  elif [[ "$code" == "503" ]] && printf '%s' "$body" | grep -q "telegram_not_configured"; then
+    echo "FAIL ${method} ${path} → telegram_not_configured (set TELEGRAM_BOT_TOKEN on server)"
+    fail=1
+  else
+    echo "FAIL ${method} ${path} → ${code} (expected 401 missing_init_data)"
+    fail=1
+  fi
+}
+
+check_tg_api GET "/api/tg/me"
+check_tg_api GET "/api/tg/home"
+check_tg_api GET "/api/tg/tasks"
+check_tg_api GET "/api/tg/leaderboard"
+check_tg_api GET "/api/tg/quests"
+check_tg_api POST "/api/tg/auth" "{}"
+
+if [[ -n "${TELEGRAM_BOT_TOKEN:-}" ]]; then
+  bot_json=$(curl -sf -m 20 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getChatMenuButton" 2>/dev/null || true)
+  if printf '%s' "$bot_json" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    const url=j?.result?.web_app?.url || '';
+    process.exit(j.ok && url.includes('/tg') ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+    echo "OK  Telegram bot menu → opens /tg"
+  else
+    echo "WARN Telegram bot menu → not verified (run npm run tg:setup)"
+  fi
+else
+  echo "WARN TELEGRAM_BOT_TOKEN not in env — skipped bot menu check"
+fi
+
+if curl -s "${BASE}/api/webhooks/quidli" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    process.exit(j.ok && j.service==='quidli-connect' ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  GET /api/webhooks/quidli → quidli-connect endpoint live"
+else
+  echo "WARN GET /api/webhooks/quidli → not reachable"
+fi
+
+grove_tick=$(curl -s "${BASE}/api/marketing/grove/tick")
+if printf '%s' "$grove_tick" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    process.exit(j.ok && j.telegramEnabled && j.telegramConfigured ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  Grove Telegram outbound → configured"
+else
+  echo "WARN Grove Telegram outbound → not configured (set GROVE_TELEGRAM_CHAT_ID)"
 fi
 
 if [[ "$fail" -ne 0 ]]; then

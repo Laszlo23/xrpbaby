@@ -1,18 +1,27 @@
 /**
- * Self-hosted production server for TanStack Start builds that emit a Workers-style
- * default export `{ fetch }` (see dist/server/index.js). Not used for Cloudflare deploys.
+ * Self-hosted production server for TanStack Start builds.
+ * Node builds emit dist/server/server.js; Cloudflare builds emit dist/server/index.js.
  *
  * Serves files from `dist/client` (CSS, JS, media, etc.); the SSR handler alone does not.
  */
 import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import worker from "../dist/server/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const distServerDir = path.resolve(__dirname, "..", "dist", "server");
+const serverEntryPath = ["server.js", "index.js"]
+  .map((name) => path.join(distServerDir, name))
+  .find((candidate) => fs.existsSync(candidate));
+if (!serverEntryPath) {
+  throw new Error(
+    "Missing dist/server/server.js or dist/server/index.js — run npm run build first.",
+  );
+}
+const worker = await import(pathToFileURL(serverEntryPath).href);
 const clientRoot = path.resolve(__dirname, "..", "dist", "client");
 
 /** Baseline headers for static files (avoid interfering with SSR / embedding flags). */

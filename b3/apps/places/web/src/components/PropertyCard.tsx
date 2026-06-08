@@ -148,7 +148,7 @@ export function PropertyCard({ propertyId, tokenAddress, name, symbol, demo }: P
             </Link>
           )}
           <Link
-            href={`/properties/${idStr}`}
+            href={`/marketplace/${idStr}`}
             className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border border-white/15 py-2.5 text-center text-sm font-semibold text-canvas transition hover:border-white/25 hover:bg-white/[0.06] sm:flex-none sm:px-6"
           >
             View Details

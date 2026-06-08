@@ -3,10 +3,7 @@ import { getContract } from "thirdweb";
 import { getAllValidListings } from "thirdweb/extensions/marketplace";
 import { defineChain } from "thirdweb";
 
-import {
-  getMarketplaceChainId,
-  getMarketplaceContractAddress,
-} from "@/server/market/env";
+import { getMarketplaceChainId, getMarketplaceContractAddress } from "@/server/market/env";
 
 export function getMarketThirdwebClient(): ThirdwebClient | null {
   const secret = process.env.THIRDWEB_SECRET_KEY?.trim();
@@ -77,8 +74,9 @@ export async function fetchMarketListings(opts: {
     let rows = raw.map(listingRow);
     const collection = opts.collection?.trim().toLowerCase();
     if (collection === "pit" || collection === "featured") {
-      const pit = process.env.VITE_PIT_NFT_CONTRACT_ADDRESS?.trim().toLowerCase()
-        ?? process.env.VITE_BASE_PRIMARY_CONTRACT_ADDRESS?.trim().toLowerCase();
+      const pit =
+        process.env.VITE_PIT_NFT_CONTRACT_ADDRESS?.trim().toLowerCase() ??
+        process.env.VITE_BASE_PRIMARY_CONTRACT_ADDRESS?.trim().toLowerCase();
       if (pit) {
         rows = rows.filter((r) => r.assetContractAddress.toLowerCase() === pit);
       }

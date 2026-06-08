@@ -28,7 +28,7 @@ Open the proof page and use the copy chips (**HQ on-chain**, **HQ GitHub**, **X 
 
 ## 3. Still required (you)
 
-- [ ] **Demo video** (≤3 min) — [shot list](./0G_HACKATHON_VIDEO_AND_X.md)
+- [ ] **Demo video** (≤3 min) — [shot list](./archive/0G_HACKATHON_VIDEO_AND_X.md)
 - [ ] **X post** with screenshot — **Copy X post** on proof page, hashtags `#0GHackathon` `#BuildOn0G`
 - [ ] Paste video + tweet URLs into HackQuest + [0G_HACKATHON_SUBMISSION.md](./0G_HACKATHON_SUBMISSION.md)
 
@@ -38,4 +38,7 @@ Open the proof page and use the copy chips (**HQ on-chain**, **HQ GitHub**, **X 
 curl -sI https://app.buildingcultureid.space/0g/agentid | head -1   # HTTP/2 200
 curl -s https://app.buildingcultureid.space/0g/agentid/1.json | head -3
 cd b3/contracts && forge test --match-contract AgentId
+cd b3 && npm run audit:env && npm run growth:audit
 ```
+
+**Verified 2026-06-05:** production proof page up, AgentId forge tests 5/5, `audit:env` + `growth:audit` pass. Still need **demo video** + **X post** before final HackQuest submit (see [0G_HACKATHON_SUBMISSION.md](./0G_HACKATHON_SUBMISSION.md) §8).

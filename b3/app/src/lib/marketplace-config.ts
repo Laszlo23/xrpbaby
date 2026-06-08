@@ -1,13 +1,13 @@
 import type { Address } from "viem";
 import { resolveMarketplaceContractAddress } from "@bc/contracts-sdk";
-import { getDefaultChain } from "@/lib/chains";
+import { getMarketplaceChain } from "@/lib/chains";
 
 function env(): Record<string, string | undefined> {
   return import.meta.env as Record<string, string | undefined>;
 }
 
 export function getMarketplaceContractAddress(): Address | undefined {
-  return resolveMarketplaceContractAddress(getDefaultChain().id, env());
+  return resolveMarketplaceContractAddress(getMarketplaceChain().id, env());
 }
 
 /** Documented platform fee in basis points (1 bp = 0.01%). Shown to sellers when set. */

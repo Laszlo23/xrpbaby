@@ -18,10 +18,10 @@ export async function handleMarketBccSolanaRouteGet(request: Request): Promise<R
   const [solPrice, bccPrice, arb] = await Promise.all([
     fetchSolUsd(),
     fetchBccUsd(),
-    proxyTradingAgent(
-      `/arbitrage/scan?sol_amount=${solAmount}&eth_amount=0.01&min_spread_bps=50`,
-      { method: "GET", timeoutMs: 120_000 },
-    ),
+    proxyTradingAgent(`/arbitrage/scan?sol_amount=${solAmount}&eth_amount=0.01&min_spread_bps=50`, {
+      method: "GET",
+      timeoutMs: 120_000,
+    }),
   ]);
 
   const routes = buildSolanaToBccRoutes();

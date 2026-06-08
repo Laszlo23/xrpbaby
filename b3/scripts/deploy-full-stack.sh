@@ -32,13 +32,9 @@ rsync -avz --delete \
   --exclude '**/node_modules' \
   --exclude '**/.git' \
   --exclude '**/.venv' \
-  --exclude 'apps/founding/frontend/.metro-cache' \
   --exclude 'apps/places' \
-  --exclude 'apps/identity/dist' \
-  --exclude 'apps/art/dist' \
-  --exclude 'apps/eco/dist' \
-  --exclude 'apps/hub/dist' \
-  --exclude 'apps/signal/dist' \
+  --exclude 'apps/**/cache' \
+  --exclude 'apps/**/out' \
   --exclude 'app/.env' \
   --exclude 'cms/.tmp' \
   --exclude 'cms/public/uploads/*' \

@@ -48,7 +48,8 @@ export type FinanceNavItem = {
 export const FINANCE_NAV_ITEMS: FinanceNavItem[] = [
   { href: "/invest", label: "Invest", hint: "Size a position & journey", icon: IconInvest },
   { href: "/trade", label: "Trade", hint: "Primary & secondary execution", icon: IconTrade },
-  { href: "/portfolio", label: "Portfolio", hint: "Your holdings", icon: IconPortfolio },
+  { href: "/dashboard", label: "Dashboard", hint: "Portfolio & BCC benefits", icon: IconPortfolio },
+  { href: "/list", label: "List property", hint: "Tokenize real estate", icon: IconInvest },
   { href: "/pool", label: "Pool", hint: "Add liquidity", icon: IconPool },
   { href: "/stake", label: "Stake", hint: "Stake native ETH for rewards", icon: IconStake },
 ];

@@ -121,3 +121,44 @@ export function captureShareClicked(payload: {
   if (!initialized) return;
   posthog.capture("share_clicked", props);
 }
+
+export function captureTelegramEvent(
+  event:
+    | "tg_auth_success"
+    | "tg_wallet_connected_ton"
+    | "tg_quest_claimed"
+    | "tg_xrp_quote_requested"
+    | "tg_learning_module_completed"
+    | "tg_gratitude_sent"
+    | "tg_task_completed"
+    | "tg_paid_action_started",
+  payload?: Record<string, unknown>,
+): void {
+  if (typeof window === "undefined") return;
+  initProductAnalytics();
+  const props = { ...marketingAttributionRecord(), ...(payload ?? {}) };
+  sentryBreadcrumb(event, props);
+  if (!initialized) return;
+  posthog.capture(event, props);
+}
+
+export function capturePanicSwitchEvent(
+  event:
+    | "panic_switch_started"
+    | "panic_switch_reset"
+    | "panic_switch_early_press"
+    | "panic_switch_failed"
+    | "panic_switch_active_complete"
+    | "panic_switch_endurance_started"
+    | "panic_switch_endurance_complete"
+    | "panic_switch_riddle_clue_unlocked"
+    | "panic_switch_riddle_track_unlocked",
+  payload?: Record<string, unknown>,
+): void {
+  if (typeof window === "undefined") return;
+  initProductAnalytics();
+  const props = { ...marketingAttributionRecord(), ...(payload ?? {}) };
+  sentryBreadcrumb(event, props);
+  if (!initialized) return;
+  posthog.capture(event, props);
+}

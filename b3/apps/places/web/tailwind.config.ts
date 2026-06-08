@@ -15,6 +15,15 @@ export default {
     extend: {
       spacing: spacingScale,
       colors: {
+        bc: {
+          obsidian: "#050505",
+          onyx: "#0A0A0A",
+          coal: "#121212",
+          cyan: "#00E5FF",
+          copper: "#C47C59",
+          lime: "#C5FF41",
+          sage: "#839788",
+        },
         background: "var(--background)",
         foreground: "var(--foreground)",
         /** Off-white — body on dark panels */
@@ -65,8 +74,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+        sans: ["var(--font-manrope)", "var(--font-geist-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-cabinet)", "var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-jetbrains)", "var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       keyframes: {
         "fade-up": {

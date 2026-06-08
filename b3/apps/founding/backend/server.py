@@ -77,14 +77,14 @@ XP_REWARDS = {
 }
 
 ECOSYSTEM_APPS = [
-    {"slug": "bc-capital", "name": "Building Culture Capital", "url": "https://buildingculture.capital", "xp": 100, "description": "The economic engine of the Building Culture ecosystem."},
+    {"slug": "bc-capital", "name": "Building Culture Capital", "url": "https://app.buildingcultureid.space", "xp": 100, "description": "The economic engine of the Building Culture ecosystem."},
     {"slug": "bc-app", "name": "Building Culture App", "url": "https://app.buildingcultureid.space", "xp": 100, "description": "Your daily companion for the rebuild movement."},
     {"slug": "bc-id", "name": "Building Culture ID", "url": "https://buildingcultureid.space", "xp": 200, "description": "Claim your sovereign Building Culture identity."},
     {"slug": "bc-art", "name": "Building Culture Art", "url": "https://art.buildingcultureid.space", "xp": 150, "description": "Where culture becomes canvas."},
     {"slug": "wohnai", "name": "WohnAI", "url": "https://wohnai.buildingcultureid.space", "xp": 150, "description": "The AI that rebuilds places, one home at a time."},
     {"slug": "bcdai", "name": "BCDAI", "url": "https://bcdai.buildingcultureid.space", "xp": 150, "description": "Trade smarter — AI copilots and copy-trading on Base & Solana."},
-    {"slug": "bc-home", "name": "Building Culture Home", "url": "https://home.buildingculture.capital", "xp": 100, "description": "Where lives are rooted again."},
-    {"slug": "bc-game", "name": "Building Culture Game", "url": "https://game.buildingculture.capital", "xp": 100, "description": "Play your way into the new economy."},
+    {"slug": "bc-home", "name": "Building Culture Home", "url": "https://home.buildingcultureid.space", "xp": 100, "description": "Where lives are rooted again."},
+    {"slug": "bc-game", "name": "Building Culture Game", "url": "https://game.buildingcultureid.space", "xp": 100, "description": "Play your way into the new economy."},
 ]
 
 DAILY_QUEST_POOL = [

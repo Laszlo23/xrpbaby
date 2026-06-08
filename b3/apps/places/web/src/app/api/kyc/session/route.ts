@@ -23,7 +23,8 @@ function getCallbackUrl(): string {
   const explicit = process.env.VERIFF_CALLBACK_URL?.trim();
   if (explicit) return explicit;
   const site =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "").trim() || "https://buildingculture.capital";
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "").trim() ||
+    "https://app.buildingcultureid.space";
   return `${site}/kyc`;
 }
 

@@ -24,12 +24,12 @@ Shown on **Places** (`/places`) when the app server has no `COMPLIANCE_REGISTRY_
 
 ```bash
 COMPLIANCE_REGISTRY_ADDRESS=0xa655c0B0037699433F0692356a3A142956103B7a
-VITE_PLACES_SITE_URL=https://buildingculture.capital
+VITE_PLACES_SITE_URL=https://places.buildingcultureid.space
 ```
 
 Restart `npm run dev`. After that, connected wallets show real on-chain status: `none` | `pending` | `verified` | `revoked`.
 
-**Users:** compliance applies to **Places property shares**, not to NFT marketplace listings, culture passes, or points. If status is `none`, complete KYC on [buildingculture.capital](https://buildingculture.capital) (Places app).
+**Users:** compliance applies to **Places property shares**, not to NFT marketplace listings, culture passes, or points. If status is `none`, complete KYC on [places.buildingcultureid.space](https://places.buildingcultureid.space) (Places app).
 
 ---
 

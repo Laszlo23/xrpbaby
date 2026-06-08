@@ -22,3 +22,9 @@
 ## Deploy hosts
 
 - Production env vars live only on the server or in a secrets manager (1Password, Doppler, etc.), never in the repo.
+
+## Autonomous agent keys
+
+- `AGENT_DEPLOYER_PRIVATE_KEY`, `AGENT_OPS_PRIVATE_KEY`, and `AGENT_AGS_DISTRIBUTOR_PRIVATE_KEY` must never be committed.
+- On suspected compromise: set `AGENTS_PAUSED=1` immediately, rotate keys, refill ops wallet from Safe manually, review `AgentActionLog` and on-chain txs.
+- Deployer key rotation requires updating `contracts/.env`, `deploy/.env`, and redeploying agent-runtime container.

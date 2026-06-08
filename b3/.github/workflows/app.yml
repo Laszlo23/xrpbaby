@@ -52,6 +52,10 @@ jobs:
       - name: Typecheck
         working-directory: app
         run: npm run typecheck
+      - name: Audit VITE env structure
+        run: npm run audit:vite-env
+        env:
+          CI: "true"
       - name: Build
         working-directory: app
         run: npm run build

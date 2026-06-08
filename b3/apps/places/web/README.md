@@ -32,7 +32,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000). Use **Connect** (Privy) for embedded and linked wallets, or connect via **Browser** / **WalletConnect** when `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is set.
 
-**Mobile / X (Twitter) in-app browser:** embedded browsers often block wallet deep links. The app shows a **banner** suggesting you open the site in Safari or Chrome. For QR / mobile pairing, set `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`. Set **`NEXT_PUBLIC_SITE_URL`** to your public origin (production: `https://buildingculture.capital`) so Open Graph / X link previews resolve correctly.
+**Mobile / X (Twitter) in-app browser:** embedded browsers often block wallet deep links. The app shows a **banner** suggesting you open the site in Safari or Chrome. For QR / mobile pairing, set `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`. Set **`NEXT_PUBLIC_SITE_URL`** to your public origin (production: `https://app.buildingcultureid.space`) so Open Graph / X link previews resolve correctly.
 
 ## Environment variables
 

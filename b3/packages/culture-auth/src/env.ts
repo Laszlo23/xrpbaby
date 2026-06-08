@@ -1,5 +1,5 @@
-/** Canonical auth hub origin (0x app). */
-export const DEFAULT_AUTH_HUB_ORIGIN = "https://0x.buildingculture.capital";
+/** Canonical auth hub origin. */
+export const DEFAULT_AUTH_HUB_ORIGIN = "https://app.buildingcultureid.space";
 
 /** Central member sync API origin — same as auth hub by default. */
 export const DEFAULT_SYNC_API_ORIGIN = DEFAULT_AUTH_HUB_ORIGIN;

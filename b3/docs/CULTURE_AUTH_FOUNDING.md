@@ -7,13 +7,13 @@ The Expo **founding** app currently uses Neynar for Farcaster identity and has n
 ### Option A — Privy React Native SDK
 
 1. Add `@privy-io/expo` with the **same App ID** as web (`cmo4s85vq00z80cl47cz0qm2j`).
-2. On login, call `POST https://0x.buildingculture.capital/api/wallet/sync` with the Privy access token + embedded wallet address.
+2. On login, call `POST https://app.buildingcultureid.space/api/wallet/sync` with the Privy access token + embedded wallet address.
 3. Keep Neynar for Farcaster-specific features; wallet address comes from Culture Auth.
 
 ### Option B — Auth hub deep link
 
 1. Open system browser or in-app WebView:  
-   `https://0x.buildingculture.capital/auth/login?returnUrl=buildingculture://auth/callback`
+   `https://app.buildingcultureid.space/auth/login?returnUrl=buildingculture://auth/callback`
 2. Register custom URL scheme / universal link handler in Expo.
 3. After redirect, satellite re-authenticates with stored session or prompts one-tap Privy resume.
 

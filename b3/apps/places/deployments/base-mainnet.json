@@ -3,7 +3,7 @@
   "name": "Base Mainnet",
   "rpcUrl": "https://mainnet.base.org",
   "explorer": "https://basescan.org",
-  "siteUrl": "https://buildingculture.capital",
+  "siteUrl": "https://app.buildingcultureid.space",
   "deployedAt": "2026-04-18",
   "deployer": "0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5",
   "contracts": {

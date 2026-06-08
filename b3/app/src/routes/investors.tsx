@@ -44,14 +44,12 @@ function InvestorsPage() {
       }
       subtitle="An angel-friendly map of our umbrella brand, product surfaces (app + game), and the Building Culture Coin ($BCC) story inside BUILDCHAIN. Illustrative numbers only—see disclaimers."
       actions={
-        <a
-          href="https://app.buildingcultureid.space/"
-          target="_blank"
-          rel="noreferrer noopener"
+        <Link
+          to="/places"
           className="inline-flex items-center justify-center rounded-full bg-[var(--b3-purple)] px-7 py-3 text-sm font-medium text-white shadow-[0_0_44px_-6px_rgb(0_82_255/85%)] ring-1 ring-white/10 transition hover:bg-[var(--base-blue-hover)] active:scale-[0.98]"
         >
-          Open app ↗
-        </a>
+          Start investing now
+        </Link>
       }
     >
       <div className="flex flex-col gap-14 md:gap-16">

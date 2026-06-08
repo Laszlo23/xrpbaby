@@ -7,9 +7,11 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 /** Subdomains (0x, app, …) terminate TLS at nginx and proxy here — Vite must allow the Host header. */
-const allowedHosts = [".buildingculture.capital", ".buildingcultureid.space", "localhost"];
+const allowedHosts = [".buildingcultureid.space", "localhost"];
 
+/** Self-hosted Docker uses Node SSR (`serve-production.mjs`). Cloudflare Workers/unenv breaks Prisma. */
 export default defineConfig({
+  cloudflare: false,
   vite: {
     server: {
       allowedHosts,

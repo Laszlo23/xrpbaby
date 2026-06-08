@@ -52,6 +52,12 @@ const DEFAULT_TASKS = [
     active: true,
   },
   {
+    slug: "daily-signature-attestation-bonus",
+    title: "Daily SIWE signature attestation bonus",
+    points: 7,
+    active: true,
+  },
+  {
     slug: "raffle-referral-bonus",
     title: "Raffle ticket referral (per referred mint tx)",
     /** Base points; server may scale by ticket count in metadata. */
@@ -74,6 +80,30 @@ const DEFAULT_TASKS = [
     slug: "elias-ecosystem-entry",
     title: "Elias journey — chose an entry intent (SIWE)",
     points: 15,
+    active: true,
+  },
+  {
+    slug: "panic-switch-bcc-daily",
+    title: "Panic Switch — daily attested completion",
+    points: 12,
+    active: true,
+  },
+  {
+    slug: "panic-switch-voucher-nft-claim",
+    title: "Panic Switch — hidden track voucher NFT claimed",
+    points: 77,
+    active: true,
+  },
+  {
+    slug: "studio-first-app",
+    title: "BC Studio — create your first app",
+    points: 50,
+    active: true,
+  },
+  {
+    slug: "daily-studio-build",
+    title: "BC Studio — daily build session",
+    points: 25,
     active: true,
   },
 ] as const;

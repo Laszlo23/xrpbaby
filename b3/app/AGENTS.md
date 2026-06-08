@@ -10,19 +10,19 @@
 
 ## Platform API
 
-| Route | Role |
-|-------|------|
-| `POST /api/platform/waitlist` | Landing email capture → Postgres |
-| `POST /api/platform/analytics` | Activity events from onboarding |
+| Route                                    | Role                                 |
+| ---------------------------------------- | ------------------------------------ |
+| `POST /api/platform/waitlist`            | Landing email capture → Postgres     |
+| `POST /api/platform/analytics`           | Activity events from onboarding      |
 | `POST /api/platform/onboarding-complete` | Link wallet + welcome Culture Points |
 
 ## Onboarding routes
 
-| Path | Role |
-|------|------|
+| Path       | Role                                     |
+| ---------- | ---------------------------------------- |
 | `/welcome` | In-app welcome (port of marketing story) |
-| `/join` | Smart wallet + intent quiz |
-| `/forest` | Module hub |
+| `/join`    | Smart wallet + intent quiz               |
+| `/forest`  | Module hub                               |
 
 ## BCC (Building Culture Coin)
 

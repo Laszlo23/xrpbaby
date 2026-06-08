@@ -10,12 +10,18 @@ import { bcdStagingHint } from "@/lib/bcd-configured";
 import { plainLabels } from "@/lib/plain-labels";
 import { COMMUNITY_MODULES, type LandingEcosystemApp } from "@/lib/landing-ecosystem";
 import { platformModules } from "@/lib/modules";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/forest/")({
   component: CommunityHubPage,
-  head: () => ({
-    meta: [{ title: "Community hub — Building Culture" }],
-  }),
+  head: () =>
+    pageHead({
+      title: "Community Hub",
+      description:
+        "Your BUILDCHAIN community home for quests, pulse updates, points, and every lane you unlock.",
+      path: "/forest",
+      keywords: ["BUILDCHAIN", "community hub", "quests", "culture pulse", "points"],
+    }),
 });
 
 const MODULE_FLAGS: Partial<Record<string, keyof typeof platformModules>> = {

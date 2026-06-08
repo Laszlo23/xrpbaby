@@ -6,9 +6,13 @@ import { platformModules } from "@/lib/modules";
 import { chainlinkComplianceCopy } from "@/lib/chainlink-compliance-copy";
 import { complianceHint, complianceStatusLabel } from "@/lib/compliance-eligibility-copy";
 import { BCC_SYMBOL } from "@/lib/bcc-config";
+import { pageHead } from "@/lib/seo";
 
 const PLACES_SITE =
-  import.meta.env.VITE_PLACES_SITE_URL?.trim() || "https://buildingculture.capital";
+  import.meta.env.VITE_PLACES_SITE_URL?.trim() || "https://places.buildingcultureid.space";
+const PLACES_INVEST_PATH = import.meta.env.VITE_PLACES_INVEST_PATH?.trim() || "/investors";
+const PLACES_TRADE_PATH = import.meta.env.VITE_PLACES_TRADE_PATH?.trim() || "/marketplace";
+const PLACES_TRANSPARENCY_PATH = import.meta.env.VITE_PLACES_TRANSPARENCY_PATH?.trim() || "/docs";
 
 type Eligibility = {
   ok?: boolean;
@@ -19,6 +23,14 @@ type Eligibility = {
 };
 
 export const Route = createFileRoute("/places/")({
+  head: () =>
+    pageHead({
+      title: "Places",
+      description:
+        "Explore the BUILDCHAIN Places lane for real-estate onboarding, compliance checks, and investor links.",
+      path: "/places",
+      keywords: ["BUILDCHAIN", "places", "real estate", "compliance", "investors"],
+    }),
   component: PlacesPage,
 });
 
@@ -46,9 +58,11 @@ function PlacesPage() {
       <Link to="/forest" className="text-sm text-zinc-400 hover:text-white">
         ← Forest
       </Link>
-      <p className="mono-label mt-8 !text-[#C5FF41]">REAL ESTATE ON CHAIN</p>
-      <h1 className="mt-4 font-display text-3xl font-bold">Places</h1>
-      <p className="mt-4 max-w-xl text-zinc-400">{chainlinkComplianceCopy.body}</p>
+      <p className="mono-label mt-8 !text-[#C5FF41]">RWA MARKETPLACE</p>
+      <h1 className="mt-4 font-display text-3xl font-bold">Own the Future. Own Real Estate.</h1>
+      <p className="mt-4 max-w-xl text-zinc-400">
+        {chainlinkComplianceCopy.body} Browse tokenized properties, list your own, and manage holdings on Places.
+      </p>
 
       {isConnected && eligibility ? (
         <div className="mt-4 max-w-xl space-y-2 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm">
@@ -64,7 +78,7 @@ function PlacesPage() {
           <p className="text-zinc-500">{complianceHint(eligibility)}</p>
           {eligibility.configured && eligibility.status === "none" ? (
             <a
-              href={`${eligibility.placesUrl ?? PLACES_SITE}/invest`}
+              href={`${eligibility.placesUrl ?? PLACES_SITE}${PLACES_INVEST_PATH}`}
               target="_blank"
               rel="noreferrer noopener"
               className="inline-block text-[#C5FF41] underline underline-offset-2"
@@ -93,15 +107,31 @@ function PlacesPage() {
 
       <div className="mt-8 flex flex-wrap gap-4">
         <a
-          href={`${PLACES_SITE}/invest`}
+          href={`${PLACES_SITE}/marketplace`}
           target="_blank"
           rel="noreferrer noopener"
           className="rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
         >
-          Invest on Places ↗
+          RWA Marketplace ↗
         </a>
         <a
-          href={`${PLACES_SITE}/trade`}
+          href={`${PLACES_SITE}/list`}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="rounded-full border border-white/20 px-6 py-3 text-sm hover:border-[#C5FF41]/50"
+        >
+          List a property ↗
+        </a>
+        <a
+          href={`${PLACES_SITE}/dashboard`}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="rounded-full border border-white/20 px-6 py-3 text-sm hover:border-[#C5FF41]/50"
+        >
+          Investor dashboard ↗
+        </a>
+        <a
+          href={`${PLACES_SITE}${PLACES_TRADE_PATH}`}
           target="_blank"
           rel="noreferrer noopener"
           className="rounded-full border border-white/20 px-6 py-3 text-sm hover:border-[#C5FF41]/50"
@@ -109,7 +139,7 @@ function PlacesPage() {
           Trade ↗
         </a>
         <a
-          href={`${PLACES_SITE}/transparency`}
+          href={`${PLACES_SITE}${PLACES_TRANSPARENCY_PATH}`}
           target="_blank"
           rel="noreferrer noopener"
           className="rounded-full border border-white/20 px-6 py-3 text-sm hover:border-[#C5FF41]/50"

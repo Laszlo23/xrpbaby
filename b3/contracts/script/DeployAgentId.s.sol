@@ -9,7 +9,7 @@ import {AgentId} from "../src/AgentId.sol";
 /// - PRIVATE_KEY: deployer key (uint)
 /// - AGENT_ID_NAME (optional): default "0G Agent ID"
 /// - AGENT_ID_SYMBOL (optional): default "AGENTID"
-/// - AGENT_ID_BASE_URI (optional): default "https://app.buildingculture.capital/0g/agentid/"
+/// - AGENT_ID_BASE_URI (optional): default "https://app.buildingcultureid.space/0g/agentid/"
 /// - AGENT_ID_MINT_TO (optional): address to mint token #1 to (defaults to deployer)
 contract DeployAgentIdScript is Script {
     function run() external {
@@ -20,7 +20,7 @@ contract DeployAgentIdScript is Script {
         string memory name_ = vm.envOr("AGENT_ID_NAME", string("0G Agent ID"));
         string memory symbol_ = vm.envOr("AGENT_ID_SYMBOL", string("AGENTID"));
         string memory baseUri_ = vm.envOr(
-            "AGENT_ID_BASE_URI", string("https://app.buildingculture.capital/0g/agentid/")
+            "AGENT_ID_BASE_URI", string("https://app.buildingcultureid.space/0g/agentid/")
         );
 
         address mintTo;

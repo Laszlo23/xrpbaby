@@ -21,15 +21,15 @@ contract DeployGenesisVaultPassAllScript is Script {
 
         string memory base0 = vm.envOr(
             "GVP_PHASE0_BASE_URI",
-            string("https://0x.buildingculture.capital/meta/genesis-vault-pass/phase0/")
+            string("https://0x.buildingcultureid.space/meta/genesis-vault-pass/phase0/")
         );
         string memory base1 = vm.envOr(
             "GVP_PHASE1_BASE_URI",
-            string("https://0x.buildingculture.capital/meta/genesis-vault-pass/phase1/")
+            string("https://0x.buildingcultureid.space/meta/genesis-vault-pass/phase1/")
         );
         string memory base2 = vm.envOr(
             "GVP_PHASE2_BASE_URI",
-            string("https://0x.buildingculture.capital/meta/genesis-vault-pass/phase2/")
+            string("https://0x.buildingcultureid.space/meta/genesis-vault-pass/phase2/")
         );
 
         vm.startBroadcast(pk);

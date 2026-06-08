@@ -100,8 +100,19 @@ export async function handleMarketBccGet(request: Request): Promise<Response> {
   const ethAmount = url.searchParams.get("eth_amount")?.trim() || "0.01";
   const tokenAddress = getBccTokenAddress();
   const offer = buildMarketOffer();
-
-  const tradingHealth = await proxyTradingAgent("/health", { method: "GET", timeoutMs: 15_000 });
+  let tradingHealth:
+    | { ok: true; data: unknown }
+    | { ok: false; status: number; error: string; raw?: string } = {
+    ok: false,
+    status: 503,
+    error: "Trading health probe failed",
+  };
+  try {
+    tradingHealth = await proxyTradingAgent("/health", { method: "GET", timeoutMs: 15_000 });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    tradingHealth = { ok: false, status: 503, error: `Trading health probe failed: ${msg}` };
+  }
 
   return json({
     ok: true,
@@ -130,8 +141,82 @@ export async function handleMarketSampleMintGet(request: Request): Promise<Respo
 
 export async function handleMarketHealthGet(): Promise<Response> {
   const offer = buildMarketOffer();
-  const trading = await proxyTradingAgent("/health", { method: "GET", timeoutMs: 10_000 });
-  const listingsProbe = await fetchMarketListings({ limit: 1 });
+  let trading:
+    | { ok: true; data: unknown }
+    | { ok: false; status: number; error: string; raw?: string } = {
+    ok: false,
+    status: 503,
+    error: "Trading health probe failed",
+  };
+  try {
+    trading = await proxyTradingAgent("/health", { method: "GET", timeoutMs: 10_000 });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    trading = { ok: false, status: 503, error: `Trading health probe failed: ${msg}` };
+  }
+  let listingsProbe: Awaited<ReturnType<typeof fetchMarketListings>> = {
+    ok: false,
+    error: "thirdweb_not_configured",
+  };
+  try {
+    listingsProbe = await fetchMarketListings({ limit: 1 });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    listingsProbe = {
+      ok: false,
+      error: `listings_probe_failed:${msg}`,
+    };
+  }
+  const { getPrisma } = await import("@/server/db/prisma");
+  const prisma = getPrisma();
+  let pulseHealth: { database: boolean; latestSnapshotAt: string | null } = {
+    database: Boolean(prisma),
+    latestSnapshotAt: null,
+  };
+  if (prisma) {
+    try {
+      const latestSnapshot = await prisma.growthSnapshot.findFirst({
+        orderBy: { capturedAt: "desc" },
+        select: { capturedAt: true },
+      });
+      pulseHealth = {
+        database: true,
+        latestSnapshotAt: latestSnapshot?.capturedAt?.toISOString() ?? null,
+      };
+    } catch {
+      pulseHealth = {
+        database: false,
+        latestSnapshotAt: null,
+      };
+    }
+  }
+
+  let groveHealth: {
+    database: boolean;
+    briefBuildOk: boolean;
+    bccSource: string | null;
+  } = {
+    database: Boolean(prisma),
+    briefBuildOk: false,
+    bccSource: null,
+  };
+  if (prisma) {
+    try {
+      const { buildGroveBrief } = await import("@/server/marketing/grove/brief");
+      const brief = await buildGroveBrief(prisma);
+      groveHealth = {
+        database: true,
+        briefBuildOk: true,
+        bccSource: brief.bcc.source,
+      };
+    } catch {
+      groveHealth = {
+        database: true,
+        briefBuildOk: false,
+        bccSource: null,
+      };
+    }
+  }
 
   return json({
     ok: true,
@@ -151,6 +236,8 @@ export async function handleMarketHealthGet(): Promise<Response> {
       reachable: trading.ok,
       worker: trading.ok ? trading.data : null,
     },
+    pulse: pulseHealth,
+    grove: groveHealth,
     offer,
   });
 }

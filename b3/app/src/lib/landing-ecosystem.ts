@@ -24,7 +24,7 @@ export const LANDING_ECOSYSTEM: LandingEcosystemApp[] = [
     tag: "Vision Platform",
     status: "beta",
     layer: "vision",
-    externalUrl: "https://buildingculture.capital",
+    externalUrl: "https://app.buildingcultureid.space",
   },
   {
     id: "bc-app",
@@ -44,7 +44,7 @@ export const LANDING_ECOSYSTEM: LandingEcosystemApp[] = [
     tag: "Living Platform",
     status: "beta",
     layer: "living",
-    externalUrl: "https://home.buildingculture.capital",
+    externalUrl: "https://home.buildingcultureid.space",
   },
   {
     id: "bc-id",
@@ -93,17 +93,47 @@ export const LANDING_ECOSYSTEM: LandingEcosystemApp[] = [
     tag: "Engagement Layer",
     status: "beta",
     layer: "engagement",
-    externalUrl: "https://game.buildingculture.capital",
+    externalUrl: "https://game.buildingcultureid.space",
   },
   {
     id: "bc-miniapp",
     name: "Building Culture MiniApp",
     description:
-      "The gateway for new users. Simple onboarding. Community rewards. Tasks. XP. Achievements. Future token claims.",
+      "Telegram Community Arcade — daily tap-in, fun missions, leaderboard. One person. One block.",
     tag: "Growth Engine",
-    status: "coming-soon",
+    status: "live",
     layer: "growth",
-    href: "/forest",
+    href: "/tg",
+  },
+  {
+    id: "ankommen",
+    name: "Ankommen AI",
+    description:
+      "AI companion for newcomers in Austria — housing, benefits, documents, jobs, and translation in 14 languages.",
+    tag: "Social Impact / AI",
+    status: "beta",
+    layer: "impact",
+    externalUrl: "https://ankommen.buildingcultureid.space",
+  },
+  {
+    id: "forkids",
+    name: "KinderStimme (For Kids)",
+    description:
+      "Open Child Protection Protocol — AI guidance, encrypted evidence vault, and family collaboration for Austrian proceedings.",
+    tag: "Social Impact / AI",
+    status: "beta",
+    layer: "impact",
+    externalUrl: "https://forkids.buildingcultureid.space",
+  },
+  {
+    id: "bc-studio",
+    name: "BC Studio",
+    description:
+      "Build and ship web apps with AI — chat, live preview, export, and publish to Building Culture subdomains.",
+    tag: "Creation Tool",
+    status: "beta",
+    layer: "builder",
+    href: "/studio",
   },
 ];
 
@@ -180,6 +210,33 @@ export const COMMUNITY_MODULES: LandingEcosystemApp[] = [
     status: "beta",
     layer: "living",
     href: "/places",
+  },
+  {
+    id: "ankommen",
+    name: "Ankommen AI",
+    description: "Newcomer companion for Austria — benefits, housing, documents, jobs.",
+    tag: "Social impact",
+    status: "beta",
+    layer: "impact",
+    externalUrl: "https://ankommen.buildingcultureid.space",
+  },
+  {
+    id: "forkids",
+    name: "KinderStimme",
+    description: "Child protection protocol — AI guidance and encrypted evidence vault.",
+    tag: "Social impact",
+    status: "beta",
+    layer: "impact",
+    externalUrl: "https://forkids.buildingcultureid.space",
+  },
+  {
+    id: "bc-studio",
+    name: "BC Studio",
+    description: "AI app builder — preview in sandbox, export or publish.",
+    tag: "Builder",
+    status: "beta",
+    layer: "builder",
+    href: "/studio",
   },
 ];
 

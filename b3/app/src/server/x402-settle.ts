@@ -112,8 +112,7 @@ export async function settleX402Get(
   opts: X402GetSettleOptions,
   buildBody: () => object,
 ): Promise<Response> {
-  const paymentData =
-    request.headers.get("payment-signature") ?? request.headers.get("x-payment");
+  const paymentData = request.headers.get("payment-signature") ?? request.headers.get("x-payment");
   const resourceUrl = resolveX402ResourceUrl(request);
 
   const result = await settlePayment({

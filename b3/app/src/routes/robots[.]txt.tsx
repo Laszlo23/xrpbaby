@@ -13,6 +13,7 @@ export const Route = createFileRoute("/robots.txt")({
           "Disallow: /admin",
           "",
           `Sitemap: ${origin}/sitemap.xml`,
+          `Sitemap: ${origin}/blog/feed.xml`,
           "",
         ].join("\n");
         return new Response(body, {

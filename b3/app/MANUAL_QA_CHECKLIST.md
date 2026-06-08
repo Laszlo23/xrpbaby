@@ -6,15 +6,15 @@ Quick pass before release. Adjust URLs and env for your deployment.
 
 ## Unified platform (critical paths)
 
-| Flow | What to verify |
-|------|----------------|
+| Flow        | What to verify                                                                        |
+| ----------- | ------------------------------------------------------------------------------------- |
 | Landing `/` | Full scroll story; hero CTAs "Join free" / "See what we build"; waitlist email submit |
-| `/join` | Intent pick; wallet connect; SIWE sign → redirects to `/forest` |
-| `/forest` | Hub hero; stats card; Culture pulse link; module grid; no bottom nav |
-| `/play` | Drops sections; bottom nav Play active; tagline banner visible |
-| `/welcome` | Redirects to `/` |
-| Domain | `PUBLIC_APP_ORIGIN` matches canonical; Farcaster `homeUrl` ends with `/` |
-| Shell | Bottom nav hidden on `/`, `/join`, `/forest`; visible on `/play` |
+| `/join`     | Intent pick; wallet connect; SIWE sign → redirects to `/forest`                       |
+| `/forest`   | Hub hero; stats card; Culture pulse link; module grid; no bottom nav                  |
+| `/play`     | Drops sections; bottom nav Play active; tagline banner visible                        |
+| `/welcome`  | Redirects to `/`                                                                      |
+| Domain      | `PUBLIC_APP_ORIGIN` matches canonical; Farcaster `homeUrl` ends with `/`              |
+| Shell       | Bottom nav hidden on `/`, `/join`, `/forest`; visible on `/play`                      |
 
 ## Core product
 
@@ -28,7 +28,7 @@ Quick pass before release. Adjust URLs and env for your deployment.
 | Roadmap / Strapi   | Loader fallback when CMS is down or unset.                                                                                                                                               |
 | x402               | `/api/x402/premium` GET + OPTIONS; `X402_NETWORK` and settlement matches deployment.                                                                                                     |
 | Farcaster Mini App | `/.well-known/farcaster.json` returns `miniapp` JSON; `homeUrl` is story landing `/`; links open in Warpcast; `sdk.actions.ready()` runs in Mini App context.                            |
-| Culture Pulse      | `/signal` feed loads; metrics API status &lt; 500; comment requires wallet/SIWE.                                                                                                       |
+| Culture Pulse      | `/signal` feed loads; metrics API status &lt; 500; comment requires wallet/SIWE.                                                                                                         |
 
 ## Automated gates
 

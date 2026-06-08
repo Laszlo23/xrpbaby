@@ -26,7 +26,7 @@ contract DeployAllScript is Script {
         if (deployRaffle) {
             uint256 priceWei = vm.envOr("MINT_PRICE_WEI", uint256(0.001 ether));
             uint256 maxSupply = vm.envOr("MAX_SUPPLY", uint256(1000));
-            string memory baseUriRaffle = vm.envOr("BASE_URI", string("https://0x.buildingculture.capital/ipfs/"));
+            string memory baseUriRaffle = vm.envOr("BASE_URI", string("https://0x.buildingcultureid.space/ipfs/"));
 
             RaffleTicketCampaign raffle = new RaffleTicketCampaign(
                 "BUILDCHAIN Ticket", "BCTIX", priceWei, maxSupply, treasury, baseUriRaffle, deployer
@@ -42,7 +42,7 @@ contract DeployAllScript is Script {
             uint256 dailyCap = vm.envOr("AGENT_DAILY_MINT_CAP", uint256(500));
             uint16 liquidityBps = uint16(vm.envOr("AGENT_LIQUIDITY_BPS", uint256(500)));
             uint16 referrerBps = uint16(vm.envOr("AGENT_REFERRER_BPS", uint256(500)));
-            string memory baseUriAgent = vm.envOr("AGENT_BASE_URI", string("https://0x.buildingculture.capital/meta/agent/"));
+            string memory baseUriAgent = vm.envOr("AGENT_BASE_URI", string("https://0x.buildingcultureid.space/meta/agent/"));
 
             AgentShareCampaign agent = new AgentShareCampaign(
                 "BUILDCHAIN Agent Share",

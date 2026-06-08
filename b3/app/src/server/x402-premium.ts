@@ -2,11 +2,7 @@
  * Server-only x402 handler — imported dynamically from API route handlers only.
  */
 import { homeDrops } from "@/content/home-drops";
-import {
-  handleX402Options,
-  settleX402Get,
-  x402CorsHeadersFor,
-} from "@/server/x402-settle";
+import { handleX402Options, settleX402Get, x402CorsHeadersFor } from "@/server/x402-settle";
 
 /** @deprecated use x402CorsHeadersFor */
 export const premiumCorsHeadersFor = x402CorsHeadersFor;

@@ -221,9 +221,9 @@ from (
     ('marketplace', 'Marketplace', '/marketplace', null, 'Listings & secondary liquidity stories.'),
     ('campaigns', 'Drops hub', '/campaigns', null, 'Active mints / ticket pools.'),
     ('elias_concierge', 'Elias concierge (full)', '/elias', null, 'Vienna itinerary planning + partner approvals — full workflow.'),
-    ('capital', 'Building Culture Capital', null, 'https://buildingculture.capital/', 'Capital / fundraise-facing narrative.'),
-    ('zero_x', '0x BuildingCulture', null, 'https://0x.buildingculture.capital/', 'Token / positioning layer.'),
-    ('eco', 'Building Culture Eco hub', null, 'https://eco.buildingculture.capital/', 'Ecosystem + sustainability threads.'),
-    ('production_app', 'Production app', null, 'https://app.buildingculture.capital/', 'Primary shipped app hostname.')
+    ('capital', 'Building Culture Capital', null, 'https://app.buildingcultureid.space/', 'Capital / fundraise-facing narrative.'),
+    ('zero_x', '0x BuildingCulture', null, 'https://0x.buildingcultureid.space/', 'Token / positioning layer.'),
+    ('eco', 'Building Culture Eco hub', null, 'https://eco.buildingcultureid.space/', 'Ecosystem + sustainability threads.'),
+    ('production_app', 'Production app', null, 'https://app.buildingcultureid.space/', 'Primary shipped app hostname.')
 ) as v(id, label, href, absolute_url, hint)
 where not exists (select 1 from elias_touchpoints limit 1);

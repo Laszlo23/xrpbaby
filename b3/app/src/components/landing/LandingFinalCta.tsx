@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowUpRight, CheckCircle2, Layers, UserPlus } from "lucide-react";
+import { ArrowUpRight, Briefcase, CheckCircle2, Layers, UserPlus } from "lucide-react";
 
 import { joinLandingWaitlist, trackLandingEvent } from "@/lib/landing-api";
 import { LANDING_MEDIA } from "@/lib/landing-media";
@@ -103,6 +103,15 @@ export function LandingFinalCta() {
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link
+            to="/places"
+            onClick={() => void trackLandingEvent("final_cta_invest", "final_cta")}
+            className="inline-flex items-center gap-2 rounded-full bg-[#C5FF41] px-7 py-4 text-[14px] font-semibold text-black transition-colors hover:bg-white"
+          >
+            <Briefcase size={16} aria-hidden />
+            Invest in the ecosystem
+            <ArrowUpRight size={16} aria-hidden />
+          </Link>
           <Link
             to="/join"
             onClick={() => void trackLandingEvent("final_cta_join", "final_cta")}

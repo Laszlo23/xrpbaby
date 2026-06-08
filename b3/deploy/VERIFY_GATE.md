@@ -23,6 +23,8 @@ Do **not** set `ECON_LIVE=1` in production until **all** items below are true.
 
 - [ ] Sentry (or equivalent) receiving frontend errors in the production project.
 - [ ] Agent-runtime ledger shows **7+ days** of dry-run rows with `AGENTS_PAUSED=1` / `ECON_LIVE=0` before economics go live.
+- [ ] CEO orchestrator (`ceo-orchestrator-0`) completes smoke + grove tasks autonomously with conservative wallet caps documented in `docs/TREASURY_POLICY.md`.
+- [ ] `/agent-fleet` shows task queue + daily spend; treasury Safe has **zero** agent-initiated txs in audit.
 - [ ] External audit report published; remediations merged to the release branch.
 
 ## Legal / product

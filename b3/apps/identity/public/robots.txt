@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Allow: /id/
-Allow: /terms
-Allow: /privacy
-
-Sitemap: https://buildingcultureid.space/sitemap.xml

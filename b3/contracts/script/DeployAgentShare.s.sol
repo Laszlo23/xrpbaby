@@ -15,7 +15,7 @@ contract DeployAgentShareScript is Script {
         uint16 liquidityBps = uint16(vm.envOr("AGENT_LIQUIDITY_BPS", uint256(500))); // 5%
         uint16 referrerBps = uint16(vm.envOr("AGENT_REFERRER_BPS", uint256(500))); // 5%
 
-        string memory baseUri = vm.envOr("AGENT_BASE_URI", string("https://0x.buildingculture.capital/meta/agent/"));
+        string memory baseUri = vm.envOr("AGENT_BASE_URI", string("https://0x.buildingcultureid.space/meta/agent/"));
 
         vm.startBroadcast(pk);
 

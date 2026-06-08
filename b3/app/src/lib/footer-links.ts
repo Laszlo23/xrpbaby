@@ -74,13 +74,15 @@ export const footerProductLinks: InternalFooterLink[] = [
 ];
 
 export const footerEcosystemLinks: { label: string; href: string; icon: LucideIcon }[] = [
-  { label: "Capital", href: "https://buildingculture.capital", icon: Compass },
+  { label: "Capital", href: "https://app.buildingcultureid.space", icon: Compass },
   { label: "App", href: "/play", icon: Layers },
-  { label: "Home", href: "https://home.buildingculture.capital", icon: Home },
+  { label: "Home", href: "https://home.buildingcultureid.space", icon: Home },
   { label: "Art", href: "/drops/art", icon: Palette },
   { label: "WohnAI", href: "https://wohnai.buildingcultureid.space", icon: Bot },
   { label: "BCDAI", href: "https://bcdai.buildingcultureid.space", icon: Zap },
-  { label: "Game", href: "https://game.buildingculture.capital", icon: Gamepad2 },
+  { label: "Game", href: "https://game.buildingcultureid.space", icon: Gamepad2 },
+  { label: "Ankommen AI", href: "https://ankommen.buildingcultureid.space", icon: Globe },
+  { label: "KinderStimme", href: "https://forkids.buildingcultureid.space", icon: Shield },
 ];
 
 export const footerLayerLinks: InternalFooterLink[] = [
@@ -139,4 +141,4 @@ export function footerSocialLinks(): ExternalFooterLink[] {
   return out;
 }
 
-export const footerContactMailto = "mailto:hello@buildingculture.capital";
+export const footerContactMailto = "mailto:hello@buildingcultureid.space";

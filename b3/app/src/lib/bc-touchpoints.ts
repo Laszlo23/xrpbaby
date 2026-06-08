@@ -69,6 +69,30 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
     hint: "AI copilots, copy trading, and MEV-aware routing on Base & Solana.",
   },
   {
+    id: "ankommen",
+    label: "Ankommen AI",
+    absoluteUrl: "https://ankommen.buildingcultureid.space/",
+    hint: "Austria newcomer companion — housing, benefits, documents, jobs (guidance only).",
+  },
+  {
+    id: "forkids",
+    label: "KinderStimme (For Kids)",
+    absoluteUrl: "https://forkids.buildingcultureid.space/",
+    hint: "Child protection protocol — AI guidance and encrypted evidence vault (not legal advice).",
+  },
+  {
+    id: "telegram_arcade",
+    label: "Telegram Community Arcade",
+    href: "/tg",
+    hint: "Daily tap-in, fun missions, TG leaderboard via @buildingcultureappbot.",
+  },
+  {
+    id: "bc_studio",
+    label: "BC Studio",
+    href: "/studio",
+    hint: "AI app builder — chat, preview, export, publish (builders with Build intent).",
+  },
+  {
     id: "faq",
     label: "FAQ",
     href: "/faq",

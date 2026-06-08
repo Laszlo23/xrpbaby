@@ -6,6 +6,7 @@ import {
   Compass,
   Fingerprint,
   Gamepad2,
+  Globe,
   Home,
   Layers,
   Mail,
@@ -13,6 +14,7 @@ import {
   Palette,
   Rocket,
   Send,
+  Shield,
   Sparkles,
   Zap,
   type LucideIcon,
@@ -140,9 +142,10 @@ export function LandingFooter() {
             <FooterCol
               title="Ecosystem"
               links={[
-                { l: "Capital", h: "https://buildingculture.capital", Icon: Compass },
+                { l: "Capital", h: "https://app.buildingcultureid.space", Icon: Compass },
                 { l: "App", h: "/play", Icon: Layers },
-                { l: "Home", h: "https://home.buildingculture.capital", Icon: Home },
+                { l: "Invest", h: "/places", Icon: Briefcase },
+                { l: "Home", h: "https://home.buildingcultureid.space", Icon: Home },
                 { l: "ID", h: "/join", Icon: Fingerprint },
               ]}
             />
@@ -152,7 +155,9 @@ export function LandingFooter() {
                 { l: "Art", h: "/drops/art", Icon: Palette },
                 { l: "WohnAI", h: "https://wohnai.buildingcultureid.space", Icon: Bot },
                 { l: "BCDAI", h: "https://bcdai.buildingcultureid.space", Icon: Zap },
-                { l: "Game", h: "https://game.buildingculture.capital", Icon: Gamepad2 },
+                { l: "Game", h: "https://game.buildingcultureid.space", Icon: Gamepad2 },
+                { l: "Ankommen AI", h: "https://ankommen.buildingcultureid.space", Icon: Globe },
+                { l: "KinderStimme", h: "https://forkids.buildingcultureid.space", Icon: Shield },
                 { l: "Community", h: "/forest", Icon: Rocket },
               ]}
             />
@@ -162,7 +167,7 @@ export function LandingFooter() {
                 { l: "Vision", h: "#vision", Icon: Sparkles },
                 { l: "Investors", h: "#investors", Icon: Briefcase },
                 { l: "Roadmap", h: "#future", Icon: Map },
-                { l: "Contact", h: "mailto:hello@buildingculture.capital", Icon: Mail },
+                { l: "Contact", h: "mailto:hello@buildingcultureid.space", Icon: Mail },
               ]}
             />
           </div>

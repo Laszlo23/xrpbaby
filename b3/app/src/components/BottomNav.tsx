@@ -15,7 +15,7 @@ export function BottomNav() {
   const location = useLocation();
 
   return (
-    <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 md:px-6 md:pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+    <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 md:px-6 md:pb-[max(1.25rem,env(safe-area-inset-bottom))]">
       <div className="pointer-events-auto nav-dock w-full max-w-lg rounded-full px-1 py-1 backdrop-blur-2xl md:max-w-xl">
         <div className="flex items-center justify-around">
           {navItems.map((item) => {

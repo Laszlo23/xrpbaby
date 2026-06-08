@@ -96,7 +96,11 @@ export function DailyOnChainCheckIn({
         if (res.alreadyCompleted) {
           toast.message("On-chain check-in verified · points already credited today");
         } else {
-          toast.success("Daily check-in saved on-chain (+ ledger points)");
+          const bonusText =
+            res.bonusGranted && (res.bonusPoints ?? 0) > 0
+              ? ` +${res.bonusPoints} signature bonus`
+              : "";
+          toast.success(`Daily check-in saved on-chain (+ ledger points${bonusText})`);
         }
         onBalance?.(res.balance);
         void refetchLastDay();
@@ -154,9 +158,10 @@ export function DailyOnChainCheckIn({
       <div className="rounded-2xl border border-dashed border-white/10 bg-black/10 p-4">
         <p className="text-sm font-medium text-white">Daily check-in (on-chain)</p>
         <p className="mt-1 text-xs text-zinc-500">
-          Deploy <span className="font-mono text-[10px]">contracts/script/DeployDailyCheckIn.s.sol</span>
-          , then set <span className="font-mono text-[10px]">VITE_DAILY_CHECKIN_ADDRESS</span> and server{" "}
-          <span className="font-mono text-[10px]">DAILY_CHECKIN_CONTRACT_ADDRESS</span>.
+          Deploy{" "}
+          <span className="font-mono text-[10px]">contracts/script/DeployDailyCheckIn.s.sol</span>,
+          then set <span className="font-mono text-[10px]">VITE_DAILY_CHECKIN_ADDRESS</span> and
+          server <span className="font-mono text-[10px]">DAILY_CHECKIN_CONTRACT_ADDRESS</span>.
         </p>
       </div>
     );
@@ -170,16 +175,24 @@ export function DailyOnChainCheckIn({
 
   return (
     <div className={shellClass}>
-      <p className={compact ? "text-[11px] font-semibold text-emerald-100/95" : "font-medium text-white"}>
+      <p
+        className={
+          compact ? "text-[11px] font-semibold text-emerald-100/95" : "font-medium text-white"
+        }
+      >
         Daily check-in on {wantChain.name}
       </p>
       <p className="text-xs text-zinc-500">
         One <span className="font-mono">checkIn()</span> tx per UTC day — stored on-chain (
-        <span className="font-mono">CheckedIn</span> event + <span className="font-mono">lastCheckInDay</span>
-        ). Then sign to credit leaderboard points; profile XP applies when configured.
+        <span className="font-mono">CheckedIn</span> event +{" "}
+        <span className="font-mono">lastCheckInDay</span>
+        ). Then sign to credit leaderboard points and unlock a once-per-day signature attestation
+        bonus.
       </p>
       {onChainDoneToday ? (
-        <p className="text-xs text-emerald-400/90">On-chain: checked in for today (UTC day {todayIndex.toString()}).</p>
+        <p className="text-xs text-emerald-400/90">
+          On-chain: checked in for today (UTC day {todayIndex.toString()}).
+        </p>
       ) : null}
       <Button
         type="button"

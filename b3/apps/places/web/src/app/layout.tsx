@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { SiteChrome } from "@/components/SiteChrome";
@@ -15,6 +15,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -70,8 +75,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-surface text-white antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} min-h-screen bg-[#050505] text-white antialiased`}
+        style={
+          {
+            "--font-cabinet": "'Cabinet Grotesk', system-ui, sans-serif",
+            "--font-jetbrains": "'JetBrains Mono', ui-monospace, monospace",
+          } as Record<string, string>
+        }
       >
         <Providers>
           {/* No animate-page-in on <main>: client-side navigations can restart the animation and re-apply keyframe opacity:0, making styles/content appear to vanish until the animation finishes. */}

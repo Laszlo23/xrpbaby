@@ -89,12 +89,19 @@ export function LandingNav({ compact = false }: LandingNavProps) {
 
           <motion.div className="flex items-center gap-2">
             <Link
-              to="/join"
+              to="/places"
               className="hidden items-center gap-1.5 rounded-full bg-[#C5FF41] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-white sm:inline-flex"
+            >
+              <Briefcase size={15} strokeWidth={2.25} aria-hidden />
+              Invest now
+              <ArrowUpRight size={14} strokeWidth={2.25} className="opacity-60" aria-hidden />
+            </Link>
+            <Link
+              to="/join"
+              className="hidden items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:border-[#00E5FF]/60 sm:inline-flex"
             >
               <UserPlus size={15} strokeWidth={2.25} aria-hidden />
               Join
-              <ArrowUpRight size={14} strokeWidth={2.25} className="opacity-60" aria-hidden />
             </Link>
             <button
               type="button"
@@ -131,9 +138,17 @@ export function LandingNav({ compact = false }: LandingNavProps) {
                   );
                 })}
                 <Link
-                  to="/join"
+                  to="/places"
                   onClick={() => setOpen(false)}
                   className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-4 py-2.5 text-[13px] font-semibold text-black"
+                >
+                  <Briefcase size={16} strokeWidth={2.25} aria-hidden />
+                  Invest in Building Culture
+                </Link>
+                <Link
+                  to="/join"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2.5 text-[13px] font-semibold text-white"
                 >
                   <UserPlus size={16} strokeWidth={2.25} aria-hidden />
                   Join Building Culture

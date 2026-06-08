@@ -11,7 +11,9 @@ export function tradingAgentBaseUrl(): string {
 export async function proxyTradingAgent(
   path: string,
   init?: RequestInit & { timeoutMs?: number },
-): Promise<{ ok: true; data: unknown } | { ok: false; status: number; error: string; raw?: string }> {
+): Promise<
+  { ok: true; data: unknown } | { ok: false; status: number; error: string; raw?: string }
+> {
   const base = tradingAgentBaseUrl();
   const url = `${base}${path.startsWith("/") ? path : `/${path}`}`;
   const timeoutMs = init?.timeoutMs ?? DEFAULT_TIMEOUT_MS;

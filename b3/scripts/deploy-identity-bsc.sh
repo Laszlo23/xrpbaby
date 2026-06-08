@@ -5,15 +5,16 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CONTRACTS="$ROOT/apps/identity/contracts"
 cd "$CONTRACTS"
 
-if [[ -f ../.env ]]; then
+ENV_FILE="${IDENTITY_DEPLOY_ENV:-$ROOT/app/.env}"
+if [[ -f "$ENV_FILE" ]]; then
   set -a
   # shellcheck disable=SC1091
-  source ../.env
+  source "$ENV_FILE"
   set +a
 fi
 
 if [[ -z "${PRIVATE_KEY:-}" ]]; then
-  echo "PRIVATE_KEY is required in apps/identity/.env" >&2
+  echo "PRIVATE_KEY is required in $ENV_FILE" >&2
   exit 1
 fi
 

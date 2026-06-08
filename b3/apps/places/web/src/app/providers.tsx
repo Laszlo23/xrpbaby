@@ -21,7 +21,7 @@ const DEFAULT_PRIVY_CLIENT_ID =
   "client-WY6YUv2Pa1JUftGa3dMubEKjQvQQ34NqD1E3o2RETGWfX";
 
 const SYNC_API_ORIGIN =
-  process.env.NEXT_PUBLIC_PLATFORM_ORIGIN?.trim() || "https://0x.buildingculture.capital";
+  process.env.NEXT_PUBLIC_PLATFORM_ORIGIN?.trim() || "https://0x.buildingcultureid.space";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(

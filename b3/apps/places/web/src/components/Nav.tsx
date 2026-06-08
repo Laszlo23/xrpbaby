@@ -51,7 +51,7 @@ const NavIcon = {
 
 const primaryLinks: { href: string; label: string; hint: string; icon: (cls: string) => ReactNode }[] = [
   { href: "/start", label: "Start here", hint: "Plain-English intro", icon: NavIcon.startHere },
-  { href: "/properties", label: "Properties", hint: "Browse listings", icon: NavIcon.building },
+  { href: "/marketplace", label: "Marketplace", hint: "Browse RWA listings", icon: NavIcon.building },
   { href: "/culture-land", label: "Culture Land", hint: "Flagship portfolio", icon: NavIcon.cultureLand },
   { href: "/community", label: "Community", hint: "Updates, tasks, referrals", icon: NavIcon.community },
 ];

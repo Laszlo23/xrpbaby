@@ -34,6 +34,16 @@ docker exec "$CONTAINER" pg_isready -U buildingculture -d buildingculture
 
 echo "==> prisma migrate deploy"
 cd "$ROOT/app"
-npx prisma migrate deploy
+LOCAL_PG_PORT="${BC_LOCAL_PG_PORT:-55432}"
+PG_PASS="$(docker exec "$CONTAINER" printenv POSTGRES_PASSWORD 2>/dev/null || true)"
+if [[ -z "$PG_PASS" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$ROOT/app/.env" 2>/dev/null || true
+  set +a
+  PG_PASS="${POSTGRES_PASSWORD:-buildingculture}"
+fi
+LOCAL_DB_URL="postgresql://${POSTGRES_USER:-buildingculture}:${PG_PASS}@127.0.0.1:${LOCAL_PG_PORT}/${POSTGRES_DB:-buildingculture}?schema=public"
+DATABASE_URL="$LOCAL_DB_URL" npx prisma migrate deploy
 
 echo "==> Ready. DATABASE_URL should use 127.0.0.1:55432"

@@ -57,7 +57,7 @@ export function BuyBccButton() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed bottom-20 right-4 z-40 rounded-full bg-gradient-to-r from-[#C5FF41] to-[#00E5FF] px-4 py-2 text-xs font-bold text-black shadow-lg transition hover:opacity-90 sm:bottom-6"
+        className="fixed bottom-floating-high left-4 z-30 rounded-full bg-gradient-to-r from-[#C5FF41] to-[#00E5FF] px-4 py-2 text-xs font-bold text-black shadow-lg transition hover:opacity-90 sm:left-auto sm:right-4 sm:bottom-floating-safe"
         aria-label={`Buy ${BCC_SYMBOL}`}
       >
         Buy {BCC_SYMBOL}
@@ -69,8 +69,8 @@ export function BuyBccButton() {
             <DialogTitle className="font-heading text-xl">Get {BCC_SYMBOL}</DialogTitle>
             <DialogDescription className="text-zinc-500">
               {BCC_SYMBOL} lives on Base. Pay with {BCC_SYMBOL} for{" "}
-              <span className="font-semibold text-[#C5FF41]">{BCC_DISCOUNT_LABEL}</span> on identity,
-              art, and Places.
+              <span className="font-semibold text-[#C5FF41]">{BCC_DISCOUNT_LABEL}</span> on
+              identity, art, and Places.
             </DialogDescription>
           </DialogHeader>
 

@@ -22,13 +22,15 @@ function TradingQuoteApiNote() {
       <p className="mb-2 font-semibold text-foreground">Rentable trading quote (x402)</p>
       <p>
         GET with query <span className="text-zinc-200">from_token</span>,{" "}
-        <span className="text-zinc-200">to_token</span>, <span className="text-zinc-200">amount</span>{" "}
-        and x402 payment header. Example:{" "}
-        <span className="text-zinc-200">/api/trading/quote?from_token=eth&to_token=bcc&amount=0.01</span>
+        <span className="text-zinc-200">to_token</span>,{" "}
+        <span className="text-zinc-200">amount</span> and x402 payment header. Example:{" "}
+        <span className="text-zinc-200">
+          /api/trading/quote?from_token=eth&to_token=bcc&amount=0.01
+        </span>
       </p>
       <p className="mt-2">
-        Pricing: <span className="text-zinc-200">X402_TRADING_QUOTE_PRICE</span> (default $0.05). Manifest:{" "}
-        <span className="text-zinc-200">/api/trading/manifest</span>.
+        Pricing: <span className="text-zinc-200">X402_TRADING_QUOTE_PRICE</span> (default $0.05).
+        Manifest: <span className="text-zinc-200">/api/trading/manifest</span>.
       </p>
     </div>
   );

@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["recharts"],
   },
+  async redirects() {
+    return [
+      { source: "/properties", destination: "/marketplace", permanent: true },
+      { source: "/properties/:id", destination: "/marketplace/:id", permanent: true },
+      { source: "/issuer", destination: "/list", permanent: true },
+      { source: "/portfolio", destination: "/dashboard", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

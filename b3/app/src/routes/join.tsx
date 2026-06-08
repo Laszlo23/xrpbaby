@@ -10,12 +10,18 @@ import { SupportScorePanel } from "@/components/SupportScorePanel";
 import { platformForestUrl } from "@/lib/platform-url";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { plainLabels } from "@/lib/plain-labels";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/join")({
   component: JoinPage,
-  head: () => ({
-    meta: [{ title: "Join — Building Culture" }],
-  }),
+  head: () =>
+    pageHead({
+      title: "Join",
+      description:
+        "Create your BUILDCHAIN pass, connect your wallet, and set your intent to start earning culture points.",
+      path: "/join",
+      keywords: ["BUILDCHAIN", "join", "pass", "wallet", "culture points"],
+    }),
 });
 
 const INTENTS = [

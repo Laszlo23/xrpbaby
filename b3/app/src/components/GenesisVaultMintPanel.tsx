@@ -104,9 +104,7 @@ function TierMintCard({ label, blurb, address, accent, tier }: TierRowProps) {
         className={`rounded-2xl border border-white/[0.08] bg-black/30 p-5 ${accent} opacity-70`}
       >
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">{label}</p>
-        <p className="mt-2 text-sm text-zinc-500">
-          Contract not configured — set env after deploy.
-        </p>
+        <p className="mt-2 text-sm text-zinc-500">This tier is not available yet.</p>
       </div>
     );
   }
@@ -181,14 +179,18 @@ export function GenesisVaultMintPanel() {
     return (
       <section className="rounded-3xl border border-dashed border-white/[0.12] bg-white/[0.02] p-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-600">
-          Mint (after deploy)
+          Mint opening soon
         </p>
         <p className="mt-3 text-sm text-zinc-500">
-          Set <span className="font-mono text-zinc-400">VITE_GENESIS_VAULT_PASS_PHASE0</span>,{" "}
-          <span className="font-mono text-zinc-400">…_PHASE1</span>,{" "}
-          <span className="font-mono text-zinc-400">…_PHASE2</span> to your Base contracts, then
-          refresh.
+          Three on-chain tiers on Base are being wired in. Check back shortly — connect your wallet
+          on Profile to see your badge once you hold a pass.
         </p>
+        {import.meta.env.DEV ? (
+          <p className="mt-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-2 font-mono text-[11px] text-amber-200">
+            Dev: set VITE_GENESIS_VAULT_PASS_PHASE0, …_PHASE1, …_PHASE2 in .env (or sync from
+            contracts/deployments/8453.json via npm run contracts:sdk).
+          </p>
+        ) : null}
       </section>
     );
   }

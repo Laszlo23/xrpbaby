@@ -11,7 +11,7 @@ Solidity `0.8.24` under `src/`. Use **Foundry** as the primary compile/test/depl
 
 1. `cp .env.example .env`
 2. Set at least: `PRIVATE_KEY`, `RPC_URL`, `TREASURY`, `LIQUIDITY_VAULT` (for agent campaign), `GENESIS_MERKLE_ROOT` (use zero root until a real tree is published).
-3. Default metadata bases point at `https://0x.buildingculture.capital/...` — change when you host JSON elsewhere.
+3. Default metadata bases point at `https://0x.buildingcultureid.space/...` — change when you host JSON elsewhere.
 4. Optional: keep **Thirdweb** fields (`THIRDWEB_*`, `BSC_4EVERLAND_API_KEY`) in sync with `b3/frontend/.env` for a single place to copy keys when operating the stack. **Foundry only reads the deploy variables** at the top of `.env.example`—the Thirdweb block is for humans/scripts, not `forge script`.
 
 Never commit `.env`. It is listed in `.gitignore`.
@@ -63,7 +63,7 @@ Set in `.env` before broadcast:
 - **`TREASURY`** — receives mint proceeds.
 - **`GVP_PHASE0_MINT_PRICE_WEI`**, **`GVP_PHASE1_MINT_PRICE_WEI`**, **`GVP_PHASE2_MINT_PRICE_WEI`** — optional; defaults `0.005`, `0.003`, `0.001` ether.
 - **`GVP_PHASE0_MAX_SUPPLY`** … **`GVP_PHASE2_MAX_SUPPLY`** — optional; defaults `333`, `777`, `1500`.
-- **`GVP_PHASE0_BASE_URI`** … **`GVP_PHASE2_BASE_URI`** — optional JSON bases (must end with `/`); defaults under `https://0x.buildingculture.capital/meta/genesis-vault-pass/phaseN/`.
+- **`GVP_PHASE0_BASE_URI`** … **`GVP_PHASE2_BASE_URI`** — optional JSON bases (must end with `/`); defaults under `https://0x.buildingcultureid.space/meta/genesis-vault-pass/phaseN/`.
 
 Copy the three logged addresses into the frontend: `VITE_GENESIS_VAULT_PASS_PHASE0`, `PHASE1`, `PHASE2` (see `b3/frontend/.env.example`).
 

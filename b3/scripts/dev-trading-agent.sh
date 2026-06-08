@@ -10,9 +10,9 @@ if [[ ! -d .venv ]]; then
   .venv/bin/pip install -r requirements.txt
 fi
 
-# Prefer Alchemy from identity app env when public RPC rate-limits sugar-sdk.
-if [[ -z "${SUGAR_RPC_URI_8453:-}" ]] && [[ -f "$ROOT/apps/identity/.env" ]]; then
-  KEY="$(grep '^ALCHEMY_API_KEY=' "$ROOT/apps/identity/.env" | cut -d= -f2- || true)"
+# Prefer Alchemy from unified app env when public RPC rate-limits sugar-sdk.
+if [[ -z "${SUGAR_RPC_URI_8453:-}" ]] && [[ -f "$ROOT/app/.env" ]]; then
+  KEY="$(grep '^ALCHEMY_API_KEY=' "$ROOT/app/.env" | cut -d= -f2- || true)"
   if [[ -n "$KEY" ]]; then
     export SUGAR_RPC_URI_8453="https://base-mainnet.g.alchemy.com/v2/${KEY}"
   fi

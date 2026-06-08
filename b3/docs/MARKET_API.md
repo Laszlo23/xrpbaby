@@ -53,7 +53,7 @@ Profiles: `http://localhost:5173/id/punk.culture` · gateway: `/n/punk.culture`
 
 ## Local setup (one command)
 
-From repo root, copy thirdweb marketplace vars from `apps/identity/.env` into `app/.env`, then restart the app:
+From repo root, sync thirdweb marketplace vars from `contracts/.env` into `app/.env`, then restart the app:
 
 ```bash
 npm run market:env

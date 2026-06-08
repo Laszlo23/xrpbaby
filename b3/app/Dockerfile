@@ -14,6 +14,7 @@ COPY packages ./packages
 COPY app/prisma ./app/prisma
 COPY content ./content
 RUN npm ci --legacy-peer-deps
+RUN node -e "const fs=require('fs');const p='/repo/node_modules/@noble/hashes/package.json';const j=JSON.parse(fs.readFileSync(p,'utf8'));j.exports=j.exports||{};const alias={ './sha3':'./sha3.js','./sha256':'./sha2.js','./sha512':'./sha2.js','./sha2':'./sha2.js','./utils':'./utils.js','./hmac':'./hmac.js' };for (const [k,v] of Object.entries(alias)) if(!j.exports[k]) j.exports[k]=v;fs.writeFileSync(p,JSON.stringify(j,null,2));"
 
 RUN npm -w @bc/contracts-sdk run build \
   && npm -w @bc/wallet-kit run build \
@@ -38,8 +39,11 @@ LABEL org.opencontainers.image.title="Building Culture App"
 RUN apt-get update && apt-get install -y --no-install-recommends openssl ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
+COPY --from=builder /repo/packages ./packages
+COPY --from=builder /repo/node_modules ./node_modules
+COPY --from=builder /repo/app/node_modules ./node_modules_app
+RUN if [ -d node_modules_app ]; then cp -a node_modules_app/. node_modules/ && rm -rf node_modules_app; fi
 COPY --from=builder /repo/app/package.json ./package.json
-COPY --from=builder /repo/app/node_modules ./node_modules
 COPY --from=builder /repo/app/dist ./dist
 COPY --from=builder /repo/app/prisma ./prisma
 COPY --from=builder /repo/app/scripts/docker-entrypoint.sh ./docker-entrypoint.sh

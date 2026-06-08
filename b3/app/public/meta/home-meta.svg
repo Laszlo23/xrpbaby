@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BUILDCHAIN Home</title>
+  <desc id="desc">BUILDCHAIN - We bring places back to life.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505" />
+      <stop offset="100%" stop-color="#101827" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c5ff41" />
+      <stop offset="100%" stop-color="#00e5ff" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1020" cy="120" r="180" fill="#00e5ff" fill-opacity="0.16" />
+  <circle cx="180" cy="540" r="230" fill="#c5ff41" fill-opacity="0.12" />
+  <text x="90" y="250" font-family="Inter, Arial, sans-serif" font-size="28" fill="#a1a1aa" letter-spacing="5">BUILDCHAIN</text>
+  <text x="90" y="340" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="700" fill="#ffffff">We bring places</text>
+  <text x="90" y="420" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="700" fill="url(#accent)">back to life</text>
+  <text x="90" y="510" font-family="Inter, Arial, sans-serif" font-size="28" fill="#d4d4d8">Play fair on-chain. Build culture in public.</text>
+</svg>

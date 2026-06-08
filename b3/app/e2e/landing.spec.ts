@@ -39,7 +39,9 @@ test.describe("landing flow", () => {
 
   test("waitlist form shows validation for bad email", async ({ page }) => {
     await page.goto("/#join");
-    await page.locator("#join").scrollIntoViewIfNeeded();
+    const joinSection = page.locator("#join");
+    await joinSection.waitFor({ state: "visible", timeout: 15_000 });
+    await joinSection.scrollIntoViewIfNeeded();
     const input = page.locator("#join").getByPlaceholder(/your@email.com/i);
     await input.fill("not-an-email");
     await page

@@ -73,6 +73,10 @@ services:
       NODE_ENV: production
       DATABASE_URL: postgresql://${POSTGRES_USER:-buildingculture}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-buildingculture}
       AGENT_TICK_INTERVAL_SEC: ${AGENT_TICK_INTERVAL_SEC:-900}
+      AGENT_REPO_ROOT: /opt/buildingculture
+      REPO_ROOT: /opt/buildingculture
+    volumes:
+      - ..:/opt/buildingculture:rw
     # Optional: mount custom agent graph
     # volumes:
     #   - ./agents.json:/app/ops/agents.json:ro

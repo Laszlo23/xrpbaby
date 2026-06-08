@@ -14,7 +14,10 @@
 
 | Legacy stack | Notes |
 |--------------|-------|
+| `apps/eco`, `apps/hub`, `apps/signal` SPAs | Removed; routes live in unified `app/` (`/earth`, `/guide`, `/`, `/signal`) |
+| `apps/identity`, `apps/art` frontends | Removed; keep `apps/*/contracts/` for deploy scripts only |
 | `onboarding/frontend` CRA build | Replaced by `app/src/components/landing/*` at `/` |
+| `apps/founding/frontend` | Replaced by `app/` landing + `/forest` |
 | `buildingculturelanding-main` FastAPI + Mongo | Waitlist now `POST /api/platform/waitlist` (Postgres) |
 | nginx `bc_landing` static root | Single `bc_platform` upstream for all paths |
 
@@ -22,9 +25,9 @@
 
 | Legacy | Target |
 |--------|--------|
-| `app.buildingculture.capital` | `app.buildingcultureid.space/forest` or apex path |
-| `home.buildingculture.capital` | `/` |
-| `eco.buildingculture.capital` | `/earth` |
+| Legacy app host | `https://app.buildingcultureid.space/forest` or matching path |
+| Legacy home host | `https://home.buildingcultureid.space/` |
+| Legacy eco host | `https://eco.buildingcultureid.space/earth` |
 | `miniapp.buildingcultureid.space` | `/forest/quests` |
 | `mini.buildingcultureid.space` | `/pass` |
 
@@ -39,5 +42,14 @@
 - [ ] `./scripts/production-smoke.sh https://your-public-origin`
 - [ ] `./scripts/install-pulse-cron.sh` on VPS
 - [ ] Purge CDN after nginx changes
+
+## Impact satellites (beta — interim proxy)
+
+| Host | Upstream (interim) | Nginx template |
+|------|-------------------|----------------|
+| `https://ankommen.buildingcultureid.space/` | `ankommen.ai` | [infra/nginx-ankommen-buildingculture.example.conf](../infra/nginx-ankommen-buildingculture.example.conf) |
+| `https://forkids.buildingcultureid.space/` | `kinderstimme.at` | [infra/nginx-forkids-buildingculture.example.conf](../infra/nginx-forkids-buildingculture.example.conf) |
+
+Add both hosts to `CORS_ORIGIN` and `SIWE_ALLOWED_DOMAINS` in production `deploy/.env` before go-live.
 
 See also [CROSS_DOMAIN_UNIFIED_ENTRY.md](./CROSS_DOMAIN_UNIFIED_ENTRY.md) and [infra/nginx-unified-entry.example.conf](../infra/nginx-unified-entry.example.conf).

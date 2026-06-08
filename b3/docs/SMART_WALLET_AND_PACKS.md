@@ -2,15 +2,17 @@
 
 Unified app (`b3/app`) flow: **Privy** embedded smart wallet on **Base** and **BNB Smart Chain**, **Stripe** USD packs → **Culture Points** ledger (chain-agnostic), **Culture Layer Identity** mint on the active network.
 
+Canonical ecosystem front door: `https://app.buildingcultureid.space`.
+
 ## Privy dashboard checklist
 
 1. Create app at [dashboard.privy.io](https://dashboard.privy.io)
 2. Enable **Embedded wallets** and **Smart wallets** for **Base** and **BNB Smart Chain (56)**
 3. Enable **Export wallet** (user self-custody)
 4. Allowed domains: production origins below **plus** all ecosystem satellites:
-   - `0x.buildingculture.capital` (auth hub)
+   - `app.buildingcultureid.space` (canonical app + auth routes)
+   - `0x.buildingcultureid.space` (market lane on canonical zone)
    - `buildingcultureid.space`, `*.buildingcultureid.space`
-   - `buildingculture.capital`, `*.buildingculture.capital`
    - `http://localhost:5173` and local dev ports
 5. Copy **App ID** → `VITE_PRIVY_APP_ID` / `NEXT_PUBLIC_PRIVY_APP_ID` and `PRIVY_APP_ID`
 6. Copy **App secret** → `PRIVY_APP_SECRET` (server only)
@@ -44,7 +46,7 @@ Shared package at [`packages/culture-auth`](../packages/culture-auth). All web a
 | App | Provider | Member sync target |
 |-----|----------|-------------------|
 | `b3/app` (0x) | Built-in Privy + hub routes | `POST /api/wallet/sync` (local) |
-| `apps/identity`, `apps/art` | `@bc/culture-auth` (Farcaster mini falls back to injected) | `https://0x.buildingculture.capital/api/wallet/sync` |
+| `apps/identity`, `apps/art` | `@bc/culture-auth` (Farcaster mini falls back to injected) | `https://app.buildingcultureid.space/api/wallet/sync` |
 | `apps/places/web` | Aligned Privy config + `CultureMemberSync` | Central API |
 | `signal`, `eco`, `hub` | `CultureAuthProvider` | Central API |
 
@@ -52,19 +54,19 @@ Satellite env (Vite):
 
 ```bash
 VITE_PRIVY_APP_ID=cmo4s85vq00z80cl47cz0qm2j
-VITE_PLATFORM_ORIGIN=https://0x.buildingculture.capital
+VITE_PLATFORM_ORIGIN=https://app.buildingcultureid.space
 ```
 
 Places (Next):
 
 ```bash
 NEXT_PUBLIC_PRIVY_APP_ID=cmo4s85vq00z80cl47cz0qm2j
-NEXT_PUBLIC_PLATFORM_ORIGIN=https://0x.buildingculture.capital
+NEXT_PUBLIC_PLATFORM_ORIGIN=https://app.buildingcultureid.space
 ```
 
 ## Cross-domain auth hub
 
-Browser cookies do **not** sync across `buildingcultureid.space` and `buildingculture.capital`. Use the auth hub on **`0x.buildingculture.capital`**:
+Browser cookies do **not** sync across all ecosystem domains. Use canonical auth routes on **`app.buildingcultureid.space`** within the `*.buildingcultureid.space` zone:
 
 | Flow | URL |
 |------|-----|

@@ -8,7 +8,7 @@ config({ path: resolve(appDir, ".env") });
 function resolveBaseRpc(): string {
   const fromEnv = process.env.VITE_BASE_RPC_URL?.trim();
   if (fromEnv && !fromEnv.includes("mainnet.base.org")) return fromEnv;
-  const identityEnv = resolve(appDir, "../../apps/identity/.env");
+  const identityEnv = resolve(appDir, ".env");
   try {
     const key = readFileSync(identityEnv, "utf8")
       .match(/^ALCHEMY_API_KEY=(.+)/m)?.[1]
@@ -78,9 +78,7 @@ type Target = { handle: string; tld: string; fullName: string };
 function parseTargets(): Target[] {
   const namesFile = process.env.NAMES_FILE?.trim();
   if (namesFile) {
-    const fs = require("node:fs") as typeof import("node:fs");
-    const lines = fs
-      .readFileSync(namesFile, "utf8")
+    const lines = readFileSync(namesFile, "utf8")
       .split("\n")
       .map((l) => l.trim().toLowerCase())
       .filter(Boolean);
@@ -92,7 +90,12 @@ function parseTargets(): Target[] {
 
   const handles = (process.env.HANDLES ?? PREMIUM_HANDLES.join(","))
     .split(",")
-    .map((h) => h.trim().toLowerCase().replace(/[^a-z0-9]/g, ""))
+    .map((h) =>
+      h
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, ""),
+    )
     .filter(Boolean);
   const tlds = (process.env.TLDS ?? TLD_LABELS.join(","))
     .split(",")

@@ -1,18 +1,26 @@
-# BCC product map (earn → spend → IRL)
+# Legacy BCD product map (historical reference)
 
-Internal reference for how **Building Culture Coin (BCC)** ties the **digital lane** (0x / BUILDCHAIN app) to the **physical lane** (eco hubs, revival — see `ecorwa`). Adjust as prod contracts and legal constraints firm up.
+Legacy context only. This file captures earlier BCD-era assumptions and mixed-chain wiring notes.
 
-## Today (implemented or partially wired)
+Canonical strategy and goals now live in:
+
+- [ECOSYSTEM_GOALS_AND_ROADMAP.md](./ECOSYSTEM_GOALS_AND_ROADMAP.md)
+- [BCC_TOKEN.md](./BCC_TOKEN.md)
+- [README.md](./README.md)
+
+Use **BCC** language for current external communication. Keep this document for historical traceability only.
+
+## Historical snapshot (implemented or partially wired at the time)
 
 | Flow | Mechanism | Notes |
 |------|-----------|--------|
-| **Earn / accumulate BCD** | Genesis merkle claim (`BCDGenesisClaim`), optional sale contract, in-app **demo balance** when token unset | Configure `VITE_BCD_TOKEN_ADDRESS`, `VITE_BCD_GENESIS_CLAIM_ADDRESS`, etc. |
+| **Earn / accumulate BCD** | Genesis merkle claim (`BCDGenesisClaim`), optional sale contract, in-app **demo balance** when token unset | Legacy config used `VITE_BCD_TOKEN_ADDRESS`, `VITE_BCD_GENESIS_CLAIM_ADDRESS`, etc. |
 | **Spend BCC (story)** | Ticket mint UX, missions, leaderboard narrative | Raffle settlement paths vary by deployed bytecode; UI explains ETH vs BCC where relevant (`faq`, `GetBcdModal`). |
 | **Spend BCC (target)** | **RaffleTicketCampaign** supports BCD-style settlement when wired | See Solidity NatSpec in `RaffleTicketCampaign.sol`. |
-| **View balance** | `useBcdBalance` on chain **`VITE_BCD_CHAIN_ID`** (defaults **8333** B3) | Must match token deployment; prompt uses `getBcdChainShortLabel()`. |
+| **View balance** | `useBcdBalance` on chain **`VITE_BCD_CHAIN_ID`** (defaulted to **8333** in old flows) | Historical setup; not canonical for current Base-first BCC messaging. |
 | **Tickets / experiences** | `VITE_RAFFLE_CAMPAIGN_ADDRESS` on **`VITE_EVM_NETWORK`** (default Base) | Separate chain from BCC is OK — users may switch networks for tickets vs BCC until unified deployment. |
 
-## Roadmap (hub lane — not implemented)
+## Historical roadmap notes (hub lane)
 
 | Idea | Purpose |
 |------|---------|
@@ -22,7 +30,7 @@ Internal reference for how **Building Culture Coin (BCC)** ties the **digital la
 
 Defer **HubMembership NFT** or **RevenueShareVault** contracts until treasury model and jurisdiction are defined ([`contracts-hardening.md`](contracts-hardening.md)).
 
-## Related env vars
+## Legacy env variables (reference)
 
 - `VITE_BCD_TOKEN_ADDRESS`, `VITE_BCD_CHAIN_ID`
 - `VITE_EVM_NETWORK`, `VITE_RAFFLE_CAMPAIGN_ADDRESS`

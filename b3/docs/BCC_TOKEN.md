@@ -2,6 +2,11 @@
 
 Market token on **Base** (`8453`), fair launch. Holders pay with **BCC** for an **11.11% discount** on priced features.
 
+Canonical naming policy:
+
+- Use **BCC** for all current ecosystem and user-facing communication.
+- Use **BCD** only when referring to historical contracts/runbooks that still carry legacy names.
+
 | Constant | Value |
 |----------|--------|
 | Token | `0xb890a5289f789f1346032ccc1847939e855fab07` |
@@ -30,6 +35,8 @@ Legacy contracts are **native/ single-token only**; BCC rails are **v2 deploymen
 | Places shares | `PrimaryShareSaleBcc` | `buyWholeSharesWithBcc(wholeShares)` |
 
 Pricing via `IBccUsdOracle.bccAmountForUsd(usdE6)` then apply `8889/10000`.
+
+Public narrative rule: describe BCC utility as community credits and product access value (for example, pass/ticket discount), not as speculative return language.
 
 ### Oracle
 

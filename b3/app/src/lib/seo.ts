@@ -2,7 +2,7 @@
  * Central SEO + Open Graph + Twitter metadata for TanStack Router `head`.
  */
 import { getServerPublicOrigin } from "@/lib/app-origin";
-import { BLOG_SLUGS } from "@/content/blog/posts";
+import { BLOG_SLUGS } from "@/content/blog/markdown-posts";
 import { homeDrops } from "@/content/home-drops";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 
@@ -21,6 +21,8 @@ export type PageSeoInput = {
   image?: string;
   keywords?: string[];
   ogType?: "website" | "article";
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
   /** Use noindex for dashboards / drafts */
   noIndex?: boolean;
 };
@@ -38,7 +40,7 @@ export function ogImageEnvOverride(): string | undefined {
 /** Site-relative OG assets under `/public/meta/` (see `getOgImageForPath`). */
 export function getOgImageForPath(path: string): string {
   const p = normalizeCanonicalPath(path.split("?")[0]);
-  if (p === "/play" || p === "/mission") return "/meta/eco-meta.png";
+  if (p === "/play" || p === "/mission") return "/meta/eco-meta.svg";
   if (
     p.startsWith("/marketplace") ||
     p.startsWith("/campaign") ||
@@ -54,16 +56,16 @@ export function getOgImageForPath(path: string): string {
     p === "/faq" ||
     p === "/about"
   ) {
-    return "/meta/0xmeta.png";
+    return "/meta/0xmeta.svg";
   }
-  return "/meta/home-meta.png";
+  return "/meta/home-meta.svg";
 }
 
 export function getDefaultOgImageUrl(): string {
   const env = ogImageEnvOverride();
   if (env) return env;
   const origin = getServerPublicOrigin().replace(/\/$/, "");
-  return `${origin}/meta/home-meta.png`;
+  return `${origin}/meta/home-meta.svg`;
 }
 
 export function getTwitterSiteHandle(): string | undefined {
@@ -140,6 +142,17 @@ export function pageHead(opts: PageSeoInput): HeadPayload {
   const twitterSite = getTwitterSiteHandle();
   const keywords =
     opts.keywords?.length && opts.keywords.length > 0 ? opts.keywords.join(", ") : undefined;
+  const articleMeta =
+    ogType === "article"
+      ? [
+          ...(opts.articlePublishedTime
+            ? [{ property: "article:published_time", content: opts.articlePublishedTime }]
+            : []),
+          ...(opts.articleModifiedTime
+            ? [{ property: "article:modified_time", content: opts.articleModifiedTime }]
+            : []),
+        ]
+      : [];
 
   const meta: HeadPayload["meta"] = [
     { title: titleTag },
@@ -166,6 +179,7 @@ export function pageHead(opts: PageSeoInput): HeadPayload {
     { name: "twitter:title", content: titleTag },
     { name: "twitter:description", content: desc },
     { name: "twitter:image", content: imageUrl },
+    ...articleMeta,
     ...(twitterSite ? [{ name: "twitter:site", content: twitterSite }] : []),
   ];
 

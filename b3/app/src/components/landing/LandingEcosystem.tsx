@@ -28,8 +28,8 @@ export function LandingEcosystem() {
           </div>
           <div className="lg:col-span-5">
             <p className="text-base text-zinc-400 sm:text-lg">
-              Eight interconnected products — built to fund, build, own, live and govern. Each one a
-              doorway to the same movement.
+              {LANDING_ECOSYSTEM.length} interconnected products — built to fund, build, own, live,
+              and govern. Each one a doorway to the same movement.
             </p>
           </div>
         </div>

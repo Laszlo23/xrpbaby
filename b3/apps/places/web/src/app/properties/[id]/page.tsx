@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { formatEther, zeroAddress } from "viem";
 import { useReadContract } from "wagmi";
 import { ComplianceStatus } from "@/components/ComplianceStatus";
@@ -35,6 +35,8 @@ import { PropertyInvestTrustStrip } from "@/components/PropertyInvestTrustStrip"
 import { PropertyLocationMap } from "@/components/PropertyLocationMap";
 import { getPropertyGeoById } from "@/lib/property-geo";
 import { usePropertyShareList } from "@/lib/usePropertyShareList";
+import { PropertyWatchlistButton } from "@/components/rwa/PropertyWatchlistButton";
+import { VerifiedBadge } from "@/components/rwa/VerifiedBadge";
 
 export default function PropertyDetailPage() {
   const params = useParams();
@@ -56,6 +58,14 @@ export default function PropertyDetailPage() {
   const row = chainRows.find((r) => r.id === propertyId);
 
   const [tab, setTab] = useState<"overview" | "financials" | "documents" | "blockchain">("overview");
+  const [aiSummary, setAiSummary] = useState<string | null>(null);
+
+  useEffect(() => {
+    void fetch(`/api/listings/summary/${idStr}`)
+      .then((r) => r.json())
+      .then((d: { summary?: string }) => setAiSummary(d.summary ?? null))
+      .catch(() => setAiSummary(null));
+  }, [idStr]);
 
   const { data: totalSupplyWei } = useReadContract({
     chainId: listingsChainId,
@@ -103,8 +113,8 @@ export default function PropertyDetailPage() {
     return (
       <div className="py-12 text-center">
         <p className="text-zinc-400">No share token for property #{idStr}.</p>
-        <Link href="/properties" className="mt-4 inline-block text-gold-400 hover:underline">
-          ← Properties
+        <Link href="/marketplace" className="mt-4 inline-block text-gold-400 hover:underline">
+          ← Marketplace
         </Link>
       </div>
     );
@@ -151,7 +161,8 @@ export default function PropertyDetailPage() {
         <div className="relative w-full bg-zinc-900">
           {demo ? (
             <>
-              <div className="absolute right-4 top-4 z-30 sm:right-8 sm:top-8">
+              <div className="absolute right-4 top-4 z-30 flex gap-2 sm:right-8 sm:top-8">
+                <PropertyWatchlistButton propertyId={idStr} />
                 <PropertyShareButton propertyId={idStr} title={demo.headline} />
               </div>
               <PropertyImageCarousel
@@ -479,6 +490,15 @@ export default function PropertyDetailPage() {
 
           {tab === "overview" && (
             <div className="space-y-6">
+              {aiSummary ? (
+                <section className="bc-glass-strong rounded-2xl p-6 sm:p-8">
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-semibold text-white">AI property summary</h2>
+                    <VerifiedBadge />
+                  </div>
+                  <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-zinc-400">{aiSummary}</p>
+                </section>
+              ) : null}
               <section className="glass-card p-6 sm:p-8">
                 <h2 className="text-lg font-semibold text-white">Overview</h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -491,6 +511,17 @@ export default function PropertyDetailPage() {
                     ))}
                   </ul>
                 )}
+                <p className="mt-6 text-sm text-zinc-500">
+                  Community discussion on{" "}
+                  <a
+                    href="https://app.buildingcultureid.space/signal"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="text-bc-cyan hover:underline"
+                  >
+                    Building Culture Signal ↗
+                  </a>
+                </p>
               </section>
               {demo && (
                 <section className="glass-card p-6 sm:p-8">

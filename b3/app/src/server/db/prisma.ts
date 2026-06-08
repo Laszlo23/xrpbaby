@@ -36,3 +36,39 @@ export function getPrisma(): PrismaClientType | null {
   }
   return globalForPrisma.prisma;
 }
+
+function prismaSql() {
+  return (require("@prisma/client") as typeof import("@prisma/client")).Prisma;
+}
+
+export async function queryWalletLeaderboard(
+  prisma: PrismaClientType,
+  limit: number,
+): Promise<Array<{ address: string; points: number }>> {
+  const { sql } = prismaSql();
+  return prisma.$queryRaw<{ address: string; points: number }[]>(sql`
+    SELECT w.address, COALESCE(SUM(pl.delta), 0)::int AS points
+    FROM "Wallet" w
+    INNER JOIN "PointLedger" pl ON pl."walletId" = w.id
+    GROUP BY w.id, w.address
+    ORDER BY points DESC
+    LIMIT ${limit}
+  `);
+}
+
+export async function queryReferralLeaderboard30d(
+  prisma: PrismaClientType,
+  limit: number,
+): Promise<Array<{ address: string; points: number }>> {
+  const { sql } = prismaSql();
+  return prisma.$queryRaw<{ address: string; points: number }[]>(sql`
+    SELECT w.address, COALESCE(SUM(pl.delta), 0)::int AS points
+    FROM "Wallet" w
+    INNER JOIN "PointLedger" pl ON pl."walletId" = w.id
+    WHERE pl."taskSlug" = 'raffle-referral-bonus'
+      AND pl."createdAt" > NOW() - INTERVAL '30 days'
+    GROUP BY w.id, w.address
+    ORDER BY points DESC
+    LIMIT ${limit}
+  `);
+}

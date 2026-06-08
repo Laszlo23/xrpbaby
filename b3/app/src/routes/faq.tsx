@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
 import { MarketingShell } from "@/components/MarketingShell";
+import { JsonLd } from "@/components/JsonLd";
 import {
   Accordion,
   AccordionContent,
@@ -31,9 +32,9 @@ const ITEMS: { q: string; a: ReactNode }[] = [
         <Link to="/forest" className="text-zinc-200 underline">
           /forest
         </Link>
-        . Legacy <strong className="font-medium text-zinc-300">0x</strong> and{" "}
-        <strong className="font-medium text-zinc-300">app.buildingculture.capital</strong> hosts
-        redirect here during cutover. Brand sites like buildingculture.capital stay separate.
+        . Legacy hosts should redirect to{" "}
+        <strong className="font-medium text-zinc-300">*.buildingcultureid.space</strong> during
+        cutover.
       </>
     ),
   },
@@ -118,37 +119,53 @@ export const Route = createFileRoute("/faq")({
 });
 
 function FaqPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: typeof item.a === "string" ? item.a : "See the full answer on this FAQ page.",
+      },
+    })),
+  };
+
   return (
-    <MarketingShell
-      eyebrow="Straight answers"
-      tone="cyan"
-      title={
-        <>
-          FAQ—{" "}
-          <span className="bg-gradient-to-r from-cyan-100/95 via-white to-cyan-200/80 bg-clip-text text-transparent">
-            no jargon wall
-          </span>
-        </>
-      }
-      subtitle="Quick clarity on wallets, drops, and where to read the serious stuff. Still unsure? Start at the drops section and click around—the UI is meant to be playable."
-      heroSize="hero"
-    >
-      <Accordion
-        type="single"
-        collapsible
-        className="w-full overflow-hidden rounded-2xl border border-white/[0.1] bg-white/[0.03] px-2 shadow-[inset_0_1px_0_rgb(255_255_255/0.05)] md:px-4"
+    <>
+      <JsonLd id="faq-page" data={faqJsonLd} />
+      <MarketingShell
+        eyebrow="Straight answers"
+        tone="cyan"
+        title={
+          <>
+            FAQ—{" "}
+            <span className="bg-gradient-to-r from-cyan-100/95 via-white to-cyan-200/80 bg-clip-text text-transparent">
+              no jargon wall
+            </span>
+          </>
+        }
+        subtitle="Quick clarity on wallets, drops, and where to read the serious stuff. Still unsure? Start at the drops section and click around—the UI is meant to be playable."
+        heroSize="hero"
       >
-        {ITEMS.map((item, i) => (
-          <AccordionItem key={item.q} value={`item-${i}`} className="border-white/[0.06] px-2">
-            <AccordionTrigger className="py-5 text-left text-[15px] font-medium text-zinc-100 hover:no-underline md:text-base">
-              {item.q}
-            </AccordionTrigger>
-            <AccordionContent className="pb-5 text-[15px] leading-relaxed text-zinc-500">
-              {item.a}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </MarketingShell>
+        <Accordion
+          type="single"
+          collapsible
+          className="w-full overflow-hidden rounded-2xl border border-white/[0.1] bg-white/[0.03] px-2 shadow-[inset_0_1px_0_rgb(255_255_255/0.05)] md:px-4"
+        >
+          {ITEMS.map((item, i) => (
+            <AccordionItem key={item.q} value={`item-${i}`} className="border-white/[0.06] px-2">
+              <AccordionTrigger className="py-5 text-left text-[15px] font-medium text-zinc-100 hover:no-underline md:text-base">
+                {item.q}
+              </AccordionTrigger>
+              <AccordionContent className="pb-5 text-[15px] leading-relaxed text-zinc-500">
+                {item.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </MarketingShell>
+    </>
   );
 }

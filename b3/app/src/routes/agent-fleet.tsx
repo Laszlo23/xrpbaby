@@ -138,6 +138,18 @@ function AgentFleetPage() {
                   ags-distributor-1 OK mints (UTC month):{" "}
                   <span className="text-zinc-200">{dashboard.agsMonthlyOkCount}</span>
                 </span>
+                <span>
+                  Tasks pending:{" "}
+                  <span className="text-zinc-200">{dashboard.taskQueue.pending}</span>
+                </span>
+                <span>
+                  Tasks running:{" "}
+                  <span className="text-zinc-200">{dashboard.taskQueue.running}</span>
+                </span>
+                <span>
+                  Tasks completed (24h):{" "}
+                  <span className="text-zinc-200">{dashboard.taskQueue.completed24h}</span>
+                </span>
                 <a
                   className="text-emerald-300/90 underline"
                   href="/api/agents/status"
@@ -147,6 +159,36 @@ function AgentFleetPage() {
                   JSON /api/agents/status ↗
                 </a>
               </div>
+              {dashboard.dailySpend.length > 0 ? (
+                <div className="mt-4 rounded-xl border border-white/[0.06] p-4">
+                  <p className="text-[10px] uppercase tracking-wider text-zinc-600">
+                    Daily spend (UTC)
+                  </p>
+                  <ul className="mt-2 space-y-1 font-mono text-xs text-zinc-400">
+                    {dashboard.dailySpend.map((s: AgentFleetDashboard["dailySpend"][number]) => (
+                      <li key={s.agentId}>
+                        {s.agentId}: api ${s.apiUsd} · gas {s.gasEth} ETH · deploy ${s.deployUsd}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {dashboard.recentOutcomes.length > 0 ? (
+                <div className="mt-4 rounded-xl border border-white/[0.06] p-4">
+                  <p className="text-[10px] uppercase tracking-wider text-zinc-600">
+                    Recent outcomes (learning loop)
+                  </p>
+                  <ul className="mt-2 space-y-2 text-xs text-zinc-400">
+                    {dashboard.recentOutcomes.map(
+                      (o: AgentFleetDashboard["recentOutcomes"][number]) => (
+                        <li key={o.id}>
+                          score {o.rewardScore ?? "n/a"} · {(o.learnings ?? "—").slice(0, 80)}
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                </div>
+              ) : null}
               <div className="mt-4 overflow-x-auto rounded-xl border border-white/[0.06]">
                 <table className="w-full min-w-[640px] text-left text-xs text-zinc-400">
                   <thead className="border-b border-white/[0.06] text-[10px] uppercase tracking-wider text-zinc-600">

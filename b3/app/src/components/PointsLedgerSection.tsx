@@ -26,6 +26,19 @@ import { ConnectFarcasterButton } from "@bc/culture-auth/react";
 import { NeynarConnectBoundary } from "@/components/NeynarConnectBoundary";
 import { Input } from "@/components/ui/input";
 
+function formatXProofError(code?: string): string {
+  switch (code) {
+    case "x_api_unconfigured":
+      return "X target post is not configured on the server — try again after the next deploy.";
+    case "x_verify_failed":
+      return "We could not verify that tweet yet. Use the Do it intent, wait a minute, then paste your tweet URL.";
+    case "x_proof_tweet_not_found":
+      return "Tweet not found — check the URL is public and uses x.com/…/status/…";
+    default:
+      return code ?? "Could not verify";
+  }
+}
+
 export function PointsLedgerSection() {
   const { address, isConnected } = useAccount();
   const { signSiwe, signing: siweSigning } = usePointsSiweSign();
@@ -56,14 +69,24 @@ export function PointsLedgerSection() {
 
   const [balance, setBalance] = useState<number | null>(null);
   const [completedSlugs, setCompletedSlugs] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [balanceLoading, setBalanceLoading] = useState(false);
+  const [claiming, setClaiming] = useState(false);
   const [backendDown, setBackendDown] = useState(false);
 
   const taskDone = useCallback((slug: string) => completedSlugs.includes(slug), [completedSlugs]);
+  const claimDisabled = claiming || siweSigning;
+
+  async function requireSiwe() {
+    const signed = await signSiwe();
+    if (!signed) {
+      toast.error("Wallet signature required — connect on Base and approve the sign-in prompt.");
+    }
+    return signed;
+  }
 
   const refresh = useCallback(async () => {
     if (!address) return;
-    setLoading(true);
+    setBalanceLoading(true);
     try {
       const r = await fetchBalance({ data: { address } });
       if (!r.ok && r.reason === "no_database") {
@@ -78,7 +101,7 @@ export function PointsLedgerSection() {
     } catch {
       setBackendDown(true);
     } finally {
-      setLoading(false);
+      setBalanceLoading(false);
     }
   }, [address, fetchBalance]);
 
@@ -87,9 +110,9 @@ export function PointsLedgerSection() {
   }, [refresh]);
 
   async function claimVisitMarketplaceTask() {
-    setLoading(true);
+    setClaiming(true);
     try {
-      const signed = await signSiwe();
+      const signed = await requireSiwe();
       if (!signed) return;
       const res = await completeTask({
         data: {
@@ -112,14 +135,14 @@ export function PointsLedgerSection() {
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Sign failed");
     } finally {
-      setLoading(false);
+      setClaiming(false);
     }
   }
 
   async function claimConnectTask() {
-    setLoading(true);
+    setClaiming(true);
     try {
-      const signed = await signSiwe();
+      const signed = await requireSiwe();
       if (!signed) return;
       const res = await completeTask({
         data: {
@@ -142,7 +165,7 @@ export function PointsLedgerSection() {
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Sign failed");
     } finally {
-      setLoading(false);
+      setClaiming(false);
     }
   }
 
@@ -155,9 +178,9 @@ export function PointsLedgerSection() {
       toast.error("Paste your tweet URL after completing the action.");
       return;
     }
-    setLoading(true);
+    setClaiming(true);
     try {
-      const signed = await signSiwe();
+      const signed = await requireSiwe();
       if (!signed) return;
       const res = await completeXProof({
         data: {
@@ -168,7 +191,7 @@ export function PointsLedgerSection() {
         },
       });
       if (!res.ok) {
-        toast.error(res.error ?? "Could not verify");
+        toast.error(formatXProofError(res.error));
         return;
       }
       if (res.alreadyCompleted) {
@@ -179,9 +202,9 @@ export function PointsLedgerSection() {
       setBalance(res.balance);
       setCompletedSlugs((prev) => [...new Set([...prev, taskSlug])]);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Sign failed");
+      toast.error(e instanceof Error ? e.message : "Claim failed");
     } finally {
-      setLoading(false);
+      setClaiming(false);
     }
   }
 
@@ -191,9 +214,9 @@ export function PointsLedgerSection() {
       toast.error("Paste a Telegram proof link (e.g. t.me/…).");
       return;
     }
-    setLoading(true);
+    setClaiming(true);
     try {
-      const signed = await signSiwe();
+      const signed = await requireSiwe();
       if (!signed) return;
       const res = await completeTelegramProof({
         data: {
@@ -215,18 +238,18 @@ export function PointsLedgerSection() {
       setBalance(res.balance);
       setCompletedSlugs((prev) => [...new Set([...prev, "telegram-join-buildingculture"])]);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Sign failed");
+      toast.error(e instanceof Error ? e.message : "Claim failed");
     } finally {
-      setLoading(false);
+      setClaiming(false);
     }
   }
 
   async function claimFarcasterTask(
     taskSlug: "follow-farcaster" | "like-cast-farcaster" | "share-app-farcaster",
   ) {
-    setLoading(true);
+    setClaiming(true);
     try {
-      const signed = await signSiwe();
+      const signed = await requireSiwe();
       if (!signed) return;
       const res = await completeFarcasterTask({
         data: {
@@ -247,9 +270,9 @@ export function PointsLedgerSection() {
       setBalance(res.balance);
       setCompletedSlugs((prev) => [...new Set([...prev, taskSlug])]);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Sign failed");
+      toast.error(e instanceof Error ? e.message : "Claim failed");
     } finally {
-      setLoading(false);
+      setClaiming(false);
     }
   }
 
@@ -311,7 +334,7 @@ export function PointsLedgerSection() {
               SIWE (same wallet as connected).
             </p>
             <p className="font-mono text-2xl font-semibold text-neon tabular-nums">
-              {loading && balance === null ? (
+              {balanceLoading && balance === null ? (
                 <span className="inline-flex items-center gap-2 text-sm text-zinc-500">
                   <Loader2 className="h-4 w-4 animate-spin" /> Loading…
                 </span>
@@ -326,7 +349,7 @@ export function PointsLedgerSection() {
             type="button"
             variant={taskDone("connect-wallet") ? "outline" : "secondary"}
             size="sm"
-            disabled={loading || siweSigning || taskDone("connect-wallet")}
+            disabled={claimDisabled || taskDone("connect-wallet")}
             className="rounded-full border-emerald-500/30"
             onClick={() => void claimConnectTask()}
           >
@@ -409,7 +432,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || siweSigning || taskDone("visit-marketplace")}
+                disabled={claimDisabled || taskDone("visit-marketplace")}
                 onClick={() => void claimVisitMarketplaceTask()}
               >
                 {taskDone("visit-marketplace") ? "Credited" : "Sign & claim (+15)"}
@@ -420,7 +443,7 @@ export function PointsLedgerSection() {
 
         <DailyOnChainCheckIn
           signSiwe={signSiwe}
-          signingDisabled={loading || siweSigning}
+          signingDisabled={claimDisabled}
           onBalance={(b) => setBalance(b)}
         />
 
@@ -486,7 +509,7 @@ export function PointsLedgerSection() {
                   type="button"
                   variant="secondary"
                   className="min-h-11 rounded-full px-6"
-                  disabled={loading || siweSigning || taskDone("follow-farcaster")}
+                  disabled={claimDisabled || taskDone("follow-farcaster")}
                   onClick={() => void claimFarcasterTask("follow-farcaster")}
                 >
                   {taskDone("follow-farcaster") ? "Credited" : "Verify & claim"}
@@ -528,7 +551,7 @@ export function PointsLedgerSection() {
                   type="button"
                   variant="secondary"
                   className="min-h-11 rounded-full px-6"
-                  disabled={loading || siweSigning || taskDone("like-cast-farcaster")}
+                  disabled={claimDisabled || taskDone("like-cast-farcaster")}
                   onClick={() => void claimFarcasterTask("like-cast-farcaster")}
                 >
                   {taskDone("like-cast-farcaster") ? "Credited" : "Verify & claim"}
@@ -568,7 +591,7 @@ export function PointsLedgerSection() {
                   type="button"
                   variant="secondary"
                   className="min-h-11 rounded-full px-6"
-                  disabled={loading || siweSigning || taskDone("share-app-farcaster")}
+                  disabled={claimDisabled || taskDone("share-app-farcaster")}
                   onClick={() => void claimFarcasterTask("share-app-farcaster")}
                 >
                   {taskDone("share-app-farcaster") ? "Credited" : "Verify & claim"}
@@ -594,11 +617,23 @@ export function PointsLedgerSection() {
               <strong className="text-zinc-300">your</strong> tweet URL as proof.
             </p>
 
-            {!xTweetId ? (
+            {xTweetId && xTargetRaw ? (
+              <p className="mt-3 text-sm text-zinc-500">
+                Official post:{" "}
+                <a
+                  href={xTargetRaw.split("?")[0]}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[var(--base-blue)] underline underline-offset-2"
+                >
+                  view on X
+                </a>
+              </p>
+            ) : (
               <p className="mt-3 text-sm text-amber-400/90">
                 Add VITE_X_TARGET_POST_URL so X intents target our fundraising posts.
               </p>
-            ) : null}
+            )}
           </div>
 
           <ul className="space-y-5">
@@ -641,7 +676,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || siweSigning || taskDone("x-reply-official")}
+                disabled={claimDisabled || taskDone("x-reply-official")}
                 onClick={() => void claimXProofTask("x-reply-official", proofReply)}
               >
                 {taskDone("x-reply-official") ? "Credited" : "Verify & claim"}
@@ -694,7 +729,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || siweSigning || taskDone("x-retweet-official")}
+                disabled={claimDisabled || taskDone("x-retweet-official")}
                 onClick={() => void claimXProofTask("x-retweet-official", proofRetweet)}
               >
                 {taskDone("x-retweet-official") ? "Credited" : "Verify & claim"}
@@ -742,7 +777,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || siweSigning || taskDone("x-quote-official")}
+                disabled={claimDisabled || taskDone("x-quote-official")}
                 onClick={() => void claimXProofTask("x-quote-official", proofQuote)}
               >
                 {taskDone("x-quote-official") ? "Credited" : "Verify & claim"}
@@ -806,7 +841,7 @@ export function PointsLedgerSection() {
                 type="button"
                 variant="secondary"
                 className="min-h-11 rounded-full px-6"
-                disabled={loading || siweSigning || taskDone("telegram-join-buildingculture")}
+                disabled={claimDisabled || taskDone("telegram-join-buildingculture")}
                 onClick={() => void claimTelegramTask(proofTelegram)}
               >
                 {taskDone("telegram-join-buildingculture") ? "Credited" : "Verify & claim"}

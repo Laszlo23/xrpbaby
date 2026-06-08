@@ -52,3 +52,30 @@ export function agsDistributorPrivateKey(): `0x${string}` | undefined {
   if (!k || !/^0x[0-9a-fA-F]{64}$/.test(k)) return undefined;
   return k as `0x${string}`;
 }
+
+export function agentDeployerPrivateKey(): `0x${string}` | undefined {
+  const k = process.env.AGENT_DEPLOYER_PRIVATE_KEY?.trim();
+  if (!k || !/^0x[0-9a-fA-F]{64}$/.test(k)) return undefined;
+  return k as `0x${string}`;
+}
+
+export function publicAppOrigin(): string {
+  return (
+    process.env.PUBLIC_APP_ORIGIN?.trim() ||
+    process.env.VITE_PUBLIC_APP_ORIGIN?.trim() ||
+    process.env.VITE_APP_ORIGIN?.trim() ||
+    ""
+  );
+}
+
+export function repoRoot(): string {
+  return process.env.AGENT_REPO_ROOT?.trim() || process.env.REPO_ROOT?.trim() || "/opt/buildingculture";
+}
+
+export function agentDailyDeployCapUsd(): number {
+  return Number(process.env.AGENT_DAILY_DEPLOY_CAP_USD ?? "50");
+}
+
+export function agentWeeklyContractDeployCap(): number {
+  return Number(process.env.AGENT_WEEKLY_CONTRACT_DEPLOY_CAP ?? "1");
+}

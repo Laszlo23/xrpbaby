@@ -23,3 +23,17 @@ frontend/docker/dotenv-for-build
 **/.venv/
 **/__pycache__/
 *.pyc
+
+# Test and build artifacts
+test-results/
+**/test-results/
+contracts/out/
+apps/**/out/
+apps/**/cache/
+**/dist/
+proof-bundles/
+reports/cleanup-inventory.txt
+
+# Secret-bearing deploy env (use .env.example templates)
+apps/**/deploy/.env.production
+apps/**/deploy/.env

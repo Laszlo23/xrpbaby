@@ -29,6 +29,8 @@ test.describe("wallet and packs", () => {
 
   test("buy BCC button visible on pass page", async ({ page }) => {
     await page.goto("/pass");
-    await expect(page.getByRole("button", { name: /buy bcc/i })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /pay with \$bcc|buy \$bcc|buy bcc/i }).first(),
+    ).toBeVisible();
   });
 });

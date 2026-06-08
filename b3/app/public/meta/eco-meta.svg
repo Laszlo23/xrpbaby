@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BUILDCHAIN Earth</title>
+  <desc id="desc">Hubs and regeneration within BUILDCHAIN.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#03130c" />
+      <stop offset="100%" stop-color="#092f25" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="960" cy="180" r="170" fill="#22c55e" fill-opacity="0.25" />
+  <circle cx="250" cy="500" r="200" fill="#00e5ff" fill-opacity="0.18" />
+  <text x="100" y="210" font-family="Inter, Arial, sans-serif" font-size="30" fill="#86efac" letter-spacing="4">BUILDCHAIN EARTH</text>
+  <text x="100" y="300" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="700" fill="#ffffff">Hubs and regeneration</text>
+  <text x="100" y="380" font-family="Inter, Arial, sans-serif" font-size="32" fill="#d4d4d8">Physical places + eco revival in one culture layer.</text>
+</svg>

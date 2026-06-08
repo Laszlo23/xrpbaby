@@ -3,12 +3,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ModuleShell } from "@/components/ModuleShell";
 import { CulturePulsePage } from "@/components/pulse/CulturePulsePage";
 import { platformModules } from "@/lib/modules";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/signal/")({
   component: SignalPage,
-  head: () => ({
-    meta: [{ title: "Culture Pulse — Building Culture" }],
-  }),
+  head: () =>
+    pageHead({
+      title: "Culture Pulse",
+      description:
+        "Track community growth, social momentum, and daily pulse signals across BUILDCHAIN.",
+      path: "/signal",
+      keywords: ["BUILDCHAIN", "culture pulse", "community", "social feed"],
+    }),
 });
 
 function SignalPage() {

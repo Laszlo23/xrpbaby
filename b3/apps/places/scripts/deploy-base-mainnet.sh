@@ -26,7 +26,7 @@ fi
 
 if [[ -z "${NFT_BASE_URI:-}" ]]; then
   echo "Set NFT_BASE_URI to your public proof-NFT metadata base (must be https and end with /), e.g.:"
-  echo "  export NFT_BASE_URI=https://buildingculture.capital/api/nft/"
+  echo "  export NFT_BASE_URI=https://app.buildingcultureid.space/api/nft/"
   exit 1
 fi
 

@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import { syncMemberWallet, syncMemberSocialScore } from "./member-sync.js";
 
 export type CultureMemberSyncProps = {
-  /** Central API origin — defaults to https://0x.buildingculture.capital */
+  /** Central API origin — defaults to https://app.buildingcultureid.space */
   syncApiOrigin?: string;
 };
 

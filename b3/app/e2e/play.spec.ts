@@ -9,7 +9,7 @@ test.describe("play drops home", () => {
 
   test("bottom nav Play is visible and active", async ({ page }) => {
     await page.goto("/play");
-    const playNav = page.getByRole("link", { name: /^Play$/i });
+    const playNav = page.getByTitle("Play — drops & rewards");
     await expect(playNav).toBeVisible();
   });
 

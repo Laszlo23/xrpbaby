@@ -8,12 +8,12 @@ import { SessionSetupBanner } from "@/components/SessionSetupBanner";
 import { SIWE_DEFAULT_CHAIN_ID } from "@/lib/siwe-chain";
 
 const FALLBACK_SITE_ORIGIN =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://buildingculture.capital";
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://app.buildingcultureid.space";
 const FALLBACK_SITE_HOST = (() => {
   try {
     return new URL(FALLBACK_SITE_ORIGIN).host;
   } catch {
-    return "buildingculture.capital";
+    return "app.buildingcultureid.space";
   }
 })();
 

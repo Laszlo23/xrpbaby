@@ -1,8 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ModuleShell } from "@/components/ModuleShell";
 import { platformModules } from "@/lib/modules";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/earth/")({
+  head: () =>
+    pageHead({
+      title: "Earth",
+      description:
+        "Follow the BUILDCHAIN earth lane for eco revival, hubs, and regeneration pathways.",
+      path: "/earth",
+      keywords: ["BUILDCHAIN", "earth", "eco", "regeneration", "hubs"],
+    }),
   component: EarthPage,
 });
 
@@ -26,7 +35,7 @@ function EarthPage() {
         Read the community guide
       </Link>
       <p className="mt-6 text-sm text-zinc-600">
-        Legacy static eco site: configure redirect from eco.buildingculture.capital → /earth
+        Legacy static eco site: configure redirect from eco.buildingcultureid.space → /earth
       </p>
     </ModuleShell>
   );

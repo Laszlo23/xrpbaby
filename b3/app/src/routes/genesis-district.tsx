@@ -167,9 +167,8 @@ function GenesisDistrictPage() {
             </AccordionTrigger>
             <AccordionContent>
               <p className="pb-4 text-sm text-zinc-500">
-                Wire <span className="font-mono text-zinc-400">VITE_GENESIS_VAULT_PASS_PHASE*</span>{" "}
-                after deploy. Holder badge + tier XP on Profile today; drops and premium gates are
-                product decisions.
+                Holder badge + tier XP on Profile today; drops and premium gates are product
+                decisions.
               </p>
               <div className="grid gap-4 pb-4 md:grid-cols-2">
                 <UtilityCard

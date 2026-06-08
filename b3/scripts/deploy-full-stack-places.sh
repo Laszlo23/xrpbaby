@@ -70,4 +70,4 @@ docker compose --env-file .env up -d
 docker compose ps
 REMOTE
 
-echo "==> Done. Configure nginx for 0x.buildingculture.capital → WEB_HOST_PORT (default 3005 in deploy/.env)"
+echo "==> Done. Configure nginx for 0x.buildingcultureid.space → WEB_HOST_PORT (default 3005 in deploy/.env)"

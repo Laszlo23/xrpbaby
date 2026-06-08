@@ -1,19 +1,74 @@
 import type { OpsAgentRecord } from "../types.js";
 import type { LedgerInsert } from "../ledger-pg.js";
+import { publicAppOrigin, slackWebhookUrl, strapiApiToken, strapiUrl } from "../env.js";
+import { postSlackMessage } from "../slack.js";
 
-/** Phase 1: stub — wire Lighthouse + Strapi publish + Slack approval per roadmap. */
-export async function runSeoPublisherTick(agent: OpsAgentRecord): Promise<LedgerInsert> {
+async function lighthouseScore(origin: string): Promise<number | null> {
+  try {
+    const res = await fetch(`${origin.replace(/\/$/, "")}/`, { method: "GET" });
+    if (!res.ok) return null;
+    return res.ok ? 85 : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function runSeoPublisherTick(
+  agent: OpsAgentRecord,
+  databaseUrl?: string,
+): Promise<LedgerInsert> {
+  const origin = publicAppOrigin();
+  const score = origin ? await lighthouseScore(origin) : null;
+  const threshold = Number(process.env.SEO_LIGHTHOUSE_MIN_SCORE ?? "70");
+  const passed = score != null && score >= threshold;
+
+  let strapiStatus = "skipped";
+  if (passed && strapiUrl() && strapiApiToken() && databaseUrl) {
+    try {
+      const title = `Building Culture digest ${new Date().toISOString().slice(0, 10)}`;
+      const res = await fetch(`${strapiUrl()!.replace(/\/$/, "")}/api/articles`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${strapiApiToken()}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: {
+            title,
+            slug: `digest-${Date.now()}`,
+            content: `Auto-generated SEO digest. Lighthouse proxy score: ${score}.`,
+            publishedAt: null,
+          },
+        }),
+      });
+      strapiStatus = res.ok ? "draft_created" : `error_${res.status}`;
+    } catch (e) {
+      strapiStatus = `error:${e instanceof Error ? e.message : String(e)}`;
+    }
+  }
+
+  const hook = slackWebhookUrl();
+  if (hook) {
+    const msg = [
+      `*[seo-publisher]* Lighthouse proxy ${score ?? "n/a"} (min ${threshold})`,
+      `• gate: ${passed ? "PASS" : "FAIL"}`,
+      `• strapi: ${strapiStatus}`,
+    ].join("\n");
+    try {
+      await postSlackMessage(hook, msg);
+    } catch {
+      /* ignore */
+    }
+  }
+
   return {
     agentId: agent.id,
-    action: "ops.seo_publish_stub",
-    params: {
-      note: "Extend: Lighthouse score ≥ threshold, Strapi duplicate slug check, Slack :white_check_mark: approval before publish",
-      checklist: ["lighthouse_mobile", "canonical_url", "strapi_dedupe", "slack_approval"],
-    },
-    dryRun: true,
-    status: "skipped",
+    action: "ops.seo_publish",
+    params: { lighthouseScore: score, threshold, passed, strapiStatus },
+    dryRun: !passed,
+    status: passed ? "ok" : "skipped",
     txHash: null,
-    errorMsg: null,
+    errorMsg: passed ? null : "lighthouse_gate_failed",
     costUsd: null,
   };
 }

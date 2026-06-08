@@ -50,8 +50,8 @@ function main() {
   ensureDir(sdkRoot);
   ensureDir(path.join(sdkRoot, "abis"));
 
-  const chainBlocks = [];
-  const chainIds = [];
+  /** @type {Map<number, Record<string, string>>} */
+  const byChain = new Map();
 
   for (const file of deploymentFiles) {
     const deployment = readJson(file);
@@ -60,15 +60,26 @@ function main() {
       console.warn("skip (no chainId):", file);
       continue;
     }
-    chainIds.push(chainId);
     const contracts = deployment.contracts ?? {};
-    const entries = Object.entries(contracts)
-      .map(([name, addr]) => `  "${name}": "${String(addr).toLowerCase()}" as const,`)
-      .join("\n");
-    chainBlocks.push(`export const deploymentAddresses${chainId} = {
-${entries}
-} as const;`);
+    const merged = byChain.get(chainId) ?? {};
+    for (const [name, addr] of Object.entries(contracts)) {
+      const normalized = String(addr).trim().toLowerCase();
+      if (normalized && /^0x[a-f0-9]{40}$/.test(normalized)) {
+        merged[name] = normalized;
+      }
+    }
+    byChain.set(chainId, merged);
   }
+
+  const chainIds = [...byChain.keys()].sort((a, b) => a - b);
+  const chainBlocks = chainIds.map((chainId) => {
+    const entries = Object.entries(byChain.get(chainId))
+      .map(([name, addr]) => `  "${name}": "${addr}" as const,`)
+      .join("\n");
+    return `export const deploymentAddresses${chainId} = {
+${entries}
+} as const;`;
+  });
 
   const getDeploymentCases = chainIds
     .map((id) => `  if (chain === ${id}) return deploymentAddresses${id}[name];`)

@@ -33,7 +33,10 @@ model Member {
   socialComments  SocialComment[]
   packPurchases   PackPurchase[]
   bccSettlements  BccSettlement[]
+  panicVoucherClaims PanicVoucherClaim[]
   socialAccounts  SocialAccount[]
+  studioProjects  StudioProject[]
+  studioUsages    StudioUsage[]
 }
 
 /// Linked social identity (Farcaster-verified X/TikTok/GitHub or direct Farcaster link).
@@ -61,6 +64,7 @@ model Wallet {
   member         Member?
   ledgers        PointLedger[]
   airdropAllocs  AirdropAllocation[]
+  panicVoucherClaims PanicVoucherClaim[]
 }
 
 model PointLedger {
@@ -172,6 +176,32 @@ model BccSettlement {
   @@index([status])
 }
 
+/// Hidden-track Panic Switch riddle claim + voucher NFT mint status.
+model PanicVoucherClaim {
+  id                  String    @id @default(cuid())
+  memberId            String
+  member              Member    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  walletId            String
+  wallet              Wallet    @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  dayUTC              String
+  sessionIdHash       String    @unique
+  clueFingerprintHash String
+  riddleAnswerHash    String
+  claimDigest         String    @unique
+  precisionScore      Int
+  status              String    @default("pending")
+  chainId             Int?
+  contractAddress     String?
+  txHash              String?
+  tokenId             String?
+  createdAt           DateTime  @default(now())
+  mintedAt            DateTime?
+
+  @@unique([walletId])
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+}
+
 /// Ingested social post (Farcaster, X, Meta, TikTok, or native curator).
 model SocialFeedItem {
   id           String   @id @default(cuid())
@@ -265,6 +295,85 @@ model AgentActionLog {
   @@index([createdAt])
 }
 
+/// CEO-orchestrated work queue for autonomous agent tasks.
+model AgentTask {
+  id              String        @id @default(cuid())
+  type            String
+  payload         Json?
+  priority        Int           @default(0)
+  status          String        @default("pending")
+  assignedAgentId String?
+  budgetUsdCap    String?
+  createdBy       String        @default("ceo-orchestrator-0")
+  outcomeId       String?
+  errorMsg        String?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  outcome         AgentOutcome? @relation(fields: [outcomeId], references: [id])
+
+  @@index([status, priority(sort: Desc), createdAt])
+  @@index([assignedAgentId])
+}
+
+/// Measured outcomes for agent learning loops.
+model AgentOutcome {
+  id           String      @id @default(cuid())
+  actionLogIds Json        @default("[]")
+  kpiSnapshot  Json?
+  rewardScore  Float?
+  learnings    String?
+  periodStart  DateTime?
+  periodEnd    DateTime?
+  createdAt    DateTime    @default(now())
+  tasks        AgentTask[]
+
+  @@index([createdAt(sort: Desc)])
+}
+
+/// Per-agent daily spend tracking (API, gas, deploy).
+model AgentDailySpend {
+  id        String   @id @default(cuid())
+  agentId   String
+  spendDate String
+  apiUsd    String   @default("0")
+  gasEth    String   @default("0")
+  deployUsd String   @default("0")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([agentId, spendDate])
+  @@index([spendDate])
+}
+
+/// Versioned system prompts for agent learning.
+model AgentPromptVersion {
+  id           String   @id @default(cuid())
+  agentId      String
+  version      Int
+  systemPrompt String
+  active       Boolean  @default(false)
+  rewardScore  Float?
+  createdAt    DateTime @default(now())
+
+  @@unique([agentId, version])
+  @@index([agentId, active])
+}
+
+/// Unified corpus chunks for CEO, Grove, and Elias RAG.
+model AgentCorpusChunk {
+  id        String   @id @default(cuid())
+  source    String
+  title     String?
+  content   String
+  metadata  Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([source])
+}
+
 /// Ingested AgentShareCampaign `Minted` logs (server-side indexer).
 model ChainMintEvent {
   id              String   @id @default(cuid())
@@ -282,4 +391,72 @@ model ChainMintEvent {
   @@unique([chainId, txHash, logIndex])
   @@index([contractAddress, blockNumber])
   @@index([toAddress])
+}
+
+/// BC Studio — community builder project (Lovable-style).
+model StudioProject {
+  id                 String   @id @default(cuid())
+  memberId           String
+  member             Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  slug               String
+  displayName        String
+  framework          String   @default("vite-react")
+  status             String   @default("draft") // draft | preview | live
+  sandboxPort        Int?
+  sandboxContainerId String?
+  previewUrl         String?
+  publishedUrl       String?
+  createOsProjectId  String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  files    StudioFile[]
+  messages StudioMessage[]
+  usages   StudioUsage[]
+
+  @@unique([memberId, slug])
+  @@index([memberId, updatedAt(sort: Desc)])
+  @@index([status])
+}
+
+model StudioFile {
+  id        String   @id @default(cuid())
+  projectId String
+  project   StudioProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  path      String
+  content   String   @db.Text
+  revision  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([projectId, path])
+  @@index([projectId])
+}
+
+model StudioMessage {
+  id        String   @id @default(cuid())
+  projectId String
+  project   StudioProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  role      String   // user | assistant | system
+  content   String   @db.Text
+  toolCalls Json?
+  createdAt DateTime @default(now())
+
+  @@index([projectId, createdAt])
+}
+
+/// Generations and deploys debited against member credits.
+model StudioUsage {
+  id        String   @id @default(cuid())
+  memberId  String
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  projectId String?
+  project   StudioProject? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  kind      String   // generation | deploy
+  credits   Int      @default(0)
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([memberId, createdAt(sort: Desc)])
+  @@index([projectId])
 }

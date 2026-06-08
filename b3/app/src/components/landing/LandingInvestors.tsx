@@ -248,7 +248,7 @@ export function LandingInvestors() {
                 />
               </a>
               <a
-                href="https://buildingculture.capital"
+                href="https://app.buildingcultureid.space"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[14px] font-semibold text-white hover:border-[#00E5FF]/60"

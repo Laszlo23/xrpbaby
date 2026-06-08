@@ -67,7 +67,7 @@ ECOSYSTEM: List[dict] = [
     {
         "id": "bc-capital",
         "name": "Building Culture Capital",
-        "url": "https://buildingculture.capital",
+        "url": "https://app.buildingcultureid.space",
         "description": "The home of the movement. Learn about the vision, community, properties and future of Building Culture.",
         "tag": "Vision Platform",
         "status": "beta",
@@ -76,7 +76,7 @@ ECOSYSTEM: List[dict] = [
     {
         "id": "bc-app",
         "name": "Building Culture App",
-        "url": "https://app.buildingculture.capital",
+        "url": "https://app.buildingcultureid.space",
         "description": "The operating system of Building Culture. Manage assets, participate in opportunities, explore projects.",
         "tag": "Core Platform",
         "status": "beta",
@@ -85,7 +85,7 @@ ECOSYSTEM: List[dict] = [
     {
         "id": "bc-home",
         "name": "Building Culture Home",
-        "url": "https://home.buildingculture.capital",
+        "url": "https://home.buildingcultureid.space",
         "description": "Discover homes, properties and future living opportunities powered by community and technology.",
         "tag": "Living Platform",
         "status": "beta",
@@ -130,7 +130,7 @@ ECOSYSTEM: List[dict] = [
     {
         "id": "bc-game",
         "name": "Building Culture Game",
-        "url": "https://game.buildingculture.capital",
+        "url": "https://game.buildingcultureid.space",
         "description": "Learn, explore and engage through gamified experiences that reward participation.",
         "tag": "Engagement Layer",
         "status": "beta",

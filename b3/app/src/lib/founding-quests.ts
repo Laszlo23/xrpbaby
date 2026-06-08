@@ -37,4 +37,16 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     description: "Finish onboarding at /join if you have not yet.",
     culturePoints: 50,
   },
+  {
+    slug: "studio-first-app",
+    title: "Ship in BC Studio",
+    description: "Create your first app in BC Studio.",
+    culturePoints: 50,
+  },
+  {
+    slug: "daily-studio-build",
+    title: "Daily studio build",
+    description: "Run one AI generation in BC Studio today.",
+    culturePoints: 25,
+  },
 ];

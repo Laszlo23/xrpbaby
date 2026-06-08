@@ -122,8 +122,7 @@ function CampaignPage() {
     query: { enabled: !!address && isConnected },
   });
 
-  const mintCostWei =
-    priceWei !== undefined ? priceWei + MINT_GAS_BUFFER_WEI : undefined;
+  const mintCostWei = priceWei !== undefined ? priceWei + MINT_GAS_BUFFER_WEI : undefined;
   const insufficientForMint =
     mintCostWei !== undefined &&
     nativeBalance?.value !== undefined &&
@@ -352,11 +351,7 @@ function CampaignPage() {
               {isConnected && nativeBalance !== undefined ? (
                 <li>
                   Your balance:{" "}
-                  <span
-                    className={
-                      insufficientForMint ? "text-amber-200" : "text-foreground"
-                    }
-                  >
+                  <span className={insufficientForMint ? "text-amber-200" : "text-foreground"}>
                     {formatEther(nativeBalance.value)} ETH
                   </span>
                   {insufficientForMint && mintCostWei !== undefined ? (
@@ -382,8 +377,8 @@ function CampaignPage() {
 
           {insufficientForMint && priceWei !== undefined ? (
             <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-100/95">
-              Add ETH on <strong>{wantChain.name}</strong> to your connected wallet. This mint
-              costs <strong>{formatEther(priceWei)} ETH</strong> plus a small gas fee (you have{" "}
+              Add ETH on <strong>{wantChain.name}</strong> to your connected wallet. This mint costs{" "}
+              <strong>{formatEther(priceWei)} ETH</strong> plus a small gas fee (you have{" "}
               {nativeBalance ? formatEther(nativeBalance.value) : "…"} ETH).
             </div>
           ) : null}

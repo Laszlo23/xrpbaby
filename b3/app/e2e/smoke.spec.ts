@@ -50,6 +50,15 @@ test.describe("smoke", () => {
     await expect(page.locator("body")).toBeVisible();
   });
 
+  test("faq SSR metadata includes canonical and OG tags", async ({ request }) => {
+    const res = await request.get("/faq");
+    expect(res.ok()).toBeTruthy();
+    const html = await res.text();
+    expect(html).toContain('<link rel="canonical"');
+    expect(html).toContain('property="og:title"');
+    expect(html).toContain('"@type":"FAQPage"');
+  });
+
   test("about loads", async ({ page }) => {
     await page.goto("/about");
     await expect(page.locator("body")).toBeVisible();
@@ -85,6 +94,16 @@ test.describe("smoke", () => {
     const txt = await res.text();
     expect(txt.toLowerCase()).toContain("user-agent");
     expect(txt).toContain("sitemap");
+    expect(txt).toContain("/blog/feed.xml");
+  });
+
+  test("blog feed endpoint returns rss", async ({ request }) => {
+    const res = await request.get("/blog/feed.xml");
+    expect(res.ok()).toBeTruthy();
+    const xml = await res.text();
+    expect(xml).toContain("<rss");
+    expect(xml).toContain("<channel>");
+    expect(xml).toContain("<item>");
   });
 
   test("world wallet nonce endpoint", async ({ request }) => {
@@ -135,20 +154,30 @@ test.describe("smoke", () => {
 
   test("0G Agent ID proof page loads with chainscan links", async ({ page }) => {
     await page.goto("/0g/agentid");
-    await expect(page.getByText("Agent ID (on-chain proof)")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /BUILDCHAIN Agent ID/i })).toBeVisible();
     await expect(
-      page.locator("article").getByText("0x0451b1d37058ad57df22d7185aabc6b0a36fc41e").first(),
+      page.getByText("0x0451b1d37058ad57df22d7185aabc6b0a36fc41e").first(),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: /View on 0G ChainScan/i }).first()).toHaveAttribute(
       "href",
       /chainscan\.0g\.ai\/address\/0x0451b1d37058ad57df22d7185aabc6b0a36fc41e/,
     );
-    await expect(page.getByRole("button", { name: /Copy X post/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^X post$/i })).toBeVisible();
   });
 
   test("pulse metrics API", async ({ request }) => {
-    const res = await request.get("/api/pulse/metrics");
-    expect([200, 404, 503]).toContain(res.status());
+    let lastStatus: number | null = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const res = await request.get("/api/pulse/metrics");
+        lastStatus = res.status();
+        break;
+      } catch (e) {
+        if (attempt === 2) throw e;
+      }
+    }
+    expect(lastStatus).not.toBeNull();
+    expect([200, 404, 503]).toContain(lastStatus);
   });
 
   test("pulse comment requires SIWE", async ({ request }) => {
@@ -220,9 +249,7 @@ test.describe("smoke", () => {
     expect(
       json.resources?.some((r) => r.protocol === "x402" && r.url?.includes("/api/x402/premium")),
     ).toBeTruthy();
-    expect(
-      json.resources?.some((r) => r.id === "buildchain_market_sample_mint_v1"),
-    ).toBeTruthy();
+    expect(json.resources?.some((r) => r.id === "buildchain_market_sample_mint_v1")).toBeTruthy();
     expect(json.deeplinks?.presale).toContain("/presale");
   });
 });

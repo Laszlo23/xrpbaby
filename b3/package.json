@@ -5,6 +5,7 @@
   "type": "module",
   "overrides": {
     "axios": "1.16.0",
+    "@noble/hashes": "1.8.0",
     "vite": "^7.3.1",
     "vitest": {
       "vite": "^7.3.1"
@@ -22,9 +23,7 @@
   "workspaces": [
     "packages/*",
     "app",
-    "cms",
-    "apps/eco",
-    "onboarding/frontend"
+    "cms"
   ],
   "scripts": {
     "build": "echo \"Use npm run build --workspace app\"",
@@ -35,9 +34,10 @@
     "dev:strapi:setup": "npm --prefix cms run bootstrap && npm --prefix cms run ensure:local",
     "dev:full": "bash scripts/dev-full.sh",
     "dev:healthcheck": "node scripts/dev-healthcheck.mjs",
-    "dev:onboarding": "npm --prefix onboarding/frontend run start",
+    "studio:orchestrator": "node scripts/studio-orchestrator/index.mjs",
     "db:start": "bash scripts/start-local-db.sh",
     "market:env": "bash scripts/sync-market-env.sh",
+    "tg:setup": "bash scripts/setup-telegram-miniapp.sh",
     "mint:premium": "npm --prefix app exec tsx scripts/mint-premium-identities.ts",
     "db:migrate": "cd app && npx prisma migrate deploy",
     "contracts:sdk": "node scripts/sync-contracts-sdk.mjs",
@@ -46,11 +46,23 @@
     "pulse:ingest": "npm --prefix app run pulse:ingest",
     "pulse:seed": "npm --prefix app run pulse:seed",
     "pulse:attest": "npm --prefix app run pulse:attest",
+    "grove:tick": "npm --prefix app run grove:tick",
+    "setup:agent-0g": "bash scripts/setup-agent-0g.sh",
+    "bootstrap:agents": "bash scripts/bootstrap-agents-live.sh",
+    "deploy:bootstrap-live": "bash scripts/deploy-bootstrap-live.sh",
+    "complete:0g-agent": "node scripts/complete-0g-agent.mjs",
+    "probe:og-inference": "node scripts/probe-og-inference.mjs",
+    "probe:openai-inference": "node scripts/probe-openai-inference.mjs",
+    "deploy:grove": "bash scripts/deploy-grove.sh",
     "deploy:sepolia": "bash scripts/deploy-platform-sepolia.sh",
     "deploy:pulse-mainnet": "PULSE_ATTEST_CHAIN_ID=8453 bash scripts/deploy-pulse-anchor.sh",
     "sync:deploy-env": "bash scripts/sync-deploy-env.sh",
     "deploy:full-stack": "bash scripts/deploy-full-stack.sh",
     "smoke:production": "bash scripts/production-smoke.sh",
+    "growth:audit": "bash scripts/growth-audit.sh",
+    "sync:vite-env": "bash scripts/sync-vite-env.sh",
+    "audit:vite-env": "node app/scripts/audit-vite-env.mjs",
+    "audit:env": "node app/scripts/audit-env.mjs",
     "verify:app": "npm --prefix app run verify",
     "verify:frontend": "npm run verify:app",
     "verify:contracts": "cd contracts && forge test && npm run compile",

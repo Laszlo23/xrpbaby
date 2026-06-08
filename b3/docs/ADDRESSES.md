@@ -23,6 +23,10 @@ Last updated from repo state: **2026-06-04** — see [CONTRACTS_AUDIT.md](./CONT
 |---------|-----|--------|
 | BCDAI | [bcdai.buildingcultureid.space](https://bcdai.buildingcultureid.space/) | AI trading terminal; Cloud Run backend — see [BCDAI_ECOSYSTEM.md](./BCDAI_ECOSYSTEM.md) |
 | WohnAI | [wohnai.buildingcultureid.space](https://wohnai.buildingcultureid.space/) | AI real estate agent |
+| Ankommen AI | [ankommen.buildingcultureid.space](https://ankommen.buildingcultureid.space/) | Austria newcomer companion (beta); interim proxy to ankommen.ai |
+| KinderStimme (For Kids) | [forkids.buildingcultureid.space](https://forkids.buildingcultureid.space/) | OCPP child protection protocol (beta); interim proxy to kinderstimme.at |
+| BC Studio | [app.buildingcultureid.space/studio](https://app.buildingcultureid.space/studio) | Community AI app builder (beta) |
+| Community apps | `{slug}.buildingcultureid.space` | Published BC Studio projects — see [BC_STUDIO.md](./BC_STUDIO.md) |
 
 ---
 
@@ -102,10 +106,10 @@ After deploy, set `VITE_IDENTITY_BSC_CONTRACT_ADDRESS` and update `deployments/5
 
 ---
 
-## Base mainnet (`8453`) — Places / REOC (buildingculture.capital)
+## Base mainnet (`8453`) — Places / REOC (`places.buildingcultureid.space`)
 
 From [`apps/places/deployments/base-mainnet.json`](../apps/places/deployments/base-mainnet.json).  
-Site: https://buildingculture.capital
+Site: https://places.buildingcultureid.space
 
 | Contract | Address | Role |
 |----------|---------|------|

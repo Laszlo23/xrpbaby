@@ -1,10 +1,17 @@
 /* eslint-disable -- generated */
 export const deploymentAddresses8453 = {
-  "BuildingCultureDollar": "0xb890a5289f789f1346032ccc1847939e855fab07" as const,
+  "BuildingCultureDollar": "0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72" as const,
   "BCDGenesisClaim": "0x2bae6b04d0d1c8016cc863509395b68eb0021f58" as const,
   "RaffleTicketCampaign": "0xb1a88bf677400c23430b643a07229af832130ad8" as const,
   "AgentShareCampaign": "0x130e320a386b1ff0228492ddd65c380131ba86e9" as const,
   "CulturePulseAnchor": "0x503f8ad17c0fcdd84fbdbf7f51b41b39b02ebbae" as const,
+  "GenesisVaultPassPhase0": "0x39952f562279f8a6517ed9d36a1ff9d495e4e38d" as const,
+  "GenesisVaultPassPhase1": "0x0fe8ae7f7207f8c04377cdd4a711a67811cf3a73" as const,
+  "GenesisVaultPassPhase2": "0x01b971794c4c5c265bc0326de329e1f4c937c765" as const,
+  "MockBccUsdOracle": "0x46c96e0a459ea441873fa8c3077f42b5e1e9cb4f" as const,
+  "CultureLayerIdentityV2": "0x9942095ab0a9512e432aeacd623e929cfb474058" as const,
+  "BuildingCultureHubV2": "0x97fdaeafdbef34918cfd223549c3d1e98e95c7c3" as const,
+  "BuildingCultureTicketV2": "0x4f92e47ab0f6f233ffe76b2c3ddbf2729719c8d6" as const,
 } as const;
 
 export const deploymentAddresses84532 = {
@@ -21,9 +28,6 @@ export function getDeploymentAddress(
   chain: number,
 ): `0x${string}` | undefined {
   if (chain === 8453) return deploymentAddresses8453[name];
-  if (chain === 84532) {
-    if (!(name in deploymentAddresses84532)) return undefined;
-    return deploymentAddresses84532[name as keyof typeof deploymentAddresses84532];
-  }
+  if (chain === 84532) return deploymentAddresses84532[name];
   return undefined;
 }

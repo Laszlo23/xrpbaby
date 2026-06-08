@@ -19,9 +19,11 @@ import { AiCoachProvider } from "@/contexts/AiCoachContext";
 import { AiPulseCoach } from "@/components/AiPulseCoach";
 import { EliasOrb } from "@/components/EliasOrb";
 import { EliasOnboarding } from "@/components/EliasOnboarding";
+import { PanicSwitchOverlay } from "@/components/PanicSwitchOverlay";
 import { buildPathAwareFarcasterEmbedMetaAsync } from "@/lib/farcaster-embed-meta";
 import { AnalyticsRouteTracker } from "@/components/AnalyticsRouteTracker";
 import { FarcasterMiniAppReady } from "@/components/FarcasterMiniAppReady";
+import { TelegramMiniAppReady } from "@/components/TelegramMiniAppReady";
 import { JsonLd } from "@/components/JsonLd";
 import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootTechnicalMeta } from "@/lib/seo";
 
@@ -113,7 +115,13 @@ function useHideBottomNav(): boolean {
   if (pathname.startsWith("/join")) return true;
   if (pathname.startsWith("/forest")) return true;
   if (pathname.startsWith("/welcome")) return true;
+  if (pathname.startsWith("/tg")) return true;
   return false;
+}
+
+function useMinimalAppChrome(): boolean {
+  const { pathname } = useLocation();
+  return pathname === "/tg" || pathname === "/tg/";
 }
 
 function AppChrome() {
@@ -132,6 +140,8 @@ function RootComponent() {
     void import("@/lib/sentry").then((m) => m.initClientSentry());
   }, []);
 
+  const minimalChrome = useMinimalAppChrome();
+
   return (
     <Web3Provider>
       <BcdEconomyProvider>
@@ -139,15 +149,21 @@ function RootComponent() {
           <NetworkGuard />
           <AnalyticsRouteTracker />
           <FarcasterMiniAppReady />
+          {minimalChrome ? <TelegramMiniAppReady /> : null}
           <div className="relative min-h-dvh w-full max-w-[100vw] overflow-x-hidden">
             <Outlet />
-            <AppChrome />
+            {!minimalChrome ? <AppChrome /> : null}
           </div>
-          <GetBcdModal />
-          <BuyBccButton />
-          <EliasOnboarding />
-          <EliasOrb />
-          <AiPulseCoach />
+          {!minimalChrome ? (
+            <>
+              <GetBcdModal />
+              <BuyBccButton />
+              <EliasOnboarding />
+              <EliasOrb />
+              <PanicSwitchOverlay />
+              <AiPulseCoach />
+            </>
+          ) : null}
           <Toaster richColors position="top-center" />
         </AiCoachProvider>
       </BcdEconomyProvider>

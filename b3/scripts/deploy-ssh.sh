@@ -42,6 +42,7 @@ rsync -avz --delete \
   --include 'package.json' \
   --include 'package-lock.json' \
   --include 'content/***' \
+  --include 'ops/***' \
   --include 'app/***' \
   --include 'packages/***' \
   --exclude '*' \

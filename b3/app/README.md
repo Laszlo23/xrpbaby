@@ -4,21 +4,21 @@ The unified web app: story landing, drops, onboarding, community hub, marketplac
 
 ## Routes (start here)
 
-| Path | Plain English |
-|------|----------------|
-| `/` | The story — why we bring places back to life |
-| `/play` | Play — drops, tickets, and rewards |
-| `/join` | Get your pass — connect wallet, one sign-in |
-| `/forest` | Your home — stats, quests, and open modules |
-| `/signal` | Community pulse — live feed and metrics |
-| `/pass` | Claim your Culture Layer .tld on Base (~$1.11 in ETH) |
-| `/places` | Real-estate hub — links to buildingculture.capital + wallet eligibility |
-| `/investors` | Capital overview + Chainlink RWA compliance strip |
-| `/id/{name}` | Culture name profile; `/n/{name}` short gateway |
-| `/earth` | Earth lane — hubs and regeneration |
-| `/0g/agentid` | BUILDCHAIN Agent ID — 0G hackathon on-chain proof (ChainScan links) |
-| `/marketplace` | ERC-721 secondary market (not property shares) |
-| `/profile` | Your wallet, XP, and settings |
+| Path           | Plain English                                                                  |
+| -------------- | ------------------------------------------------------------------------------ |
+| `/`            | The story — why we bring places back to life                                   |
+| `/play`        | Play — drops, tickets, and rewards                                             |
+| `/join`        | Get your pass — connect wallet, one sign-in                                    |
+| `/forest`      | Your home — stats, quests, and open modules                                    |
+| `/signal`      | Community pulse — live feed and metrics                                        |
+| `/pass`        | Claim your Culture Layer .tld on Base (~$1.11 in ETH)                          |
+| `/places`      | Real-estate hub — links to places.buildingcultureid.space + wallet eligibility |
+| `/investors`   | Capital overview + Chainlink RWA compliance strip                              |
+| `/id/{name}`   | Culture name profile; `/n/{name}` short gateway                                |
+| `/earth`       | Earth lane — hubs and regeneration                                             |
+| `/0g/agentid`  | BUILDCHAIN Agent ID — 0G hackathon on-chain proof (ChainScan links)            |
+| `/marketplace` | ERC-721 secondary market (not property shares)                                 |
+| `/profile`     | Your wallet, XP, and settings                                                  |
 
 `/welcome` redirects to `/`.
 
@@ -36,23 +36,23 @@ Requires Postgres for waitlist, onboarding, and points (`DATABASE_URL`). See `.e
 
 ## Environment (canonical production)
 
-| Variable | Example |
-|----------|---------|
-| `PUBLIC_APP_ORIGIN` | `https://app.buildingcultureid.space` |
-| `VITE_APP_ORIGIN` | same |
-| `VITE_PLATFORM_ORIGIN` | same |
-| `CORS_ORIGIN` | include unified + legacy hosts during cutover |
-| `SIWE_ALLOWED_DOMAINS` | `app.buildingcultureid.space,app.buildingculture.capital,0x.buildingculture.capital` |
-| `DATABASE_URL` | Postgres connection string |
+| Variable               | Example                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------- |
+| `PUBLIC_APP_ORIGIN`    | `https://app.buildingcultureid.space`                                              |
+| `VITE_APP_ORIGIN`      | same                                                                               |
+| `VITE_PLATFORM_ORIGIN` | same                                                                               |
+| `CORS_ORIGIN`          | include unified + legacy hosts during cutover                                      |
+| `SIWE_ALLOWED_DOMAINS` | `app.buildingcultureid.space,0x.buildingcultureid.space,*.buildingcultureid.space` |
+| `DATABASE_URL`         | Postgres connection string                                                         |
 
 Farcaster Mini App `homeUrl` opens `/` (story landing).
 
 Culture Layer identity (mint ~$1.11 USD in ETH on Base):
 
-| Variable | Notes |
-|----------|--------|
+| Variable                         | Notes                                        |
+| -------------------------------- | -------------------------------------------- |
 | `VITE_IDENTITY_CONTRACT_ADDRESS` | `0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863` |
-| `VITE_IDENTITY_CHAIN_ID` | `8453` (Base mainnet) |
+| `VITE_IDENTITY_CHAIN_ID`         | `8453` (Base mainnet)                        |
 
 See [IDENTITY_MINT_PRICE.md](../docs/IDENTITY_MINT_PRICE.md) for on-chain updates.
 
@@ -60,12 +60,15 @@ Culture names resolve in-app (no ICANN spend): `/id/handle.tld`, short `/n/handl
 
 RWA / real estate compliance:
 
-| Variable | Notes |
-|----------|--------|
-| `COMPLIANCE_REGISTRY_ADDRESS` | Places `ComplianceRegistry` on Base (server) |
-| `VITE_PLACES_SITE_URL` | Default `https://buildingculture.capital` |
-| `PROPERTY_RESERVE_FEED_ADDRESS` | Optional PoR feed |
-| `CHAINLINK_ACE_COMPLIANCE_ADDRESS` | When Chainlink partner sandbox is live |
+| Variable                           | Notes                                             |
+| ---------------------------------- | ------------------------------------------------- |
+| `COMPLIANCE_REGISTRY_ADDRESS`      | Places `ComplianceRegistry` on Base (server)      |
+| `VITE_PLACES_SITE_URL`             | Default `https://places.buildingcultureid.space`  |
+| `VITE_PLACES_INVEST_PATH`          | External invest path (default `/investors`)       |
+| `VITE_PLACES_TRADE_PATH`           | External market path (default `/marketplace`)     |
+| `VITE_PLACES_TRANSPARENCY_PATH`    | External transparency/docs path (default `/docs`) |
+| `PROPERTY_RESERVE_FEED_ADDRESS`    | Optional PoR feed                                 |
+| `CHAINLINK_ACE_COMPLIANCE_ADDRESS` | When Chainlink partner sandbox is live            |
 
 API: `GET /api/compliance/eligibility?wallet=0x…` — shared with `/places` hub.
 
@@ -73,11 +76,11 @@ See [CHAINLINK_RWA_COMPLIANCE.md](../docs/CHAINLINK_RWA_COMPLIANCE.md).
 
 0G APAC Hackathon proof page (`/0g/agentid`):
 
-| Variable | Notes |
-|----------|--------|
+| Variable                            | Notes                                   |
+| ----------------------------------- | --------------------------------------- |
 | `VITE_OG_AGENT_ID_CONTRACT_ADDRESS` | AgentId ERC-721 on 0G mainnet (`16661`) |
-| `VITE_OG_AGENT_ID_DEPLOY_TX` | Deploy transaction hash |
-| `VITE_OG_AGENT_ID_MINT_TX` | Mint transaction hash |
+| `VITE_OG_AGENT_ID_DEPLOY_TX`        | Deploy transaction hash                 |
+| `VITE_OG_AGENT_ID_MINT_TX`          | Mint transaction hash                   |
 
 Defaults match mainnet deployment in [0G_HACKATHON_SUBMISSION.md](../docs/0G_HACKATHON_SUBMISSION.md) when unset.
 

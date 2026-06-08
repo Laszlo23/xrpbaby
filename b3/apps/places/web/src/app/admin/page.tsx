@@ -9,6 +9,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { ComplianceStatus } from "@/components/ComplianceStatus";
+import { AdminListingReview } from "@/components/rwa/AdminListingReview";
 import { TrustStrip } from "@/components/TrustStrip";
 import { accessControlAbi, complianceAdminAbi, registryAbi } from "@/lib/contracts";
 import { useProtocolAddresses } from "@/lib/use-protocol-addresses";
@@ -245,6 +246,8 @@ export default function AdminPage() {
           </div>
         </div>
       )}
+
+      <AdminListingReview />
     </div>
   );
 }

@@ -1,5 +1,7 @@
+import { createRequire } from "node:module";
 import type { PrismaClient } from "@prisma/client";
-import { Prisma } from "@prisma/client";
+
+const require = createRequire(import.meta.url);
 
 export async function ensureWalletAndMember(
   prisma: PrismaClient,
@@ -130,7 +132,8 @@ export async function unlinkFarcasterFromMember(prisma: PrismaClient, memberId: 
       farcasterUsername: null,
       neynarScore: null,
       supportScore: null,
-      supportScoreMeta: Prisma.DbNull,
+      supportScoreMeta: (require("@prisma/client") as typeof import("@prisma/client")).Prisma
+        .DbNull,
       socialSyncedAt: null,
     },
   });

@@ -93,6 +93,16 @@ async function main() {
       txHash: hash,
     },
   });
+
+  if (process.env.GROVE_ATTEST_POST?.trim() === "1") {
+    const { runGroveTick } = await import("@/server/marketing/grove/tick");
+    const groveResult = await runGroveTick(prisma, {
+      pillar: "attestation",
+      attestationTxHash: hash,
+      dryRun: process.env.GROVE_AUTO_POST?.trim() !== "1",
+    });
+    console.log("Grove attestation post:", JSON.stringify(groveResult.x ?? groveResult));
+  }
 }
 
 main().catch((e) => {

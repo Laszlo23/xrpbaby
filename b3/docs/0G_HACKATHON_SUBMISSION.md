@@ -59,7 +59,7 @@ Also on proof page: **Copy HQ on-chain**.
 ## 4) Demo video (required)
 
 - **Video (≤3 min)**: TODO — add Loom/YouTube link here after upload
-- **Operator guide**: [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md) — shot list, X template, HackQuest fields
+- **Operator guide**: [0G_HACKATHON_VIDEO_AND_X.md](./archive/0G_HACKATHON_VIDEO_AND_X.md) — shot list, X template, HackQuest fields
 - **In-app**: http://localhost:5173/0g/agentid or https://app.buildingcultureid.space/0g/agentid
 
 ### Record this (2:30 — leaves buffer)
@@ -98,7 +98,7 @@ Contract verification (optional): `b3/contracts/scripts/verify-agentid-0g.sh` (n
 ## 6) Public X post (required)
 
 - **Post URL**: TODO — paste after you publish
-- **Copy from app**: `/0g/agentid` → **Copy X post**, or use [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md)
+- **Copy from app**: `/0g/agentid` → **Copy X post**, or use [0G_HACKATHON_VIDEO_AND_X.md](./archive/0G_HACKATHON_VIDEO_AND_X.md)
 
 ### Copy/paste X template
 
@@ -120,18 +120,36 @@ Attach a **screenshot** of the proof page or a short screen recording.
 ## 7) Related docs
 
 - [0G_HACKATHON_JUDGE_README.md](./0G_HACKATHON_JUDGE_README.md) — **start here (judges)**
-- [0G_HACKATHON_VIDEO_AND_X.md](./0G_HACKATHON_VIDEO_AND_X.md) — video + X checklist (operators)
+- [0G_HACKATHON_VIDEO_AND_X.md](./archive/0G_HACKATHON_VIDEO_AND_X.md) — video + X checklist (operators)
 - [ADDRESSES.md](./ADDRESSES.md) — 0G mainnet AgentId registry entry
 - [../app/README.md](../app/README.md) — `/0g/agentid` route and env vars
 
 ## 8) Pre-submit checklist
 
+**Last automated verification:** 2026-06-05 (local + production smoke)
+
 - [ ] Demo video uploaded (≤3 min) — link in §4 above
 - [ ] Public X post with `#0GHackathon` `#BuildOn0G` + screenshot — link in §6 above
 - [ ] HackQuest project form filled (name, description, repo, video, X link, components, contract)
-- [ ] `/0g/agentid` loads with ChainScan links (local or production)
-- [ ] `/0g/agentid/1.json` returns metadata
+- [x] `/0g/agentid` loads with ChainScan links (production `HTTP/2 200` via growth audit)
+- [x] `/0g/agentid/1.json` returns metadata (served from `app/public/0g/agentid/1.json`)
 - [ ] Contract verified on ChainScan (optional — run `verify-agentid-0g.sh`)
-- [ ] `cd b3/contracts && forge test --match-contract AgentId` passes
+- [x] `cd b3/contracts && forge test --match-contract AgentId` passes (5/5)
 - [ ] `cd b3/app && npx playwright test e2e/og-agentid.spec.ts` passes
 - [ ] `cd b3/app && npm run typecheck && npm run build` passes
+
+### Security pre-push (same repo)
+
+| Check | Result |
+|-------|--------|
+| `npm run audit:env` | Pass — no missing required integration vars; `.env` gitignored |
+| `npm run growth:audit` | Pass — Grove/Telegram smoke OK |
+| `npm run audit:app` / `npm audit` | **43 moderate** — transitive `@reown/appkit` / `@walletconnect/*` (wallet UI); no critical/high; track upstream |
+| Secrets in git | None committed (`app/.env`, `deploy/.env` ignored) |
+| AgentId contract tests | 5/5 pass |
+
+Operator-only before HackQuest submit: demo video + public X post (§4, §6).
+
+## 9) Same monorepo, out of hackathon scope
+
+The `b3/` app also ships **Building Culture** ecosystem modules (BC Studio at `/studio`, impact betas Ankommen / KinderStimme). Those are **not** part of the Agent ID judging surface — judges should stay on `/0g/agentid` and `b3/contracts/src/AgentId.sol`.

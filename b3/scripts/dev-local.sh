@@ -8,6 +8,22 @@ echo "==> Postgres + migrations"
 npm run db:start
 npm run db:migrate
 
+echo "==> Local DATABASE_URL (host → 127.0.0.1:55432)"
+APP_ENV="$ROOT/app/.env"
+LOCAL_PG_PORT="${BC_LOCAL_PG_PORT:-55432}"
+PG_PASS="$(docker exec bc-b3-local printenv POSTGRES_PASSWORD 2>/dev/null || true)"
+if [[ -z "$PG_PASS" ]]; then
+  PG_PASS="$(grep -E '^POSTGRES_PASSWORD=' "$APP_ENV" 2>/dev/null | cut -d= -f2- || echo buildingculture)"
+fi
+LOCAL_DB_URL="postgresql://${POSTGRES_USER:-buildingculture}:${PG_PASS}@127.0.0.1:${LOCAL_PG_PORT}/${POSTGRES_DB:-buildingculture}?schema=public"
+if grep -qE '^DATABASE_URL=' "$APP_ENV" 2>/dev/null; then
+  if [[ "$(uname)" == "Darwin" ]]; then
+    sed -i '' "s|^DATABASE_URL=.*|DATABASE_URL=${LOCAL_DB_URL}|" "$APP_ENV"
+  else
+    sed -i "s|^DATABASE_URL=.*|DATABASE_URL=${LOCAL_DB_URL}|" "$APP_ENV"
+  fi
+fi
+
 echo "==> Market / thirdweb env"
 npm run market:env 2>/dev/null || true
 
@@ -17,7 +33,7 @@ if ! grep -qE '^COMPLIANCE_REGISTRY_ADDRESS=' "$APP_ENV" 2>/dev/null; then
   printf '\nCOMPLIANCE_REGISTRY_ADDRESS=0xa655c0B0037699433F0692356a3A142956103B7a\n' >>"$APP_ENV"
 fi
 if ! grep -qE '^VITE_PLACES_SITE_URL=' "$APP_ENV" 2>/dev/null; then
-  printf 'VITE_PLACES_SITE_URL=https://buildingculture.capital\n' >>"$APP_ENV"
+  printf 'VITE_PLACES_SITE_URL=https://places.buildingcultureid.space\n' >>"$APP_ENV"
 fi
 
 echo "==> Local app origins + NODE_ENV (app/.env)"
@@ -60,6 +76,9 @@ echo "  Marketplace http://localhost:5173/marketplace"
 echo "  Pass/mint  http://localhost:5173/pass"
 echo "  Market API http://localhost:5173/api/market/health"
 echo "  Trading    http://localhost:5173/api/trading/health"
+echo "  Telegram   http://localhost:5173/tg"
+echo "  TG dev API http://localhost:5173/tg/dev"
+echo "  TG setup   TELEGRAM_BOT_TOKEN='...' npm run tg:setup"
 echo ""
 echo "Healthcheck: npm run dev:healthcheck"
 echo "Trading PID: $TRADING_PID (kill with: kill $TRADING_PID)"
