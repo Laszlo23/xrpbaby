@@ -180,7 +180,9 @@ for (const row of integrations) {
     phaseGaps.set(row.phase, list);
   }
 
-  console.log(`${state === "ok" ? "OK " : state === "warn" ? "WARN" : "FAIL"} ${row.label} (phase ${row.phase})`);
+  console.log(
+    `${state === "ok" ? "OK " : state === "warn" ? "WARN" : "FAIL"} ${row.label} (phase ${row.phase})`,
+  );
   if (missingReq.length) console.log(`     missing required: ${missingReq.join(", ")}`);
   if (missingOpt.length) {
     if (row.launchOptional && missingOpt.length === (row.optional ?? []).length) {
@@ -190,7 +192,8 @@ for (const row of integrations) {
     }
   }
   if (warns.length) console.log(`     empty value: ${warns.join(", ")}`);
-  if (custom === "warn_execution_on") console.log("     XRPL_EXECUTION_ENABLED=1 (keep 0 for launch)");
+  if (custom === "warn_execution_on")
+    console.log("     XRPL_EXECUTION_ENABLED=1 (keep 0 for launch)");
 }
 
 console.log("\nMirror pairs:");
@@ -209,7 +212,9 @@ console.log("\nPhase minimum for launch (0–2):");
 for (const phase of [0, 1, 2]) {
   const coreRows = integrations.filter((r) => r.phase <= phase && r.required.length > 0);
   const missing = coreRows.filter((r) => r.required.some((k) => !has(deploy, k)));
-  console.log(`  Through phase ${phase}: ${missing.length === 0 ? "ready" : `gaps in ${missing.map((m) => m.id).join(", ")}`}`);
+  console.log(
+    `  Through phase ${phase}: ${missing.length === 0 ? "ready" : `gaps in ${missing.map((m) => m.id).join(", ")}`}`,
+  );
 }
 
 console.log("\n--- VITE sub-audit ---");

@@ -334,7 +334,7 @@ function MarketplaceIndexPage() {
                   {image ? (
                     <img
                       src={image}
-                      alt=""
+                      alt={String(listing.asset.metadata?.name ?? `Listing ${String(listing.id)}`)}
                       className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                       loading="lazy"
                     />

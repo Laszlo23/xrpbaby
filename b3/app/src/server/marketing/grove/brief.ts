@@ -46,7 +46,13 @@ export type GroveBrief = {
     join: string;
     signal: string;
     pass: string;
+    places: string;
+    reocExample: string;
     agentCard: string;
+    grantProof: string;
+    businessPlan: string;
+    quidliBounty: string | null;
+    intelligence: string;
   };
 };
 
@@ -169,7 +175,16 @@ export async function buildGroveBrief(
       join: `${origin}/join?${ref}`,
       signal: `${origin}/signal?${ref}`,
       pass: `${origin}/pass?${ref}`,
+      places: `${origin}/places?${ref}`,
+      reocExample: `${origin}/places/api/reoc/1`,
       agentCard: `${origin}/.well-known/agent.json`,
+      grantProof: `${origin}/grant-proof?${ref}`,
+      businessPlan: `${origin}/plan?${ref}`,
+      quidliBounty:
+        process.env.QUIDLI_GRANT_BOUNTY_URL?.trim() ||
+        process.env.QUIDLI_BOUNTY_URL?.trim() ||
+        null,
+      intelligence: `${origin}/intelligence?${ref}`,
     },
   };
 }

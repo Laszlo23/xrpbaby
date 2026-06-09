@@ -95,7 +95,8 @@ async function chatOg(
       ok: false,
       text: "",
       source: "0g",
-      error: res.status === 402 ? "0g_insufficient_balance" : `0g_${res.status}:${err.slice(0, 120)}`,
+      error:
+        res.status === 402 ? "0g_insufficient_balance" : `0g_${res.status}:${err.slice(0, 120)}`,
     };
   }
 
@@ -110,11 +111,11 @@ async function chatOg(
 }
 
 async function chatOpenAi(messages: ChatMessage[]): Promise<InferenceResult> {
-  const apiKey =
-    process.env.AGENT_LLM_API_KEY?.trim() || process.env.OPENAI_API_KEY?.trim();
+  const apiKey = process.env.AGENT_LLM_API_KEY?.trim() || process.env.OPENAI_API_KEY?.trim();
   if (!apiKey) return { ok: false, text: "", source: "none", error: "no_llm_key" };
 
-  const model = process.env.AGENT_LLM_MODEL?.trim() || process.env.AI_MODEL?.trim() || "gpt-4o-mini";
+  const model =
+    process.env.AGENT_LLM_MODEL?.trim() || process.env.AI_MODEL?.trim() || "gpt-4o-mini";
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {

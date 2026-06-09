@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { formatEther, zeroAddress } from "viem";
 import { useReadContract } from "wagmi";
+import { PropertyJsonLd } from "@/components/seo/PropertyJsonLd";
 import { ComplianceStatus } from "@/components/ComplianceStatus";
 import { FundingMeter } from "@/components/FundingMeter";
 import { TrustSection } from "@/components/TrustSection";
@@ -37,6 +38,8 @@ import { getPropertyGeoById } from "@/lib/property-geo";
 import { usePropertyShareList } from "@/lib/usePropertyShareList";
 import { PropertyWatchlistButton } from "@/components/rwa/PropertyWatchlistButton";
 import { VerifiedBadge } from "@/components/rwa/VerifiedBadge";
+import { getSiteUrl } from "@/lib/site-url";
+import { track } from "@/lib/analytics";
 
 export default function PropertyDetailPage() {
   const params = useParams();
@@ -66,6 +69,15 @@ export default function PropertyDetailPage() {
       .then((d: { summary?: string }) => setAiSummary(d.summary ?? null))
       .catch(() => setAiSummary(null));
   }, [idStr]);
+
+  useEffect(() => {
+    if (propertyId <= 0n) return;
+    track("rwa_property_view", {
+      propertyId: idStr,
+      symbol: row?.symbol,
+      tokenAddress: row?.tokenAddress,
+    });
+  }, [propertyId, idStr, row?.symbol, row?.tokenAddress]);
 
   const { data: totalSupplyWei } = useReadContract({
     chainId: listingsChainId,
@@ -155,8 +167,23 @@ export default function PropertyDetailPage() {
     </button>
   );
 
+  const heroSlide = demo ? getDemoImageSlides(demo, { limit: 1 })[0] : undefined;
+  const siteUrl = getSiteUrl();
+
   return (
     <div className="mx-auto max-w-[1280px] space-y-10 pb-16">
+      {demo ? (
+        <PropertyJsonLd
+          propertyId={idStr}
+          name={demo.investorCardTitle ?? demo.headline ?? row.name}
+          description={demo.investorCardSubtitle ?? demo.headline}
+          imageUrl={heroSlide?.src ? `${siteUrl}${heroSlide.src}` : undefined}
+          addressLocality={demo.location?.split("·")[0]?.trim()}
+          addressCountry={
+            demo.location?.includes("Canada") ? "CA" : demo.location?.includes("Austria") ? "AT" : undefined
+          }
+        />
+      ) : null}
       <div className="group relative overflow-hidden rounded-3xl border border-white/[0.08]">
         <div className="relative w-full bg-zinc-900">
           {demo ? (
@@ -709,12 +736,14 @@ export default function PropertyDetailPage() {
             </a>
             <Link
               href={`/invest?property=${idStr}`}
+              onClick={() => track("rwa_invest_click", { propertyId: idStr })}
               className="block w-full rounded-full border border-white/15 py-3 text-center text-sm font-semibold text-zinc-200 transition hover:border-brand/40 hover:text-white"
             >
               Open invest journey
             </Link>
             <Link
               href={`/trade?property=${idStr}`}
+              onClick={() => track("rwa_trade_click", { propertyId: idStr })}
               className="block w-full rounded-full border border-white/15 py-3 text-center text-sm font-semibold text-zinc-200 transition hover:border-brand/40 hover:text-white"
             >
               Continue to Trade (advanced liquidity)

@@ -16,7 +16,7 @@ export function PartnerLogoStrip() {
           className="transition hover:opacity-100"
           aria-label="Base"
         >
-          <Image src="/partners/base-logo.svg" alt="" width={130} height={36} className="h-8 w-auto" />
+          <Image src="/partners/base-logo.svg" alt="Base" width={130} height={36} className="h-8 w-auto" />
         </a>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-6">

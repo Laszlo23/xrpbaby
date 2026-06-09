@@ -3,6 +3,13 @@
 # Requires: forge, PRIVATE_KEY (contract owner), optional ETH_USD for wei calc.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONTRACTS_ENV="$ROOT/contracts/.env"
+if [[ -f "$CONTRACTS_ENV" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$CONTRACTS_ENV"
+  set +a
+fi
 cd "$ROOT"
 
 eval "$(node scripts/identity-mint-price-wei.mjs | grep '^MINT_PRICE_WEI=')"

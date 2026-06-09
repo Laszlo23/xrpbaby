@@ -31,3 +31,12 @@ def bcc_uniswap_url() -> str:
         or os.environ.get("BCC_UNISWAP_URL")
         or "https://app.uniswap.org/swap?outputCurrency=0xB890a5289F789f1346032Ccc1847939e855FAb07&chain=base"
     ).strip()
+
+
+def bcc_aerodrome_pool_address() -> str | None:
+    raw = (
+        os.environ.get("VITE_BCC_AERODROME_POOL")
+        or os.environ.get("BCC_AERODROME_POOL")
+        or ""
+    ).strip()
+    return raw if raw.startswith("0x") and len(raw) == 42 else None

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 import { LandingNav } from "@/components/landing/LandingNav";
 import { LandingProblem } from "@/components/landing/LandingProblem";
+import { LandingBuilderChronicle } from "@/components/landing/LandingBuilderChronicle";
 import { LandingVision } from "@/components/landing/LandingVision";
 import { LandingEcosystem } from "@/components/landing/LandingEcosystem";
 import { LandingCultureLayer } from "@/components/landing/LandingCultureLayer";
@@ -36,6 +37,7 @@ export function LandingPage() {
           <LandingHero />
         </Suspense>
         <LandingProblem />
+        <LandingBuilderChronicle />
         <LandingVision />
         <LandingEcosystem />
         <LandingCultureLayer />

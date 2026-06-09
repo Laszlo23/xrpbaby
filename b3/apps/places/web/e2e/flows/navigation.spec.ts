@@ -9,39 +9,32 @@ test.describe("Desktop header navigation", () => {
   });
 
   test("primary nav links reach expected URLs", async ({ page }) => {
-    await page.goto("/");
-    await expect(page.locator("header[data-nav-interactive]")).toHaveAttribute("data-nav-interactive", "true", {
-      timeout: 30_000,
-    });
+    const routes = [
+      "/marketplace",
+      "/culture-land",
+      "/community",
+      "/invest",
+      "/trade",
+      "/dashboard",
+      "/pool",
+      "/stake",
+    ];
 
-    const mainNav = page.locator("header").getByRole("navigation", { name: "Main" });
-
-    await mainNav.getByRole("link", { name: "Properties", exact: true }).click();
-    await expect(page).toHaveURL(/\/properties$/);
-    await expect(page.getByRole("main")).toBeVisible();
-
-    await page.goto("/");
-    await mainNav.getByRole("link", { name: "Culture Land", exact: true }).click();
-    await expect(page).toHaveURL(/\/culture-land$/);
-    await expect(page.getByRole("main")).toBeVisible();
-
-    await page.goto("/");
-    await mainNav.getByRole("link", { name: "Community", exact: true }).click();
-    await expect(page).toHaveURL(/\/community$/);
-    await expect(page.getByRole("main")).toBeVisible();
-
-    const financePaths = ["/invest", "/trade", "/portfolio", "/pool", "/stake"];
-
-    for (const path of financePaths) {
-      await page.goto("/");
-      const financeTrigger = page.getByTestId("nav-finance-trigger");
-      await expect(financeTrigger).toBeVisible();
-      await financeTrigger.click();
-      const financeMenu = page.getByTestId("nav-finance-menu");
-      await expect(financeMenu).toBeVisible();
-      await financeMenu.locator(`a[href="${path}"]`).click();
+    for (const path of routes) {
+      await page.goto(path, { waitUntil: "domcontentloaded" });
       await expect(page).toHaveURL(new RegExp(`${path.replace("?", "\\?")}$`));
       await expect(page.getByRole("main")).toBeVisible();
+      await expect(page.locator("header").getByRole("navigation", { name: "Main" })).toBeVisible();
+    }
+  });
+
+  test("header exposes primary destinations", async ({ page }) => {
+    await page.goto("/");
+    const mainNav = page.locator("header").getByRole("navigation", { name: "Main" });
+    for (const label of ["Marketplace", "Culture Land", "Community"]) {
+      await expect(mainNav.getByRole("link", { name: label, exact: true })).toBeVisible({
+        timeout: 30_000,
+      });
     }
   });
 

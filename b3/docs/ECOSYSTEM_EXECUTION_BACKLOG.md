@@ -87,6 +87,39 @@ Use this as the canonical implementation queue for ecosystem goals.
   - Metrics source documented in roadmap.
 - **Dependencies:** `BCC_TOKEN.md`, settlement queue/log access.
 
+### ECO-011 — Points → BCC redemption pipeline
+
+- **Priority:** P1
+- **Owner:** Token ops + Platform engineering
+- **Goal/KPI link:** BCC utility usage, Culture Points retention
+- **Problem:** Culture Points ledger is live but redemption was policy-only.
+- **Scope (shipped):**
+  - `PointRedemption` model + `POST /api/points/redeem` (SIWE treasury transfer)
+  - `PointsRedeemSection` on `/profile` and `/wallet`
+  - `bcc-settlement-keeper` for Stripe `BccSettlement` queue
+  - `points:airdrop-snapshot` + `POST /api/airdrop/claim`
+  - Founding XP import via `POST /api/points/import-founding-xp`
+- **Definition of done:**
+  - Ops enables `POINTS_REDEEM_ENABLED=1`, sets `POINTS_PER_BCC_WEI`, funds treasury
+  - Combined TVL ≥ $500k; first successful mainnet redeem logged
+  - Keeper runbook in `BCC_TOKEN.md` exercised once (dry-run + live)
+- **Dependencies:** [SMART_WALLET_AND_PACKS.md](./SMART_WALLET_AND_PACKS.md), [BCC_TOKEN.md](./BCC_TOKEN.md), [TREASURY_POLICY.md](./TREASURY_POLICY.md)
+
+### ECO-010 — BCC liquidity learn hub + Aerodrome secondary pool
+
+- **Priority:** P1
+- **Owner:** Token ops + Product engineering
+- **Goal/KPI link:** Market health baseline, BCC utility loop
+- **Problem:** No unified education surface for BCC LP; Aerodrome secondary pool not configured.
+- **Scope:**
+  - `/liquidity` learn hub + `GET /api/market/bcc` dual-pool stats (shipped in app).
+  - Telegram modules `m_bcc_liquidity_basics`, `m_aerodrome_gauges`.
+  - Operator: seed Aerodrome BCC/WETH pool per [BCC_AERODROME_LIQUIDITY.md](./BCC_AERODROME_LIQUIDITY.md).
+- **Definition of done:**
+  - Production `/liquidity` live; Culture Points quests crediting.
+  - `VITE_BCC_AERODROME_*` set after pool deploy; LP proof quest verifiable.
+- **Dependencies:** [BCC_LIQUIDITY_LEARN.md](./BCC_LIQUIDITY_LEARN.md), treasury seed decision.
+
 ### ECO-005b — BC Studio VPS sandboxes + publish
 
 - **Priority:** P1

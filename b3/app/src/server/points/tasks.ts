@@ -4,6 +4,24 @@ const DEFAULT_TASKS = [
   { slug: "connect-wallet", title: "Connect wallet", points: 25, active: true },
   { slug: "visit-marketplace", title: "Open Project shares", points: 15, active: true },
   {
+    slug: "visit-liquidity-hub",
+    title: "Visit BCC liquidity learn hub",
+    points: 20,
+    active: true,
+  },
+  {
+    slug: "complete-bcc-liquidity-lesson",
+    title: "Complete BCC liquidity lesson track",
+    points: 40,
+    active: true,
+  },
+  {
+    slug: "bcc-lp-proof",
+    title: "Prove Aerodrome BCC LP position",
+    points: 75,
+    active: true,
+  },
+  {
     slug: "share-on-x",
     title: "Share on X (legacy)",
     points: 0,

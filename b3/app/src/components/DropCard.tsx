@@ -392,7 +392,7 @@ export function DropCard({
             posterImage ? (
               <img
                 src={posterImage}
-                alt=""
+                alt={title}
                 className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
                 loading="lazy"
                 width={800}

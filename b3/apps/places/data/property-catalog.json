@@ -1,0 +1,105 @@
+{
+  "version": "1.0.0",
+  "chainId": 8453,
+  "registry": "0x5aca19274B17B97e38da9eA851d91F0CC59DafBf",
+  "shareFactory": "0x4CA708ca735bBA49D7B2383071EA7FA1B7BDC614",
+  "siteOrigin": "https://app.buildingcultureid.space",
+  "properties": [
+    {
+      "propertyId": 1,
+      "slug": "berggasse-35",
+      "externalRef": "STIX-AT-berggasse-35",
+      "symbol": "OG1",
+      "name": "Building Culture City Berggasse",
+      "jurisdiction": "AT",
+      "acquisitionEur": 15917000,
+      "shareToken": "0x88a42bc87A31321639dE7e8021B92cE766661f5A",
+      "documentIds": ["berggasse-brochure-en"],
+      "heroImage": "/t1a1366-bergasse.jpg"
+    },
+    {
+      "propertyId": 2,
+      "slug": "jagdschlossgasse-81",
+      "externalRef": "STIX-AT-jagdschlossgasse-81",
+      "symbol": "OG2",
+      "name": "Building Culture City Jagdschlossgasse 81",
+      "jurisdiction": "AT",
+      "acquisitionEur": 8300000,
+      "shareToken": "0x0431C3d979a6f1556c815F5d8E48eF3e1Ce8c58f",
+      "documentIds": ["bau-land-kultur-20201113"],
+      "heroImage": "/partners/Jagdschlossgasse-Projekte-Intro.jpg"
+    },
+    {
+      "propertyId": 3,
+      "slug": "whalewatching-reference",
+      "externalRef": "STIX-CA-whalewatching-reference",
+      "symbol": "OG3",
+      "name": "BuildingCultureLand – Whalewatching",
+      "jurisdiction": "CA",
+      "acquisitionEur": 2900000,
+      "shareToken": "0x6Fa4db0e6317D6ED2347e39802b86EeA507F7DE5",
+      "documentIds": ["teaser-biberstrasse-4-1010-wien"],
+      "heroImage": "/whale02.jpg"
+    },
+    {
+      "propertyId": 4,
+      "slug": "water-side-keutschach",
+      "externalRef": "STIX-AT-water-side-keutschach",
+      "symbol": "OG4",
+      "name": "Water Side — Keutschach am See",
+      "jurisdiction": "AT",
+      "acquisitionEur": 10500000,
+      "shareToken": "0xeaeA7594011b4331bCdAe974C7Aa9138C175c004",
+      "documentIds": ["water-side-keutschach-20220112"],
+      "heroImage": "/partners/Keutschach-am-See-1b-1.jpg"
+    },
+    {
+      "propertyId": 5,
+      "slug": "landmark-bernhardsthal",
+      "externalRef": "STIX-AT-landmark-bernhardsthal",
+      "symbol": "OG5",
+      "name": "BuildingCultureLand – LandMark",
+      "jurisdiction": "AT",
+      "acquisitionEur": 10900000,
+      "shareToken": "0xbf83F4ECAA25c0883aC81549A659C10BE7A9bEC1",
+      "documentIds": ["land-mark-bernhardsthal-20210625", "bernhardsthal-plans"],
+      "heroImage": "/land0.jpg"
+    },
+    {
+      "propertyId": 6,
+      "slug": "altes-presshaus-katzelsdorf",
+      "externalRef": "STIX-AT-altes-presshaus-katzelsdorf",
+      "symbol": "OG6",
+      "name": "BuildingCultureLand – Altes Presshaus",
+      "jurisdiction": "AT",
+      "acquisitionEur": 950000,
+      "shareToken": "0x8D4b0291bE4a8177F9baB0F4004E7B370a41D413",
+      "documentIds": ["katzelsdorf-studie-auswechslung", "katzelsdorf-studie-encoded"],
+      "heroImage": "/press0.jpg"
+    },
+    {
+      "propertyId": 7,
+      "slug": "department-store-bernhardsthal",
+      "externalRef": "STIX-AT-department-store-bernhardsthal",
+      "symbol": "OG7",
+      "name": "BuildingCultureLand – Former department store",
+      "jurisdiction": "AT",
+      "acquisitionEur": 850000,
+      "shareToken": "0x1d4d06A05E2d67e63df936141bD14948A13D3C30",
+      "documentIds": ["altes-kaufhaus-prater", "bernhardsthal-plans"],
+      "heroImage": "/old01.jpg"
+    },
+    {
+      "propertyId": 8,
+      "slug": "alter-stadl-katzelsdorf",
+      "externalRef": "STIX-AT-alter-stadl-katzelsdorf",
+      "symbol": "OG8",
+      "name": "BuildingCultureLand – Alter Stadl",
+      "jurisdiction": "AT",
+      "acquisitionEur": 650000,
+      "shareToken": "0x7F806Be5f1BdD3Fc04570690875F314c2aBd6EC2",
+      "documentIds": ["katzelsdorf-studie-auswechslung"],
+      "heroImage": "/stadl01.jpg"
+    }
+  ]
+}

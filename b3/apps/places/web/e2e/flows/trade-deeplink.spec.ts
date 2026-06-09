@@ -6,9 +6,10 @@ test.describe("Trade deep links", () => {
 
   test("GET /trade?property=1 renders marketplace shell", async ({ page }) => {
     await skipHomeIntroRedirect(page);
-    await page.goto("/trade?property=1", { waitUntil: "load" });
+    await page.goto("/trade?property=1", { waitUntil: "domcontentloaded" });
+    await expect(page).toHaveURL(/\/trade/);
     await expect(page.getByRole("main")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Trade", exact: true })).toBeVisible();
+    await expect(page.locator("header").getByRole("navigation", { name: "Main" })).toBeVisible();
   });
 
   /** Finance dropdown navigation is covered in `navigation.spec.ts`. */

@@ -21,7 +21,67 @@
     "SimpleLendingPool": "0x0000000000000000000000000000000000000000",
     "PlatformSettlementToken": "0x6bF5638a07B8A0b0D80A3B6Ab69440B83BBAf3D0",
     "PurchaseEscrowERC20": "0x0Ea9948A36c16Dcc6ce1695011646a1f6128dFd0",
-    "PrimaryShareSaleERC20_Property1": "0xE37446E10a28eB2B188B02C6c8dF5d8e3b3d3b32"
+    "PrimaryShareSaleERC20_Property1": "0xE37446E10a28eB2B188B02C6c8dF5d8e3b3d3b32",
+    "PropertyReserveFeed": "0x89B34Ad6063ed0da2D563edBA98783DFbE69a19A",
+    "ChainlinkPriceOracle": "0xCCBe9d1Dc1472095E557f2622A2a6235BDe446Fc",
+    "ChainlinkAceAdapter": "0x6BC4E810a5999Ba76bCcCdcc74D10CcFA0d9a72d"
   },
-  "demoProperties": []
+  "demoProperties": [
+    {
+      "propertyId": "1",
+      "symbol": "OG1",
+      "slug": "berggasse-35",
+      "shareToken": "0x88a42bc87A31321639dE7e8021B92cE766661f5A",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/1"
+    },
+    {
+      "propertyId": "2",
+      "symbol": "OG2",
+      "slug": "jagdschlossgasse-81",
+      "shareToken": "0x0431C3d979a6f1556c815F5d8E48eF3e1Ce8c58f",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/2"
+    },
+    {
+      "propertyId": "3",
+      "symbol": "OG3",
+      "slug": "whalewatching-reference",
+      "shareToken": "0x6Fa4db0e6317D6ED2347e39802b86EeA507F7DE5",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/3"
+    },
+    {
+      "propertyId": "4",
+      "symbol": "OG4",
+      "slug": "water-side-keutschach",
+      "shareToken": "0xeaeA7594011b4331bCdAe974C7Aa9138C175c004",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/4"
+    },
+    {
+      "propertyId": "5",
+      "symbol": "OG5",
+      "slug": "landmark-bernhardsthal",
+      "shareToken": "0xbf83F4ECAA25c0883aC81549A659C10BE7A9bEC1",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/5"
+    },
+    {
+      "propertyId": "6",
+      "symbol": "OG6",
+      "slug": "altes-presshaus-katzelsdorf",
+      "shareToken": "0x8D4b0291bE4a8177F9baB0F4004E7B370a41D413",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/6"
+    },
+    {
+      "propertyId": "7",
+      "symbol": "OG7",
+      "slug": "department-store-bernhardsthal",
+      "shareToken": "0x1d4d06A05E2d67e63df936141bD14948A13D3C30",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/7"
+    },
+    {
+      "propertyId": "8",
+      "symbol": "OG8",
+      "slug": "alter-stadl-katzelsdorf",
+      "shareToken": "0x7F806Be5f1BdD3Fc04570690875F314c2aBd6EC2",
+      "metadataURI": "https://app.buildingcultureid.space/places/api/reoc/8"
+    }
+  ]
 }

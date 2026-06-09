@@ -67,11 +67,14 @@ function TeamPage() {
               Driving protocol integration and investor-facing product on Base.
             </p>
             <p className="text-sm leading-relaxed text-zinc-400 md:text-[15px]">
-              Twenty-four years building on the web — from creative direction and SEO at 8Limes to
-              project work at 4fans on decentralized products. Vienna-based; bridges storytelling,
-              video, and blockchain so communities can actually use what we ship.
+              In IT since 1996 — from creative direction and SEO at 8Limes to decentralized products
+              at 4fans. Vienna-based; publishes essays as Leonardo.based on Paragraph and ships
+              proof-first culture on Base so communities can actually use what we build.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 pt-1 text-sm">
+              <SocialLink href="https://paragraph.com/0x502ce9fb1814cb03843967ec5e0d8f6aa3a3c2e1">
+                Paragraph
+              </SocialLink>
               <SocialLink href="https://www.linkedin.com/in/laszlo-bihary/">LinkedIn</SocialLink>
               <SocialLink href="https://x.com/bihary41418">X</SocialLink>
               <SocialLink href="https://www.tiktok.com/@nftdad33">TikTok @nftdad33</SocialLink>

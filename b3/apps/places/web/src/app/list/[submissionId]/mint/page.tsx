@@ -4,9 +4,16 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { keccak256, stringToBytes, zeroAddress } from "viem";
-import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  usePublicClient,
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import { GlassCard } from "@/components/rwa/GlassCard";
 import { accessControlAbi, proofNftAbi, registryAbi, shareFactoryAbi } from "@/lib/contracts";
+import { reocMetadataUrl } from "@/lib/property-catalog";
 import { useProtocolAddresses } from "@/lib/use-protocol-addresses";
 import { REGISTRAR_ROLE } from "@/lib/roles";
 import type { RwaListing } from "@/lib/rwa/listing-types";
@@ -17,6 +24,7 @@ export default function ListingMintPage() {
   const params = useParams();
   const id = typeof params.submissionId === "string" ? params.submissionId : "";
   const { address, isConnected } = useAccount();
+  const publicClient = usePublicClient();
   const { registry, shareFactory, proofNft, explorer } = useProtocolAddresses();
   const [listing, setListing] = useState<RwaListing | null>(null);
   const [step, setStep] = useState<"idle" | "register" | "shares" | "proof" | "done">("idle");
@@ -67,7 +75,7 @@ export default function ListingMintPage() {
       setStep("shares");
       const name = listing.metadata.title ?? `Property ${pid}`;
       const symbol = `BC${pid}`;
-      const uri = `${typeof window !== "undefined" ? window.location.origin : ""}/api/nft/${pid}`;
+      const uri = reocMetadataUrl(Number(pid));
       const supplyCap = BigInt(
         listing.ownershipModel === "full" ? 1 : (listing.metadata.supplyCap ?? 10000),
       );
@@ -108,30 +116,61 @@ export default function ListingMintPage() {
     if (!confirmed || !txHash || !listing) return;
     void (async () => {
       if (step === "register") {
-        const res = await fetch(`/api/listings/${id}`);
-        const nextId = propertyId ?? 1n;
-        setPropertyId(nextId);
-        mintShares(nextId);
+        if (!publicClient || registry === zeroAddress) {
+          setError("Registry not configured — set NEXT_PUBLIC_BASE_REGISTRY.");
+          return;
+        }
+        const nextId = await publicClient.readContract({
+          address: registry,
+          abi: registryAbi,
+          functionName: "nextPropertyId",
+        });
+        const newPid = nextId > 0n ? nextId - 1n : 1n;
+        setPropertyId(newPid);
+        mintShares(newPid);
       } else if (step === "shares") {
-        const pid = propertyId?.toString() ?? "1";
-        setShareToken(shareFactory);
+        const pid = propertyId ?? 1n;
+        let tokenAddr = shareFactory;
+        if (publicClient && shareFactory !== zeroAddress) {
+          const onChain = await publicClient.readContract({
+            address: shareFactory,
+            abi: shareFactoryAbi,
+            functionName: "tokenByPropertyId",
+            args: [pid],
+          });
+          if (onChain && onChain !== zeroAddress) tokenAddr = onChain;
+        }
+        setShareToken(tokenAddr);
         await fetch(`/api/listings/${id}/mint-complete`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             wallet: address,
-            propertyId: pid,
-            shareToken: shareFactory,
+            propertyId: pid.toString(),
+            shareToken: tokenAddr,
           }),
         });
-        track("mint_confirmed", { listingId: id, propertyId: pid });
-        if (listing.metadata.mintProofNft && propertyId) mintProof(propertyId);
+        track("mint_confirmed", { listingId: id, propertyId: pid.toString() });
+        if (listing.metadata.mintProofNft) mintProof(pid);
         else setStep("done");
       } else if (step === "proof") {
         setStep("done");
       }
     })();
-  }, [confirmed, txHash, step, listing, id, address, propertyId, mintShares, mintProof, shareFactory]);
+  }, [
+    confirmed,
+    txHash,
+    step,
+    listing,
+    id,
+    address,
+    propertyId,
+    mintShares,
+    mintProof,
+    shareFactory,
+    registry,
+    publicClient,
+  ]);
 
   if (!listing) return <p className="text-zinc-500">Loading…</p>;
 

@@ -1,0 +1,25 @@
+{
+  "updated": "2026-06-08",
+  "note": "Update after full local gate run (forge + app Playwright). Not auto-refreshed by grant:proof.",
+  "packages": {
+    "unit": 33,
+    "breakdown": {
+      "agent-runtime": 20,
+      "bcc-kit": 5,
+      "culture-auth": 5,
+      "support-score": 3
+    }
+  },
+  "forge": {
+    "contracts": 45,
+    "identity": 9,
+    "art": 3,
+    "places": 47,
+    "chainlink": 9,
+    "total": 113
+  },
+  "app": {
+    "playwright": 78,
+    "unit": 31
+  }
+}

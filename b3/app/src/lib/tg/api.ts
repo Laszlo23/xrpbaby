@@ -24,7 +24,10 @@ export async function tgFetch<T>(
   const body = await parseJson(res);
   if (!res.ok) {
     const err =
-      body && typeof body === "object" && "error" in body && typeof (body as TgApiError).error === "string"
+      body &&
+      typeof body === "object" &&
+      "error" in body &&
+      typeof (body as TgApiError).error === "string"
         ? (body as TgApiError).error
         : res.statusText;
     return { ok: false, status: res.status, error: err, body };
@@ -139,15 +142,20 @@ export async function tgQuests(initDataRaw?: string | null) {
 }
 
 export async function tgClaimQuest(questId: string, initDataRaw?: string | null) {
-  const result = await tgFetch<{ ok: true; xpGranted: number; progression: { level: number; xp: number } }>(
-    "/api/tg/quests/claim",
-    { method: "POST", body: JSON.stringify({ questId }), initDataRaw },
-  );
+  const result = await tgFetch<{
+    ok: true;
+    xpGranted: number;
+    progression: { level: number; xp: number };
+  }>("/api/tg/quests/claim", { method: "POST", body: JSON.stringify({ questId }), initDataRaw });
   if (result.ok) captureTelegramEvent("tg_quest_claimed", { questId });
   return result;
 }
 
-export async function tgTonConnected(walletAddress: string, walletApp?: string, initDataRaw?: string | null) {
+export async function tgTonConnected(
+  walletAddress: string,
+  walletApp?: string,
+  initDataRaw?: string | null,
+) {
   const result = await tgFetch<{ ok: true }>("/api/tg/wallet/ton-connected", {
     method: "POST",
     body: JSON.stringify({ walletAddress, walletApp }),
@@ -158,7 +166,10 @@ export async function tgTonConnected(walletAddress: string, walletApp?: string, 
 }
 
 export async function tgLearnModules(initDataRaw?: string | null) {
-  return tgFetch<{ ok: true; modules: TgModule[] }>("/api/tg/learn/modules", { method: "GET", initDataRaw });
+  return tgFetch<{ ok: true; modules: TgModule[] }>("/api/tg/learn/modules", {
+    method: "GET",
+    initDataRaw,
+  });
 }
 
 export async function tgLearnComplete(

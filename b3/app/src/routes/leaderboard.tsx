@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
-import { Trophy, TrendingUp, Flame } from "lucide-react";
+import { Trophy, TrendingUp, Flame, Gift } from "lucide-react";
 import { LevelBadge } from "@/components/LevelBadge";
 import { useQuery } from "@tanstack/react-query";
 import { usePublicClient } from "wagmi";
@@ -49,6 +49,24 @@ function LeaderboardPage() {
     queryKey: ["leaderboard-referrals-30d"],
     queryFn: async () => fetchReferralLb({ data: { limit: 12 } }),
     staleTime: 25_000,
+  });
+
+  const { data: quidliStatus } = useQuery({
+    queryKey: ["quidli-status"],
+    queryFn: async () => {
+      const res = await fetch("/api/marketing/quidli/status");
+      if (!res.ok) return null;
+      return (await res.json()) as {
+        grantBountyUrl?: string | null;
+        recentDeliveries?: Array<{
+          platform: string;
+          handle: string;
+          status: string;
+          campaign?: string | null;
+        }>;
+      };
+    },
+    staleTime: 60_000,
   });
 
   const { data: rows = [], isLoading: mintLoading } = useQuery({
@@ -174,6 +192,41 @@ function LeaderboardPage() {
           </Button>
         </div>
       </div>
+
+      <section className="glass rounded-2xl border border-gold/20 p-4 space-y-2">
+        <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+          <Gift className="h-4 w-4 text-gold" />
+          Social rewards (Quidli)
+        </div>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          Top Culture Points builders can receive BCC tips on Telegram or Farcaster — no wallet
+          connect required. Weekly top-3 drops run automatically when Quidli treasury is funded.
+        </p>
+        {quidliStatus?.grantBountyUrl ? (
+          <a
+            href={quidliStatus.grantBountyUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex text-xs text-gold hover:underline"
+          >
+            Active grant bounty → earn BCC for boosting /grant-proof
+          </a>
+        ) : (
+          <p className="text-xs text-muted-foreground">
+            Grant-week bounty launching soon — follow Grove on Telegram for the link.
+          </p>
+        )}
+        {quidliStatus?.recentDeliveries && quidliStatus.recentDeliveries.length > 0 ? (
+          <ul className="text-[11px] text-muted-foreground space-y-1 pt-1">
+            {quidliStatus.recentDeliveries.slice(0, 4).map((d) => (
+              <li key={`${d.platform}-${d.handle}-${d.status}`}>
+                {d.platform} @{d.handle.replace(/^@/, "")} · {d.status}
+                {d.campaign ? ` · ${d.campaign}` : ""}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </section>
 
       <p className="text-xs text-muted-foreground">
         {tab === "points" ? (

@@ -46,6 +46,12 @@ export type FinanceNavItem = {
 
 /** Shared with mobile drawer — order: journey → execution → positions → liquidity → staking */
 export const FINANCE_NAV_ITEMS: FinanceNavItem[] = [
+  {
+    href: "https://app.buildingcultureid.space/liquidity",
+    label: "BCC liquidity",
+    hint: "Learn BCC pools (Uniswap + Aerodrome)",
+    icon: IconPool,
+  },
   { href: "/invest", label: "Invest", hint: "Size a position & journey", icon: IconInvest },
   { href: "/trade", label: "Trade", hint: "Primary & secondary execution", icon: IconTrade },
   { href: "/dashboard", label: "Dashboard", hint: "Portfolio & BCC benefits", icon: IconPortfolio },

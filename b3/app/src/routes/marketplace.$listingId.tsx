@@ -150,7 +150,7 @@ function MarketplaceListingPage() {
               {typeof listing.asset.metadata?.image === "string" ? (
                 <img
                   src={listing.asset.metadata.image}
-                  alt=""
+                  alt={String(listing.asset.metadata?.name ?? `Listing ${String(listing.id)}`)}
                   className="aspect-square w-full object-cover lg:min-h-[320px] lg:aspect-auto lg:max-h-[min(72vh,560px)]"
                 />
               ) : (

@@ -179,7 +179,7 @@ export function LandingInvestors() {
             <div className="relative aspect-square overflow-hidden rounded-3xl border border-white/10">
               <img
                 src={LANDING_MEDIA.investor}
-                alt="Web3 architecture"
+                alt="Building Culture platform architecture"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <motion.div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-transparent to-[#00E5FF]/10" />

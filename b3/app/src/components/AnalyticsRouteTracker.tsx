@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { captureLandingView, initProductAnalytics } from "@/lib/analytics";
+import { initGrowthIntelligenceClient } from "@/lib/growth-intelligence-client";
 import { storeRaffleReferrerFromUrl } from "@/lib/raffle-referral";
 
 /** Fires `landing_view` on SPA navigations when PostHog is configured. */
@@ -10,6 +11,7 @@ export function AnalyticsRouteTracker() {
 
   useEffect(() => {
     initProductAnalytics();
+    initGrowthIntelligenceClient();
   }, []);
 
   useEffect(() => {

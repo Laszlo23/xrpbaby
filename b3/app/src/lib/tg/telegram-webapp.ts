@@ -152,7 +152,9 @@ export function loadTelegramWebAppScript(): Promise<void> {
 }
 
 /** Wait for Telegram client to expose signed init data (fixes auth-before-SDK race). */
-export async function waitForTelegramInitData(opts?: { timeoutMs?: number }): Promise<string | null> {
+export async function waitForTelegramInitData(opts?: {
+  timeoutMs?: number;
+}): Promise<string | null> {
   try {
     await loadTelegramWebAppScript();
   } catch {

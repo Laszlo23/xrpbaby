@@ -20,6 +20,9 @@ export const BCC_SYMBOL = "$BCC" as const;
 export const BCC_UNISWAP_URL =
   "https://app.uniswap.org/swap?outputCurrency=0xB890a5289F789f1346032Ccc1847939e855FAb07&chain=base" as const;
 
+/** Main app in-app swap route (satellite apps can link here). */
+export const BCC_IN_APP_SWAP_PATH = "/swap" as const;
+
 /**
  * Discount applied when paying with BCC, in basis points.
  * 11.11% off => pay 8889/10000 of the list price (≈ 8/9, on-brand).
@@ -62,6 +65,35 @@ export function bccDiscountedUsd(
 
 /** Human label like "11.11% off with BCC". */
 export const BCC_DISCOUNT_LABEL = `${(BCC_DISCOUNT_BPS / 100).toFixed(2)}% off with ${BCC_SYMBOL}`;
+
+export {
+  BASE_USDC,
+  BASE_WETH,
+  BCC_SWAP_CHAIN_ID,
+  BCC_SWAP_TOKEN,
+  BCC_WETH_FEE_TIERS,
+  BCC_WETH_POOL,
+  type BccSwapInput,
+  type ExactInputParams,
+  type ExactInputSingleParams,
+  type GetPoolFn,
+  type HexAddress,
+  buildEthToBccSwapParams,
+  buildUsdcToBccSwapParams,
+  encodeUsdcToBccPath,
+  encodeV3Path,
+  erc20Abi,
+  minAmountOut,
+  quoterV2Abi,
+  resolveBccPoolFee,
+  swapDeadline,
+  swapRouter02Abi,
+  UNISWAP_QUOTER_V2,
+  UNISWAP_SWAP_ROUTER,
+  UNISWAP_V3_FACTORY,
+  uniV3FactoryAbi,
+  USDC_WETH_FEE,
+} from "./swap.js";
 
 export {
   SOLANA_NATIVE_MINT,

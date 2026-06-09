@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-06-08T18:53:54.034Z",
+  "origin": "https://app.buildingcultureid.space",
+  "ok": true,
+  "properties": [
+    {
+      "propertyId": 1,
+      "slug": "berggasse-35",
+      "symbol": "OG1",
+      "acquisitionEur": 15917000,
+      "expectedSupplyCapWei": "1.7508e+22",
+      "shareToken": "0x88a42bc87A31321639dE7e8021B92cE766661f5A",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/1",
+      "errors": []
+    },
+    {
+      "propertyId": 2,
+      "slug": "jagdschlossgasse-81",
+      "symbol": "OG2",
+      "acquisitionEur": 8300000,
+      "expectedSupplyCapWei": "9.13e+21",
+      "shareToken": "0x0431C3d979a6f1556c815F5d8E48eF3e1Ce8c58f",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/2",
+      "errors": []
+    },
+    {
+      "propertyId": 3,
+      "slug": "whalewatching-reference",
+      "symbol": "OG3",
+      "acquisitionEur": 2900000,
+      "expectedSupplyCapWei": "3.19e+21",
+      "shareToken": "0x6Fa4db0e6317D6ED2347e39802b86EeA507F7DE5",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/3",
+      "errors": []
+    },
+    {
+      "propertyId": 4,
+      "slug": "water-side-keutschach",
+      "symbol": "OG4",
+      "acquisitionEur": 10500000,
+      "expectedSupplyCapWei": "1.155e+22",
+      "shareToken": "0xeaeA7594011b4331bCdAe974C7Aa9138C175c004",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/4",
+      "errors": []
+    },
+    {
+      "propertyId": 5,
+      "slug": "landmark-bernhardsthal",
+      "symbol": "OG5",
+      "acquisitionEur": 10900000,
+      "expectedSupplyCapWei": "1.199e+22",
+      "shareToken": "0xbf83F4ECAA25c0883aC81549A659C10BE7A9bEC1",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/5",
+      "errors": []
+    },
+    {
+      "propertyId": 6,
+      "slug": "altes-presshaus-katzelsdorf",
+      "symbol": "OG6",
+      "acquisitionEur": 950000,
+      "expectedSupplyCapWei": "1.045e+21",
+      "shareToken": "0x8D4b0291bE4a8177F9baB0F4004E7B370a41D413",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/6",
+      "errors": []
+    },
+    {
+      "propertyId": 7,
+      "slug": "department-store-bernhardsthal",
+      "symbol": "OG7",
+      "acquisitionEur": 850000,
+      "expectedSupplyCapWei": "935000000000000000000",
+      "shareToken": "0x1d4d06A05E2d67e63df936141bD14948A13D3C30",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/7",
+      "errors": []
+    },
+    {
+      "propertyId": 8,
+      "slug": "alter-stadl-katzelsdorf",
+      "symbol": "OG8",
+      "acquisitionEur": 650000,
+      "expectedSupplyCapWei": "715000000000000000000",
+      "shareToken": "0x7F806Be5f1BdD3Fc04570690875F314c2aBd6EC2",
+      "reocUrl": "https://app.buildingcultureid.space/places/api/reoc/8",
+      "errors": []
+    }
+  ]
+}

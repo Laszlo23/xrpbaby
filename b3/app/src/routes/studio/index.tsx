@@ -138,9 +138,7 @@ function StudioIndexPage() {
         )}
 
         {listQuery.data && !listQuery.data.ok && (
-          <p className="mt-6 text-sm text-rose-300">
-            {formatStudioError(listQuery.data.error)}
-          </p>
+          <p className="mt-6 text-sm text-rose-300">{formatStudioError(listQuery.data.error)}</p>
         )}
 
         <ul className="mt-10 grid gap-4 sm:grid-cols-2">

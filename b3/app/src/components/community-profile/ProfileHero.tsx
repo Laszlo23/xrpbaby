@@ -25,7 +25,7 @@ export function ProfileHero({
     <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02]">
       <div className="aspect-[21/9] w-full bg-zinc-900">
         {cover ? (
-          <img src={cover} alt="" className="h-full w-full object-cover opacity-90" />
+          <img src={cover} alt={`${profile.displayName} profile cover`} className="h-full w-full object-cover opacity-90" />
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-[#1a1025] via-zinc-950 to-black" />
         )}
@@ -37,7 +37,7 @@ export function ProfileHero({
           <div className="flex flex-col gap-4 md:flex-row md:items-end">
             <div className="h-28 w-28 shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 shadow-[0_20px_60px_-20px_rgb(0_0_0/80%)] md:h-32 md:w-32">
               {avatar ? (
-                <img src={avatar} alt="" className="h-full w-full object-cover" />
+                <img src={avatar} alt={`${profile.displayName} avatar`} className="h-full w-full object-cover" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[var(--b3-purple)] to-[var(--base-blue-midnight)] font-heading text-3xl font-bold text-white">
                   {profile.displayName.slice(0, 1).toUpperCase()}

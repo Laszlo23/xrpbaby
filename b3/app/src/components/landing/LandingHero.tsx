@@ -33,7 +33,10 @@ export function LandingHero() {
         <div className="absolute inset-0">
           <img
             src={LANDING_MEDIA.heroBefore}
-            alt="Abandoned building"
+            alt="Abandoned building before restoration"
+            width={1280}
+            height={896}
+            fetchPriority="high"
             className="h-full w-full object-cover opacity-90"
           />
         </div>
@@ -43,7 +46,10 @@ export function LandingHero() {
         >
           <img
             src={LANDING_MEDIA.heroAfter}
-            alt="Thriving community"
+            alt="Restored building with active community"
+            width={1280}
+            height={896}
+            fetchPriority="high"
             className="h-full w-full object-cover"
           />
         </motion.div>
@@ -145,7 +151,7 @@ export function LandingHero() {
           transition={{ delay: 1.4 }}
           className="mt-16 flex items-center gap-6 font-mono text-[11px] tracking-[0.2em] text-zinc-500 uppercase"
         >
-          <span>Web2 · Web3</span>
+          <span>People · Places</span>
           <span className="bc-divider max-w-[80px] flex-1" />
           <span>Built By People</span>
         </motion.div>

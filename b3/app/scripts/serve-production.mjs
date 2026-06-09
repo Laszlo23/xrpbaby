@@ -96,7 +96,7 @@ async function tryServeClientStatic(req, res, urlPathname) {
   applyStaticSecurityHeaders(res);
   res.setHeader("Content-Type", mimeForFile(filePath));
   res.setHeader("Content-Length", String(st.size));
-  if (urlPathname.startsWith("/assets/")) {
+  if (urlPathname.startsWith("/assets/") || urlPathname.startsWith("/landing/")) {
     res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
   } else {
     res.setHeader("Cache-Control", "public, max-age=3600");

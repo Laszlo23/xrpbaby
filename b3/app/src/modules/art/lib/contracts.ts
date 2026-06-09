@@ -8,7 +8,9 @@ export const hubAbi = hubAbiJson as Abi;
 
 export const hubAddress = (import.meta.env.VITE_HUB_ADDRESS ?? "") as `0x${string}`;
 
-export const hubV2Address = (import.meta.env.VITE_HUB_V2_ADDRESS ?? "") as `0x${string}`;
+export const hubV2Address = (import.meta.env.VITE_HUB_V2_ADDRESS ??
+  import.meta.env.VITE_ART_HUB_V2_CONTRACT_ADDRESS ??
+  "") as `0x${string}`;
 
 export const isHubConfigured = hubAddress.length === 42 && hubAddress.startsWith("0x");
 

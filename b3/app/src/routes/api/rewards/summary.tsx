@@ -43,12 +43,15 @@ export const Route = createFileRoute("/api/rewards/summary")({
           acc[g.kind] = (acc[g.kind] ?? 0) + g.amount;
           return acc;
         }, {});
+        const { getRedeemReadiness } = await import("@/server/points/redeem");
+        const redemption = await getRedeemReadiness();
         return json({
           ok: true,
           culturePoints: agg._sum.delta ?? 0,
           forestStage: member.forestStage,
           supporterTier: member.supporterTier,
           grants: grantsByKind,
+          redemption,
         });
       },
     },

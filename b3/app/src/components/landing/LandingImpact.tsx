@@ -40,7 +40,10 @@ export function LandingImpact() {
           >
             <img
               src={LANDING_MEDIA.impact}
-              alt="Thriving community"
+              alt="Restored community gathering space"
+              width={1280}
+              height={896}
+              loading="lazy"
               className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />

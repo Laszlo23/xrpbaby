@@ -76,15 +76,18 @@ Strategic companion: [ECOSYSTEM_GOALS_AND_ROADMAP.md](./ECOSYSTEM_GOALS_AND_ROAD
 
 Update this file after each monthly ecosystem review with status changes and owner assignments.
 
-## Verify checklist (last run: 2026-05-23, unified footer + pass)
+## Verify checklist (last run: 2026-06-08, beta → live gate)
 
 | Gate | Result |
 |------|--------|
-| `npm run test:unit` | 31 passed |
-| `npm run test:smoke` | shell + pass e2e pass; full smoke needs `NODE_OPTIONS='--max-old-space-size=8192'` for webServer build |
-| `npm run build` | pass (with `NODE_OPTIONS='--max-old-space-size=8192'`) |
-| `forge test` (identity) | 7 passed |
-| `npm run verify` | may fail on repo-wide Prettier drift outside touched files |
+| `npm run audit:env` | phases 0–2 ready |
+| packages `npm test` | agent-runtime 20, bcc-kit 5, culture-auth 5, support-score 3 |
+| `forge test` | contracts 45, identity 9, art 3, places 47 + chainlink 9 |
+| `app npm run test:all` | verify + 31 unit + 78 smoke passed |
+| `apps/places/web test:e2e` | 41+ passed (navigation/trade e2e aligned to current UI) |
+| `npm run contracts:audit` | 0 failed bytecode checks |
+| `STRICT_SMOKE=1 production-smoke` | all passed (trading agent WARN only) |
+| `npm run growth:audit` | passed |
 
 Run from `app/`:
 

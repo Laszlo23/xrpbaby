@@ -64,11 +64,21 @@ function PropertiesPageContent() {
   const visibleRows = useMemo(() => {
     if (enriched.length === 0) return [];
     if (selectedMarket === "secondary") return enriched;
-    return primaryStrict.length > 0 ? primaryStrict : enriched;
+    if (primaryStrict.length === 0) return enriched;
+    const primaryIds = new Set(primaryStrict.map((r) => r.id.toString()));
+    return [
+      ...primaryStrict,
+      ...enriched.filter((r) => !primaryIds.has(r.id.toString())),
+    ];
   }, [enriched, selectedMarket, primaryStrict]);
 
   const showPrimaryFallbackBanner =
     selectedMarket === "primary" && primaryStrict.length === 0 && enriched.length > 0;
+
+  const showPrimaryPartialBanner =
+    selectedMarket === "primary" &&
+    primaryStrict.length > 0 &&
+    primaryStrict.length < enriched.length;
 
   const overview = useMemo(() => {
     if (visibleRows.length === 0) {
@@ -268,6 +278,15 @@ function PropertiesPageContent() {
             <p className="rounded-xl border border-sky-500/25 bg-sky-950/25 px-4 py-3 text-sm text-sky-100/95">
               <strong className="text-white">No issuer sale mapped for this chain.</strong> Showing the full catalog — add a sale in{" "}
               <code className="rounded bg-black/40 px-1 font-mono text-xs">primary-sales.json</code> to narrow Primary to live issuances.
+            </p>
+          ) : null}
+
+          {showPrimaryPartialBanner ? (
+            <p className="rounded-xl border border-emerald-500/25 bg-emerald-950/25 px-4 py-3 text-sm text-emerald-100/95">
+              <strong className="text-white">{primaryStrict.length}</strong> propert
+              {primaryStrict.length === 1 ? "y has" : "ies have"} a live issuer sale (USDC). Other listings are
+              browse-only until mapped in{" "}
+              <code className="rounded bg-black/40 px-1 font-mono text-xs">primary-sales.json</code>.
             </p>
           ) : null}
 

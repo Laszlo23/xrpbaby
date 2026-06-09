@@ -311,7 +311,7 @@ function FeaturedRwaTile({
             aria-hidden
           />
         ) : (
-          <img src={stripSrc} alt="" className="h-full w-full object-cover" loading="lazy" />
+          <img src={stripSrc} alt={drop.title} className="h-full w-full object-cover" loading="lazy" />
         )}
 
         {/* Persistent bottom strip — always visible */}

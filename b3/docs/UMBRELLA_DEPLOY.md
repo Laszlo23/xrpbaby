@@ -1,57 +1,29 @@
 # Umbrella site — `home.buildingcultureid.space`
 
-The marketing umbrella (links hub) lives in [`b3/umbrella`](../umbrella/). It is a **static Vite SPA** — deploy the `dist/` folder behind nginx with `try_files` (same pattern as `eco.buildingcultureid.space`).
+> **Updated:** Home marketing content now lives in the unified TanStack app at [`app/`](../app/) (`/` route). Prefer a **301 redirect** from `home.buildingcultureid.space` → `https://app.buildingcultureid.space/` instead of maintaining a separate static build.
+
+The former `b3/umbrella/` Vite SPA source has been **retired**. Landing sections are in [`app/src/components/landing/`](../app/src/components/landing/).
+
+## Recommended nginx (redirect)
+
+See [`infra/nginx-home-buildingculture.example.conf`](../infra/nginx-home-buildingculture.example.conf) — canonical redirect to the unified app.
 
 ## DNS
 
-Add an **A** (and **AAAA** if you use IPv6) record:
+Keep the **A/AAAA** record for `home` if you want the redirect host, or CNAME to the same VPS as `app.buildingcultureid.space`.
 
-- **Name:** `home`
-- **Target:** your VPS IP (same host as `0x` / `eco` if you co-locate)
+## Deploy script
 
-## One-command deploy
-
-From the repo root (`b3/`):
-
-```bash
-export DEPLOY_HOST=root@YOUR_VPS_IP
-export CERTBOT_EMAIL=ops@yourdomain.com   # required the first time for Let's Encrypt
-./scripts/deploy-home-buildingculture.sh
-```
-
-Optional overrides:
-
-- `PUBLIC_DOMAIN` — default `home.buildingcultureid.space`
-- `REMOTE_ROOT` — default `/var/www/home-buildingculture`
-
-## What the script does
-
-1. `npm install` at workspace root, then `npm --prefix umbrella run build`
-2. `rsync` `umbrella/dist/` → `${REMOTE_ROOT}/` on the server
-3. Installs or patches nginx: [`scripts/install-nginx-home-on-server.sh`](../scripts/install-nginx-home-on-server.sh) → `sites-available/buildingculture-home.conf`
-4. Runs `certbot --nginx -d home.buildingcultureid.space` if no certificate exists yet
-
-## Reference nginx
-
-See [`infra/nginx-home-buildingculture.example.conf`](../infra/nginx-home-buildingculture.example.conf).
+[`scripts/deploy-home-buildingculture.sh`](../scripts/deploy-home-buildingculture.sh) exits with instructions to use the unified app deploy (`./scripts/deploy-ssh.sh`) and nginx redirect.
 
 ## Verify
 
 ```bash
 curl -sI https://home.buildingcultureid.space | head -n 5
+# Expect: 301/302 Location: https://app.buildingcultureid.space/
 ```
 
-Expect **200** on `/` and `Cache-Control: no-cache` on `/index.html`.
+## Related docs
 
-## Apex domain
-
-**`buildingcultureid.space` (apex)** is intentionally separate: use it for a marketing splash or redirect as you prefer. The umbrella “hub” product surface described on the site is served from **`home.buildingcultureid.space`**.
-
-## Related surfaces
-
-| Subdomain | Role |
-|-----------|------|
-| `home.buildingcultureid.space` | Umbrella links / narrative (this deploy) |
-| `0x.buildingcultureid.space` | Market (TanStack app, proxied port — see `install-nginx-0x-on-server.sh`) |
-| `app.buildingcultureid.space` | Live dApp |
-| `eco.buildingcultureid.space` | Eco static hub (`deploy-eco-buildingculture.sh`) |
+- [DOMAIN_CUTOVER.md](DOMAIN_CUTOVER.md)
+- [COMMUNITY_GUIDE_HOSTING.md](COMMUNITY_GUIDE_HOSTING.md) — `/guide` on the unified app

@@ -21,12 +21,21 @@ const FALLBACK_ROADMAP: StrapiRoadmapItem[] = [
   },
   {
     id: 2,
+    title: "BCC liquidity learn hub",
+    slug: "liquidity",
+    phase: "Now",
+    quarter: "Live",
+    body: "/liquidity — Uniswap primary, Aerodrome secondary, lesson track, Culture Points, gauge staking when pool is live.",
+    sortOrder: 2,
+  },
+  {
+    id: 21,
     title: "Points & quests",
     slug: "points",
     phase: "Next",
     quarter: "2026",
     body: "Postgres-backed ledger with SIWE — sync wallet identity for fair tasks and future airdrops.",
-    sortOrder: 2,
+    sortOrder: 3,
   },
   {
     id: 3,
@@ -35,7 +44,7 @@ const FALLBACK_ROADMAP: StrapiRoadmapItem[] = [
     phase: "Later",
     quarter: "TBD",
     body: "Snapshot ledger balances into Merkle trees or distributor contracts when tokenomics land.",
-    sortOrder: 3,
+    sortOrder: 4,
   },
   {
     id: 4,
@@ -44,7 +53,7 @@ const FALLBACK_ROADMAP: StrapiRoadmapItem[] = [
     phase: "Now",
     quarter: "Beta",
     body: "Austria newcomer companion — multi-agent RAG, 14 languages, Telegram/Farcaster mini apps at ankommen.buildingcultureid.space.",
-    sortOrder: 4,
+    sortOrder: 5,
   },
   {
     id: 5,

@@ -1,0 +1,46 @@
+{
+  "updated": "2026-06-08",
+  "contact": {
+    "name": "Laszlo Bihary",
+    "email": "laszlo.bihary@gmail.com",
+    "role": "Founder / maintainer"
+  },
+  "grantPayoutWallet": {
+    "network": "Base mainnet (EVM)",
+    "chainId": 8453,
+    "address": "0xd13e1cD3f0d2e83494EeAb8130EfD671C368FD22",
+    "note": "Use for grant disbursement after KYC. Not the deployer hot wallet."
+  },
+  "project": {
+    "name": "Building Culture",
+    "legalEntity": "Building Culture Capital (Delaware LLC — illustrative; confirm for KYC)",
+    "website": "https://app.buildingcultureid.space",
+    "repo": "https://github.com/Laszlo23/xrpbaby",
+    "repoPath": "b3/",
+    "twitter": "",
+    "farcaster": ""
+  },
+  "liveProof": {
+    "grantVerifier": "https://app.buildingcultureid.space/grant-proof",
+    "grantApi": "https://app.buildingcultureid.space/api/grant/verification",
+    "ogAgentId": "https://app.buildingcultureid.space/0g/agentid",
+    "investors": "https://app.buildingcultureid.space/investors",
+    "businessPlan": "https://app.buildingcultureid.space/plan"
+  },
+  "verificationSnapshot": {
+    "generatedAtUtc": "20260608T203943Z",
+    "pass": 42,
+    "warn": 4,
+    "fail": 0,
+    "note": "Grant verify PASSED; /plan live; trading health + Grove X/Farcaster warns expected"
+  },
+  "opsBudgetAsk": {
+    "summary": "12-month production runway: VPS, Base RPC, indexer, Cursor/AI API credits, monitoring",
+    "usdRange": "$3K–$8K",
+    "includedIn": ["Base Builder Grant (2–3 ETH)", "0G Guild M1 ($25K–$50K)"]
+  },
+  "tractionUpdates": {
+    "pointsToBccRedeem": "Treasury-backed Culture Points → BCC pipeline shipped (POST /api/points/redeem)",
+    "grantProof": "https://app.buildingcultureid.space/grant-proof"
+  }
+}

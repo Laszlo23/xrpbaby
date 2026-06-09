@@ -70,6 +70,7 @@ flowchart TB
 | Ankommen AI | ankommen.buildingcultureid.space | 5 | nginx proxy to ankommen.ai (beta) |
 | KinderStimme | forkids.buildingcultureid.space | 5 | nginx proxy to kinderstimme.at (beta) |
 | BC Studio | /studio | 2 | `STUDIO_SANDBOX_*`, OpenAI/Anthropic |
+| BCC liquidity learn | `/liquidity` | 2 | `VITE_BCC_*`; optional `VITE_BCC_AERODROME_*` |
 | Stripe packs | `/join` checkout | 3 | `STRIPE_*`, `VITE_STRIPE_PUBLISHABLE_KEY` |
 
 ## What only you can do
@@ -246,9 +247,10 @@ These **cannot** be automated by agents:
   - **Command:** `npm run market:env && npm run audit:vite-env`
   - **Pass when:** marketplace `VITE_*` baked in last image
 
-- [ ] **Step 3.2** — `/marketplace` loads
+- [x] **Step 3.2** — `/marketplace` loads
   - **Owner:** AGENT
   - **Pass when:** browse UI loads; contract address matches Base deployment
+  - **Verified 2026-06-05:** `GET /api/market/config` → `thirdwebConfigured: true`, contract `0x3af9EB7784C1843BD8385D1F41dE78d4B83AEcf4` on Base. Optional gaps: `platformFeeBps` / `feeRecipient` unset; trading agent sidecar unreachable in prod (`tradingAgentReachable: false`) — does not block marketplace browse.
 
 - [ ] **Step 3.3** — Thirdweb dashboard match
   - **Owner:** YOU

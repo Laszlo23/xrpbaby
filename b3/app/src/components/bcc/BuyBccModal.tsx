@@ -3,7 +3,6 @@ import {
   BCC_ADDRESS,
   BCC_DISCOUNT_LABEL,
   BCC_SYMBOL,
-  BCC_UNISWAP_URL,
   buildJumperSolToBccUrl,
   type BccSolanaBuyRoute,
 } from "@bc/bcc-kit";
@@ -15,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BccSwapPanel } from "@/components/swap/BccSwapPanel";
 
 function shortAddress(addr: string) {
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
@@ -32,7 +32,7 @@ type SolanaRouteResponse = {
 };
 
 /**
- * Floating "Buy BCC" button + modal. Base Uniswap + Solana bridge paths.
+ * Floating "Buy BCC" button + modal. In-app Base swap + Solana bridge paths.
  */
 export function BuyBccButton() {
   const [open, setOpen] = useState(false);
@@ -81,17 +81,7 @@ export function BuyBccButton() {
             </TabsList>
 
             <TabsContent value="base" className="mt-3 space-y-3">
-              <a
-                href={BCC_UNISWAP_URL}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="block rounded-full bg-gradient-to-r from-[#C5FF41] to-[#00E5FF] px-5 py-3 text-center text-sm font-bold text-black transition hover:opacity-90"
-              >
-                Buy {BCC_SYMBOL} on Uniswap →
-              </a>
-              <p className="text-xs text-zinc-500">
-                Use any Base wallet (Privy, MetaMask, Coinbase Wallet).
-              </p>
+              <BccSwapPanel compact />
             </TabsContent>
 
             <TabsContent value="solana" className="mt-3 space-y-3">

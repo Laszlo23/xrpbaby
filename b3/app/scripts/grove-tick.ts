@@ -7,7 +7,9 @@
  *   npm run grove:tick -- --dry-run
  *   npm run grove:tick -- --pillar agent_proof
  */
-import "./load-env";
+import { loadAppEnv } from "./load-env";
+
+loadAppEnv();
 
 import { getPrisma } from "../src/server/db/prisma";
 import { runGroveTick } from "../src/server/marketing/grove/tick";

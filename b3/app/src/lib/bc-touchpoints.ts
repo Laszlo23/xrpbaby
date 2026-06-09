@@ -45,6 +45,18 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
     hint: "Culture Coin, genesis claim, long-horizon build.",
   },
   {
+    id: "builder_story",
+    label: "Builder chronicle",
+    href: "/story",
+    hint: "From Web2 to Building Culture — essays on Paragraph, timeline since 1996.",
+  },
+  {
+    id: "liquidity",
+    label: "Learn BCC liquidity",
+    href: "/liquidity",
+    hint: "Uniswap + Aerodrome pools, lesson track, Culture Points.",
+  },
+  {
     id: "community_guide",
     label: "Community guide",
     href: "/guide",

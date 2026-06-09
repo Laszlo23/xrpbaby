@@ -1,11 +1,11 @@
 export const LANDING_MEDIA = {
-  heroBefore: "/landing/old.png",
-  heroAfter: "/landing/newoverlay.png",
-  problem: "/landing/old.png",
-  impact: "/landing/building1.png",
-  building1: "/landing/building1.png",
-  investor: "/landing/investors.png",
-  logo: "/landing/bs_trans.png",
+  heroBefore: "/landing/old.webp",
+  heroAfter: "/landing/newoverlay.webp",
+  problem: "/landing/old.webp",
+  impact: "/landing/building1.webp",
+  building1: "/landing/building1.webp",
+  investor: "/landing/investors.webp",
+  logo: "/landing/bs_trans.webp",
 } as const;
 
 export const INVESTOR_DECK_PDF =

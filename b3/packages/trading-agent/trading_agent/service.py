@@ -8,6 +8,7 @@ from sugar.chains import AsyncBaseChain
 from trading_agent.config import (
     BASE_CHAIN_ID,
     base_rpc_uri,
+    bcc_aerodrome_pool_address,
     bcc_uniswap_url,
     default_bcc_address,
     trading_paper_mode,
@@ -146,12 +147,32 @@ class TradingService:
         token_ref = (token or "aero").strip()
         bcc_addr = default_bcc_address().lower()
         if token_ref.lower() == bcc_addr or token_ref.lower() == "bcc":
+            aero_pool = bcc_aerodrome_pool_address()
+            async with self._chain_ctx() as chain:
+                pools = await self._get_pools_cached(chain)
+                matched = [
+                    p
+                    for p in pools
+                    if (p.token0.token_address or "").lower() == bcc_addr
+                    or (p.token1.token_address or "").lower() == bcc_addr
+                ][:10]
+            if matched:
+                return {
+                    "chainId": BASE_CHAIN_ID,
+                    "token": {"address": default_bcc_address(), "symbol": "BCC"},
+                    "pools": [pool_to_dict(p) for p in matched],
+                    "routing": "aerodrome",
+                    "aerodromePoolConfigured": bool(aero_pool),
+                    "note": "BCC listed on Aerodrome; Uniswap remains primary for concentrated liquidity.",
+                    "buyBccUrl": bcc_uniswap_url(),
+                }
             return {
                 "chainId": BASE_CHAIN_ID,
                 "token": {"address": default_bcc_address(), "symbol": "BCC"},
                 "pools": [],
                 "routing": "uniswap",
-                "note": "BCC primary liquidity is on Uniswap (not Aerodrome).",
+                "aerodromePoolConfigured": bool(aero_pool),
+                "note": "BCC primary liquidity is on Uniswap (Aerodrome pool not listed in sugar-sdk yet).",
                 "buyBccUrl": bcc_uniswap_url(),
             }
         async with self._chain_ctx() as chain:

@@ -2,6 +2,13 @@
 # Deploy BccTwapOracle (or MockBccUsdOracle) on Base mainnet.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONTRACTS_ENV="$ROOT/contracts/.env"
+if [[ -f "$CONTRACTS_ENV" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$CONTRACTS_ENV"
+  set +a
+fi
 cd "$ROOT/contracts"
 
 BCC="${BCC_TOKEN_ADDRESS:-0xb890a5289f789f1346032ccc1847939e855fab07}"

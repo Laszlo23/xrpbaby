@@ -14,6 +14,7 @@ These endpoints must stay healthy before campaign scale-up:
 
 - `GET /api/pulse/metrics`
 - `GET /api/market/bcc`
+- `GET /api/points/redeem/stats`
 - `GET /api/market/health`
 - `GET /api/trading/health`
 - `GET /api/marketing/grove/tick`

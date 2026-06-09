@@ -145,7 +145,7 @@ export function LandingFooter() {
                 { l: "Capital", h: "https://app.buildingcultureid.space", Icon: Compass },
                 { l: "App", h: "/play", Icon: Layers },
                 { l: "Invest", h: "/places", Icon: Briefcase },
-                { l: "Home", h: "https://home.buildingcultureid.space", Icon: Home },
+                { l: "Home", h: "https://app.buildingcultureid.space", Icon: Home },
                 { l: "ID", h: "/join", Icon: Fingerprint },
               ]}
             />
@@ -167,6 +167,10 @@ export function LandingFooter() {
                 { l: "Vision", h: "#vision", Icon: Sparkles },
                 { l: "Investors", h: "#investors", Icon: Briefcase },
                 { l: "Roadmap", h: "#future", Icon: Map },
+                { l: "Grant proof", h: "/grant-proof", Icon: Shield },
+                { l: "Terms", h: "/legal/terms", Icon: Shield },
+                { l: "Privacy", h: "/legal/privacy", Icon: Shield },
+                { l: "Imprint", h: "/legal/imprint", Icon: Shield },
                 { l: "Contact", h: "mailto:hello@buildingcultureid.space", Icon: Mail },
               ]}
             />

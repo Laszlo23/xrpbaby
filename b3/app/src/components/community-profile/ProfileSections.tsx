@@ -61,7 +61,7 @@ export function ProfileSections({ profile }: { profile: CommunityProfile }) {
                   key={g.id ?? i}
                   className="aspect-square overflow-hidden rounded-2xl border border-white/[0.06] bg-zinc-900"
                 >
-                  <img src={url} alt="" className="h-full w-full object-cover" />
+                  <img src={url} alt={`${profile.displayName} gallery image ${i + 1}`} className="h-full w-full object-cover" />
                 </div>
               );
             })}

@@ -42,7 +42,8 @@ export const Route = createFileRoute("/api/tg/me")({
             : null;
         const tonWalletAddress =
           typeof tonPayload?.walletAddress === "string" ? tonPayload.walletAddress : null;
-        const tonWalletApp = typeof tonPayload?.walletApp === "string" ? tonPayload.walletApp : null;
+        const tonWalletApp =
+          typeof tonPayload?.walletApp === "string" ? tonPayload.walletApp : null;
         const streakDays = await computeStreakDays(prisma, member.id);
         const forestStage = forestStageFromLevel(progression.level);
         const recentGrants = await prisma.rewardGrant.findMany({

@@ -61,7 +61,8 @@ function PlacesPage() {
       <p className="mono-label mt-8 !text-[#C5FF41]">RWA MARKETPLACE</p>
       <h1 className="mt-4 font-display text-3xl font-bold">Own the Future. Own Real Estate.</h1>
       <p className="mt-4 max-w-xl text-zinc-400">
-        {chainlinkComplianceCopy.body} Browse tokenized properties, list your own, and manage holdings on Places.
+        {chainlinkComplianceCopy.body} Browse tokenized properties, list your own, and manage
+        holdings on Places.
       </p>
 
       {isConnected && eligibility ? (

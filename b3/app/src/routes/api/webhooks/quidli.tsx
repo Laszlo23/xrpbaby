@@ -20,12 +20,19 @@ export const Route = createFileRoute("/api/webhooks/quidli")({
         }
         return json({ ok: true, stored: result.stored });
       },
-      GET: async () => {
-        const configured = Boolean(quidliApiKey());
+      GET: async ({ request }) => {
+        const url = new URL(request.url);
+        const proto =
+          request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ??
+          url.protocol.replace(":", "");
+        const host = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ?? url.host;
+        const origin = `${proto}://${host}`;
+
+        const { buildQuidliStatus } = await import("@/server/quidli/status");
+        const { getPrisma } = await import("@/server/db/prisma");
+        const status = await buildQuidliStatus(getPrisma(), origin);
         return json({
-          ok: true,
-          service: "quidli-connect",
-          configured,
+          ...status,
           docs: "https://docs.quid.li/",
         });
       },

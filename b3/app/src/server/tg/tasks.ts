@@ -189,9 +189,7 @@ export function nextAvailableTask(
   return null;
 }
 
-export function coreMissionsCompleted(
-  tasks: Array<TgTaskDef & { status: TgTaskStatus }>,
-): number {
+export function coreMissionsCompleted(tasks: Array<TgTaskDef & { status: TgTaskStatus }>): number {
   const core = ["daily_checkin", "wave_hello", "mood_vote", "culture_quiz_1"];
   return core.filter((id) => tasks.find((t) => t.id === id)?.status === "completed").length;
 }

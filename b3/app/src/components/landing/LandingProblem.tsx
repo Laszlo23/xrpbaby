@@ -25,6 +25,9 @@ export function LandingProblem() {
               <img
                 src={LANDING_MEDIA.problem}
                 alt="Decline of community spaces"
+                width={1280}
+                height={896}
+                loading="lazy"
                 className="h-[420px] w-full object-cover sm:h-[520px]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />

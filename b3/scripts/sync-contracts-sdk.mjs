@@ -82,7 +82,12 @@ ${entries}
   });
 
   const getDeploymentCases = chainIds
-    .map((id) => `  if (chain === ${id}) return deploymentAddresses${id}[name];`)
+    .map((id) => {
+      const book = `deploymentAddresses${id}`;
+      return `  if (chain === ${id} && name in ${book}) {
+    return ${book}[name as keyof typeof ${book}];
+  }`;
+    })
     .join("\n");
 
   const addressesTs = `/* eslint-disable -- generated */

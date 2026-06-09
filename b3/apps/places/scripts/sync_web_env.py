@@ -44,6 +44,8 @@ def emit_lines(data: dict) -> list[str]:
             f"NEXT_PUBLIC_BASE_PLATFORM_TOKEN={platform}",
             f"NEXT_PUBLIC_BASE_PURCHASE_ESCROW_ERC20={escrow20}",
         ]
+        if site_url:
+            lines.append(f"NEXT_PUBLIC_SITE_URL={site_url.rstrip('/')}")
     else:
         lines = [
             f"NEXT_PUBLIC_OG_RPC={rpc}",

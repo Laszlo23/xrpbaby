@@ -27,7 +27,11 @@ export function getDeploymentAddress(
   name: DeploymentContractName,
   chain: number,
 ): `0x${string}` | undefined {
-  if (chain === 8453) return deploymentAddresses8453[name];
-  if (chain === 84532) return deploymentAddresses84532[name];
+  if (chain === 8453 && name in deploymentAddresses8453) {
+    return deploymentAddresses8453[name as keyof typeof deploymentAddresses8453];
+  }
+  if (chain === 84532 && name in deploymentAddresses84532) {
+    return deploymentAddresses84532[name as keyof typeof deploymentAddresses84532];
+  }
   return undefined;
 }

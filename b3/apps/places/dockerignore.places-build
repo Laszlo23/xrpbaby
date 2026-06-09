@@ -1,0 +1,11 @@
+# Minimal Docker context for Places deploy (installed as .dockerignore on server).
+**/*
+!packages
+!packages/**
+!apps
+!apps/places
+!apps/places/web
+!apps/places/web/**
+!apps/places/data
+!apps/places/data/**
+!apps/places/Dockerfile.deploy

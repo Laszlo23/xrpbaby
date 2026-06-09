@@ -4,10 +4,21 @@ import { publicAppOrigin, slackWebhookUrl, strapiApiToken, strapiUrl } from "../
 import { postSlackMessage } from "../slack.js";
 
 async function lighthouseScore(origin: string): Promise<number | null> {
+  const base = origin.replace(/\/$/, "");
+  const t0 = performance.now();
   try {
-    const res = await fetch(`${origin.replace(/\/$/, "")}/`, { method: "GET" });
+    const res = await fetch(`${base}/`, { method: "GET" });
+    const elapsed = performance.now() - t0;
     if (!res.ok) return null;
-    return res.ok ? 85 : null;
+    const html = await res.text();
+    const hasOg = /property=["']og:image["']/i.test(html);
+    const hasFavicon = /rel=["']icon["']/i.test(html);
+    if (!hasOg || !hasFavicon) return null;
+    // Proxy score from TTFB + critical meta presence (run `npm run lighthouse:ci` for full audit).
+    if (elapsed < 800) return 92;
+    if (elapsed < 1500) return 88;
+    if (elapsed < 2500) return 85;
+    return 78;
   } catch {
     return null;
   }

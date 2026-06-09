@@ -38,10 +38,13 @@ function bccContextLine(brief: GroveBrief): string {
   return parts.join(" · ");
 }
 
-export function voiceCheck(text: string): { ok: true } | { ok: false; reason: string } {
+export function voiceCheck(
+  text: string,
+  maxLen = 320,
+): { ok: true } | { ok: false; reason: string } {
   const t = text.trim();
   if (!t) return { ok: false, reason: "empty" };
-  if (t.length > 320) return { ok: false, reason: "too_long" };
+  if (t.length > maxLen) return { ok: false, reason: "too_long" };
   if (BLOCKED.test(t)) return { ok: false, reason: "blocked_phrase" };
   return { ok: true };
 }
@@ -52,6 +55,10 @@ export type GroveCopyPillar =
   | "bcc_utility"
   | "culture_story"
   | "agent_proof"
+  | "grant_proof"
+  | "rwa_proof"
+  | "quidli_bounty"
+  | "growth_intelligence"
   | "attestation";
 
 const ROTATION_PILLARS: GroveCopyPillar[] = [
@@ -130,6 +137,14 @@ export function generateGroveCopyForPillar(
       return cultureStoryCopy(brief);
     case "agent_proof":
       return agentProofCopy(brief);
+    case "grant_proof":
+      return grantProofCopy(brief);
+    case "rwa_proof":
+      return rwaProofCopy(brief);
+    case "quidli_bounty":
+      return quidliBountyCopy(brief);
+    case "growth_intelligence":
+      return growthIntelligenceCopy(brief);
     case "forest_proof":
     default:
       return forestProofCopy(brief);
@@ -250,6 +265,109 @@ function cultureStoryCopy(brief: GroveBrief): GroveCopy {
       bccContextLine(brief),
       `Building Culture grows like a forest.`,
       `Enter the forest: ${brief.links.join}`,
+    ].join("\n"),
+  };
+}
+
+function quidliBountyCopy(brief: GroveBrief): GroveCopy {
+  const bountyUrl = brief.links.quidliBounty ?? brief.links.grantProof;
+  return {
+    pillar: "quidli_bounty",
+    x: [
+      bccContextLine(brief),
+      "",
+      `Earn BCC for boosting our grant proof — like + repost the pinned cast.`,
+      `Instant tips via Quidli (no wallet connect).`,
+      ``,
+      `Bounty → ${bountyUrl}`,
+      `Verify → ${brief.links.grantProof}`,
+    ].join("\n"),
+    farcaster: [
+      bccContextLine(brief),
+      `Grant-week bounty: like + repost → BCC tip via Quidli.`,
+      bountyUrl,
+      `Verifier: ${brief.links.grantProof}`,
+    ].join("\n"),
+    telegram: [
+      `🎁 Quidli bounty · ${bccContextLine(brief)}`,
+      `Boost grant proof → BCC tip (Quidli).`,
+      bountyUrl,
+    ].join("\n"),
+  };
+}
+
+function rwaProofCopy(brief: GroveBrief): GroveCopy {
+  return {
+    pillar: "rwa_proof",
+    x: [
+      bccContextLine(brief),
+      "",
+      `8 ST-IMMO property shares on Base (OG1–OG8).`,
+      `On-chain metadata resolves to live REOC JSON — inspectable, not a PDF promise.`,
+      ``,
+      `Explore → ${brief.links.places}`,
+      `REOC sample → ${brief.links.reocExample}`,
+    ].join("\n"),
+    farcaster: [
+      bccContextLine(brief),
+      `Building Culture Places: 8 fractional property shares on Base.`,
+      `Token metadata → REOC API (verify OG1):`,
+      brief.links.reocExample,
+      brief.links.places,
+    ].join("\n"),
+    telegram: [
+      `🏠 RWA proof · ${bccContextLine(brief)}`,
+      `8 ST-IMMO shares on Base (OG1–OG8).`,
+      `REOC metadata: ${brief.links.reocExample}`,
+      `Explore: ${brief.links.places}`,
+    ].join("\n"),
+  };
+}
+
+function grantProofCopy(brief: GroveBrief): GroveCopy {
+  return {
+    pillar: "grant_proof",
+    x: [
+      `Grove 🌲 Building Culture on Base — identity, BCC, Places RWA.`,
+      `Public verifier: 42 automated checks.`,
+      brief.links.grantProof,
+    ].join("\n"),
+    farcaster: [
+      bccContextLine(brief),
+      `Building Culture on Base — public grant verifier (42 checks).`,
+      brief.links.grantProof,
+      `Business plan: ${brief.links.businessPlan}`,
+    ].join("\n"),
+    telegram: [
+      `📋 Grant proof · ${bccContextLine(brief)}`,
+      `Verifier: ${brief.links.grantProof}`,
+      `Plan: ${brief.links.businessPlan}`,
+    ].join("\n"),
+  };
+}
+
+function growthIntelligenceCopy(brief: GroveBrief): GroveCopy {
+  const dashboard = brief.links.intelligence;
+  return {
+    pillar: "growth_intelligence",
+    x: [
+      bccContextLine(brief),
+      "",
+      `Grove 🌲 Growth Intelligence shipped — observe, analyze, recommend across BC apps.`,
+      `Funnel leaks + click heatmaps live for all tenants.`,
+      dashboard,
+    ].join("\n"),
+    farcaster: [
+      bccContextLine(brief),
+      `Growth Intelligence 🧠 — multi-tenant product analytics for the BC ecosystem.`,
+      `SDK · nightly insights · funnel leaks · heatmaps.`,
+      dashboard,
+    ].join("\n"),
+    telegram: [
+      `🧠 Growth Intelligence · ${bccContextLine(brief)}`,
+      `Shipped: SDK + ingest + nightly insights + /intelligence dashboard.`,
+      `Phase 2: funnel leaks + click heatmaps (7 apps).`,
+      dashboard,
     ].join("\n"),
   };
 }

@@ -1,12 +1,6 @@
 import { useEffect } from "react";
 
-export function TgXpToast({
-  message,
-  onDone,
-}: {
-  message: string | null;
-  onDone: () => void;
-}) {
+export function TgXpToast({ message, onDone }: { message: string | null; onDone: () => void }) {
   useEffect(() => {
     if (!message) return;
     const t = window.setTimeout(onDone, 2200);

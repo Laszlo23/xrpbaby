@@ -98,7 +98,6 @@ export async function handleMarketListingsGet(request: Request): Promise<Respons
 export async function handleMarketBccGet(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const ethAmount = url.searchParams.get("eth_amount")?.trim() || "0.01";
-  const tokenAddress = getBccTokenAddress();
   const offer = buildMarketOffer();
   let tradingHealth:
     | { ok: true; data: unknown }
@@ -114,16 +113,15 @@ export async function handleMarketBccGet(request: Request): Promise<Response> {
     tradingHealth = { ok: false, status: 503, error: `Trading health probe failed: ${msg}` };
   }
 
+  const { buildBccLiquidityMarket } = await import("@/server/liquidity/bcc-pools");
+  const liquidity = await buildBccLiquidityMarket({
+    tradingAgentReachable: tradingHealth.ok,
+    quoteBccUrl: `${offer.related.trading_quote_bcc}?eth_amount=${encodeURIComponent(ethAmount)}`,
+  });
+
   return json({
     ok: true,
-    symbol: BCC_SYMBOL,
-    chainId: 8453,
-    tokenAddress: tokenAddress ?? null,
-    uniswapUrl: process.env.VITE_BCC_UNISWAP_URL?.trim() || BCC_UNISWAP_URL,
-    discountBps: Number(process.env.VITE_BCC_DISCOUNT_BPS ?? "1111"),
-    tradingAgentReachable: tradingHealth.ok,
-    quoteBccUrl: `${offer.related.trading_quote_bcc}${url.searchParams.has("eth_amount") ? "" : `?eth_amount=${ethAmount}`}`,
-    note: "BCC is acquired on Uniswap or via ETH→USDC Aerodrome proxy quote; BCC is not routed on Aerodrome.",
+    ...liquidity,
     solanaRouteUrl: `${offer.endpoints.bcc_solana_route}?sol=1`,
     arbitrageScanUrl: offer.related.trading_arbitrage_scan,
   });

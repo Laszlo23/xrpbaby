@@ -2,6 +2,13 @@
 # Deploy BCD + genesis claim on Base Sepolia and refresh contracts-sdk.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONTRACTS_ENV="$ROOT/contracts/.env"
+if [[ -f "$CONTRACTS_ENV" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$CONTRACTS_ENV"
+  set +a
+fi
 cd "$ROOT/contracts"
 
 if [[ -z "${BASE_SEPOLIA_RPC_URL:-}" ]]; then

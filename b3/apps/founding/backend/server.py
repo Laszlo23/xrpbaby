@@ -315,6 +315,29 @@ def sync_farcaster_to_hub(wallet_address: str, fid: int) -> None:
         log.warning("hub farcaster sync failed for fid=%s", fid)
 
 
+def sync_founding_xp_to_hub(wallet_address: str, founding_user_id: str, founding_xp: int) -> None:
+    """One-time import of founding Mongo XP into hub PointLedger."""
+    if not PLATFORM_INTERNAL_SECRET or not wallet_address or founding_xp <= 0:
+        return
+    try:
+        requests.post(
+            f"{HUB_API_ORIGIN}/api/points/import-founding-xp",
+            json={
+                "walletAddress": wallet_address.lower(),
+                "foundingXp": founding_xp,
+                "foundingUserId": founding_user_id,
+                "campaignSlug": "founding-xp-v1",
+            },
+            headers={
+                "Content-Type": "application/json",
+                "X-Platform-Internal-Secret": PLATFORM_INTERNAL_SECRET,
+            },
+            timeout=15,
+        )
+    except requests.RequestException:
+        log.warning("hub founding xp sync failed for user=%s", founding_user_id)
+
+
 async def get_current_user(creds: HTTPAuthorizationCredentials = Depends(bearer)) -> Dict[str, Any]:
     if not creds:
         raise HTTPException(status_code=401, detail="Not authenticated")
@@ -535,8 +558,18 @@ async def link_farcaster(body: LinkFarcasterIn, user: Dict[str, Any] = Depends(g
     wallet = user.get("wallet_address") or user.get("embedded_wallet")
     if isinstance(wallet, str) and wallet.startswith("0x"):
         sync_farcaster_to_hub(wallet, body.fid)
+        sync_founding_xp_to_hub(wallet, user["id"], int(user.get("xp", 0)))
     await push_feed("farcaster", user["username"], f"{user['username']} connected Farcaster (FID {body.fid}).")
     return public_user(user)
+
+
+@api.post("/profile/sync-points-to-hub")
+async def sync_points_to_hub(user: Dict[str, Any] = Depends(get_current_user)):
+    wallet = user.get("wallet_address") or user.get("embedded_wallet")
+    if not isinstance(wallet, str) or not wallet.startswith("0x"):
+        raise HTTPException(status_code=400, detail="Link a wallet before syncing points")
+    sync_founding_xp_to_hub(wallet, user["id"], int(user.get("xp", 0)))
+    return {"ok": True, "xp": user.get("xp", 0)}
 
 
 @api.delete("/profile/link-farcaster")

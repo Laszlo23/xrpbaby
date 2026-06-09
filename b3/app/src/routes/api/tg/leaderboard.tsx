@@ -52,9 +52,7 @@ export const Route = createFileRoute("/api/tg/leaderboard")({
           LIMIT ${limit}
         `;
 
-        const allRanked = await prisma.$queryRaw<
-          Array<{ memberId: string; points: number }>
-        >`
+        const allRanked = await prisma.$queryRaw<Array<{ memberId: string; points: number }>>`
           SELECT m.id AS "memberId",
                  COALESCE(SUM(pl.delta), 0)::int AS points
           FROM "SocialAccount" sa

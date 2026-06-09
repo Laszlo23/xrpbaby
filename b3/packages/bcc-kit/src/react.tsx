@@ -52,10 +52,15 @@ export type BuyBccModalProps = {
   onClose: () => void;
   /** Optional extra copy line (e.g. context about the discount on this surface). */
   note?: ReactNode;
+  /**
+   * When set (e.g. `https://app.example.com/swap`), the On Base tab links to the
+   * main app's in-app Uniswap swap instead of only external Uniswap.
+   */
+  swapAppUrl?: string;
 };
 
 /** Controlled modal: render it and drive `open`/`onClose` yourself. */
-export function BuyBccModal({ open, onClose, note }: BuyBccModalProps) {
+export function BuyBccModal({ open, onClose, note, swapAppUrl }: BuyBccModalProps) {
   const [tab, setTab] = useState<"base" | "solana">("base");
   const solanaRoutes = buildSolanaToBccRoutes();
 
@@ -148,25 +153,48 @@ export function BuyBccModal({ open, onClose, note }: BuyBccModalProps) {
         </div>
 
         {tab === "base" ? (
-          <a
-            href={BCC_UNISWAP_URL}
-            target="_blank"
-            rel="noreferrer noopener"
-            style={{
-              display: "block",
-              marginTop: 16,
-              textAlign: "center",
-              borderRadius: 9999,
-              padding: "13px 20px",
-              fontSize: 14,
-              fontWeight: 700,
-              color: "#0a0a0a",
-              textDecoration: "none",
-              background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT_2})`,
-            }}
-          >
-            Buy {BCC_SYMBOL} on Uniswap →
-          </a>
+          <div style={{ marginTop: 16 }}>
+            {swapAppUrl ? (
+              <a
+                href={swapAppUrl}
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  borderRadius: 9999,
+                  padding: "13px 20px",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: "#0a0a0a",
+                  textDecoration: "none",
+                  background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT_2})`,
+                }}
+              >
+                Swap for {BCC_SYMBOL} in-app →
+              </a>
+            ) : null}
+            <a
+              href={BCC_UNISWAP_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              style={{
+                display: "block",
+                marginTop: swapAppUrl ? 10 : 0,
+                textAlign: "center",
+                borderRadius: 9999,
+                padding: "13px 20px",
+                fontSize: 14,
+                fontWeight: 700,
+                color: swapAppUrl ? ACCENT : "#0a0a0a",
+                textDecoration: "none",
+                background: swapAppUrl
+                  ? "rgba(0,0,0,0.35)"
+                  : `linear-gradient(90deg, ${ACCENT}, ${ACCENT_2})`,
+                border: swapAppUrl ? `1px solid ${ACCENT}55` : "none",
+              }}
+            >
+              {swapAppUrl ? "Open Uniswap instead →" : `Buy ${BCC_SYMBOL} on Uniswap →`}
+            </a>
+          </div>
         ) : (
           <div style={{ marginTop: 16 }}>
             <p style={{ margin: "0 0 12px", fontSize: 12, color: "#a1a1aa", lineHeight: 1.5 }}>

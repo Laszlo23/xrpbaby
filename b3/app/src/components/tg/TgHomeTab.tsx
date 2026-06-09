@@ -25,15 +25,15 @@ export function TgHomeTab({
   agentRef: string;
 }) {
   const g = home.gamification;
-  const pct = Math.min(100, Math.round((g.xp % 100) / 100 * 100) || (g.xp > 0 ? 100 : 0));
+  const pct = Math.min(100, Math.round(((g.xp % 100) / 100) * 100) || (g.xp > 0 ? 100 : 0));
   const showTonBonus = g.coreMissionsCompleted >= 3;
 
   return (
     <div className="space-y-4">
       <div className="rounded-2xl border border-[#C5FF41]/20 bg-[#0c0d12] p-4">
         <p className="text-xs text-zinc-500">
-          Hey <span className="text-white">{home.member.displayName}</span> — you&apos;re building block #
-          {home.member.blockNumber}
+          Hey <span className="text-white">{home.member.displayName}</span> — you&apos;re building
+          block #{home.member.blockNumber}
         </p>
         <div className="mt-3 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">

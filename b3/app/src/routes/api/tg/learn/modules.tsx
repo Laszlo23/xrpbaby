@@ -11,6 +11,18 @@ const MODULES = [
     xpReward: 30,
   },
   {
+    id: "m_bcc_liquidity_basics",
+    title: "BCC liquidity on Base",
+    durationMin: 5,
+    xpReward: 35,
+  },
+  {
+    id: "m_aerodrome_gauges",
+    title: "Aerodrome gauges & LP",
+    durationMin: 4,
+    xpReward: 30,
+  },
+  {
     id: "m_ton_wallet_safety",
     title: "TON wallet safety",
     durationMin: 3,
@@ -77,6 +89,7 @@ export const Route = createFileRoute("/api/tg/learn/modules")({
 
 function moduleStatus(id: string, completed: Set<string>, tonConnected: boolean) {
   if (completed.has(id)) return "completed";
+  if (id === "m_aerodrome_gauges" && !completed.has("m_bcc_liquidity_basics")) return "locked";
   if (id === "m_ton_wallet_safety" && !tonConnected) return "locked";
   return "available";
 }

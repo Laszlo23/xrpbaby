@@ -230,6 +230,19 @@ function InvestPageInner() {
         />
       </Web3TradeGuard>
 
+      <div className="mx-auto mb-8 max-w-[1280px] rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3 text-sm text-zinc-400">
+        <span className="text-zinc-300">BCC token liquidity</span> (culture coin pools on Uniswap / Aerodrome) is
+        separate from property-share LP on Places.{" "}
+        <a
+          href="https://app.buildingcultureid.space/liquidity"
+          className="text-eco-light underline-offset-2 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn BCC liquidity →
+        </a>
+      </div>
+
       <InvestLiquidityExitSection demo={demo} />
 
       <InvestOwnershipSection demo={demo} />

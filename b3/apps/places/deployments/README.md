@@ -56,12 +56,39 @@ export PROPERTY_SHARE_FACTORY=0x...
 export TREASURY_ADDRESS=0x...     # optional; defaults to deployer
 ```
 
-**Empty registry — seven demo properties:**
+**ST-IMMO catalog (8 properties, canonical):**
+
+```bash
+# Fresh registry only:
+forge script script/SeedStImmoProperties.s.sol:SeedStImmoPropertiesScript \
+  --rpc-url https://mainnet.base.org \
+  --broadcast
+
+# Idempotent (skip existing tokens):
+forge script script/FinishSeedStImmoProperties.s.sol:FinishSeedStImmoPropertiesScript \
+  --rpc-url https://mainnet.base.org \
+  --broadcast
+```
+
+**Legacy seven-property seed** (deprecated — use ST-IMMO scripts above):
 
 ```bash
 forge script script/SeedSevenProperties.s.sol:SeedSevenPropertiesScript \
   --rpc-url https://mainnet.base.org \
   --broadcast
+```
+
+Catalog validation before broadcast:
+
+```bash
+node scripts/audit-property-catalog.mjs
+node scripts/validate-reoc-metadata.mjs
+```
+
+Full mainnet completion (OG8, metadata URIs, Chainlink PoR, kycBypass):
+
+```bash
+bash scripts/rwa-mainnet-ops.sh
 ```
 
 **Or** use `SeedThreeProperties` / `SeedFourMoreProperties` as appropriate (see script comments). Do not re-seed duplicate external refs.

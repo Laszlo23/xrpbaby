@@ -63,7 +63,7 @@ function DropStoryPage() {
             aria-label=""
           />
         ) : (
-          <img src={drop.image} alt="" className="h-[52vh] w-full object-cover" loading="eager" />
+          <img src={drop.image} alt={drop.title} className="h-[52vh] w-full object-cover" loading="eager" />
         )}
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent px-4 pb-10 pt-24 md:px-10">
           <Link

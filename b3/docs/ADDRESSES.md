@@ -3,7 +3,7 @@
 Canonical registry for Building Culture (`b3`).  
 **Source of truth:** deployment JSON under each package; this file is a human-readable index.
 
-Last updated from repo state: **2026-06-04** — see [CONTRACTS_AUDIT.md](./CONTRACTS_AUDIT.md) for latest bytecode audit.
+Last updated from repo state: **2026-06-08** — see [CONTRACTS_AUDIT.md](./CONTRACTS_AUDIT.md) for latest bytecode audit.
 
 | Network | Chain ID | Explorer |
 |---------|----------|----------|
@@ -43,7 +43,17 @@ From [`contracts/deployments/8453.json`](../contracts/deployments/8453.json) and
 | AgentShareCampaign | `0x130e320a386b1ff0228492ddd65c380131ba86e9` | Agent share campaign |
 | CulturePulseAnchor | `0x503f8ad17c0fcdd84fbdbf7f51b41b39b02ebbae` | Daily culture digest anchor (not asset PoR) |
 
-**Not in `8453.json` (configure via env only):** DailyCheckIn, GenesisVaultPass tiers, BCDFixedPriceSale, thirdweb Marketplace V3 — set `VITE_*` in deploy env. See deployment file `note` field.
+### Genesis Vault Pass (ERC-721 tiers)
+
+From [`contracts/deployments/8453.json`](../contracts/deployments/8453.json) — deployed 2026-06-08 (`DeployGenesisVaultPassAll`). Env: `VITE_GENESIS_VAULT_PASS_PHASE0/1/2`.
+
+| Contract | Address | Role |
+|----------|---------|------|
+| GenesisVaultPass Phase 0 | `0x39952f562279f8a6517ED9d36a1Ff9d495e4e38d` | Tier 0 — `/genesis-district` mint panel |
+| GenesisVaultPass Phase 1 | `0x0fE8AE7f7207f8C04377cdD4A711A67811cf3a73` | Tier 1 |
+| GenesisVaultPass Phase 2 | `0x01B971794c4C5C265bc0326dE329e1f4c937C765` | Tier 2 |
+
+**Not in `8453.json` (configure via env only):** DailyCheckIn, BCDFixedPriceSale, thirdweb Marketplace V3 — set `VITE_*` in deploy env. See deployment file `note` field.
 
 ### DailyCheckIn (UTC-day streak)
 

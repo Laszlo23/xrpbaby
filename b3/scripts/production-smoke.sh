@@ -30,9 +30,48 @@ check() {
   fi
 }
 
-for path in /forest /join /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid; do
+for path in / /forest /join /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid /grant-proof /plan; do
   check "$path"
 done
+
+if curl -s "${BASE}/" | grep -q "talentapp:project_verification"; then
+  echo "OK  / homepage has talentapp:project_verification meta"
+else
+  echo "FAIL / homepage missing talentapp:project_verification meta (Talent Protocol grant)"
+  fail=1
+fi
+
+home_html=$(curl -s "${BASE}/")
+if echo "$home_html" | grep -qiE 'rel=["'\'']icon["'\'']'; then
+  echo "OK  / homepage has favicon link"
+else
+  echo "FAIL / homepage missing favicon link"
+  fail=1
+fi
+
+if echo "$home_html" | grep -qi 'property="og:image"'; then
+  echo "OK  / homepage has og:image meta"
+else
+  echo "FAIL / homepage missing og:image meta"
+  fail=1
+fi
+
+if echo "$home_html" | grep -qi 'name="twitter:card"'; then
+  echo "OK  / homepage has twitter:card meta"
+else
+  echo "WARN / homepage missing twitter:card meta"
+fi
+
+for og_path in / /plan /grant-proof; do
+  og_html=$(curl -s "${BASE}${og_path}")
+  if echo "$og_html" | grep -qi 'og:image'; then
+    echo "OK  ${og_path} has og:image"
+  else
+    echo "WARN ${og_path} missing og:image in HTML"
+  fi
+done
+
+check "/og-default.png"
 
 ART_REDIRECT="${ART_REDIRECT_ORIGIN:-https://art.buildingcultureid.space}"
 ART_REDIRECT="${ART_REDIRECT%/}"
@@ -120,6 +159,36 @@ check_json_ok "/api/market/health"
 check_json_ok "/api/trading/health" "1"
 check_json_ok "/api/marketing/grove/tick"
 
+echo "--- RWA REOC metadata ---"
+check "/places/meta/rwa-share-icon.svg"
+if curl -s "${BASE}/places/api/reoc/1" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    const ok =
+      j.reocVersion === '1.0.0' &&
+      typeof j.image === 'string' && j.image.includes('/places/meta/rwa-share-icon.svg') &&
+      Array.isArray(j.documents) && j.documents.length > 0 &&
+      j.token && typeof j.token.address === 'string';
+    process.exit(ok ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  GET /places/api/reoc/1 → valid REOC JSON"
+else
+  echo "FAIL GET /places/api/reoc/1 → invalid or missing REOC fields"
+  fail=1
+fi
+reoc404=$(curl -s -o /dev/null -w "%{http_code}" "${BASE}/places/api/reoc/999")
+if [[ "$reoc404" == "404" ]]; then
+  echo "OK  GET /places/api/reoc/999 → 404"
+else
+  echo "FAIL GET /places/api/reoc/999 → $reoc404 (expected 404)"
+  fail=1
+fi
+
 echo "--- Telegram Mini App ---"
 for path in /tg /tonconnect-manifest.json /meta/tonconnect-icon.png; do
   check "$path"
@@ -203,13 +272,28 @@ process.stdin.on('data',c=>d+=c);
 process.stdin.on('end',()=>{
   try {
     const j=JSON.parse(d);
+    process.exit(j.ok && j.service==='quidli-connect' && j.configured ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  GET /api/webhooks/quidli → quidli-connect configured"
+else
+  echo "WARN GET /api/webhooks/quidli → not configured (set QUIDLI_API_KEY)"
+fi
+
+if curl -s "${BASE}/api/marketing/quidli/status" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
     process.exit(j.ok && j.service==='quidli-connect' ? 0 : 1);
   } catch { process.exit(1); }
 });
 "; then
-  echo "OK  GET /api/webhooks/quidli → quidli-connect endpoint live"
+  echo "OK  GET /api/marketing/quidli/status"
 else
-  echo "WARN GET /api/webhooks/quidli → not reachable"
+  echo "WARN GET /api/marketing/quidli/status → not reachable"
 fi
 
 grove_tick=$(curl -s "${BASE}/api/marketing/grove/tick")

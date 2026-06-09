@@ -4,7 +4,7 @@ import { MarketingShell } from "@/components/MarketingShell";
 import { DisclaimerBanner } from "@/components/investors/DisclaimerBanner";
 import { ChainlinkComplianceStrip } from "@/components/investors/ChainlinkComplianceStrip";
 import { ProductMap } from "@/components/investors/ProductMap";
-import { RoiScenarioExplorer } from "@/components/investors/RoiScenarioExplorer";
+import { InvestorLiveTraction } from "@/components/investors/InvestorLiveTraction";
 import { TreasuryEntityArchitecture } from "@/components/investors/TreasuryEntityArchitecture";
 
 export const Route = createFileRoute("/investors")({
@@ -42,7 +42,7 @@ function InvestorsPage() {
           </span>
         </>
       }
-      subtitle="An angel-friendly map of our umbrella brand, product surfaces (app + game), and the Building Culture Coin ($BCC) story inside BUILDCHAIN. Illustrative numbers only—see disclaimers."
+      subtitle="An angel-friendly map of our umbrella brand, product surfaces (app + game), and the Building Culture Coin ($BCC) story inside BUILDCHAIN. Live ops metrics below; scenario sliders and /plan deck are illustrative—see disclaimers."
       actions={
         <Link
           to="/places"
@@ -54,6 +54,18 @@ function InvestorsPage() {
     >
       <div className="flex flex-col gap-14 md:gap-16">
         <DisclaimerBanner />
+        <section className="rounded-2xl border border-[rgb(0_82_255/25%)] bg-[rgb(0_82_255/8%)] px-5 py-4 text-sm text-zinc-300">
+          <strong className="font-medium text-white">Live verification for due diligence:</strong>{" "}
+          automated production checks, on-chain addresses, and downloadable JSON on{" "}
+          <Link to="/grant-proof" className="text-white underline underline-offset-4">
+            /grant-proof
+          </Link>
+          . Full seed narrative (native content, no slide images) on{" "}
+          <Link to="/plan" className="text-white underline underline-offset-4">
+            /plan
+          </Link>
+          . Operators run <code className="text-zinc-200">npm run grant:proof</code> before submissions.
+        </section>
         <ChainlinkComplianceStrip />
 
         <section className="space-y-4">
@@ -112,8 +124,8 @@ function InvestorsPage() {
               follows.
             </li>
             <li>
-              Social distribution hooks (e.g. Farcaster / Warpcast flows where configured) can
-              shorten acquisition loops for culture-native audiences.
+              Social distribution is wired but early: Grove auto-post requires credentials; pulse
+              ingestion shows real post counts in the traction table — often zero until streams run.
             </li>
             <li>
               Optional Strapi-backed community content lets partners ship stories without
@@ -122,42 +134,7 @@ function InvestorsPage() {
           </ul>
         </section>
 
-        <section className="space-y-4">
-          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
-            Traction (placeholders)
-          </h2>
-          <p className="text-sm text-zinc-500">
-            Replace with counsel-approved metrics. Example labels only.
-          </p>
-          <div className="overflow-x-auto rounded-2xl border border-white/[0.08]">
-            <table className="w-full min-w-[280px] text-left text-sm">
-              <thead>
-                <tr className="border-b border-white/[0.08] bg-white/[0.03] font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-                  <th className="px-4 py-3 font-medium">Signal</th>
-                  <th className="px-4 py-3 font-medium">Example / TBD</th>
-                </tr>
-              </thead>
-              <tbody className="text-zinc-400">
-                <tr className="border-b border-white/[0.06]">
-                  <td className="px-4 py-3">Monthly active wallets</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">—</td>
-                </tr>
-                <tr className="border-b border-white/[0.06]">
-                  <td className="px-4 py-3">Secondary GMV (proxy)</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">—</td>
-                </tr>
-                <tr className="border-b border-white/[0.06]">
-                  <td className="px-4 py-3">Campaign mint volume</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">—</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3">Brand / venue partners</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">—</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <InvestorLiveTraction />
 
         <section className="space-y-4">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
@@ -179,19 +156,39 @@ function InvestorsPage() {
               <tbody className="text-zinc-400">
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3">Marketplace / protocol fees</td>
-                  <td className="px-4 py-3 text-zinc-500">TBD — attach take rate when stable</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    thirdweb marketplace live on Base (
+                    <code className="text-zinc-400">0x3af9…AEcf4</code>); platform fee bps set per
+                    env when published
+                  </td>
+                </tr>
+                <tr className="border-b border-white/[0.06]">
+                  <td className="px-4 py-3">BCC commerce discount</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    11.11% pack discount (1111 bps) when{" "}
+                    <code className="text-zinc-400">VITE_BCC_DISCOUNT_BPS</code> is configured
+                  </td>
                 </tr>
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3">Campaign & mint fees</td>
-                  <td className="px-4 py-3 text-zinc-500">TBD — per deployment</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    On-chain raffle / art hub contracts on Base — see{" "}
+                    <Link to="/grant-proof" className="text-zinc-300 underline underline-offset-4">
+                      grant-proof
+                    </Link>{" "}
+                    bytecode audit
+                  </td>
                 </tr>
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3">Sponsored drops & experiences</td>
-                  <td className="px-4 py-3 text-zinc-500">TBD — partnership pipeline</td>
+                  <td className="px-4 py-3 text-zinc-500">Partnership pipeline — not disclosed publicly</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">API / infra (e.g. x402-style)</td>
-                  <td className="px-4 py-3 text-zinc-500">TBD — optional premium tier</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    Rentable trading agent + x402 routes — worker optional (
+                    <code className="text-zinc-400">/api/trading/health</code>)
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -200,80 +197,106 @@ function InvestorsPage() {
 
         <section id="roi" className="scroll-mt-24 space-y-6">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
-            ROI framing & illustrative economics
+            Economics & fundraising (what we publish)
           </h2>
           <p>
             Angels typically underwrite{" "}
             <strong className="font-medium text-zinc-200">category creation</strong>, distribution,
-            and execution speed—not a spreadsheet cell. Below is a qualitative band, placeholder cap
-            table lines, then a toy scenario you can tune in conversation with advisors.
+            and execution—not pre-filled spreadsheet sliders. This page shows{" "}
+            <strong className="font-medium text-zinc-200">audited live metrics</strong> above; it
+            does <em>not</em> state an open round size, post-money valuation, or ownership slice.
           </p>
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-500">
-              Illustrative outcome bands (not predictions)
-            </p>
-            <ul className="mt-4 list-inside list-disc space-y-2 text-zinc-400 marker:text-zinc-600">
-              <li>
-                <span className="text-zinc-300">Base case story:</span> niche liquidity + steady
-                drops → fees fund core team and infra; token narrative stays subservient to product.
-              </li>
-              <li>
-                <span className="text-zinc-300">Upside story:</span> cultural moments spill into
-                mainstream acquisition; marketplace + campaigns scale GMV; partnerships repeat.
-              </li>
-              <li>
-                <span className="text-zinc-300">Downside risks:</span> regulatory scrutiny on
-                promos, execution on fulfillment, chain / custody dependencies — see risks below.
-              </li>
-            </ul>
+
+          <div className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.05] px-5 py-4 text-sm text-amber-100/90">
+            <strong className="font-medium text-amber-50">Not on this page:</strong> raise amount,
+            valuation, cap table %, GMV forecasts, or fee-revenue projections. Those belong in
+            counsel-approved materials and direct conversations—not a public URL that could read like
+            an offering.
           </div>
 
           <div className="overflow-x-auto rounded-2xl border border-white/[0.08]">
             <table className="w-full min-w-[360px] text-left text-sm">
               <thead>
                 <tr className="border-b border-white/[0.08] bg-white/[0.03] font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-                  <th className="px-4 py-3 font-medium">Cap table line</th>
-                  <th className="px-4 py-3 font-medium">Placeholder</th>
+                  <th className="px-4 py-3 font-medium">Topic</th>
+                  <th className="px-4 py-3 font-medium">Public stance</th>
                 </tr>
               </thead>
               <tbody className="text-zinc-400">
                 <tr className="border-b border-white/[0.06]">
-                  <td className="px-4 py-3">Founders / early team</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">— %</td>
+                  <td className="px-4 py-3 text-zinc-300">Round size / valuation</td>
+                  <td className="px-4 py-3 text-zinc-500">Not disclosed here — NDA + term sheet</td>
                 </tr>
                 <tr className="border-b border-white/[0.06]">
-                  <td className="px-4 py-3">Seed / angel</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">— %</td>
+                  <td className="px-4 py-3 text-zinc-300">Cap table / ownership %</td>
+                  <td className="px-4 py-3 text-zinc-500">Not disclosed here — NDA + term sheet</td>
                 </tr>
                 <tr className="border-b border-white/[0.06]">
-                  <td className="px-4 py-3">Option pool</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">— %</td>
+                  <td className="px-4 py-3 text-zinc-300">Live ops & on-chain proof</td>
+                  <td className="px-4 py-3">
+                    <Link to="/grant-proof" className="text-zinc-300 underline underline-offset-4">
+                      /grant-proof
+                    </Link>{" "}
+                    + traction table on this page
+                  </td>
+                </tr>
+                <tr className="border-b border-white/[0.06]">
+                  <td className="px-4 py-3 text-zinc-300">Long-horizon scenario deck</td>
+                  <td className="px-4 py-3">
+                    <Link to="/plan" className="text-zinc-300 underline underline-offset-4">
+                      /plan
+                    </Link>{" "}
+                    — labeled illustrative models only, not current traction
+                  </td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3">Strategic / advisors</td>
-                  <td className="px-4 py-3 font-mono text-zinc-500">— %</td>
+                  <td className="px-4 py-3 text-zinc-300">Live-call scenario sliders</td>
+                  <td className="px-4 py-3">
+                    <Link to="/investors/workshop" className="text-zinc-300 underline underline-offset-4">
+                      /investors/workshop
+                    </Link>{" "}
+                    — password-gated, noindex; shared privately on advisor calls
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <RoiScenarioExplorer />
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-500">
+              How we talk about outcomes (qualitative)
+            </p>
+            <ul className="mt-4 list-inside list-disc space-y-2 text-zinc-400 marker:text-zinc-600">
+              <li>
+                <span className="text-zinc-300">Execution focus:</span> ship inspectable drops,
+                wallet UX, and marketplace rails before scaling marketing claims.
+              </li>
+              <li>
+                <span className="text-zinc-300">Upside path:</span> repeatable campaigns + partners
+                if volume follows — not assumed in public numbers.
+              </li>
+              <li>
+                <span className="text-zinc-300">Downside risks:</span> regulatory scrutiny, fulfillment
+                ops, chain/custody dependencies — see risks below.
+              </li>
+            </ul>
+          </div>
         </section>
 
         <section className="space-y-4">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
-            Round & use of funds (outline)
+            Use of funds (directional outline)
           </h2>
+          <p className="text-sm text-zinc-500">
+            Categories we discuss with investors in private materials — not a public ask size or
+            instrument (SAFE vs priced equity vs token) on this site.
+          </p>
           <ul className="list-inside list-disc space-y-2 text-zinc-400 marker:text-zinc-600">
             <li>Product engineering: marketplace reliability, wallet UX, campaign tooling.</li>
             <li>Growth: creator partnerships, drops programming, community.</li>
             <li>Compliance & ops: counsel retainer, fulfillment playbooks, accounting.</li>
             <li>Infrastructure: RPC, indexing, observability, security reviews.</li>
           </ul>
-          <p className="text-sm text-zinc-600">
-            Instrumentation (SAFE vs priced round, jurisdiction, token vs equity) belongs in your
-            term sheet — not on this page.
-          </p>
         </section>
 
         <TreasuryEntityArchitecture />

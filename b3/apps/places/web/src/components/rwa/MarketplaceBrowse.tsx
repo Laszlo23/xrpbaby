@@ -70,7 +70,14 @@ function MarketplaceBrowseContent() {
 
   const visibleRows = useMemo(() => {
     if (enriched.length === 0) return [];
-    let rows = selectedMarket === "secondary" ? enriched : primaryStrict.length > 0 ? primaryStrict : enriched;
+    let rows = enriched;
+    if (selectedMarket === "primary" && primaryStrict.length > 0) {
+      const primaryIds = new Set(primaryStrict.map((r) => r.id.toString()));
+      rows = [
+        ...primaryStrict,
+        ...enriched.filter((r) => !primaryIds.has(r.id.toString())),
+      ];
+    }
 
     if (filters.search.trim()) {
       const q = filters.search.toLowerCase();
@@ -125,6 +132,11 @@ function MarketplaceBrowseContent() {
 
   const showPrimaryFallbackBanner =
     selectedMarket === "primary" && primaryStrict.length === 0 && enriched.length > 0;
+
+  const showPrimaryPartialBanner =
+    selectedMarket === "primary" &&
+    primaryStrict.length > 0 &&
+    primaryStrict.length < enriched.length;
 
   const overview = useMemo(() => {
     if (visibleRows.length === 0) return { avgYield: null as number | null, refTvlUsd: 0, fundedUsd: 0 };
@@ -262,6 +274,23 @@ function MarketplaceBrowseContent() {
               {showPrimaryFallbackBanner ? (
                 <p className="rounded-xl border border-sky-500/25 bg-sky-950/25 px-4 py-3 text-sm text-sky-100/95">
                   Showing full catalog — add primary sales in <code className="font-mono text-xs">primary-sales.json</code>.
+                </p>
+              ) : null}
+
+              {showPrimaryPartialBanner ? (
+                <p className="rounded-xl border border-emerald-500/25 bg-emerald-950/25 px-4 py-3 text-sm text-emerald-100/95">
+                  <strong className="text-white">{primaryStrict.length}</strong> propert
+                  {primaryStrict.length === 1 ? "y has" : "ies have"} a live issuer sale (USDC). The rest are
+                  browse-only until primary sales are added in{" "}
+                  <code className="font-mono text-xs">primary-sales.json</code> — or switch to{" "}
+                  <button
+                    type="button"
+                    className="text-bc-cyan underline"
+                    onClick={() => syncMarket("secondary")}
+                  >
+                    Secondary market
+                  </button>
+                  .
                 </p>
               ) : null}
 

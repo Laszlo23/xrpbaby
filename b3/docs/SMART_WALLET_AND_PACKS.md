@@ -137,9 +137,24 @@ Users pay `mintPrice` in ETH or BNB from their Privy wallet. Same wallet address
 
 Deploy BSC contract: `b3/scripts/deploy-identity-bsc.sh`
 
-## Points → BCC (future)
+## Points → BCC redemption
 
-Culture Points live in Postgres `PointLedger`. Redemption is **disabled** until `VITE_POINTS_REDEEM_ENABLED=1` and on-chain BCC liquidity meets policy in [`app/src/lib/redemption-policy.ts`](../app/src/lib/redemption-policy.ts). Use `AirdropCampaign` + Merkle when tokenomics are ready.
+Culture Points live in Postgres `PointLedger`. Redemption sends **treasury BCC** (fair-launch token — no inflationary mint).
+
+| Gate | Env / policy |
+|------|----------------|
+| Feature flag | `POINTS_REDEEM_ENABLED=1` and `VITE_POINTS_REDEEM_ENABLED=1` |
+| Liquidity | Combined pool TVL ≥ `$500k` ([`redemption-policy.ts`](../app/src/lib/redemption-policy.ts)) |
+| Conversion rate | `POINTS_PER_BCC_WEI` — wei of BCC per 1 Culture Point |
+| Treasury | `BCC_TREASURY_ONCHAIN=1`, `BCC_TREASURY_PRIVATE_KEY`, `BCC_TREASURY_RPC_URL` |
+
+**API:** `GET /api/points/redeem/quote`, `POST /api/points/redeem` (SIWE), `GET /api/points/redeem/stats`
+
+**UI:** `/profile` and `/wallet` — `PointsRedeemSection`
+
+**Founding app sync:** `POST /api/points/import-founding-xp` (internal secret). 1 founding XP → 1 Culture Point. Founding builders call `POST /api/profile/sync-points-to-hub` after linking a wallet.
+
+**Batch campaigns:** `npm run points:airdrop-snapshot` → `AirdropCampaign` + Merkle root; claim via `POST /api/airdrop/claim`.
 
 `VITE_BCD_CHAIN_ID` remains Base-only unless BCC is deployed on BSC.
 

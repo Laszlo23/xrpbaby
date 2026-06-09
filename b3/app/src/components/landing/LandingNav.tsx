@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
+  BookOpen,
   Briefcase,
   Coins,
   Layers,
@@ -18,6 +19,7 @@ import {
 import { LANDING_MEDIA } from "@/lib/landing-media";
 
 const NAV_ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
+  { label: "Story", href: "#story", icon: BookOpen },
   { label: "Vision", href: "#vision", icon: Sparkles },
   { label: "Ecosystem", href: "#ecosystem", icon: Layers },
   { label: "$BCC", href: "#bcc", icon: Coins },

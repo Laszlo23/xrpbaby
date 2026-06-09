@@ -1,6 +1,8 @@
-# Grant readiness — Building Culture on 0G
+# Grant readiness — Building Culture Places (RWA)
 
-This document is for **ecosystem grants**, **hackathon finals**, and **investor due diligence**. It states what is **shipped**, what is **demo / testnet**, and what **production** requires.
+> **Unified pack (all audiences):** see [docs/GRANT_READINESS_PACK.md](../../../docs/GRANT_READINESS_PACK.md) and live verification at [app.buildingcultureid.space/grant-proof](https://app.buildingcultureid.space/grant-proof). Run `npm run grant:proof` from the `b3` repo root before submissions.
+
+This document is for **ecosystem grants**, **hackathon finals**, and **investor due diligence** focused on **Places / RWA**. It states what is **shipped**, what is **demo / testnet**, and what **production** requires.
 
 ## One-line pitch
 
@@ -28,8 +30,8 @@ Fractional real estate needs **clear settlement**, **liquidity paths**, and **co
 ## What reviewers can verify (5 minutes)
 
 1. **Contracts:** `forge build && forge test` — all tests pass in CI/local.
-2. **Addresses:** After `DeployAll`, sync `deployments/testnet.json` → `web/.env.local` ([deployments/README.md](../deployments/README.md)).
-3. **UI:** `cd web && npm run build` — production build succeeds.
+2. **Addresses:** After deploy, sync `apps/places/deployments/base-mainnet.json` (or testnet) → `apps/places/web/.env.local` ([deployments/README.md](../deployments/README.md)). Canonical index: [docs/ADDRESSES.json](../../../docs/ADDRESSES.json).
+3. **UI:** `cd apps/places/web && npm run build` — production build succeeds.
 4. **On-chain:** Open explorer links from the app (tx, token addresses).
 5. **Compliance posture:** Read [compliance.md](compliance.md) + in-app **Legal** page.
 

@@ -1,11 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { checkRateLimit } from "@/server/platform/rate-limit";
 import { requireTelegramAuth } from "@/server/tg/auth-request";
-import {
-  ensureTelegramMember,
-  getCulturePoints,
-  progressionFromPoints,
-} from "@/server/tg/member";
+import { ensureTelegramMember, getCulturePoints, progressionFromPoints } from "@/server/tg/member";
 import { computeStreakDays, hasCheckedInToday } from "@/server/tg/streak";
 import {
   coreMissionsCompleted,

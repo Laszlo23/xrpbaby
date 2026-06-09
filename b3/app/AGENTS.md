@@ -15,6 +15,9 @@
 | `POST /api/platform/waitlist`            | Landing email capture → Postgres     |
 | `POST /api/platform/analytics`           | Activity events from onboarding      |
 | `POST /api/platform/onboarding-complete` | Link wallet + welcome Culture Points |
+| `POST /api/intelligence/ingest`          | Growth Intelligence event batch      |
+| `GET /api/intelligence/overview`         | GI dashboard metrics                 |
+| `GET /intelligence`                      | Growth Intelligence admin dashboard  |
 
 ## Onboarding routes
 

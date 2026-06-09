@@ -17,6 +17,8 @@ const bodySchema = z.object({
 
 const MODULE_XP: Record<string, number> = {
   m_xrp_liquidity_basics: 30,
+  m_bcc_liquidity_basics: 35,
+  m_aerodrome_gauges: 30,
   m_ton_wallet_safety: 30,
   m_gratitude_support_loop: 25,
 };
@@ -74,7 +76,11 @@ export const Route = createFileRoute("/api/tg/learn/complete")({
             xpGranted: 0,
             progression: progressionFromPoints(points),
             nextRecommendedModuleId:
-              moduleId === "m_xrp_liquidity_basics" ? "m_ton_wallet_safety" : null,
+              moduleId === "m_xrp_liquidity_basics"
+                ? "m_bcc_liquidity_basics"
+                : moduleId === "m_bcc_liquidity_basics"
+                  ? "m_aerodrome_gauges"
+                  : null,
           });
         }
 
@@ -122,10 +128,14 @@ export const Route = createFileRoute("/api/tg/learn/complete")({
           progression: progressionFromPoints(points),
           nextRecommendedModuleId:
             moduleId === "m_xrp_liquidity_basics"
-              ? "m_ton_wallet_safety"
-              : moduleId === "m_ton_wallet_safety"
-                ? "m_gratitude_support_loop"
-                : null,
+              ? "m_bcc_liquidity_basics"
+              : moduleId === "m_bcc_liquidity_basics"
+                ? "m_aerodrome_gauges"
+                : moduleId === "m_aerodrome_gauges"
+                  ? "m_ton_wallet_safety"
+                  : moduleId === "m_ton_wallet_safety"
+                    ? "m_gratitude_support_loop"
+                    : null,
         });
       },
     },

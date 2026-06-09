@@ -37,6 +37,8 @@ model Member {
   socialAccounts  SocialAccount[]
   studioProjects  StudioProject[]
   studioUsages    StudioUsage[]
+  quidliDeliveries QuidliDelivery[]
+  growthSessions  GrowthSession[]
 }
 
 /// Linked social identity (Farcaster-verified X/TikTok/GitHub or direct Farcaster link).
@@ -65,6 +67,8 @@ model Wallet {
   ledgers        PointLedger[]
   airdropAllocs  AirdropAllocation[]
   panicVoucherClaims PanicVoucherClaim[]
+  pointRedemptions PointRedemption[]
+  quidliDeliveries QuidliDelivery[]
 }
 
 model PointLedger {
@@ -78,6 +82,24 @@ model PointLedger {
   createdAt DateTime @default(now())
 
   @@index([walletId])
+}
+
+/// Points → BCC redemption audit trail (treasury transfer).
+model PointRedemption {
+  id             String    @id @default(cuid())
+  walletId       String
+  wallet         Wallet    @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  pointsSpent    Int
+  bccWei         String
+  status         String    @default("pending") // pending | credited | failed
+  txHash         String?
+  idempotencyKey String    @unique
+  createdAt      DateTime  @default(now())
+  creditedAt     DateTime?
+
+  @@index([walletId])
+  @@index([status])
+  @@index([createdAt])
 }
 
 model TaskDefinition {
@@ -123,6 +145,34 @@ model ActivityEvent {
 
   @@index([memberId, createdAt(sort: Desc)])
   @@index([type, createdAt(sort: Desc)])
+}
+
+/// Outbound Quidli Connect token drops (BCC to social handles).
+model QuidliDelivery {
+  id             String   @id @default(cuid())
+  idempotencyKey String   @unique
+  platform       String
+  handle         String
+  amountWei      String
+  tokenAddress   String
+  chainId        Int      @default(8453)
+  status         String   @default("pending")
+  taskSlug       String?
+  campaign       String?
+  walletId       String?
+  wallet         Wallet?  @relation(fields: [walletId], references: [id], onDelete: SetNull)
+  memberId       String?
+  member         Member?  @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  quidliRef      String?
+  error          String?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([status, createdAt(sort: Desc)])
+  @@index([platform, handle])
+  @@index([walletId])
+  @@index([campaign])
 }
 
 /// Keys, badges, mystery boxes, campaign credits.
@@ -459,4 +509,116 @@ model StudioUsage {
 
   @@index([memberId, createdAt(sort: Desc)])
   @@index([projectId])
+}
+
+// ─── Growth Intelligence (multi-tenant product analytics) ───
+
+/// Monitored Building Culture application (tenant).
+model GrowthApp {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  domain    String?
+  tier      String   @default("free") // free | pro | business | enterprise
+  apiKeyHash String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions         GrowthSession[]
+  events           GrowthEvent[]
+  funnels          GrowthFunnel[]
+  insights         GrowthInsight[]
+  recommendations  GrowthRecommendation[]
+}
+
+model GrowthSession {
+  id            String   @id @default(cuid())
+  appId         String
+  app           GrowthApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  anonymousId   String
+  memberId      String?
+  member        Member?  @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  walletAddress String?
+  userAgent     String?
+  ipHash        String?
+  startedAt     DateTime @default(now())
+  lastSeenAt    DateTime @default(now())
+  endedAt       DateTime?
+
+  events GrowthEvent[]
+
+  @@index([appId, startedAt(sort: Desc)])
+  @@index([anonymousId])
+  @@index([memberId])
+}
+
+model GrowthEvent {
+  id          String   @id @default(cuid())
+  appId       String
+  app         GrowthApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  sessionId   String
+  session     GrowthSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  kind        String
+  pathname    String
+  selector    String?
+  x           Int?
+  y           Int?
+  scrollDepth Int?
+  viewportW   Int?
+  viewportH   Int?
+  meta        Json?
+  occurredAt  DateTime @default(now())
+
+  @@index([appId, occurredAt(sort: Desc)])
+  @@index([sessionId, occurredAt])
+  @@index([kind, occurredAt(sort: Desc)])
+  @@index([pathname])
+}
+
+model GrowthFunnel {
+  id        String   @id @default(cuid())
+  appId     String
+  app       GrowthApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  name      String
+  steps     Json     // [{ id, label, eventKind, pathname? }]
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([appId])
+}
+
+model GrowthInsight {
+  id        String   @id @default(cuid())
+  appId     String
+  app       GrowthApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  kind      String   // daily | weekly
+  dayId     String
+  title     String
+  body      String   @db.Text
+  severity  String   @default("info")
+  metrics   Json?
+  createdAt DateTime @default(now())
+
+  @@unique([appId, kind, dayId, title])
+  @@index([appId, dayId(sort: Desc)])
+}
+
+model GrowthRecommendation {
+  id             String   @id @default(cuid())
+  appId          String
+  app            GrowthApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  problem        String   @db.Text
+  rootCause      String   @db.Text
+  solution       String   @db.Text
+  impactEstimate String?
+  effort         String   @default("medium")
+  priority       String   @default("medium")
+  status         String   @default("open")
+  dayId          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([appId, status, priority])
+  @@index([appId, createdAt(sort: Desc)])
 }

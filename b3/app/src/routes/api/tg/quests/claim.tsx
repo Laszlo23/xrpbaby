@@ -11,6 +11,7 @@ const bodySchema = z.object({
 const QUEST_REWARDS: Record<string, number> = {
   q_tg_connect_wallet: 50,
   q_xrp_learn_1: 40,
+  q_bcc_learn_1: 45,
   q_tg_gratitude_1: 35,
 };
 
@@ -53,6 +54,15 @@ export const Route = createFileRoute("/api/tg/quests/claim")({
             },
             select: { id: true },
           })) !== null;
+        const bccLearnCompleted =
+          (await prisma.activityEvent.findFirst({
+            where: {
+              memberId: member.id,
+              type: "tg:learn_completed",
+              payload: { path: ["moduleId"], equals: "m_bcc_liquidity_basics" },
+            },
+            select: { id: true },
+          })) !== null;
         const gratitudeCompleted =
           (await prisma.activityEvent.findFirst({
             where: { memberId: member.id, type: "tg:gratitude_sent" },
@@ -63,6 +73,9 @@ export const Route = createFileRoute("/api/tg/quests/claim")({
         }
         if (questId === "q_xrp_learn_1" && !xrpLearnCompleted) {
           return json({ ok: false, error: "quest_locked_learning_required" }, 409);
+        }
+        if (questId === "q_bcc_learn_1" && !bccLearnCompleted) {
+          return json({ ok: false, error: "quest_locked_bcc_learning_required" }, 409);
         }
         if (questId === "q_tg_gratitude_1" && !gratitudeCompleted) {
           return json({ ok: false, error: "quest_locked_gratitude_required" }, 409);

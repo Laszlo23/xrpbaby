@@ -98,6 +98,8 @@ export const footerCompanyLinks: { to: string; label: string; icon: LucideIcon }
   { to: "/about", label: "About", icon: Info },
   { to: "/team", label: "Team", icon: Users },
   { to: "/mission", label: "Mission (BCC)", icon: Flag },
+  { to: "/story", label: "Builder chronicle", icon: BookOpen },
+  { to: "/liquidity", label: "BCC liquidity", icon: PieChart },
   { to: "/investors", label: "Investors", icon: PieChart },
   { to: "/roadmap", label: "Roadmap", icon: MapPin },
   { to: "/faq", label: "FAQ", icon: HelpCircle },

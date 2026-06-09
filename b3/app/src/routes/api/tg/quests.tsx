@@ -19,6 +19,12 @@ const QUESTS = [
     xpReward: 40,
   },
   {
+    id: "q_bcc_learn_1",
+    type: "learning",
+    title: "Complete BCC liquidity lesson",
+    xpReward: 45,
+  },
+  {
     id: "q_tg_gratitude_1",
     type: "community",
     title: "Send gratitude to a contributor",
@@ -74,6 +80,15 @@ export const Route = createFileRoute("/api/tg/quests")({
             },
             select: { id: true },
           })) !== null;
+        const bccLearnCompleted =
+          (await prisma.activityEvent.findFirst({
+            where: {
+              memberId: member.id,
+              type: "tg:learn_completed",
+              payload: { path: ["moduleId"], equals: "m_bcc_liquidity_basics" },
+            },
+            select: { id: true },
+          })) !== null;
         const gratitudeCompleted =
           (await prisma.activityEvent.findFirst({
             where: {
@@ -92,6 +107,7 @@ export const Route = createFileRoute("/api/tg/quests")({
               completed,
               tonConnected,
               xrpLearnCompleted,
+              bccLearnCompleted,
               gratitudeCompleted,
             ),
           })),
@@ -107,11 +123,13 @@ function questStatus(
   completed: Set<string>,
   tonConnected: boolean,
   xrpLearnCompleted: boolean,
+  bccLearnCompleted: boolean,
   gratitudeCompleted: boolean,
 ): QuestStatus {
   if (completed.has(id)) return "completed";
   if (id === "q_tg_connect_wallet" && !tonConnected) return "locked";
   if (id === "q_xrp_learn_1" && !xrpLearnCompleted) return "locked";
+  if (id === "q_bcc_learn_1" && !bccLearnCompleted) return "locked";
   if (id === "q_tg_gratitude_1" && !gratitudeCompleted) return "locked";
   return "available";
 }

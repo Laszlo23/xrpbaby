@@ -1,0 +1,74 @@
+{
+  "name": "Building Culture RWA — Base OG shares",
+  "timestamp": "2026-06-08T00:00:00Z",
+  "version": { "major": 1, "minor": 0, "patch": 0 },
+  "tags": { "name": "Building Culture", "description": "ST-IMMO property share tokens (REOC v1)" },
+  "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg",
+  "keywords": ["buildingculture", "rwa", "reoc", "real-estate"],
+  "tokens": [
+    {
+      "chainId": 8453,
+      "address": "0x88a42bc87A31321639dE7e8021B92cE766661f5A",
+      "name": "Building Culture City Berggasse",
+      "symbol": "OG1",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x0431C3d979a6f1556c815F5d8E48eF3e1Ce8c58f",
+      "name": "Building Culture City Jagdschlossgasse 81",
+      "symbol": "OG2",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x6Fa4db0e6317D6ED2347e39802b86EeA507F7DE5",
+      "name": "BuildingCultureLand – Whalewatching",
+      "symbol": "OG3",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xeaeA7594011b4331bCdAe974C7Aa9138C175c004",
+      "name": "Water Side — Keutschach am See",
+      "symbol": "OG4",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xbf83F4ECAA25c0883aC81549A659C10BE7A9bEC1",
+      "name": "BuildingCultureLand – LandMark",
+      "symbol": "OG5",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x8D4b0291bE4a8177F9baB0F4004E7B370a41D413",
+      "name": "BuildingCultureLand – Altes Presshaus",
+      "symbol": "OG6",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x1d4d06A05E2d67e63df936141bD14948A13D3C30",
+      "name": "BuildingCultureLand – Former department store",
+      "symbol": "OG7",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x7F806Be5f1BdD3Fc04570690875F314c2aBd6EC2",
+      "name": "BuildingCultureLand – Alter Stadl",
+      "symbol": "OG8",
+      "decimals": 18,
+      "logoURI": "https://app.buildingcultureid.space/places/meta/rwa-share-icon.svg"
+    }
+  ]
+}

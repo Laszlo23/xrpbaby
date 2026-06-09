@@ -167,6 +167,15 @@ export const COMMUNITY_MODULES: LandingEcosystemApp[] = [
     href: "/mission",
   },
   {
+    id: "bcc-liquidity",
+    name: "Learn BCC liquidity",
+    description: "Pools on Uniswap and Aerodrome — lessons, LP guides, Culture Points.",
+    tag: "Education",
+    status: "live",
+    layer: "core",
+    href: "/liquidity",
+  },
+  {
     id: "founding",
     name: "Founding quests",
     description: "Early supporters grow faster — play, earn, belong.",

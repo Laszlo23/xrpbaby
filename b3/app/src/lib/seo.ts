@@ -10,6 +10,10 @@ export const SEO_SITE_NAME = BRAND_DISPLAY_NAME;
 
 const TITLE_SUFFIX = ` — ${SEO_SITE_NAME}`;
 
+/** Talent Protocol / Builder Rewards — domain verification (homepage <head>). */
+export const TALENTAPP_PROJECT_VERIFICATION =
+  "e960f18a1356b6f99de376cde74522d2a12215e74741b1cfd909876bfdf5c22e69a0ec4049043ef69795e249624cf583c5589aa671635e00fffcd6bd1fb266ee";
+
 export type PageSeoInput = {
   /** Page-specific title (shown as `{title} — Build Culture` unless title already includes the site name). */
   title: string;
@@ -37,10 +41,10 @@ export function ogImageEnvOverride(): string | undefined {
   );
 }
 
-/** Site-relative OG assets under `/public/meta/` (see `getOgImageForPath`). */
+/** Site-relative OG PNG for social crawlers (Twitter, LinkedIn, Farcaster). */
 export function getOgImageForPath(path: string): string {
   const p = normalizeCanonicalPath(path.split("?")[0]);
-  if (p === "/play" || p === "/mission") return "/meta/eco-meta.svg";
+  if (p === "/play" || p === "/mission") return "/meta/eco-meta-og.png";
   if (
     p.startsWith("/marketplace") ||
     p.startsWith("/campaign") ||
@@ -54,18 +58,37 @@ export function getOgImageForPath(path: string): string {
     p === "/guide" ||
     p === "/elias" ||
     p === "/faq" ||
-    p === "/about"
+    p === "/about" ||
+    p === "/grant-proof"
   ) {
-    return "/meta/0xmeta.svg";
+    return "/meta/0xmeta-og.png";
   }
-  return "/meta/home-meta.svg";
+  return "/meta/home-meta-og.png";
 }
 
 export function getDefaultOgImageUrl(): string {
   const env = ogImageEnvOverride();
   if (env) return env;
   const origin = getServerPublicOrigin().replace(/\/$/, "");
-  return `${origin}/meta/home-meta.svg`;
+  return `${origin}/meta/home-meta-og.png`;
+}
+
+/** Preconnect for external font CDNs (reduces blocking latency). */
+export function rootFontPreconnectLinks(): HeadPayload["links"] {
+  return [
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+    { rel: "preconnect", href: "https://api.fontshare.com" },
+  ];
+}
+
+/** Favicon and app icon links for root `<head>`. */
+export function rootIconLinks(): HeadPayload["links"] {
+  return [
+    { rel: "icon", href: "/favicon.ico", crossOrigin: "anonymous" },
+    { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
+    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+  ];
 }
 
 export function getTwitterSiteHandle(): string | undefined {
@@ -108,6 +131,7 @@ export type HeadPayload = {
     /** React `<link>` uses camelCase; renders as `hreflang` in HTML. */
     hrefLang?: string;
     crossOrigin?: "anonymous";
+    type?: string;
   }>;
 };
 
@@ -188,6 +212,8 @@ export function pageHead(opts: PageSeoInput): HeadPayload {
   }
 
   const links: HeadPayload["links"] = [
+    ...rootFontPreconnectLinks(),
+    ...rootIconLinks(),
     { rel: "canonical", href: canonicalUrl },
     ...hreflangAlternateLinks(canonicalUrl),
   ];
@@ -231,6 +257,10 @@ export function rootTechnicalMeta(): HeadPayload["meta"] {
   meta.push({
     name: "virtual-protocol-site-verification",
     content: "e2ae20e90285236d3323c610d2e1f914",
+  });
+  meta.push({
+    name: "talentapp:project_verification",
+    content: TALENTAPP_PROJECT_VERIFICATION,
   });
   return meta;
 }
@@ -290,6 +320,7 @@ export const SITEMAP_PATHS: string[] = [
   "/marketplace",
   "/experiences",
   "/investors",
+  "/plan",
   "/presale",
   "/leaderboard",
   "/play",
@@ -298,6 +329,7 @@ export const SITEMAP_PATHS: string[] = [
   "/profile",
   "/guide",
   "/elias",
+  "/grant-proof",
   "/chatbase",
   "/docs",
   "/blog",

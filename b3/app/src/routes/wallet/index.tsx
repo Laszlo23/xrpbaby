@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAccount, useChainId } from "wagmi";
 import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import { NetworkSelector } from "@/components/wallet/NetworkSelector";
-import { pointsRedeemEnabled } from "@/lib/redemption-policy";
+import { PointsRedeemSection } from "@/components/PointsRedeemSection";
 import { privyEnabled } from "@/lib/privy-env";
 import { getIdentityNetwork } from "@/lib/identity/networks";
 import { ModuleShell } from "@/components/ModuleShell";
@@ -99,17 +99,9 @@ function WalletPage() {
 
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
           <p className="mono-label text-zinc-500">Redeem for BCC</p>
-          <p className="mt-2 text-sm text-zinc-400">
-            {pointsRedeemEnabled
-              ? "Redemption is enabled when pool liquidity meets program minimums."
-              : "Coming when BCC has enough on-chain liquidity. Culture Points stay in your ledger until then."}
-          </p>
-          <Link
-            to="/profile"
-            className="mt-4 inline-block font-mono text-xs text-[#C5FF41] underline-offset-2 hover:underline"
-          >
-            View points on profile →
-          </Link>
+          <div className="mt-4">
+            <PointsRedeemSection compact />
+          </div>
         </section>
 
         {explorerUrl && (

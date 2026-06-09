@@ -31,9 +31,7 @@ export function TgPlayTab({
     onClearInitialTask?.();
   }, [initialTaskId, tasksData.tasks, onClearInitialTask]);
 
-  const playable = tasksData.tasks.filter(
-    (t) => t.id !== "ton_bonus" && t.status === "available",
-  );
+  const playable = tasksData.tasks.filter((t) => t.id !== "ton_bonus" && t.status === "available");
 
   async function complete(
     taskId: string,

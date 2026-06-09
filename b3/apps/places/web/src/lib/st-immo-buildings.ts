@@ -43,7 +43,7 @@ export type StImmoBuilding = {
   architecturalValue: string;
   investmentVision: string;
   /** Optional link to seeded demo property id when narratives align */
-  demoPropertyId?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  demoPropertyId?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   /** Reference metrics from emails — verify in issuer docs */
   referenceMetrics?: {
     rentalAreaM2?: number;
@@ -106,6 +106,7 @@ export const ST_IMMO_BUILDINGS: StImmoBuilding[] = [
     buildingTitle: "Water Side — Keutschach am See",
     location: "Keutschach am See, Carinthia, Austria — lakeside; views to Lake Keutschach and the Sattnitz range",
     buildingType: "Residential",
+    demoPropertyId: 4,
     shortDescription:
       "Six houses and thirty-four apartments where timber façades and full-height glazing set the architecture lightly into the landscape and orient daily life to water and mountains.",
     buildingStory:
@@ -195,6 +196,7 @@ export const ST_IMMO_BUILDINGS: StImmoBuilding[] = [
     buildingTitle: "Alter Stadl — Katzelsdorf",
     location: "Katzelsdorf, Weinviertel, Lower Austria",
     buildingType: "Adaptive reuse",
+    demoPropertyId: 8,
     shortDescription:
       "Historic agricultural masonry carefully renewed, with old structure integrated as a defining design feature — calm rural living with generous outdoor room.",
     buildingStory:

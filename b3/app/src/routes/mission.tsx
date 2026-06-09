@@ -313,6 +313,12 @@ function MissionPage() {
                   >
                     Pulse Coach
                   </Button>
+                  <Button size="sm" variant="outline" className="rounded-full" asChild>
+                    <Link to="/liquidity">Learn liquidity</Link>
+                  </Button>
+                  <Button size="sm" variant="outline" className="rounded-full" asChild>
+                    <Link to="/story">Builder chronicle</Link>
+                  </Button>
                 </div>
               </div>
             )}

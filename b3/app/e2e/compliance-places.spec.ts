@@ -21,8 +21,8 @@ test.describe("RWA compliance flows", () => {
 
   test("places hub loads with invest links", async ({ page }) => {
     await page.goto("/places");
-    await expect(page.getByRole("heading", { name: /^Places$/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /Invest on Places/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Own the Future/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /RWA Marketplace/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Transparency/i })).toBeVisible();
   });
 

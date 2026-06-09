@@ -169,9 +169,11 @@ export function getDemoImageSlides(d: DemoPropertyDetail, opts?: { limit?: numbe
 const st1 = getStImmoBuildingForDemoPropertyId(1)!;
 const st2 = getStImmoBuildingForDemoPropertyId(2)!;
 const st3 = getStImmoBuildingForDemoPropertyId(3)!;
+const st4 = getStImmoBuildingForDemoPropertyId(4)!;
 const st5 = getStImmoBuildingForDemoPropertyId(5)!;
 const st6 = getStImmoBuildingForDemoPropertyId(6)!;
 const st7 = getStImmoBuildingForDemoPropertyId(7)!;
+const st8 = getStImmoBuildingForDemoPropertyId(8)!;
 
 /** Shared reference: property #2 and #4 in the demo seed both map to Jagdschlossgasse 81 (Hietzing VKP was a duplicate slot). */
 const DEMO_JAGDSCHLOSSGASSE_81: DemoPropertyDetail = {
@@ -387,9 +389,81 @@ export const DEMO_PROPERTY_DETAILS: Partial<Record<number, DemoPropertyDetail>> 
       "Quoted third-party brokerage correspondence (orientation alongside the teaser PDF). Dates and procedures may change — confirm with the broker and counsel.\n\nLadies and Gentlemen,\n\nWe respectfully inform you that our company has been appointed by the owner as the exclusive agent for the sale of the following property:\n\n1010 Vienna, Biberstraße 4\n\nAfter submitting the confidentiality agreement (Appendix B) to o.friedrich@friedrich.at, you will be granted access to the data room without delay.\n\nA binding purchase offer (Appendix C), including a financing confirmation or proof of capital from an Austrian bank specifically for this property, must be sent by registered mail or email to the appointed real estate agent Otto Friedrich & Partner Immobilientreuhand GmbH, Krotenthallergasse 6, 1080 Vienna, no later than Thursday, May 7, 2026.\n\nFor a personal consultation and information, please contact Mr. Otto Friedrich by telephone at 0664/340 87 66 or by email at o.friedrich@friedrich.at.\n\nIn the event of a purchase, the broker's commission is 3% of the transaction value plus statutory VAT.\n\nThe seller will bear the costs of drawing up the purchase agreement, including its registration in the land register.\n\nMr. RA Dr. Georg Braunegg, Elisabethstraße 15, 1010 Vienna, has been commissioned with the preparation of the purchase agreement, the assumption of escrow and the implementation in the land register.\n\nThe general terms and conditions apply in accordance with the brokerage regulations also attached as an attachment (Appendix D).",
   },
   4: {
-    ...DEMO_JAGDSCHLOSSGASSE_81,
-    fundingRoundNote:
-      "Same Jagdschlossgasse 81 reference as listing #2 — duplicate demo registry token id historically labeled “Hietzing”; not the VKP Hietzing interim. Align cap table with issuer.",
+    headline: "Water Side — Keutschach am See",
+    emotionalHero:
+      "Six houses and thirty-four apartments where timber façades and full-height glazing set the architecture lightly into the Carinthian lakeside landscape.",
+    buildingStory:
+      "Water Side gathers apartments into a single landscape idea: horizontality, warmth of wood, and glass that dissolves the boundary between interior and panorama. Large window walls open living space to Lake Keutschach and the Sattnitz backdrop.\n\nPrivate lake access with jetty and bathhouse deepens the proposition from view to embodied lakeside living.",
+    assetStructureBullets: [
+      "Title and debt live in issuer SPVs off-chain; tokens represent contractual economic exposure.",
+      "Share token transfers may be restricted — check ComplianceRegistry and offering terms.",
+      "Rent and capex flow through issuer-controlled accounts — waterfall in disclosure.",
+    ],
+    investorRightsBullets: [
+      "Economic participation per issuer waterfall when distributions are declared.",
+      "Governance follows issuer articles and any token-side hooks described in documents.",
+      "Liquidity via permitted secondary venues or OTC — pool depth varies.",
+    ],
+    exitOptionsBullets: [
+      "Secondary trading when pools exist and rules allow.",
+      "Potential asset sale or refinance — issuer-dependent and time-uncertain.",
+      "No mandatory redemption — align horizon with offering documents.",
+    ],
+    trustStrip: {
+      issuerDisplayName: "Issuer SPV (reference — verify offering)",
+      jurisdictionLine: "Austria — confirm prospectus / exemption path with counsel.",
+      custodyLine: "Building custody per land register excerpts in issuer data room.",
+    },
+    simulatorCurrency: "EUR",
+    liquidityRulesBullets: [
+      "Investment lock period — typically 30 days after purchase (issuer program).",
+      "Sell / buyback request cooldown — typically 7 days before buyback execution (if offered).",
+      "Buyback capacity — up to 15% of treasury per cycle where the program allows.",
+      "Secondary trading — when AMM pools exist and rules allow (depth varies).",
+    ],
+    investorCardTitle: "Water Side — Keutschach am See",
+    investorCardSubtitle: "Carinthia — lakeside residential programme",
+    whyItMatters:
+      "Water Side on Lake Keutschach combines regional modernism at landscape scale with hospitality-grade amenity: environmental integration, material tactility, and Alpine–lake living.\n\nInvestors participate in a finite natural setting with conservative yield underwriting on chain.",
+    unitCountLabel: "34 apartments · 6 buildings",
+    location: "Keutschach am See, Carinthia, Austria",
+    imageSrc: "/partners/Keutschach-am-See-1b-1.jpg",
+    imageAlt: "Water Side Keutschach — partner imagery",
+    imageGallery: [
+      { src: "/partners/Keutschach-am-See-1b-1.jpg", alt: "Water Side — lakeside context" },
+      { src: "/partners/keutschach-am-see.jpeg", alt: "Water Side — architecture" },
+      { src: "/partners/keutschachamsee011.jpeg", alt: "Water Side — landscape" },
+      { src: "/STIX Wohnanlage Keutschacher See 2024-04-04_0212.jpg", alt: "Water Side — site reference" },
+      { src: "/STIX Wohnanlage Keutschacher See 2024-04-04_0239.jpg", alt: "Water Side — site reference 2" },
+    ],
+    thesis: `${st4.shortDescription} ${st4.buildingStory}`,
+    highlights: [
+      "Six buildings · thirty-four apartments (partner brief)",
+      "Timber façades · full-height glazing · lake and mountain views",
+      "Reference (verify): ca. €10.5M acquisition; ca. €250k p.a. gross rent (partner brief)",
+    ],
+    creditLines: ["Partner reference (verify): ca. €10.5M acquisition · ca. €250k p.a. rent"],
+    targetRange: "Reference in-place rents — confirm with issuer model.",
+    riskNote: "Leisure and occupancy risk — see Legal for risk factors.",
+    illustrativePropertyValueUsd: 10_500_000,
+    illustrativeShareUsd: 1000,
+    squareMeters: 802,
+    units: 34,
+    annualRentalIncomeEur: 250_000,
+    propertyType: "Lakeside residential",
+    discoveryCategory: "Sustainable Housing",
+    vision: st4.investmentVision,
+    architectureNarrative: st4.architecturalValue,
+    communityUsers: ["Residents", "Leisure guests", "Lake operators"],
+    ownershipModel:
+      "SPV holds title; tokens represent economic interests; revenue per issuer waterfall.",
+    fundingRoundNote: "Economics from partner brief — confirm in issuer data room.",
+    documentIds: ["water-side-keutschach-20220112"],
+    greenPrint: [
+      "Large green yards that help cool the microclimate",
+      "Terraces",
+      "No unnecessary sealing of valuable land",
+    ],
   },
   5: {
     headline: "BuildingCultureLand – LandMark",
@@ -543,6 +617,80 @@ export const DEMO_PROPERTY_DETAILS: Partial<Record<number, DemoPropertyDetail>> 
       "No unnecessary sealing of valuable land",
     ],
   },
+  8: {
+    headline: "BuildingCultureLand – Alter Stadl",
+    emotionalHero:
+      "Historic agricultural masonry carefully renewed — calm rural living with generous outdoor room in Katzelsdorf.",
+    buildingStory:
+      "The Alter Stadl follows a consistent cultural method: retain, reveal, refine. Masonry rhythms and adaptive section create contemporary comfort without erasing agricultural memory.\n\nAir-source heat pump, large cooling yards, terraces, and protection of open land reinforce sustainability as daily practice.",
+    assetStructureBullets: [
+      "Title and debt live in issuer SPVs off-chain; tokens represent contractual economic exposure.",
+      "Share token transfers may be restricted — check ComplianceRegistry and offering terms.",
+      "Rent and capex flow through issuer-controlled accounts — waterfall in disclosure.",
+    ],
+    investorRightsBullets: [
+      "Economic participation per issuer waterfall when distributions are declared.",
+      "Governance follows issuer articles and any token-side hooks described in documents.",
+      "Liquidity via permitted secondary venues or OTC — pool depth varies.",
+    ],
+    exitOptionsBullets: [
+      "Secondary trading when pools exist and rules allow.",
+      "Potential asset sale or refinance — issuer-dependent and time-uncertain.",
+      "No mandatory redemption — align horizon with offering documents.",
+    ],
+    trustStrip: {
+      issuerDisplayName: "Issuer SPV (reference — verify offering)",
+      jurisdictionLine: "Austria — confirm prospectus / exemption path with counsel.",
+      custodyLine: "Building custody per land register excerpts in issuer data room.",
+    },
+    simulatorCurrency: "EUR",
+    liquidityRulesBullets: [
+      "Investment lock period — typically 30 days after purchase (issuer program).",
+      "Sell / buyback request cooldown — typically 7 days before buyback execution (if offered).",
+      "Buyback capacity — up to 15% of treasury per cycle where the program allows.",
+      "Secondary trading — when AMM pools exist and rules allow (depth varies).",
+    ],
+    investorCardTitle: "BuildingCultureLand – Alter Stadl",
+    investorCardSubtitle: "Katzelsdorf — Agrarian adaptive reuse",
+    whyItMatters:
+      "Agrarian typology converted to dignified housing — a repeatable Weinviertel pattern for village vitality.\n\nCompact ticket, clear reuse thesis, and regional portfolio synergy with other village assets.",
+    unitCountLabel: "Reference residential units",
+    location: "Katzelsdorf · Weinviertel · Austria",
+    imageSrc: "/stadl01.jpg",
+    imageAlt: "BuildingCultureLand – Alter Stadl — Katzelsdorf",
+    imageGallery: [
+      { src: "/stadl01.jpg", alt: "Alter Stadl — Katzelsdorf" },
+    ],
+    thesis: `${st8.shortDescription} ${st8.buildingStory}`,
+    highlights: [
+      "Historic masonry renewed with visible agricultural memory",
+      "Air-source heat pump; large cooling yards; terraces",
+      "Reference (verify): ca. €650k acquisition; ca. €50k p.a. gross rent (partner brief)",
+    ],
+    creditLines: ["Partner reference (verify): ca. €650k acquisition · ca. €50k p.a. rent"],
+    targetRange: "Reference in-place rents — confirm with issuer model.",
+    riskNote: "Renovation and lease-up risk — see Legal for risk factors.",
+    illustrativePropertyValueUsd: 650_000,
+    illustrativeShareUsd: 1000,
+    squareMeters: 220,
+    units: 2,
+    annualRentalIncomeEur: 50_000,
+    propertyType: "Adaptive reuse residential",
+    discoveryCategory: "Rural Revitalization",
+    vision: st8.investmentVision,
+    architectureNarrative: st8.architecturalValue,
+    communityUsers: ["Locals", "Remote workers", "Village residents"],
+    ownershipModel:
+      "SPV holds title; tokens represent economic interests; revenue per issuer waterfall.",
+    fundingRoundNote: "Economics from partner brief — confirm in issuer data room.",
+    documentIds: ["katzelsdorf-studie-auswechslung"],
+    greenPrint: [
+      "Air-source heat pump",
+      "Large green yards that help cool the microclimate",
+      "Terraces",
+      "No unnecessary sealing of valuable land",
+    ],
+  },
 };
 
 /** Token address used when the registry has no deployed share contracts yet — narrative-only grid. */
@@ -559,7 +707,7 @@ export type DemoListingFallbackRow = {
 
 /** When on-chain registry is empty (`nextPropertyId <= 1`), drive the discovery grid from demo copy (images + metrics). */
 export function getDemoListingFallbackRows(): DemoListingFallbackRow[] {
-  const ids = [1, 2, 3, 4, 5, 6, 7] as const;
+  const ids = [1, 2, 3, 4, 5, 6, 7, 8] as const;
   const out: DemoListingFallbackRow[] = [];
   for (const id of ids) {
     const demo = DEMO_PROPERTY_DETAILS[id];

@@ -11,19 +11,25 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TradingAgentRouteImport } from './routes/trading-agent'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as SwapRouteImport } from './routes/swap'
+import { Route as StoryRouteImport } from './routes/story'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PresaleRouteImport } from './routes/presale'
 import { Route as PlayRouteImport } from './routes/play'
+import { Route as PlanRouteImport } from './routes/plan'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as LiquidityRouteImport } from './routes/liquidity'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as InvestorsRouteImport } from './routes/investors'
+import { Route as IntelligenceRouteImport } from './routes/intelligence'
 import { Route as GuideRouteImport } from './routes/guide'
+import { Route as GrantProofRouteImport } from './routes/grant-proof'
 import { Route as GenesisDistrictRouteImport } from './routes/genesis-district'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExperiencesRouteImport } from './routes/experiences'
@@ -60,6 +66,7 @@ import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
 import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
+import { Route as InvestorsWorkshopRouteImport } from './routes/investors.workshop'
 import { Route as IdNameRouteImport } from './routes/id/$name'
 import { Route as ForestQuestsRouteImport } from './routes/forest/quests'
 import { Route as DropsArtRouteImport } from './routes/drops/art'
@@ -99,6 +106,7 @@ import { Route as ApiSocialLinkFarcasterRouteImport } from './routes/api/social/
 import { Route as ApiRewardsSummaryRouteImport } from './routes/api/rewards/summary'
 import { Route as ApiPulseMetricsRouteImport } from './routes/api/pulse/metrics'
 import { Route as ApiPulseFeedRouteImport } from './routes/api/pulse/feed'
+import { Route as ApiPointsImportFoundingXpRouteImport } from './routes/api/points/import-founding-xp'
 import { Route as ApiPlatformWaitlistRouteImport } from './routes/api/platform/waitlist'
 import { Route as ApiPlatformSiweNonceRouteImport } from './routes/api/platform/siwe-nonce'
 import { Route as ApiPlatformOnboardingCompleteRouteImport } from './routes/api/platform/onboarding-complete'
@@ -114,13 +122,25 @@ import { Route as ApiMarketListingsRouteImport } from './routes/api/market/listi
 import { Route as ApiMarketHealthRouteImport } from './routes/api/market/health'
 import { Route as ApiMarketConfigRouteImport } from './routes/api/market/config'
 import { Route as ApiMarketBccRouteImport } from './routes/api/market/bcc'
+import { Route as ApiInvestorsTractionRouteImport } from './routes/api/investors/traction'
+import { Route as ApiIntelligenceRecommendationsRouteImport } from './routes/api/intelligence/recommendations'
+import { Route as ApiIntelligenceOverviewRouteImport } from './routes/api/intelligence/overview'
+import { Route as ApiIntelligenceInsightsRouteImport } from './routes/api/intelligence/insights'
+import { Route as ApiIntelligenceIngestRouteImport } from './routes/api/intelligence/ingest'
+import { Route as ApiIntelligenceHeatmapRouteImport } from './routes/api/intelligence/heatmap'
+import { Route as ApiIntelligenceFunnelsRouteImport } from './routes/api/intelligence/funnels'
+import { Route as ApiIntelligenceAppsRouteImport } from './routes/api/intelligence/apps'
 import { Route as ApiIdentityVerifyNameRouteImport } from './routes/api/identity/verify-name'
 import { Route as ApiIdentityResolveRouteImport } from './routes/api/identity/resolve'
+import { Route as ApiGrantVerificationRouteImport } from './routes/api/grant/verification'
 import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
+import { Route as ApiAirdropClaimRouteImport } from './routes/api/airdrop/claim'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
 import { Route as R0gAgentid1DotjsonRouteImport } from './routes/0g/agentid/1[.]json'
+import { Route as ApiPointsRedeemIndexRouteImport } from './routes/api/points/redeem/index'
+import { Route as PlacesApiReocPropertyIdRouteImport } from './routes/places/api/reoc/$propertyId'
 import { Route as ApiWalletPacksCheckoutRouteImport } from './routes/api/wallet/packs/checkout'
 import { Route as ApiTgWalletTonConnectedRouteImport } from './routes/api/tg/wallet/ton-connected'
 import { Route as ApiTgTasksCompleteRouteImport } from './routes/api/tg/tasks/complete'
@@ -132,10 +152,16 @@ import { Route as ApiSocialNeynarAuthorizeRouteImport } from './routes/api/socia
 import { Route as ApiPulseIngestManualRouteImport } from './routes/api/pulse/ingest/manual'
 import { Route as ApiPulseDigestDayIdRouteImport } from './routes/api/pulse/digest/$dayId'
 import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/pulse/attestation/latest'
+import { Route as ApiPointsRedeemStatsRouteImport } from './routes/api/points/redeem/stats'
+import { Route as ApiPointsRedeemQuoteRouteImport } from './routes/api/points/redeem/quote'
+import { Route as ApiMarketingQuidliStatusRouteImport } from './routes/api/marketing/quidli/status'
+import { Route as ApiMarketingQuidliSendRouteImport } from './routes/api/marketing/quidli/send'
+import { Route as ApiMarketingQuidliLeaderboardDropsRouteImport } from './routes/api/marketing/quidli/leaderboard-drops'
 import { Route as ApiMarketingGroveXPostRouteImport } from './routes/api/marketing/grove/x-post'
 import { Route as ApiMarketingGroveTickRouteImport } from './routes/api/marketing/grove/tick'
 import { Route as ApiMarketingGroveFarcasterPostRouteImport } from './routes/api/marketing/grove/farcaster-post'
 import { Route as ApiMarketBccSolanaRouteRouteImport } from './routes/api/market/bcc/solana-route'
+import { Route as ApiInvestorsWorkshopSessionRouteImport } from './routes/api/investors/workshop/session'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 
 const TradingAgentRoute = TradingAgentRouteImport.update({
@@ -146,6 +172,16 @@ const TradingAgentRoute = TradingAgentRouteImport.update({
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SwapRoute = SwapRouteImport.update({
+  id: '/swap',
+  path: '/swap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoryRoute = StoryRouteImport.update({
+  id: '/story',
+  path: '/story',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -178,6 +214,11 @@ const PlayRoute = PlayRouteImport.update({
   path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlanRoute = PlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MissionRoute = MissionRouteImport.update({
   id: '/mission',
   path: '/mission',
@@ -186,6 +227,11 @@ const MissionRoute = MissionRouteImport.update({
 const MarketplaceRoute = MarketplaceRouteImport.update({
   id: '/marketplace',
   path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiquidityRoute = LiquidityRouteImport.update({
+  id: '/liquidity',
+  path: '/liquidity',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LegalRoute = LegalRouteImport.update({
@@ -208,9 +254,19 @@ const InvestorsRoute = InvestorsRouteImport.update({
   path: '/investors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IntelligenceRoute = IntelligenceRouteImport.update({
+  id: '/intelligence',
+  path: '/intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuideRoute = GuideRouteImport.update({
   id: '/guide',
   path: '/guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GrantProofRoute = GrantProofRouteImport.update({
+  id: '/grant-proof',
+  path: '/grant-proof',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GenesisDistrictRoute = GenesisDistrictRouteImport.update({
@@ -392,6 +448,11 @@ const LegalCookiesRoute = LegalCookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
   getParentRoute: () => LegalRoute,
+} as any)
+const InvestorsWorkshopRoute = InvestorsWorkshopRouteImport.update({
+  id: '/workshop',
+  path: '/workshop',
+  getParentRoute: () => InvestorsRoute,
 } as any)
 const IdNameRoute = IdNameRouteImport.update({
   id: '/id/$name',
@@ -591,6 +652,12 @@ const ApiPulseFeedRoute = ApiPulseFeedRouteImport.update({
   path: '/api/pulse/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPointsImportFoundingXpRoute =
+  ApiPointsImportFoundingXpRouteImport.update({
+    id: '/api/points/import-founding-xp',
+    path: '/api/points/import-founding-xp',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPlatformWaitlistRoute = ApiPlatformWaitlistRouteImport.update({
   id: '/api/platform/waitlist',
   path: '/api/platform/waitlist',
@@ -668,6 +735,47 @@ const ApiMarketBccRoute = ApiMarketBccRouteImport.update({
   path: '/api/market/bcc',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiInvestorsTractionRoute = ApiInvestorsTractionRouteImport.update({
+  id: '/api/investors/traction',
+  path: '/api/investors/traction',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIntelligenceRecommendationsRoute =
+  ApiIntelligenceRecommendationsRouteImport.update({
+    id: '/api/intelligence/recommendations',
+    path: '/api/intelligence/recommendations',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiIntelligenceOverviewRoute = ApiIntelligenceOverviewRouteImport.update({
+  id: '/api/intelligence/overview',
+  path: '/api/intelligence/overview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIntelligenceInsightsRoute = ApiIntelligenceInsightsRouteImport.update({
+  id: '/api/intelligence/insights',
+  path: '/api/intelligence/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIntelligenceIngestRoute = ApiIntelligenceIngestRouteImport.update({
+  id: '/api/intelligence/ingest',
+  path: '/api/intelligence/ingest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIntelligenceHeatmapRoute = ApiIntelligenceHeatmapRouteImport.update({
+  id: '/api/intelligence/heatmap',
+  path: '/api/intelligence/heatmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIntelligenceFunnelsRoute = ApiIntelligenceFunnelsRouteImport.update({
+  id: '/api/intelligence/funnels',
+  path: '/api/intelligence/funnels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIntelligenceAppsRoute = ApiIntelligenceAppsRouteImport.update({
+  id: '/api/intelligence/apps',
+  path: '/api/intelligence/apps',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiIdentityVerifyNameRoute = ApiIdentityVerifyNameRouteImport.update({
   id: '/api/identity/verify-name',
   path: '/api/identity/verify-name',
@@ -676,6 +784,11 @@ const ApiIdentityVerifyNameRoute = ApiIdentityVerifyNameRouteImport.update({
 const ApiIdentityResolveRoute = ApiIdentityResolveRouteImport.update({
   id: '/api/identity/resolve',
   path: '/api/identity/resolve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGrantVerificationRoute = ApiGrantVerificationRouteImport.update({
+  id: '/api/grant/verification',
+  path: '/api/grant/verification',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiEliasInboundRoute = ApiEliasInboundRouteImport.update({
@@ -689,6 +802,11 @@ const ApiComplianceEligibilityRoute =
     path: '/api/compliance/eligibility',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAirdropClaimRoute = ApiAirdropClaimRouteImport.update({
+  id: '/api/airdrop/claim',
+  path: '/api/airdrop/claim',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAgentsStatusRoute = ApiAgentsStatusRouteImport.update({
   id: '/api/agents/status',
   path: '/api/agents/status',
@@ -703,6 +821,16 @@ const R0gAgentid1DotjsonRoute = R0gAgentid1DotjsonRouteImport.update({
   id: '/1.json',
   path: '/1.json',
   getParentRoute: () => R0gAgentidRoute,
+} as any)
+const ApiPointsRedeemIndexRoute = ApiPointsRedeemIndexRouteImport.update({
+  id: '/api/points/redeem/',
+  path: '/api/points/redeem/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlacesApiReocPropertyIdRoute = PlacesApiReocPropertyIdRouteImport.update({
+  id: '/places/api/reoc/$propertyId',
+  path: '/places/api/reoc/$propertyId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiWalletPacksCheckoutRoute = ApiWalletPacksCheckoutRouteImport.update({
   id: '/api/wallet/packs/checkout',
@@ -762,6 +890,33 @@ const ApiPulseAttestationLatestRoute =
     path: '/api/pulse/attestation/latest',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPointsRedeemStatsRoute = ApiPointsRedeemStatsRouteImport.update({
+  id: '/api/points/redeem/stats',
+  path: '/api/points/redeem/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPointsRedeemQuoteRoute = ApiPointsRedeemQuoteRouteImport.update({
+  id: '/api/points/redeem/quote',
+  path: '/api/points/redeem/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMarketingQuidliStatusRoute =
+  ApiMarketingQuidliStatusRouteImport.update({
+    id: '/api/marketing/quidli/status',
+    path: '/api/marketing/quidli/status',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketingQuidliSendRoute = ApiMarketingQuidliSendRouteImport.update({
+  id: '/api/marketing/quidli/send',
+  path: '/api/marketing/quidli/send',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMarketingQuidliLeaderboardDropsRoute =
+  ApiMarketingQuidliLeaderboardDropsRouteImport.update({
+    id: '/api/marketing/quidli/leaderboard-drops',
+    path: '/api/marketing/quidli/leaderboard-drops',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiMarketingGroveXPostRoute = ApiMarketingGroveXPostRouteImport.update({
   id: '/api/marketing/grove/x-post',
   path: '/api/marketing/grove/x-post',
@@ -783,6 +938,12 @@ const ApiMarketBccSolanaRouteRoute = ApiMarketBccSolanaRouteRouteImport.update({
   path: '/solana-route',
   getParentRoute: () => ApiMarketBccRoute,
 } as any)
+const ApiInvestorsWorkshopSessionRoute =
+  ApiInvestorsWorkshopSessionRouteImport.update({
+    id: '/api/investors/workshop/session',
+    path: '/api/investors/workshop/session',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPulseFeedIdCommentsRoute = ApiPulseFeedIdCommentsRouteImport.update({
   id: '/$id/comments',
   path: '/$id/comments',
@@ -801,19 +962,25 @@ export interface FileRoutesByFullPath {
   '/experiences': typeof ExperiencesRoute
   '/faq': typeof FaqRoute
   '/genesis-district': typeof GenesisDistrictRoute
+  '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
-  '/investors': typeof InvestorsRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/investors': typeof InvestorsRouteWithChildren
   '/join': typeof JoinRoute
   '/leaderboard': typeof LeaderboardRoute
   '/legal': typeof LegalRouteWithChildren
+  '/liquidity': typeof LiquidityRoute
   '/marketplace': typeof MarketplaceRouteWithChildren
   '/mission': typeof MissionRoute
+  '/plan': typeof PlanRoute
   '/play': typeof PlayRoute
   '/presale': typeof PresaleRoute
   '/profile': typeof ProfileRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/story': typeof StoryRoute
+  '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
@@ -828,6 +995,7 @@ export interface FileRoutesByFullPath {
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
   '/id/$name': typeof IdNameRoute
+  '/investors/workshop': typeof InvestorsWorkshopRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -856,10 +1024,20 @@ export interface FileRoutesByFullPath {
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
+  '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
+  '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
+  '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
+  '/api/intelligence/heatmap': typeof ApiIntelligenceHeatmapRoute
+  '/api/intelligence/ingest': typeof ApiIntelligenceIngestRoute
+  '/api/intelligence/insights': typeof ApiIntelligenceInsightsRoute
+  '/api/intelligence/overview': typeof ApiIntelligenceOverviewRoute
+  '/api/intelligence/recommendations': typeof ApiIntelligenceRecommendationsRoute
+  '/api/investors/traction': typeof ApiInvestorsTractionRoute
   '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
@@ -875,6 +1053,7 @@ export interface FileRoutesByFullPath {
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
   '/api/platform/waitlist': typeof ApiPlatformWaitlistRoute
+  '/api/points/import-founding-xp': typeof ApiPointsImportFoundingXpRoute
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
@@ -902,10 +1081,16 @@ export interface FileRoutesByFullPath {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
   '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
   '/api/marketing/grove/x-post': typeof ApiMarketingGroveXPostRoute
+  '/api/marketing/quidli/leaderboard-drops': typeof ApiMarketingQuidliLeaderboardDropsRoute
+  '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
+  '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
+  '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
+  '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -917,6 +1102,8 @@ export interface FileRoutesByFullPath {
   '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
+  '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
+  '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRoutesByTo {
@@ -931,18 +1118,24 @@ export interface FileRoutesByTo {
   '/experiences': typeof ExperiencesRoute
   '/faq': typeof FaqRoute
   '/genesis-district': typeof GenesisDistrictRoute
+  '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
-  '/investors': typeof InvestorsRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/investors': typeof InvestorsRouteWithChildren
   '/join': typeof JoinRoute
   '/leaderboard': typeof LeaderboardRoute
   '/legal': typeof LegalRouteWithChildren
+  '/liquidity': typeof LiquidityRoute
   '/mission': typeof MissionRoute
+  '/plan': typeof PlanRoute
   '/play': typeof PlayRoute
   '/presale': typeof PresaleRoute
   '/profile': typeof ProfileRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/story': typeof StoryRoute
+  '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
@@ -957,6 +1150,7 @@ export interface FileRoutesByTo {
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
   '/id/$name': typeof IdNameRoute
+  '/investors/workshop': typeof InvestorsWorkshopRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -985,10 +1179,20 @@ export interface FileRoutesByTo {
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
+  '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
+  '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
+  '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
+  '/api/intelligence/heatmap': typeof ApiIntelligenceHeatmapRoute
+  '/api/intelligence/ingest': typeof ApiIntelligenceIngestRoute
+  '/api/intelligence/insights': typeof ApiIntelligenceInsightsRoute
+  '/api/intelligence/overview': typeof ApiIntelligenceOverviewRoute
+  '/api/intelligence/recommendations': typeof ApiIntelligenceRecommendationsRoute
+  '/api/investors/traction': typeof ApiInvestorsTractionRoute
   '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
@@ -1004,6 +1208,7 @@ export interface FileRoutesByTo {
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
   '/api/platform/waitlist': typeof ApiPlatformWaitlistRoute
+  '/api/points/import-founding-xp': typeof ApiPointsImportFoundingXpRoute
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
@@ -1031,10 +1236,16 @@ export interface FileRoutesByTo {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
   '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
   '/api/marketing/grove/x-post': typeof ApiMarketingGroveXPostRoute
+  '/api/marketing/quidli/leaderboard-drops': typeof ApiMarketingQuidliLeaderboardDropsRoute
+  '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
+  '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
+  '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
+  '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -1046,6 +1257,8 @@ export interface FileRoutesByTo {
   '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
+  '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
+  '/api/points/redeem': typeof ApiPointsRedeemIndexRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRoutesById {
@@ -1061,19 +1274,25 @@ export interface FileRoutesById {
   '/experiences': typeof ExperiencesRoute
   '/faq': typeof FaqRoute
   '/genesis-district': typeof GenesisDistrictRoute
+  '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
-  '/investors': typeof InvestorsRoute
+  '/intelligence': typeof IntelligenceRoute
+  '/investors': typeof InvestorsRouteWithChildren
   '/join': typeof JoinRoute
   '/leaderboard': typeof LeaderboardRoute
   '/legal': typeof LegalRouteWithChildren
+  '/liquidity': typeof LiquidityRoute
   '/marketplace': typeof MarketplaceRouteWithChildren
   '/mission': typeof MissionRoute
+  '/plan': typeof PlanRoute
   '/play': typeof PlayRoute
   '/presale': typeof PresaleRoute
   '/profile': typeof ProfileRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/story': typeof StoryRoute
+  '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
@@ -1088,6 +1307,7 @@ export interface FileRoutesById {
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
   '/id/$name': typeof IdNameRoute
+  '/investors/workshop': typeof InvestorsWorkshopRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -1116,10 +1336,20 @@ export interface FileRoutesById {
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
+  '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
+  '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
+  '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
+  '/api/intelligence/heatmap': typeof ApiIntelligenceHeatmapRoute
+  '/api/intelligence/ingest': typeof ApiIntelligenceIngestRoute
+  '/api/intelligence/insights': typeof ApiIntelligenceInsightsRoute
+  '/api/intelligence/overview': typeof ApiIntelligenceOverviewRoute
+  '/api/intelligence/recommendations': typeof ApiIntelligenceRecommendationsRoute
+  '/api/investors/traction': typeof ApiInvestorsTractionRoute
   '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
@@ -1135,6 +1365,7 @@ export interface FileRoutesById {
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
   '/api/platform/waitlist': typeof ApiPlatformWaitlistRoute
+  '/api/points/import-founding-xp': typeof ApiPointsImportFoundingXpRoute
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
@@ -1162,10 +1393,16 @@ export interface FileRoutesById {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
   '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
   '/api/marketing/grove/x-post': typeof ApiMarketingGroveXPostRoute
+  '/api/marketing/quidli/leaderboard-drops': typeof ApiMarketingQuidliLeaderboardDropsRoute
+  '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
+  '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
+  '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
+  '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -1177,6 +1414,8 @@ export interface FileRoutesById {
   '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
+  '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
+  '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRouteTypes {
@@ -1193,19 +1432,25 @@ export interface FileRouteTypes {
     | '/experiences'
     | '/faq'
     | '/genesis-district'
+    | '/grant-proof'
     | '/guide'
+    | '/intelligence'
     | '/investors'
     | '/join'
     | '/leaderboard'
     | '/legal'
+    | '/liquidity'
     | '/marketplace'
     | '/mission'
+    | '/plan'
     | '/play'
     | '/presale'
     | '/profile'
     | '/roadmap'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/story'
+    | '/swap'
     | '/team'
     | '/trading-agent'
     | '/.well-known/agent.json'
@@ -1220,6 +1465,7 @@ export interface FileRouteTypes {
     | '/drops/art'
     | '/forest/quests'
     | '/id/$name'
+    | '/investors/workshop'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
@@ -1248,10 +1494,20 @@ export interface FileRouteTypes {
     | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agents/status'
+    | '/api/airdrop/claim'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/grant/verification'
     | '/api/identity/resolve'
     | '/api/identity/verify-name'
+    | '/api/intelligence/apps'
+    | '/api/intelligence/funnels'
+    | '/api/intelligence/heatmap'
+    | '/api/intelligence/ingest'
+    | '/api/intelligence/insights'
+    | '/api/intelligence/overview'
+    | '/api/intelligence/recommendations'
+    | '/api/investors/traction'
     | '/api/market/bcc'
     | '/api/market/config'
     | '/api/market/health'
@@ -1267,6 +1523,7 @@ export interface FileRouteTypes {
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
     | '/api/platform/waitlist'
+    | '/api/points/import-founding-xp'
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
@@ -1294,10 +1551,16 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/api/investors/workshop/session'
     | '/api/market/bcc/solana-route'
     | '/api/marketing/grove/farcaster-post'
     | '/api/marketing/grove/tick'
     | '/api/marketing/grove/x-post'
+    | '/api/marketing/quidli/leaderboard-drops'
+    | '/api/marketing/quidli/send'
+    | '/api/marketing/quidli/status'
+    | '/api/points/redeem/quote'
+    | '/api/points/redeem/stats'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -1309,6 +1572,8 @@ export interface FileRouteTypes {
     | '/api/tg/tasks/complete'
     | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
+    | '/places/api/reoc/$propertyId'
+    | '/api/points/redeem/'
     | '/api/pulse/feed/$id/comments'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1323,18 +1588,24 @@ export interface FileRouteTypes {
     | '/experiences'
     | '/faq'
     | '/genesis-district'
+    | '/grant-proof'
     | '/guide'
+    | '/intelligence'
     | '/investors'
     | '/join'
     | '/leaderboard'
     | '/legal'
+    | '/liquidity'
     | '/mission'
+    | '/plan'
     | '/play'
     | '/presale'
     | '/profile'
     | '/roadmap'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/story'
+    | '/swap'
     | '/team'
     | '/trading-agent'
     | '/.well-known/agent.json'
@@ -1349,6 +1620,7 @@ export interface FileRouteTypes {
     | '/drops/art'
     | '/forest/quests'
     | '/id/$name'
+    | '/investors/workshop'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
@@ -1377,10 +1649,20 @@ export interface FileRouteTypes {
     | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agents/status'
+    | '/api/airdrop/claim'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/grant/verification'
     | '/api/identity/resolve'
     | '/api/identity/verify-name'
+    | '/api/intelligence/apps'
+    | '/api/intelligence/funnels'
+    | '/api/intelligence/heatmap'
+    | '/api/intelligence/ingest'
+    | '/api/intelligence/insights'
+    | '/api/intelligence/overview'
+    | '/api/intelligence/recommendations'
+    | '/api/investors/traction'
     | '/api/market/bcc'
     | '/api/market/config'
     | '/api/market/health'
@@ -1396,6 +1678,7 @@ export interface FileRouteTypes {
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
     | '/api/platform/waitlist'
+    | '/api/points/import-founding-xp'
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
@@ -1423,10 +1706,16 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/api/investors/workshop/session'
     | '/api/market/bcc/solana-route'
     | '/api/marketing/grove/farcaster-post'
     | '/api/marketing/grove/tick'
     | '/api/marketing/grove/x-post'
+    | '/api/marketing/quidli/leaderboard-drops'
+    | '/api/marketing/quidli/send'
+    | '/api/marketing/quidli/status'
+    | '/api/points/redeem/quote'
+    | '/api/points/redeem/stats'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -1438,6 +1727,8 @@ export interface FileRouteTypes {
     | '/api/tg/tasks/complete'
     | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
+    | '/places/api/reoc/$propertyId'
+    | '/api/points/redeem'
     | '/api/pulse/feed/$id/comments'
   id:
     | '__root__'
@@ -1452,19 +1743,25 @@ export interface FileRouteTypes {
     | '/experiences'
     | '/faq'
     | '/genesis-district'
+    | '/grant-proof'
     | '/guide'
+    | '/intelligence'
     | '/investors'
     | '/join'
     | '/leaderboard'
     | '/legal'
+    | '/liquidity'
     | '/marketplace'
     | '/mission'
+    | '/plan'
     | '/play'
     | '/presale'
     | '/profile'
     | '/roadmap'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/story'
+    | '/swap'
     | '/team'
     | '/trading-agent'
     | '/.well-known/agent.json'
@@ -1479,6 +1776,7 @@ export interface FileRouteTypes {
     | '/drops/art'
     | '/forest/quests'
     | '/id/$name'
+    | '/investors/workshop'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
@@ -1507,10 +1805,20 @@ export interface FileRouteTypes {
     | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agents/status'
+    | '/api/airdrop/claim'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/grant/verification'
     | '/api/identity/resolve'
     | '/api/identity/verify-name'
+    | '/api/intelligence/apps'
+    | '/api/intelligence/funnels'
+    | '/api/intelligence/heatmap'
+    | '/api/intelligence/ingest'
+    | '/api/intelligence/insights'
+    | '/api/intelligence/overview'
+    | '/api/intelligence/recommendations'
+    | '/api/investors/traction'
     | '/api/market/bcc'
     | '/api/market/config'
     | '/api/market/health'
@@ -1526,6 +1834,7 @@ export interface FileRouteTypes {
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
     | '/api/platform/waitlist'
+    | '/api/points/import-founding-xp'
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
@@ -1553,10 +1862,16 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/api/investors/workshop/session'
     | '/api/market/bcc/solana-route'
     | '/api/marketing/grove/farcaster-post'
     | '/api/marketing/grove/tick'
     | '/api/marketing/grove/x-post'
+    | '/api/marketing/quidli/leaderboard-drops'
+    | '/api/marketing/quidli/send'
+    | '/api/marketing/quidli/status'
+    | '/api/points/redeem/quote'
+    | '/api/points/redeem/stats'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -1568,6 +1883,8 @@ export interface FileRouteTypes {
     | '/api/tg/tasks/complete'
     | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
+    | '/places/api/reoc/$propertyId'
+    | '/api/points/redeem/'
     | '/api/pulse/feed/$id/comments'
   fileRoutesById: FileRoutesById
 }
@@ -1583,19 +1900,25 @@ export interface RootRouteChildren {
   ExperiencesRoute: typeof ExperiencesRoute
   FaqRoute: typeof FaqRoute
   GenesisDistrictRoute: typeof GenesisDistrictRoute
+  GrantProofRoute: typeof GrantProofRoute
   GuideRoute: typeof GuideRoute
-  InvestorsRoute: typeof InvestorsRoute
+  IntelligenceRoute: typeof IntelligenceRoute
+  InvestorsRoute: typeof InvestorsRouteWithChildren
   JoinRoute: typeof JoinRoute
   LeaderboardRoute: typeof LeaderboardRoute
   LegalRoute: typeof LegalRouteWithChildren
+  LiquidityRoute: typeof LiquidityRoute
   MarketplaceRoute: typeof MarketplaceRouteWithChildren
   MissionRoute: typeof MissionRoute
+  PlanRoute: typeof PlanRoute
   PlayRoute: typeof PlayRoute
   PresaleRoute: typeof PresaleRoute
   ProfileRoute: typeof ProfileRoute
   RoadmapRoute: typeof RoadmapRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StoryRoute: typeof StoryRoute
+  SwapRoute: typeof SwapRoute
   TeamRoute: typeof TeamRoute
   TradingAgentRoute: typeof TradingAgentRoute
   DotwellKnownAgentDotjsonRoute: typeof DotwellKnownAgentDotjsonRoute
@@ -1630,10 +1953,20 @@ export interface RootRouteChildren {
   WelcomeIndexRoute: typeof WelcomeIndexRoute
   ApiActivityLogRoute: typeof ApiActivityLogRoute
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
+  ApiAirdropClaimRoute: typeof ApiAirdropClaimRoute
   ApiComplianceEligibilityRoute: typeof ApiComplianceEligibilityRoute
   ApiEliasInboundRoute: typeof ApiEliasInboundRoute
+  ApiGrantVerificationRoute: typeof ApiGrantVerificationRoute
   ApiIdentityResolveRoute: typeof ApiIdentityResolveRoute
   ApiIdentityVerifyNameRoute: typeof ApiIdentityVerifyNameRoute
+  ApiIntelligenceAppsRoute: typeof ApiIntelligenceAppsRoute
+  ApiIntelligenceFunnelsRoute: typeof ApiIntelligenceFunnelsRoute
+  ApiIntelligenceHeatmapRoute: typeof ApiIntelligenceHeatmapRoute
+  ApiIntelligenceIngestRoute: typeof ApiIntelligenceIngestRoute
+  ApiIntelligenceInsightsRoute: typeof ApiIntelligenceInsightsRoute
+  ApiIntelligenceOverviewRoute: typeof ApiIntelligenceOverviewRoute
+  ApiIntelligenceRecommendationsRoute: typeof ApiIntelligenceRecommendationsRoute
+  ApiInvestorsTractionRoute: typeof ApiInvestorsTractionRoute
   ApiMarketBccRoute: typeof ApiMarketBccRouteWithChildren
   ApiMarketConfigRoute: typeof ApiMarketConfigRoute
   ApiMarketHealthRoute: typeof ApiMarketHealthRoute
@@ -1649,6 +1982,7 @@ export interface RootRouteChildren {
   ApiPlatformOnboardingCompleteRoute: typeof ApiPlatformOnboardingCompleteRoute
   ApiPlatformSiweNonceRoute: typeof ApiPlatformSiweNonceRoute
   ApiPlatformWaitlistRoute: typeof ApiPlatformWaitlistRoute
+  ApiPointsImportFoundingXpRoute: typeof ApiPointsImportFoundingXpRoute
   ApiPulseFeedRoute: typeof ApiPulseFeedRouteWithChildren
   ApiPulseMetricsRoute: typeof ApiPulseMetricsRoute
   ApiRewardsSummaryRoute: typeof ApiRewardsSummaryRoute
@@ -1676,9 +2010,15 @@ export interface RootRouteChildren {
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
+  ApiInvestorsWorkshopSessionRoute: typeof ApiInvestorsWorkshopSessionRoute
   ApiMarketingGroveFarcasterPostRoute: typeof ApiMarketingGroveFarcasterPostRoute
   ApiMarketingGroveTickRoute: typeof ApiMarketingGroveTickRoute
   ApiMarketingGroveXPostRoute: typeof ApiMarketingGroveXPostRoute
+  ApiMarketingQuidliLeaderboardDropsRoute: typeof ApiMarketingQuidliLeaderboardDropsRoute
+  ApiMarketingQuidliSendRoute: typeof ApiMarketingQuidliSendRoute
+  ApiMarketingQuidliStatusRoute: typeof ApiMarketingQuidliStatusRoute
+  ApiPointsRedeemQuoteRoute: typeof ApiPointsRedeemQuoteRoute
+  ApiPointsRedeemStatsRoute: typeof ApiPointsRedeemStatsRoute
   ApiPulseAttestationLatestRoute: typeof ApiPulseAttestationLatestRoute
   ApiPulseDigestDayIdRoute: typeof ApiPulseDigestDayIdRoute
   ApiPulseIngestManualRoute: typeof ApiPulseIngestManualRoute
@@ -1688,6 +2028,8 @@ export interface RootRouteChildren {
   ApiTgLearnModulesRoute: typeof ApiTgLearnModulesRoute
   ApiTgWalletTonConnectedRoute: typeof ApiTgWalletTonConnectedRoute
   ApiWalletPacksCheckoutRoute: typeof ApiWalletPacksCheckoutRoute
+  PlacesApiReocPropertyIdRoute: typeof PlacesApiReocPropertyIdRoute
+  ApiPointsRedeemIndexRoute: typeof ApiPointsRedeemIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1704,6 +2046,20 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/swap': {
+      id: '/swap'
+      path: '/swap'
+      fullPath: '/swap'
+      preLoaderRoute: typeof SwapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/story': {
+      id: '/story'
+      path: '/story'
+      fullPath: '/story'
+      preLoaderRoute: typeof StoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1748,6 +2104,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plan': {
+      id: '/plan'
+      path: '/plan'
+      fullPath: '/plan'
+      preLoaderRoute: typeof PlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mission': {
       id: '/mission'
       path: '/mission'
@@ -1760,6 +2123,13 @@ declare module '@tanstack/react-router' {
       path: '/marketplace'
       fullPath: '/marketplace'
       preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/liquidity': {
+      id: '/liquidity'
+      path: '/liquidity'
+      fullPath: '/liquidity'
+      preLoaderRoute: typeof LiquidityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal': {
@@ -1790,11 +2160,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InvestorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/intelligence': {
+      id: '/intelligence'
+      path: '/intelligence'
+      fullPath: '/intelligence'
+      preLoaderRoute: typeof IntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guide': {
       id: '/guide'
       path: '/guide'
       fullPath: '/guide'
       preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grant-proof': {
+      id: '/grant-proof'
+      path: '/grant-proof'
+      fullPath: '/grant-proof'
+      preLoaderRoute: typeof GrantProofRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/genesis-district': {
@@ -2048,6 +2432,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/legal/cookies'
       preLoaderRoute: typeof LegalCookiesRouteImport
       parentRoute: typeof LegalRoute
+    }
+    '/investors/workshop': {
+      id: '/investors/workshop'
+      path: '/workshop'
+      fullPath: '/investors/workshop'
+      preLoaderRoute: typeof InvestorsWorkshopRouteImport
+      parentRoute: typeof InvestorsRoute
     }
     '/id/$name': {
       id: '/id/$name'
@@ -2322,6 +2713,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPulseFeedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/points/import-founding-xp': {
+      id: '/api/points/import-founding-xp'
+      path: '/api/points/import-founding-xp'
+      fullPath: '/api/points/import-founding-xp'
+      preLoaderRoute: typeof ApiPointsImportFoundingXpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/platform/waitlist': {
       id: '/api/platform/waitlist'
       path: '/api/platform/waitlist'
@@ -2427,6 +2825,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMarketBccRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/investors/traction': {
+      id: '/api/investors/traction'
+      path: '/api/investors/traction'
+      fullPath: '/api/investors/traction'
+      preLoaderRoute: typeof ApiInvestorsTractionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/recommendations': {
+      id: '/api/intelligence/recommendations'
+      path: '/api/intelligence/recommendations'
+      fullPath: '/api/intelligence/recommendations'
+      preLoaderRoute: typeof ApiIntelligenceRecommendationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/overview': {
+      id: '/api/intelligence/overview'
+      path: '/api/intelligence/overview'
+      fullPath: '/api/intelligence/overview'
+      preLoaderRoute: typeof ApiIntelligenceOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/insights': {
+      id: '/api/intelligence/insights'
+      path: '/api/intelligence/insights'
+      fullPath: '/api/intelligence/insights'
+      preLoaderRoute: typeof ApiIntelligenceInsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/ingest': {
+      id: '/api/intelligence/ingest'
+      path: '/api/intelligence/ingest'
+      fullPath: '/api/intelligence/ingest'
+      preLoaderRoute: typeof ApiIntelligenceIngestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/heatmap': {
+      id: '/api/intelligence/heatmap'
+      path: '/api/intelligence/heatmap'
+      fullPath: '/api/intelligence/heatmap'
+      preLoaderRoute: typeof ApiIntelligenceHeatmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/funnels': {
+      id: '/api/intelligence/funnels'
+      path: '/api/intelligence/funnels'
+      fullPath: '/api/intelligence/funnels'
+      preLoaderRoute: typeof ApiIntelligenceFunnelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/apps': {
+      id: '/api/intelligence/apps'
+      path: '/api/intelligence/apps'
+      fullPath: '/api/intelligence/apps'
+      preLoaderRoute: typeof ApiIntelligenceAppsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/identity/verify-name': {
       id: '/api/identity/verify-name'
       path: '/api/identity/verify-name'
@@ -2441,6 +2895,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIdentityResolveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/grant/verification': {
+      id: '/api/grant/verification'
+      path: '/api/grant/verification'
+      fullPath: '/api/grant/verification'
+      preLoaderRoute: typeof ApiGrantVerificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/elias/inbound': {
       id: '/api/elias/inbound'
       path: '/api/elias/inbound'
@@ -2453,6 +2914,13 @@ declare module '@tanstack/react-router' {
       path: '/api/compliance/eligibility'
       fullPath: '/api/compliance/eligibility'
       preLoaderRoute: typeof ApiComplianceEligibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/airdrop/claim': {
+      id: '/api/airdrop/claim'
+      path: '/api/airdrop/claim'
+      fullPath: '/api/airdrop/claim'
+      preLoaderRoute: typeof ApiAirdropClaimRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/agents/status': {
@@ -2475,6 +2943,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/0g/agentid/1.json'
       preLoaderRoute: typeof R0gAgentid1DotjsonRouteImport
       parentRoute: typeof R0gAgentidRoute
+    }
+    '/api/points/redeem/': {
+      id: '/api/points/redeem/'
+      path: '/api/points/redeem'
+      fullPath: '/api/points/redeem/'
+      preLoaderRoute: typeof ApiPointsRedeemIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/places/api/reoc/$propertyId': {
+      id: '/places/api/reoc/$propertyId'
+      path: '/places/api/reoc/$propertyId'
+      fullPath: '/places/api/reoc/$propertyId'
+      preLoaderRoute: typeof PlacesApiReocPropertyIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/wallet/packs/checkout': {
       id: '/api/wallet/packs/checkout'
@@ -2553,6 +3035,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPulseAttestationLatestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/points/redeem/stats': {
+      id: '/api/points/redeem/stats'
+      path: '/api/points/redeem/stats'
+      fullPath: '/api/points/redeem/stats'
+      preLoaderRoute: typeof ApiPointsRedeemStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/points/redeem/quote': {
+      id: '/api/points/redeem/quote'
+      path: '/api/points/redeem/quote'
+      fullPath: '/api/points/redeem/quote'
+      preLoaderRoute: typeof ApiPointsRedeemQuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketing/quidli/status': {
+      id: '/api/marketing/quidli/status'
+      path: '/api/marketing/quidli/status'
+      fullPath: '/api/marketing/quidli/status'
+      preLoaderRoute: typeof ApiMarketingQuidliStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketing/quidli/send': {
+      id: '/api/marketing/quidli/send'
+      path: '/api/marketing/quidli/send'
+      fullPath: '/api/marketing/quidli/send'
+      preLoaderRoute: typeof ApiMarketingQuidliSendRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketing/quidli/leaderboard-drops': {
+      id: '/api/marketing/quidli/leaderboard-drops'
+      path: '/api/marketing/quidli/leaderboard-drops'
+      fullPath: '/api/marketing/quidli/leaderboard-drops'
+      preLoaderRoute: typeof ApiMarketingQuidliLeaderboardDropsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/marketing/grove/x-post': {
       id: '/api/marketing/grove/x-post'
       path: '/api/marketing/grove/x-post'
@@ -2581,6 +3098,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMarketBccSolanaRouteRouteImport
       parentRoute: typeof ApiMarketBccRoute
     }
+    '/api/investors/workshop/session': {
+      id: '/api/investors/workshop/session'
+      path: '/api/investors/workshop/session'
+      fullPath: '/api/investors/workshop/session'
+      preLoaderRoute: typeof ApiInvestorsWorkshopSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/pulse/feed/$id/comments': {
       id: '/api/pulse/feed/$id/comments'
       path: '/$id/comments'
@@ -2590,6 +3114,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface InvestorsRouteChildren {
+  InvestorsWorkshopRoute: typeof InvestorsWorkshopRoute
+}
+
+const InvestorsRouteChildren: InvestorsRouteChildren = {
+  InvestorsWorkshopRoute: InvestorsWorkshopRoute,
+}
+
+const InvestorsRouteWithChildren = InvestorsRoute._addFileChildren(
+  InvestorsRouteChildren,
+)
 
 interface LegalRouteChildren {
   LegalCookiesRoute: typeof LegalCookiesRoute
@@ -2695,19 +3231,25 @@ const rootRouteChildren: RootRouteChildren = {
   ExperiencesRoute: ExperiencesRoute,
   FaqRoute: FaqRoute,
   GenesisDistrictRoute: GenesisDistrictRoute,
+  GrantProofRoute: GrantProofRoute,
   GuideRoute: GuideRoute,
-  InvestorsRoute: InvestorsRoute,
+  IntelligenceRoute: IntelligenceRoute,
+  InvestorsRoute: InvestorsRouteWithChildren,
   JoinRoute: JoinRoute,
   LeaderboardRoute: LeaderboardRoute,
   LegalRoute: LegalRouteWithChildren,
+  LiquidityRoute: LiquidityRoute,
   MarketplaceRoute: MarketplaceRouteWithChildren,
   MissionRoute: MissionRoute,
+  PlanRoute: PlanRoute,
   PlayRoute: PlayRoute,
   PresaleRoute: PresaleRoute,
   ProfileRoute: ProfileRoute,
   RoadmapRoute: RoadmapRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StoryRoute: StoryRoute,
+  SwapRoute: SwapRoute,
   TeamRoute: TeamRoute,
   TradingAgentRoute: TradingAgentRoute,
   DotwellKnownAgentDotjsonRoute: DotwellKnownAgentDotjsonRoute,
@@ -2742,10 +3284,20 @@ const rootRouteChildren: RootRouteChildren = {
   WelcomeIndexRoute: WelcomeIndexRoute,
   ApiActivityLogRoute: ApiActivityLogRoute,
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
+  ApiAirdropClaimRoute: ApiAirdropClaimRoute,
   ApiComplianceEligibilityRoute: ApiComplianceEligibilityRoute,
   ApiEliasInboundRoute: ApiEliasInboundRoute,
+  ApiGrantVerificationRoute: ApiGrantVerificationRoute,
   ApiIdentityResolveRoute: ApiIdentityResolveRoute,
   ApiIdentityVerifyNameRoute: ApiIdentityVerifyNameRoute,
+  ApiIntelligenceAppsRoute: ApiIntelligenceAppsRoute,
+  ApiIntelligenceFunnelsRoute: ApiIntelligenceFunnelsRoute,
+  ApiIntelligenceHeatmapRoute: ApiIntelligenceHeatmapRoute,
+  ApiIntelligenceIngestRoute: ApiIntelligenceIngestRoute,
+  ApiIntelligenceInsightsRoute: ApiIntelligenceInsightsRoute,
+  ApiIntelligenceOverviewRoute: ApiIntelligenceOverviewRoute,
+  ApiIntelligenceRecommendationsRoute: ApiIntelligenceRecommendationsRoute,
+  ApiInvestorsTractionRoute: ApiInvestorsTractionRoute,
   ApiMarketBccRoute: ApiMarketBccRouteWithChildren,
   ApiMarketConfigRoute: ApiMarketConfigRoute,
   ApiMarketHealthRoute: ApiMarketHealthRoute,
@@ -2761,6 +3313,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlatformOnboardingCompleteRoute: ApiPlatformOnboardingCompleteRoute,
   ApiPlatformSiweNonceRoute: ApiPlatformSiweNonceRoute,
   ApiPlatformWaitlistRoute: ApiPlatformWaitlistRoute,
+  ApiPointsImportFoundingXpRoute: ApiPointsImportFoundingXpRoute,
   ApiPulseFeedRoute: ApiPulseFeedRouteWithChildren,
   ApiPulseMetricsRoute: ApiPulseMetricsRoute,
   ApiRewardsSummaryRoute: ApiRewardsSummaryRoute,
@@ -2788,9 +3341,16 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
+  ApiInvestorsWorkshopSessionRoute: ApiInvestorsWorkshopSessionRoute,
   ApiMarketingGroveFarcasterPostRoute: ApiMarketingGroveFarcasterPostRoute,
   ApiMarketingGroveTickRoute: ApiMarketingGroveTickRoute,
   ApiMarketingGroveXPostRoute: ApiMarketingGroveXPostRoute,
+  ApiMarketingQuidliLeaderboardDropsRoute:
+    ApiMarketingQuidliLeaderboardDropsRoute,
+  ApiMarketingQuidliSendRoute: ApiMarketingQuidliSendRoute,
+  ApiMarketingQuidliStatusRoute: ApiMarketingQuidliStatusRoute,
+  ApiPointsRedeemQuoteRoute: ApiPointsRedeemQuoteRoute,
+  ApiPointsRedeemStatsRoute: ApiPointsRedeemStatsRoute,
   ApiPulseAttestationLatestRoute: ApiPulseAttestationLatestRoute,
   ApiPulseDigestDayIdRoute: ApiPulseDigestDayIdRoute,
   ApiPulseIngestManualRoute: ApiPulseIngestManualRoute,
@@ -2800,6 +3360,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTgLearnModulesRoute: ApiTgLearnModulesRoute,
   ApiTgWalletTonConnectedRoute: ApiTgWalletTonConnectedRoute,
   ApiWalletPacksCheckoutRoute: ApiWalletPacksCheckoutRoute,
+  PlacesApiReocPropertyIdRoute: PlacesApiReocPropertyIdRoute,
+  ApiPointsRedeemIndexRoute: ApiPointsRedeemIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

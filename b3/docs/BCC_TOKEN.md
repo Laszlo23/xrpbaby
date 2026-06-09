@@ -18,11 +18,24 @@ Shared kit: [`packages/bcc-kit`](../packages/bcc-kit) (`@bc/bcc-kit`).
 
 ## Buy BCC modal (all apps)
 
-Button-only floating **Buy BCC** pill opens a modal with **On Base** (Uniswap) and **From Solana** (Jumper / deBridge / Rango). Mounted in:
+Button-only floating **Buy BCC** pill opens a modal with **On Base** (in-app Uniswap swap) and **From Solana** (Jumper / deBridge / Rango). Mounted in:
 
-- `b3/app` — [`BuyBccModal.tsx`](../app/src/components/bcc/BuyBccModal.tsx)
-- `apps/places/web`, `apps/identity`, `apps/art`, `apps/signal`, `apps/eco`, `apps/hub` — `@bc/bcc-kit/react`
+- `b3/app` — [`BuyBccModal.tsx`](../app/src/components/bcc/BuyBccModal.tsx) embeds [`BccSwapPanel`](../app/src/components/swap/BccSwapPanel.tsx)
+- Full-page swap — [`/swap`](../app/src/routes/swap.tsx)
+- `apps/places/web`, `apps/identity`, `apps/art`, `apps/signal`, `apps/eco`, `apps/hub` — `@bc/bcc-kit/react` (external links; link to main app `/swap` for in-app swap)
 - `apps/founding/frontend` — Expo `BuyBccButton` + `Linking.openURL`
+
+### In-app swap (Uniswap V3 on Base)
+
+Users swap **ETH or USDC → BCC** without leaving the app:
+
+- Quotes: Uniswap V3 **QuoterV2** (`0x61fFE014bA17989E743c5F6cB21bF9697530B8e0`)
+- Execution: **SwapRouter02** (`0x2626664c2603336E57B271c5C0b26F421741e481`)
+- Shared helpers: [`packages/bcc-kit/src/swap.ts`](../packages/bcc-kit/src/swap.ts)
+
+**Empty wallet on-ramp (Privy):** enable **Funding / On-ramp** in the [Privy Dashboard](https://dashboard.privy.io) for **Base** (`8453`). The swap panel calls `useFundWallet` with `native-currency` (ETH) or `USDC` before the Uniswap leg. Set a default funding amount that covers swap size + gas (app default: `0.02` ETH / `25` USDC).
+
+Requires `VITE_PRIVY_APP_ID` and optional `VITE_BASE_RPC_URL` for reliable quotes.
 
 ## On-chain discount rails (Base)
 
@@ -80,7 +93,23 @@ VITE_PLACES_BCC_SALE_ADDRESS=
 
 Stripe checkout stays **USD**. On `checkout.session.completed`, the app enqueues a **`BccSettlement`** row (Postgres) with `bccOwedWei` + `bonusBccWei` (11.11% benefit).
 
-**Operational dependency:** treasury must buy/mint BCC via on-ramp or market maker, then mark settlement `credited`. See [`enqueue-bcc-settlement.ts`](../app/src/server/wallet/enqueue-bcc-settlement.ts).
+**Operational dependency:** treasury must buy BCC via on-ramp or market maker, then mark settlement `credited`. See [`enqueue-bcc-settlement.ts`](../app/src/server/wallet/enqueue-bcc-settlement.ts).
+
+**Keeper (automated):**
+
+```bash
+cd app
+# Dry-run (default)
+npm run bcc:settlement-keeper
+# Live
+BCC_SETTLEMENT_KEEPER_DRY_RUN=0 BCC_TREASURY_ONCHAIN=1 npm run bcc:settlement-keeper
+```
+
+Shared treasury transfer: [`bcc-treasury-transfer.ts`](../app/src/server/wallet/bcc-treasury-transfer.ts) (also used by panic BCC payout and points redemption).
+
+## Points → BCC redeem
+
+Users redeem Culture Points for on-chain BCC via treasury transfer — see [SMART_WALLET_AND_PACKS.md](./SMART_WALLET_AND_PACKS.md).
 
 ## Solana wallets
 

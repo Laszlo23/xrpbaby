@@ -230,7 +230,7 @@ export function WalletPortfolio({ address }: Props) {
                           {img ? (
                             <img
                               src={img}
-                              alt=""
+                              alt={nftTitle(nft)}
                               className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
                               loading="lazy"
                             />

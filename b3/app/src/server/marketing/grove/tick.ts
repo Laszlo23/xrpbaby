@@ -194,9 +194,9 @@ export async function runGroveTick(
 
   const copy = await refineGroveCopyWithLlm(brief, baseCopy);
 
-  const xCheck = voiceCheck(copy.x);
-  const fcCheck = voiceCheck(copy.farcaster);
-  const tgCheck = voiceCheck(copy.telegram);
+  const xCheck = voiceCheck(copy.x, 320);
+  const fcCheck = voiceCheck(copy.farcaster, 1024);
+  const tgCheck = voiceCheck(copy.telegram, 4000);
 
   const postsToday = await countPostsToday(prisma);
   const cap = groveDailyPostCap();

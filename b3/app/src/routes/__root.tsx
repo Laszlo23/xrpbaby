@@ -25,7 +25,7 @@ import { AnalyticsRouteTracker } from "@/components/AnalyticsRouteTracker";
 import { FarcasterMiniAppReady } from "@/components/FarcasterMiniAppReady";
 import { TelegramMiniAppReady } from "@/components/TelegramMiniAppReady";
 import { JsonLd } from "@/components/JsonLd";
-import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootTechnicalMeta } from "@/lib/seo";
+import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootFontPreconnectLinks, rootIconLinks, rootTechnicalMeta } from "@/lib/seo";
 
 import appCss from "../styles.css?url";
 import "@neynar/react/dist/style.css";
@@ -80,13 +80,13 @@ export const Route = createRootRoute({
       });
       return {
         meta: [...baseMeta, ...nf.meta],
-        links: [{ rel: "stylesheet", href: appCss }, ...nf.links],
+        links: [{ rel: "stylesheet", href: appCss }, ...rootFontPreconnectLinks(), ...rootIconLinks(), ...nf.links],
       };
     }
 
     return {
       meta: baseMeta,
-      links: [{ rel: "stylesheet", href: appCss }],
+      links: [{ rel: "stylesheet", href: appCss }, ...rootFontPreconnectLinks(), ...rootIconLinks()],
     };
   },
   shellComponent: RootShell,
@@ -116,6 +116,7 @@ function useHideBottomNav(): boolean {
   if (pathname.startsWith("/forest")) return true;
   if (pathname.startsWith("/welcome")) return true;
   if (pathname.startsWith("/tg")) return true;
+  if (pathname.startsWith("/intelligence")) return true;
   return false;
 }
 

@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CONTRACTS="$ROOT/apps/identity/contracts"
 cd "$CONTRACTS"
 
-ENV_FILE="${IDENTITY_DEPLOY_ENV:-$ROOT/app/.env}"
+ENV_FILE="${IDENTITY_DEPLOY_ENV:-$ROOT/contracts/.env}"
 if [[ -f "$ENV_FILE" ]]; then
   set -a
   # shellcheck disable=SC1091

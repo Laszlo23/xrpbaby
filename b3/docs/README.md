@@ -10,6 +10,8 @@ Canonical product entrypoint: `https://app.buildingcultureid.space`.
 
 - [ECOSYSTEM_GOALS_AND_ROADMAP.md](ECOSYSTEM_GOALS_AND_ROADMAP.md)
 - [ECOSYSTEM_EXECUTION_BACKLOG.md](ECOSYSTEM_EXECUTION_BACKLOG.md)
+- [GRANT_READINESS_PACK.md](GRANT_READINESS_PACK.md)
+- [GRANT_SUBMISSIONS.md](GRANT_SUBMISSIONS.md)
 - [INVESTOR_PROOF_PLAYBOOK.md](INVESTOR_PROOF_PLAYBOOK.md)
 - [ATTRIBUTION_WEEKLY_SNAPSHOT.md](ATTRIBUTION_WEEKLY_SNAPSHOT.md)
 - [RUNWAY_CONTROL_OPERATIONS.md](RUNWAY_CONTROL_OPERATIONS.md)
@@ -57,6 +59,8 @@ Canonical product entrypoint: `https://app.buildingcultureid.space`.
 |-----|----------|--------|-------------|
 | [ECOSYSTEM_GOALS_AND_ROADMAP.md](ECOSYSTEM_GOALS_AND_ROADMAP.md) | Strategy | active | North star, 90-day objectives, KPI scoreboard, review loop |
 | [ECOSYSTEM_EXECUTION_BACKLOG.md](ECOSYSTEM_EXECUTION_BACKLOG.md) | Strategy | active | Prioritized execution tickets with owner, KPI linkage, and DoD |
+| [GRANT_READINESS_PACK.md](GRANT_READINESS_PACK.md) | Strategy | active | Unified grant/investor verification pack, `grant:proof` workflow, and public `/grant-proof` lane |
+| [GRANT_SUBMISSIONS.md](GRANT_SUBMISSIONS.md) | Strategy | active | Copy-paste submission pack for Base, 0G Guild, and ecosystem programs with contact + payout wallet |
 | [INVESTOR_PROOF_PLAYBOOK.md](INVESTOR_PROOF_PLAYBOOK.md) | Strategy | active | Repeatable proof-bundle process for reliability, monetization, and investor updates |
 | [ATTRIBUTION_WEEKLY_SNAPSHOT.md](ATTRIBUTION_WEEKLY_SNAPSHOT.md) | Strategy | active | Weekly funnel/agent attribution snapshot process for investor reporting |
 | [RUNWAY_CONTROL_OPERATIONS.md](RUNWAY_CONTROL_OPERATIONS.md) | Strategy | active | Weekly runway report and cost-control operating process |

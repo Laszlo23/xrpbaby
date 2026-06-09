@@ -327,7 +327,7 @@ export function Footer() {
                 className="opacity-90 transition hover:opacity-100"
                 aria-label="Base"
               >
-                <Image src="/partners/base-logo.svg" alt="" width={130} height={36} className="h-8 w-auto" />
+                <Image src="/partners/base-logo.svg" alt="Base" width={130} height={36} className="h-8 w-auto" />
               </a>
             </div>
             <p className="mt-4 max-w-md text-xs leading-relaxed text-zinc-600">

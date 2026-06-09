@@ -8,7 +8,7 @@ export function buildFarcasterManifest(): Record<string, unknown> {
   const origin = getServerPublicOrigin();
   const homeUrl = `${origin}/`;
   const defaultIcon = `${origin}/brand/miniapp-icon.svg`;
-  const defaultOg = `${origin}/meta/home-meta.png`;
+  const defaultOg = `${origin}/meta/home-meta-og.png`;
   const iconUrl = process.env.FARCASTER_ICON_URL?.trim() || defaultIcon;
   const ogImage = process.env.FARCASTER_OG_IMAGE_URL?.trim() || defaultOg;
 

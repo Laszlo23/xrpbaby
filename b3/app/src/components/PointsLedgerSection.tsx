@@ -25,6 +25,7 @@ import { SupporterLeaderboard } from "@/components/SupporterLeaderboard";
 import { ConnectFarcasterButton } from "@bc/culture-auth/react";
 import { NeynarConnectBoundary } from "@/components/NeynarConnectBoundary";
 import { Input } from "@/components/ui/input";
+import { PointsRedeemSection } from "@/components/PointsRedeemSection";
 
 function formatXProofError(code?: string): string {
   switch (code) {
@@ -373,6 +374,13 @@ export function PointsLedgerSection() {
           >
             Refresh balance
           </Button>
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5">
+        <p className="mono-label text-zinc-500">Redeem for BCC</p>
+        <div className="mt-3">
+          <PointsRedeemSection />
         </div>
       </div>
 

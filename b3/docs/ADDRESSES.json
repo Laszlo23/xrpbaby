@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-04",
+  "updated": "2026-06-08",
   "deployer": "0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5",
   "networks": {
     "8453": {
@@ -11,6 +11,11 @@
         "RaffleTicketCampaign": "0xb1a88bf677400c23430b643a07229af832130ad8",
         "AgentShareCampaign": "0x130e320a386b1ff0228492ddd65c380131ba86e9",
         "CulturePulseAnchor": "0x503f8ad17c0fcdd84fbdbf7f51b41b39b02ebbae"
+      },
+      "genesisVault": {
+        "GenesisVaultPassPhase0": "0x39952f562279f8a6517ED9d36a1Ff9d495e4e38d",
+        "GenesisVaultPassPhase1": "0x0fE8AE7f7207f8C04377cdD4A711A67811cf3a73",
+        "GenesisVaultPassPhase2": "0x01B971794c4C5C265bc0326dE329e1f4c937C765"
       },
       "identity": {
         "CultureLayerIdentity": "0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863"
@@ -43,11 +48,22 @@
         "OgStaking": "0x3145f34A6CC6Ae34d9112f50885aEe826062ACbB",
         "PlatformSettlementToken": "0x6bF5638a07B8A0b0D80A3B6Ab69440B83BBAf3D0",
         "PrimaryShareSaleERC20_Property1": "0xE37446E10a28eB2B188B02C6c8dF5d8e3b3d3b32",
+        "PropertyReserveFeed": "0x89B34Ad6063ed0da2D563edBA98783DFbE69a19A",
+        "ChainlinkPriceOracle": "0xCCBe9d1Dc1472095E557f2622A2a6235BDe446Fc",
+        "ChainlinkAceAdapter": "0x6BC4E810a5999Ba76bCcCdcc74D10CcFA0d9a72d",
         "SimpleLendingPool": "0x0000000000000000000000000000000000000000",
         "GovernanceSafe": "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c"
       },
       "placesTokens": {
-        "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+        "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "OG1": "0x88a42bc87A31321639dE7e8021B92cE766661f5A",
+        "OG2": "0x0431C3d979a6f1556c815F5d8E48eF3e1Ce8c58f",
+        "OG3": "0x6Fa4db0e6317D6ED2347e39802b86EeA507F7DE5",
+        "OG4": "0xeaeA7594011b4331bCdAe974C7Aa9138C175c004",
+        "OG5": "0xbf83F4ECAA25c0883aC81549A659C10BE7A9bEC1",
+        "OG6": "0x8D4b0291bE4a8177F9baB0F4004E7B370a41D413",
+        "OG7": "0x1d4d06A05E2d67e63df936141bD14948A13D3C30",
+        "OG8": "0x7F806Be5f1BdD3Fc04570690875F314c2aBd6EC2"
       },
       "art": {
         "BuildingCultureTicket": "0x2f10aAF159aeCf78d76a610b87210BF81775b62F",

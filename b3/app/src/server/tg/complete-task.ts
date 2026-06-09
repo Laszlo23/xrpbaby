@@ -23,7 +23,12 @@ export async function completeTelegramTask(
   walletId: string | null,
   input: CompleteTaskInput,
 ): Promise<
-  | { ok: true; xpGranted: number; streakDays: number; progression: ReturnType<typeof progressionFromPoints> }
+  | {
+      ok: true;
+      xpGranted: number;
+      streakDays: number;
+      progression: ReturnType<typeof progressionFromPoints>;
+    }
   | { ok: false; error: string; status: number }
 > {
   const task = getTaskDef(input.taskId);

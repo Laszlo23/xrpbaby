@@ -696,208 +696,209 @@ export function PanicSwitchOverlay() {
             className={`pointer-events-auto fixed inset-x-3 inset-sheet-above-nav z-[45] mx-auto flex max-w-md flex-col overflow-hidden rounded-2xl border bg-gradient-to-br shadow-[0_20px_45px_rgba(0,0,0,0.45)] transition-all duration-300 sm:inset-x-auto sm:left-4 sm:right-auto sm:w-[min(360px,calc(100vw-1.5rem))] sm:bottom-[calc(6.5rem+env(safe-area-inset-bottom))] sm:top-auto sm:max-h-[min(72dvh,560px)] ${scene.frameClassName}`}
           >
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-3">
-            <div className="mb-2 flex items-center justify-between gap-2">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/70">
-                  Panic Switch
-                </p>
-                <p className="font-semibold">{scene.title}</p>
-                <p className="text-[11px] text-white/70">{scene.subtitle}</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setModalOpen(false)}
-                className="rounded-full border border-white/25 bg-black/30 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white"
-              >
-                Close
-              </button>
-            </div>
-
-            <p className="mb-2 rounded-lg border border-white/20 bg-black/35 px-2.5 py-1.5 text-[11px] text-white/80">
-              Press once to arm. Then only press when the 10s siren countdown appears.
-            </p>
-            <p className="mb-2 rounded-lg border border-cyan-300/30 bg-cyan-500/10 px-2.5 py-1.5 text-[11px] text-cyan-100">
-              {beat.chapter} · {beat.chapterHook}
-            </p>
-            <p className="mb-2 rounded-lg border border-white/15 bg-black/25 px-2.5 py-1.5 text-[11px] italic text-white/85">
-              "{phaseQuotes[state.phase]}"
-            </p>
-            <p className="mb-2 rounded-lg border border-[#C5FF41]/25 bg-[#C5FF41]/10 px-2.5 py-1.5 text-[11px] text-[#eaffb8]">
-              {state.phase === "active"
-                ? beat.activeBridge
-                : state.phase === "endurance" || state.phase === "completed"
-                  ? beat.enduranceBridge
-                  : phaseStoryBridge[state.phase]}
-            </p>
-
-            <div className="rounded-xl border border-white/20 bg-black/35 px-3 py-2 text-sm text-white">
-              <div className="mb-1 flex items-center justify-between text-[11px] text-white/75">
-                <span>Phase</span>
-                <span className="font-semibold uppercase">{state.phase.replace("_", " ")}</span>
-              </div>
-              {state.phase === "active" ? (
-                <div className="space-y-1">
-                  <p className="text-[12px] text-white/80">Cycle {activeCycleLabel}</p>
-                  <p className="font-mono text-lg">
-                    {derived.warningActive
-                      ? `00:${derived.countdownSeconds.toString().padStart(2, "0")}`
-                      : formatClock(derived.cycleRemainingMs)}
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/70">
+                    Panic Switch
                   </p>
-                  {derived.warningActive ? (
-                    <p className="animate-pulse text-xs font-semibold text-rose-200">
-                      Siren live. Press before zero.
+                  <p className="font-semibold">{scene.title}</p>
+                  <p className="text-[11px] text-white/70">{scene.subtitle}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="rounded-full border border-white/25 bg-black/30 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white"
+                >
+                  Close
+                </button>
+              </div>
+
+              <p className="mb-2 rounded-lg border border-white/20 bg-black/35 px-2.5 py-1.5 text-[11px] text-white/80">
+                Press once to arm. Then only press when the 10s siren countdown appears.
+              </p>
+              <p className="mb-2 rounded-lg border border-cyan-300/30 bg-cyan-500/10 px-2.5 py-1.5 text-[11px] text-cyan-100">
+                {beat.chapter} · {beat.chapterHook}
+              </p>
+              <p className="mb-2 rounded-lg border border-white/15 bg-black/25 px-2.5 py-1.5 text-[11px] italic text-white/85">
+                "{phaseQuotes[state.phase]}"
+              </p>
+              <p className="mb-2 rounded-lg border border-[#C5FF41]/25 bg-[#C5FF41]/10 px-2.5 py-1.5 text-[11px] text-[#eaffb8]">
+                {state.phase === "active"
+                  ? beat.activeBridge
+                  : state.phase === "endurance" || state.phase === "completed"
+                    ? beat.enduranceBridge
+                    : phaseStoryBridge[state.phase]}
+              </p>
+
+              <div className="rounded-xl border border-white/20 bg-black/35 px-3 py-2 text-sm text-white">
+                <div className="mb-1 flex items-center justify-between text-[11px] text-white/75">
+                  <span>Phase</span>
+                  <span className="font-semibold uppercase">{state.phase.replace("_", " ")}</span>
+                </div>
+                {state.phase === "active" ? (
+                  <div className="space-y-1">
+                    <p className="text-[12px] text-white/80">Cycle {activeCycleLabel}</p>
+                    <p className="font-mono text-lg">
+                      {derived.warningActive
+                        ? `00:${derived.countdownSeconds.toString().padStart(2, "0")}`
+                        : formatClock(derived.cycleRemainingMs)}
                     </p>
-                  ) : (
-                    <p className="text-xs text-white/70">Wait for the final 10-second warning.</p>
-                  )}
-                </div>
-              ) : null}
-              {state.phase === "endurance" ? (
-                <div className="space-y-1">
-                  <p className="text-[12px] text-white/80">Endurance target</p>
-                  <p className="font-mono text-lg">{formatClock(derived.enduranceRemainingMs)}</p>
-                  <p className="text-xs text-white/70">
-                    {tabVisible
-                      ? "Tracking while this tab stays visible."
-                      : "Paused. Return to this tab."}
+                    {derived.warningActive ? (
+                      <p className="animate-pulse text-xs font-semibold text-rose-200">
+                        Siren live. Press before zero.
+                      </p>
+                    ) : (
+                      <p className="text-xs text-white/70">Wait for the final 10-second warning.</p>
+                    )}
+                  </div>
+                ) : null}
+                {state.phase === "endurance" ? (
+                  <div className="space-y-1">
+                    <p className="text-[12px] text-white/80">Endurance target</p>
+                    <p className="font-mono text-lg">{formatClock(derived.enduranceRemainingMs)}</p>
+                    <p className="text-xs text-white/70">
+                      {tabVisible
+                        ? "Tracking while this tab stays visible."
+                        : "Paused. Return to this tab."}
+                    </p>
+                  </div>
+                ) : null}
+                {state.phase === "failed" ? (
+                  <p className="text-xs text-rose-200">
+                    Countdown was missed. Restart and hold rhythm.
                   </p>
-                </div>
-              ) : null}
-              {state.phase === "failed" ? (
-                <p className="text-xs text-rose-200">
-                  Countdown was missed. Restart and hold rhythm.
-                </p>
-              ) : null}
-              {state.phase === "completed" ? (
-                <p className="text-xs text-lime-200">
-                  Full run completed. Precision score locked at {precision}/777.
-                </p>
-              ) : null}
-            </div>
-
-            <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-white/80">
-              <div className="rounded-lg border border-white/20 bg-black/30 px-2 py-1">
-                <p className="uppercase tracking-wide text-white/60">Resets</p>
-                <p className="font-semibold">{state.resetsSuccessful}</p>
-              </div>
-              <div className="rounded-lg border border-white/20 bg-black/30 px-2 py-1">
-                <p className="uppercase tracking-wide text-white/60">Precision</p>
-                <p className="font-semibold">{precision}/777</p>
-              </div>
-            </div>
-            <div className="mt-2 rounded-lg border border-cyan-300/25 bg-cyan-500/5 px-2.5 py-2 text-[11px] text-cyan-100">
-              <p className="font-semibold">Hidden track fragments</p>
-              <div className="mt-1 flex flex-wrap gap-1">
-                {(["signal", "timing", "patience"] as PanicRiddleClue[]).map((clue) => {
-                  const unlocked = derived.riddleCluesUnlocked.includes(clue);
-                  return (
-                    <span
-                      key={clue}
-                      className={`rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wide ${
-                        unlocked
-                          ? "border-cyan-300/55 bg-cyan-400/15 text-cyan-100"
-                          : "border-white/20 bg-black/30 text-white/50"
-                      }`}
-                    >
-                      {unlocked ? clueLabelMap[clue] : `${clue} locked`}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-
-            <p className="mt-2 text-[11px] text-white/80">{statusHint}</p>
-            <p className="mt-1 text-[11px] italic text-white/70">{scene.quote}</p>
-            <p className="mt-1 rounded-md border border-white/15 bg-black/20 px-2 py-1 text-[11px] font-medium text-white/85">
-              {triggerLine(state.phase, derived.warningActive, derived.countdownSeconds, beat)}
-            </p>
-
-            <div className="mt-3 flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handlePress}
-                disabled={actionDisabled}
-                className={`flex-1 rounded-xl px-3 py-2 text-sm font-bold uppercase tracking-wide transition ${
-                  actionDisabled
-                    ? "cursor-not-allowed border border-white/20 bg-black/30 text-white/50"
-                    : "animate-[pulse_1.4s_ease-in-out_infinite] bg-[#C5FF41] text-black hover:brightness-95"
-                }`}
-              >
-                {actionLabel}
-              </button>
-              <button
-                type="button"
-                onClick={clearSession}
-                className="rounded-xl border border-white/20 bg-black/35 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85"
-              >
-                Clear
-              </button>
-            </div>
-            {state.phase === "endurance" || state.phase === "completed" ? (
-              <div className="mt-2 rounded-xl border border-[#C5FF41]/25 bg-[#C5FF41]/10 p-2">
-                <p className="text-[11px] text-[#edffc0]">
-                  After 10 rounds you can claim a daily {BCC_SYMBOL} reward with wallet attestation.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => void claimDailyBccReward()}
-                  disabled={!canClaimReward || claimingReward || signing || !isConnected}
-                  className={`mt-2 w-full rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide ${
-                    !canClaimReward || claimingReward || signing || !isConnected
-                      ? "cursor-not-allowed border border-white/20 bg-black/35 text-white/60"
-                      : "border border-[#C5FF41]/45 bg-black/55 text-[#C5FF41] hover:bg-black/70"
-                  }`}
-                >
-                  {!isConnected
-                    ? `Connect wallet to claim ${BCC_SYMBOL}`
-                    : claimingReward || signing
-                      ? "Attesting..."
-                      : canClaimReward
-                        ? `Claim daily ${BCC_SYMBOL} reward`
-                        : `Today's ${BCC_SYMBOL} reward claimed`}
-                </button>
-              </div>
-            ) : null}
-            {showVoucherSection ? (
-              <div className="mt-2 rounded-xl border border-cyan-300/35 bg-cyan-500/10 p-2">
-                <p className="text-[11px] text-cyan-100">
-                  Hidden track riddle:{" "}
-                  <span className="italic">"Three keys run the city at midnight."</span> Name the
-                  three keys in order.
-                </p>
-                <input
-                  value={riddleAnswer}
-                  onChange={(e) => setRiddleAnswer(e.target.value)}
-                  placeholder="your answer..."
-                  className="mt-2 w-full rounded-lg border border-white/20 bg-black/40 px-3 py-2 text-xs text-white placeholder:text-white/40 outline-none"
-                />
-                <button
-                  type="button"
-                  onClick={() => void claimHiddenVoucher()}
-                  disabled={!canClaimVoucher}
-                  className={`mt-2 w-full rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide ${
-                    canClaimVoucher
-                      ? "border border-cyan-300/50 bg-black/60 text-cyan-100 hover:bg-black/80"
-                      : "cursor-not-allowed border border-white/20 bg-black/35 text-white/60"
-                  }`}
-                >
-                  {!isConnected
-                    ? "Connect wallet for hidden voucher"
-                    : claimingVoucher || signing
-                      ? "Attesting hidden track..."
-                      : voucherClaimed || derived.riddleSolved
-                        ? `Hidden voucher claimed${voucherTokenId ? ` · token #${voucherTokenId}` : ""}`
-                        : derived.riddleReady
-                          ? "Claim Hidden Voucher NFT"
-                          : "Hidden track locked"}
-                </button>
-                {voucherTxHash ? (
-                  <p className="mt-1 text-[10px] text-cyan-100/80">
-                    tx: {voucherTxHash.slice(0, 18)}...
+                ) : null}
+                {state.phase === "completed" ? (
+                  <p className="text-xs text-lime-200">
+                    Full run completed. Precision score locked at {precision}/777.
                   </p>
                 ) : null}
               </div>
-            ) : null}
+
+              <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-white/80">
+                <div className="rounded-lg border border-white/20 bg-black/30 px-2 py-1">
+                  <p className="uppercase tracking-wide text-white/60">Resets</p>
+                  <p className="font-semibold">{state.resetsSuccessful}</p>
+                </div>
+                <div className="rounded-lg border border-white/20 bg-black/30 px-2 py-1">
+                  <p className="uppercase tracking-wide text-white/60">Precision</p>
+                  <p className="font-semibold">{precision}/777</p>
+                </div>
+              </div>
+              <div className="mt-2 rounded-lg border border-cyan-300/25 bg-cyan-500/5 px-2.5 py-2 text-[11px] text-cyan-100">
+                <p className="font-semibold">Hidden track fragments</p>
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {(["signal", "timing", "patience"] as PanicRiddleClue[]).map((clue) => {
+                    const unlocked = derived.riddleCluesUnlocked.includes(clue);
+                    return (
+                      <span
+                        key={clue}
+                        className={`rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wide ${
+                          unlocked
+                            ? "border-cyan-300/55 bg-cyan-400/15 text-cyan-100"
+                            : "border-white/20 bg-black/30 text-white/50"
+                        }`}
+                      >
+                        {unlocked ? clueLabelMap[clue] : `${clue} locked`}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <p className="mt-2 text-[11px] text-white/80">{statusHint}</p>
+              <p className="mt-1 text-[11px] italic text-white/70">{scene.quote}</p>
+              <p className="mt-1 rounded-md border border-white/15 bg-black/20 px-2 py-1 text-[11px] font-medium text-white/85">
+                {triggerLine(state.phase, derived.warningActive, derived.countdownSeconds, beat)}
+              </p>
+
+              <div className="mt-3 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handlePress}
+                  disabled={actionDisabled}
+                  className={`flex-1 rounded-xl px-3 py-2 text-sm font-bold uppercase tracking-wide transition ${
+                    actionDisabled
+                      ? "cursor-not-allowed border border-white/20 bg-black/30 text-white/50"
+                      : "animate-[pulse_1.4s_ease-in-out_infinite] bg-[#C5FF41] text-black hover:brightness-95"
+                  }`}
+                >
+                  {actionLabel}
+                </button>
+                <button
+                  type="button"
+                  onClick={clearSession}
+                  className="rounded-xl border border-white/20 bg-black/35 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85"
+                >
+                  Clear
+                </button>
+              </div>
+              {state.phase === "endurance" || state.phase === "completed" ? (
+                <div className="mt-2 rounded-xl border border-[#C5FF41]/25 bg-[#C5FF41]/10 p-2">
+                  <p className="text-[11px] text-[#edffc0]">
+                    After 10 rounds you can claim a daily {BCC_SYMBOL} reward with wallet
+                    attestation.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => void claimDailyBccReward()}
+                    disabled={!canClaimReward || claimingReward || signing || !isConnected}
+                    className={`mt-2 w-full rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide ${
+                      !canClaimReward || claimingReward || signing || !isConnected
+                        ? "cursor-not-allowed border border-white/20 bg-black/35 text-white/60"
+                        : "border border-[#C5FF41]/45 bg-black/55 text-[#C5FF41] hover:bg-black/70"
+                    }`}
+                  >
+                    {!isConnected
+                      ? `Connect wallet to claim ${BCC_SYMBOL}`
+                      : claimingReward || signing
+                        ? "Attesting..."
+                        : canClaimReward
+                          ? `Claim daily ${BCC_SYMBOL} reward`
+                          : `Today's ${BCC_SYMBOL} reward claimed`}
+                  </button>
+                </div>
+              ) : null}
+              {showVoucherSection ? (
+                <div className="mt-2 rounded-xl border border-cyan-300/35 bg-cyan-500/10 p-2">
+                  <p className="text-[11px] text-cyan-100">
+                    Hidden track riddle:{" "}
+                    <span className="italic">"Three keys run the city at midnight."</span> Name the
+                    three keys in order.
+                  </p>
+                  <input
+                    value={riddleAnswer}
+                    onChange={(e) => setRiddleAnswer(e.target.value)}
+                    placeholder="your answer..."
+                    className="mt-2 w-full rounded-lg border border-white/20 bg-black/40 px-3 py-2 text-xs text-white placeholder:text-white/40 outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => void claimHiddenVoucher()}
+                    disabled={!canClaimVoucher}
+                    className={`mt-2 w-full rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide ${
+                      canClaimVoucher
+                        ? "border border-cyan-300/50 bg-black/60 text-cyan-100 hover:bg-black/80"
+                        : "cursor-not-allowed border border-white/20 bg-black/35 text-white/60"
+                    }`}
+                  >
+                    {!isConnected
+                      ? "Connect wallet for hidden voucher"
+                      : claimingVoucher || signing
+                        ? "Attesting hidden track..."
+                        : voucherClaimed || derived.riddleSolved
+                          ? `Hidden voucher claimed${voucherTokenId ? ` · token #${voucherTokenId}` : ""}`
+                          : derived.riddleReady
+                            ? "Claim Hidden Voucher NFT"
+                            : "Hidden track locked"}
+                  </button>
+                  {voucherTxHash ? (
+                    <p className="mt-1 text-[10px] text-cyan-100/80">
+                      tx: {voucherTxHash.slice(0, 18)}...
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           </div>
         </>

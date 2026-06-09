@@ -4,6 +4,15 @@
   "bccToken": "0xb890a5289f789f1346032ccc1847939e855fab07",
   "uniswapUrl": "https://app.uniswap.org/swap?outputCurrency=0xB890a5289F789f1346032Ccc1847939e855FAb07&chain=base",
   "bccDiscountBps": 1111,
+  "uniswapV3Pool": "0xbb1a4e26d908a8fdddcea5d634faaa47eb8959b78384af66fea0bf45732143fb",
+  "aerodrome": {
+    "enabled": true,
+    "pool": "",
+    "gauge": "",
+    "lpToken": "",
+    "depositUrl": "https://aerodrome.finance/deposit?token0=0xb890a5289f789f1346032ccc1847939e855fab07&token1=0x4200000000000000000000000000000000000006&chain=base",
+    "note": "No Aerodrome listing yet (2026-06) — run npm run aerodrome:resolve after treasury seeds pool"
+  },
   "contracts": {
     "BccTwapOracle": "",
     "MockBccUsdOracle": "0x46C96e0A459ea441873FA8c3077f42b5e1E9cB4f",

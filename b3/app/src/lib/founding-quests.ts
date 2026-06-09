@@ -38,6 +38,12 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     culturePoints: 50,
   },
   {
+    slug: "visit-liquidity-hub",
+    title: "Learn BCC liquidity",
+    description: "Complete the lesson track at /liquidity.",
+    culturePoints: 40,
+  },
+  {
     slug: "studio-first-app",
     title: "Ship in BC Studio",
     description: "Create your first app in BC Studio.",

@@ -11,10 +11,7 @@ export function streakBonusXp(streakDays: number): number {
   return 0;
 }
 
-export async function computeStreakDays(
-  prisma: PrismaClient,
-  memberId: string,
-): Promise<number> {
+export async function computeStreakDays(prisma: PrismaClient, memberId: string): Promise<number> {
   const events = await prisma.activityEvent.findMany({
     where: { memberId, type: "tg:daily_checkin" },
     orderBy: { createdAt: "desc" },
@@ -41,10 +38,7 @@ export async function computeStreakDays(
   return streak;
 }
 
-export async function hasCheckedInToday(
-  prisma: PrismaClient,
-  memberId: string,
-): Promise<boolean> {
+export async function hasCheckedInToday(prisma: PrismaClient, memberId: string): Promise<boolean> {
   const today = utcDayKey(new Date());
   const start = new Date(`${today}T00:00:00.000Z`);
   const end = new Date(`${today}T23:59:59.999Z`);

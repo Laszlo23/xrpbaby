@@ -134,6 +134,19 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
         const addr = address.toLowerCase();
         const { wallet } = await ensureWalletAndMember(prisma, addr);
 
+        if (data.taskSlug === "bcc-lp-proof") {
+          const { walletHasBccLpProof } = await import("@/server/liquidity/lp-proof");
+          const lp = await walletHasBccLpProof(address as Address);
+          if (!lp.ok) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: lp.error ?? "lp_proof_required",
+            };
+          }
+        }
+
         const existing = await prisma.pointLedger.findFirst({
           where: {
             walletId: wallet.id,
@@ -1224,6 +1237,53 @@ export const postClaimPanicSwitchBccReward = createServerFn({ method: "POST" })
           balance: 0,
           alreadyCompleted: false,
           error: e instanceof Error ? e.message : "panic_reward_error",
+        };
+      }
+    },
+  );
+
+const redeemPointsSchema = z.object({
+  message: z.string().min(10),
+  signature: z.string().min(10),
+  points: z.number().int().positive().max(1_000_000),
+  idempotencyKey: z.string().min(8).max(128),
+});
+
+/** SIWE-gated Culture Points → BCC redemption (treasury transfer). */
+export const postRedeemPointsForBcc = createServerFn({ method: "POST" })
+  .inputValidator((raw: unknown) => redeemPointsSchema.parse(raw))
+  .handler(
+    async ({
+      data,
+    }): Promise<{
+      ok: boolean;
+      balance: number;
+      bccWei?: string;
+      txHash?: string;
+      redemptionId?: string;
+      alreadyRedeemed?: boolean;
+      error?: string;
+    }> => {
+      const { getPrisma } = await import("@/server/db/prisma");
+      const { verifySiweSignature } = await import("@bc/identity/server");
+      const { redeemPointsForBcc } = await import("@/server/points/redeem");
+
+      const prisma = getPrisma();
+      if (!prisma) {
+        return { ok: false, balance: 0, error: "no_database" };
+      }
+      try {
+        const address = await verifySiweSignature(data.message, data.signature);
+        return redeemPointsForBcc(prisma, {
+          address,
+          points: data.points,
+          idempotencyKey: data.idempotencyKey,
+        });
+      } catch (e) {
+        return {
+          ok: false,
+          balance: 0,
+          error: e instanceof Error ? e.message : "redeem_error",
         };
       }
     },
