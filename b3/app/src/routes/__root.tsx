@@ -25,6 +25,7 @@ import { AnalyticsRouteTracker } from "@/components/AnalyticsRouteTracker";
 import { FarcasterMiniAppReady } from "@/components/FarcasterMiniAppReady";
 import { TelegramMiniAppReady } from "@/components/TelegramMiniAppReady";
 import { JsonLd } from "@/components/JsonLd";
+import { BuilderVoicePrompt } from "@/components/BuilderVoicePrompt";
 import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootFontPreconnectLinks, rootIconLinks, rootTechnicalMeta } from "@/lib/seo";
 
 import appCss from "../styles.css?url";
@@ -113,7 +114,6 @@ function useHideBottomNav(): boolean {
   const { pathname } = useLocation();
   if (pathname === "/") return true;
   if (pathname.startsWith("/join")) return true;
-  if (pathname.startsWith("/forest")) return true;
   if (pathname.startsWith("/welcome")) return true;
   if (pathname.startsWith("/tg")) return true;
   if (pathname.startsWith("/intelligence")) return true;
@@ -137,6 +137,8 @@ function AppChrome() {
 }
 
 function RootComponent() {
+  const { pathname } = useLocation();
+
   useEffect(() => {
     void import("@/lib/sentry").then((m) => m.initClientSentry());
   }, []);
@@ -164,6 +166,9 @@ function RootComponent() {
               <PanicSwitchOverlay />
               <AiPulseCoach />
             </>
+          ) : null}
+          {!minimalChrome && !pathname.startsWith("/voice") ? (
+            <BuilderVoicePrompt pathname={pathname} />
           ) : null}
           <Toaster richColors position="top-center" />
         </AiCoachProvider>

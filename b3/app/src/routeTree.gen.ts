@@ -9,11 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as TradingAgentRouteImport } from './routes/trading-agent'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as SwapRouteImport } from './routes/swap'
 import { Route as StoryRouteImport } from './routes/story'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RootsRouteImport } from './routes/roots'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -53,12 +55,14 @@ import { Route as ForestIndexRouteImport } from './routes/forest/index'
 import { Route as EarthIndexRouteImport } from './routes/earth/index'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BccIndexRouteImport } from './routes/bcc/index'
 import { Route as WalletPacksRouteImport } from './routes/wallet/packs'
 import { Route as TgDevRouteImport } from './routes/tg/dev'
 import { Route as StudioProjectIdRouteImport } from './routes/studio/$projectId'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as SelfAgentidRouteImport } from './routes/self.agentid'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
+import { Route as OpsAttributionRouteImport } from './routes/ops/attribution'
 import { Route as NNameRouteImport } from './routes/n/$name'
 import { Route as MarketplaceSellRouteImport } from './routes/marketplace.sell'
 import { Route as MarketplaceListingIdRouteImport } from './routes/marketplace.$listingId'
@@ -103,6 +107,8 @@ import { Route as ApiSocialSyncScoreRouteImport } from './routes/api/social/sync
 import { Route as ApiSocialSuggestionsRouteImport } from './routes/api/social/suggestions'
 import { Route as ApiSocialLinkFarcasterInternalRouteImport } from './routes/api/social/link-farcaster-internal'
 import { Route as ApiSocialLinkFarcasterRouteImport } from './routes/api/social/link-farcaster'
+import { Route as ApiRootsStatsRouteImport } from './routes/api/roots/stats'
+import { Route as ApiRootsBoostRouteImport } from './routes/api/roots/boost'
 import { Route as ApiRewardsSummaryRouteImport } from './routes/api/rewards/summary'
 import { Route as ApiPulseMetricsRouteImport } from './routes/api/pulse/metrics'
 import { Route as ApiPulseFeedRouteImport } from './routes/api/pulse/feed'
@@ -111,6 +117,7 @@ import { Route as ApiPlatformWaitlistRouteImport } from './routes/api/platform/w
 import { Route as ApiPlatformSiweNonceRouteImport } from './routes/api/platform/siwe-nonce'
 import { Route as ApiPlatformOnboardingCompleteRouteImport } from './routes/api/platform/onboarding-complete'
 import { Route as ApiPlatformFunnelBaselineRouteImport } from './routes/api/platform/funnel-baseline'
+import { Route as ApiPlatformAttributionDashboardRouteImport } from './routes/api/platform/attribution-dashboard'
 import { Route as ApiPlatformAnalyticsRouteImport } from './routes/api/platform/analytics'
 import { Route as ApiMemberMeRouteImport } from './routes/api/member/me'
 import { Route as ApiMemberLeaderboardRouteImport } from './routes/api/member/leaderboard'
@@ -133,6 +140,11 @@ import { Route as ApiIntelligenceAppsRouteImport } from './routes/api/intelligen
 import { Route as ApiIdentityVerifyNameRouteImport } from './routes/api/identity/verify-name'
 import { Route as ApiIdentityResolveRouteImport } from './routes/api/identity/resolve'
 import { Route as ApiGrantVerificationRouteImport } from './routes/api/grant/verification'
+import { Route as ApiFeedbackWallRouteImport } from './routes/api/feedback/wall'
+import { Route as ApiFeedbackSubmitRouteImport } from './routes/api/feedback/submit'
+import { Route as ApiFeedbackStatsRouteImport } from './routes/api/feedback/stats'
+import { Route as ApiFeedbackReviewRouteImport } from './routes/api/feedback/review'
+import { Route as ApiFeedbackMineRouteImport } from './routes/api/feedback/mine'
 import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
 import { Route as ApiAirdropClaimRouteImport } from './routes/api/airdrop/claim'
@@ -164,6 +176,11 @@ import { Route as ApiMarketBccSolanaRouteRouteImport } from './routes/api/market
 import { Route as ApiInvestorsWorkshopSessionRouteImport } from './routes/api/investors/workshop/session'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 
+const VoiceRoute = VoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TradingAgentRoute = TradingAgentRouteImport.update({
   id: '/trading-agent',
   path: '/trading-agent',
@@ -187,6 +204,11 @@ const StoryRoute = StoryRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RootsRoute = RootsRouteImport.update({
+  id: '/roots',
+  path: '/roots',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
@@ -384,6 +406,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BccIndexRoute = BccIndexRouteImport.update({
+  id: '/bcc/',
+  path: '/bcc/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WalletPacksRoute = WalletPacksRouteImport.update({
   id: '/wallet/packs',
   path: '/wallet/packs',
@@ -412,6 +439,11 @@ const SelfAgentidRoute = SelfAgentidRouteImport.update({
 const PSlugRoute = PSlugRouteImport.update({
   id: '/p/$slug',
   path: '/p/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpsAttributionRoute = OpsAttributionRouteImport.update({
+  id: '/ops/attribution',
+  path: '/ops/attribution',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NNameRoute = NNameRouteImport.update({
@@ -637,6 +669,16 @@ const ApiSocialLinkFarcasterRoute = ApiSocialLinkFarcasterRouteImport.update({
   path: '/api/social/link-farcaster',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiRootsStatsRoute = ApiRootsStatsRouteImport.update({
+  id: '/api/roots/stats',
+  path: '/api/roots/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRootsBoostRoute = ApiRootsBoostRouteImport.update({
+  id: '/api/roots/boost',
+  path: '/api/roots/boost',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiRewardsSummaryRoute = ApiRewardsSummaryRouteImport.update({
   id: '/api/rewards/summary',
   path: '/api/rewards/summary',
@@ -678,6 +720,12 @@ const ApiPlatformFunnelBaselineRoute =
   ApiPlatformFunnelBaselineRouteImport.update({
     id: '/api/platform/funnel-baseline',
     path: '/api/platform/funnel-baseline',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPlatformAttributionDashboardRoute =
+  ApiPlatformAttributionDashboardRouteImport.update({
+    id: '/api/platform/attribution-dashboard',
+    path: '/api/platform/attribution-dashboard',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPlatformAnalyticsRoute = ApiPlatformAnalyticsRouteImport.update({
@@ -789,6 +837,31 @@ const ApiIdentityResolveRoute = ApiIdentityResolveRouteImport.update({
 const ApiGrantVerificationRoute = ApiGrantVerificationRouteImport.update({
   id: '/api/grant/verification',
   path: '/api/grant/verification',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFeedbackWallRoute = ApiFeedbackWallRouteImport.update({
+  id: '/api/feedback/wall',
+  path: '/api/feedback/wall',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFeedbackSubmitRoute = ApiFeedbackSubmitRouteImport.update({
+  id: '/api/feedback/submit',
+  path: '/api/feedback/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFeedbackStatsRoute = ApiFeedbackStatsRouteImport.update({
+  id: '/api/feedback/stats',
+  path: '/api/feedback/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFeedbackReviewRoute = ApiFeedbackReviewRouteImport.update({
+  id: '/api/feedback/review',
+  path: '/api/feedback/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFeedbackMineRoute = ApiFeedbackMineRouteImport.update({
+  id: '/api/feedback/mine',
+  path: '/api/feedback/mine',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiEliasInboundRoute = ApiEliasInboundRouteImport.update({
@@ -978,11 +1051,13 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/roots': typeof RootsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/story': typeof StoryRoute
   '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
+  '/voice': typeof VoiceRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
@@ -1003,12 +1078,14 @@ export interface FileRoutesByFullPath {
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/n/$name': typeof NNameRoute
+  '/ops/attribution': typeof OpsAttributionRoute
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/studio/$projectId': typeof StudioProjectIdRoute
   '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
+  '/bcc/': typeof BccIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
@@ -1027,6 +1104,11 @@ export interface FileRoutesByFullPath {
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/feedback/mine': typeof ApiFeedbackMineRoute
+  '/api/feedback/review': typeof ApiFeedbackReviewRoute
+  '/api/feedback/stats': typeof ApiFeedbackStatsRoute
+  '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
+  '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
@@ -1049,6 +1131,7 @@ export interface FileRoutesByFullPath {
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
+  '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
@@ -1057,6 +1140,8 @@ export interface FileRoutesByFullPath {
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
+  '/api/roots/boost': typeof ApiRootsBoostRoute
+  '/api/roots/stats': typeof ApiRootsStatsRoute
   '/api/social/link-farcaster': typeof ApiSocialLinkFarcasterRoute
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
@@ -1133,11 +1218,13 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/roots': typeof RootsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/story': typeof StoryRoute
   '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
+  '/voice': typeof VoiceRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
@@ -1158,12 +1245,14 @@ export interface FileRoutesByTo {
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/n/$name': typeof NNameRoute
+  '/ops/attribution': typeof OpsAttributionRoute
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/studio/$projectId': typeof StudioProjectIdRoute
   '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
+  '/bcc': typeof BccIndexRoute
   '/blog': typeof BlogIndexRoute
   '/docs': typeof DocsIndexRoute
   '/earth': typeof EarthIndexRoute
@@ -1182,6 +1271,11 @@ export interface FileRoutesByTo {
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/feedback/mine': typeof ApiFeedbackMineRoute
+  '/api/feedback/review': typeof ApiFeedbackReviewRoute
+  '/api/feedback/stats': typeof ApiFeedbackStatsRoute
+  '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
+  '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
@@ -1204,6 +1298,7 @@ export interface FileRoutesByTo {
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
+  '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
@@ -1212,6 +1307,8 @@ export interface FileRoutesByTo {
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
+  '/api/roots/boost': typeof ApiRootsBoostRoute
+  '/api/roots/stats': typeof ApiRootsStatsRoute
   '/api/social/link-farcaster': typeof ApiSocialLinkFarcasterRoute
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
@@ -1290,11 +1387,13 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/roadmap': typeof RoadmapRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/roots': typeof RootsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/story': typeof StoryRoute
   '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
+  '/voice': typeof VoiceRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
@@ -1315,12 +1414,14 @@ export interface FileRoutesById {
   '/marketplace/$listingId': typeof MarketplaceListingIdRoute
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/n/$name': typeof NNameRoute
+  '/ops/attribution': typeof OpsAttributionRoute
   '/p/$slug': typeof PSlugRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/studio/$projectId': typeof StudioProjectIdRoute
   '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
+  '/bcc/': typeof BccIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
@@ -1339,6 +1440,11 @@ export interface FileRoutesById {
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/feedback/mine': typeof ApiFeedbackMineRoute
+  '/api/feedback/review': typeof ApiFeedbackReviewRoute
+  '/api/feedback/stats': typeof ApiFeedbackStatsRoute
+  '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
+  '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
@@ -1361,6 +1467,7 @@ export interface FileRoutesById {
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
+  '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
   '/api/platform/onboarding-complete': typeof ApiPlatformOnboardingCompleteRoute
   '/api/platform/siwe-nonce': typeof ApiPlatformSiweNonceRoute
@@ -1369,6 +1476,8 @@ export interface FileRoutesById {
   '/api/pulse/feed': typeof ApiPulseFeedRouteWithChildren
   '/api/pulse/metrics': typeof ApiPulseMetricsRoute
   '/api/rewards/summary': typeof ApiRewardsSummaryRoute
+  '/api/roots/boost': typeof ApiRootsBoostRoute
+  '/api/roots/stats': typeof ApiRootsStatsRoute
   '/api/social/link-farcaster': typeof ApiSocialLinkFarcasterRoute
   '/api/social/link-farcaster-internal': typeof ApiSocialLinkFarcasterInternalRoute
   '/api/social/suggestions': typeof ApiSocialSuggestionsRoute
@@ -1448,11 +1557,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/roadmap'
     | '/robots.txt'
+    | '/roots'
     | '/sitemap.xml'
     | '/story'
     | '/swap'
     | '/team'
     | '/trading-agent'
+    | '/voice'
     | '/.well-known/agent.json'
     | '/.well-known/farcaster.json'
     | '/0g/agentid'
@@ -1473,12 +1584,14 @@ export interface FileRouteTypes {
     | '/marketplace/$listingId'
     | '/marketplace/sell'
     | '/n/$name'
+    | '/ops/attribution'
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
     | '/studio/$projectId'
     | '/tg/dev'
     | '/wallet/packs'
+    | '/bcc/'
     | '/blog/'
     | '/docs/'
     | '/earth/'
@@ -1497,6 +1610,11 @@ export interface FileRouteTypes {
     | '/api/airdrop/claim'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/feedback/mine'
+    | '/api/feedback/review'
+    | '/api/feedback/stats'
+    | '/api/feedback/submit'
+    | '/api/feedback/wall'
     | '/api/grant/verification'
     | '/api/identity/resolve'
     | '/api/identity/verify-name'
@@ -1519,6 +1637,7 @@ export interface FileRouteTypes {
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
+    | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
@@ -1527,6 +1646,8 @@ export interface FileRouteTypes {
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
+    | '/api/roots/boost'
+    | '/api/roots/stats'
     | '/api/social/link-farcaster'
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
@@ -1603,11 +1724,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/roadmap'
     | '/robots.txt'
+    | '/roots'
     | '/sitemap.xml'
     | '/story'
     | '/swap'
     | '/team'
     | '/trading-agent'
+    | '/voice'
     | '/.well-known/agent.json'
     | '/.well-known/farcaster.json'
     | '/0g/agentid'
@@ -1628,12 +1751,14 @@ export interface FileRouteTypes {
     | '/marketplace/$listingId'
     | '/marketplace/sell'
     | '/n/$name'
+    | '/ops/attribution'
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
     | '/studio/$projectId'
     | '/tg/dev'
     | '/wallet/packs'
+    | '/bcc'
     | '/blog'
     | '/docs'
     | '/earth'
@@ -1652,6 +1777,11 @@ export interface FileRouteTypes {
     | '/api/airdrop/claim'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/feedback/mine'
+    | '/api/feedback/review'
+    | '/api/feedback/stats'
+    | '/api/feedback/submit'
+    | '/api/feedback/wall'
     | '/api/grant/verification'
     | '/api/identity/resolve'
     | '/api/identity/verify-name'
@@ -1674,6 +1804,7 @@ export interface FileRouteTypes {
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
+    | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
@@ -1682,6 +1813,8 @@ export interface FileRouteTypes {
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
+    | '/api/roots/boost'
+    | '/api/roots/stats'
     | '/api/social/link-farcaster'
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
@@ -1759,11 +1892,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/roadmap'
     | '/robots.txt'
+    | '/roots'
     | '/sitemap.xml'
     | '/story'
     | '/swap'
     | '/team'
     | '/trading-agent'
+    | '/voice'
     | '/.well-known/agent.json'
     | '/.well-known/farcaster.json'
     | '/0g/agentid'
@@ -1784,12 +1919,14 @@ export interface FileRouteTypes {
     | '/marketplace/$listingId'
     | '/marketplace/sell'
     | '/n/$name'
+    | '/ops/attribution'
     | '/p/$slug'
     | '/self/agentid'
     | '/sitemap/xml'
     | '/studio/$projectId'
     | '/tg/dev'
     | '/wallet/packs'
+    | '/bcc/'
     | '/blog/'
     | '/docs/'
     | '/earth/'
@@ -1808,6 +1945,11 @@ export interface FileRouteTypes {
     | '/api/airdrop/claim'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/feedback/mine'
+    | '/api/feedback/review'
+    | '/api/feedback/stats'
+    | '/api/feedback/submit'
+    | '/api/feedback/wall'
     | '/api/grant/verification'
     | '/api/identity/resolve'
     | '/api/identity/verify-name'
@@ -1830,6 +1972,7 @@ export interface FileRouteTypes {
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
+    | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
     | '/api/platform/onboarding-complete'
     | '/api/platform/siwe-nonce'
@@ -1838,6 +1981,8 @@ export interface FileRouteTypes {
     | '/api/pulse/feed'
     | '/api/pulse/metrics'
     | '/api/rewards/summary'
+    | '/api/roots/boost'
+    | '/api/roots/stats'
     | '/api/social/link-farcaster'
     | '/api/social/link-farcaster-internal'
     | '/api/social/suggestions'
@@ -1916,11 +2061,13 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   RoadmapRoute: typeof RoadmapRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
+  RootsRoute: typeof RootsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoryRoute: typeof StoryRoute
   SwapRoute: typeof SwapRoute
   TeamRoute: typeof TeamRoute
   TradingAgentRoute: typeof TradingAgentRoute
+  VoiceRoute: typeof VoiceRoute
   DotwellKnownAgentDotjsonRoute: typeof DotwellKnownAgentDotjsonRoute
   DotwellKnownFarcasterDotjsonRoute: typeof DotwellKnownFarcasterDotjsonRoute
   R0gAgentidRoute: typeof R0gAgentidRouteWithChildren
@@ -1934,12 +2081,14 @@ export interface RootRouteChildren {
   ForestQuestsRoute: typeof ForestQuestsRoute
   IdNameRoute: typeof IdNameRoute
   NNameRoute: typeof NNameRoute
+  OpsAttributionRoute: typeof OpsAttributionRoute
   PSlugRoute: typeof PSlugRoute
   SelfAgentidRoute: typeof SelfAgentidRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
   StudioProjectIdRoute: typeof StudioProjectIdRoute
   TgDevRoute: typeof TgDevRoute
   WalletPacksRoute: typeof WalletPacksRoute
+  BccIndexRoute: typeof BccIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
   EarthIndexRoute: typeof EarthIndexRoute
@@ -1956,6 +2105,11 @@ export interface RootRouteChildren {
   ApiAirdropClaimRoute: typeof ApiAirdropClaimRoute
   ApiComplianceEligibilityRoute: typeof ApiComplianceEligibilityRoute
   ApiEliasInboundRoute: typeof ApiEliasInboundRoute
+  ApiFeedbackMineRoute: typeof ApiFeedbackMineRoute
+  ApiFeedbackReviewRoute: typeof ApiFeedbackReviewRoute
+  ApiFeedbackStatsRoute: typeof ApiFeedbackStatsRoute
+  ApiFeedbackSubmitRoute: typeof ApiFeedbackSubmitRoute
+  ApiFeedbackWallRoute: typeof ApiFeedbackWallRoute
   ApiGrantVerificationRoute: typeof ApiGrantVerificationRoute
   ApiIdentityResolveRoute: typeof ApiIdentityResolveRoute
   ApiIdentityVerifyNameRoute: typeof ApiIdentityVerifyNameRoute
@@ -1978,6 +2132,7 @@ export interface RootRouteChildren {
   ApiMemberLeaderboardRoute: typeof ApiMemberLeaderboardRoute
   ApiMemberMeRoute: typeof ApiMemberMeRoute
   ApiPlatformAnalyticsRoute: typeof ApiPlatformAnalyticsRoute
+  ApiPlatformAttributionDashboardRoute: typeof ApiPlatformAttributionDashboardRoute
   ApiPlatformFunnelBaselineRoute: typeof ApiPlatformFunnelBaselineRoute
   ApiPlatformOnboardingCompleteRoute: typeof ApiPlatformOnboardingCompleteRoute
   ApiPlatformSiweNonceRoute: typeof ApiPlatformSiweNonceRoute
@@ -1986,6 +2141,8 @@ export interface RootRouteChildren {
   ApiPulseFeedRoute: typeof ApiPulseFeedRouteWithChildren
   ApiPulseMetricsRoute: typeof ApiPulseMetricsRoute
   ApiRewardsSummaryRoute: typeof ApiRewardsSummaryRoute
+  ApiRootsBoostRoute: typeof ApiRootsBoostRoute
+  ApiRootsStatsRoute: typeof ApiRootsStatsRoute
   ApiSocialLinkFarcasterRoute: typeof ApiSocialLinkFarcasterRoute
   ApiSocialLinkFarcasterInternalRoute: typeof ApiSocialLinkFarcasterInternalRoute
   ApiSocialSuggestionsRoute: typeof ApiSocialSuggestionsRoute
@@ -2034,6 +2191,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/voice': {
+      id: '/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trading-agent': {
       id: '/trading-agent'
       path: '/trading-agent'
@@ -2067,6 +2231,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roots': {
+      id: '/roots'
+      path: '/roots'
+      fullPath: '/roots'
+      preLoaderRoute: typeof RootsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/robots.txt': {
@@ -2342,6 +2513,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bcc/': {
+      id: '/bcc/'
+      path: '/bcc'
+      fullPath: '/bcc/'
+      preLoaderRoute: typeof BccIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/wallet/packs': {
       id: '/wallet/packs'
       path: '/wallet/packs'
@@ -2382,6 +2560,13 @@ declare module '@tanstack/react-router' {
       path: '/p/$slug'
       fullPath: '/p/$slug'
       preLoaderRoute: typeof PSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ops/attribution': {
+      id: '/ops/attribution'
+      path: '/ops/attribution'
+      fullPath: '/ops/attribution'
+      preLoaderRoute: typeof OpsAttributionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/n/$name': {
@@ -2692,6 +2877,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSocialLinkFarcasterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/roots/stats': {
+      id: '/api/roots/stats'
+      path: '/api/roots/stats'
+      fullPath: '/api/roots/stats'
+      preLoaderRoute: typeof ApiRootsStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/roots/boost': {
+      id: '/api/roots/boost'
+      path: '/api/roots/boost'
+      fullPath: '/api/roots/boost'
+      preLoaderRoute: typeof ApiRootsBoostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/rewards/summary': {
       id: '/api/rewards/summary'
       path: '/api/rewards/summary'
@@ -2746,6 +2945,13 @@ declare module '@tanstack/react-router' {
       path: '/api/platform/funnel-baseline'
       fullPath: '/api/platform/funnel-baseline'
       preLoaderRoute: typeof ApiPlatformFunnelBaselineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/platform/attribution-dashboard': {
+      id: '/api/platform/attribution-dashboard'
+      path: '/api/platform/attribution-dashboard'
+      fullPath: '/api/platform/attribution-dashboard'
+      preLoaderRoute: typeof ApiPlatformAttributionDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/platform/analytics': {
@@ -2900,6 +3106,41 @@ declare module '@tanstack/react-router' {
       path: '/api/grant/verification'
       fullPath: '/api/grant/verification'
       preLoaderRoute: typeof ApiGrantVerificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/feedback/wall': {
+      id: '/api/feedback/wall'
+      path: '/api/feedback/wall'
+      fullPath: '/api/feedback/wall'
+      preLoaderRoute: typeof ApiFeedbackWallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/feedback/submit': {
+      id: '/api/feedback/submit'
+      path: '/api/feedback/submit'
+      fullPath: '/api/feedback/submit'
+      preLoaderRoute: typeof ApiFeedbackSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/feedback/stats': {
+      id: '/api/feedback/stats'
+      path: '/api/feedback/stats'
+      fullPath: '/api/feedback/stats'
+      preLoaderRoute: typeof ApiFeedbackStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/feedback/review': {
+      id: '/api/feedback/review'
+      path: '/api/feedback/review'
+      fullPath: '/api/feedback/review'
+      preLoaderRoute: typeof ApiFeedbackReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/feedback/mine': {
+      id: '/api/feedback/mine'
+      path: '/api/feedback/mine'
+      fullPath: '/api/feedback/mine'
+      preLoaderRoute: typeof ApiFeedbackMineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/elias/inbound': {
@@ -3247,11 +3488,13 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   RoadmapRoute: RoadmapRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
+  RootsRoute: RootsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoryRoute: StoryRoute,
   SwapRoute: SwapRoute,
   TeamRoute: TeamRoute,
   TradingAgentRoute: TradingAgentRoute,
+  VoiceRoute: VoiceRoute,
   DotwellKnownAgentDotjsonRoute: DotwellKnownAgentDotjsonRoute,
   DotwellKnownFarcasterDotjsonRoute: DotwellKnownFarcasterDotjsonRoute,
   R0gAgentidRoute: R0gAgentidRouteWithChildren,
@@ -3265,12 +3508,14 @@ const rootRouteChildren: RootRouteChildren = {
   ForestQuestsRoute: ForestQuestsRoute,
   IdNameRoute: IdNameRoute,
   NNameRoute: NNameRoute,
+  OpsAttributionRoute: OpsAttributionRoute,
   PSlugRoute: PSlugRoute,
   SelfAgentidRoute: SelfAgentidRoute,
   SitemapXmlRoute: SitemapXmlRoute,
   StudioProjectIdRoute: StudioProjectIdRoute,
   TgDevRoute: TgDevRoute,
   WalletPacksRoute: WalletPacksRoute,
+  BccIndexRoute: BccIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
   EarthIndexRoute: EarthIndexRoute,
@@ -3287,6 +3532,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAirdropClaimRoute: ApiAirdropClaimRoute,
   ApiComplianceEligibilityRoute: ApiComplianceEligibilityRoute,
   ApiEliasInboundRoute: ApiEliasInboundRoute,
+  ApiFeedbackMineRoute: ApiFeedbackMineRoute,
+  ApiFeedbackReviewRoute: ApiFeedbackReviewRoute,
+  ApiFeedbackStatsRoute: ApiFeedbackStatsRoute,
+  ApiFeedbackSubmitRoute: ApiFeedbackSubmitRoute,
+  ApiFeedbackWallRoute: ApiFeedbackWallRoute,
   ApiGrantVerificationRoute: ApiGrantVerificationRoute,
   ApiIdentityResolveRoute: ApiIdentityResolveRoute,
   ApiIdentityVerifyNameRoute: ApiIdentityVerifyNameRoute,
@@ -3309,6 +3559,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMemberLeaderboardRoute: ApiMemberLeaderboardRoute,
   ApiMemberMeRoute: ApiMemberMeRoute,
   ApiPlatformAnalyticsRoute: ApiPlatformAnalyticsRoute,
+  ApiPlatformAttributionDashboardRoute: ApiPlatformAttributionDashboardRoute,
   ApiPlatformFunnelBaselineRoute: ApiPlatformFunnelBaselineRoute,
   ApiPlatformOnboardingCompleteRoute: ApiPlatformOnboardingCompleteRoute,
   ApiPlatformSiweNonceRoute: ApiPlatformSiweNonceRoute,
@@ -3317,6 +3568,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPulseFeedRoute: ApiPulseFeedRouteWithChildren,
   ApiPulseMetricsRoute: ApiPulseMetricsRoute,
   ApiRewardsSummaryRoute: ApiRewardsSummaryRoute,
+  ApiRootsBoostRoute: ApiRootsBoostRoute,
+  ApiRootsStatsRoute: ApiRootsStatsRoute,
   ApiSocialLinkFarcasterRoute: ApiSocialLinkFarcasterRoute,
   ApiSocialLinkFarcasterInternalRoute: ApiSocialLinkFarcasterInternalRoute,
   ApiSocialSuggestionsRoute: ApiSocialSuggestionsRoute,

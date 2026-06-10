@@ -41,6 +41,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const privyConfig = useMemo(
     () =>
       buildPrivyConfig({
+        appName: "Build Culture Places",
         clientId: process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID ?? DEFAULT_PRIVY_CLIENT_ID,
         walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
         supportedChains,

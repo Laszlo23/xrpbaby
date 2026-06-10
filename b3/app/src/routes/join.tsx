@@ -2,25 +2,26 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAccount, useChainId, useSignMessage } from "wagmi";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 import { WalletControls } from "@/components/WalletControls";
 import { ConnectFarcasterButton } from "@bc/culture-auth/react";
 import { NeynarConnectBoundary } from "@/components/NeynarConnectBoundary";
 import { SupportScorePanel } from "@/components/SupportScorePanel";
-import { platformForestUrl } from "@/lib/platform-url";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { plainLabels } from "@/lib/plain-labels";
 import { pageHead } from "@/lib/seo";
+import { BRAND_DISPLAY_NAME } from "@/lib/brand";
+import { identityMintPriceShort } from "@/lib/identity/mint-price";
 
 export const Route = createFileRoute("/join")({
   component: JoinPage,
   head: () =>
     pageHead({
       title: "Join",
-      description:
-        "Create your BUILDCHAIN pass, connect your wallet, and set your intent to start earning culture points.",
+      description: `Create your ${BRAND_DISPLAY_NAME} pass, connect your wallet, and start earning Culture Points.`,
       path: "/join",
-      keywords: ["BUILDCHAIN", "join", "pass", "wallet", "culture points"],
+      keywords: ["Build Culture", "join", "pass", "wallet", "culture points"],
     }),
 });
 
@@ -63,7 +64,16 @@ function JoinPage() {
         setError(plainLabels.join.errors.saveFailed);
         return;
       }
-      navigate({ to: "/forest" });
+      toast.message("Welcome to the grove!", {
+        description: "Tell us what confused you during join → earn Builder Voice points.",
+        action: {
+          label: "Builder Voice",
+          onClick: () => {
+            window.location.href = "/voice?area=onboarding";
+          },
+        },
+      });
+      navigate({ to: "/forest", search: { welcome: "1" } });
     } catch {
       setError(plainLabels.join.errors.signInFailed);
     } finally {
@@ -88,6 +98,13 @@ function JoinPage() {
           {plainLabels.join.title}
         </h1>
         <p className="mt-4 text-zinc-400">{plainLabels.join.subtitle}</p>
+        <p className="mt-3 text-sm text-zinc-500">
+          Optional next step: mint your{" "}
+          <Link to="/pass" className="text-[#C5FF41] underline underline-offset-2">
+            .culture name
+          </Link>{" "}
+          on Base ({identityMintPriceShort}) after sign-in.
+        </p>
 
         <div className="mt-10 flex flex-col gap-2 text-left">
           <p className="text-xs uppercase tracking-wider text-zinc-500">
@@ -158,9 +175,9 @@ function JoinPage() {
 
         <p className="mt-8 text-xs text-zinc-600">
           {plainLabels.join.alreadyInside}{" "}
-          <a href={platformForestUrl()} className="text-zinc-400 underline">
+          <Link to="/forest" className="text-zinc-400 underline">
             {plainLabels.join.goToHub}
-          </a>
+          </Link>
         </p>
       </main>
     </div>

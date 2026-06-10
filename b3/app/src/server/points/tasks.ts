@@ -22,6 +22,12 @@ const DEFAULT_TASKS = [
     active: true,
   },
   {
+    slug: "bcc-roots-stake",
+    title: "Culture Roots — first BCC stake",
+    points: 50,
+    active: true,
+  },
+  {
     slug: "share-on-x",
     title: "Share on X (legacy)",
     points: 0,
@@ -122,6 +128,24 @@ const DEFAULT_TASKS = [
     slug: "daily-studio-build",
     title: "BC Studio — daily build session",
     points: 25,
+    active: true,
+  },
+  {
+    slug: "builder-voice-submit",
+    title: "Builder Voice — valid product feedback",
+    points: 5,
+    active: true,
+  },
+  {
+    slug: "builder-voice-useful",
+    title: "Builder Voice — useful feedback (team review)",
+    points: 25,
+    active: true,
+  },
+  {
+    slug: "builder-voice-gold",
+    title: "Builder Voice — gold feedback (team review)",
+    points: 75,
     active: true,
   },
 ] as const;

@@ -1,26 +1,36 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useChainId } from "wagmi";
+import { useState } from "react";
 
 import { LandingNav } from "@/components/landing/LandingNav";
 import { ModuleBentoGrid } from "@/components/landing/ModuleBentoGrid";
 import { IdentityMintBand } from "@/components/identity/IdentityMintBand";
 import { MemberForestSummary } from "@/components/MemberForestSummary";
+import { MemberGettingStartedChecklist } from "@/components/MemberGettingStartedChecklist";
+import { PostJoinPackPrompt } from "@/components/PostJoinPackPrompt";
 import { bcdStagingHint } from "@/lib/bcd-configured";
 import { plainLabels } from "@/lib/plain-labels";
 import { COMMUNITY_MODULES, type LandingEcosystemApp } from "@/lib/landing-ecosystem";
 import { platformModules } from "@/lib/modules";
 import { pageHead } from "@/lib/seo";
+import { BRAND_DISPLAY_NAME } from "@/lib/brand";
+
+type ForestSearch = {
+  welcome?: string;
+};
 
 export const Route = createFileRoute("/forest/")({
+  validateSearch: (search: Record<string, unknown>): ForestSearch => ({
+    welcome: typeof search.welcome === "string" ? search.welcome : undefined,
+  }),
   component: CommunityHubPage,
   head: () =>
     pageHead({
       title: "Community Hub",
-      description:
-        "Your BUILDCHAIN community home for quests, pulse updates, points, and every lane you unlock.",
+      description: `Your ${BRAND_DISPLAY_NAME} community home for quests, pulse updates, points, and every lane you unlock.`,
       path: "/forest",
-      keywords: ["BUILDCHAIN", "community hub", "quests", "culture pulse", "points"],
+      keywords: ["Build Culture", "community hub", "quests", "culture pulse", "points"],
     }),
 });
 
@@ -43,12 +53,16 @@ function filterModules(modules: LandingEcosystemApp[]): LandingEcosystemApp[] {
 
 function CommunityHubPage() {
   const chainId = useChainId();
+  const { welcome } = Route.useSearch();
   const bcdHint = bcdStagingHint(chainId);
   const modules = filterModules(COMMUNITY_MODULES);
+  const justJoined = welcome === "1";
+  const [packOpen, setPackOpen] = useState(justJoined);
 
   return (
-    <div className="bc-surface min-h-screen">
+    <div className="bc-surface min-h-screen pb-nav-safe">
       <LandingNav compact />
+      <PostJoinPackPrompt open={packOpen} onOpenChange={setPackOpen} />
       <main className="pt-28 pb-16">
         <section className="relative overflow-hidden border-b border-white/5">
           <motion.div className="absolute inset-0 bc-grid opacity-40" />
@@ -65,8 +79,14 @@ function CommunityHubPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                to="/join"
+                to="/play"
                 className="inline-flex items-center rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
+              >
+                Open Play
+              </Link>
+              <Link
+                to="/join"
+                className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:border-[#00E5FF]/50"
               >
                 Create your pass
               </Link>
@@ -87,7 +107,25 @@ function CommunityHubPage() {
             </p>
           ) : null}
 
-          <MemberForestSummary />
+          <MemberGettingStartedChecklist highlight={justJoined} />
+
+          <div className="mt-10">
+            <MemberForestSummary />
+          </div>
+
+          <Link
+            to="/roots"
+            className="mt-8 block overflow-hidden rounded-3xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 to-transparent p-6 transition-colors hover:border-emerald-500/50 sm:p-8"
+          >
+            <span className="mono-label !text-emerald-300/90">ROOT SEASON</span>
+            <span className="mt-2 block font-display text-2xl font-bold text-white">
+              Grow your roots
+            </span>
+            <span className="mt-2 block text-sm text-zinc-400">
+              Treasury-funded BCC staking for builders — plant before unlock, share the grove. Not
+              guaranteed returns.
+            </span>
+          </Link>
 
           {platformModules.identity ? <IdentityMintBand /> : null}
 

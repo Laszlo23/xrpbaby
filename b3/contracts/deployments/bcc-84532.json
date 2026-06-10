@@ -1,0 +1,13 @@
+{
+  "chainId": 84532,
+  "name": "Base Sepolia",
+  "bccToken": "0xb890a5289f789f1346032ccc1847939e855fab07",
+  "note": "BCC may not exist on Sepolia — use a mock ERC20 for testnet staking drills",
+  "contracts": {
+    "BccRootsStaking": "0x5b73c5498c1e3b4dba84de0f1833c4a029d90519",
+    "MockBccForRootsTestnet": ""
+  },
+  "deployArtifact": "contracts/broadcast/DeployBccRootsStaking.s.sol/84532/run-latest.json",
+  "deployInstructions": "BCC_TOKEN_ADDRESS=0x... ADMIN_ADDRESS=0x... forge script script/DeployBccRootsStaking.s.sol --rpc-url $BASE_SEPOLIA_RPC --broadcast --chain-id 84532",
+  "updatedAt": "2026-06-10T20:49:26.497Z"
+}

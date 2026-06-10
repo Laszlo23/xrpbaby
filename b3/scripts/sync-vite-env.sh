@@ -165,6 +165,26 @@ for key in COMPLIANCE_REGISTRY_ADDRESS PROPERTY_RESERVE_FEED_ADDRESS CHAINLINK_A
   fi
 done
 
+echo "==> BCC registry (bcc-8453.json → deploy/.env mirrors)"
+BCC_REGISTRY="$ROOT/contracts/deployments/bcc-8453.json"
+if [[ -f "$BCC_REGISTRY" ]]; then
+  ROOTS_ADDR="$(node -e "const j=require('$BCC_REGISTRY');console.log(j.contracts?.BccRootsStaking||'')")"
+  TWAP_ADDR="$(node -e "const j=require('$BCC_REGISTRY');console.log(j.contracts?.BccTwapOracle||'')")"
+  MOCK_ORACLE="$(node -e "const j=require('$BCC_REGISTRY');console.log(j.contracts?.MockBccUsdOracle||'')")"
+  if [[ -n "$ROOTS_ADDR" ]]; then
+    mirror_pair "VITE_BCC_ROOTS_STAKING_ADDRESS" "BCC_ROOTS_STAKING_ADDRESS"
+    set_kv "$DEPLOY_ENV" "VITE_BCC_ROOTS_STAKING_ADDRESS" "$ROOTS_ADDR"
+    set_kv "$DEPLOY_ENV" "BCC_ROOTS_STAKING_ADDRESS" "$ROOTS_ADDR"
+    set_kv "$APP_ENV" "VITE_BCC_ROOTS_STAKING_ADDRESS" "$ROOTS_ADDR"
+    set_kv "$APP_ENV" "BCC_ROOTS_STAKING_ADDRESS" "$ROOTS_ADDR"
+  fi
+  ORACLE_ADDR="${TWAP_ADDR:-$MOCK_ORACLE}"
+  if [[ -n "$ORACLE_ADDR" ]]; then
+    set_kv "$DEPLOY_ENV" "VITE_BCC_ORACLE_ADDRESS" "$ORACLE_ADDR"
+    set_kv "$APP_ENV" "VITE_BCC_ORACLE_ADDRESS" "$ORACLE_ADDR"
+  fi
+fi
+
 echo "==> Done. Rebuild/redeploy for production VITE_* changes:"
 echo "    npm run deploy:grove   # or bash scripts/deploy-grove.sh"
 echo "    node app/scripts/audit-vite-env.mjs"

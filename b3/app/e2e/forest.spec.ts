@@ -27,8 +27,13 @@ test.describe("forest community hub", () => {
     await expect(page).toHaveURL(/\/join$/);
   });
 
-  test("no bottom navigation on forest", async ({ page }) => {
+  test("forest has bottom navigation", async ({ page }) => {
     await page.goto("/forest");
-    await expect(page.getByRole("navigation").filter({ hasText: /^Play$/i })).toHaveCount(0);
+    await expect(page.locator(".nav-dock")).toBeVisible();
+  });
+
+  test("forest getting started checklist", async ({ page }) => {
+    await page.goto("/forest");
+    await expect(page.getByRole("heading", { name: /Your first 3 steps/i })).toBeVisible();
   });
 });

@@ -1,4 +1,9 @@
 import type { PrivyClientConfig } from "@privy-io/react-auth";
+import {
+  CULTURE_WALLET_LIST,
+  cultureExternalWallets,
+} from "@bc/culture-auth";
+import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { base, bsc } from "@/lib/chains";
 import { privyClientId } from "@/lib/privy-env";
 
@@ -14,7 +19,9 @@ export function buildPrivyConfig(): PrivyClientConfig {
       showWalletLoginFirst: false,
       theme: "dark",
       accentColor: "#C5FF41",
+      walletList: [...CULTURE_WALLET_LIST],
     },
+    externalWallets: cultureExternalWallets(BRAND_DISPLAY_NAME),
     embeddedWallets: {
       ethereum: {
         createOnLogin: "users-without-wallets",

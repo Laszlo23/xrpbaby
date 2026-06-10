@@ -15,6 +15,39 @@ export type LandingEcosystemApp = {
   externalUrl?: string;
 };
 
+/** Primary trio for first-time visitors — Play, Pass, Places. */
+export const PRIMARY_STARTER_APPS: LandingEcosystemApp[] = [
+  {
+    id: "bc-app",
+    name: "Play",
+    description:
+      "Fair drops and raffle tickets for real stays, art, and culture — the main member loop.",
+    tag: "Start here",
+    status: "live",
+    layer: "core",
+    href: "/play",
+  },
+  {
+    id: "bc-id",
+    name: "Culture Pass",
+    description: `Claim your .culture name on Base — ${identityMintPriceShort}.`,
+    tag: "Identity",
+    status: "live",
+    layer: "identity",
+    href: "/pass",
+  },
+  {
+    id: "bc-places",
+    name: "Places",
+    description:
+      "Community-funded real estate — compliance-gated investor journeys and RWA rails.",
+    tag: "Invest",
+    status: "beta",
+    layer: "living",
+    href: "/places",
+  },
+];
+
 export const LANDING_ECOSYSTEM: LandingEcosystemApp[] = [
   {
     id: "bc-capital",

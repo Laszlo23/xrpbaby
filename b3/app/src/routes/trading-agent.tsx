@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bot, Coins, Shield, Zap } from "lucide-react";
 import { MarketingShell } from "@/components/MarketingShell";
+import { TradingAgentHealthBanner } from "@/components/TradingAgentHealthBanner";
 import { Button } from "@/components/ui/button";
 import { pageHead } from "@/lib/seo";
+import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 
 export const Route = createFileRoute("/trading-agent")({
   head: () =>
@@ -24,7 +26,7 @@ function TradingAgentPage() {
     <MarketingShell
       eyebrow="Agent infrastructure"
       tone="cyan"
-      title={<>Rent the BUILDCHAIN trading agent</>}
+      title={<>Rent the {BRAND_DISPLAY_NAME} trading agent</>}
       subtitle="Aerodrome routing on Base powered by Velodrome sugar-sdk. Agents pay per quote with x402 — you keep signing keys."
       actions={
         <div className="flex flex-wrap gap-2">
@@ -46,6 +48,7 @@ function TradingAgentPage() {
       articleClassName="max-w-3xl"
     >
       <div className="grid gap-4">
+        <TradingAgentHealthBanner />
         <section className="rounded-3xl border border-cyan-500/20 bg-cyan-500/5 p-6 space-y-3">
           <h2 className="font-heading text-lg text-foreground">Why this wins</h2>
           <ul className="space-y-2 text-sm text-zinc-300">

@@ -1,4 +1,5 @@
 import { usePrivy } from "@privy-io/react-auth";
+import { CultureBaseWalletButtons } from "@bc/culture-auth/react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
@@ -93,6 +94,11 @@ function PrivyWalletControls({ className = "" }: { className?: string }) {
     connectWallet();
   }
 
+  function onBaseWalletPending() {
+    setAuthPending("wallet");
+    setAuthHint(null);
+  }
+
   if (!ready) {
     return <p className={`font-mono text-[10px] text-zinc-500 ${className}`}>Loading wallet…</p>;
   }
@@ -127,12 +133,18 @@ function PrivyWalletControls({ className = "" }: { className?: string }) {
             {authPending === "farcaster" ? "Opening…" : "Farcaster login"}
           </button>
         )}
+        <CultureBaseWalletButtons
+          busy={authPending === "wallet"}
+          compactInBaseApp={authSurface.kind === "baseapp"}
+          onConnectStart={onBaseWalletPending}
+          className="w-full"
+        />
         <button
           type="button"
           onClick={openWalletModal}
-          className="rounded-full border border-white/15 bg-black/30 px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-100 transition hover:border-[var(--base-blue)]/40 sm:text-[11px]"
+          className="rounded-full border border-white/10 bg-black/20 px-3 py-2 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-400 transition hover:border-white/20 hover:text-zinc-200 sm:text-[11px]"
         >
-          {authPending === "wallet" ? "Opening…" : "Wallet (Base/Coinbase)"}
+          {authPending === "wallet" ? "Opening…" : "More wallets"}
         </button>
         {authHint ? (
           <p className="w-full text-center text-[11px] text-zinc-400">{authHint}</p>
@@ -183,7 +195,10 @@ function LegacyWalletControls({ className = "" }: { className?: string }) {
 
     return (
       <div className={`flex max-w-md flex-wrap items-center justify-center gap-2 ${className}`}>
-        {connectors.map((connector) => (
+        <CultureBaseWalletButtons mode="wagmi" busy={busy} />
+        {connectors
+          .filter((c) => c.id !== "baseAccount" && c.id !== "coinbaseWallet")
+          .map((connector) => (
           <button
             key={connector.uid}
             type="button"

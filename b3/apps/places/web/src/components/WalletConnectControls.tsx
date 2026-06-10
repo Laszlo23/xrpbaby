@@ -1,6 +1,7 @@
 "use client";
 
 import { usePrivy } from "@privy-io/react-auth";
+import { CultureBaseWalletButtons } from "@bc/culture-auth/react";
 import { useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { PrivyConnectButton } from "@/components/PrivyConnectButton";
@@ -85,22 +86,29 @@ export function WalletConnectControls() {
       {privyEnabled && (
         <>
           <PrivyConnectButton busy={busy} />
+          <CultureBaseWalletButtons
+            busy={busy}
+            buttonClassName={(label) =>
+              label === "Base Account"
+                ? "rounded-full border border-[#0052FF]/45 bg-[#0052FF]/15 px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0052FF]/25 disabled:opacity-50"
+                : "rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs text-zinc-200 hover:border-eco/40 disabled:opacity-50"
+            }
+          />
           <PrivyExternalWalletButton busy={busy} />
         </>
       )}
       {!privyEnabled && (
-        <button
-          type="button"
-          disabled={busy}
-          onClick={() => {
-            reset();
-            const injectedConnector = connectors.find((c) => c.id === "injected");
-            if (injectedConnector) connect({ connector: injectedConnector });
-          }}
-          className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs text-zinc-200 hover:border-eco/40 disabled:opacity-50"
-        >
-          {busy ? "…" : "Browser"}
-        </button>
+        <>
+          <CultureBaseWalletButtons
+            mode="wagmi"
+            busy={busy}
+            buttonClassName={(label) =>
+              label === "Base Account"
+                ? "rounded-full border border-[#0052FF]/45 bg-[#0052FF]/15 px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0052FF]/25 disabled:opacity-50"
+                : "rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs text-zinc-200 hover:border-eco/40 disabled:opacity-50"
+            }
+          />
+        </>
       )}
       {connectors.some((c) => c.id === "walletConnect") && (
         <button
@@ -137,7 +145,9 @@ export function WalletConnectControls() {
               <span className="text-zinc-300">Wallets</span> — Privy registers extension wallets after you pick them in the modal.
             </p>
           )}
-          {connectors.map((c) => (
+          {connectors
+            .filter((c) => c.id !== "baseAccount" && c.id !== "coinbaseWallet")
+            .map((c) => (
             <button
               key={c.uid}
               type="button"

@@ -120,12 +120,11 @@ export function LandingHero() {
           className="mt-10 flex flex-col gap-3 sm:flex-row"
         >
           <Link
-            to="/places"
-            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "invest_now" })}
+            to="/join"
+            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "join" })}
             className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-7 py-4 text-[15px] font-semibold text-black transition-all hover:scale-[1.02] hover:bg-white"
           >
-            <Briefcase size={16} aria-hidden />
-            Invest now
+            {plainLabels.landing.ctaJoin}
             <ArrowUpRight size={16} aria-hidden />
           </Link>
           <a
@@ -137,11 +136,12 @@ export function LandingHero() {
             <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
           </a>
           <Link
-            to="/join"
-            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "join" })}
+            to="/places"
+            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "invest_now" })}
             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-zinc-300 transition-all hover:border-white/40 hover:text-white"
           >
-            {plainLabels.landing.ctaJoin}
+            <Briefcase size={16} aria-hidden />
+            Invest now
           </Link>
         </motion.div>
 

@@ -8,7 +8,7 @@ export type TgTaskDef = {
   title: string;
   subtitle: string;
   xpReward: number;
-  kind: "tap" | "emoji" | "quiz" | "share" | "thanks" | "wallet";
+  kind: "tap" | "emoji" | "quiz" | "share" | "thanks" | "wallet" | "voice";
   unlockAfter?: string[];
   anytime?: boolean;
 };
@@ -68,6 +68,14 @@ export const TG_TASKS: TgTaskDef[] = [
     xpReward: 50,
     kind: "wallet",
     unlockAfter: ["culture_quiz_1"],
+  },
+  {
+    id: "builder_voice",
+    title: "Builder Voice",
+    subtitle: "Earn Culture Points for useful product feedback (not “all good”).",
+    xpReward: 0,
+    kind: "voice",
+    anytime: true,
   },
 ];
 

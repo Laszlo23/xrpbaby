@@ -6,6 +6,8 @@ import { LevelBadge, getLevel } from "@/components/LevelBadge";
 import { Wallet, Ticket, Trophy, Flame, Star, TrendingUp, Gem } from "lucide-react";
 import { useAccount, useChainId, useReadContract } from "wagmi";
 import { useCallback, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { MessageSquareQuote } from "lucide-react";
 import { raffleCampaignAbi } from "@bc/contracts-sdk";
 import { getCampaignAddress } from "@/lib/campaign";
 import { erc20Abi } from "@/lib/bcd-abi";
@@ -27,10 +29,12 @@ import { toast } from "sonner";
 import { explorerAddressUrl } from "@/lib/explorer";
 import { CommunityProfilePanel } from "@/components/community-profile/CommunityProfilePanel";
 import { PointsLedgerSection } from "@/components/PointsLedgerSection";
+import { UnifiedPointsSummary } from "@/components/UnifiedPointsSummary";
 import { DailyOnChainCheckIn } from "@/components/DailyOnChainCheckIn";
 import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
 import { getDailyCheckInAddress } from "@/lib/daily-checkin";
 import { WalletPortfolio } from "@/components/wallet-portfolio/WalletPortfolio";
+import { RootsStakeSummary } from "@/components/roots/RootsStakeSummary";
 import { dailyCultureChallenge } from "@/lib/daily-culture-challenge";
 import {
   dailyXpBonusForGenesisVaultTier,
@@ -82,6 +86,18 @@ function ProfilePage() {
   const gvpPhase2 = getGenesisVaultPassPhase2Address();
   const legacyGenesisDistinct = getDistinctLegacyGenesisDistrictAddress();
   const [progress, setProgress] = useState<PlayerProgress | null>(null);
+
+  const { data: rewardsSummary } = useQuery({
+    queryKey: ["rewards-summary", address],
+    queryFn: async () => {
+      const res = await fetch(`/api/rewards/summary?address=${address}`);
+      if (!res.ok) return null;
+      return (await res.json()) as { grants?: Record<string, number> };
+    },
+    enabled: Boolean(address && isConnected),
+    staleTime: 60_000,
+  });
+  const hasBuilderVoiceBadge = (rewardsSummary?.grants?.builder_voice_badge ?? 0) > 0;
 
   const { data: ticketBal } = useReadContract({
     address: campaign,
@@ -301,6 +317,8 @@ function ProfilePage() {
             </p>
           </div>
 
+          <UnifiedPointsSummary localXp={0} />
+
           <div className="grid gap-4 sm:grid-cols-3">
             <Link
               to="/marketplace"
@@ -366,6 +384,8 @@ function ProfilePage() {
 
       <WalletPortfolio address={address} />
 
+      <RootsStakeSummary />
+
       <div className="glass rounded-2xl p-6 text-center space-y-4">
         <div className="mx-auto h-20 w-20 rounded-full gradient-neon flex items-center justify-center glow-neon">
           <span className="text-2xl font-heading font-bold text-neon-foreground">
@@ -390,6 +410,12 @@ function ProfilePage() {
             <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-violet-500/35 bg-violet-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-violet-200/95">
               <Gem className="h-3.5 w-3.5 text-violet-300" aria-hidden />
               Vault access · Phase 2
+            </p>
+          ) : null}
+          {hasBuilderVoiceBadge ? (
+            <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-gold-500/35 bg-gold-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-gold-200/95">
+              <MessageSquareQuote className="h-3.5 w-3.5 text-gold-300" aria-hidden />
+              Builder Voice · Gold
             </p>
           ) : null}
           <p className="text-xs text-muted-foreground flex items-center justify-center gap-1 mt-1">
@@ -447,6 +473,8 @@ function ProfilePage() {
         </div>
       </div>
 
+      <UnifiedPointsSummary localXp={xp} />
+
       <PointsLedgerSection />
 
       <div className="grid grid-cols-2 gap-3">
@@ -456,10 +484,14 @@ function ProfilePage() {
           value={String(tickets)}
         />
         <Stat icon={<Trophy className="h-4 w-4 text-gold" />} label="Wins" value="—" />
-        <Stat icon={<Flame className="h-4 w-4 text-orange-400" />} label="Streak" value="local" />
+        <Stat
+          icon={<Flame className="h-4 w-4 text-orange-400" />}
+          label="Daily streak"
+          value={dailyCheckInContract ? "on-chain" : "browser"}
+        />
         <Stat
           icon={<TrendingUp className="h-4 w-4 text-emerald" />}
-          label="XP"
+          label="Activity XP"
           value={String(xp)}
         />
       </div>

@@ -147,6 +147,19 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
           }
         }
 
+        if (data.taskSlug === "bcc-roots-stake") {
+          const { walletHasRootsStakeProof } = await import("@/server/roots/stake-proof");
+          const stake = await walletHasRootsStakeProof(address as Address);
+          if (!stake.ok) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: stake.error ?? "roots_stake_required",
+            };
+          }
+        }
+
         const existing = await prisma.pointLedger.findFirst({
           where: {
             walletId: wallet.id,

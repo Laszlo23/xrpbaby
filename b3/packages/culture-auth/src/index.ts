@@ -29,6 +29,13 @@ export {
 } from "./env.js";
 export { buildPrivyConfig, type BuildPrivyConfigOptions } from "./privy-config.js";
 export {
+  BASE_ACCOUNT_CONNECT_OPTIONS,
+  COINBASE_WALLET_CONNECT_OPTIONS,
+  CULTURE_WALLET_LIST,
+  DEFAULT_CULTURE_APP_NAME,
+  cultureExternalWallets,
+} from "./privy-wallet-integration.js";
+export {
   createCultureWagmiConfig,
   type CreateCultureWagmiConfigOptions,
 } from "./wagmi-config.js";

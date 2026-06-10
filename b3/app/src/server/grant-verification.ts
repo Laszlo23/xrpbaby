@@ -46,6 +46,7 @@ const ROUTE_PATHS = [
   "/drops/art",
   "/0g/agentid",
   "/grant-proof",
+  "/voice",
   "/investors",
   "/tg",
 ] as const;
@@ -156,6 +157,32 @@ export async function buildGrantVerificationPayload(
     label: "Art drops mint UI",
     status: artHtml.includes("Enter raffle") ? "pass" : "fail",
     url: `${base}/drops/art`,
+  });
+
+  const feedbackWall = await fetchJson(base, "/api/feedback/wall");
+  checks.push({
+    id: "builder_voice_wall",
+    label: "Builder Voice wall API",
+    status:
+      feedbackWall &&
+      typeof feedbackWall === "object" &&
+      (feedbackWall as { ok?: boolean }).ok === true
+        ? "pass"
+        : "fail",
+    url: `${base}/api/feedback/wall`,
+  });
+
+  const feedbackStats = await fetchJson(base, "/api/feedback/stats");
+  checks.push({
+    id: "builder_voice_stats",
+    label: "Builder Voice stats API",
+    status:
+      feedbackStats &&
+      typeof feedbackStats === "object" &&
+      (feedbackStats as { ok?: boolean }).ok === true
+        ? "pass"
+        : "fail",
+    url: `${base}/api/feedback/stats`,
   });
 
   const marketHealth = await fetchJson(base, "/api/market/health");

@@ -16,6 +16,7 @@
 | `identity-resolve.spec.ts`     | `/n/` gateway, resolve API, profile                     |
 | `compliance-places.spec.ts`    | Eligibility API, `/places`, `/investors` strip          |
 | `og-agentid.spec.ts`           | 0G hackathon proof page + `/0g/agentid/1.json` metadata |
+| `first-time-user.spec.ts`      | First-time member funnel — landing, welcome, forest, play, profile |
 
 Shared setup: `fixtures/skip-onboarding.ts` (skips Elias modal), `fixtures/api-helpers.ts`, `fixtures/mock-siwe.ts`.
 

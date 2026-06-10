@@ -5,6 +5,7 @@
   "uniswapUrl": "https://app.uniswap.org/swap?outputCurrency=0xB890a5289F789f1346032Ccc1847939e855FAb07&chain=base",
   "bccDiscountBps": 1111,
   "uniswapV3Pool": "0xbb1a4e26d908a8fdddcea5d634faaa47eb8959b78384af66fea0bf45732143fb",
+  "uniswapPoolNote": "DexScreener lists this as Uniswap v4 pool id — BccTwapOracle requires a v3 pool contract address; use MockBccUsdOracle until v3 pool exists",
   "aerodrome": {
     "enabled": true,
     "pool": "",
@@ -14,6 +15,7 @@
     "note": "No Aerodrome listing yet (2026-06) — run npm run aerodrome:resolve after treasury seeds pool"
   },
   "contracts": {
+    "BccRootsStaking": "0x42355c509743a92ebd6f2f7259d4f677eca18b4d",
     "BccTwapOracle": "",
     "MockBccUsdOracle": "0x46C96e0A459ea441873FA8c3077f42b5e1E9cB4f",
     "CultureLayerIdentityV2": "0x9942095ab0a9512e432aeacd623e929cfb474058",
@@ -21,5 +23,7 @@
     "BuildingCultureTicketV2": "0x4F92e47Ab0f6f233Ffe76b2c3ddbF2729719C8D6",
     "PrimaryShareSaleBcc": ""
   },
-  "deployInstructions": "See b3/docs/BCC_TOKEN.md and scripts/deploy-bcc-oracle.sh"
+  "deployInstructions": "See b3/docs/BCC_TOKEN.md and scripts/deploy-bcc-oracle.sh",
+  "updatedAt": "2026-06-10T20:56:36.762Z",
+  "deployArtifact": "contracts/broadcast/DeployBccRootsStaking.s.sol/8453/run-latest.json"
 }

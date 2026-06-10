@@ -239,7 +239,11 @@ const learnColA: FooterLinkItem[] = [
 const learnColB: FooterLinkItem[] = [
   { href: "/guide", label: "Operator guide", icon: footerIcons.guide },
   { href: "/blog", label: "Blog", icon: footerIcons.blog },
-  { href: "/feedback", label: "Feedback", icon: footerIcons.feedback },
+  {
+    href: "https://app.buildingcultureid.space/voice?area=places",
+    label: "Builder Voice",
+    icon: footerIcons.feedback,
+  },
   { href: "/roadmap", label: "Roadmap", icon: footerIcons.roadmap },
   { href: "/mission", label: "Mission", icon: footerIcons.mission },
   { href: "/team", label: "Team", icon: footerIcons.team },

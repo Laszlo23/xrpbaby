@@ -46,11 +46,7 @@ const nextConfig: NextConfig = {
       "@farcaster/mini-app-solana": empty,
       porto: empty,
       "porto/internal": empty,
-      "@coinbase/wallet-sdk": empty,
       "@metamask/connect-evm": empty,
-      "@safe-global/safe-apps-provider": empty,
-      "@safe-global/safe-apps-sdk": empty,
-      "@base-org/account": empty,
       /** Optional peer of @wagmi/core tempo connector; not used in this app. */
       accounts: empty,
     };

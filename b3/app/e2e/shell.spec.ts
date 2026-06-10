@@ -11,11 +11,16 @@ test.describe("app shell chrome", () => {
     await expect(page.locator(".nav-dock")).toHaveCount(0);
   });
 
-  test("BottomNav hidden on join and forest", async ({ page }) => {
+  test("BottomNav hidden on join only", async ({ page }) => {
     await page.goto("/join");
     await expect(page.locator(".nav-dock")).toHaveCount(0);
+  });
+
+  test("BottomNav visible on forest and play", async ({ page }) => {
     await page.goto("/forest");
-    await expect(page.locator(".nav-dock")).toHaveCount(0);
+    await expect(page.locator(".nav-dock")).toBeVisible();
+    await page.goto("/play");
+    await expect(page.locator(".nav-dock")).toBeVisible();
   });
 
   test("BottomNav visible on play", async ({ page }) => {

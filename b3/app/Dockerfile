@@ -23,7 +23,8 @@ RUN npm -w @bc/contracts-sdk run build \
   && npm -w @bc/registry run build \
   && npm -w @bc/bcc-kit run build \
   && npm -w @bc/culture-auth run build \
-  && npm -w @bc/bcd-orchestration run build
+  && npm -w @bc/bcd-orchestration run build \
+  && npm -w @bc/growth-intelligence run build
 
 COPY app ./app
 COPY app/docker/dotenv-for-build ./app/.env

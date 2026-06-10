@@ -1,11 +1,13 @@
 import { createConfig as createPrivyWagmiConfig } from "@privy-io/wagmi";
 import { createConfig } from "wagmi";
-import { injected, walletConnect } from "wagmi/connectors";
+import { baseAccount, coinbaseWallet, injected, metaMask, walletConnect } from "wagmi/connectors";
 import { http } from "wagmi";
 import { base } from "viem/chains";
+import { DEFAULT_CULTURE_APP_NAME } from "@bc/culture-auth";
 import { legacyTestnetEnabled, ogGalileo } from "./lib/chain";
 
 const wcProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
+const PLACES_APP_NAME = `${DEFAULT_CULTURE_APP_NAME} Places`;
 
 const baseRpc =
   process.env.NEXT_PUBLIC_BASE_RPC?.trim() || "https://mainnet.base.org";
@@ -14,7 +16,10 @@ const ogRpc =
   process.env.NEXT_PUBLIC_OG_RPC?.trim() || ogGalileo.rpcUrls.default.http[0];
 
 const vanillaConnectors = [
-  injected(),
+  baseAccount({ appName: PLACES_APP_NAME }),
+  coinbaseWallet({ appName: PLACES_APP_NAME }),
+  metaMask(),
+  injected({ shimDisconnect: true }),
   ...(wcProjectId
     ? [
         walletConnect({
@@ -25,7 +30,11 @@ const vanillaConnectors = [
     : []),
 ];
 
-const vanillaShared = { connectors: vanillaConnectors, ssr: true as const };
+const vanillaShared = {
+  connectors: vanillaConnectors,
+  multiInjectedProviderDiscovery: false,
+  ssr: true as const,
+};
 
 /**
  * Wagmi config for use **without** Privy (`PrivyProvider` omitted). Uses standard

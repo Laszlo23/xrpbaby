@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ELIAS_ENTRY_INTENTS, intentById } from "@/lib/elias-intents";
 import { persistEntryIntent } from "@/lib/playerProgress";
+import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 
 const BASE_REFERRAL_URL = "https://base.app/invite/friends/L0G97WP5";
 const PULSE_COACH_OPEN_EVENT = "bc_pulse_coach_open";
@@ -70,7 +71,7 @@ export function EliasIntentModal(props: Props) {
             <DialogTitle className="flex items-center gap-2 font-heading text-xl pr-8">
               <Compass className="h-6 w-6 shrink-0 text-emerald" aria-hidden />
               {step === "welcome"
-                ? "Welcome to BUILDCHAIN"
+                ? `Welcome to ${BRAND_DISPLAY_NAME}`
                 : step === "pick"
                   ? "What brings you here?"
                   : `You’re on the ${chosen?.label ?? "your"} path`}

@@ -68,6 +68,25 @@ export function captureLandingView(pathname: string, search?: string): void {
   posthog.capture("landing_view", props);
 }
 
+async function trackServerAnalytics(
+  event: string,
+  meta: Record<string, unknown> = {},
+): Promise<void> {
+  if (typeof window === "undefined") return;
+  try {
+    await fetch("/api/platform/analytics", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event,
+        meta: { ...marketingAttributionRecord(), ...meta },
+      }),
+    });
+  } catch {
+    // silent — analytics must not block UX
+  }
+}
+
 export function captureWalletConnected(address: `0x${string}`): void {
   if (typeof window === "undefined") return;
   initProductAnalytics();
@@ -76,6 +95,7 @@ export function captureWalletConnected(address: `0x${string}`): void {
     address_preview: `${address.slice(0, 8)}…${address.slice(-4)}`,
   };
   sentryBreadcrumb("wallet_connected", props);
+  void trackServerAnalytics("wallet_connected", props);
   if (!initialized) return;
   posthog.identify(address, { wallet: address });
   posthog.capture("wallet_connected", props);
@@ -92,6 +112,7 @@ export function captureMintClicked(payload: {
   initProductAnalytics();
   const props = { ...marketingAttributionRecord(), ...payload };
   sentryBreadcrumb("mint_clicked", props as Record<string, unknown>);
+  void trackServerAnalytics("mint_clicked", props as Record<string, unknown>);
   if (!initialized) return;
   posthog.capture("mint_clicked", props);
 }
@@ -105,6 +126,7 @@ export function captureMintConfirmed(payload: {
   initProductAnalytics();
   const props = { ...marketingAttributionRecord(), ...payload };
   sentryBreadcrumb("mint_confirmed", props as Record<string, unknown>);
+  void trackServerAnalytics("mint_confirmed", props as Record<string, unknown>);
   if (!initialized) return;
   posthog.capture("mint_confirmed", props);
 }

@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
-import { Trophy, TrendingUp, Flame, Gift } from "lucide-react";
+import { Trophy, TrendingUp, Flame, Gift, MessageSquareQuote } from "lucide-react";
 import { LevelBadge } from "@/components/LevelBadge";
 import { useQuery } from "@tanstack/react-query";
 import { usePublicClient } from "wagmi";
@@ -49,6 +49,18 @@ function LeaderboardPage() {
     queryKey: ["leaderboard-referrals-30d"],
     queryFn: async () => fetchReferralLb({ data: { limit: 12 } }),
     staleTime: 25_000,
+  });
+
+  const { data: feedbackStats } = useQuery({
+    queryKey: ["feedback-stats-leaderboard"],
+    queryFn: async () => {
+      const res = await fetch("/api/feedback/stats");
+      if (!res.ok) return null;
+      return (await res.json()) as {
+        topVoicesThisMonth?: Array<{ contributor: string; pointsGranted: number }>;
+      };
+    },
+    staleTime: 60_000,
   });
 
   const { data: quidliStatus } = useQuery({
@@ -192,6 +204,28 @@ function LeaderboardPage() {
           </Button>
         </div>
       </div>
+
+      {feedbackStats?.topVoicesThisMonth?.length ? (
+        <section className="glass rounded-2xl border border-white/10 p-4 space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <MessageSquareQuote className="h-4 w-4 text-gold" />
+              Top Builder Voices (this month)
+            </div>
+            <Link to="/voice" className="text-xs text-gold hover:underline">
+              Submit feedback
+            </Link>
+          </div>
+          <ul className="space-y-1 text-xs text-muted-foreground">
+            {feedbackStats.topVoicesThisMonth.slice(0, 5).map((v, i) => (
+              <li key={`${v.contributor}-${i}`} className="flex justify-between">
+                <span>{v.contributor}</span>
+                <span className="text-gold">+{v.pointsGranted} pts</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="glass rounded-2xl border border-gold/20 p-4 space-y-2">
         <div className="flex items-center gap-2 text-sm font-medium text-foreground">

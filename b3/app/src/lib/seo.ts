@@ -59,7 +59,8 @@ export function getOgImageForPath(path: string): string {
     p === "/elias" ||
     p === "/faq" ||
     p === "/about" ||
-    p === "/grant-proof"
+    p === "/grant-proof" ||
+    p === "/voice"
   ) {
     return "/meta/0xmeta-og.png";
   }
@@ -330,6 +331,7 @@ export const SITEMAP_PATHS: string[] = [
   "/guide",
   "/elias",
   "/grant-proof",
+  "/voice",
   "/chatbase",
   "/docs",
   "/blog",

@@ -88,6 +88,7 @@ Canonical product entrypoint: `https://app.buildingcultureid.space`.
 | [X_SSH_SOCIAL_AGENT.md](X_SSH_SOCIAL_AGENT.md) | Pulse/social | reference | Official X posting automation on VPS |
 | [FARCASTER_MINIAPP.md](FARCASTER_MINIAPP.md) | Pulse/social | reference | Farcaster miniapp integration details |
 | [BCC_TOKEN.md](BCC_TOKEN.md) | Token/contracts | active | BCC utility, discounts, oracle/deploy patterns |
+| [BCC_ROOTS_STAKING.md](BCC_ROOTS_STAKING.md) | Token/contracts | active | Culture Roots treasury staking — pools, keeper, deploy |
 | [BCC_SOLANA_AND_ARBITRAGE.md](BCC_SOLANA_AND_ARBITRAGE.md) | Token/contracts | reference | Solana bridge and route context for BCC |
 | [BCD_TOKENOMICS_LAUNCH.md](BCD_TOKENOMICS_LAUNCH.md) | Token/contracts | legacy | Historical launch mechanics and rounds |
 | [BCD_PRELAUNCH_RUNBOOK.md](BCD_PRELAUNCH_RUNBOOK.md) | Token/contracts | legacy | Historical prelaunch checklist |

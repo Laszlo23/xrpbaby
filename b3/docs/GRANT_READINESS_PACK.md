@@ -94,6 +94,13 @@ Fractional culture and real-estate participation lack **inspectable settlement**
 - Bytecode verification via `contracts:audit`.
 - Before retail mainnet with real funds: independent audit, multisig admin, upgraded oracles — see [apps/places/docs/grants.md](../apps/places/docs/grants.md).
 
+### Builder Voice (community feedback loop)
+
+- Public lane: [app.buildingcultureid.space/voice](https://app.buildingcultureid.space/voice) — structured product feedback with quality gate (praise-only submissions rejected).
+- Rewards: +5 Culture Points for valid weekly submissions; +25 / +75 after team review (`useful` / `gold`) — auditable in `PointLedger`.
+- Ops: `FEEDBACK_ADMIN_SECRET`, `npm run feedback:review list`, `npm run feedback:review set <id> useful --wall`.
+- Grant verifier checks `/voice` route plus `/api/feedback/wall` and `/api/feedback/stats`.
+
 ### Team & contact
 
 Fill maintainer email / Discord and response time when submitting.

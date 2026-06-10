@@ -26,6 +26,7 @@
     "x:post": "node scripts/x-marketing-post.mjs",
     "grove:tick": "tsx scripts/grove-tick.ts",
     "grove:tick:http": "node scripts/grove-tick.mjs",
+    "grove:signer-check": "node scripts/neynar-signer-check.mjs",
     "quidli:leaderboard-drops": "node scripts/quidli-leaderboard-drops.mjs",
     "grove:x-post": "node scripts/grove-x-post.mjs",
     "growth:validate": "node scripts/growth-live-check.mjs",
@@ -39,6 +40,7 @@
     "pulse:attest": "tsx scripts/pulse-daily-attest.ts",
     "social:sync-scores": "tsx scripts/sync-support-scores.ts",
     "bcc:settlement-keeper": "node scripts/bcc-settlement-keeper.mjs",
+    "bcc:roots-rewards-keeper": "node scripts/bcc-roots-rewards-keeper.mjs",
     "points:airdrop-snapshot": "node scripts/airdrop-snapshot.mjs"
   },
   "dependencies": {

@@ -127,12 +127,10 @@ test.describe("smoke", () => {
     expect(json.miniapp?.homeUrl).toMatch(/\/$/);
   });
 
-  test("welcome redirects to landing", async ({ page }) => {
+  test("welcome tour loads", async ({ page }) => {
     await page.goto("/welcome");
-    await expect(page).toHaveURL(/\/$/);
-    await expect(
-      page.getByRole("heading", { name: /We Bring Places Back To Life/i }),
-    ).toBeVisible();
+    await expect(page).toHaveURL(/\/welcome/);
+    await expect(page.getByRole("heading", { name: /Start with/i })).toBeVisible();
   });
 
   test("join loads", async ({ page }) => {

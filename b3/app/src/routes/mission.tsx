@@ -27,6 +27,8 @@ import { useBcdEconomy } from "@/contexts/BcdEconomyContext";
 import { BCD_SYMBOL, getBcdGenesisClaimAddress, getBcdTokenAddress } from "@/lib/bcd-config";
 import { loadProgress } from "@/lib/playerProgress";
 import { MissionDeployedContracts } from "@/components/MissionDeployedContracts";
+import { BccTokenHomePanel } from "@/components/BccTokenHomePanel";
+import { CultureRootsPanel } from "@/components/roots/CultureRootsPanel";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 
 export const Route = createFileRoute("/mission")({
@@ -36,7 +38,7 @@ export const Route = createFileRoute("/mission")({
       description:
         "Building Culture DAO mission: genesis BCC, honest drops UX, treasury programs — on-chain first, DAO voting next.",
       path: "/mission",
-      keywords: ["Building Culture Coin", "BCC", "DAO", "mission", "BUILDCHAIN"],
+      keywords: ["Building Culture Coin", "BCC", "DAO", "mission", "Build Culture"],
     }),
   component: MissionPage,
 });
@@ -153,6 +155,10 @@ function MissionPage() {
         </section>
 
         <MissionDeployedContracts />
+
+        <BccTokenHomePanel />
+
+        <CultureRootsPanel />
 
         <PointsLedgerSection />
 

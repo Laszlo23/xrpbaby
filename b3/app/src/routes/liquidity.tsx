@@ -213,16 +213,26 @@ function LiquidityPage() {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-white/[0.06] px-4 py-3 text-sm text-zinc-500">
-          <span>Property-share liquidity lives on Places — different from BCC token pools.</span>
-          <Button variant="link" className="h-auto p-0 text-neon" asChild>
-            <a
-              href="https://places.buildingcultureid.space/invest"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Places invest <ArrowRight className="ml-1 inline h-4 w-4" />
-            </a>
-          </Button>
+          <span>
+            <strong className="text-zinc-400">Culture Roots</strong> is pure BCC lock-up with
+            treasury rewards — not LP gauge staking. Property shares live on Places.
+          </span>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="link" className="h-auto p-0 text-emerald-400" asChild>
+              <Link to="/roots">
+                Culture Roots <ArrowRight className="ml-1 inline h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="link" className="h-auto p-0 text-neon" asChild>
+              <a
+                href="https://places.buildingcultureid.space/invest"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Places invest <ArrowRight className="ml-1 inline h-4 w-4" />
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </MarketingShell>

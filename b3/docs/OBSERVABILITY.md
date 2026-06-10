@@ -34,7 +34,23 @@ Notes:
 - Default is strict mode (`STRICT_SMOKE=1`) and fails on degraded pulse metrics.
 - Set `STRICT_SMOKE=0` only for temporary triage windows.
 
-### 2) Four-hour reliability loop (blitz mode)
+### 2) Four-hour reliability loop (ECO-001)
+
+Automated probe (writes `proof-bundles/reliability-latest.json`, optional Slack):
+
+```bash
+npm run reliability:loop
+# or with alerts:
+RELIABILITY_SLACK_WEBHOOK_URL=https://hooks.slack.com/services/... npm run reliability:loop
+```
+
+Install on VPS (every 4h):
+
+```bash
+sudo DEPLOY_PATH=/opt/buildingculture bash scripts/install-reliability-cron.sh
+```
+
+Manual curl sweep:
 
 ```bash
 BASE=https://app.buildingcultureid.space
@@ -47,12 +63,19 @@ curl -s "$BASE/api/marketing/grove/tick" | jq .
 
 Record status in active REA reliability tickets.
 
+### 3) Agent attribution dashboard (ECO-002)
+
+- UI: `GET /ops/attribution`
+- API: `GET /api/platform/attribution-dashboard`
+- Optional gate: set `OPS_DASHBOARD_SECRET` in deploy env
+- Weekly export ritual: [ATTRIBUTION_WEEKLY_SNAPSHOT.md](./ATTRIBUTION_WEEKLY_SNAPSHOT.md)
+
 ## Alerts
 
 - `slack-digest`: daily summary of ledger actions.
 - `treasury-guardian`: low native balance on configured EOAs.
 - `raffle-watcher`: phase/commitment changes on raffle contract.
-- `grove-health`: endpoint degradation for Grove/Pulse/Market (recommended; wire via cron or monitor).
+- `grove-health`: endpoint degradation for Grove/Pulse/Market — use `npm run reliability:loop` + `RELIABILITY_SLACK_WEBHOOK_URL`
 
 ## Incident rule
 

@@ -37,6 +37,8 @@ From [`contracts/deployments/8453.json`](../contracts/deployments/8453.json) and
 | Contract | Address | Role |
 |----------|---------|------|
 | BuildingCultureCoin (BCC) | `0xb890a5289f789f1346032ccc1847939e855fab07` | **Canonical** platform token (`bcc-8453.json`) |
+| BccRootsStaking | `0x42355c509743a92EBD6F2F7259D4f677Eca18b4d` (Base) / `0x5b73C5498c1E3b4dbA84de0F1833c4a029d90519` (Sepolia) | Culture Roots treasury staking — [`BCC_ROOTS_STAKING.md`](./BCC_ROOTS_STAKING.md) |
+| BccTwapOracle | *(blocked — BCC pool is Uniswap v4; oracle needs v3)* | TWAP pricing — use MockBccUsdOracle until v3 pool |
 | BuildingCultureDollar (BCD, legacy) | `0xda64dceb00b88ee1b8f6168beb58f5a2a7226b72` | First deploy; `BCDGenesisClaim` still mints BCD |
 | BCDGenesisClaim | `0x2bae6b04d0d1c8016cc863509395b68eb0021f58` | Genesis claim |
 | RaffleTicketCampaign | `0xb1a88bf677400c23430b643a07229af832130ad8` | Raffle tickets (blockhash entropy; use VRF variant for production) |

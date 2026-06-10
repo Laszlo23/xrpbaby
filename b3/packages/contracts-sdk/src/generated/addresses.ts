@@ -8,6 +8,7 @@ export const deploymentAddresses8453 = {
   "GenesisVaultPassPhase0": "0x39952f562279f8a6517ed9d36a1ff9d495e4e38d" as const,
   "GenesisVaultPassPhase1": "0x0fe8ae7f7207f8c04377cdd4a711a67811cf3a73" as const,
   "GenesisVaultPassPhase2": "0x01b971794c4c5c265bc0326de329e1f4c937c765" as const,
+  "BccRootsStaking": "0x42355c509743a92ebd6f2f7259d4f677eca18b4d" as const,
   "MockBccUsdOracle": "0x46c96e0a459ea441873fa8c3077f42b5e1e9cb4f" as const,
   "CultureLayerIdentityV2": "0x9942095ab0a9512e432aeacd623e929cfb474058" as const,
   "BuildingCultureHubV2": "0x97fdaeafdbef34918cfd223549c3d1e98e95c7c3" as const,
@@ -18,6 +19,7 @@ export const deploymentAddresses84532 = {
   "BuildingCultureDollar": "0x11c57fd49daf5f3b3e89c9c6d7c06849957fe552" as const,
   "BCDGenesisClaim": "0x7192b8d144ac6904ed3b9a381011b4af7e58b2cb" as const,
   "CulturePulseAnchor": "0x64f0009581a7007cc31040664e5d2d635f6a84fd" as const,
+  "BccRootsStaking": "0x5b73c5498c1e3b4dba84de0f1833c4a029d90519" as const,
 } as const;
 
 export type DeploymentContractName =

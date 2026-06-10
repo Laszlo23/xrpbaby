@@ -111,6 +111,10 @@ Shared treasury transfer: [`bcc-treasury-transfer.ts`](../app/src/server/wallet/
 
 Users redeem Culture Points for on-chain BCC via treasury transfer — see [SMART_WALLET_AND_PACKS.md](./SMART_WALLET_AND_PACKS.md).
 
+## Culture Roots staking
+
+Treasury-funded BCC lock-up for early believers (`BccRootsStaking`) — see [BCC_ROOTS_STAKING.md](./BCC_ROOTS_STAKING.md). App surface: `/roots`, mission countdown, `bcc-roots-stake` points task.
+
 ## Solana wallets
 
 BCC is still on Base; Solana users bridge via aggregators. See [BCC_SOLANA_AND_ARBITRAGE.md](./BCC_SOLANA_AND_ARBITRAGE.md) and `GET /api/market/bcc/solana-route`.

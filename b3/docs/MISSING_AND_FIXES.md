@@ -39,13 +39,23 @@ Strategic companion: [ECOSYSTEM_GOALS_AND_ROADMAP.md](./ECOSYSTEM_GOALS_AND_ROAD
 - Recompute wei: `node scripts/identity-mint-price-wei.mjs` → `./scripts/set-identity-mint-price-onchain.sh` when ETH/USD moves
 - UI copy centralized in `app/src/lib/identity/mint-price.ts`; live ETH from on-chain `mintPrice`
 
+## Fixed (2026-06-10 — plan execution)
+
+- Culture Roots **mainnet** deployed: `0x42355c509743a92EBD6F2F7259D4f677Eca18b4d` (2026-06-10); env synced in `deploy/.env`
+- BCC TWAP oracle deploy sync: enhanced `scripts/deploy-bcc-oracle.sh` + registry update
+- ECO-001 reliability loop: `npm run reliability:loop`, `scripts/install-reliability-cron.sh`, OBSERVABILITY.md
+- ECO-002 attribution dashboard: `/ops/attribution`, `GET /api/platform/attribution-dashboard`, server-side funnel analytics
+- ECO-003 nginx canonical redirect templates expanded in `infra/nginx-unified-entry.example.conf`; smoke checks for miniapp/mini hosts
+- Registry sync: `npm run bcc:sync-addresses` merges `bcc-8453.json` → `docs/ADDRESSES.json`
+- Test gate refresh: `npm run test-gate:snapshot` → `docs/TEST_GATE_SNAPSHOT.json`
+
 ## Open
 
 | Item | Notes |
 |------|-------|
 | Grove X / Farcaster / Slack on VPS | Telegram outbound configured (`GROVE_TELEGRAM_CHAT_ID` + `TELEGRAM_BOT_TOKEN`); add `GROVE_X_*`, `GROVE_NEYNAR_*`, `GROVE_SLACK_WEBHOOK_URL` for multi-channel growth |
-| Live nginx 301 on VPS | Templates in repo; operator must apply on production |
-| Reliability gate checks | Require strict production smoke + 4h endpoint loop (`/api/pulse/metrics`, `/api/market/bcc`, `/api/market/health`, `/api/trading/health`, `/api/marketing/grove/tick`) |
+| Live nginx 301 on VPS | Templates in repo (`infra/nginx-unified-entry.example.conf`); operator must apply on production — smoke warns until applied |
+| Reliability gate checks | Automated via `npm run reliability:loop` + cron installer; set `RELIABILITY_SLACK_WEBHOOK_URL` on VPS |
 | Identity contracts-only tree | `apps/identity` frontend removed; mint UI is unified `app/` |
 | External ecosystem sites | capital/home/game still separate URLs in landing footer |
 | Chain E2E in CI | Optional `CI_WALLET_E2E=1` + Anvil — not default |
@@ -76,14 +86,14 @@ Strategic companion: [ECOSYSTEM_GOALS_AND_ROADMAP.md](./ECOSYSTEM_GOALS_AND_ROAD
 
 Update this file after each monthly ecosystem review with status changes and owner assignments.
 
-## Verify checklist (last run: 2026-06-08, beta → live gate)
+## Verify checklist (last run: 2026-06-10, plan execution gate)
 
 | Gate | Result |
 |------|--------|
 | `npm run audit:env` | phases 0–2 ready |
 | packages `npm test` | agent-runtime 20, bcc-kit 5, culture-auth 5, support-score 3 |
 | `forge test` | contracts 45, identity 9, art 3, places 47 + chainlink 9 |
-| `app npm run test:all` | verify + 31 unit + 78 smoke passed |
+| `app npm run test:all` | verify + 59 unit + 87 smoke (1 known sample-mint WARN) |
 | `apps/places/web test:e2e` | 41+ passed (navigation/trade e2e aligned to current UI) |
 | `npm run contracts:audit` | 0 failed bytecode checks |
 | `STRICT_SMOKE=1 production-smoke` | all passed (trading agent WARN only) |

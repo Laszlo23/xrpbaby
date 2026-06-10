@@ -3,3 +3,4 @@ git+https://github.com/velodrome-finance/sugar-sdk.git@v0.4.2
 fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
 pydantic>=2.0.0
+httpx>=0.28.0

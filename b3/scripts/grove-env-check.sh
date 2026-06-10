@@ -62,7 +62,12 @@ fi
 check_var NEYNAR_API_KEY || true
 check_var GROVE_NEYNAR_SIGNER_UUID || true
 if is_set NEYNAR_API_KEY && is_set GROVE_NEYNAR_SIGNER_UUID; then
-  echo "OK   Farcaster channel (Neynar + Grove signer)"
+  echo "OK   Farcaster channel (Neynar + Grove signer UUID set)"
+  if command -v node >/dev/null 2>&1 && [[ -f "$ROOT/app/scripts/neynar-signer-check.mjs" ]]; then
+    ENV_FILE="$ENV_FILE" node "$ROOT/app/scripts/neynar-signer-check.mjs" >/dev/null 2>&1 && \
+      echo "OK   Farcaster signer approved (Neynar API)" || \
+      echo "WARN Farcaster signer not approved — npm run grove:signer-check"
+  fi
 else
   echo "WARN Farcaster channel blocked — need NEYNAR_API_KEY + GROVE_NEYNAR_SIGNER_UUID"
 fi

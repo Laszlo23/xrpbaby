@@ -30,7 +30,7 @@ check() {
   fi
 }
 
-for path in / /forest /join /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid /grant-proof /plan; do
+for path in / /forest /join /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid /grant-proof /voice /plan /ops/attribution; do
   check "$path"
 done
 
@@ -158,6 +158,48 @@ check_json_ok "/api/market/bcc"
 check_json_ok "/api/market/health"
 check_json_ok "/api/trading/health" "1"
 check_json_ok "/api/marketing/grove/tick"
+
+if curl -s "${BASE}/api/platform/funnel-baseline" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    process.exit(j.ok && j.windows?.last7d?.funnel ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  GET /api/platform/funnel-baseline"
+else
+  echo "WARN GET /api/platform/funnel-baseline → missing or no DB"
+fi
+
+if curl -s "${BASE}/api/platform/attribution-dashboard" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    process.exit(j.ok && j.windows ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  GET /api/platform/attribution-dashboard"
+else
+  echo "WARN GET /api/platform/attribution-dashboard → missing or no DB"
+fi
+
+CANONICAL_REDIRECT_HOSTS="${CANONICAL_REDIRECT_HOSTS:-miniapp.buildingcultureid.space mini.buildingcultureid.space}"
+for host in $CANONICAL_REDIRECT_HOSTS; do
+  headers=$(curl -sI --max-time 15 "https://${host}/" 2>/dev/null || true)
+  code=$(printf '%s\n' "$headers" | awk 'toupper($1) ~ /^HTTP/ { print $2; exit }')
+  loc=$(printf '%s\n' "$headers" | awk 'tolower($1)=="location:" { print $2; exit }' | tr -d '\r')
+  if [[ "$code" == "301" || "$code" == "302" ]] && [[ "$loc" == *"app.buildingcultureid.space"* ]]; then
+    echo "OK  canonical redirect ${host} → $code $loc"
+  else
+    echo "WARN canonical redirect ${host} → ${code:-none} (apply infra/nginx-unified-entry.example.conf on VPS)"
+  fi
+done
 
 echo "--- RWA REOC metadata ---"
 check "/places/meta/rwa-share-icon.svg"

@@ -159,6 +159,21 @@ cat "$smoke_log"
 rm -f "$smoke_log"
 echo ""
 
+echo "==> 3.5/5 Reliability endpoint loop (ECO-001)"
+reliability_log="$(mktemp)"
+set +e
+node scripts/reliability-endpoint-loop.mjs "$ORIGIN" >"$reliability_log" 2>&1
+reliability_rc=$?
+set -e
+if [[ "$reliability_rc" -eq 0 ]]; then
+  add_check "reliability_loop" "P0 API reliability endpoints" "pass" "all_healthy"
+else
+  add_check "reliability_loop" "P0 API reliability endpoints" "fail" "see proof-bundles/reliability-latest.json"
+fi
+cat "$reliability_log"
+rm -f "$reliability_log"
+echo ""
+
 echo "==> 4/5 Growth audit (Telegram + Grove)"
 growth_log="$(mktemp)"
 set +e

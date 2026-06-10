@@ -39,6 +39,7 @@ model Member {
   studioUsages    StudioUsage[]
   quidliDeliveries QuidliDelivery[]
   growthSessions  GrowthSession[]
+  productFeedback ProductFeedback[]
 }
 
 /// Linked social identity (Farcaster-verified X/TikTok/GitHub or direct Farcaster link).
@@ -621,4 +622,33 @@ model GrowthRecommendation {
 
   @@index([appId, status, priority])
   @@index([appId, createdAt(sort: Desc)])
+}
+
+/// Builder Voice — structured product feedback with quality scoring and rewards.
+model ProductFeedback {
+  id            String    @id @default(cuid())
+  memberId      String
+  member        Member    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  source        String    // web | telegram
+  area          String    // onboarding | marketplace | places | tg | identity | other
+  triedWhat     String    @db.Text
+  problem       String    @db.Text
+  suggestion    String?   @db.Text
+  evidenceUrl   String?
+  pagePath      String?
+  qualityScore  Int       @default(0)
+  status        String    @default("rejected") // rejected | pending_review | useful | gold | implemented
+  rejectReason  String?
+  pointsGranted Int       @default(0)
+  publicTitle   String?
+  showOnWall    Boolean   @default(false)
+  weekBucket    String?
+  reviewedAt    DateTime?
+  reviewedBy    String?
+  createdAt     DateTime  @default(now())
+
+  @@unique([memberId, weekBucket])
+  @@index([memberId, createdAt(sort: Desc)])
+  @@index([status, createdAt(sort: Desc)])
+  @@index([showOnWall, status])
 }

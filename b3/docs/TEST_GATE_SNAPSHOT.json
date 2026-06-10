@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-08",
-  "note": "Update after full local gate run (forge + app Playwright). Not auto-refreshed by grant:proof.",
+  "updated": "2026-06-10",
+  "note": "Refreshed by scripts/update-test-gate-snapshot.mjs and manual forge/playwright run",
   "packages": {
     "unit": 33,
     "breakdown": {
@@ -11,15 +11,15 @@
     }
   },
   "forge": {
-    "contracts": 45,
+    "contracts": 50,
     "identity": 9,
     "art": 3,
-    "places": 47,
+    "places": 42,
     "chainlink": 9,
     "total": 113
   },
   "app": {
-    "playwright": 78,
-    "unit": 31
+    "playwright": 87,
+    "unit": 59
   }
 }

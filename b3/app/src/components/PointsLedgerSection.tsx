@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useAccount } from "wagmi";
-import { Check, Loader2, Shield } from "lucide-react";
+import { Check, Loader2, MessageSquareQuote, Shield } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -447,6 +447,24 @@ export function PointsLedgerSection() {
               </Button>
             </div>
           </div>
+        </div>
+
+        <div
+          className="flex flex-col gap-5 rounded-3xl border border-[rgb(212_175_55/0.25)] bg-gradient-to-br from-[rgb(212_175_55/0.06)] to-black/40 p-5 md:flex-row md:items-center md:justify-between md:p-7"
+        >
+          <div className="min-w-0 flex-1 space-y-1">
+            <p className="flex flex-wrap items-center gap-2 text-lg font-semibold text-white md:text-xl">
+              <MessageSquareQuote className="h-5 w-5 text-gold-400" aria-hidden />
+              Builder Voice (+5–75)
+            </p>
+            <p className="text-sm text-zinc-400">
+              Submit specific product feedback — praise-only replies don&apos;t qualify. Useful and
+              Gold tiers are reviewed by the team within 7 days.
+            </p>
+          </div>
+          <Button variant="secondary" className="min-h-11 shrink-0 rounded-full px-6" asChild>
+            <Link to="/voice">Open Builder Voice</Link>
+          </Button>
         </div>
 
         <DailyOnChainCheckIn

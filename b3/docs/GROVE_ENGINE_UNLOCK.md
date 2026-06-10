@@ -70,7 +70,7 @@ You already have `NEYNAR_API_KEY`. You need a **managed signer** for Grove’s F
 
 ### A. Neynar dashboard
 
-1. Open [dev.neynar.com](https://dev.neynar.com/) → your app.
+1. Open [dev.neynar.com](https://dev.neynar.com/) → **the same app** that owns `NEYNAR_API_KEY`.
 2. **Signers** → Create managed signer (or link Grove Warpcast account).
 3. Copy **Signer UUID** → `deploy/.env`:
 
@@ -80,6 +80,26 @@ GROVE_NEYNAR_SIGNER_UUID=...
 GROVE_FARCASTER_CHANNEL_ID=base
 GROVE_FARCASTER_FID=...
 ```
+
+4. **Approve in Warpcast** — status must be `approved`, not `generated`:
+   - In dev.neynar.com → Signers → **Approve** / Connect Warpcast
+   - Scan QR with the Warpcast mobile app (use the Farcaster account Grove should post as)
+
+Or provision via CLI:
+
+```bash
+npm run grove:signer-check -- --create --write-env
+# then approve in dev.neynar.com, re-check:
+npm run grove:signer-check
+```
+
+**Troubleshooting**
+
+| Neynar error | Fix |
+|--------------|-----|
+| `Signer not found` | UUID is from a different Neynar app or was deleted — run `grove:signer-check --create` |
+| `Signer status is generated` | Approve signer in dev.neynar.com → Warpcast QR |
+| `cooldown_active` on tick | Normal — wait for cooldown or use `/api/marketing/grove/farcaster-post` for a direct test after approval |
 
 ### B. Test cast
 

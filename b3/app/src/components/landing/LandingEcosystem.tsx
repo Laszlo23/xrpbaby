@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 import { ModuleBentoGrid } from "@/components/landing/ModuleBentoGrid";
-import { LANDING_ECOSYSTEM } from "@/lib/landing-ecosystem";
+import { LANDING_ECOSYSTEM, PRIMARY_STARTER_APPS } from "@/lib/landing-ecosystem";
 
 export function LandingEcosystem() {
   return (
@@ -28,13 +28,19 @@ export function LandingEcosystem() {
           </div>
           <div className="lg:col-span-5">
             <p className="text-base text-zinc-400 sm:text-lg">
-              {LANDING_ECOSYSTEM.length} interconnected products — built to fund, build, own, live,
-              and govern. Each one a doorway to the same movement.
+              Start with Play, Pass, or Places — then explore {LANDING_ECOSYSTEM.length}{" "}
+              interconnected products in the full ecosystem.
             </p>
           </div>
         </div>
 
         <div className="mt-16">
+          <p className="mono-label mb-6">START HERE</p>
+          <ModuleBentoGrid apps={PRIMARY_STARTER_APPS} section="ecosystem_starter" bento={false} />
+        </div>
+
+        <div className="mt-20">
+          <p className="mono-label mb-6">FULL ECOSYSTEM</p>
           <ModuleBentoGrid apps={LANDING_ECOSYSTEM} section="ecosystem" bento />
         </div>
       </div>

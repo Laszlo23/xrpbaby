@@ -134,6 +134,23 @@ export function TgPlayTab({
           </button>
         ) : null}
 
+        {activeTask.kind === "voice" ? (
+          <button
+            type="button"
+            className="w-full rounded-xl bg-[#C5FF41] py-3 text-sm font-bold text-black"
+            onClick={() => {
+              const url = "https://app.buildingcultureid.space/voice?source=tg&area=tg";
+              if (window.Telegram?.WebApp?.openLink) {
+                window.Telegram.WebApp.openLink(url);
+              } else {
+                window.open(url, "_blank", "noopener,noreferrer");
+              }
+            }}
+          >
+            Open Builder Voice
+          </button>
+        ) : null}
+
         {activeTask.kind === "tap" ? (
           <button
             type="button"

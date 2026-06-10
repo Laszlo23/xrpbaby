@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { postPointsBalance, postRedeemPointsForBcc } from "@/lib/points-fns";
 import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
-import { pointsRedeemEnabled } from "@/lib/redemption-policy";
+import { RedemptionGateProgress } from "@/components/RedemptionGateProgress";
 import { formatUnits } from "viem";
+import { pointsRedeemEnabled } from "@/lib/redemption-policy";
 
 type RedeemReadiness = {
   enabled: boolean;
@@ -142,23 +143,10 @@ export function PointsRedeemSection({ compact = false }: { compact?: boolean }) 
         <span className="font-mono text-xs text-zinc-500">Culture Points</span>
       </div>
 
-      {!pointsRedeemEnabled && (
-        <p className="text-sm text-zinc-400">
-          Points → BCC redemption is coming when pool liquidity meets program minimums.
-          <Link to="/liquidity" className="ml-1 text-[#C5FF41] hover:underline">
-            Track liquidity gate →
-          </Link>
-        </p>
-      )}
+      {!pointsRedeemEnabled && <RedemptionGateProgress compact />}
 
       {pointsRedeemEnabled && readiness && !readiness.ready && (
-        <p className="text-sm text-zinc-400">
-          Redemption unlocks at ${readiness.minPoolTvlUsd.toLocaleString()} combined pool TVL
-          {readiness.percentToGate != null ? ` (${readiness.percentToGate}% there)` : ""}.
-          <Link to="/liquidity" className="ml-1 text-[#C5FF41] hover:underline">
-            Liquidity hub →
-          </Link>
-        </p>
+        <RedemptionGateProgress compact />
       )}
 
       {pointsRedeemEnabled && readiness?.ready && (
