@@ -84,17 +84,18 @@ Public page: `/trading-agent`
 
 ## BCDAI integration
 
-Point BCDAI at:
+**Never** configure BCDAI to call `http://…:8765`. Always use the app origin:
 
 - Manifest: `https://app.buildingcultureid.space/api/trading/manifest`
-- Paid quotes: `GET /api/trading/quote` with x402 headers (same as premium feed)
+- Agent card: `https://app.buildingcultureid.space/.well-known/agent.json`
+- Paid quotes: `GET /api/trading/quote` or `/api/trading/quote-bcc` with x402 headers (same as premium feed)
 - Optional: `GET /api/trading/swap-preview` for unsigned txs → Privy sign
 
-Add `https://bcdai.buildingcultureid.space` to `X402_CORS_ORIGINS` if browser clients pay from BCDAI origin.
+Add `https://bcdai.buildingcultureid.space` to `X402_CORS_ORIGINS` (or `CORS_ORIGIN`) if browser clients pay from BCDAI origin.
 
 ## Agent runtime
 
-`trading-sugar-1` and `trading-arbitrage-1` in `ops/agents.json` call the platform API when `TRADING_AGENT_INTERNAL_SECRET` + `PUBLIC_APP_ORIGIN` are set. See [BCC_SOLANA_AND_ARBITRAGE.md](./BCC_SOLANA_AND_ARBITRAGE.md).
+`trading-sugar-1` and `trading-arbitrage-1` in `ops/agents.json` **always** call `PUBLIC_APP_ORIGIN/api/trading/*` with `x-trading-internal-secret` (set `TRADING_AGENT_INTERNAL_SECRET`). Python `:8765` is the app sidecar only. See [BCC_SOLANA_AND_ARBITRAGE.md](./BCC_SOLANA_AND_ARBITRAGE.md).
 
 ## Production checklist
 

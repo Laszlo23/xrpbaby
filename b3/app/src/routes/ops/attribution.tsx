@@ -62,7 +62,7 @@ function OpsAttributionPage() {
 
   return (
     <ModuleShell
-      moduleId="forest"
+      moduleId="signal"
       title="Agent attribution dashboard"
       subtitle="ECO-002 — landing → wallet → mint funnel by agent_ref (7d / 30d)"
     >

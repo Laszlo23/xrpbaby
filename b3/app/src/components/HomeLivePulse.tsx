@@ -2,15 +2,15 @@ import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Trophy } from "lucide-react";
+import { usePublicProof } from "@/hooks/usePublicProof";
 import { postLeaderboard } from "@/lib/points-fns";
-import { totalTicketEntries } from "@/content/home-drops";
+import { fmtProofInt } from "@/lib/public-proof-format";
 
-/** Live entries stat + mini leaderboard — makes the homepage feel “in motion”. */
+/** Live on-chain ticket mints + mini leaderboard — building in public. */
 export function HomeLivePulse() {
   const fetchLb = useServerFn(postLeaderboard);
-  const rawOverride = import.meta.env.VITE_PUBLIC_STATS_ENTRIES as string | undefined;
-  const parsed = rawOverride?.trim() ? Number(rawOverride) : NaN;
-  const entries = Number.isFinite(parsed) && parsed >= 0 ? parsed : totalTicketEntries();
+  const { data: proof, isLoading: proofLoading } = usePublicProof();
+  const entries = proof?.game.raffleTicketsMinted ?? null;
 
   const { data, isLoading } = useQuery({
     queryKey: ["home-leaderboard-preview"],
@@ -33,9 +33,13 @@ export function HomeLivePulse() {
             id="live-pulse-heading"
             className="font-heading text-2xl font-semibold tabular-nums text-white md:text-3xl"
           >
-            {entries.toLocaleString()}{" "}
+            {proofLoading && entries == null
+              ? "…"
+              : entries == null
+                ? "—"
+                : fmtProofInt(entries)}{" "}
             <span className="text-base font-normal text-zinc-500 md:text-lg">
-              ticket entries in play
+              raffle tickets minted on-chain
             </span>
           </p>
           <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-[var(--vault-gold)]">
@@ -57,8 +61,14 @@ export function HomeLivePulse() {
             </Link>
           </div>
           <p className="max-w-md text-xs leading-relaxed text-zinc-500">
-            Social tasks on Profile are part of our active fundraising and growth season — we keep
-            building in public; this is not a one-and-done launch.
+            Counts come from public Base RPC reads and our traction API —{" "}
+            <a
+              href="/api/investors/traction?view=proof"
+              className="text-zinc-400 underline underline-offset-2 hover:text-white"
+            >
+              verify anytime
+            </a>
+            .
           </p>
         </div>
 

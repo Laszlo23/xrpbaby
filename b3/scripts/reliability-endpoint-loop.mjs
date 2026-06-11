@@ -19,6 +19,7 @@ const ENDPOINTS = [
   { path: "/api/market/health", kind: "json", requiredOk: true },
   { path: "/api/trading/health", kind: "json", requiredOk: true, allowUnreachable: true },
   { path: "/api/marketing/grove/tick", kind: "json", requiredOk: true },
+  { path: "/api/marketing/social-campaign/tick", kind: "json", requiredOk: true },
   { path: "/api/points/redeem/stats", kind: "json", requiredOk: true },
 ];
 

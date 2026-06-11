@@ -97,6 +97,26 @@ function targetCastRawFromEnv(): string | undefined {
   );
 }
 
+/** Latest cast from follow target when no explicit cast URL/hash is configured. */
+export async function resolveLatestCastFromFollowTarget(
+  client: NeynarAPIClient,
+): Promise<string | null> {
+  const targetFid = await resolveFollowTargetFid(client);
+  if (targetFid == null) return null;
+  const res = await client.fetchCastsForUser({ fid: targetFid, limit: 5 });
+  const hash = res.casts?.find((c) => c.hash)?.hash;
+  return hash ?? null;
+}
+
+/** Like-quest target: env cast URL/hash, else latest cast from follow profile. */
+export async function resolveLikeTargetCastHash(client: NeynarAPIClient): Promise<string> {
+  const raw = targetCastRawFromEnv();
+  if (raw) return resolveTargetCastHash(client, raw);
+  const fallback = await resolveLatestCastFromFollowTarget(client);
+  if (!fallback) throw new Error("neynar_cast_unconfigured");
+  return fallback;
+}
+
 /** Returns the cast hash as returned by Neynar (for API calls). */
 export async function resolveTargetCastHash(client: NeynarAPIClient, raw: string): Promise<string> {
   const t = raw.trim();
@@ -290,9 +310,7 @@ export async function verifyFarcasterSocialTask(
   }
 
   if (slug === "like-cast-farcaster") {
-    const raw = targetCastRawFromEnv();
-    if (!raw) return { ok: false, code: "neynar_cast_unconfigured" };
-    const hash = await resolveTargetCastHash(client, raw);
+    const hash = await resolveLikeTargetCastHash(client);
     const ok = await userLikedCastHash(client, fid, hash);
     return ok ? { ok: true } : { ok: false, code: "cast_not_liked" };
   }

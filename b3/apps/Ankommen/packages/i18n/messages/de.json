@@ -1,0 +1,15 @@
+{
+  "common": {
+    "appName": "Ankommen AI",
+    "tagline": "KI, die Menschen das Gefühl gibt dazuzugehören.",
+    "askAi": "KI fragen",
+    "dashboard": "Übersicht",
+    "disclaimer": "Dies ist nur eine Orientierung — keine Rechts-, Finanz- oder Medizinberatung."
+  },
+  "landing": {
+    "hero": "Willkommen in Österreich.",
+    "heroSub": "Ihr KI-Guide für alles, was Sie brauchen.",
+    "startChat": "Chat starten",
+    "getStarted": "Loslegen"
+  }
+}

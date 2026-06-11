@@ -46,7 +46,7 @@ curl -s -H "x-trading-internal-secret: $SECRET" \
   "http://localhost:5173/api/trading/arbitrage-scan?sol_amount=1&eth_amount=0.01&min_spread_bps=50" | jq
 ```
 
-Python worker (direct):
+Python worker (operators only — local debug; BCDAI and fleet must use platform URLs above):
 
 ```bash
 curl -s "http://127.0.0.1:8765/arbitrage/scan?sol_amount=1&eth_amount=0.01" | jq

@@ -68,16 +68,26 @@ export const postPointsBalance = createServerFn({ method: "POST" })
       reason?: string;
       balance: number;
       completedSlugs?: string[];
+      dailyCheckInToday?: boolean;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
+      const { walletDailyCheckInCreditedToday } = await import(
+        "@/server/points/daily-checkin-credit"
+      );
       const prisma = getPrisma();
       if (!prisma) {
-        return { ok: false, reason: "no_database", balance: 0, completedSlugs: [] };
+        return {
+          ok: false,
+          reason: "no_database",
+          balance: 0,
+          completedSlugs: [],
+          dailyCheckInToday: false,
+        };
       }
       const addr = data.address.toLowerCase();
       const wallet = await prisma.wallet.findUnique({ where: { address: addr } });
       if (!wallet) {
-        return { ok: true, balance: 0, completedSlugs: [] };
+        return { ok: true, balance: 0, completedSlugs: [], dailyCheckInToday: false };
       }
       const agg = await prisma.pointLedger.aggregate({
         where: { walletId: wallet.id },
@@ -98,7 +108,8 @@ export const postPointsBalance = createServerFn({ method: "POST" })
             .filter((s): s is string => typeof s === "string" && s.length > 0),
         ),
       ];
-      return { ok: true, balance: agg._sum.delta ?? 0, completedSlugs };
+      const dailyCheckInToday = await walletDailyCheckInCreditedToday(prisma, wallet.id);
+      return { ok: true, balance: agg._sum.delta ?? 0, completedSlugs, dailyCheckInToday };
     },
   );
 
@@ -620,16 +631,40 @@ export const postCompleteXProofTask = createServerFn({ method: "POST" })
     },
   );
 
-const dailyChainSchema = z.object({
-  message: z.string().min(10),
-  signature: z.string().min(10),
-  txHash: z.string().regex(/^0x[a-fA-F0-9]{64}$/),
-  chainId: z.number().int(),
-});
+const dailyCheckInSchema = z
+  .object({
+    message: z.string().min(10),
+    signature: z.string().min(10),
+    txHash: z
+      .string()
+      .regex(/^0x[a-fA-F0-9]{64}$/)
+      .optional(),
+    chainId: z.number().int().optional(),
+  })
+  .superRefine((val, ctx) => {
+    if (val.txHash && val.chainId == null) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "chainId required when txHash is set",
+        path: ["chainId"],
+      });
+    }
+  });
 
-/** Awards points once per UTC day after verifying a successful DailyCheckIn tx on Base. */
+function mergeProofEnv(): Record<string, string | undefined> {
+  const e: Record<string, string | undefined> = {};
+  if (typeof import.meta !== "undefined" && import.meta.env) {
+    Object.assign(e, import.meta.env as Record<string, string | undefined>);
+  }
+  if (typeof process !== "undefined" && process.env) {
+    Object.assign(e, process.env as Record<string, string | undefined>);
+  }
+  return e;
+}
+
+/** Awards points once per UTC day — on-chain tx and/or SIWE-only when contract is not deployed. */
 export const postCompleteDailyChainCheckIn = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) => dailyChainSchema.parse(raw))
+  .inputValidator((raw: unknown) => dailyCheckInSchema.parse(raw))
   .handler(
     async ({
       data,
@@ -643,8 +678,9 @@ export const postCompleteDailyChainCheckIn = createServerFn({ method: "POST" })
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
       const { verifySiweSignature } = await import("@bc/identity/server");
-      const { ensureDefaultTasks } = await import("@/server/points/tasks");
+      const { creditDailyCheckInPoints } = await import("@/server/points/daily-checkin-credit");
       const { verifyDailyCheckInTx } = await import("@bc/proof");
+      const { utcCheckInDayIndex } = await import("@/lib/daily-checkin");
 
       const prisma = getPrisma();
       if (!prisma) {
@@ -653,141 +689,50 @@ export const postCompleteDailyChainCheckIn = createServerFn({ method: "POST" })
 
       try {
         const address = await verifySiweSignature(data.message, data.signature);
-        const proof = await verifyDailyCheckInTx({
-          txHash: data.txHash as Hex,
-          expectedWallet: address as Address,
-          chainId: data.chainId,
-          getEnv: () => {
-            const e: Record<string, string | undefined> = {};
-            if (typeof import.meta !== "undefined" && import.meta.env) {
-              Object.assign(e, import.meta.env as Record<string, string | undefined>);
-            }
-            if (typeof process !== "undefined" && process.env) {
-              Object.assign(e, process.env as Record<string, string | undefined>);
-            }
-            return e;
-          },
-        });
 
-        if (!proof.ok) {
-          const msg =
-            proof.code === "contract_not_configured"
-              ? "Server missing DAILY_CHECKIN_CONTRACT_ADDRESS."
-              : proof.code === "wrong_chain"
-                ? "Switch to Base mainnet."
-                : proof.code === "tx_failed"
-                  ? "Transaction failed on-chain."
-                  : proof.code === "wrong_signer"
-                    ? "Wallet must match transaction sender."
-                    : proof.code === "no_checkin_event"
-                      ? "That transaction is not a daily check-in."
-                      : proof.code === "wrong_user_event"
-                        ? "Check-in address mismatch."
-                        : proof.code;
-          return { ok: false, balance: 0, alreadyCompleted: false, error: msg };
-        }
-
-        await ensureDefaultTasks(prisma);
-
-        const task = await prisma.taskDefinition.findUnique({
-          where: { slug: "daily-checkin-onchain" },
-        });
-        const bonusTask = await prisma.taskDefinition.findUnique({
-          where: { slug: "daily-signature-attestation-bonus" },
-        });
-        if (!task || !task.active) {
-          return { ok: false, balance: 0, alreadyCompleted: false, error: "invalid_task" };
-        }
-
-        const addr = address.toLowerCase();
-        const { wallet } = await ensureWalletAndMember(prisma, addr);
-
-        const dayUTC = new Date().toISOString().slice(0, 10);
-        const prior = await prisma.pointLedger.findMany({
-          where: { walletId: wallet.id, taskSlug: "daily-checkin-onchain" },
-        });
-        const alreadyToday = prior.some((row) => {
-          const m = row.metadata as { dayUTC?: string } | null;
-          return m?.dayUTC === dayUTC;
-        });
-        if (alreadyToday) {
-          const agg = await prisma.pointLedger.aggregate({
-            where: { walletId: wallet.id },
-            _sum: { delta: true },
+        if (data.txHash) {
+          const proof = await verifyDailyCheckInTx({
+            txHash: data.txHash as Hex,
+            expectedWallet: address as Address,
+            chainId: data.chainId!,
+            getEnv: () => mergeProofEnv(),
           });
-          return {
-            ok: true,
-            alreadyCompleted: true,
-            balance: agg._sum.delta ?? 0,
-          };
-        }
 
-        const metadata = {
-          kind: "daily_chain" as const,
-          dayUTC,
-          txHash: data.txHash.toLowerCase(),
-          dayIndex: proof.dayIndex.toString(),
-          siweMessageSha256: createHash("sha256").update(data.message).digest("hex"),
-          siweSignatureSha256: createHash("sha256").update(data.signature).digest("hex"),
-          attestedAddress: addr,
-        };
-
-        if (task.points > 0) {
-          await prisma.pointLedger.create({
-            data: {
-              walletId: wallet.id,
-              delta: task.points,
-              reason: "task_completion",
-              taskSlug: "daily-checkin-onchain",
-              metadata,
-            },
-          });
-        }
-
-        let bonusGranted = false;
-        let bonusPoints = 0;
-        if (bonusTask && bonusTask.active && bonusTask.points > 0) {
-          const priorBonus = await prisma.pointLedger.findMany({
-            where: { walletId: wallet.id, taskSlug: "daily-signature-attestation-bonus" },
-          });
-          const alreadyBonusToday = priorBonus.some((row) => {
-            const m = row.metadata as { dayUTC?: string } | null;
-            return m?.dayUTC === dayUTC;
-          });
-          if (!alreadyBonusToday) {
-            bonusGranted = true;
-            bonusPoints = bonusTask.points;
-            await prisma.pointLedger.create({
-              data: {
-                walletId: wallet.id,
-                delta: bonusTask.points,
-                reason: "task_completion",
-                taskSlug: "daily-signature-attestation-bonus",
-                metadata: {
-                  kind: "daily_signature_attestation_bonus",
-                  dayUTC,
-                  txHash: data.txHash.toLowerCase(),
-                  dayIndex: proof.dayIndex.toString(),
-                  siweMessageSha256: metadata.siweMessageSha256,
-                  siweSignatureSha256: metadata.siweSignatureSha256,
-                  attestedAddress: addr,
-                },
-              },
-            });
+          if (!proof.ok) {
+            const msg =
+              proof.code === "contract_not_configured"
+                ? "Server missing DAILY_CHECKIN_CONTRACT_ADDRESS."
+                : proof.code === "wrong_chain"
+                  ? "Switch to Base mainnet."
+                  : proof.code === "tx_failed"
+                    ? "Transaction failed on-chain."
+                    : proof.code === "wrong_signer"
+                      ? "Wallet must match transaction sender."
+                      : proof.code === "no_checkin_event"
+                        ? "That transaction is not a daily check-in."
+                        : proof.code === "wrong_user_event"
+                          ? "Check-in address mismatch."
+                          : proof.code;
+            return { ok: false, balance: 0, alreadyCompleted: false, error: msg };
           }
+
+          return creditDailyCheckInPoints(prisma, {
+            address,
+            message: data.message,
+            signature: data.signature,
+            mode: "onchain",
+            txHash: data.txHash,
+            dayIndex: proof.dayIndex.toString(),
+          });
         }
 
-        const agg = await prisma.pointLedger.aggregate({
-          where: { walletId: wallet.id },
-          _sum: { delta: true },
+        return creditDailyCheckInPoints(prisma, {
+          address,
+          message: data.message,
+          signature: data.signature,
+          mode: "siwe",
+          dayIndex: utcCheckInDayIndex().toString(),
         });
-        return {
-          ok: true,
-          alreadyCompleted: false,
-          bonusGranted,
-          bonusPoints,
-          balance: agg._sum.delta ?? 0,
-        };
       } catch (e) {
         return {
           ok: false,

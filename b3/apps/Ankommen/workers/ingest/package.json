@@ -1,0 +1,15 @@
+{
+  "name": "@ankommen/ingest",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@ankommen/ai": "workspace:*",
+    "@ankommen/database": "workspace:*",
+    "dotenv": "^16.5.0",
+    "tsx": "^4.19.4"
+  }
+}

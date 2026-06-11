@@ -1,25 +1,12 @@
 import { motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  Bot,
-  Briefcase,
-  Compass,
-  Fingerprint,
-  Gamepad2,
-  Globe,
-  Home,
-  Layers,
-  Mail,
-  Map,
-  Palette,
-  Rocket,
-  Send,
-  Shield,
-  Sparkles,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight, Send, type LucideIcon } from "lucide-react";
 
+import {
+  landingFooterCompanyColumn,
+  landingFooterEcosystemColumn,
+  landingFooterLayersColumn,
+  type FooterHrefLink,
+} from "@/lib/footer-links";
 import { LANDING_MEDIA, LANDING_SOCIAL } from "@/lib/landing-media";
 
 function DiscordIcon({ size = 16, className }: { size?: number; className?: string }) {
@@ -58,32 +45,26 @@ const SOCIAL_LINKS = [
   { label: "discord", href: LANDING_SOCIAL.discord, Icon: DiscordIcon, title: "Discord" },
 ] as const;
 
-function FooterCol({
-  title,
-  links,
-}: {
-  title: string;
-  links: { l: string; h: string; Icon: LucideIcon }[];
-}) {
+function FooterCol({ title, links }: { title: string; links: FooterHrefLink[] }) {
   return (
     <div>
       <p className="mono-label mb-4 text-zinc-500">{title}</p>
       <ul className="space-y-3">
         {links.map((l) => {
-          const external = l.h.startsWith("http") || l.h.startsWith("mailto:");
+          const external = l.href.startsWith("http") || l.href.startsWith("mailto:");
           return (
-            <li key={l.l}>
+            <li key={l.label}>
               <a
-                href={l.h}
+                href={l.href}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
                 className="group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-white"
               >
                 <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-500 transition-colors group-hover:border-[#00E5FF]/30 group-hover:text-[#00E5FF]">
-                  <l.Icon size={13} aria-hidden />
+                  <l.icon size={13} aria-hidden />
                 </span>
-                {l.l}
-                {external && l.h.startsWith("http") ? (
+                {l.label}
+                {external && l.href.startsWith("http") ? (
                   <ArrowUpRight
                     size={12}
                     className="-translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
@@ -139,41 +120,9 @@ export function LandingFooter() {
           </motion.div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7">
-            <FooterCol
-              title="Ecosystem"
-              links={[
-                { l: "Capital", h: "https://app.buildingcultureid.space", Icon: Compass },
-                { l: "App", h: "/play", Icon: Layers },
-                { l: "Invest", h: "/places", Icon: Briefcase },
-                { l: "Home", h: "https://app.buildingcultureid.space", Icon: Home },
-                { l: "ID", h: "/join", Icon: Fingerprint },
-              ]}
-            />
-            <FooterCol
-              title="Layers"
-              links={[
-                { l: "Art", h: "/drops/art", Icon: Palette },
-                { l: "WohnAI", h: "https://wohnai.buildingcultureid.space", Icon: Bot },
-                { l: "BCDAI", h: "https://bcdai.buildingcultureid.space", Icon: Zap },
-                { l: "Game", h: "https://game.buildingcultureid.space", Icon: Gamepad2 },
-                { l: "Ankommen AI", h: "https://ankommen.buildingcultureid.space", Icon: Globe },
-                { l: "KinderStimme", h: "https://forkids.buildingcultureid.space", Icon: Shield },
-                { l: "Community", h: "/forest", Icon: Rocket },
-              ]}
-            />
-            <FooterCol
-              title="Company"
-              links={[
-                { l: "Vision", h: "#vision", Icon: Sparkles },
-                { l: "Investors", h: "#investors", Icon: Briefcase },
-                { l: "Roadmap", h: "#future", Icon: Map },
-                { l: "Grant proof", h: "/grant-proof", Icon: Shield },
-                { l: "Terms", h: "/legal/terms", Icon: Shield },
-                { l: "Privacy", h: "/legal/privacy", Icon: Shield },
-                { l: "Imprint", h: "/legal/imprint", Icon: Shield },
-                { l: "Contact", h: "mailto:hello@buildingcultureid.space", Icon: Mail },
-              ]}
-            />
+            <FooterCol title="Ecosystem" links={landingFooterEcosystemColumn} />
+            <FooterCol title="Layers" links={landingFooterLayersColumn} />
+            <FooterCol title="Company" links={landingFooterCompanyColumn} />
           </div>
         </div>
 

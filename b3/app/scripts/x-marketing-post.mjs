@@ -51,7 +51,7 @@ function readStdin() {
 }
 
 function usage() {
-  console.error(`Usage: node scripts/x-marketing-post.mjs [--reply-to TWEET_ID] "text…"
+  console.error(`Usage: node scripts/x-marketing-post.mjs [--reply-to TWEET_ID] [--image /social/foo.webp] "text…"
        echo "text" | node scripts/x-marketing-post.mjs -`);
   process.exit(2);
 }
@@ -61,11 +61,14 @@ const fileEnv = loadDotenvFile(envPath);
 const env = { ...fileEnv, ...process.env };
 
 let replyTo;
+let imagePath;
 const rest = [];
 for (let i = 2; i < process.argv.length; i++) {
   const a = process.argv[i];
   if (a === "--reply-to" && process.argv[i + 1]) {
     replyTo = process.argv[++i];
+  } else if (a === "--image" && process.argv[i + 1]) {
+    imagePath = process.argv[++i];
   } else {
     rest.push(a);
   }
@@ -97,6 +100,7 @@ if (!secret) {
 const url = `${origin}/api/marketing/x-post`;
 const body = { text };
 if (replyTo?.trim()) body.replyToTweetId = replyTo.trim();
+if (imagePath?.trim()) body.imagePath = imagePath.trim();
 
 const res = await fetch(url, {
   method: "POST",

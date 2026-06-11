@@ -1,10 +1,18 @@
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 
-import { IMPACT_STORIES } from "@/lib/landing-copy";
+import { usePublicProof } from "@/hooks/usePublicProof";
 import { LANDING_MEDIA } from "@/lib/landing-media";
+import {
+  proofSignalHref,
+  proofSignalValue,
+  proofSignalsFor,
+} from "@/lib/proof-signals";
 
 export function LandingImpact() {
+  const { data: proof, isLoading } = usePublicProof();
+  const signals = proofSignalsFor("impact");
+
   return (
     <section id="impact" className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36">
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
@@ -24,8 +32,8 @@ export function LandingImpact() {
           </div>
           <div className="lg:col-span-5">
             <p className="text-base text-zinc-400 sm:text-lg">
-              We measure success in homes restored, neighborhoods reopened and people who finally
-              have a stake in the place they call home.
+              We measure success with numbers we can prove — members, holders, mints, and waitlist
+              rows you can audit on-chain or via our public APIs.
             </p>
           </div>
         </div>
@@ -56,32 +64,50 @@ export function LandingImpact() {
           </motion.div>
 
           <div className="grid grid-cols-2 gap-5 lg:col-span-5">
-            {IMPACT_STORIES.map((s, i) => (
-              <motion.div
-                key={s.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 + i * 0.1 }}
-                className={`flex min-h-[200px] flex-col justify-between rounded-3xl bc-glass p-6 ${
-                  i === 0 ? "col-span-2" : ""
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-1.5 text-zinc-500">
-                    <MapPin size={12} />
-                    <span className="font-mono text-[10px] tracking-widest uppercase">
-                      {s.location}
-                    </span>
+            {signals.map((signal, i) => {
+              const href = proofSignalHref(signal.key, proof);
+              const value = proofSignalValue(signal.key, proof, isLoading);
+              return (
+                <motion.div
+                  key={signal.key}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.1 }}
+                  className={`flex min-h-[200px] flex-col justify-between rounded-3xl bc-glass p-6 ${
+                    i === 0 ? "col-span-2" : ""
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="inline-flex items-center gap-1.5 text-zinc-500">
+                      <MapPin size={12} />
+                      <span className="font-mono text-[10px] tracking-widest uppercase">
+                        {signal.location}
+                      </span>
+                    </div>
+                    {href ? (
+                      <a
+                        href={href}
+                        target={href.startsWith("http") ? "_blank" : undefined}
+                        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="font-display text-2xl font-bold text-[#00E5FF] tabular-nums hover:text-[#C5FF41]"
+                        title={signal.note}
+                      >
+                        {value}
+                      </a>
+                    ) : (
+                      <span className="font-display text-2xl font-bold text-[#00E5FF] tabular-nums">
+                        {value}
+                      </span>
+                    )}
                   </div>
-                  <span className="font-display text-2xl font-bold text-[#00E5FF]">{s.metric}</span>
-                </div>
-                <div>
-                  <p className="font-display text-xl font-bold text-white">{s.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{s.desc}</p>
-                </div>
-              </motion.div>
-            ))}
+                  <div>
+                    <p className="font-display text-xl font-bold text-white">{signal.label}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-zinc-400">{signal.note}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -18,6 +18,7 @@ export type MarketOffer = {
     listings: string;
     bcc: string;
     bcc_solana_route: string;
+    bcc_bnb_route: string;
     sample_mint: string;
     health: string;
   };
@@ -45,6 +46,7 @@ export function buildMarketOffer(): MarketOffer {
       listings: `${base}/api/market/listings`,
       bcc: `${base}/api/market/bcc`,
       bcc_solana_route: `${base}/api/market/bcc/solana-route`,
+      bcc_bnb_route: `${base}/api/market/bcc/bnb-route`,
       sample_mint: `${base}/api/market/sample-mint`,
       health: `${base}/api/market/health`,
     },

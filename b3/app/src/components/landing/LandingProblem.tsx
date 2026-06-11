@@ -1,12 +1,20 @@
 import { motion } from "framer-motion";
 import { Building2, Coins, Lock, TrendingDown, Users } from "lucide-react";
 
-import { PROBLEM_STATS } from "@/lib/landing-copy";
+import { usePublicProof } from "@/hooks/usePublicProof";
 import { LANDING_MEDIA } from "@/lib/landing-media";
+import {
+  proofSignalHref,
+  proofSignalValue,
+  proofSignalsFor,
+} from "@/lib/proof-signals";
 
 const PROBLEM_ICONS = [Building2, TrendingDown, Coins, Lock, Users] as const;
 
 export function LandingProblem() {
+  const { data: proof, isLoading } = usePublicProof();
+  const signals = proofSignalsFor("problem");
+
   return (
     <section id="problem" className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36">
       <motion.div className="absolute inset-0 bc-grid" />
@@ -47,7 +55,7 @@ export function LandingProblem() {
               viewport={{ once: true }}
               className="mono-label"
             >
-              THE PROBLEM
+              BUILDING IN PUBLIC
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -56,44 +64,61 @@ export function LandingProblem() {
               transition={{ duration: 0.8 }}
               className="mt-4 font-display text-[40px] leading-[1.02] font-bold tracking-tight text-white sm:text-6xl"
             >
-              Communities are <br />
-              <span className="text-zinc-500">disappearing.</span>
+              What we can <br />
+              <span className="text-zinc-500">prove today.</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
             >
-              For decades, the systems we built to grow our cities have left people behind. Homes
-              sit empty. Villages fade. Ownership feels impossible. We believe there is another way.
+              No inflated MAU, no vanity followers, no deck-slide fiction. Every figure below is
+              reproducible from Postgres, public Base RPC reads, or documented APIs.
             </motion.p>
 
             <div className="relative mt-14">
               <div className="absolute top-2 bottom-2 left-[19px] w-px bg-gradient-to-b from-[#C47C59]/60 via-white/10 to-[#00E5FF]/40" />
               <ul className="space-y-5">
-                {PROBLEM_STATS.map((p, i) => {
-                  const Icon = PROBLEM_ICONS[i] ?? Building2;
+                {signals.map((signal, i) => {
+                  const Icon = PROBLEM_ICONS[i % PROBLEM_ICONS.length] ?? Building2;
+                  const href = proofSignalHref(signal.key, proof);
+                  const value = proofSignalValue(signal.key, proof, isLoading);
                   return (
                     <motion.li
-                      key={p.label}
+                      key={signal.key}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, amount: 0.4 }}
-                      transition={{ delay: i * 0.08 }}
+                      transition={{ delay: i * 0.06 }}
                       className="relative flex items-center gap-5 rounded-2xl bc-glass py-5 pr-6 pl-5 transition-all hover:border-white/20"
                     >
                       <span className="relative z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0A]">
                         <Icon size={16} className="text-[#C47C59]" />
                       </span>
-                      <motion.div className="min-w-0 flex-1">
-                        <p className="text-[13px] font-semibold text-white">{p.label}</p>
-                        <p className="mt-0.5 text-xs text-zinc-500">{p.note}</p>
-                      </motion.div>
-                      <p className="font-display shrink-0 text-2xl font-bold text-white">
-                        {p.value}
-                      </p>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[13px] font-semibold text-white">{signal.label}</p>
+                        <p className="mt-0.5 text-xs text-zinc-500">{signal.note}</p>
+                        <p className="mt-1 font-mono text-[10px] tracking-widest text-zinc-600 uppercase">
+                          {signal.location}
+                        </p>
+                      </div>
+                      {href ? (
+                        <a
+                          href={href}
+                          target={href.startsWith("http") ? "_blank" : undefined}
+                          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="font-display shrink-0 text-2xl font-bold text-white tabular-nums hover:text-[#00E5FF]"
+                          title="View proof"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="font-display shrink-0 text-2xl font-bold text-white tabular-nums">
+                          {value}
+                        </p>
+                      )}
                     </motion.li>
                   );
                 })}

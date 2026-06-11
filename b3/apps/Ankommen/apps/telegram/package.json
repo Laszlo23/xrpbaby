@@ -1,0 +1,19 @@
+{
+  "name": "@ankommen/telegram",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite --port 3003",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@ankommen/api-client": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "^5.8.3",
+    "vite": "^7.3.1"
+  }
+}

@@ -49,6 +49,15 @@ Strategic companion: [ECOSYSTEM_GOALS_AND_ROADMAP.md](./ECOSYSTEM_GOALS_AND_ROAD
 - Registry sync: `npm run bcc:sync-addresses` merges `bcc-8453.json` → `docs/ADDRESSES.json`
 - Test gate refresh: `npm run test-gate:snapshot` → `docs/TEST_GATE_SNAPSHOT.json`
 
+## Fixed (2026-06-11 — GTM link audit)
+
+- `LandingFooter` deduped from [`footer-links.ts`](../app/src/lib/footer-links.ts); Home → `home.buildingcultureid.space` (was app alias)
+- Link audit gate: `npm run links:audit`, wired into `production-smoke.sh`
+- Infra templates: `infra/nginx-wohnai-buildingculture.example.conf`, `infra/nginx-phase6-redirects.example.conf`
+- Deploy helpers: `scripts/deploy-wohnai.sh`, `scripts/deploy-forkids.sh`, `scripts/deploy-ankommen.sh`, `scripts/install-gtm-nginx.sh`, `scripts/verify-satellite-dns.sh`
+- **Production satellites live (2026-06-11):** WohnAI `:3010`, forkids `:3030`, Ankommen web `:3020`; strict `links:audit` + `growth:audit` green
+- E2E: `app/e2e/footer-links.spec.ts`
+
 ## Open
 
 | Item | Notes |
@@ -57,7 +66,7 @@ Strategic companion: [ECOSYSTEM_GOALS_AND_ROADMAP.md](./ECOSYSTEM_GOALS_AND_ROAD
 | Live nginx 301 on VPS | Templates in repo (`infra/nginx-unified-entry.example.conf`); operator must apply on production — smoke warns until applied |
 | Reliability gate checks | Automated via `npm run reliability:loop` + cron installer; set `RELIABILITY_SLACK_WEBHOOK_URL` on VPS |
 | Identity contracts-only tree | `apps/identity` frontend removed; mint UI is unified `app/` |
-| External ecosystem sites | capital/home/game still separate URLs in landing footer |
+| External ecosystem sites | **Live:** WohnAI, forkids, Ankommen (web shell on `:3020`); full Ankommen API/RAG stack still optional follow-up |
 | Chain E2E in CI | Optional `CI_WALLET_E2E=1` + Anvil — not default |
 | Transitive `@coinbase/wallet-sdk` 3.x | Via wagmi connectors; wait for upstream bump |
 | Elias corpus touchpoints SQL | Still references legacy `.capital` hosts in seed data |
@@ -113,6 +122,7 @@ Production (after deploy):
 
 ```bash
 ./scripts/production-smoke.sh https://app.buildingcultureid.space
+npm run links:audit   # set LINK_AUDIT_STRICT_SATELLITES=1 when all satellites have DNS
 ```
 
 ## Farcaster

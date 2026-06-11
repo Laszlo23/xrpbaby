@@ -1,0 +1,15 @@
+{
+  "common": {
+    "appName": "Ankommen AI",
+    "tagline": "AI that helps people belong.",
+    "askAi": "Ask AI",
+    "dashboard": "Dashboard",
+    "disclaimer": "This is guidance only — not legal, financial, or medical advice."
+  },
+  "landing": {
+    "hero": "Welcome to Austria.",
+    "heroSub": "Your AI guide for everything you need.",
+    "startChat": "Start Chat",
+    "getStarted": "Get Started"
+  }
+}

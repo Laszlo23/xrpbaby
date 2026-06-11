@@ -27,6 +27,7 @@ import { TelegramMiniAppReady } from "@/components/TelegramMiniAppReady";
 import { JsonLd } from "@/components/JsonLd";
 import { BuilderVoicePrompt } from "@/components/BuilderVoicePrompt";
 import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootFontPreconnectLinks, rootIconLinks, rootTechnicalMeta } from "@/lib/seo";
+import { registerPwaServiceWorker } from "@/lib/pwa";
 
 import appCss from "../styles.css?url";
 import "@neynar/react/dist/style.css";
@@ -141,6 +142,7 @@ function RootComponent() {
 
   useEffect(() => {
     void import("@/lib/sentry").then((m) => m.initClientSentry());
+    registerPwaServiceWorker();
   }, []);
 
   const minimalChrome = useMinimalAppChrome();

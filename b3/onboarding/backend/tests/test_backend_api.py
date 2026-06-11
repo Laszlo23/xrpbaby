@@ -114,13 +114,12 @@ class TestStats:
         r = client.get(f"{API}/stats")
         assert r.status_code == 200
         d = r.json()
-        for key in ["waitlist", "events_tracked", "ecosystem_products", "communities_seeded", "properties_in_pipeline"]:
+        for key in ["waitlist", "events_tracked", "ecosystem_products", "proof", "hub_origin"]:
             assert key in d, f"Missing key: {key}"
         assert d["ecosystem_products"] == 8
-        assert d["communities_seeded"] == 12
-        assert d["properties_in_pipeline"] == 47
         assert isinstance(d["waitlist"], int)
         assert isinstance(d["events_tracked"], int)
+        assert d["proof"] is None or isinstance(d["proof"], dict)
 
     def test_stats_waitlist_increments(self, client):
         before = client.get(f"{API}/stats").json()["waitlist"]

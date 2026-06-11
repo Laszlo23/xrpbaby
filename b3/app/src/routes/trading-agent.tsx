@@ -103,13 +103,32 @@ function TradingAgentPage() {
           </ul>
         </section>
 
-        <section className="rounded-3xl border border-white/[0.08] bg-white/[0.02] p-6 text-sm text-zinc-400">
+        <section className="rounded-3xl border border-white/[0.08] bg-white/[0.02] p-6 text-sm text-zinc-400 space-y-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-500">
+            Platform URLs (BCDAI + fleet)
+          </p>
+          <ul className="space-y-1 font-mono text-xs text-zinc-300">
+            <li>
+              Manifest — <span className="text-zinc-100">{origin}/api/trading/manifest</span>
+            </li>
+            <li>
+              Quote BCC — <span className="text-zinc-100">{origin}/api/trading/quote-bcc</span>
+            </li>
+            <li>
+              Arbitrage — <span className="text-zinc-100">{origin}/api/trading/arbitrage-scan</span>
+            </li>
+            <li className="text-zinc-500">
+              Fleet bypass: header <span className="text-zinc-400">x-trading-internal-secret</span>{" "}
+              (ops only)
+            </li>
+          </ul>
           <p>
-            BCDAI and internal fleet agents should call the{" "}
-            <strong className="text-zinc-200">platform URLs</strong> above (not the raw Python port)
-            so payments and attribution stay on BUILDCHAIN. Operators run{" "}
+            BCDAI and internal fleet agents should call these{" "}
+            <strong className="text-zinc-200">platform URLs</strong> (not the raw Python{" "}
+            <span className="font-mono text-xs">:8765</span> port) so payments and attribution stay
+            on BUILDCHAIN. Operators run{" "}
             <span className="font-mono text-xs">packages/trading-agent</span> as a worker; see{" "}
-            <span className="font-mono text-xs">docs/TRADING_AGENT_SUGAR.md</span>.
+            <span className="font-mono text-xs">docs/TRADING_AGENT_SUGAR.md</span> in the monorepo.
           </p>
         </section>
       </div>

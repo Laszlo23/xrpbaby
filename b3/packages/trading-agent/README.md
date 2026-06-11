@@ -2,7 +2,7 @@
 
 Python service wrapping [Velodrome sugar-sdk v0.4.2](https://github.com/velodrome-finance/sugar-sdk) for **Aerodrome on Base** — better pool discovery, quotes, and unsigned swap txs than ad-hoc router calls.
 
-Used by `@bc/agent-runtime` handler `tradingSugar` and callable from **BCDAI** or any LLM tool over HTTP.
+**Internal worker** for the BUILDCHAIN app (`TRADING_AGENT_URL`). **BCDAI** and fleet agents call **`/api/trading/*`** on the app (x402 + attribution), not this port directly.
 
 ## Install
 
@@ -50,13 +50,17 @@ python -m trading_agent pools --limit 5
 
 ## Agent runtime
 
+Fleet handlers `trading-sugar-1` / `trading-arbitrage-1` call the **platform API** (`PUBLIC_APP_ORIGIN` + `TRADING_AGENT_INTERNAL_SECRET`). The Python server is only the app sidecar.
+
 ```bash
-# terminal 1
+# terminal 1 — worker (app proxies here)
 PYTHONPATH=. python -m trading_agent.server
 
-# terminal 2
+# terminal 2 — app + fleet
+export PUBLIC_APP_ORIGIN=http://127.0.0.1:5173
+export TRADING_AGENT_INTERNAL_SECRET=dev-secret
 export TRADING_AGENT_URL=http://127.0.0.1:8765
-npm run tick -w @bc/agent-runtime   # includes trading-sugar-1 in ops/agents.json
+npm run tick -w @bc/agent-runtime
 ```
 
 See [docs/TRADING_AGENT_SUGAR.md](../../docs/TRADING_AGENT_SUGAR.md).

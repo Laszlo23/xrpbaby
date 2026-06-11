@@ -83,12 +83,24 @@ export function rootFontPreconnectLinks(): HeadPayload["links"] {
   ];
 }
 
-/** Favicon and app icon links for root `<head>`. */
+/** Favicon, PWA manifest, and app icon links for root `<head>`. */
 export function rootIconLinks(): HeadPayload["links"] {
   return [
-    { rel: "icon", href: "/favicon.ico", crossOrigin: "anonymous" },
+    { rel: "icon", href: "/favicon-32.png", type: "image/png", crossOrigin: "anonymous" },
     { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
     { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    { rel: "manifest", href: "/manifest.webmanifest" },
+  ];
+}
+
+/** iOS Add to Home Screen + installability hints (merged in rootTechnicalMeta). */
+export function rootPwaMeta(): HeadPayload["meta"] {
+  return [
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "apple-mobile-web-app-title", content: "BuildCulture" },
+    { name: "application-name", content: "Building Culture" },
   ];
 }
 
@@ -241,6 +253,7 @@ export function rootTechnicalMeta(): HeadPayload["meta"] {
     { name: "format-detection", content: "telephone=no" },
     { name: "referrer", content: "strict-origin-when-cross-origin" },
     { name: "base:app_id", content: baseAppId },
+    ...rootPwaMeta(),
   ];
   const google =
     (typeof import.meta !== "undefined" &&

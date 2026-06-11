@@ -47,6 +47,12 @@ Requires Postgres for waitlist, onboarding, and points (`DATABASE_URL`). See `.e
 
 Farcaster Mini App `homeUrl` opens `/` (story landing).
 
+## Mobile (PWA + App Store / Play Store)
+
+- **PWA:** `public/manifest.webmanifest` + `public/sw.js` — install via Add to Home Screen after deploy
+- **Native shell:** `apps/bc-mobile/` (Capacitor → `https://app.buildingcultureid.space`)
+- Docs: [docs/MOBILE_APP.md](../docs/MOBILE_APP.md)
+
 Culture Layer identity (mint ~$1.11 USD in ETH on Base):
 
 | Variable                         | Notes                                        |

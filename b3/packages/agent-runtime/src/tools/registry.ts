@@ -148,8 +148,14 @@ const TOOL_REGISTRY: Record<string, ToolFn> = {
     const root = repoRoot();
     const text = String(ctx.args?.text ?? "");
     if (!text) return { ok: false, error: "empty_post_text" };
+    const imagePath = typeof ctx.args?.imagePath === "string" ? ctx.args.imagePath.trim() : "";
     const scriptPath = `${root}/app/scripts/x-marketing-post.mjs`;
-    const result = await runShell("node", [scriptPath, text], root, 120_000);
+    const args = ["node", scriptPath];
+    if (imagePath) {
+      args.push("--image", imagePath);
+    }
+    args.push(text);
+    const result = await runShell(args[0], args.slice(1), root, 120_000);
     return {
       ok: result.code === 0,
       data: { stdout: result.stdout.slice(0, 500), code: result.code },

@@ -158,6 +158,9 @@ check_json_ok "/api/market/bcc"
 check_json_ok "/api/market/health"
 check_json_ok "/api/trading/health" "1"
 check_json_ok "/api/marketing/grove/tick"
+check_json_ok "/api/marketing/social-campaign/tick"
+check_json_ok "/api/market/bcc/bnb-route"
+check_json_ok "/api/identity/check-bnb?label=test"
 
 if curl -s "${BASE}/api/platform/funnel-baseline" | node -e "
 let d='';
@@ -228,6 +231,37 @@ if [[ "$reoc404" == "404" ]]; then
   echo "OK  GET /places/api/reoc/999 → 404"
 else
   echo "FAIL GET /places/api/reoc/999 → $reoc404 (expected 404)"
+  fail=1
+fi
+
+echo "--- PWA + social points prerequisites ---"
+check "/manifest.webmanifest"
+check "/sw.js"
+check "/icons/icon-192.png"
+check "/icons/icon-512.png"
+
+join_html=$(curl -s "${BASE}/join")
+if echo "$join_html" | grep -q 'rel="manifest"'; then
+  echo "OK  /join has web app manifest link"
+else
+  echo "FAIL /join missing manifest link"
+  fail=1
+fi
+
+if curl -s "${BASE}/manifest.webmanifest" | node -e "
+let d='';
+process.stdin.on('data',c=>d+=c);
+process.stdin.on('end',()=>{
+  try {
+    const j=JSON.parse(d);
+    const ok = j.name && j.start_url === '/join' && Array.isArray(j.icons) && j.icons.length >= 2;
+    process.exit(ok ? 0 : 1);
+  } catch { process.exit(1); }
+});
+"; then
+  echo "OK  /manifest.webmanifest → valid PWA manifest"
+else
+  echo "FAIL /manifest.webmanifest → invalid JSON or missing fields"
   fail=1
 fi
 
@@ -353,6 +387,16 @@ process.stdin.on('end',()=>{
 else
   echo "WARN Grove Telegram outbound → not configured (set GROVE_TELEGRAM_CHAT_ID)"
 fi
+
+if [[ "$fail" -ne 0 ]]; then
+  echo "Some checks failed for $BASE"
+  exit 1
+fi
+
+echo "--- Link registry audit ---"
+LINK_AUDIT_STRICT_SATELLITES="${LINK_AUDIT_STRICT_SATELLITES:-0}" \
+  PUBLIC_APP_ORIGIN="$BASE" \
+  node "$ROOT/scripts/link-audit.mjs" --origin="$BASE" || fail=1
 
 if [[ "$fail" -ne 0 ]]; then
   echo "Some checks failed for $BASE"

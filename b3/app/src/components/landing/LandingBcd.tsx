@@ -3,6 +3,7 @@ import { animate, motion, useMotionValue, useTransform, type MotionValue } from 
 
 import { BCC_ADDRESS } from "@bc/bcc-kit";
 
+import { LiveProofTicker } from "@/components/shared/LiveProofTicker";
 import { getLayerAccent, getLayerIcon } from "@/lib/ecosystem-layers";
 import {
   LANDING_ECOSYSTEM,
@@ -230,7 +231,9 @@ export function LandingBcd() {
           </a>
         </p>
 
-        <p className="mx-auto mt-10 max-w-xl font-mono text-sm tracking-[0.15em] text-zinc-500 uppercase sm:mt-12">
+        <LiveProofTicker section="bcc" className="mx-auto mt-10 max-w-3xl sm:mt-12" />
+
+        <p className="mx-auto mt-6 max-w-xl font-mono text-sm tracking-[0.15em] text-zinc-500 uppercase">
           Live on Base · not financial advice
         </p>
       </div>

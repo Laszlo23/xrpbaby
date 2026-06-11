@@ -76,6 +76,7 @@ import { Route as ForestQuestsRouteImport } from './routes/forest/quests'
 import { Route as DropsArtRouteImport } from './routes/drops/art'
 import { Route as DropsSlugRouteImport } from './routes/drops.$slug'
 import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
+import { Route as BridgeBccRouteImport } from './routes/bridge/bcc'
 import { Route as BlogFeedDotxmlRouteImport } from './routes/blog/feed[.]xml'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthLogoutRouteImport } from './routes/auth/logout'
@@ -138,7 +139,9 @@ import { Route as ApiIntelligenceHeatmapRouteImport } from './routes/api/intelli
 import { Route as ApiIntelligenceFunnelsRouteImport } from './routes/api/intelligence/funnels'
 import { Route as ApiIntelligenceAppsRouteImport } from './routes/api/intelligence/apps'
 import { Route as ApiIdentityVerifyNameRouteImport } from './routes/api/identity/verify-name'
+import { Route as ApiIdentityResolveBnbRouteImport } from './routes/api/identity/resolve-bnb'
 import { Route as ApiIdentityResolveRouteImport } from './routes/api/identity/resolve'
+import { Route as ApiIdentityCheckBnbRouteImport } from './routes/api/identity/check-bnb'
 import { Route as ApiGrantVerificationRouteImport } from './routes/api/grant/verification'
 import { Route as ApiFeedbackWallRouteImport } from './routes/api/feedback/wall'
 import { Route as ApiFeedbackSubmitRouteImport } from './routes/api/feedback/submit'
@@ -166,6 +169,7 @@ import { Route as ApiPulseDigestDayIdRouteImport } from './routes/api/pulse/dige
 import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/pulse/attestation/latest'
 import { Route as ApiPointsRedeemStatsRouteImport } from './routes/api/points/redeem/stats'
 import { Route as ApiPointsRedeemQuoteRouteImport } from './routes/api/points/redeem/quote'
+import { Route as ApiMarketingSocialCampaignTickRouteImport } from './routes/api/marketing/social-campaign/tick'
 import { Route as ApiMarketingQuidliStatusRouteImport } from './routes/api/marketing/quidli/status'
 import { Route as ApiMarketingQuidliSendRouteImport } from './routes/api/marketing/quidli/send'
 import { Route as ApiMarketingQuidliLeaderboardDropsRouteImport } from './routes/api/marketing/quidli/leaderboard-drops'
@@ -173,6 +177,7 @@ import { Route as ApiMarketingGroveXPostRouteImport } from './routes/api/marketi
 import { Route as ApiMarketingGroveTickRouteImport } from './routes/api/marketing/grove/tick'
 import { Route as ApiMarketingGroveFarcasterPostRouteImport } from './routes/api/marketing/grove/farcaster-post'
 import { Route as ApiMarketBccSolanaRouteRouteImport } from './routes/api/market/bcc/solana-route'
+import { Route as ApiMarketBccBnbRouteRouteImport } from './routes/api/market/bcc/bnb-route'
 import { Route as ApiInvestorsWorkshopSessionRouteImport } from './routes/api/investors/workshop/session'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 
@@ -511,6 +516,11 @@ const DocsSlugRoute = DocsSlugRouteImport.update({
   path: '/docs/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BridgeBccRoute = BridgeBccRouteImport.update({
+  id: '/bridge/bcc',
+  path: '/bridge/bcc',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogFeedDotxmlRoute = BlogFeedDotxmlRouteImport.update({
   id: '/blog/feed.xml',
   path: '/blog/feed.xml',
@@ -829,9 +839,19 @@ const ApiIdentityVerifyNameRoute = ApiIdentityVerifyNameRouteImport.update({
   path: '/api/identity/verify-name',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiIdentityResolveBnbRoute = ApiIdentityResolveBnbRouteImport.update({
+  id: '/api/identity/resolve-bnb',
+  path: '/api/identity/resolve-bnb',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiIdentityResolveRoute = ApiIdentityResolveRouteImport.update({
   id: '/api/identity/resolve',
   path: '/api/identity/resolve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIdentityCheckBnbRoute = ApiIdentityCheckBnbRouteImport.update({
+  id: '/api/identity/check-bnb',
+  path: '/api/identity/check-bnb',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGrantVerificationRoute = ApiGrantVerificationRouteImport.update({
@@ -973,6 +993,12 @@ const ApiPointsRedeemQuoteRoute = ApiPointsRedeemQuoteRouteImport.update({
   path: '/api/points/redeem/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMarketingSocialCampaignTickRoute =
+  ApiMarketingSocialCampaignTickRouteImport.update({
+    id: '/api/marketing/social-campaign/tick',
+    path: '/api/marketing/social-campaign/tick',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiMarketingQuidliStatusRoute =
   ApiMarketingQuidliStatusRouteImport.update({
     id: '/api/marketing/quidli/status',
@@ -1009,6 +1035,11 @@ const ApiMarketingGroveFarcasterPostRoute =
 const ApiMarketBccSolanaRouteRoute = ApiMarketBccSolanaRouteRouteImport.update({
   id: '/solana-route',
   path: '/solana-route',
+  getParentRoute: () => ApiMarketBccRoute,
+} as any)
+const ApiMarketBccBnbRouteRoute = ApiMarketBccBnbRouteRouteImport.update({
+  id: '/bnb-route',
+  path: '/bnb-route',
   getParentRoute: () => ApiMarketBccRoute,
 } as any)
 const ApiInvestorsWorkshopSessionRoute =
@@ -1065,6 +1096,7 @@ export interface FileRoutesByFullPath {
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
+  '/bridge/bcc': typeof BridgeBccRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
@@ -1110,7 +1142,9 @@ export interface FileRoutesByFullPath {
   '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
+  '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
+  '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
   '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
@@ -1167,6 +1201,7 @@ export interface FileRoutesByFullPath {
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
+  '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
   '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
@@ -1174,6 +1209,7 @@ export interface FileRoutesByFullPath {
   '/api/marketing/quidli/leaderboard-drops': typeof ApiMarketingQuidliLeaderboardDropsRoute
   '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
   '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
+  '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
@@ -1232,6 +1268,7 @@ export interface FileRoutesByTo {
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
+  '/bridge/bcc': typeof BridgeBccRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
@@ -1277,7 +1314,9 @@ export interface FileRoutesByTo {
   '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
+  '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
+  '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
   '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
@@ -1334,6 +1373,7 @@ export interface FileRoutesByTo {
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
+  '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
   '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
@@ -1341,6 +1381,7 @@ export interface FileRoutesByTo {
   '/api/marketing/quidli/leaderboard-drops': typeof ApiMarketingQuidliLeaderboardDropsRoute
   '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
   '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
+  '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
@@ -1401,6 +1442,7 @@ export interface FileRoutesById {
   '/auth/logout': typeof AuthLogoutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
+  '/bridge/bcc': typeof BridgeBccRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
@@ -1446,7 +1488,9 @@ export interface FileRoutesById {
   '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
+  '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
+  '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
   '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
@@ -1503,6 +1547,7 @@ export interface FileRoutesById {
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
+  '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
   '/api/marketing/grove/farcaster-post': typeof ApiMarketingGroveFarcasterPostRoute
   '/api/marketing/grove/tick': typeof ApiMarketingGroveTickRoute
@@ -1510,6 +1555,7 @@ export interface FileRoutesById {
   '/api/marketing/quidli/leaderboard-drops': typeof ApiMarketingQuidliLeaderboardDropsRoute
   '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
   '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
+  '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
@@ -1571,6 +1617,7 @@ export interface FileRouteTypes {
     | '/auth/logout'
     | '/blog/$slug'
     | '/blog/feed.xml'
+    | '/bridge/bcc'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -1616,7 +1663,9 @@ export interface FileRouteTypes {
     | '/api/feedback/submit'
     | '/api/feedback/wall'
     | '/api/grant/verification'
+    | '/api/identity/check-bnb'
     | '/api/identity/resolve'
+    | '/api/identity/resolve-bnb'
     | '/api/identity/verify-name'
     | '/api/intelligence/apps'
     | '/api/intelligence/funnels'
@@ -1673,6 +1722,7 @@ export interface FileRouteTypes {
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/investors/workshop/session'
+    | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
     | '/api/marketing/grove/farcaster-post'
     | '/api/marketing/grove/tick'
@@ -1680,6 +1730,7 @@ export interface FileRouteTypes {
     | '/api/marketing/quidli/leaderboard-drops'
     | '/api/marketing/quidli/send'
     | '/api/marketing/quidli/status'
+    | '/api/marketing/social-campaign/tick'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/pulse/attestation/latest'
@@ -1738,6 +1789,7 @@ export interface FileRouteTypes {
     | '/auth/logout'
     | '/blog/$slug'
     | '/blog/feed.xml'
+    | '/bridge/bcc'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -1783,7 +1835,9 @@ export interface FileRouteTypes {
     | '/api/feedback/submit'
     | '/api/feedback/wall'
     | '/api/grant/verification'
+    | '/api/identity/check-bnb'
     | '/api/identity/resolve'
+    | '/api/identity/resolve-bnb'
     | '/api/identity/verify-name'
     | '/api/intelligence/apps'
     | '/api/intelligence/funnels'
@@ -1840,6 +1894,7 @@ export interface FileRouteTypes {
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/investors/workshop/session'
+    | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
     | '/api/marketing/grove/farcaster-post'
     | '/api/marketing/grove/tick'
@@ -1847,6 +1902,7 @@ export interface FileRouteTypes {
     | '/api/marketing/quidli/leaderboard-drops'
     | '/api/marketing/quidli/send'
     | '/api/marketing/quidli/status'
+    | '/api/marketing/social-campaign/tick'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/pulse/attestation/latest'
@@ -1906,6 +1962,7 @@ export interface FileRouteTypes {
     | '/auth/logout'
     | '/blog/$slug'
     | '/blog/feed.xml'
+    | '/bridge/bcc'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -1951,7 +2008,9 @@ export interface FileRouteTypes {
     | '/api/feedback/submit'
     | '/api/feedback/wall'
     | '/api/grant/verification'
+    | '/api/identity/check-bnb'
     | '/api/identity/resolve'
+    | '/api/identity/resolve-bnb'
     | '/api/identity/verify-name'
     | '/api/intelligence/apps'
     | '/api/intelligence/funnels'
@@ -2008,6 +2067,7 @@ export interface FileRouteTypes {
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
     | '/api/investors/workshop/session'
+    | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
     | '/api/marketing/grove/farcaster-post'
     | '/api/marketing/grove/tick'
@@ -2015,6 +2075,7 @@ export interface FileRouteTypes {
     | '/api/marketing/quidli/leaderboard-drops'
     | '/api/marketing/quidli/send'
     | '/api/marketing/quidli/status'
+    | '/api/marketing/social-campaign/tick'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/pulse/attestation/latest'
@@ -2075,6 +2136,7 @@ export interface RootRouteChildren {
   AuthLogoutRoute: typeof AuthLogoutRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogFeedDotxmlRoute: typeof BlogFeedDotxmlRoute
+  BridgeBccRoute: typeof BridgeBccRoute
   DocsSlugRoute: typeof DocsSlugRoute
   DropsSlugRoute: typeof DropsSlugRoute
   DropsArtRoute: typeof DropsArtRoute
@@ -2111,7 +2173,9 @@ export interface RootRouteChildren {
   ApiFeedbackSubmitRoute: typeof ApiFeedbackSubmitRoute
   ApiFeedbackWallRoute: typeof ApiFeedbackWallRoute
   ApiGrantVerificationRoute: typeof ApiGrantVerificationRoute
+  ApiIdentityCheckBnbRoute: typeof ApiIdentityCheckBnbRoute
   ApiIdentityResolveRoute: typeof ApiIdentityResolveRoute
+  ApiIdentityResolveBnbRoute: typeof ApiIdentityResolveBnbRoute
   ApiIdentityVerifyNameRoute: typeof ApiIdentityVerifyNameRoute
   ApiIntelligenceAppsRoute: typeof ApiIntelligenceAppsRoute
   ApiIntelligenceFunnelsRoute: typeof ApiIntelligenceFunnelsRoute
@@ -2174,6 +2238,7 @@ export interface RootRouteChildren {
   ApiMarketingQuidliLeaderboardDropsRoute: typeof ApiMarketingQuidliLeaderboardDropsRoute
   ApiMarketingQuidliSendRoute: typeof ApiMarketingQuidliSendRoute
   ApiMarketingQuidliStatusRoute: typeof ApiMarketingQuidliStatusRoute
+  ApiMarketingSocialCampaignTickRoute: typeof ApiMarketingSocialCampaignTickRoute
   ApiPointsRedeemQuoteRoute: typeof ApiPointsRedeemQuoteRoute
   ApiPointsRedeemStatsRoute: typeof ApiPointsRedeemStatsRoute
   ApiPulseAttestationLatestRoute: typeof ApiPulseAttestationLatestRoute
@@ -2660,6 +2725,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bridge/bcc': {
+      id: '/bridge/bcc'
+      path: '/bridge/bcc'
+      fullPath: '/bridge/bcc'
+      preLoaderRoute: typeof BridgeBccRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/feed.xml': {
       id: '/blog/feed.xml'
       path: '/blog/feed.xml'
@@ -3094,11 +3166,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIdentityVerifyNameRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/identity/resolve-bnb': {
+      id: '/api/identity/resolve-bnb'
+      path: '/api/identity/resolve-bnb'
+      fullPath: '/api/identity/resolve-bnb'
+      preLoaderRoute: typeof ApiIdentityResolveBnbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/identity/resolve': {
       id: '/api/identity/resolve'
       path: '/api/identity/resolve'
       fullPath: '/api/identity/resolve'
       preLoaderRoute: typeof ApiIdentityResolveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/check-bnb': {
+      id: '/api/identity/check-bnb'
+      path: '/api/identity/check-bnb'
+      fullPath: '/api/identity/check-bnb'
+      preLoaderRoute: typeof ApiIdentityCheckBnbRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/grant/verification': {
@@ -3290,6 +3376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPointsRedeemQuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/marketing/social-campaign/tick': {
+      id: '/api/marketing/social-campaign/tick'
+      path: '/api/marketing/social-campaign/tick'
+      fullPath: '/api/marketing/social-campaign/tick'
+      preLoaderRoute: typeof ApiMarketingSocialCampaignTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/marketing/quidli/status': {
       id: '/api/marketing/quidli/status'
       path: '/api/marketing/quidli/status'
@@ -3337,6 +3430,13 @@ declare module '@tanstack/react-router' {
       path: '/solana-route'
       fullPath: '/api/market/bcc/solana-route'
       preLoaderRoute: typeof ApiMarketBccSolanaRouteRouteImport
+      parentRoute: typeof ApiMarketBccRoute
+    }
+    '/api/market/bcc/bnb-route': {
+      id: '/api/market/bcc/bnb-route'
+      path: '/bnb-route'
+      fullPath: '/api/market/bcc/bnb-route'
+      preLoaderRoute: typeof ApiMarketBccBnbRouteRouteImport
       parentRoute: typeof ApiMarketBccRoute
     }
     '/api/investors/workshop/session': {
@@ -3413,10 +3513,12 @@ const R0gAgentidRouteWithChildren = R0gAgentidRoute._addFileChildren(
 )
 
 interface ApiMarketBccRouteChildren {
+  ApiMarketBccBnbRouteRoute: typeof ApiMarketBccBnbRouteRoute
   ApiMarketBccSolanaRouteRoute: typeof ApiMarketBccSolanaRouteRoute
 }
 
 const ApiMarketBccRouteChildren: ApiMarketBccRouteChildren = {
+  ApiMarketBccBnbRouteRoute: ApiMarketBccBnbRouteRoute,
   ApiMarketBccSolanaRouteRoute: ApiMarketBccSolanaRouteRoute,
 }
 
@@ -3502,6 +3604,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthLogoutRoute: AuthLogoutRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogFeedDotxmlRoute: BlogFeedDotxmlRoute,
+  BridgeBccRoute: BridgeBccRoute,
   DocsSlugRoute: DocsSlugRoute,
   DropsSlugRoute: DropsSlugRoute,
   DropsArtRoute: DropsArtRoute,
@@ -3538,7 +3641,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFeedbackSubmitRoute: ApiFeedbackSubmitRoute,
   ApiFeedbackWallRoute: ApiFeedbackWallRoute,
   ApiGrantVerificationRoute: ApiGrantVerificationRoute,
+  ApiIdentityCheckBnbRoute: ApiIdentityCheckBnbRoute,
   ApiIdentityResolveRoute: ApiIdentityResolveRoute,
+  ApiIdentityResolveBnbRoute: ApiIdentityResolveBnbRoute,
   ApiIdentityVerifyNameRoute: ApiIdentityVerifyNameRoute,
   ApiIntelligenceAppsRoute: ApiIntelligenceAppsRoute,
   ApiIntelligenceFunnelsRoute: ApiIntelligenceFunnelsRoute,
@@ -3602,6 +3707,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiMarketingQuidliLeaderboardDropsRoute,
   ApiMarketingQuidliSendRoute: ApiMarketingQuidliSendRoute,
   ApiMarketingQuidliStatusRoute: ApiMarketingQuidliStatusRoute,
+  ApiMarketingSocialCampaignTickRoute: ApiMarketingSocialCampaignTickRoute,
   ApiPointsRedeemQuoteRoute: ApiPointsRedeemQuoteRoute,
   ApiPointsRedeemStatsRoute: ApiPointsRedeemStatsRoute,
   ApiPulseAttestationLatestRoute: ApiPulseAttestationLatestRoute,

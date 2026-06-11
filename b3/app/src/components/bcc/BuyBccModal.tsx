@@ -3,7 +3,9 @@ import {
   BCC_ADDRESS,
   BCC_DISCOUNT_LABEL,
   BCC_SYMBOL,
+  buildJumperBnbToBccUrl,
   buildJumperSolToBccUrl,
+  type BccBnbBuyRoute,
   type BccSolanaBuyRoute,
 } from "@bc/bcc-kit";
 import {
@@ -15,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BccSwapPanel } from "@/components/swap/BccSwapPanel";
+import { BccBnbBridgePanel } from "@/components/bcc/BccBnbBridgePanel";
 
 function shortAddress(addr: string) {
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
@@ -31,26 +34,46 @@ type SolanaRouteResponse = {
   recommended?: { label: string; href: string };
 };
 
+type BnbRouteResponse = {
+  ok?: boolean;
+  estimate?: {
+    bnbAmount: number;
+    approxBccAfterFees?: number;
+    notionalUsd?: number;
+  };
+  routes?: BccBnbBuyRoute[];
+  recommended?: { label: string; href: string };
+};
+
 /**
- * Floating "Buy BCC" button + modal. In-app Base swap + Solana bridge paths.
+ * Floating "Buy BCC" button + modal. In-app Base swap + BNB/Solana bridge paths.
  */
 export function BuyBccButton() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [solanaData, setSolanaData] = useState<SolanaRouteResponse | null>(null);
+  const [bnbData, setBnbData] = useState<BnbRouteResponse | null>(null);
   const [solanaLoading, setSolanaLoading] = useState(false);
+  const [bnbLoading, setBnbLoading] = useState(false);
 
   useEffect(() => {
     if (!open) return;
     setSolanaLoading(true);
+    setBnbLoading(true);
     fetch("/api/market/bcc/solana-route?sol=1")
       .then((r) => r.json())
       .then((d: SolanaRouteResponse) => setSolanaData(d))
       .catch(() => setSolanaData(null))
       .finally(() => setSolanaLoading(false));
+    fetch("/api/market/bcc/bnb-route?bnb=0.1")
+      .then((r) => r.json())
+      .then((d: BnbRouteResponse) => setBnbData(d))
+      .catch(() => setBnbData(null))
+      .finally(() => setBnbLoading(false));
   }, [open]);
 
-  const jumperHref = solanaData?.recommended?.href ?? buildJumperSolToBccUrl("SOL");
+  const jumperSolHref = solanaData?.recommended?.href ?? buildJumperSolToBccUrl("SOL");
+  const jumperBnbHref = bnbData?.recommended?.href ?? buildJumperBnbToBccUrl("BNB");
 
   return (
     <>
@@ -68,20 +91,39 @@ export function BuyBccButton() {
           <DialogHeader>
             <DialogTitle className="font-heading text-xl">Get {BCC_SYMBOL}</DialogTitle>
             <DialogDescription className="text-zinc-500">
-              {BCC_SYMBOL} lives on Base. Pay with {BCC_SYMBOL} for{" "}
-              <span className="font-semibold text-[#C5FF41]">{BCC_DISCOUNT_LABEL}</span> on
-              identity, art, and Places.
+              One fair-launch token on Base. Pay with {BCC_SYMBOL} for{" "}
+              <span className="font-semibold text-[#C5FF41]">{BCC_DISCOUNT_LABEL}</span> on identity,
+              art, and Places.
             </DialogDescription>
           </DialogHeader>
 
           <Tabs defaultValue="base" className="mt-2">
-            <TabsList className="grid w-full grid-cols-2 bg-black/40">
+            <TabsList className="grid w-full grid-cols-3 bg-black/40">
               <TabsTrigger value="base">On Base</TabsTrigger>
-              <TabsTrigger value="solana">From Solana</TabsTrigger>
+              <TabsTrigger value="bnb">From BNB</TabsTrigger>
+              <TabsTrigger value="solana">Solana</TabsTrigger>
             </TabsList>
 
             <TabsContent value="base" className="mt-3 space-y-3">
               <BccSwapPanel compact />
+            </TabsContent>
+
+            <TabsContent value="bnb" className="mt-3 space-y-3">
+              <BccBnbBridgePanel compact />
+              {bnbLoading ? null : bnbData?.estimate?.approxBccAfterFees ? (
+                <p className="rounded-lg border border-[#F0B90B]/25 bg-[#F0B90B]/5 px-3 py-2 text-xs text-zinc-300">
+                  Quick estimate: ~{bnbData.estimate.approxBccAfterFees} {BCC_SYMBOL} for{" "}
+                  {bnbData.estimate.bnbAmount} BNB
+                </p>
+              ) : null}
+              <a
+                href={jumperBnbHref}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block rounded-full border border-[#F0B90B]/40 px-5 py-2 text-center text-xs font-semibold text-[#F0B90B] hover:bg-[#F0B90B]/10"
+              >
+                Open {bnbData?.recommended?.label ?? "Jumper"} →
+              </a>
             </TabsContent>
 
             <TabsContent value="solana" className="mt-3 space-y-3">
@@ -100,7 +142,7 @@ export function BuyBccButton() {
               ) : null}
 
               <a
-                href={jumperHref}
+                href={jumperSolHref}
                 target="_blank"
                 rel="noreferrer noopener"
                 className="block rounded-full bg-gradient-to-r from-[#9945FF] to-[#00E5FF] px-5 py-3 text-center text-sm font-bold text-white transition hover:opacity-90"

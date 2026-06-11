@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Ankommen AI",
+    "slug": "ankommen-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "ankommen",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#c8102e"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "org.buildingculture.ankommen"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#c8102e"
+      },
+      "package": "org.buildingculture.ankommen"
+    },
+    "plugins": ["expo-router", "expo-notifications", "expo-camera"],
+    "extra": {
+      "apiUrl": "http://localhost:3001"
+    }
+  }
+}

@@ -37,6 +37,14 @@ Reply to a tweet:
 node scripts/x-marketing-post.mjs --reply-to 1234567890123456789 "Short reply"
 ```
 
+Post with a campaign image (site-relative path under `/social/`):
+
+```bash
+node scripts/x-marketing-post.mjs --image /social/building-culture-hero.webp "We bring places back to life → https://app.buildingcultureid.space/join"
+```
+
+Dual-account campaign rotation: `POST /api/marketing/social-campaign/tick` or `npm run social-campaign:tick` (see `app/src/content/social-campaign/manifest.json`).
+
 Pipe body (use `-` so the script reads stdin and does not hang when no TTY):
 
 ```bash

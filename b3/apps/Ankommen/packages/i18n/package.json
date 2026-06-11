@@ -1,0 +1,16 @@
+{
+  "name": "@ankommen/i18n",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./messages/*": "./messages/*"
+  },
+  "dependencies": {
+    "next-intl": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

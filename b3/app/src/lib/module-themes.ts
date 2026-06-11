@@ -50,5 +50,5 @@ export const moduleThemes: Record<ModuleThemeId, ModuleTheme> = {
 };
 
 export function getModuleTheme(id: ModuleThemeId): ModuleTheme {
-  return moduleThemes[id];
+  return moduleThemes[id] ?? moduleThemes.signal;
 }

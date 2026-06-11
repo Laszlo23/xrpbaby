@@ -2,6 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Building2, FileText, Layers, LineChart, Maximize2 } from "lucide-react";
 
+import { usePublicProof } from "@/hooks/usePublicProof";
+import { fmtProofInt, fmtProofUsd } from "@/lib/public-proof-format";
+
 import {
   Dialog,
   DialogContent,
@@ -163,6 +166,8 @@ function TokenizedReportShowcase() {
 }
 
 export function LandingInvestors() {
+  const { data: proof, isLoading } = usePublicProof();
+
   return (
     <section id="investors" className="relative w-full overflow-hidden bg-[#070707] py-28 sm:py-36">
       <div className="absolute inset-0 bc-noise" />
@@ -183,16 +188,28 @@ export function LandingInvestors() {
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <motion.div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-transparent to-[#00E5FF]/10" />
-              <div className="absolute top-6 left-6 max-w-[180px] rounded-2xl bc-glass-strong p-4">
-                <p className="mono-label !text-[#C5FF41]">AUM PIPELINE</p>
-                <p className="mt-1 font-display text-2xl font-bold text-white">€42M</p>
-                <p className="text-xs text-zinc-400">Property assets</p>
-              </div>
-              <div className="absolute right-6 bottom-6 max-w-[180px] rounded-2xl bc-glass-strong p-4">
+              <a
+                href={proof?.proofUrls.dexScreener ?? "https://dexscreener.com/base/0xb890a5289f789f1346032ccc1847939e855fab07"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute top-6 left-6 max-w-[200px] rounded-2xl bc-glass-strong p-4 transition hover:border-[#C5FF41]/40"
+              >
+                <p className="mono-label !text-[#C5FF41]">$BCC MARKET CAP</p>
+                <p className="mt-1 font-display text-2xl font-bold text-white tabular-nums">
+                  {isLoading ? "…" : fmtProofUsd(proof?.bcc.marketCapUsd)}
+                </p>
+                <p className="text-xs text-zinc-400">DexScreener · fair launch</p>
+              </a>
+              <a
+                href={proof?.proofUrls.traction ?? "/api/investors/traction"}
+                className="absolute right-6 bottom-6 max-w-[200px] rounded-2xl bc-glass-strong p-4 transition hover:border-[#00E5FF]/40"
+              >
                 <p className="mono-label !text-[#00E5FF]">COMMUNITY</p>
-                <p className="mt-1 font-display text-2xl font-bold text-white">5,200+</p>
-                <p className="text-xs text-zinc-400">Active participants</p>
-              </div>
+                <p className="mt-1 font-display text-2xl font-bold text-white tabular-nums">
+                  {isLoading ? "…" : fmtProofInt(proof?.community.members)}
+                </p>
+                <p className="text-xs text-zinc-400">Member profiles (DB)</p>
+              </a>
             </div>
           </motion.div>
 

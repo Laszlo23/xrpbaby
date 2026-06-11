@@ -195,12 +195,24 @@ async def track_event(event: AnalyticsEvent, request: Request):
 async def stats():
     waitlist = await db.waitlist.count_documents({})
     events = await db.analytics.count_documents({})
+    proof = None
+    hub_origin = os.environ.get("HUB_API_ORIGIN", "https://app.buildingcultureid.space").rstrip("/")
+    try:
+        import urllib.request
+        import json as _json
+
+        with urllib.request.urlopen(f"{hub_origin}/api/investors/traction?view=proof", timeout=10) as res:
+            payload = _json.loads(res.read().decode())
+            if payload.get("ok") and payload.get("proof"):
+                proof = payload["proof"]
+    except Exception:
+        proof = None
     return {
         "waitlist": waitlist,
         "events_tracked": events,
         "ecosystem_products": len(ECOSYSTEM),
-        "communities_seeded": 12,
-        "properties_in_pipeline": 47,
+        "proof": proof,
+        "hub_origin": hub_origin,
     }
 
 

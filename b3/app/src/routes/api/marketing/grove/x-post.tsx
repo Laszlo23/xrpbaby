@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { groveMarketingAdminSecret } from "@/server/marketing/grove/env";
 import { getGroveTwitterClient } from "@/server/marketing/grove/x-client";
+import { parseMarketingPostBody } from "@/server/x/resolve-social-media";
 import { postMarketingTweet } from "@/server/x/post-marketing-tweet";
 
 export const Route = createFileRoute("/api/marketing/grove/x-post")({
@@ -26,32 +27,29 @@ export const Route = createFileRoute("/api/marketing/grove/x-post")({
           return json({ ok: false, error: "invalid_json" }, 400);
         }
 
-        const parsed = parseBody(body);
+        const parsed = parseMarketingPostBody(body);
         if (!parsed) return json({ ok: false, error: "invalid_body" }, 400);
 
         const client = getGroveTwitterClient();
         if (!client) return json({ ok: false, error: "x_client_unconfigured" }, 503);
 
-        const result = await postMarketingTweet(client, parsed.text, parsed.replyToTweetId);
+        const result = await postMarketingTweet(client, parsed.text, {
+          replyToTweetId: parsed.replyToTweetId,
+          imagePath: parsed.imagePath,
+        });
         if (!result.ok) return json({ ok: false, error: result.error }, 400);
 
-        return json({ ok: true, tweetId: result.tweetId, url: result.url });
+        return json({
+          ok: true,
+          tweetId: result.tweetId,
+          url: result.url,
+          imagePath: parsed.imagePath ?? null,
+        });
       },
     },
   },
   component: () => null,
 });
-
-function parseBody(raw: unknown): { text: string; replyToTweetId?: string } | null {
-  if (!raw || typeof raw !== "object") return null;
-  const o = raw as Record<string, unknown>;
-  if (typeof o.text !== "string") return null;
-  const replyToTweetId =
-    typeof o.replyToTweetId === "string" && o.replyToTweetId.trim()
-      ? o.replyToTweetId.trim()
-      : undefined;
-  return { text: o.text, replyToTweetId };
-}
 
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {

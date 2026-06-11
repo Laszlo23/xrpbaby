@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useAccount, useChainId, useSignMessage } from "wagmi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { cultureGatewayPath, cultureProfileUrl } from "@/lib/identity/urls";
@@ -24,6 +24,21 @@ export function CultureNameProfile({ resolved, paramName }: Props) {
   const [verified, setVerified] = useState(false);
   const [verifyError, setVerifyError] = useState("");
   const [verifying, setVerifying] = useState(false);
+  const [bnbName, setBnbName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const owner = resolved.owner;
+    if (!owner || resolved.status !== "claimed") {
+      setBnbName(null);
+      return;
+    }
+    fetch(`/api/identity/resolve-bnb?address=${encodeURIComponent(owner)}`)
+      .then((r) => r.json())
+      .then((d: { ok?: boolean; name?: string }) => {
+        setBnbName(d.ok && d.name ? d.name : null);
+      })
+      .catch(() => setBnbName(null));
+  }, [resolved.owner, resolved.status]);
 
   const displayName = resolved.fullName || paramName.toLowerCase();
   const isOwner =
@@ -140,6 +155,32 @@ export function CultureNameProfile({ resolved, paramName }: Props) {
         </p>
         {resolved.owner ? (
           <p className="font-mono text-zinc-300">Owner: {shortAddress(resolved.owner)}</p>
+        ) : null}
+        {bnbName ? (
+          <p className="text-zinc-300">
+            BNB identity:{" "}
+            <a
+              href={`https://space.id/name/${bnbName}`}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="font-mono text-[#F0B90B] hover:underline"
+            >
+              {bnbName}
+            </a>
+            <span className="text-zinc-500"> (Space ID)</span>
+          </p>
+        ) : resolved.owner ? (
+          <p className="text-zinc-500">
+            No linked <span className="font-mono text-[#F0B90B]">.bnb</span> name —{" "}
+            <a
+              href="https://space.id/tld/1"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-[#F0B90B] hover:underline"
+            >
+              register on Space ID
+            </a>
+          </p>
         ) : null}
         {resolved.mintedAt ? (
           <p className="text-zinc-500">

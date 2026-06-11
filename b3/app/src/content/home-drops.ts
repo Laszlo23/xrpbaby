@@ -66,7 +66,7 @@ export const homeDrops: HomeDrop[] = [
     image: ticketNftVideo("vacationpenthous.mp4"),
     story:
       "Win seven to ten nights in the Berggasse penthouse—full residence access with Vienna at your doorstep. Each ticket enters a fair draw; one holder receives coordinated fulfillment after selection. Transparent odds on-chain; the stay is IRL.",
-    ticketsSold: 842,
+    ticketsSold: 0,
     totalTickets: 1000,
     endsAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
     rarity: "legendary",
@@ -85,7 +85,7 @@ export const homeDrops: HomeDrop[] = [
     image: "/nfts/experienceEventVienna.mp4",
     story:
       "A curated adults-only evening in Vienna built around atmosphere, discretion, and detail. Mint for the draw; winners unlock the full experience. Selection is verifiable on-chain; the night stays private where it belongs.",
-    ticketsSold: 456,
+    ticketsSold: 0,
     totalTickets: 750,
     endsAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
     rarity: "rare",
@@ -105,7 +105,7 @@ export const homeDrops: HomeDrop[] = [
     image: ticketNftVideo("artinvienna.mp4"),
     story:
       "Convention access for ART in Vienna—win and leave with an original painting from the featured wall. Ticketing lives on-chain; the artwork ships after the draw.",
-    ticketsSold: 123,
+    ticketsSold: 0,
     totalTickets: 500,
     endsAt: new Date(Date.now() + 12 * 24 * 60 * 60 * 1000),
     rarity: "common",
@@ -143,7 +143,7 @@ export const homeDrops: HomeDrop[] = [
     image: ticketNftVideo("viennastay.mp4"),
     story:
       "One week at the Hilton in Vienna—room as your base—with dinner on three evenings and art-and-culture afternoons on three days across the city.",
-    ticketsSold: 318,
+    ticketsSold: 0,
     totalTickets: 600,
     endsAt: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
     rarity: "rare",
@@ -160,7 +160,3 @@ export function getDropBySlug(slug: string): HomeDrop | undefined {
   return homeDrops.find((d) => d.slug === slug);
 }
 
-/** Sum of minted tickets across homepage pools — marketing “entries in play”. */
-export function totalTicketEntries(): number {
-  return homeDrops.reduce((acc, d) => acc + Math.min(d.ticketsSold, d.totalTickets), 0);
-}

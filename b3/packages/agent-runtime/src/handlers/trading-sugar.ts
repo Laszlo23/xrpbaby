@@ -26,15 +26,14 @@ function toToken(): string {
 }
 
 /**
- * Fleet tick: calls rentable platform API (internal secret bypasses x402) or direct Python worker.
+ * Fleet tick: always calls BUILDCHAIN platform `/api/trading/*` so x402 + attribution stay on-app.
+ * Python `:8765` is ops-only — set TRADING_AGENT_VIA_PLATFORM=0 to bypass (local worker debug).
  */
 export async function runTradingSugarTick(agent: OpsAgentRecord): Promise<LedgerInsert> {
   const fromToken = process.env.TRADING_AGENT_FROM_TOKEN?.trim() || "eth";
   const amount = quoteEthAmount();
   const to = toToken();
-  const usePlatform =
-    process.env.TRADING_AGENT_VIA_PLATFORM !== "0" &&
-    Boolean(process.env.TRADING_AGENT_INTERNAL_SECRET?.trim() || process.env.PUBLIC_APP_ORIGIN?.trim());
+  const usePlatform = process.env.TRADING_AGENT_VIA_PLATFORM?.trim() !== "0";
 
   if (usePlatform) {
     const base = platformTradingBase();

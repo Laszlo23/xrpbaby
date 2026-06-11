@@ -60,15 +60,22 @@ CORS_ORIGIN=...,https://bcdai.buildingcultureid.space
 SIWE_ALLOWED_DOMAINS=...,bcdai.buildingcultureid.space
 ```
 
-## Trading quotes (sugar-sdk)
+## Trading quotes (platform API — not raw Python port)
 
-For Aerodrome routing on Base (ETH↔BCC and pool discovery), run the monorepo trading agent and point BCDAI at it:
+BCDAI must call the **BUILDCHAIN app** so x402 payments and attribution stay on-platform. Do **not** point BCDAI at `http://…:8765` in production.
 
-```bash
-cd b3/packages/trading-agent && pip install -r requirements.txt && python -m trading_agent.server
-```
+| Use case | URL |
+|----------|-----|
+| Discovery | `https://app.buildingcultureid.space/api/trading/manifest` |
+| Agent card | `https://app.buildingcultureid.space/.well-known/agent.json` |
+| ETH→BCC quote (x402) | `GET /api/trading/quote-bcc?eth_amount=0.01` |
+| Generic quote (x402) | `GET /api/trading/quote?from_token=eth&to_token=bcc&amount=0.01` |
+| Arbitrage scan (x402) | `GET /api/trading/arbitrage-scan?sol_amount=1&eth_amount=0.01` |
+| Swap preview (x402) | `GET /api/trading/swap-preview?from_token=…&to_token=…&amount=…&wallet=0x…` |
 
-See [TRADING_AGENT_SUGAR.md](./TRADING_AGENT_SUGAR.md) — `GET /quote/bcc`, `POST /quote`, unsigned swap previews when paper mode is off.
+Paid calls: same x402 headers as the premium feed. Browser clients from `bcdai.buildingcultureid.space` need `X402_CORS_ORIGINS` (or `CORS_ORIGIN`) to include BCDAI.
+
+**Operators** run `packages/trading-agent` as an internal worker; the app proxies via `TRADING_AGENT_URL`. See [TRADING_AGENT_SUGAR.md](./TRADING_AGENT_SUGAR.md).
 
 ## Founding quest
 

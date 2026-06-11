@@ -1,0 +1,321 @@
+{
+  "version": 1,
+  "defaultOrigin": "https://app.buildingcultureid.space",
+  "assets": [
+    {
+      "id": "building-culture-hero",
+      "image": "/social/building-culture-hero.webp",
+      "ogImage": "/social/og/building-culture-hero-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "official",
+      "pillar": "mission",
+      "copyVariants": {
+        "official": "We bring places back to life. Historic spaces. Real communities. Not through banks — through people. Join → {cta}",
+        "grove": "The forest grows where proof meets place. One link to join the movement → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=building-culture-hero",
+      "tags": ["hero", "mission", "brand"]
+    },
+    {
+      "id": "join-the-culture-01",
+      "image": "/social/join-the-culture-01.webp",
+      "ogImage": "/social/og/join-the-culture-01-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "official",
+      "pillar": "growth",
+      "copyVariants": {
+        "official": "Join the culture. Build with us. Own real places. Start here → {cta}",
+        "grove": "New builders land in the forest every week. Your turn → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=join-the-culture",
+      "tags": ["cta", "join", "community"]
+    },
+    {
+      "id": "mission-launch-01",
+      "image": "/social/mission-launch-01.webp",
+      "ogImage": "/social/og/mission-launch-01-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "official",
+      "pillar": "mission",
+      "copyVariants": {
+        "official": "Building Culture is a new way to fund, build, own and experience real-world communities → {cta}",
+        "grove": "Mission on-chain, impact off-chain. See how the forest works → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/welcome?utm_source=x&utm_medium=campaign&utm_campaign=mission-launch",
+      "tags": ["mission", "launch"]
+    },
+    {
+      "id": "we-restore-01",
+      "image": "/social/we-restore-01.webp",
+      "ogImage": "/social/og/we-restore-01-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "official",
+      "pillar": "restore",
+      "copyVariants": {
+        "official": "We restore historic spaces with vision and care. See the ecosystem → {cta}",
+        "grove": "Restoration is recorded. Places come back to life with proof → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=we-restore",
+      "tags": ["restore", "pillars"]
+    },
+    {
+      "id": "we-activate-01",
+      "image": "/social/we-activate-01.webp",
+      "ogImage": "/social/og/we-activate-01-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "official",
+      "pillar": "activate",
+      "copyVariants": {
+        "official": "We activate culture — curated experiences that breathe new life into historic places → {cta}",
+        "grove": "Experiences + onchain ownership. Culture that compounds → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=we-activate",
+      "tags": ["activate", "pillars", "experiences"]
+    },
+    {
+      "id": "we-connect-01",
+      "image": "/social/we-connect-01.webp",
+      "ogImage": "/social/og/we-connect-01-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "official",
+      "pillar": "connect",
+      "copyVariants": {
+        "official": "We connect communities, culture and capital — together, not alone → {cta}",
+        "grove": "The forest connects builders across Vienna, Base, and beyond → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=we-connect",
+      "tags": ["connect", "pillars", "community"]
+    },
+    {
+      "id": "we-reward-01",
+      "image": "/social/we-reward-01.webp",
+      "ogImage": "/social/og/we-reward-01-og.webp",
+      "width": 1369,
+      "height": 1149,
+      "channel": "official",
+      "pillar": "reward",
+      "copyVariants": {
+        "official": "We reward participation — tokenized ownership, real impact, shared value → {cta}",
+        "grove": "Shared value grows when proof is public. Explore the forest → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=we-reward",
+      "tags": ["reward", "pillars", "ownership"]
+    },
+    {
+      "id": "bc-logo",
+      "image": "/social/bc-logo.webp",
+      "ogImage": "/social/og/bc-logo-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "official",
+      "pillar": "brand",
+      "copyVariants": {
+        "official": "Building Culture — historic places, future value, onchain ownership, real impact → {cta}",
+        "grove": "Same forest, same proof. Join from anywhere → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/?utm_source=x&utm_medium=campaign&utm_campaign=bc-logo",
+      "tags": ["brand", "logo"]
+    },
+    {
+      "id": "curated-experiences-01",
+      "image": "/social/curated-experiences-01.webp",
+      "ogImage": "/social/og/curated-experiences-01-og.webp",
+      "width": 1536,
+      "height": 1024,
+      "channel": "official",
+      "pillar": "experiences",
+      "copyVariants": {
+        "official": "Curated experiences at historic places — concerts, art, founders dinners. Part of the culture → {cta}",
+        "grove": "Culture you can verify. Experiences tied to real assets → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=curated-experiences",
+      "tags": ["experiences", "culture"]
+    },
+    {
+      "id": "tokenized-ownership-01",
+      "image": "/social/tokenized-ownership-01.webp",
+      "ogImage": "/social/og/tokenized-ownership-01-og.webp",
+      "width": 1506,
+      "height": 1044,
+      "channel": "official",
+      "pillar": "ownership",
+      "copyVariants": {
+        "official": "Tokenized real-world assets — fractional ownership in places that matter → {cta}",
+        "grove": "RWA with receipts. Ownership you can trace on Base → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=tokenized-ownership",
+      "tags": ["rwa", "ownership"]
+    },
+    {
+      "id": "community-restore",
+      "image": "/social/community-restore.webp",
+      "ogImage": "/social/og/community-restore-og.webp",
+      "width": 1504,
+      "height": 1046,
+      "channel": "official",
+      "pillar": "community",
+      "copyVariants": {
+        "official": "Communities restore what banks won't touch. Building Culture makes it possible → {cta}",
+        "grove": "People-first capital for places that deserve a second life → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=community-restore",
+      "tags": ["community", "restore"]
+    },
+    {
+      "id": "ecosystem-growth-01",
+      "image": "/social/ecosystem-growth-01.webp",
+      "ogImage": "/social/og/ecosystem-growth-01-og.webp",
+      "width": 1122,
+      "height": 1402,
+      "channel": "grove",
+      "pillar": "growth",
+      "copyVariants": {
+        "official": "The Building Culture ecosystem keeps growing — ID, Art, WohnAI, Game, and more → {cta}",
+        "grove": "Forest signal: more builders, more proof. Explore the stack → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?agent_ref=grove&utm_source=x&utm_medium=campaign&utm_campaign=ecosystem-growth",
+      "tags": ["ecosystem", "growth"]
+    },
+    {
+      "id": "culture-pioneer-01",
+      "image": "/social/culture-pioneer-01.webp",
+      "ogImage": "/social/og/culture-pioneer-01-og.webp",
+      "width": 1086,
+      "height": 1448,
+      "channel": "grove",
+      "pillar": "identity",
+      "copyVariants": {
+        "official": "Culture Pioneer — earn XP, build reputation, unlock the forest → {cta}",
+        "grove": "Your .culture pass is your forest passport. Verify yours → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/pass?agent_ref=grove&utm_source=x&utm_medium=campaign&utm_campaign=culture-pioneer",
+      "tags": ["identity", "xp", "pass"]
+    },
+    {
+      "id": "onchain-ownership-01",
+      "image": "/social/onchain-ownership-01.webp",
+      "ogImage": "/social/og/onchain-ownership-01-og.webp",
+      "width": 1254,
+      "height": 1254,
+      "channel": "grove",
+      "pillar": "ownership",
+      "copyVariants": {
+        "official": "Onchain ownership of real places — not speculation, participation → {cta}",
+        "grove": "Proof-first ownership on Base. One CTA, one forest → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/signal?agent_ref=grove&utm_source=x&utm_medium=campaign&utm_campaign=onchain-ownership",
+      "tags": ["ownership", "onchain"]
+    },
+    {
+      "id": "real-world-assets-01",
+      "image": "/social/real-world-assets-01.webp",
+      "ogImage": "/social/og/real-world-assets-01-og.webp",
+      "width": 1024,
+      "height": 1536,
+      "channel": "grove",
+      "pillar": "rwa",
+      "copyVariants": {
+        "official": "Real-world assets, tokenized for owners who show up → {cta}",
+        "grove": "RWA with culture attached. See what's in the pipeline → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?agent_ref=grove&utm_source=x&utm_medium=campaign&utm_campaign=rwa",
+      "tags": ["rwa", "assets"]
+    },
+    {
+      "id": "forest-community-01",
+      "image": "/social/forest-community-01.webp",
+      "ogImage": "/social/og/forest-community-01-og.webp",
+      "width": 1122,
+      "height": 1402,
+      "channel": "grove",
+      "pillar": "community",
+      "copyVariants": {
+        "official": "The forest is our community — builders, owners, culture lovers → {cta}",
+        "grove": "🌲 Grove here. The forest grows when you participate. Join → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?agent_ref=grove&utm_source=x&utm_medium=campaign&utm_campaign=forest-community",
+      "tags": ["forest", "community", "grove"]
+    },
+    {
+      "id": "historic-places-01",
+      "image": "/social/historic-places-01.webp",
+      "ogImage": "/social/og/historic-places-01-og.webp",
+      "width": 1122,
+      "height": 1402,
+      "channel": "grove",
+      "pillar": "restore",
+      "copyVariants": {
+        "official": "Historic places. Future value. Real impact → {cta}",
+        "grove": "Vienna to Base — historic places with verifiable ownership → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?agent_ref=grove&utm_source=x&utm_medium=campaign&utm_campaign=historic-places",
+      "tags": ["historic", "vienna"]
+    },
+    {
+      "id": "elias-balcony-vienna",
+      "image": "/social/elias-balcony-vienna.webp",
+      "ogImage": "/social/og/elias-balcony-vienna-og.webp",
+      "width": 1024,
+      "height": 1536,
+      "channel": "both",
+      "pillar": "elias",
+      "copyVariants": {
+        "official": "Elias Residence, Vienna — we bring places back to life. See the vision → {cta}",
+        "grove": "Proof from Vienna: Elias Residence is part of the forest. Verify → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/elias?utm_source=x&utm_medium=campaign&utm_campaign=elias-balcony",
+      "tags": ["vienna", "elias", "restore"]
+    },
+    {
+      "id": "places-back-to-life",
+      "image": "/social/places-back-to-life.webp",
+      "ogImage": "/social/og/places-back-to-life-og.webp",
+      "width": 1122,
+      "height": 1402,
+      "channel": "both",
+      "pillar": "mission",
+      "copyVariants": {
+        "official": "We bring places back to life — historic spaces, curated culture, shared ownership → {cta}",
+        "grove": "Places back to life, proof on Base. One link → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=places-back-to-life",
+      "tags": ["mission", "restore"]
+    },
+    {
+      "id": "elias-residence-01",
+      "image": "/social/elias-residence-01.webp",
+      "ogImage": "/social/og/elias-residence-01-og.webp",
+      "width": 1086,
+      "height": 1448,
+      "channel": "both",
+      "pillar": "elias",
+      "copyVariants": {
+        "official": "Elias Residence — fractional ownership in a Vienna landmark → {cta}",
+        "grove": "Elias on the map. Real asset, real culture, real community → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/elias?agent_ref=grove&utm_source=x&utm_medium=campaign&utm_campaign=elias-residence",
+      "tags": ["elias", "vienna", "rwa"]
+    },
+    {
+      "id": "vienna-sunset-01",
+      "image": "/social/vienna-sunset-01.webp",
+      "ogImage": "/social/og/vienna-sunset-01-og.webp",
+      "width": 1024,
+      "height": 1536,
+      "channel": "both",
+      "pillar": "vienna",
+      "copyVariants": {
+        "official": "Vienna at sunset — where Building Culture began. Join the movement → {cta}",
+        "grove": "Sunset over Vienna, growth in the forest. Explore → {cta}"
+      },
+      "cta": "https://app.buildingcultureid.space/join?utm_source=x&utm_medium=campaign&utm_campaign=vienna-sunset",
+      "tags": ["vienna", "hero"]
+    }
+  ]
+}

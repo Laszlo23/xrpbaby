@@ -13,6 +13,7 @@ import { runFraudWatchTick, runEliasConciergeTick } from "./fraud-watch-stub.js"
 import { runTradingSugarTick } from "./trading-sugar.js";
 import { runTradingArbitrageTick } from "./trading-arbitrage.js";
 import { runGroveMarketingTick } from "./grove-marketing.js";
+import { runSocialCampaignAgentTick } from "./social-campaign.js";
 import { runCeoOrchestratorTick } from "./ceo-orchestrator.js";
 
 export type HandlerFn = (agent: AgentRecord, dbUrl: string) => Promise<LedgerInsert | LedgerInsert[]>;
@@ -22,6 +23,7 @@ export const HANDLER_REGISTRY: Record<string, HandlerFn> = {
   newsWriter: async (a, _db) => runNewsWriterTick(a as OpsAgentRecord),
   socialScout: async (a, db) => runSocialScoutTick(a as OpsAgentRecord, db),
   groveMarketing: async (a, _db) => runGroveMarketingTick(a as OpsAgentRecord),
+  socialCampaign: async (a, _db) => runSocialCampaignAgentTick(a as OpsAgentRecord),
   agsDistributor: async (a, db) => runAgsDistributorTick(a as EconAgentRecord, db),
   slackDigest: async (a, db) => runSlackDigestTick(a as OpsAgentRecord, db),
   raffleWatcher: async (a, db) => runRaffleWatcherTick(a as OpsAgentRecord, db),

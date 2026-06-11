@@ -18,7 +18,7 @@ import {
   Landmark,
   Layers,
   Mail,
-  Map,
+  Map as MapIcon,
   MapPin,
   MessageSquareQuote,
   Palette,
@@ -111,7 +111,7 @@ export const footerCompanyLinks: { to: string; label: string; icon: LucideIcon }
 export const footerStoryHashLinks: { label: string; hash: string; icon: LucideIcon }[] = [
   { label: "Vision", hash: "vision", icon: Sparkles },
   { label: "Investors", hash: "investors", icon: Briefcase },
-  { label: "Roadmap", hash: "future", icon: Map },
+  { label: "Roadmap", hash: "future", icon: MapIcon },
 ];
 
 export const footerLegalLinks: { to: string; label: string; icon: LucideIcon }[] = [
@@ -146,3 +146,40 @@ export function footerSocialLinks(): ExternalFooterLink[] {
 }
 
 export const footerContactMailto = "mailto:hello@buildingcultureid.space";
+
+/** Flat href + icon row for story landing footer columns. */
+export type FooterHrefLink = { label: string; href: string; icon: LucideIcon };
+
+function ecosystemByLabel(labels: string[]): FooterHrefLink[] {
+  const byLabel = new Map(footerEcosystemLinks.map((l) => [l.label, l]));
+  return labels.flatMap((label) => {
+    const link = byLabel.get(label);
+    return link ? [link] : [];
+  });
+}
+
+/** Story landing footer — Ecosystem column (canonical URLs from footerEcosystemLinks). */
+export const landingFooterEcosystemColumn: FooterHrefLink[] = [
+  ...ecosystemByLabel(["Capital", "App"]),
+  { label: "Invest", href: "/places", icon: Briefcase },
+  ...ecosystemByLabel(["Home"]),
+  { label: "ID", href: "/join", icon: Fingerprint },
+];
+
+/** Story landing footer — Layers column. */
+export const landingFooterLayersColumn: FooterHrefLink[] = [
+  ...ecosystemByLabel(["Art", "WohnAI", "BCDAI", "Game", "Ankommen AI", "KinderStimme"]),
+  { label: "Community", href: "/forest", icon: Rocket },
+];
+
+/** Story landing footer — Company column (hash anchors + legal + contact). */
+export const landingFooterCompanyColumn: FooterHrefLink[] = [
+  { label: "Vision", href: "#vision", icon: Sparkles },
+  { label: "Investors", href: "#investors", icon: Briefcase },
+  { label: "Roadmap", href: "#future", icon: MapIcon },
+  { label: "Grant proof", href: "/grant-proof", icon: Shield },
+  { label: "Terms", href: "/legal/terms", icon: FileText },
+  { label: "Privacy", href: "/legal/privacy", icon: Shield },
+  { label: "Imprint", href: "/legal/imprint", icon: Landmark },
+  { label: "Contact", href: footerContactMailto, icon: Mail },
+];

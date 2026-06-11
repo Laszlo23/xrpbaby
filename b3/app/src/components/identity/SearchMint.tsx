@@ -3,7 +3,7 @@
 import { useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { startTransition, useEffect, useMemo, useState } from "react";
+import { startTransition, useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { usePrivy } from "@privy-io/react-auth";
 import {
@@ -326,6 +326,28 @@ export function SearchMint({ id }: { id?: string }) {
     );
   }
 
+  const [bnbCheck, setBnbCheck] = useState<{
+    loading: boolean;
+    available: boolean | null;
+    name: string;
+  }>({ loading: false, available: null, name: "" });
+
+  const checkBnbName = useCallback(async () => {
+    if (clean.length < 3) return;
+    setBnbCheck({ loading: true, available: null, name: `${clean}.bnb` });
+    try {
+      const res = await fetch(`/api/identity/check-bnb?label=${encodeURIComponent(clean)}`);
+      const data = (await res.json()) as { available?: boolean; name?: string };
+      setBnbCheck({
+        loading: false,
+        available: data.available ?? null,
+        name: data.name ?? `${clean}.bnb`,
+      });
+    } catch {
+      setBnbCheck({ loading: false, available: null, name: `${clean}.bnb` });
+    }
+  }, [clean]);
+
   const mintDisabled =
     !isIdentityContractConfigured ||
     clean.length < 3 ||
@@ -448,6 +470,46 @@ export function SearchMint({ id }: { id?: string }) {
               (connectError instanceof Error ? connectError.message : "Could not connect wallet.")}
           </p>
         )}
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="mt-8 rounded-2xl border border-[#F0B90B]/20 bg-[#F0B90B]/5 p-4 text-center"
+      >
+        <p className="font-mono text-[10px] uppercase tracking-wider text-[#F0B90B]">
+          BNB identity layer
+        </p>
+        <p className="mt-2 text-xs text-zinc-400">
+          Culture Layer <span className="text-[#C5FF41]">.{tld.replace(".", "")}</span> on Base +
+          optional <span className="text-[#F0B90B]">.bnb</span> via Space ID — linked to the same
+          wallet on your profile.
+        </p>
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            disabled={clean.length < 3 || bnbCheck.loading}
+            onClick={() => void checkBnbName()}
+            className="rounded-full border border-[#F0B90B]/40 px-4 py-2 text-xs font-semibold text-[#F0B90B] hover:bg-[#F0B90B]/10 disabled:opacity-40"
+          >
+            {bnbCheck.loading ? "Checking…" : `Check ${clean || "name"}.bnb`}
+          </button>
+          <a
+            href="https://space.id/tld/1"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="rounded-full bg-[#F0B90B] px-4 py-2 text-xs font-semibold text-black hover:opacity-90"
+          >
+            Register .bnb on Space ID →
+          </a>
+        </div>
+        {bnbCheck.available === true ? (
+          <p className="mt-2 text-xs text-[#F0B90B]">{bnbCheck.name} looks available on Space ID.</p>
+        ) : bnbCheck.available === false ? (
+          <p className="mt-2 text-xs text-zinc-400">{bnbCheck.name} is already registered.</p>
+        ) : null}
       </motion.div>
     </motion.div>
   );

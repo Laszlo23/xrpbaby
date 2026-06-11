@@ -1,0 +1,7 @@
+[profile.default]
+src = "contracts"
+out = "out"
+libs = ["lib"]
+
+[rpc_endpoints]
+local = "http://localhost:8545"

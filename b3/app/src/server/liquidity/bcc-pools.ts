@@ -4,8 +4,8 @@ import { BCC_AERODROME, aerodromeGaugeUrl, isAerodromeLiquidityEnabled } from "@
 import { redemptionPolicy } from "@/lib/redemption-policy";
 import { getBccTokenAddress } from "@/server/market/env";
 
-const BCC_TOKEN = "0xb890a5289f789f1346032ccc1847939e855fab07";
-const DEXSCREENER_URL = `https://api.dexscreener.com/latest/dex/tokens/${BCC_TOKEN}`;
+const BCC_TOKEN_BASE = "0xb890a5289f789f1346032ccc1847939e855fab07";
+const BSC_CHAIN_ID = 56;
 
 type DexPair = {
   dexId?: string;
@@ -18,12 +18,22 @@ type DexPair = {
 };
 
 export type BccPoolSnapshot = {
-  dex: "uniswap" | "aerodrome" | "other";
+  dex: "uniswap" | "aerodrome" | "pancakeswap" | "other";
+  chainId: number;
   pairAddress: string | null;
   liquidityUsd: number | null;
   volume24hUsd: number | null;
   priceUsd: number | null;
   url: string | null;
+};
+
+export type BccPancakeConfig = {
+  enabled: boolean;
+  poolConfigured: boolean;
+  poolLive: boolean;
+  poolAddress: string | null;
+  swapUrl: string | null;
+  oftAddress: string | null;
 };
 
 export type BccAerodromeConfig = {
@@ -43,11 +53,15 @@ export type BccLiquidityMarket = {
   symbol: string;
   chainId: number;
   tokenAddress: string | null;
+  bscTokenAddress: string | null;
   uniswapUrl: string;
   discountBps: number;
   pools: BccPoolSnapshot[];
   combinedLiquidityUsd: number | null;
+  baseLiquidityUsd: number | null;
+  bscLiquidityUsd: number | null;
   aerodrome: BccAerodromeConfig;
+  pancakeswap: BccPancakeConfig;
   redemption: {
     enabled: boolean;
     minPoolTvlUsd: number;
@@ -83,12 +97,21 @@ function classifyDex(dexId: string | undefined): BccPoolSnapshot["dex"] {
   const d = (dexId ?? "").toLowerCase();
   if (d.includes("uniswap")) return "uniswap";
   if (d.includes("aerodrome") || d === "aero") return "aerodrome";
+  if (d.includes("pancake")) return "pancakeswap";
   return "other";
+}
+
+function pairChainId(pair: DexPair): number {
+  const id = pair.chainId;
+  if (id === "base" || id === 8453) return 8453;
+  if (id === "bsc" || id === 56) return 56;
+  return Number(id) || 8453;
 }
 
 function pairToSnapshot(pair: DexPair): BccPoolSnapshot {
   return {
     dex: classifyDex(pair.dexId),
+    chainId: pairChainId(pair),
     pairAddress: pair.pairAddress ?? null,
     liquidityUsd: pair.liquidity?.usd ?? null,
     volume24hUsd: pair.volume?.h24 ?? null,
@@ -97,9 +120,9 @@ function pairToSnapshot(pair: DexPair): BccPoolSnapshot {
   };
 }
 
-async function fetchDexScreenerPools(): Promise<BccPoolSnapshot[]> {
+async function fetchDexScreenerPools(token: string): Promise<BccPoolSnapshot[]> {
   try {
-    const res = await fetch(DEXSCREENER_URL, {
+    const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${token}`, {
       signal: AbortSignal.timeout(12_000),
       headers: { accept: "application/json" },
     });
@@ -112,6 +135,14 @@ async function fetchDexScreenerPools(): Promise<BccPoolSnapshot[]> {
   } catch {
     return [];
   }
+}
+
+function bscOftFromEnv(): string | null {
+  return envServer("VITE_BCC_BSC_OFT_ADDRESS") || envServer("BCC_BSC_OFT_ADDRESS") || null;
+}
+
+function pancakePoolFromEnv(): string | null {
+  return envServer("VITE_BCC_PANCAKE_POOL") || envServer("BCC_PANCAKE_POOL") || null;
 }
 
 function aerodromeEnabledServer(): boolean {
@@ -146,7 +177,14 @@ export async function buildBccLiquidityMarket(opts?: {
   tradingAgentReachable?: boolean;
   quoteBccUrl?: string;
 }): Promise<BccLiquidityMarket> {
-  const pools = await fetchDexScreenerPools();
+  const bscOft = bscOftFromEnv();
+  const [basePools, bscPools] = await Promise.all([
+    fetchDexScreenerPools(BCC_TOKEN_BASE),
+    bscOft ? fetchDexScreenerPools(bscOft) : Promise.resolve([]),
+  ]);
+  const pools = [...basePools, ...bscPools].sort(
+    (a, b) => (b.liquidityUsd ?? 0) - (a.liquidityUsd ?? 0),
+  );
   const aerodromePool = aerodromePoolFromEnv();
   const aerodromeGauge = aerodromeGaugeFromEnv();
   const aerodromeLp = aerodromeLpFromEnv();
@@ -159,13 +197,16 @@ export async function buildBccLiquidityMarket(opts?: {
     enabled,
   );
 
-  const uniswapTvl = pools
-    .filter((p) => p.dex === "uniswap")
-    .reduce((s, p) => s + (p.liquidityUsd ?? 0), 0);
-  const aerodromeTvl = pools
-    .filter((p) => p.dex === "aerodrome")
-    .reduce((s, p) => s + (p.liquidityUsd ?? 0), 0);
+  const baseLiquidityUsd = basePools.reduce((s, p) => s + (p.liquidityUsd ?? 0), 0) || null;
+  const bscLiquidityUsd = bscPools.reduce((s, p) => s + (p.liquidityUsd ?? 0), 0) || null;
   const combined = pools.length > 0 ? pools.reduce((s, p) => s + (p.liquidityUsd ?? 0), 0) : null;
+
+  const pancakePool = pancakePoolFromEnv();
+  const dexPancakePair = pools.find((p) => p.dex === "pancakeswap" && p.chainId === BSC_CHAIN_ID);
+  const resolvedPancakePool = pancakePool ?? dexPancakePair?.pairAddress ?? null;
+  const pancakeLive = pools.some(
+    (p) => p.dex === "pancakeswap" && p.chainId === BSC_CHAIN_ID && (p.liquidityUsd ?? 0) > 0,
+  );
 
   const minTvl = redemptionPolicy.minPoolTvlUsd;
   const redeemEnabled =
@@ -189,11 +230,14 @@ export async function buildBccLiquidityMarket(opts?: {
   return {
     symbol: "$BCC",
     chainId: 8453,
-    tokenAddress: getBccTokenAddress() ?? BCC_TOKEN,
+    tokenAddress: getBccTokenAddress() ?? BCC_TOKEN_BASE,
+    bscTokenAddress: bscOft,
     uniswapUrl: process.env.VITE_BCC_UNISWAP_URL?.trim() || BCC_UNISWAP_URL,
     discountBps: Number(process.env.VITE_BCC_DISCOUNT_BPS ?? "1111"),
     pools,
     combinedLiquidityUsd: combined,
+    baseLiquidityUsd,
+    bscLiquidityUsd: bscOft ? bscLiquidityUsd : null,
     aerodrome: {
       enabled,
       poolConfigured: Boolean(resolvedPool),
@@ -205,6 +249,14 @@ export async function buildBccLiquidityMarket(opts?: {
       gaugeUrl,
       swapUrl,
       routing: hasAerodromeRouting ? "aerodrome" : "uniswap_fallback",
+    },
+    pancakeswap: {
+      enabled: Boolean(bscOft),
+      poolConfigured: Boolean(resolvedPancakePool),
+      poolLive: pancakeLive,
+      poolAddress: resolvedPancakePool,
+      swapUrl: bscOft ? "https://pancakeswap.finance/swap?chain=bsc" : null,
+      oftAddress: bscOft,
     },
     redemption: {
       enabled: redeemEnabled,
@@ -218,10 +270,14 @@ export async function buildBccLiquidityMarket(opts?: {
     },
     tradingAgentReachable: opts?.tradingAgentReachable,
     quoteBccUrl: opts?.quoteBccUrl,
-    note: poolLive
-      ? "BCC is routable on Aerodrome; Uniswap remains primary for concentrated liquidity."
-      : enabled
-        ? "Aerodrome BCC/WETH enabled — create or seed the pool via deposit link; Uniswap is live today."
-        : "BCC primary liquidity is on Uniswap. Set VITE_BCC_AERODROME_ENABLED=1 or VITE_BCC_AERODROME_POOL after deploy.",
+    note: pancakeLive
+      ? "BCC liquidity on Base (Uniswap/Aerodrome) and BSC (PancakeSwap) — same token via OFT bridge."
+      : poolLive
+        ? "BCC is routable on Aerodrome; Uniswap remains primary on Base."
+        : bscOft
+          ? "BSC OFT configured — seed PancakeSwap BCC/WBNB pool via npm run pancakeswap:seed."
+          : enabled
+            ? "Aerodrome BCC/WETH enabled — create or seed the pool via deposit link; Uniswap is live today."
+            : "BCC primary liquidity is on Uniswap. Set VITE_BCC_AERODROME_ENABLED=1 or VITE_BCC_AERODROME_POOL after deploy.",
   };
 }

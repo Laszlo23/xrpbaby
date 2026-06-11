@@ -562,7 +562,7 @@ export function PointsLedgerSection() {
                 <p className="text-sm text-zinc-400">
                   {targetCastUrl
                     ? "Like the target cast, then verify."
-                    : "Set VITE_FARCASTER_TARGET_CAST_URL (Warpcast link or hash). Same value can be set server-side as NEYNAR_TARGET_CAST."}
+                    : "Like the latest cast from @0xleonardo (auto-resolved via Neynar), then verify."}
                 </p>
               </div>
               <div className="flex flex-shrink-0 flex-wrap gap-3">

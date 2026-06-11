@@ -259,9 +259,12 @@ export function DropCard({
     },
   });
 
-  const ticketsSold = enabled ? Number(totalSupply ?? 0n) : demoSold;
-  const totalTickets = enabled ? Number(maxSupply ?? 0n) : demoTotal;
-  const progress = totalTickets > 0 ? (ticketsSold / totalTickets) * 100 : 0;
+  const ticketsSold = enabled && totalSupply !== undefined ? Number(totalSupply) : null;
+  const totalTickets = enabled && maxSupply !== undefined ? Number(maxSupply) : null;
+  const progress =
+    ticketsSold != null && totalTickets != null && totalTickets > 0
+      ? (ticketsSold / totalTickets) * 100
+      : 0;
 
   const bcdPerEth = getBcdPerWholeEth();
   const legacySettlement = showLegacyEthSettlement();
@@ -370,7 +373,10 @@ export function DropCard({
   const worthOverlay =
     worthLabel ?? `WORTH · ${assetValueLabel.split("·")[0]?.trim() ?? assetValueLabel}`;
   const winLabel = winnerCopy ?? (winnerMode === "one" ? "1 winner only" : "Limited winners");
-  const odds = oddsHint(winnerMode, ticketsSold, totalTickets);
+  const odds =
+    ticketsSold != null && totalTickets != null
+      ? oddsHint(winnerMode, ticketsSold, totalTickets)
+      : null;
 
   return (
     <>
@@ -552,11 +558,13 @@ export function DropCard({
               <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1 font-medium text-zinc-300">
                   <Ticket className="h-3 w-3 text-[var(--vault-gold)]" />
-                  {ticketsSold}/{totalTickets} tickets sold
+                  {ticketsSold != null && totalTickets != null
+                    ? `${ticketsSold}/${totalTickets} tickets minted on-chain`
+                    : "On-chain count when campaign is live"}
                 </span>
                 <span className="flex items-center gap-1 font-medium text-zinc-300">
                   <Users className="h-3 w-3 text-[var(--vault-gold)]" />
-                  {enabled ? `${ticketsSold} entries` : `${demoSold} entries`}
+                  {ticketsSold != null ? `${ticketsSold} entries` : "—"}
                 </span>
               </div>
               {odds ? (

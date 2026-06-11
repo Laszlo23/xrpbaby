@@ -43,17 +43,19 @@ const envPath = process.env.ENV_FILE?.trim() || defaultEnvFile;
 const env = { ...loadDotenvFile(envPath), ...process.env };
 
 let replyTo;
+let imagePath;
 const rest = [];
 for (let i = 2; i < process.argv.length; i++) {
   const a = process.argv[i];
   if (a === "--reply-to" && process.argv[i + 1]) replyTo = process.argv[++i];
+  else if (a === "--image" && process.argv[i + 1]) imagePath = process.argv[++i];
   else rest.push(a);
 }
 
 let text = rest.join(" ").trim();
 if (text === "-") text = await readStdin();
 if (!text) {
-  console.error('Usage: node scripts/grove-x-post.mjs [--reply-to ID] "text"');
+  console.error('Usage: node scripts/grove-x-post.mjs [--reply-to ID] [--image /social/foo.webp] "text"');
   process.exit(2);
 }
 
@@ -71,6 +73,7 @@ if (!origin || !secret) {
 
 const body = { text };
 if (replyTo?.trim()) body.replyToTweetId = replyTo.trim();
+if (imagePath?.trim()) body.imagePath = imagePath.trim();
 
 const res = await fetch(`${origin}/api/marketing/grove/x-post`, {
   method: "POST",

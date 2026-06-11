@@ -1,18 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { getTwitterUserClient } from "@/server/x/twitter-client";
+import { parseMarketingPostBody } from "@/server/x/resolve-social-media";
 import { postMarketingTweet } from "@/server/x/post-marketing-tweet";
-
-const bodySchema = (raw: unknown): { text: string; replyToTweetId?: string } | null => {
-  if (!raw || typeof raw !== "object") return null;
-  const o = raw as Record<string, unknown>;
-  if (typeof o.text !== "string") return null;
-  const replyToTweetId =
-    typeof o.replyToTweetId === "string" && o.replyToTweetId.trim()
-      ? o.replyToTweetId.trim()
-      : undefined;
-  return { text: o.text, replyToTweetId };
-};
 
 export const Route = createFileRoute("/api/marketing/x-post")({
   server: {
@@ -43,7 +33,7 @@ export const Route = createFileRoute("/api/marketing/x-post")({
           });
         }
 
-        const parsed = bodySchema(body);
+        const parsed = parseMarketingPostBody(body);
         if (!parsed) {
           return new Response(JSON.stringify({ ok: false, error: "invalid_body" }), {
             status: 400,
@@ -59,7 +49,10 @@ export const Route = createFileRoute("/api/marketing/x-post")({
           });
         }
 
-        const result = await postMarketingTweet(client, parsed.text, parsed.replyToTweetId);
+        const result = await postMarketingTweet(client, parsed.text, {
+          replyToTweetId: parsed.replyToTweetId,
+          imagePath: parsed.imagePath,
+        });
         if (!result.ok) {
           return new Response(JSON.stringify({ ok: false, error: result.error }), {
             status: 400,
@@ -72,6 +65,7 @@ export const Route = createFileRoute("/api/marketing/x-post")({
             ok: true,
             tweetId: result.tweetId,
             url: result.url,
+            imagePath: parsed.imagePath ?? null,
           }),
           { headers: { "Content-Type": "application/json" } },
         );
@@ -87,10 +81,13 @@ function XPostNote() {
       <p className="mb-2 font-semibold text-foreground">POST /api/marketing/x-post</p>
       <p>
         JSON body:{" "}
-        <span className="text-zinc-300">{'{ "text": string, "replyToTweetId"?: string }'}</span>.
-        Header <span className="text-zinc-300">x-x-marketing-admin-secret</span> must match{" "}
+        <span className="text-zinc-300">
+          {'{ "text": string, "replyToTweetId"?: string, "imagePath"?: string }'}
+        </span>
+        . Header <span className="text-zinc-300">x-x-marketing-admin-secret</span> must match{" "}
         <span className="text-zinc-300">X_MARKETING_ADMIN_SECRET</span>. Uses the same OAuth user as
-        X quest verification.
+        X quest verification. Optional <span className="text-zinc-300">imagePath</span> must be
+        site-relative under <span className="text-zinc-300">/social/</span>.
       </p>
     </div>
   );

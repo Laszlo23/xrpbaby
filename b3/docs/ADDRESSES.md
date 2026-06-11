@@ -22,9 +22,9 @@ Last updated from repo state: **2026-06-08** — see [CONTRACTS_AUDIT.md](./CONT
 | Product | URL | Notes |
 |---------|-----|--------|
 | BCDAI | [bcdai.buildingcultureid.space](https://bcdai.buildingcultureid.space/) | AI trading terminal; Cloud Run backend — see [BCDAI_ECOSYSTEM.md](./BCDAI_ECOSYSTEM.md) |
-| WohnAI | [wohnai.buildingcultureid.space](https://wohnai.buildingcultureid.space/) | AI real estate agent |
-| Ankommen AI | [ankommen.buildingcultureid.space](https://ankommen.buildingcultureid.space/) | Austria newcomer companion (beta); interim proxy to ankommen.ai |
-| KinderStimme (For Kids) | [forkids.buildingcultureid.space](https://forkids.buildingcultureid.space/) | OCPP child protection protocol (beta); interim proxy to kinderstimme.at |
+| WohnAI | [wohnai.buildingcultureid.space](https://wohnai.buildingcultureid.space/) | AI real estate agent — repo `realagent` (Next.js + Docker on VPS `:3010`); deploy via `npm run deploy:wohnai` |
+| Ankommen AI | [ankommen.buildingcultureid.space](https://ankommen.buildingcultureid.space/) | Austria newcomer companion (beta); repo `apps/Ankommen`; native Next.js on VPS `:3020` — `npm run deploy:ankommen` |
+| KinderStimme (For Kids) | [forkids.buildingcultureid.space](https://forkids.buildingcultureid.space/) | OCPP child protection (beta); repo `apps/behoerden/forkids`; native TanStack on VPS `:3030` — `npm run deploy:forkids` |
 | BC Studio | [app.buildingcultureid.space/studio](https://app.buildingcultureid.space/studio) | Community AI app builder (beta) |
 | Community apps | `{slug}.buildingcultureid.space` | Published BC Studio projects — see [BC_STUDIO.md](./BC_STUDIO.md) |
 
@@ -104,6 +104,17 @@ From [`contracts/deployments/bcc-8453.json`](../contracts/deployments/bcc-8453.j
 Uniswap: `https://app.uniswap.org/swap?outputCurrency=0xB890a5289F789f1346032Ccc1847939e855FAb07&chain=base`
 
 ---
+
+## BNB Smart Chain (`56`) — BCC OFT (bridged 1:1)
+
+From [`contracts/deployments/bcc-56.json`](../contracts/deployments/bcc-56.json). Docs: [BCC_BSC_AND_BRIDGE.md](./BCC_BSC_AND_BRIDGE.md)
+
+| Contract | Address | Notes |
+|----------|---------|-------|
+| BccOFT (BSC peer) | `0x81cCda83704985FcB88e1174Da4367eEa40871C4` | Same ticker as Base BCC — deployed 2026-06-11 |
+| BccOFTAdapter (Base) | `0xd323e5b266FA7A13C9c572ad5c7b7f996846EFc0` | Locks canonical `0xB890…` — deployed 2026-06-11 |
+
+App env: `VITE_BCC_BSC_OFT_ADDRESS`, `VITE_BCC_OFT_ADAPTER_ADDRESS`, `VITE_BCC_PANCAKE_POOL`
 
 ## BNB Smart Chain (`56`) — Culture Layer identity
 

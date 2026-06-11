@@ -119,6 +119,13 @@ Treasury-funded BCC lock-up for early believers (`BccRootsStaking`) — see [BCC
 
 BCC is still on Base; Solana users bridge via aggregators. See [BCC_SOLANA_AND_ARBITRAGE.md](./BCC_SOLANA_AND_ARBITRAGE.md) and `GET /api/market/bcc/solana-route`.
 
-## BSC / BNB identity
+## BSC / BNB
 
-BCC exists only on Base. BSC identity mint remains **ETH/BNB native**; no BCC discount there.
+BCC canonical supply stays on Base. BNB Chain access:
+
+- **Bridge buy (now):** `GET /api/market/bcc/bnb-route` — Jumper/deBridge to Base BCC
+- **Native BSC (after OFT deploy):** PancakeSwap V3 swap + `/bridge/bcc` 1:1 transfer
+
+See [BCC_BSC_AND_BRIDGE.md](./BCC_BSC_AND_BRIDGE.md).
+
+**Identity:** Culture Layer on Base + Space ID `.bnb` linked on profiles (`/api/identity/resolve-bnb`).

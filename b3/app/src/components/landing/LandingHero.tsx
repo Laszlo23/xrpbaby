@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Briefcase, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
+import { LiveProofTicker } from "@/components/shared/LiveProofTicker";
 import { trackLandingEvent } from "@/lib/landing-api";
 import { LANDING_MEDIA } from "@/lib/landing-media";
 import { plainLabels } from "@/lib/plain-labels";
@@ -148,12 +149,10 @@ export function LandingHero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.4 }}
-          className="mt-16 flex items-center gap-6 font-mono text-[11px] tracking-[0.2em] text-zinc-500 uppercase"
+          transition={{ delay: 1.2 }}
+          className="mt-12"
         >
-          <span>People · Places</span>
-          <span className="bc-divider max-w-[80px] flex-1" />
-          <span>Built By People</span>
+          <LiveProofTicker section="ticker" className="justify-start" />
         </motion.div>
       </div>
 

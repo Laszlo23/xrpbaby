@@ -1,0 +1,42 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build
+dist
+.next
+.turbo
+out
+build
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Docker volumes
+docker/data/
+
+# Prisma
+packages/database/prisma/migrations/**/migration.sql.bak
+
+# Expo
+apps/mobile/.expo
+apps/mobile/dist
+
+# Legacy prototype
+legacy/node_modules
+legacy/dist
+legacy/.output

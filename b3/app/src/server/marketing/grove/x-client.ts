@@ -1,14 +1,14 @@
 import { TwitterApi } from "twitter-api-v2";
 
+import { readOfficialXOAuthEnv, readXEnv } from "@/server/x/x-env";
+
 /** OAuth 1.0a user-context client for Grove's X account (falls back to official X keys). */
 export function getGroveTwitterClient(): TwitterApi | null {
-  const appKey = process.env.GROVE_X_CONSUMER_KEY?.trim() || process.env.X_CONSUMER_KEY?.trim();
-  const appSecret =
-    process.env.GROVE_X_CONSUMER_SECRET?.trim() || process.env.X_CONSUMER_SECRET?.trim();
-  const accessToken =
-    process.env.GROVE_X_ACCESS_TOKEN?.trim() || process.env.X_ACCESS_TOKEN?.trim();
+  const appKey = readXEnv("GROVE_X_CONSUMER_KEY") || readOfficialXOAuthEnv()?.appKey;
+  const appSecret = readXEnv("GROVE_X_CONSUMER_SECRET") || readOfficialXOAuthEnv()?.appSecret;
+  const accessToken = readXEnv("GROVE_X_ACCESS_TOKEN") || readOfficialXOAuthEnv()?.accessToken;
   const accessSecret =
-    process.env.GROVE_X_ACCESS_TOKEN_SECRET?.trim() || process.env.X_ACCESS_TOKEN_SECRET?.trim();
+    readXEnv("GROVE_X_ACCESS_TOKEN_SECRET") || readOfficialXOAuthEnv()?.accessSecret;
 
   if (!appKey || !appSecret || !accessToken || !accessSecret) return null;
 
@@ -26,7 +26,6 @@ export function groveXConfigured(): boolean {
 
 export function groveUsesOfficialXFallback(): boolean {
   const hasGrove =
-    Boolean(process.env.GROVE_X_CONSUMER_KEY?.trim()) &&
-    Boolean(process.env.GROVE_X_ACCESS_TOKEN?.trim());
+    Boolean(readXEnv("GROVE_X_CONSUMER_KEY")) && Boolean(readXEnv("GROVE_X_ACCESS_TOKEN"));
   return !hasGrove && groveXConfigured();
 }

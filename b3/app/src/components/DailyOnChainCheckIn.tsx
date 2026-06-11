@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
@@ -15,14 +15,14 @@ import { Button } from "@/components/ui/button";
 import { dailyCheckInAbi } from "@/lib/abis/daily-checkin";
 import { getDefaultChain } from "@/lib/chains";
 import { getDailyCheckInAddress, utcCheckInDayIndex } from "@/lib/daily-checkin";
-import { postCompleteDailyChainCheckIn } from "@/lib/points-fns";
+import { postCompleteDailyChainCheckIn, postPointsBalance } from "@/lib/points-fns";
 import { claimDaily } from "@/lib/playerProgress";
 
 type Props = {
   signSiwe: () => Promise<{ prepared: string; signature: string } | undefined>;
   signingDisabled: boolean;
   onBalance?: (balance: number) => void;
-  /** Profile XP (+50 / vault bonus) after a successful on-chain check-in. */
+  /** Profile XP (+50 / vault bonus) after a successful daily check-in. */
   onLocalDailyClaim?: () => void;
   /** When set, syncs local `claimDaily` with genesis vault bonus after chain tx. */
   genesisVaultBonusXp?: number;
@@ -43,10 +43,12 @@ export function DailyOnChainCheckIn({
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
   const completeDaily = useServerFn(postCompleteDailyChainCheckIn);
+  const fetchBalance = useServerFn(postPointsBalance);
   const { writeContractAsync, isPending: txPending } = useWriteContract();
   const [hash, setHash] = useState<`0x${string}` | undefined>();
   const { isLoading: confirming, isSuccess } = useWaitForTransactionReceipt({ hash });
   const [claiming, setClaiming] = useState(false);
+  const [ledgerDoneToday, setLedgerDoneToday] = useState(false);
   const processedHash = useRef<string | null>(null);
 
   const todayIndex = utcCheckInDayIndex();
@@ -60,76 +62,83 @@ export function DailyOnChainCheckIn({
   });
 
   const onChainDoneToday = lastDay !== undefined && lastDay === todayIndex;
+  const siweOnlyMode = !contractAddress;
+
+  const refreshLedgerStatus = useCallback(async () => {
+    if (!address) return;
+    try {
+      const r = await fetchBalance({ data: { address } });
+      if (r.ok) {
+        setLedgerDoneToday(r.dailyCheckInToday === true);
+        if (typeof r.balance === "number") onBalance?.(r.balance);
+      }
+    } catch {
+      /* best-effort */
+    }
+  }, [address, fetchBalance, onBalance]);
+
+  useEffect(() => {
+    void refreshLedgerStatus();
+  }, [refreshLedgerStatus]);
+
+  async function recordDaily(opts?: { txHash?: `0x${string}`; chainId?: number }) {
+    setClaiming(true);
+    try {
+      const signed = await signSiwe();
+      if (!signed) return false;
+
+      const res = await completeDaily({
+        data: {
+          message: signed.prepared,
+          signature: signed.signature,
+          ...(opts?.txHash ? { txHash: opts.txHash, chainId: opts.chainId } : {}),
+        },
+      });
+
+      if (!res.ok) {
+        toast.error(res.error ?? "Could not record daily check-in");
+        return false;
+      }
+
+      if (address && onLocalDailyClaim) {
+        const local = claimDaily(address, { genesisVaultBonusXp });
+        if (local.ok) onLocalDailyClaim();
+      }
+
+      if (res.alreadyCompleted) {
+        toast.message("Daily check-in verified · points already credited today");
+      } else {
+        const bonusText =
+          res.bonusGranted && (res.bonusPoints ?? 0) > 0
+            ? ` +${res.bonusPoints} signature bonus`
+            : "";
+        toast.success(`Daily check-in saved (+${20}${bonusText} ledger pts)`);
+      }
+
+      onBalance?.(res.balance);
+      setLedgerDoneToday(true);
+      void refetchLastDay();
+      return true;
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Sign failed");
+      return false;
+    } finally {
+      setClaiming(false);
+    }
+  }
 
   useEffect(() => {
     if (!isSuccess || !hash || processedHash.current === hash) return;
     processedHash.current = hash;
     void (async () => {
-      setClaiming(true);
-      try {
-        const signed = await signSiwe();
-        if (!signed) {
-          processedHash.current = null;
-          return;
-        }
-        const res = await completeDaily({
-          data: {
-            message: signed.prepared,
-            signature: signed.signature,
-            txHash: hash,
-            chainId: wantChain.id,
-          },
-        });
-        if (!res.ok) {
-          toast.error(res.error ?? "Could not record daily check-in");
-          processedHash.current = null;
-          return;
-        }
-
-        if (address && onLocalDailyClaim) {
-          const local = claimDaily(address, { genesisVaultBonusXp });
-          if (local.ok) {
-            onLocalDailyClaim();
-          }
-        }
-
-        if (res.alreadyCompleted) {
-          toast.message("On-chain check-in verified · points already credited today");
-        } else {
-          const bonusText =
-            res.bonusGranted && (res.bonusPoints ?? 0) > 0
-              ? ` +${res.bonusPoints} signature bonus`
-              : "";
-          toast.success(`Daily check-in saved on-chain (+ ledger points${bonusText})`);
-        }
-        onBalance?.(res.balance);
-        void refetchLastDay();
-      } catch (e) {
-        toast.error(e instanceof Error ? e.message : "Sign failed");
-        processedHash.current = null;
-      } finally {
-        setClaiming(false);
-        setHash(undefined);
-      }
+      const ok = await recordDaily({ txHash: hash, chainId: wantChain.id });
+      if (!ok) processedHash.current = null;
+      setHash(undefined);
     })();
-  }, [
-    address,
-    completeDaily,
-    genesisVaultBonusXp,
-    hash,
-    isSuccess,
-    onBalance,
-    onLocalDailyClaim,
-    refetchLastDay,
-    signSiwe,
-    wantChain.id,
-  ]);
+  }, [hash, isSuccess, wantChain.id]);
 
-  async function runCheckIn() {
-    if (!contractAddress) {
-      toast.error("Deploy DailyCheckIn and set VITE_DAILY_CHECKIN_ADDRESS.");
-      return;
-    }
+  async function runOnChainCheckIn() {
+    if (!contractAddress) return;
     try {
       if (chainId !== wantChain.id) {
         await switchChainAsync({ chainId: wantChain.id });
@@ -151,23 +160,14 @@ export function DailyOnChainCheckIn({
     }
   }
 
-  if (!isConnected) return null;
-
-  if (!contractAddress) {
-    return (
-      <div className="rounded-2xl border border-dashed border-white/10 bg-black/10 p-4">
-        <p className="text-sm font-medium text-white">Daily check-in (on-chain)</p>
-        <p className="mt-1 text-xs text-zinc-500">
-          Deploy{" "}
-          <span className="font-mono text-[10px]">contracts/script/DeployDailyCheckIn.s.sol</span>,
-          then set <span className="font-mono text-[10px]">VITE_DAILY_CHECKIN_ADDRESS</span> and
-          server <span className="font-mono text-[10px]">DAILY_CHECKIN_CONTRACT_ADDRESS</span>.
-        </p>
-      </div>
-    );
+  async function runSiweDaily() {
+    await recordDaily();
   }
 
+  if (!isConnected) return null;
+
   const busy = txPending || confirming || claiming || signingDisabled;
+  const doneToday = ledgerDoneToday || (contractAddress ? onChainDoneToday : false);
 
   const shellClass = compact
     ? "space-y-2"
@@ -180,41 +180,85 @@ export function DailyOnChainCheckIn({
           compact ? "text-[11px] font-semibold text-emerald-100/95" : "font-medium text-white"
         }
       >
-        Daily check-in on {wantChain.name}
+        Daily check-in {siweOnlyMode ? "(sign to earn)" : `on ${wantChain.name}`}
       </p>
       <p className="text-xs text-zinc-500">
-        One <span className="font-mono">checkIn()</span> tx per UTC day — stored on-chain (
-        <span className="font-mono">CheckedIn</span> event +{" "}
-        <span className="font-mono">lastCheckInDay</span>
-        ). Then sign to credit leaderboard points and unlock a once-per-day signature attestation
-        bonus.
+        {siweOnlyMode ? (
+          <>
+            Sign once per UTC day to credit <strong className="text-zinc-300">+20 pts</strong> and a{" "}
+            <strong className="text-zinc-300">+7 signature bonus</strong> on the server ledger —
+            no gas required.
+          </>
+        ) : (
+          <>
+            One <span className="font-mono">checkIn()</span> tx per UTC day on-chain, then sign to
+            credit leaderboard points (+20 +7 bonus).
+          </>
+        )}
       </p>
-      {onChainDoneToday ? (
+      {doneToday ? (
         <p className="text-xs text-emerald-400/90">
-          On-chain: checked in for today (UTC day {todayIndex.toString()}).
+          Ledger: credited for today (UTC day {todayIndex.toString()}).
+          {onChainDoneToday ? " On-chain tx confirmed." : null}
         </p>
       ) : null}
-      <Button
-        type="button"
-        variant={compact ? "outline" : "secondary"}
-        size="sm"
-        className="rounded-full"
-        disabled={busy || onChainDoneToday}
-        onClick={() => void runCheckIn()}
-      >
-        {busy ? (
-          <span className="inline-flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            {confirming || txPending ? "Confirming tx…" : claiming ? "Recording…" : "Working…"}
-          </span>
-        ) : onChainDoneToday ? (
-          "Checked in on-chain today"
-        ) : chainId !== wantChain.id ? (
-          `Switch to ${wantChain.name} & check in`
-        ) : (
-          "Check in on-chain"
-        )}
-      </Button>
+
+      {siweOnlyMode ? (
+        <Button
+          type="button"
+          variant={compact ? "outline" : "secondary"}
+          size="sm"
+          className="rounded-full"
+          disabled={busy || doneToday}
+          onClick={() => void runSiweDaily()}
+        >
+          {busy ? (
+            <span className="inline-flex items-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {claiming ? "Recording…" : "Working…"}
+            </span>
+          ) : doneToday ? (
+            "Checked in today"
+          ) : (
+            "Sign daily check-in (+20 pts)"
+          )}
+        </Button>
+      ) : (
+        <Button
+          type="button"
+          variant={compact ? "outline" : "secondary"}
+          size="sm"
+          className="rounded-full"
+          disabled={busy || onChainDoneToday}
+          onClick={() => void runOnChainCheckIn()}
+        >
+          {busy ? (
+            <span className="inline-flex items-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {confirming || txPending ? "Confirming tx…" : claiming ? "Recording…" : "Working…"}
+            </span>
+          ) : onChainDoneToday ? (
+            ledgerDoneToday ? "Checked in today" : "Sign to credit points"
+          ) : chainId !== wantChain.id ? (
+            `Switch to ${wantChain.name} & check in`
+          ) : (
+            "Check in on-chain"
+          )}
+        </Button>
+      )}
+
+      {contractAddress && onChainDoneToday && !ledgerDoneToday ? (
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="rounded-full text-zinc-400"
+          disabled={busy}
+          onClick={() => void runSiweDaily()}
+        >
+          Sign to credit ledger points
+        </Button>
+      ) : null}
     </div>
   );
 }
