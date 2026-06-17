@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import { animate, motion, useMotionValue, useTransform, type MotionValue } from "framer-motion";
+import {
+  Brain,
+  ChevronRight,
+  Coins,
+  Fingerprint,
+  ShieldCheck,
+  UserPlus,
+  type LucideIcon,
+} from "lucide-react";
 
 import { BCC_ADDRESS } from "@bc/bcc-kit";
 
@@ -16,6 +25,71 @@ const STATUS_DOT: Record<string, string> = {
   beta: "#00E5FF",
   "coming-soon": "#C47C59",
 };
+
+const VALUE_FLOW_STEPS: {
+  Icon: LucideIcon;
+  label: string;
+  accent: string;
+  highlight?: boolean;
+}[] = [
+  { Icon: UserPlus, label: "User joins", accent: "#839788" },
+  { Icon: Fingerprint, label: "claims .culture ID", accent: "#C5FF41" },
+  { Icon: Brain, label: "agents build memory", accent: "#00E5FF" },
+  { Icon: ShieldCheck, label: "proof grows", accent: "#C47C59" },
+  { Icon: Coins, label: "value flows in $BCC", accent: "#C5FF41", highlight: true },
+];
+
+function BccValueFlow() {
+  return (
+    <div className="mx-auto mt-10 max-w-4xl sm:mt-12">
+      <p className="mono-label">VALUE FLOW</p>
+
+      <div className="relative mt-6">
+        <div
+          className="pointer-events-none absolute top-1/2 right-[8%] left-[8%] hidden h-px -translate-y-1/2 sm:block"
+          aria-hidden
+        >
+          <div className="h-full bg-gradient-to-r from-[#839788]/30 via-[#00E5FF]/50 to-[#C5FF41]/40" />
+        </div>
+
+        <div className="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-1">
+          {VALUE_FLOW_STEPS.map((step, i) => (
+            <div
+              key={step.label}
+              className="flex flex-col items-center sm:flex-row sm:items-center"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="relative flex items-center gap-2.5 rounded-full border border-white/10 bc-glass px-4 py-2.5 sm:px-3.5 sm:py-2"
+                style={{ boxShadow: `0 0 24px -12px ${step.accent}60` }}
+              >
+                <step.Icon size={14} style={{ color: step.accent }} aria-hidden />
+                <span
+                  className={`font-mono text-[11px] tracking-wide sm:text-xs ${
+                    step.highlight ? "bc-text-gradient font-semibold" : "text-zinc-300"
+                  }`}
+                >
+                  {step.label}
+                </span>
+              </motion.div>
+
+              {i < VALUE_FLOW_STEPS.length - 1 && (
+                <ChevronRight
+                  size={16}
+                  className="my-1 rotate-90 text-zinc-600 sm:my-0 sm:mx-1 sm:rotate-0"
+                  aria-hidden
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function OrbitIcon({
   project,
@@ -158,9 +232,11 @@ export function LandingBcd() {
         </motion.h2>
 
         <p className="mx-auto mt-8 max-w-2xl text-base text-zinc-400 sm:text-lg">
-          The Building Culture Coin ($BCC) is the future utility layer that ties every product,
-          every place and every participant into a single, transparent economy.
+          $BCC is the internal currency for agent tasks, referrals, reputation, rewards, marketplace
+          payments, and ecosystem coordination.
         </p>
+
+        <BccValueFlow />
 
         <div className="relative mx-auto mt-16 flex items-center justify-center sm:mt-20">
           <motion.div className="relative h-[min(92vw,380px)] w-[min(92vw,380px)] sm:h-[460px] sm:w-[460px] lg:h-[520px] lg:w-[520px]">

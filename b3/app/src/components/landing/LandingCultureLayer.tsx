@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Building2, Fingerprint, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Award, Brain, Building2, Fingerprint, TrendingUp, Users } from "lucide-react";
 
 const LAYERS = [
   {
@@ -27,6 +27,12 @@ const LAYERS = [
     color: "#839788",
   },
   {
+    Icon: Brain,
+    label: "Agent Memory Layer",
+    desc: "Your agents remember what you build, who you trust, what you contribute, and where value flows.",
+    color: "#00E5FF",
+  },
+  {
     Icon: Award,
     label: "Reward Layer",
     desc: "Earn for what you build, host and contribute.",
@@ -51,17 +57,17 @@ export function LandingCultureLayer() {
             Everything <span className="bc-text-cyan-gradient">connects.</span>
           </motion.h2>
           <p className="mt-6 text-base text-zinc-400 sm:text-lg">
-            Five layers, one flow. Move seamlessly between identity, community, property, investment
-            and rewards — without ever leaving the culture.
+            Six layers, one flow. Identity, memory, and value for builders and the agents that work
+            alongside them — from onchain profile to proof to reward.
           </p>
         </div>
 
         <div className="relative mt-20">
-          <motion.div className="absolute top-[58px] right-[10%] left-[10%] hidden h-px lg:block">
+          <motion.div className="absolute top-[50px] right-[5%] left-[5%] hidden h-px xl:block">
             <div className="h-full bg-gradient-to-r from-[#C5FF41]/40 via-[#00E5FF]/60 to-[#C47C59]/40" />
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-4 xl:grid-cols-6 xl:gap-3">
             {LAYERS.map((l, i) => (
               <motion.div
                 key={l.label}
@@ -77,13 +83,13 @@ export function LandingCultureLayer() {
                     style={{ background: l.color }}
                   />
                   <div
-                    className="relative flex h-[116px] w-[116px] items-center justify-center rounded-full bc-glass-strong"
+                    className="relative flex h-[116px] w-[116px] items-center justify-center rounded-full bc-glass-strong xl:h-[100px] xl:w-[100px]"
                     style={{
                       borderColor: `${l.color}40`,
                       boxShadow: `0 0 40px -15px ${l.color}`,
                     }}
                   >
-                    <l.Icon size={32} style={{ color: l.color }} />
+                    <l.Icon size={30} style={{ color: l.color }} />
                   </div>
                   <span className="absolute -top-2 -right-2 rounded-full border border-white/10 bg-black px-2 py-0.5 font-mono text-[10px] font-bold tracking-widest text-white">
                     0{i + 1}
@@ -91,7 +97,9 @@ export function LandingCultureLayer() {
                 </div>
 
                 <p className="mt-5 font-display text-lg font-bold text-white">{l.label}</p>
-                <p className="mt-2 max-w-[200px] text-sm text-zinc-400">{l.desc}</p>
+                <p className="mt-2 max-w-[200px] text-sm text-zinc-400 xl:max-w-[160px]">
+                  {l.desc}
+                </p>
 
                 {i < LAYERS.length - 1 && (
                   <div className="mt-6 text-zinc-600 lg:hidden">
