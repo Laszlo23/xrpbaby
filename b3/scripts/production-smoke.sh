@@ -30,9 +30,19 @@ check() {
   fi
 }
 
-for path in / /forest /join /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid /grant-proof /voice /plan /ops/attribution; do
+for path in / /forest /join /creators /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid /grant-proof /voice /plan /ops/attribution /agent-os; do
   check "$path"
 done
+
+ATLAS_ORIGIN="${CULTURE_ATLAS_ORIGIN:-https://buildingcultureid.space}"
+ATLAS_ORIGIN="${ATLAS_ORIGIN%/}"
+atlas_code=$(curl -s -o /dev/null -w "%{http_code}" "${ATLAS_ORIGIN}/demo/atlas/creators")
+if [[ "$atlas_code" =~ ^[23] ]]; then
+  echo "OK  /demo/atlas/creators → $atlas_code"
+else
+  echo "FAIL /demo/atlas/creators → $atlas_code"
+  fail=1
+fi
 
 if curl -s "${BASE}/" | grep -q "talentapp:project_verification"; then
   echo "OK  / homepage has talentapp:project_verification meta"
@@ -89,6 +99,51 @@ if curl -s "${BASE}/0g/agentid" | grep -q "0x0451b1d37058ad57df22d7185aabc6b0a36
   echo "OK  /0g/agentid shows AgentId contract proof"
 else
   echo "FAIL /0g/agentid missing AgentId contract address"
+  fail=1
+fi
+
+if curl -s "${BASE}/agent-os" | grep -qi "Research Agent"; then
+  echo "OK  /agent-os shows Research Agent panel"
+else
+  echo "FAIL /agent-os missing Research Agent copy"
+  fail=1
+fi
+
+if curl -s "${BASE}/id/laszlo.culture" | grep -qi "Building Culture Metrics"; then
+  echo "OK  /id/laszlo.culture shows founder showcase metrics"
+elif curl -s "${BASE}/id/laszlo.culture" | grep -qi "Turning identity into proof"; then
+  echo "OK  /id/laszlo.culture shows founder manifesto copy"
+else
+  echo "FAIL /id/laszlo.culture missing founder showcase v2 copy"
+  fail=1
+fi
+
+if curl -s "${BASE}/api/identity/graph-demo" | grep -q '"ok":true'; then
+  echo "OK  /api/identity/graph-demo returns identity graph JSON"
+else
+  echo "FAIL /api/identity/graph-demo missing ok:true"
+  fail=1
+fi
+
+if curl -s "${BASE}/id/laszlo.culture" | grep -qi "Identity Graph"; then
+  echo "OK  /id/laszlo.culture shows identity graph section"
+else
+  echo "WARN /id/laszlo.culture missing Identity Graph section (enrichment may be empty)"
+fi
+
+overview_code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE}/api/agent-os/overview")
+if [[ "$overview_code" =~ ^2 ]]; then
+  echo "OK  GET /api/agent-os/overview → $overview_code"
+else
+  echo "FAIL GET /api/agent-os/overview → $overview_code"
+  fail=1
+fi
+
+research_code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE}/api/agents/research?q=smoke")
+if [[ "$research_code" == "402" || "$research_code" =~ ^2 ]]; then
+  echo "OK  GET /api/agents/research (unpaid) → $research_code (402 expected without payment)"
+else
+  echo "FAIL GET /api/agents/research → $research_code (expected 402 or 2xx)"
   fail=1
 fi
 

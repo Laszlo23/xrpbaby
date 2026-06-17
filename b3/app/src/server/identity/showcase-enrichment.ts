@@ -1,0 +1,429 @@
+import { Configuration, NeynarAPIClient } from "@neynar/nodejs-sdk";
+
+import { computeCultureScore, type ComputedCultureScore } from "@/lib/identity/culture-score";
+import type {
+  CultureIdentityGraph,
+  MemberProfileBridge,
+  Web3BioCredentials,
+} from "@/lib/identity/identity-graph-types";
+import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
+import {
+  getFounderShowcaseConfig,
+  openSeaAssetUrl,
+  type ActivityCategory,
+  type FounderShowcaseConfig,
+} from "@/lib/profile/founder-showcase";
+import { getOrFetchIdentityGraph } from "@/server/identity/enrichment-cache";
+import {
+  fetchCultureIdentityGraphFromAddress,
+  fetchWeb3BioWalletBundle,
+  mergeIdentityGraphs,
+} from "@/server/identity/web3bio";
+import { getPrisma } from "@/server/db/prisma";
+import { fetchBsAddressTransactions } from "@/server/explorer/blockscout";
+
+export type { ActivityCategory } from "@/lib/profile/founder-showcase";
+
+export type ActivitySource = "curated" | "neynar";
+
+export type ShowcaseActivityItem = {
+  id: string;
+  category: ActivityCategory;
+  title: string;
+  excerpt: string;
+  url: string;
+  publishedAt: string;
+  authorHandle: string;
+  source?: ActivitySource;
+};
+
+export type ShowcaseNftItem = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+  chainLabel: string;
+  openSeaUrl: string | null;
+  isIdentity?: boolean;
+};
+
+export type CultureIdentityEnrichment = {
+  ok: true;
+  followerCount: number | null;
+  neynarEnabled: boolean;
+  avatarImageUrl: string | null;
+  nfts: ShowcaseNftItem[];
+  activity: Record<ActivityCategory, ShowcaseActivityItem[]>;
+  web3bio: CultureIdentityGraph | null;
+  credentials: Web3BioCredentials | null;
+  cultureScore: ComputedCultureScore;
+  member: MemberProfileBridge | null;
+};
+
+/** @deprecated Use CultureIdentityEnrichment */
+export type ShowcaseEnrichment = CultureIdentityEnrichment;
+
+type AlchemyNftRow = {
+  contract?: { address?: string; name?: string };
+  tokenId?: string;
+  name?: string;
+  image?: { cachedUrl?: string; originalUrl?: string };
+  media?: { gateway?: string }[];
+};
+
+function neynarClient(): NeynarAPIClient | null {
+  const key = process.env.NEYNAR_API_KEY?.trim();
+  if (!key) return null;
+  return new NeynarAPIClient(new Configuration({ apiKey: key }));
+}
+
+function alchemyKey(): string | null {
+  return process.env.ALCHEMY_API_KEY?.trim() || null;
+}
+
+function categorizeCast(text: string, authorHandle: string): ActivityCategory {
+  const t = text.toLowerCase();
+  const h = authorHandle.toLowerCase();
+
+  if (
+    /basescan|etherscan|0x[a-f0-9]{40}|onchain|transaction|tx\.|minted|mint\s|bcc\b|uniswap|aerodrome/.test(
+      t,
+    )
+  ) {
+    return "onchain";
+  }
+  if (
+    /app\.buildingculture|agent-os|grant-proof|\/pass|\/products|culture layer|culture id|agent os/.test(
+      t,
+    )
+  ) {
+    return "product";
+  }
+  if (
+    h === "buildingcultu3" ||
+    /telegram|\/join|community|forest|campaign|farcaster channel|warpcast/.test(t)
+  ) {
+    return "community";
+  }
+  return "social";
+}
+
+function excerpt(text: string, max = 140): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  return `${clean.slice(0, max).trim()}…`;
+}
+
+function isPunkNft(nft: AlchemyNftRow): boolean {
+  const name = (nft.name ?? "").toLowerCase();
+  const collection = (nft.contract?.name ?? "").toLowerCase();
+  return name.includes("punk") || collection.includes("punk");
+}
+
+function nftImageUrl(nft: AlchemyNftRow): string | null {
+  return nft.image?.cachedUrl ?? nft.image?.originalUrl ?? nft.media?.[0]?.gateway ?? null;
+}
+
+async function fetchNeynarUser(
+  client: NeynarAPIClient,
+  username: string,
+): Promise<{ fid: number; followerCount: number } | null> {
+  try {
+    const res = await client.lookupUserByUsername({ username });
+    const user = res.user;
+    if (!user?.fid) return null;
+    return {
+      fid: user.fid,
+      followerCount: user.follower_count ?? 0,
+    };
+  } catch {
+    return null;
+  }
+}
+
+type NeynarCastRow = {
+  hash: string;
+  text?: string;
+  timestamp: string;
+  author?: { username?: string };
+};
+
+async function fetchCastsForUsername(
+  client: NeynarAPIClient,
+  username: string,
+  limit: number,
+): Promise<NeynarCastRow[]> {
+  const user = await fetchNeynarUser(client, username);
+  if (!user) return [];
+  try {
+    const res = await client.fetchCastsForUser({ fid: user.fid, limit });
+    return (res.casts ?? []) as NeynarCastRow[];
+  } catch {
+    return [];
+  }
+}
+
+function mapCastToActivity(cast: NeynarCastRow): ShowcaseActivityItem {
+  const authorHandle = cast.author?.username ?? "unknown";
+  const text = cast.text ?? "";
+  const category = categorizeCast(text, authorHandle);
+  return {
+    id: cast.hash,
+    category,
+    title:
+      category === "product"
+        ? "Product update"
+        : category === "community"
+          ? "Community"
+          : category === "onchain"
+            ? "Onchain"
+            : "Social",
+    excerpt: excerpt(text),
+    url: `https://warpcast.com/${authorHandle}/${cast.hash.slice(0, 10)}`,
+    publishedAt: cast.timestamp,
+    authorHandle,
+    source: "neynar",
+  };
+}
+
+async function fetchWalletNfts(
+  owner: string,
+  resolved: ResolvedCultureName,
+  displayHandle: string,
+): Promise<{ nfts: ShowcaseNftItem[]; avatarImageUrl: string | null; nftCount: number }> {
+  const items: ShowcaseNftItem[] = [];
+  let avatarImageUrl: string | null = null;
+
+  if (resolved.contractAddress && resolved.tokenId) {
+    items.push({
+      id: `identity-${resolved.tokenId}`,
+      name: displayHandle,
+      imageUrl: null,
+      chainLabel: "Base",
+      openSeaUrl: openSeaAssetUrl(
+        resolved.chainId,
+        resolved.contractAddress,
+        resolved.tokenId,
+      ),
+      isIdentity: true,
+    });
+  }
+
+  const key = alchemyKey();
+  if (!key) return { nfts: items, avatarImageUrl, nftCount: items.length };
+
+  try {
+    const url = new URL(`https://base-mainnet.g.alchemy.com/nft/v3/${key}/getNFTsForOwner`);
+    url.searchParams.set("owner", owner);
+    url.searchParams.set("withMetadata", "true");
+    url.searchParams.set("pageSize", "24");
+
+    const res = await fetch(url.toString(), { signal: AbortSignal.timeout(12_000) });
+    if (!res.ok) return { nfts: items, avatarImageUrl, nftCount: items.length };
+
+    const json = (await res.json()) as { ownedNfts?: AlchemyNftRow[] };
+    const owned = json.ownedNfts ?? [];
+
+    for (const nft of owned) {
+      const contract = nft.contract?.address;
+      const tokenId = nft.tokenId;
+      if (!contract || tokenId == null) continue;
+
+      const imageUrl = nftImageUrl(nft);
+      if (!avatarImageUrl && isPunkNft(nft) && imageUrl) {
+        avatarImageUrl = imageUrl;
+      }
+
+      if (
+        resolved.contractAddress &&
+        contract.toLowerCase() === resolved.contractAddress.toLowerCase() &&
+        tokenId === resolved.tokenId
+      ) {
+        continue;
+      }
+
+      items.push({
+        id: `${contract}-${tokenId}`,
+        name: nft.name?.trim() || `Token #${tokenId}`,
+        imageUrl,
+        chainLabel: "Base",
+        openSeaUrl: openSeaAssetUrl(8453, contract, String(tokenId)),
+      });
+    }
+
+    return { nfts: items.slice(0, 10), avatarImageUrl, nftCount: owned.length };
+  } catch {
+    return { nfts: items, avatarImageUrl, nftCount: items.length };
+  }
+}
+
+function emptyActivity(): Record<ActivityCategory, ShowcaseActivityItem[]> {
+  return { product: [], community: [], onchain: [], social: [] };
+}
+
+function bucketActivity(items: ShowcaseActivityItem[]): Record<ActivityCategory, ShowcaseActivityItem[]> {
+  const buckets = emptyActivity();
+  for (const item of items) {
+    buckets[item.category].push(item);
+  }
+  for (const key of Object.keys(buckets) as ActivityCategory[]) {
+    buckets[key].sort(
+      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
+    buckets[key] = buckets[key].slice(0, 6);
+  }
+  return buckets;
+}
+
+function mergeActivity(
+  config: FounderShowcaseConfig | null,
+  neynarItems: ShowcaseActivityItem[],
+): Record<ActivityCategory, ShowcaseActivityItem[]> {
+  const merged = new Map<string, ShowcaseActivityItem>();
+
+  for (const item of config?.curatedActivity ?? []) {
+    merged.set(item.id, { ...item, source: "curated" });
+  }
+  for (const item of neynarItems) {
+    if (!merged.has(item.id)) {
+      merged.set(item.id, item);
+    }
+  }
+
+  return bucketActivity([...merged.values()]);
+}
+
+async function fetchMemberBridge(owner: string): Promise<MemberProfileBridge | null> {
+  const prisma = getPrisma();
+  if (!prisma) return null;
+
+  try {
+    const member = await prisma.member.findFirst({
+      where: { walletAddress: owner.toLowerCase() },
+      include: {
+        wallet: {
+          include: {
+            ledgers: { select: { delta: true } },
+          },
+        },
+      },
+    });
+    if (!member) return null;
+
+    const culturePoints =
+      member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
+
+    return {
+      farcasterUsername: member.farcasterUsername,
+      supportScore: member.supportScore,
+      culturePoints,
+      supporterTier: member.supporterTier,
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function fetchTxCount(owner: string): Promise<number> {
+  try {
+    const txs = await fetchBsAddressTransactions(owner.toLowerCase());
+    return txs.length;
+  } catch {
+    return 0;
+  }
+}
+
+function pickAvatarUrl(
+  graph: CultureIdentityGraph | null,
+  alchemyAvatar: string | null,
+  configAvatar: string | null,
+  walletAvatar: string | null = null,
+): string | null {
+  return configAvatar ?? alchemyAvatar ?? walletAvatar ?? graph?.primaryNode?.avatar ?? null;
+}
+
+function pickFollowerCount(
+  graph: CultureIdentityGraph | null,
+  neynarFollowerCount: number | null,
+): number | null {
+  if (neynarFollowerCount != null) return neynarFollowerCount;
+  if (!graph) return null;
+  const fc = graph.graph.find((n) => n.platform === "farcaster");
+  if (fc?.followerCount != null) return fc.followerCount;
+  return graph.totalFollowers > 0 ? graph.totalFollowers : null;
+}
+
+export async function getCultureIdentityEnrichment(
+  resolved: ResolvedCultureName,
+): Promise<CultureIdentityEnrichment | null> {
+  if (resolved.status !== "claimed" || !resolved.owner) return null;
+
+  const owner = resolved.owner;
+  const displayHandle = resolved.fullName ?? `${resolved.handle}.${resolved.tld}`;
+  const founderConfig = getFounderShowcaseConfig(resolved.fullName);
+
+  const [profileGraph, member, txCount, walletBundle] = await Promise.all([
+    getOrFetchIdentityGraph(owner, resolved.fullName, () =>
+      fetchCultureIdentityGraphFromAddress(owner),
+    ),
+    fetchMemberBridge(owner),
+    fetchTxCount(owner),
+    fetchWeb3BioWalletBundle(owner),
+  ]);
+
+  const web3bio = mergeIdentityGraphs(profileGraph, walletBundle?.graph ?? []);
+  const credentials = walletBundle?.credentials ?? null;
+
+  const client = neynarClient();
+  let neynarFollowerCount: number | null = null;
+  const neynarItems: ShowcaseActivityItem[] = [];
+
+  if (client && founderConfig) {
+    const personal = await fetchNeynarUser(client, founderConfig.warpcastPersonalUsername);
+    if (personal) neynarFollowerCount = personal.followerCount;
+
+    const [personalCasts, brandCasts] = await Promise.all([
+      fetchCastsForUsername(client, founderConfig.warpcastPersonalUsername, 12),
+      fetchCastsForUsername(client, founderConfig.warpcastBrandUsername, 12),
+    ]);
+
+    for (const cast of [...personalCasts, ...brandCasts]) {
+      neynarItems.push(mapCastToActivity(cast));
+    }
+  }
+
+  const activity = mergeActivity(founderConfig, neynarItems);
+  const wallet = await fetchWalletNfts(owner, resolved, displayHandle);
+
+  const cultureScore = computeCultureScore({
+    resolved,
+    graph: web3bio,
+    nftCount: wallet.nftCount,
+    txCount,
+    member,
+  });
+
+  return {
+    ok: true,
+    followerCount: pickFollowerCount(web3bio, neynarFollowerCount),
+    neynarEnabled: client !== null,
+    avatarImageUrl: pickAvatarUrl(
+      web3bio,
+      wallet.avatarImageUrl,
+      founderConfig?.avatarUrl ?? null,
+      walletBundle?.avatar ?? null,
+    ),
+    nfts: wallet.nfts,
+    activity,
+    web3bio,
+    credentials,
+    cultureScore,
+    member,
+  };
+}
+
+/** Founder showcase alias — same pipeline, requires founder config for curated activity. */
+export async function getShowcaseEnrichment(
+  resolved: ResolvedCultureName,
+): Promise<CultureIdentityEnrichment | null> {
+  return getCultureIdentityEnrichment(resolved);
+}

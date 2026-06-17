@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Award, Brain, Building2, Fingerprint, TrendingUp, Users } from "lucide-react";
 
+import { LandingIdentityGraph } from "@/components/landing/LandingIdentityGraph";
+
 const LAYERS = [
   {
     Icon: Fingerprint,
@@ -110,6 +112,8 @@ export function LandingCultureLayer() {
             ))}
           </div>
         </div>
+
+        <LandingIdentityGraph />
       </div>
     </section>
   );

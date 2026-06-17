@@ -34,11 +34,14 @@ import { Route as GuideRouteImport } from './routes/guide'
 import { Route as GrantProofRouteImport } from './routes/grant-proof'
 import { Route as GenesisDistrictRouteImport } from './routes/genesis-district'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as ExperiencesRouteImport } from './routes/experiences'
 import { Route as EliasRouteImport } from './routes/elias'
+import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as ChatbaseRouteImport } from './routes/chatbase'
 import { Route as CampaignRouteImport } from './routes/campaign'
+import { Route as AgentOsRouteImport } from './routes/agent-os'
 import { Route as AgentFleetRouteImport } from './routes/agent-fleet'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -48,10 +51,12 @@ import { Route as WalletIndexRouteImport } from './routes/wallet/index'
 import { Route as TgIndexRouteImport } from './routes/tg/index'
 import { Route as StudioIndexRouteImport } from './routes/studio/index'
 import { Route as SignalIndexRouteImport } from './routes/signal/index'
+import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as PlacesIndexRouteImport } from './routes/places/index'
 import { Route as PassIndexRouteImport } from './routes/pass/index'
 import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
 import { Route as ForestIndexRouteImport } from './routes/forest/index'
+import { Route as ExplorerIndexRouteImport } from './routes/explorer.index'
 import { Route as EarthIndexRouteImport } from './routes/earth/index'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
@@ -61,6 +66,10 @@ import { Route as TgDevRouteImport } from './routes/tg/dev'
 import { Route as StudioProjectIdRouteImport } from './routes/studio/$projectId'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as SelfAgentidRouteImport } from './routes/self.agentid'
+import { Route as ProductsGrantProofRouteImport } from './routes/products/grant-proof'
+import { Route as ProductsCultureIdRouteImport } from './routes/products/culture-id'
+import { Route as ProductsCampaignHubRouteImport } from './routes/products/campaign-hub'
+import { Route as ProductsAiAgentsRouteImport } from './routes/products/ai-agents'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as OpsAttributionRouteImport } from './routes/ops/attribution'
 import { Route as NNameRouteImport } from './routes/n/$name'
@@ -79,11 +88,15 @@ import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
 import { Route as BridgeBccRouteImport } from './routes/bridge/bcc'
 import { Route as BlogFeedDotxmlRouteImport } from './routes/blog/feed[.]xml'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as BccFairLaunchRouteImport } from './routes/bcc/fair-launch'
+import { Route as BccDashboardRouteImport } from './routes/bcc/dashboard'
 import { Route as AuthLogoutRouteImport } from './routes/auth/logout'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as R0gAgentidRouteImport } from './routes/0g.agentid'
 import { Route as DotwellKnownFarcasterDotjsonRouteImport } from './routes/[.]well-known/farcaster[.]json'
 import { Route as DotwellKnownAgentDotjsonRouteImport } from './routes/[.]well-known/agent[.]json'
+import { Route as ExplorerTxHashRouteImport } from './routes/explorer.tx.$hash'
+import { Route as ExplorerAddressAddressRouteImport } from './routes/explorer.address.$address'
 import { Route as ApiX402PremiumRouteImport } from './routes/api/x402/premium'
 import { Route as ApiWorldWalletVerifyRouteImport } from './routes/api/world/wallet-verify'
 import { Route as ApiWorldWalletNonceRouteImport } from './routes/api/world/wallet-nonce'
@@ -141,6 +154,9 @@ import { Route as ApiIntelligenceAppsRouteImport } from './routes/api/intelligen
 import { Route as ApiIdentityVerifyNameRouteImport } from './routes/api/identity/verify-name'
 import { Route as ApiIdentityResolveBnbRouteImport } from './routes/api/identity/resolve-bnb'
 import { Route as ApiIdentityResolveRouteImport } from './routes/api/identity/resolve'
+import { Route as ApiIdentityGraphDemoRouteImport } from './routes/api/identity/graph-demo'
+import { Route as ApiIdentityGraphRouteImport } from './routes/api/identity/graph'
+import { Route as ApiIdentityEnrichRouteImport } from './routes/api/identity/enrich'
 import { Route as ApiIdentityCheckBnbRouteImport } from './routes/api/identity/check-bnb'
 import { Route as ApiGrantVerificationRouteImport } from './routes/api/grant/verification'
 import { Route as ApiFeedbackWallRouteImport } from './routes/api/feedback/wall'
@@ -148,10 +164,15 @@ import { Route as ApiFeedbackSubmitRouteImport } from './routes/api/feedback/sub
 import { Route as ApiFeedbackStatsRouteImport } from './routes/api/feedback/stats'
 import { Route as ApiFeedbackReviewRouteImport } from './routes/api/feedback/review'
 import { Route as ApiFeedbackMineRouteImport } from './routes/api/feedback/mine'
+import { Route as ApiExplorerLookupRouteImport } from './routes/api/explorer/lookup'
+import { Route as ApiExplorerFeedRouteImport } from './routes/api/explorer/feed'
 import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
+import { Route as ApiBccMetricsRouteImport } from './routes/api/bcc/metrics'
 import { Route as ApiAirdropClaimRouteImport } from './routes/api/airdrop/claim'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
+import { Route as ApiAgentsResearchRouteImport } from './routes/api/agents/research'
+import { Route as ApiAgentOsOverviewRouteImport } from './routes/api/agent-os/overview'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
 import { Route as R0gAgentid1DotjsonRouteImport } from './routes/0g/agentid/1[.]json'
 import { Route as ApiPointsRedeemIndexRouteImport } from './routes/api/points/redeem/index'
@@ -179,7 +200,10 @@ import { Route as ApiMarketingGroveFarcasterPostRouteImport } from './routes/api
 import { Route as ApiMarketBccSolanaRouteRouteImport } from './routes/api/market/bcc/solana-route'
 import { Route as ApiMarketBccBnbRouteRouteImport } from './routes/api/market/bcc/bnb-route'
 import { Route as ApiInvestorsWorkshopSessionRouteImport } from './routes/api/investors/workshop/session'
+import { Route as ApiExplorerTxHashRouteImport } from './routes/api/explorer/tx.$hash'
+import { Route as ApiExplorerAddressAddressRouteImport } from './routes/api/explorer/address.$address'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
+import { Route as ApiExplorerTxHashExplainRouteImport } from './routes/api/explorer/tx.$hash.explain'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -306,6 +330,11 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExplorerRoute = ExplorerRouteImport.update({
+  id: '/explorer',
+  path: '/explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExperiencesRoute = ExperiencesRouteImport.update({
   id: '/experiences',
   path: '/experiences',
@@ -314,6 +343,11 @@ const ExperiencesRoute = ExperiencesRouteImport.update({
 const EliasRoute = EliasRouteImport.update({
   id: '/elias',
   path: '/elias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorsRoute = CreatorsRouteImport.update({
+  id: '/creators',
+  path: '/creators',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CollectionsRoute = CollectionsRouteImport.update({
@@ -329,6 +363,11 @@ const ChatbaseRoute = ChatbaseRouteImport.update({
 const CampaignRoute = CampaignRouteImport.update({
   id: '/campaign',
   path: '/campaign',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentOsRoute = AgentOsRouteImport.update({
+  id: '/agent-os',
+  path: '/agent-os',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgentFleetRoute = AgentFleetRouteImport.update({
@@ -376,6 +415,11 @@ const SignalIndexRoute = SignalIndexRouteImport.update({
   path: '/signal/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlacesIndexRoute = PlacesIndexRouteImport.update({
   id: '/places/',
   path: '/places/',
@@ -395,6 +439,11 @@ const ForestIndexRoute = ForestIndexRouteImport.update({
   id: '/forest/',
   path: '/forest/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ExplorerIndexRoute = ExplorerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExplorerRoute,
 } as any)
 const EarthIndexRoute = EarthIndexRouteImport.update({
   id: '/earth/',
@@ -439,6 +488,26 @@ const SitemapXmlRoute = SitemapXmlRouteImport.update({
 const SelfAgentidRoute = SelfAgentidRouteImport.update({
   id: '/self/agentid',
   path: '/self/agentid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsGrantProofRoute = ProductsGrantProofRouteImport.update({
+  id: '/products/grant-proof',
+  path: '/products/grant-proof',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsCultureIdRoute = ProductsCultureIdRouteImport.update({
+  id: '/products/culture-id',
+  path: '/products/culture-id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsCampaignHubRoute = ProductsCampaignHubRouteImport.update({
+  id: '/products/campaign-hub',
+  path: '/products/campaign-hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsAiAgentsRoute = ProductsAiAgentsRouteImport.update({
+  id: '/products/ai-agents',
+  path: '/products/ai-agents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PSlugRoute = PSlugRouteImport.update({
@@ -531,6 +600,16 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BccFairLaunchRoute = BccFairLaunchRouteImport.update({
+  id: '/bcc/fair-launch',
+  path: '/bcc/fair-launch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BccDashboardRoute = BccDashboardRouteImport.update({
+  id: '/bcc/dashboard',
+  path: '/bcc/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthLogoutRoute = AuthLogoutRouteImport.update({
   id: '/auth/logout',
   path: '/auth/logout',
@@ -558,6 +637,16 @@ const DotwellKnownAgentDotjsonRoute =
     path: '/.well-known/agent.json',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ExplorerTxHashRoute = ExplorerTxHashRouteImport.update({
+  id: '/tx/$hash',
+  path: '/tx/$hash',
+  getParentRoute: () => ExplorerRoute,
+} as any)
+const ExplorerAddressAddressRoute = ExplorerAddressAddressRouteImport.update({
+  id: '/address/$address',
+  path: '/address/$address',
+  getParentRoute: () => ExplorerRoute,
+} as any)
 const ApiX402PremiumRoute = ApiX402PremiumRouteImport.update({
   id: '/api/x402/premium',
   path: '/api/x402/premium',
@@ -849,6 +938,21 @@ const ApiIdentityResolveRoute = ApiIdentityResolveRouteImport.update({
   path: '/api/identity/resolve',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiIdentityGraphDemoRoute = ApiIdentityGraphDemoRouteImport.update({
+  id: '/api/identity/graph-demo',
+  path: '/api/identity/graph-demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIdentityGraphRoute = ApiIdentityGraphRouteImport.update({
+  id: '/api/identity/graph',
+  path: '/api/identity/graph',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIdentityEnrichRoute = ApiIdentityEnrichRouteImport.update({
+  id: '/api/identity/enrich',
+  path: '/api/identity/enrich',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiIdentityCheckBnbRoute = ApiIdentityCheckBnbRouteImport.update({
   id: '/api/identity/check-bnb',
   path: '/api/identity/check-bnb',
@@ -884,6 +988,16 @@ const ApiFeedbackMineRoute = ApiFeedbackMineRouteImport.update({
   path: '/api/feedback/mine',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiExplorerLookupRoute = ApiExplorerLookupRouteImport.update({
+  id: '/api/explorer/lookup',
+  path: '/api/explorer/lookup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiExplorerFeedRoute = ApiExplorerFeedRouteImport.update({
+  id: '/api/explorer/feed',
+  path: '/api/explorer/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiEliasInboundRoute = ApiEliasInboundRouteImport.update({
   id: '/api/elias/inbound',
   path: '/api/elias/inbound',
@@ -895,6 +1009,11 @@ const ApiComplianceEligibilityRoute =
     path: '/api/compliance/eligibility',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBccMetricsRoute = ApiBccMetricsRouteImport.update({
+  id: '/api/bcc/metrics',
+  path: '/api/bcc/metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAirdropClaimRoute = ApiAirdropClaimRouteImport.update({
   id: '/api/airdrop/claim',
   path: '/api/airdrop/claim',
@@ -903,6 +1022,16 @@ const ApiAirdropClaimRoute = ApiAirdropClaimRouteImport.update({
 const ApiAgentsStatusRoute = ApiAgentsStatusRouteImport.update({
   id: '/api/agents/status',
   path: '/api/agents/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentsResearchRoute = ApiAgentsResearchRouteImport.update({
+  id: '/api/agents/research',
+  path: '/api/agents/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentOsOverviewRoute = ApiAgentOsOverviewRouteImport.update({
+  id: '/api/agent-os/overview',
+  path: '/api/agent-os/overview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiActivityLogRoute = ApiActivityLogRouteImport.update({
@@ -1048,22 +1177,42 @@ const ApiInvestorsWorkshopSessionRoute =
     path: '/api/investors/workshop/session',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiExplorerTxHashRoute = ApiExplorerTxHashRouteImport.update({
+  id: '/api/explorer/tx/$hash',
+  path: '/api/explorer/tx/$hash',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiExplorerAddressAddressRoute =
+  ApiExplorerAddressAddressRouteImport.update({
+    id: '/api/explorer/address/$address',
+    path: '/api/explorer/address/$address',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPulseFeedIdCommentsRoute = ApiPulseFeedIdCommentsRouteImport.update({
   id: '/$id/comments',
   path: '/$id/comments',
   getParentRoute: () => ApiPulseFeedRoute,
 } as any)
+const ApiExplorerTxHashExplainRoute =
+  ApiExplorerTxHashExplainRouteImport.update({
+    id: '/explain',
+    path: '/explain',
+    getParentRoute: () => ApiExplorerTxHashRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/agent-fleet': typeof AgentFleetRoute
+  '/agent-os': typeof AgentOsRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
+  '/creators': typeof CreatorsRoute
   '/elias': typeof EliasRoute
   '/experiences': typeof ExperiencesRoute
+  '/explorer': typeof ExplorerRouteWithChildren
   '/faq': typeof FaqRoute
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
@@ -1094,6 +1243,8 @@ export interface FileRoutesByFullPath {
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
+  '/bcc/dashboard': typeof BccDashboardRoute
+  '/bcc/fair-launch': typeof BccFairLaunchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
@@ -1112,6 +1263,10 @@ export interface FileRoutesByFullPath {
   '/n/$name': typeof NNameRoute
   '/ops/attribution': typeof OpsAttributionRoute
   '/p/$slug': typeof PSlugRoute
+  '/products/ai-agents': typeof ProductsAiAgentsRoute
+  '/products/campaign-hub': typeof ProductsCampaignHubRoute
+  '/products/culture-id': typeof ProductsCultureIdRoute
+  '/products/grant-proof': typeof ProductsGrantProofRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/studio/$projectId': typeof StudioProjectIdRoute
@@ -1121,10 +1276,12 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
+  '/explorer/': typeof ExplorerIndexRoute
   '/forest/': typeof ForestIndexRoute
   '/marketplace/': typeof MarketplaceIndexRoute
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
+  '/products/': typeof ProductsIndexRoute
   '/signal/': typeof SignalIndexRoute
   '/studio/': typeof StudioIndexRoute
   '/tg/': typeof TgIndexRoute
@@ -1132,10 +1289,15 @@ export interface FileRoutesByFullPath {
   '/welcome/': typeof WelcomeIndexRoute
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
+  '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
+  '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
+  '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/explorer/feed': typeof ApiExplorerFeedRoute
+  '/api/explorer/lookup': typeof ApiExplorerLookupRoute
   '/api/feedback/mine': typeof ApiFeedbackMineRoute
   '/api/feedback/review': typeof ApiFeedbackReviewRoute
   '/api/feedback/stats': typeof ApiFeedbackStatsRoute
@@ -1143,6 +1305,9 @@ export interface FileRoutesByFullPath {
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
+  '/api/identity/enrich': typeof ApiIdentityEnrichRoute
+  '/api/identity/graph': typeof ApiIdentityGraphRoute
+  '/api/identity/graph-demo': typeof ApiIdentityGraphDemoRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
@@ -1200,6 +1365,10 @@ export interface FileRoutesByFullPath {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/explorer/address/$address': typeof ExplorerAddressAddressRoute
+  '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
+  '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
@@ -1225,6 +1394,7 @@ export interface FileRoutesByFullPath {
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
+  '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRoutesByTo {
@@ -1232,9 +1402,11 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/agent-fleet': typeof AgentFleetRoute
+  '/agent-os': typeof AgentOsRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
+  '/creators': typeof CreatorsRoute
   '/elias': typeof EliasRoute
   '/experiences': typeof ExperiencesRoute
   '/faq': typeof FaqRoute
@@ -1266,6 +1438,8 @@ export interface FileRoutesByTo {
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
+  '/bcc/dashboard': typeof BccDashboardRoute
+  '/bcc/fair-launch': typeof BccFairLaunchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
@@ -1284,6 +1458,10 @@ export interface FileRoutesByTo {
   '/n/$name': typeof NNameRoute
   '/ops/attribution': typeof OpsAttributionRoute
   '/p/$slug': typeof PSlugRoute
+  '/products/ai-agents': typeof ProductsAiAgentsRoute
+  '/products/campaign-hub': typeof ProductsCampaignHubRoute
+  '/products/culture-id': typeof ProductsCultureIdRoute
+  '/products/grant-proof': typeof ProductsGrantProofRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/studio/$projectId': typeof StudioProjectIdRoute
@@ -1293,10 +1471,12 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/docs': typeof DocsIndexRoute
   '/earth': typeof EarthIndexRoute
+  '/explorer': typeof ExplorerIndexRoute
   '/forest': typeof ForestIndexRoute
   '/marketplace': typeof MarketplaceIndexRoute
   '/pass': typeof PassIndexRoute
   '/places': typeof PlacesIndexRoute
+  '/products': typeof ProductsIndexRoute
   '/signal': typeof SignalIndexRoute
   '/studio': typeof StudioIndexRoute
   '/tg': typeof TgIndexRoute
@@ -1304,10 +1484,15 @@ export interface FileRoutesByTo {
   '/welcome': typeof WelcomeIndexRoute
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
+  '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
+  '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
+  '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/explorer/feed': typeof ApiExplorerFeedRoute
+  '/api/explorer/lookup': typeof ApiExplorerLookupRoute
   '/api/feedback/mine': typeof ApiFeedbackMineRoute
   '/api/feedback/review': typeof ApiFeedbackReviewRoute
   '/api/feedback/stats': typeof ApiFeedbackStatsRoute
@@ -1315,6 +1500,9 @@ export interface FileRoutesByTo {
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
+  '/api/identity/enrich': typeof ApiIdentityEnrichRoute
+  '/api/identity/graph': typeof ApiIdentityGraphRoute
+  '/api/identity/graph-demo': typeof ApiIdentityGraphDemoRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
@@ -1372,6 +1560,10 @@ export interface FileRoutesByTo {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/explorer/address/$address': typeof ExplorerAddressAddressRoute
+  '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
+  '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
@@ -1397,6 +1589,7 @@ export interface FileRoutesByTo {
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/points/redeem': typeof ApiPointsRedeemIndexRoute
+  '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRoutesById {
@@ -1405,11 +1598,14 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/agent-fleet': typeof AgentFleetRoute
+  '/agent-os': typeof AgentOsRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
+  '/creators': typeof CreatorsRoute
   '/elias': typeof EliasRoute
   '/experiences': typeof ExperiencesRoute
+  '/explorer': typeof ExplorerRouteWithChildren
   '/faq': typeof FaqRoute
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
@@ -1440,6 +1636,8 @@ export interface FileRoutesById {
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
+  '/bcc/dashboard': typeof BccDashboardRoute
+  '/bcc/fair-launch': typeof BccFairLaunchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
@@ -1458,6 +1656,10 @@ export interface FileRoutesById {
   '/n/$name': typeof NNameRoute
   '/ops/attribution': typeof OpsAttributionRoute
   '/p/$slug': typeof PSlugRoute
+  '/products/ai-agents': typeof ProductsAiAgentsRoute
+  '/products/campaign-hub': typeof ProductsCampaignHubRoute
+  '/products/culture-id': typeof ProductsCultureIdRoute
+  '/products/grant-proof': typeof ProductsGrantProofRoute
   '/self/agentid': typeof SelfAgentidRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/studio/$projectId': typeof StudioProjectIdRoute
@@ -1467,10 +1669,12 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
+  '/explorer/': typeof ExplorerIndexRoute
   '/forest/': typeof ForestIndexRoute
   '/marketplace/': typeof MarketplaceIndexRoute
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
+  '/products/': typeof ProductsIndexRoute
   '/signal/': typeof SignalIndexRoute
   '/studio/': typeof StudioIndexRoute
   '/tg/': typeof TgIndexRoute
@@ -1478,10 +1682,15 @@ export interface FileRoutesById {
   '/welcome/': typeof WelcomeIndexRoute
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
+  '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
+  '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
+  '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
+  '/api/explorer/feed': typeof ApiExplorerFeedRoute
+  '/api/explorer/lookup': typeof ApiExplorerLookupRoute
   '/api/feedback/mine': typeof ApiFeedbackMineRoute
   '/api/feedback/review': typeof ApiFeedbackReviewRoute
   '/api/feedback/stats': typeof ApiFeedbackStatsRoute
@@ -1489,6 +1698,9 @@ export interface FileRoutesById {
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
   '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
+  '/api/identity/enrich': typeof ApiIdentityEnrichRoute
+  '/api/identity/graph': typeof ApiIdentityGraphRoute
+  '/api/identity/graph-demo': typeof ApiIdentityGraphDemoRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
@@ -1546,6 +1758,10 @@ export interface FileRoutesById {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/explorer/address/$address': typeof ExplorerAddressAddressRoute
+  '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
+  '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
@@ -1571,6 +1787,7 @@ export interface FileRoutesById {
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
+  '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
 export interface FileRouteTypes {
@@ -1580,11 +1797,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/agent-fleet'
+    | '/agent-os'
     | '/campaign'
     | '/chatbase'
     | '/collections'
+    | '/creators'
     | '/elias'
     | '/experiences'
+    | '/explorer'
     | '/faq'
     | '/genesis-district'
     | '/grant-proof'
@@ -1615,6 +1835,8 @@ export interface FileRouteTypes {
     | '/0g/agentid'
     | '/auth/login'
     | '/auth/logout'
+    | '/bcc/dashboard'
+    | '/bcc/fair-launch'
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
@@ -1633,6 +1855,10 @@ export interface FileRouteTypes {
     | '/n/$name'
     | '/ops/attribution'
     | '/p/$slug'
+    | '/products/ai-agents'
+    | '/products/campaign-hub'
+    | '/products/culture-id'
+    | '/products/grant-proof'
     | '/self/agentid'
     | '/sitemap/xml'
     | '/studio/$projectId'
@@ -1642,10 +1868,12 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/docs/'
     | '/earth/'
+    | '/explorer/'
     | '/forest/'
     | '/marketplace/'
     | '/pass/'
     | '/places/'
+    | '/products/'
     | '/signal/'
     | '/studio/'
     | '/tg/'
@@ -1653,10 +1881,15 @@ export interface FileRouteTypes {
     | '/welcome/'
     | '/0g/agentid/1.json'
     | '/api/activity/log'
+    | '/api/agent-os/overview'
+    | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
+    | '/api/bcc/metrics'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/explorer/feed'
+    | '/api/explorer/lookup'
     | '/api/feedback/mine'
     | '/api/feedback/review'
     | '/api/feedback/stats'
@@ -1664,6 +1897,9 @@ export interface FileRouteTypes {
     | '/api/feedback/wall'
     | '/api/grant/verification'
     | '/api/identity/check-bnb'
+    | '/api/identity/enrich'
+    | '/api/identity/graph'
+    | '/api/identity/graph-demo'
     | '/api/identity/resolve'
     | '/api/identity/resolve-bnb'
     | '/api/identity/verify-name'
@@ -1721,6 +1957,10 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/explorer/address/$address'
+    | '/explorer/tx/$hash'
+    | '/api/explorer/address/$address'
+    | '/api/explorer/tx/$hash'
     | '/api/investors/workshop/session'
     | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
@@ -1746,6 +1986,7 @@ export interface FileRouteTypes {
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/points/redeem/'
+    | '/api/explorer/tx/$hash/explain'
     | '/api/pulse/feed/$id/comments'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1753,9 +1994,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/agent-fleet'
+    | '/agent-os'
     | '/campaign'
     | '/chatbase'
     | '/collections'
+    | '/creators'
     | '/elias'
     | '/experiences'
     | '/faq'
@@ -1787,6 +2030,8 @@ export interface FileRouteTypes {
     | '/0g/agentid'
     | '/auth/login'
     | '/auth/logout'
+    | '/bcc/dashboard'
+    | '/bcc/fair-launch'
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
@@ -1805,6 +2050,10 @@ export interface FileRouteTypes {
     | '/n/$name'
     | '/ops/attribution'
     | '/p/$slug'
+    | '/products/ai-agents'
+    | '/products/campaign-hub'
+    | '/products/culture-id'
+    | '/products/grant-proof'
     | '/self/agentid'
     | '/sitemap/xml'
     | '/studio/$projectId'
@@ -1814,10 +2063,12 @@ export interface FileRouteTypes {
     | '/blog'
     | '/docs'
     | '/earth'
+    | '/explorer'
     | '/forest'
     | '/marketplace'
     | '/pass'
     | '/places'
+    | '/products'
     | '/signal'
     | '/studio'
     | '/tg'
@@ -1825,10 +2076,15 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/0g/agentid/1.json'
     | '/api/activity/log'
+    | '/api/agent-os/overview'
+    | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
+    | '/api/bcc/metrics'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/explorer/feed'
+    | '/api/explorer/lookup'
     | '/api/feedback/mine'
     | '/api/feedback/review'
     | '/api/feedback/stats'
@@ -1836,6 +2092,9 @@ export interface FileRouteTypes {
     | '/api/feedback/wall'
     | '/api/grant/verification'
     | '/api/identity/check-bnb'
+    | '/api/identity/enrich'
+    | '/api/identity/graph'
+    | '/api/identity/graph-demo'
     | '/api/identity/resolve'
     | '/api/identity/resolve-bnb'
     | '/api/identity/verify-name'
@@ -1893,6 +2152,10 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/explorer/address/$address'
+    | '/explorer/tx/$hash'
+    | '/api/explorer/address/$address'
+    | '/api/explorer/tx/$hash'
     | '/api/investors/workshop/session'
     | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
@@ -1918,6 +2181,7 @@ export interface FileRouteTypes {
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/points/redeem'
+    | '/api/explorer/tx/$hash/explain'
     | '/api/pulse/feed/$id/comments'
   id:
     | '__root__'
@@ -1925,11 +2189,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/agent-fleet'
+    | '/agent-os'
     | '/campaign'
     | '/chatbase'
     | '/collections'
+    | '/creators'
     | '/elias'
     | '/experiences'
+    | '/explorer'
     | '/faq'
     | '/genesis-district'
     | '/grant-proof'
@@ -1960,6 +2227,8 @@ export interface FileRouteTypes {
     | '/0g/agentid'
     | '/auth/login'
     | '/auth/logout'
+    | '/bcc/dashboard'
+    | '/bcc/fair-launch'
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
@@ -1978,6 +2247,10 @@ export interface FileRouteTypes {
     | '/n/$name'
     | '/ops/attribution'
     | '/p/$slug'
+    | '/products/ai-agents'
+    | '/products/campaign-hub'
+    | '/products/culture-id'
+    | '/products/grant-proof'
     | '/self/agentid'
     | '/sitemap/xml'
     | '/studio/$projectId'
@@ -1987,10 +2260,12 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/docs/'
     | '/earth/'
+    | '/explorer/'
     | '/forest/'
     | '/marketplace/'
     | '/pass/'
     | '/places/'
+    | '/products/'
     | '/signal/'
     | '/studio/'
     | '/tg/'
@@ -1998,10 +2273,15 @@ export interface FileRouteTypes {
     | '/welcome/'
     | '/0g/agentid/1.json'
     | '/api/activity/log'
+    | '/api/agent-os/overview'
+    | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
+    | '/api/bcc/metrics'
     | '/api/compliance/eligibility'
     | '/api/elias/inbound'
+    | '/api/explorer/feed'
+    | '/api/explorer/lookup'
     | '/api/feedback/mine'
     | '/api/feedback/review'
     | '/api/feedback/stats'
@@ -2009,6 +2289,9 @@ export interface FileRouteTypes {
     | '/api/feedback/wall'
     | '/api/grant/verification'
     | '/api/identity/check-bnb'
+    | '/api/identity/enrich'
+    | '/api/identity/graph'
+    | '/api/identity/graph-demo'
     | '/api/identity/resolve'
     | '/api/identity/resolve-bnb'
     | '/api/identity/verify-name'
@@ -2066,6 +2349,10 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/explorer/address/$address'
+    | '/explorer/tx/$hash'
+    | '/api/explorer/address/$address'
+    | '/api/explorer/tx/$hash'
     | '/api/investors/workshop/session'
     | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
@@ -2091,6 +2378,7 @@ export interface FileRouteTypes {
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/points/redeem/'
+    | '/api/explorer/tx/$hash/explain'
     | '/api/pulse/feed/$id/comments'
   fileRoutesById: FileRoutesById
 }
@@ -2099,11 +2387,14 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
   AgentFleetRoute: typeof AgentFleetRoute
+  AgentOsRoute: typeof AgentOsRoute
   CampaignRoute: typeof CampaignRoute
   ChatbaseRoute: typeof ChatbaseRoute
   CollectionsRoute: typeof CollectionsRoute
+  CreatorsRoute: typeof CreatorsRoute
   EliasRoute: typeof EliasRoute
   ExperiencesRoute: typeof ExperiencesRoute
+  ExplorerRoute: typeof ExplorerRouteWithChildren
   FaqRoute: typeof FaqRoute
   GenesisDistrictRoute: typeof GenesisDistrictRoute
   GrantProofRoute: typeof GrantProofRoute
@@ -2134,6 +2425,8 @@ export interface RootRouteChildren {
   R0gAgentidRoute: typeof R0gAgentidRouteWithChildren
   AuthLoginRoute: typeof AuthLoginRoute
   AuthLogoutRoute: typeof AuthLogoutRoute
+  BccDashboardRoute: typeof BccDashboardRoute
+  BccFairLaunchRoute: typeof BccFairLaunchRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogFeedDotxmlRoute: typeof BlogFeedDotxmlRoute
   BridgeBccRoute: typeof BridgeBccRoute
@@ -2145,6 +2438,10 @@ export interface RootRouteChildren {
   NNameRoute: typeof NNameRoute
   OpsAttributionRoute: typeof OpsAttributionRoute
   PSlugRoute: typeof PSlugRoute
+  ProductsAiAgentsRoute: typeof ProductsAiAgentsRoute
+  ProductsCampaignHubRoute: typeof ProductsCampaignHubRoute
+  ProductsCultureIdRoute: typeof ProductsCultureIdRoute
+  ProductsGrantProofRoute: typeof ProductsGrantProofRoute
   SelfAgentidRoute: typeof SelfAgentidRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
   StudioProjectIdRoute: typeof StudioProjectIdRoute
@@ -2157,16 +2454,22 @@ export interface RootRouteChildren {
   ForestIndexRoute: typeof ForestIndexRoute
   PassIndexRoute: typeof PassIndexRoute
   PlacesIndexRoute: typeof PlacesIndexRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
   SignalIndexRoute: typeof SignalIndexRoute
   StudioIndexRoute: typeof StudioIndexRoute
   TgIndexRoute: typeof TgIndexRoute
   WalletIndexRoute: typeof WalletIndexRoute
   WelcomeIndexRoute: typeof WelcomeIndexRoute
   ApiActivityLogRoute: typeof ApiActivityLogRoute
+  ApiAgentOsOverviewRoute: typeof ApiAgentOsOverviewRoute
+  ApiAgentsResearchRoute: typeof ApiAgentsResearchRoute
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
   ApiAirdropClaimRoute: typeof ApiAirdropClaimRoute
+  ApiBccMetricsRoute: typeof ApiBccMetricsRoute
   ApiComplianceEligibilityRoute: typeof ApiComplianceEligibilityRoute
   ApiEliasInboundRoute: typeof ApiEliasInboundRoute
+  ApiExplorerFeedRoute: typeof ApiExplorerFeedRoute
+  ApiExplorerLookupRoute: typeof ApiExplorerLookupRoute
   ApiFeedbackMineRoute: typeof ApiFeedbackMineRoute
   ApiFeedbackReviewRoute: typeof ApiFeedbackReviewRoute
   ApiFeedbackStatsRoute: typeof ApiFeedbackStatsRoute
@@ -2174,6 +2477,9 @@ export interface RootRouteChildren {
   ApiFeedbackWallRoute: typeof ApiFeedbackWallRoute
   ApiGrantVerificationRoute: typeof ApiGrantVerificationRoute
   ApiIdentityCheckBnbRoute: typeof ApiIdentityCheckBnbRoute
+  ApiIdentityEnrichRoute: typeof ApiIdentityEnrichRoute
+  ApiIdentityGraphRoute: typeof ApiIdentityGraphRoute
+  ApiIdentityGraphDemoRoute: typeof ApiIdentityGraphDemoRoute
   ApiIdentityResolveRoute: typeof ApiIdentityResolveRoute
   ApiIdentityResolveBnbRoute: typeof ApiIdentityResolveBnbRoute
   ApiIdentityVerifyNameRoute: typeof ApiIdentityVerifyNameRoute
@@ -2231,6 +2537,8 @@ export interface RootRouteChildren {
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
+  ApiExplorerAddressAddressRoute: typeof ApiExplorerAddressAddressRoute
+  ApiExplorerTxHashRoute: typeof ApiExplorerTxHashRouteWithChildren
   ApiInvestorsWorkshopSessionRoute: typeof ApiInvestorsWorkshopSessionRoute
   ApiMarketingGroveFarcasterPostRoute: typeof ApiMarketingGroveFarcasterPostRoute
   ApiMarketingGroveTickRoute: typeof ApiMarketingGroveTickRoute
@@ -2431,6 +2739,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explorer': {
+      id: '/explorer'
+      path: '/explorer'
+      fullPath: '/explorer'
+      preLoaderRoute: typeof ExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/experiences': {
       id: '/experiences'
       path: '/experiences'
@@ -2443,6 +2758,13 @@ declare module '@tanstack/react-router' {
       path: '/elias'
       fullPath: '/elias'
       preLoaderRoute: typeof EliasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creators': {
+      id: '/creators'
+      path: '/creators'
+      fullPath: '/creators'
+      preLoaderRoute: typeof CreatorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collections': {
@@ -2464,6 +2786,13 @@ declare module '@tanstack/react-router' {
       path: '/campaign'
       fullPath: '/campaign'
       preLoaderRoute: typeof CampaignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agent-os': {
+      id: '/agent-os'
+      path: '/agent-os'
+      fullPath: '/agent-os'
+      preLoaderRoute: typeof AgentOsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agent-fleet': {
@@ -2529,6 +2858,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignalIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/places/': {
       id: '/places/'
       path: '/places'
@@ -2556,6 +2892,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/forest/'
       preLoaderRoute: typeof ForestIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/explorer/': {
+      id: '/explorer/'
+      path: '/'
+      fullPath: '/explorer/'
+      preLoaderRoute: typeof ExplorerIndexRouteImport
+      parentRoute: typeof ExplorerRoute
     }
     '/earth/': {
       id: '/earth/'
@@ -2618,6 +2961,34 @@ declare module '@tanstack/react-router' {
       path: '/self/agentid'
       fullPath: '/self/agentid'
       preLoaderRoute: typeof SelfAgentidRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/grant-proof': {
+      id: '/products/grant-proof'
+      path: '/products/grant-proof'
+      fullPath: '/products/grant-proof'
+      preLoaderRoute: typeof ProductsGrantProofRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/culture-id': {
+      id: '/products/culture-id'
+      path: '/products/culture-id'
+      fullPath: '/products/culture-id'
+      preLoaderRoute: typeof ProductsCultureIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/campaign-hub': {
+      id: '/products/campaign-hub'
+      path: '/products/campaign-hub'
+      fullPath: '/products/campaign-hub'
+      preLoaderRoute: typeof ProductsCampaignHubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/ai-agents': {
+      id: '/products/ai-agents'
+      path: '/products/ai-agents'
+      fullPath: '/products/ai-agents'
+      preLoaderRoute: typeof ProductsAiAgentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/p/$slug': {
@@ -2746,6 +3117,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bcc/fair-launch': {
+      id: '/bcc/fair-launch'
+      path: '/bcc/fair-launch'
+      fullPath: '/bcc/fair-launch'
+      preLoaderRoute: typeof BccFairLaunchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bcc/dashboard': {
+      id: '/bcc/dashboard'
+      path: '/bcc/dashboard'
+      fullPath: '/bcc/dashboard'
+      preLoaderRoute: typeof BccDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/logout': {
       id: '/auth/logout'
       path: '/auth/logout'
@@ -2780,6 +3165,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/.well-known/agent.json'
       preLoaderRoute: typeof DotwellKnownAgentDotjsonRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/explorer/tx/$hash': {
+      id: '/explorer/tx/$hash'
+      path: '/tx/$hash'
+      fullPath: '/explorer/tx/$hash'
+      preLoaderRoute: typeof ExplorerTxHashRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
+    '/explorer/address/$address': {
+      id: '/explorer/address/$address'
+      path: '/address/$address'
+      fullPath: '/explorer/address/$address'
+      preLoaderRoute: typeof ExplorerAddressAddressRouteImport
+      parentRoute: typeof ExplorerRoute
     }
     '/api/x402/premium': {
       id: '/api/x402/premium'
@@ -3180,6 +3579,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIdentityResolveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/identity/graph-demo': {
+      id: '/api/identity/graph-demo'
+      path: '/api/identity/graph-demo'
+      fullPath: '/api/identity/graph-demo'
+      preLoaderRoute: typeof ApiIdentityGraphDemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/graph': {
+      id: '/api/identity/graph'
+      path: '/api/identity/graph'
+      fullPath: '/api/identity/graph'
+      preLoaderRoute: typeof ApiIdentityGraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/enrich': {
+      id: '/api/identity/enrich'
+      path: '/api/identity/enrich'
+      fullPath: '/api/identity/enrich'
+      preLoaderRoute: typeof ApiIdentityEnrichRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/identity/check-bnb': {
       id: '/api/identity/check-bnb'
       path: '/api/identity/check-bnb'
@@ -3229,6 +3649,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFeedbackMineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/explorer/lookup': {
+      id: '/api/explorer/lookup'
+      path: '/api/explorer/lookup'
+      fullPath: '/api/explorer/lookup'
+      preLoaderRoute: typeof ApiExplorerLookupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/explorer/feed': {
+      id: '/api/explorer/feed'
+      path: '/api/explorer/feed'
+      fullPath: '/api/explorer/feed'
+      preLoaderRoute: typeof ApiExplorerFeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/elias/inbound': {
       id: '/api/elias/inbound'
       path: '/api/elias/inbound'
@@ -3243,6 +3677,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiComplianceEligibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/bcc/metrics': {
+      id: '/api/bcc/metrics'
+      path: '/api/bcc/metrics'
+      fullPath: '/api/bcc/metrics'
+      preLoaderRoute: typeof ApiBccMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/airdrop/claim': {
       id: '/api/airdrop/claim'
       path: '/api/airdrop/claim'
@@ -3255,6 +3696,20 @@ declare module '@tanstack/react-router' {
       path: '/api/agents/status'
       fullPath: '/api/agents/status'
       preLoaderRoute: typeof ApiAgentsStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agents/research': {
+      id: '/api/agents/research'
+      path: '/api/agents/research'
+      fullPath: '/api/agents/research'
+      preLoaderRoute: typeof ApiAgentsResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agent-os/overview': {
+      id: '/api/agent-os/overview'
+      path: '/api/agent-os/overview'
+      fullPath: '/api/agent-os/overview'
+      preLoaderRoute: typeof ApiAgentOsOverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/activity/log': {
@@ -3446,6 +3901,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInvestorsWorkshopSessionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/explorer/tx/$hash': {
+      id: '/api/explorer/tx/$hash'
+      path: '/api/explorer/tx/$hash'
+      fullPath: '/api/explorer/tx/$hash'
+      preLoaderRoute: typeof ApiExplorerTxHashRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/explorer/address/$address': {
+      id: '/api/explorer/address/$address'
+      path: '/api/explorer/address/$address'
+      fullPath: '/api/explorer/address/$address'
+      preLoaderRoute: typeof ApiExplorerAddressAddressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/pulse/feed/$id/comments': {
       id: '/api/pulse/feed/$id/comments'
       path: '/$id/comments'
@@ -3453,8 +3922,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPulseFeedIdCommentsRouteImport
       parentRoute: typeof ApiPulseFeedRoute
     }
+    '/api/explorer/tx/$hash/explain': {
+      id: '/api/explorer/tx/$hash/explain'
+      path: '/explain'
+      fullPath: '/api/explorer/tx/$hash/explain'
+      preLoaderRoute: typeof ApiExplorerTxHashExplainRouteImport
+      parentRoute: typeof ApiExplorerTxHashRoute
+    }
   }
 }
+
+interface ExplorerRouteChildren {
+  ExplorerIndexRoute: typeof ExplorerIndexRoute
+  ExplorerAddressAddressRoute: typeof ExplorerAddressAddressRoute
+  ExplorerTxHashRoute: typeof ExplorerTxHashRoute
+}
+
+const ExplorerRouteChildren: ExplorerRouteChildren = {
+  ExplorerIndexRoute: ExplorerIndexRoute,
+  ExplorerAddressAddressRoute: ExplorerAddressAddressRoute,
+  ExplorerTxHashRoute: ExplorerTxHashRoute,
+}
+
+const ExplorerRouteWithChildren = ExplorerRoute._addFileChildren(
+  ExplorerRouteChildren,
+)
 
 interface InvestorsRouteChildren {
   InvestorsWorkshopRoute: typeof InvestorsWorkshopRoute
@@ -3562,16 +4054,30 @@ const ApiTgTasksRouteWithChildren = ApiTgTasksRoute._addFileChildren(
   ApiTgTasksRouteChildren,
 )
 
+interface ApiExplorerTxHashRouteChildren {
+  ApiExplorerTxHashExplainRoute: typeof ApiExplorerTxHashExplainRoute
+}
+
+const ApiExplorerTxHashRouteChildren: ApiExplorerTxHashRouteChildren = {
+  ApiExplorerTxHashExplainRoute: ApiExplorerTxHashExplainRoute,
+}
+
+const ApiExplorerTxHashRouteWithChildren =
+  ApiExplorerTxHashRoute._addFileChildren(ApiExplorerTxHashRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   AgentFleetRoute: AgentFleetRoute,
+  AgentOsRoute: AgentOsRoute,
   CampaignRoute: CampaignRoute,
   ChatbaseRoute: ChatbaseRoute,
   CollectionsRoute: CollectionsRoute,
+  CreatorsRoute: CreatorsRoute,
   EliasRoute: EliasRoute,
   ExperiencesRoute: ExperiencesRoute,
+  ExplorerRoute: ExplorerRouteWithChildren,
   FaqRoute: FaqRoute,
   GenesisDistrictRoute: GenesisDistrictRoute,
   GrantProofRoute: GrantProofRoute,
@@ -3602,6 +4108,8 @@ const rootRouteChildren: RootRouteChildren = {
   R0gAgentidRoute: R0gAgentidRouteWithChildren,
   AuthLoginRoute: AuthLoginRoute,
   AuthLogoutRoute: AuthLogoutRoute,
+  BccDashboardRoute: BccDashboardRoute,
+  BccFairLaunchRoute: BccFairLaunchRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogFeedDotxmlRoute: BlogFeedDotxmlRoute,
   BridgeBccRoute: BridgeBccRoute,
@@ -3613,6 +4121,10 @@ const rootRouteChildren: RootRouteChildren = {
   NNameRoute: NNameRoute,
   OpsAttributionRoute: OpsAttributionRoute,
   PSlugRoute: PSlugRoute,
+  ProductsAiAgentsRoute: ProductsAiAgentsRoute,
+  ProductsCampaignHubRoute: ProductsCampaignHubRoute,
+  ProductsCultureIdRoute: ProductsCultureIdRoute,
+  ProductsGrantProofRoute: ProductsGrantProofRoute,
   SelfAgentidRoute: SelfAgentidRoute,
   SitemapXmlRoute: SitemapXmlRoute,
   StudioProjectIdRoute: StudioProjectIdRoute,
@@ -3625,16 +4137,22 @@ const rootRouteChildren: RootRouteChildren = {
   ForestIndexRoute: ForestIndexRoute,
   PassIndexRoute: PassIndexRoute,
   PlacesIndexRoute: PlacesIndexRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
   SignalIndexRoute: SignalIndexRoute,
   StudioIndexRoute: StudioIndexRoute,
   TgIndexRoute: TgIndexRoute,
   WalletIndexRoute: WalletIndexRoute,
   WelcomeIndexRoute: WelcomeIndexRoute,
   ApiActivityLogRoute: ApiActivityLogRoute,
+  ApiAgentOsOverviewRoute: ApiAgentOsOverviewRoute,
+  ApiAgentsResearchRoute: ApiAgentsResearchRoute,
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
   ApiAirdropClaimRoute: ApiAirdropClaimRoute,
+  ApiBccMetricsRoute: ApiBccMetricsRoute,
   ApiComplianceEligibilityRoute: ApiComplianceEligibilityRoute,
   ApiEliasInboundRoute: ApiEliasInboundRoute,
+  ApiExplorerFeedRoute: ApiExplorerFeedRoute,
+  ApiExplorerLookupRoute: ApiExplorerLookupRoute,
   ApiFeedbackMineRoute: ApiFeedbackMineRoute,
   ApiFeedbackReviewRoute: ApiFeedbackReviewRoute,
   ApiFeedbackStatsRoute: ApiFeedbackStatsRoute,
@@ -3642,6 +4160,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFeedbackWallRoute: ApiFeedbackWallRoute,
   ApiGrantVerificationRoute: ApiGrantVerificationRoute,
   ApiIdentityCheckBnbRoute: ApiIdentityCheckBnbRoute,
+  ApiIdentityEnrichRoute: ApiIdentityEnrichRoute,
+  ApiIdentityGraphRoute: ApiIdentityGraphRoute,
+  ApiIdentityGraphDemoRoute: ApiIdentityGraphDemoRoute,
   ApiIdentityResolveRoute: ApiIdentityResolveRoute,
   ApiIdentityResolveBnbRoute: ApiIdentityResolveBnbRoute,
   ApiIdentityVerifyNameRoute: ApiIdentityVerifyNameRoute,
@@ -3699,6 +4220,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
+  ApiExplorerAddressAddressRoute: ApiExplorerAddressAddressRoute,
+  ApiExplorerTxHashRoute: ApiExplorerTxHashRouteWithChildren,
   ApiInvestorsWorkshopSessionRoute: ApiInvestorsWorkshopSessionRoute,
   ApiMarketingGroveFarcasterPostRoute: ApiMarketingGroveFarcasterPostRoute,
   ApiMarketingGroveTickRoute: ApiMarketingGroveTickRoute,

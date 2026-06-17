@@ -1,84 +1,17 @@
-import { Link } from "@tanstack/react-router";
-import { useAccount, useChainId, useSignMessage } from "wagmi";
-import { useEffect, useState } from "react";
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
-import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
-import { cultureGatewayPath, cultureProfileUrl } from "@/lib/identity/urls";
-import { explorerAddressUrl } from "@/lib/explorer";
-import { getIdentityNetwork } from "@/lib/identity/networks";
-import { BRAND_DISPLAY_NAME } from "@/lib/brand";
+import { isFounderShowcaseProfile } from "@/lib/profile/founder-showcase";
+import type { CultureIdentityEnrichment } from "@/server/identity/showcase-enrichment";
+import { EnrichedCultureProfile } from "@/components/identity/EnrichedCultureProfile";
+import { FounderShowcaseProfile } from "@/components/profile/FounderShowcaseProfile";
+import { Link } from "@tanstack/react-router";
 
 type Props = {
   resolved: ResolvedCultureName;
   paramName: string;
+  enrichment?: CultureIdentityEnrichment | null;
 };
 
-function shortAddress(addr: string) {
-  return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
-}
-
-export function CultureNameProfile({ resolved, paramName }: Props) {
-  const { address, isConnected } = useAccount();
-  const chainId = useChainId();
-  const { signMessageAsync, isPending: signing } = useSignMessage();
-  const [verified, setVerified] = useState(false);
-  const [verifyError, setVerifyError] = useState("");
-  const [verifying, setVerifying] = useState(false);
-  const [bnbName, setBnbName] = useState<string | null>(null);
-
-  useEffect(() => {
-    const owner = resolved.owner;
-    if (!owner || resolved.status !== "claimed") {
-      setBnbName(null);
-      return;
-    }
-    fetch(`/api/identity/resolve-bnb?address=${encodeURIComponent(owner)}`)
-      .then((r) => r.json())
-      .then((d: { ok?: boolean; name?: string }) => {
-        setBnbName(d.ok && d.name ? d.name : null);
-      })
-      .catch(() => setBnbName(null));
-  }, [resolved.owner, resolved.status]);
-
-  const displayName = resolved.fullName || paramName.toLowerCase();
-  const isOwner =
-    verified ||
-    (resolved.status === "claimed" &&
-      resolved.owner &&
-      address &&
-      address.toLowerCase() === resolved.owner.toLowerCase());
-
-  async function proveOwnership() {
-    if (!address || !resolved.owner || resolved.status !== "claimed") return;
-    setVerifying(true);
-    setVerifyError("");
-    try {
-      const statement = `I own the Culture Layer name ${resolved.fullName} on ${BRAND_DISPLAY_NAME}.`;
-      const { prepared } = await buildPlatformSiweMessage(address, chainId, statement);
-      const signature = await signMessageAsync({ message: prepared });
-      const res = await fetch("/api/identity/verify-name", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cultureName: resolved.fullName,
-          address,
-          message: prepared,
-          signature,
-        }),
-      });
-      const data = (await res.json()) as { ok?: boolean; error?: string };
-      if (!res.ok || !data.ok) {
-        setVerifyError(data.error ?? "Verification failed");
-        return;
-      }
-      setVerified(true);
-    } catch {
-      setVerifyError("Sign-in cancelled or failed");
-    } finally {
-      setVerifying(false);
-    }
-  }
-
+export function CultureNameProfile({ resolved, paramName, enrichment = null }: Props) {
   if (resolved.status === "invalid") {
     return (
       <div className="bc-surface min-h-screen px-6 py-16 text-white">
@@ -129,106 +62,9 @@ export function CultureNameProfile({ resolved, paramName }: Props) {
     );
   }
 
-  const profileUrl = cultureProfileUrl(displayName);
+  if (isFounderShowcaseProfile(resolved.fullName)) {
+    return <FounderShowcaseProfile resolved={resolved} enrichment={enrichment} />;
+  }
 
-  return (
-    <div className="bc-surface min-h-screen px-6 py-16 text-white">
-      <Link to="/forest" className="text-sm text-zinc-500 hover:text-white">
-        ← Forest
-      </Link>
-      <p className="mono-label mt-8 !text-[#C5FF41]">CULTURE LAYER NAME</p>
-      <h1 className="mt-4 font-display text-4xl font-bold">
-        {resolved.handle}
-        <span className="text-[#C5FF41]">.{resolved.tld}</span>
-      </h1>
-      {resolved.isFounding ? (
-        <span className="mt-3 inline-block rounded-full border border-[#C5FF41]/40 bg-[#C5FF41]/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[#C5FF41]">
-          Founding member
-        </span>
-      ) : null}
-
-      <div className="mt-8 max-w-xl space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-sm">
-        <p className="text-zinc-400">
-          This is your <strong className="text-white">culture namespace</strong> on Base — not an
-          ICANN domain, but a real onchain name that resolves in {BRAND_DISPLAY_NAME} and share
-          links.
-        </p>
-        {resolved.owner ? (
-          <p className="font-mono text-zinc-300">Owner: {shortAddress(resolved.owner)}</p>
-        ) : null}
-        {bnbName ? (
-          <p className="text-zinc-300">
-            BNB identity:{" "}
-            <a
-              href={`https://space.id/name/${bnbName}`}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="font-mono text-[#F0B90B] hover:underline"
-            >
-              {bnbName}
-            </a>
-            <span className="text-zinc-500"> (Space ID)</span>
-          </p>
-        ) : resolved.owner ? (
-          <p className="text-zinc-500">
-            No linked <span className="font-mono text-[#F0B90B]">.bnb</span> name —{" "}
-            <a
-              href="https://space.id/tld/1"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-[#F0B90B] hover:underline"
-            >
-              register on Space ID
-            </a>
-          </p>
-        ) : null}
-        {resolved.mintedAt ? (
-          <p className="text-zinc-500">
-            Minted: {new Date(resolved.mintedAt).toLocaleDateString()}
-          </p>
-        ) : null}
-        <p className="break-all text-zinc-500">
-          Share: <span className="text-[#00E5FF]">{profileUrl}</span>
-        </p>
-        <p className="text-zinc-600">
-          Short link: {cultureGatewayPath(displayName)} (redirects here)
-        </p>
-      </div>
-
-      {isOwner ? (
-        <p className="mt-6 text-sm text-[#C5FF41]">You own this name (wallet verified).</p>
-      ) : isConnected && resolved.owner ? (
-        <button
-          type="button"
-          disabled={verifying || signing}
-          onClick={() => void proveOwnership()}
-          className="mt-6 rounded-full border border-white/20 px-5 py-2 text-sm hover:border-[#C5FF41]/50"
-        >
-          {verifying || signing ? "Verifying…" : "Prove you own this name"}
-        </button>
-      ) : (
-        <p className="mt-6 text-sm text-zinc-500">Connect the owner wallet to verify.</p>
-      )}
-      {verifyError ? <p className="mt-2 text-sm text-red-400">{verifyError}</p> : null}
-
-      <div className="mt-10 flex flex-wrap gap-3">
-        <Link to="/pass" className="text-[#00E5FF] hover:underline">
-          Claim another name
-        </Link>
-        {resolved.contractAddress ? (
-          <a
-            href={explorerAddressUrl(
-              resolved.chainId ?? getIdentityNetwork("base").chainId,
-              resolved.contractAddress,
-            )}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="text-zinc-400 hover:text-white"
-          >
-            Contract on explorer
-          </a>
-        ) : null}
-      </div>
-    </div>
-  );
+  return <EnrichedCultureProfile resolved={resolved} paramName={paramName} enrichment={enrichment} />;
 }

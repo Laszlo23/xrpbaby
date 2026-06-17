@@ -20,8 +20,7 @@ export function DomainCard3D({
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, rotateX: -15 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      animate={{ opacity: 1, y: 0, rotateX: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
       whileHover={{ y: -8, rotateY: 4, rotateX: 4 }}
       style={{ transformStyle: "preserve-3d", perspective: 1200 }}

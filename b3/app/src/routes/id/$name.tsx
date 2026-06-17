@@ -2,13 +2,18 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { CultureNameProfile } from "@/components/identity/CultureNameProfile";
 import { fetchCultureNameResolution } from "@/lib/identity/resolve-fn";
+import { fetchShowcaseEnrichmentFn } from "@/lib/profile/showcase-enrichment-fn";
 import { pageHead } from "@/lib/seo";
 import { parseIdentityFullName } from "@/lib/identity/tlds";
 
 export const Route = createFileRoute("/id/$name")({
   loader: async ({ params }) => {
     const resolved = await fetchCultureNameResolution({ data: { name: params.name } });
-    return { resolved };
+    let enrichment = null;
+    if (resolved.status === "claimed") {
+      enrichment = await fetchShowcaseEnrichmentFn({ data: { name: params.name } });
+    }
+    return { resolved, enrichment };
   },
   head: ({ params, loaderData }) => {
     const resolved = loaderData?.resolved;
@@ -31,6 +36,6 @@ export const Route = createFileRoute("/id/$name")({
 
 function IdentityProfilePage() {
   const { name } = Route.useParams();
-  const { resolved } = Route.useLoaderData();
-  return <CultureNameProfile resolved={resolved} paramName={name} />;
+  const { resolved, enrichment } = Route.useLoaderData();
+  return <CultureNameProfile resolved={resolved} paramName={name} enrichment={enrichment} />;
 }

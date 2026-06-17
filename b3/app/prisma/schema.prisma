@@ -7,6 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// Cached Web3.bio identity graph enrichment keyed by wallet owner.
+model IdentityEnrichmentCache {
+  id        String   @id @default(cuid())
+  owner     String   @unique
+  fullName  String?
+  payload   Json
+  fetchedAt DateTime @default(now())
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expiresAt])
+}
+
 /// Unified platform member (wallet-first; optional email / Farcaster).
 model Member {
   id            String   @id @default(cuid())
@@ -442,6 +456,21 @@ model ChainMintEvent {
   @@unique([chainId, txHash, logIndex])
   @@index([contractAddress, blockNumber])
   @@index([toAddress])
+}
+
+/// AI Explorer — cached human-friendly transaction explanation (immutable once confirmed).
+model TxExplanation {
+  id          String   @id @default(cuid())
+  chainId     Int
+  txHash      String
+  facts       Json
+  explanation Json
+  model       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([chainId, txHash])
+  @@index([createdAt])
 }
 
 /// BC Studio — community builder project (Lovable-style).

@@ -366,8 +366,7 @@ export function SearchMint({ id }: { id?: string }) {
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
         className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-2 backdrop-blur-md"
       >
@@ -423,8 +422,7 @@ export function SearchMint({ id }: { id?: string }) {
 
       <motion.div
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.6 }}
         className="mt-6 flex flex-col items-center gap-2"
       >
@@ -474,8 +472,7 @@ export function SearchMint({ id }: { id?: string }) {
 
       <motion.div
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
         className="mt-8 rounded-2xl border border-[#F0B90B]/20 bg-[#F0B90B]/5 p-4 text-center"
       >
