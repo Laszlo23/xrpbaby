@@ -58,49 +58,64 @@ export async function buildEligibilityContext(input: {
     };
   }
 
-  const normalized = input.walletAddress.toLowerCase();
-  const member =
-    input.memberId != null
-      ? await prisma.member.findUnique({ where: { id: input.memberId } })
-      : await prisma.member.findFirst({ where: { walletAddress: normalized } });
+  try {
+    const normalized = input.walletAddress.toLowerCase();
+    const member =
+      input.memberId != null
+        ? await prisma.member.findUnique({ where: { id: input.memberId } })
+        : await prisma.member.findFirst({ where: { walletAddress: normalized } });
 
-  const wallet = await prisma.wallet.findUnique({ where: { address: normalized } });
-  let pointsTotal = 0;
-  let questCount = 0;
-  let buildTaskCount = 0;
-  let referralCount = 0;
+    const wallet = await prisma.wallet.findUnique({ where: { address: normalized } });
+    let pointsTotal = 0;
+    let questCount = 0;
+    let buildTaskCount = 0;
+    let referralCount = 0;
 
-  if (wallet) {
-    const ledgers = await prisma.pointLedger.findMany({ where: { walletId: wallet.id } });
-    pointsTotal = ledgers.reduce((sum, r) => sum + (r.delta > 0 ? r.delta : 0), 0);
-    questCount = ledgers.filter((r) => r.taskSlug && r.delta > 0).length;
-    buildTaskCount = ledgers.filter(
-      (r) => r.taskSlug?.startsWith("build:") || r.taskSlug?.includes("studio"),
-    ).length;
-    referralCount = ledgers.filter((r) => r.taskSlug?.includes("referral")).length;
+    if (wallet) {
+      const ledgers = await prisma.pointLedger.findMany({ where: { walletId: wallet.id } });
+      pointsTotal = ledgers.reduce((sum, r) => sum + (r.delta > 0 ? r.delta : 0), 0);
+      questCount = ledgers.filter((r) => r.taskSlug && r.delta > 0).length;
+      buildTaskCount = ledgers.filter(
+        (r) => r.taskSlug?.startsWith("build:") || r.taskSlug?.includes("studio"),
+      ).length;
+      referralCount = ledgers.filter((r) => r.taskSlug?.includes("referral")).length;
+    }
+
+    let studioProjectCount = 0;
+    if (member) {
+      studioProjectCount = await prisma.studioProject.count({
+        where: { memberId: member.id, status: { in: ["live", "preview"] } },
+      });
+    }
+
+    return {
+      memberId: member?.id ?? input.memberId,
+      walletAddress: normalized,
+      forestStage: member?.forestStage,
+      supporterTier: member?.supporterTier,
+      farcasterUsername: member?.farcasterUsername,
+      pointsTotal,
+      questCount,
+      buildTaskCount,
+      referralCount,
+      studioProjectCount,
+      web3bioCredentials: input.web3bioCredentials,
+      socialFollowers: input.socialFollowers ?? 0,
+    };
+  } catch (error) {
+    console.warn("buildEligibilityContext: database query failed", error);
+    return {
+      memberId: input.memberId,
+      walletAddress: input.walletAddress,
+      web3bioCredentials: input.web3bioCredentials,
+      socialFollowers: input.socialFollowers ?? 0,
+      pointsTotal: 0,
+      questCount: 0,
+      buildTaskCount: 0,
+      referralCount: 0,
+      studioProjectCount: 0,
+    };
   }
-
-  let studioProjectCount = 0;
-  if (member) {
-    studioProjectCount = await prisma.studioProject.count({
-      where: { memberId: member.id, status: { in: ["live", "preview"] } },
-    });
-  }
-
-  return {
-    memberId: member?.id ?? input.memberId,
-    walletAddress: normalized,
-    forestStage: member?.forestStage,
-    supporterTier: member?.supporterTier,
-    farcasterUsername: member?.farcasterUsername,
-    pointsTotal,
-    questCount,
-    buildTaskCount,
-    referralCount,
-    studioProjectCount,
-    web3bioCredentials: input.web3bioCredentials,
-    socialFollowers: input.socialFollowers ?? 0,
-  };
 }
 
 function evaluateSlug(slug: CredentialSlug, ctx: EligibilityContext): Omit<CredentialEligibility, "earned"> {

@@ -11,11 +11,27 @@ export const Route = createFileRoute("/api/credentials/member")({
           return Response.json({ ok: false, error: "address_or_handle_required" }, { status: 400 });
         }
         const { getMemberCredentialState } = await import("@/server/credentials/claim");
-        const state = await getMemberCredentialState({
-          handle: handle ?? undefined,
-          walletAddress: address ?? undefined,
-        });
-        return Response.json({ ok: true, ...state });
+        try {
+          const state = await getMemberCredentialState({
+            handle: handle ?? undefined,
+            walletAddress: address ?? undefined,
+          });
+          return Response.json({ ok: true, ...state });
+        } catch (error) {
+          console.warn("GET /api/credentials/member:", error);
+          return Response.json({
+            ok: true,
+            eligibility: [],
+            earned: [],
+            linkedWallets: [],
+            hasCultureIdentity: false,
+            pointsTotal: 0,
+            questCount: 0,
+            studioProjectCount: 0,
+            referralCount: 0,
+            hasHumanAttestation: false,
+          });
+        }
       },
     },
   },

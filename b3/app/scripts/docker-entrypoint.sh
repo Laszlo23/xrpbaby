@@ -18,6 +18,14 @@ if [ -n "${DATABASE_URL:-}" ]; then
     echo "[entrypoint] prisma migrate deploy failed; retrying in ${delay}s (${i}/${max})…"
     sleep "$delay"
   done
+  if [ -f prisma/seed-credentials.ts ]; then
+    echo "[entrypoint] seeding credential catalog…"
+    if ./node_modules/.bin/tsx prisma/seed-credentials.ts; then
+      echo "[entrypoint] credential seed complete."
+    else
+      echo "[entrypoint] credential seed failed (non-fatal — static catalog still works)."
+    fi
+  fi
 else
   echo "[entrypoint] DATABASE_URL unset — skipping migrations (leaderboard / points DB offline)."
 fi

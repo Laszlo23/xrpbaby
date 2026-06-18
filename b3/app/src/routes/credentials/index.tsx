@@ -6,6 +6,7 @@ import { CredentialsXrplLinkSection } from "@/components/credentials/Credentials
 import { MarketingShell } from "@/components/MarketingShell";
 import { Button } from "@/components/ui/button";
 import { fetchCredentialCatalogFn } from "@/lib/credentials/credential-catalog-fn";
+import { getStaticCredentialCatalog } from "@/lib/credentials/credential-catalog";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/credentials/")({
@@ -18,8 +19,13 @@ export const Route = createFileRoute("/credentials/")({
       keywords: ["credentials", "Culture ID", "trust layer", "Building Culture"],
     }),
   loader: async () => {
-    const catalog = await fetchCredentialCatalogFn();
-    return { catalog };
+    try {
+      const catalog = await fetchCredentialCatalogFn();
+      return { catalog };
+    } catch (error) {
+      console.warn("credentials loader:", error);
+      return { catalog: getStaticCredentialCatalog() };
+    }
   },
   component: CredentialsPage,
 });

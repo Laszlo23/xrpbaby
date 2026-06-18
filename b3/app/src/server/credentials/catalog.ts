@@ -1,22 +1,19 @@
-import { CREDENTIAL_CATALOG } from "@/lib/credentials/credential-catalog";
+import {
+  CREDENTIAL_CATALOG,
+  getStaticCredentialCatalog,
+  type CredentialCatalogItem,
+} from "@/lib/credentials/credential-catalog";
 import { getPrisma } from "@/server/db/prisma";
 
-export type CredentialCatalogItem = {
-  slug: string;
-  name: string;
-  description: string;
-  category: string;
-  purpose: string;
-  unlocks: string[];
-  earnSummary: string;
-  icon: string;
-  accent: string;
-  tier: number;
-};
+export type { CredentialCatalogItem };
+
+export { getStaticCredentialCatalog };
 
 export async function getCredentialCatalog(): Promise<CredentialCatalogItem[]> {
   const prisma = getPrisma();
-  if (prisma) {
+  if (!prisma) return getStaticCredentialCatalog();
+
+  try {
     const rows = await prisma.credential.findMany({
       where: { active: true },
       orderBy: { tier: "asc" },
@@ -40,18 +37,9 @@ export async function getCredentialCatalog(): Promise<CredentialCatalogItem[]> {
         };
       });
     }
+  } catch (error) {
+    console.warn("getCredentialCatalog: database query failed, using static catalog", error);
   }
 
-  return CREDENTIAL_CATALOG.map((c) => ({
-    slug: c.slug,
-    name: c.name,
-    description: c.description,
-    category: c.category,
-    purpose: c.purpose,
-    unlocks: c.unlocks,
-    earnSummary: c.earnSummary,
-    icon: c.icon,
-    accent: c.accent,
-    tier: 1,
-  }));
+  return getStaticCredentialCatalog();
 }

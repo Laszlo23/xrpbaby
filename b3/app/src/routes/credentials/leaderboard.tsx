@@ -13,8 +13,13 @@ export const Route = createFileRoute("/credentials/leaderboard")({
       path: "/credentials/leaderboard",
     }),
   loader: async () => {
-    const entries = await fetchReputationLeaderboardFn({ data: { limit: 100 } });
-    return { entries };
+    try {
+      const entries = await fetchReputationLeaderboardFn({ data: { limit: 100 } });
+      return { entries };
+    } catch (error) {
+      console.warn("credentials/leaderboard loader:", error);
+      return { entries: [] };
+    }
   },
   component: LeaderboardPage,
 });

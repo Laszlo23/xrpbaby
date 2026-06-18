@@ -133,45 +133,72 @@ export async function getMemberCredentialState(input: {
   socialFollowers?: number;
   memberId?: string | null;
 }) {
-  const prisma = getPrisma();
-  const catalogSlugs = ["builder", "contributor", "community-leader", "verified-human", "trusted-agent", "verified-project"] as const;
+  try {
+    const prisma = getPrisma();
 
-  let identity = input.handle ? await findCultureIdentityByHandle(input.handle) : null;
-  if (!identity && input.walletAddress) {
-    identity = await prisma?.cultureIdentity.findFirst({
-      where: { ownerAddress: input.walletAddress.toLowerCase() },
-      include: {
-        linkedWallets: true,
-        userCredentials: { include: { credential: true }, where: { status: "active" } },
-        reputationEvents: { orderBy: { createdAt: "desc" }, take: 20 },
-      },
-    }) ?? null;
+    let identity = input.handle ? await findCultureIdentityByHandle(input.handle) : null;
+    if (!identity && input.walletAddress) {
+      identity =
+        (await prisma?.cultureIdentity.findFirst({
+          where: { ownerAddress: input.walletAddress.toLowerCase() },
+          include: {
+            linkedWallets: true,
+            userCredentials: { include: { credential: true }, where: { status: "active" } },
+            reputationEvents: { orderBy: { createdAt: "desc" }, take: 20 },
+          },
+        })) ?? null;
+    }
+
+    const earnedSlugs = new Set(identity?.userCredentials.map((uc) => uc.credential.slug) ?? []);
+
+    const ctx = await buildEligibilityContext({
+      memberId: input.memberId ?? identity?.memberId,
+      walletAddress: input.walletAddress ?? identity?.ownerAddress,
+      web3bioCredentials: input.web3bioCredentials,
+      socialFollowers: input.socialFollowers,
+    });
+
+    const eligibility = await evaluateCredentialEligibility(ctx, earnedSlugs);
+    const humans = ctx.web3bioCredentials?.isHuman ?? [];
+
+    return {
+      identity,
+      eligibility,
+      earned: identity?.userCredentials ?? [],
+      linkedWallets: identity?.linkedWallets ?? [],
+      hasCultureIdentity: Boolean(identity),
+      pointsTotal: ctx.pointsTotal ?? 0,
+      questCount: ctx.questCount ?? 0,
+      studioProjectCount: ctx.studioProjectCount ?? 0,
+      referralCount: ctx.referralCount ?? 0,
+      hasHumanAttestation: humans.length > 0,
+    };
+  } catch (error) {
+    console.warn("getMemberCredentialState: database query failed", error);
+    const ctx = await buildEligibilityContext({
+      memberId: input.memberId,
+      walletAddress: input.walletAddress,
+      web3bioCredentials: input.web3bioCredentials,
+      socialFollowers: input.socialFollowers,
+    }).catch(() => ({
+      pointsTotal: 0,
+      questCount: 0,
+      studioProjectCount: 0,
+      referralCount: 0,
+      web3bioCredentials: input.web3bioCredentials,
+    }));
+    const eligibility = await evaluateCredentialEligibility(ctx, new Set()).catch(() => []);
+    return {
+      identity: null,
+      eligibility,
+      earned: [],
+      linkedWallets: [],
+      hasCultureIdentity: false,
+      pointsTotal: ctx.pointsTotal ?? 0,
+      questCount: ctx.questCount ?? 0,
+      studioProjectCount: ctx.studioProjectCount ?? 0,
+      referralCount: ctx.referralCount ?? 0,
+      hasHumanAttestation: (ctx.web3bioCredentials?.isHuman.length ?? 0) > 0,
+    };
   }
-
-  const earnedSlugs = new Set(
-    identity?.userCredentials.map((uc) => uc.credential.slug) ?? [],
-  );
-
-  const ctx = await buildEligibilityContext({
-    memberId: input.memberId ?? identity?.memberId,
-    walletAddress: input.walletAddress ?? identity?.ownerAddress,
-    web3bioCredentials: input.web3bioCredentials,
-    socialFollowers: input.socialFollowers,
-  });
-
-  const eligibility = await evaluateCredentialEligibility(ctx, earnedSlugs);
-  const humans = ctx.web3bioCredentials?.isHuman ?? [];
-
-  return {
-    identity,
-    eligibility,
-    earned: identity?.userCredentials ?? [],
-    linkedWallets: identity?.linkedWallets ?? [],
-    hasCultureIdentity: Boolean(identity),
-    pointsTotal: ctx.pointsTotal ?? 0,
-    questCount: ctx.questCount ?? 0,
-    studioProjectCount: ctx.studioProjectCount ?? 0,
-    referralCount: ctx.referralCount ?? 0,
-    hasHumanAttestation: humans.length > 0,
-  };
 }

@@ -92,6 +92,12 @@ export const CREDENTIAL_CATALOG: CredentialCatalogEntry[] = [
   },
 ];
 
+export type CredentialCatalogItem = CredentialCatalogEntry & { tier: number };
+
+export function getStaticCredentialCatalog(): CredentialCatalogItem[] {
+  return CREDENTIAL_CATALOG.map((c) => ({ ...c, tier: 1 }));
+}
+
 export function credentialBySlug(slug: string): CredentialCatalogEntry | undefined {
   return CREDENTIAL_CATALOG.find((c) => c.slug === slug);
 }
