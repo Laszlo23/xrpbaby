@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "@/components/landing/motion";
-import { ArrowUpRight, BarChart3, Briefcase, Clock, Coins, Layers, Map, Menu, Package, Sparkles, Trophy, UserPlus, X, type LucideIcon } from "lucide-react";
+import {
+  Fingerprint,
+  Layers,
+  Menu,
+  Shield,
+  Star,
+  UserPlus,
+  Users,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 
 import { LANDING_MEDIA } from "@/lib/landing-media";
 
-const NAV_ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
-  { label: "Why Now", href: "#why-now", icon: Sparkles },
-  { label: "Products", href: "#products", icon: Package },
-  { label: "Stats", href: "#stats", icon: BarChart3 },
-  { label: "Story", href: "#founder-timeline", icon: Clock },
-  { label: "Stories", href: "#stories", icon: Trophy },
-  { label: "Places", href: "#places", icon: Briefcase },
-  { label: "Ecosystem", href: "#ecosystem", icon: Layers },
-  { label: "$BCC", href: "#bcc", icon: Coins },
-  { label: "Network", href: "#network", icon: Map },
+const NAV_ITEMS: { label: string; href: string; icon: LucideIcon; external?: boolean }[] = [
+  { label: "Identity", href: "#identity", icon: Fingerprint },
+  { label: "Credentials", href: "#credentials", icon: Shield },
+  { label: "Reputation", href: "#reputation", icon: Star },
+  { label: "Community", href: "#community", icon: Users },
+  { label: "Ecosystem", href: "/ecosystem", icon: Layers, external: true },
 ];
 
 type LandingNavProps = {
@@ -33,8 +39,13 @@ export function LandingNav({ compact = false }: LandingNavProps) {
   }, []);
 
   const items = compact
-    ? NAV_ITEMS.filter((i) => ["Products", "Ecosystem", "Stats"].includes(i.label))
+    ? NAV_ITEMS.filter((i) => ["Identity", "Community", "Ecosystem"].includes(i.label))
     : NAV_ITEMS;
+
+  const resolveHref = (item: (typeof NAV_ITEMS)[number]) => {
+    if (item.external) return item.href;
+    return compact && item.href.startsWith("#") ? `/${item.href}` : item.href;
+  };
 
   return (
     <motion.header
@@ -64,7 +75,19 @@ export function LandingNav({ compact = false }: LandingNavProps) {
 
           <nav className="hidden items-center gap-5 xl:flex">
             {items.map((it) => {
-              const href = compact && it.href.startsWith("#") ? `/${it.href}` : it.href;
+              const href = resolveHref(it);
+              if (it.external) {
+                return (
+                  <Link
+                    key={it.href}
+                    to={href}
+                    className="inline-flex items-center gap-1.5 text-[12px] font-medium text-zinc-400 transition-colors hover:text-white"
+                  >
+                    <it.icon size={14} strokeWidth={2} className="shrink-0 opacity-70" aria-hidden />
+                    {it.label}
+                  </Link>
+                );
+              }
               return (
                 <a
                   key={it.href}
@@ -80,16 +103,8 @@ export function LandingNav({ compact = false }: LandingNavProps) {
 
           <motion.div className="flex items-center gap-2">
             <Link
-              to="/places"
-              className="hidden items-center gap-1.5 rounded-full bg-[#C5FF41] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-white sm:inline-flex"
-            >
-              <Briefcase size={15} strokeWidth={2.25} aria-hidden />
-              Invest now
-              <ArrowUpRight size={14} strokeWidth={2.25} className="opacity-60" aria-hidden />
-            </Link>
-            <Link
               to="/join"
-              className="hidden items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:border-[#00E5FF]/60 sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-full bg-[#C5FF41] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-white sm:inline-flex"
             >
               <UserPlus size={15} strokeWidth={2.25} aria-hidden />
               Join
@@ -115,7 +130,20 @@ export function LandingNav({ compact = false }: LandingNavProps) {
             >
               <div className="flex flex-col gap-3">
                 {items.map((it) => {
-                  const href = compact && it.href.startsWith("#") ? `/${it.href}` : it.href;
+                  const href = resolveHref(it);
+                  if (it.external) {
+                    return (
+                      <Link
+                        key={it.href}
+                        to={href}
+                        onClick={() => setOpen(false)}
+                        className="inline-flex items-center gap-2.5 text-[15px] text-zinc-300 hover:text-white"
+                      >
+                        <it.icon size={15} strokeWidth={2} aria-hidden />
+                        {it.label}
+                      </Link>
+                    );
+                  }
                   return (
                     <a
                       key={it.href}
@@ -129,17 +157,9 @@ export function LandingNav({ compact = false }: LandingNavProps) {
                   );
                 })}
                 <Link
-                  to="/places"
-                  onClick={() => setOpen(false)}
-                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-4 py-2.5 text-[13px] font-semibold text-black"
-                >
-                  <Briefcase size={16} strokeWidth={2.25} aria-hidden />
-                  Invest in Building Culture
-                </Link>
-                <Link
                   to="/join"
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2.5 text-[13px] font-semibold text-white"
+                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-4 py-2.5 text-[13px] font-semibold text-black"
                 >
                   <UserPlus size={16} strokeWidth={2.25} aria-hidden />
                   Join Building Culture

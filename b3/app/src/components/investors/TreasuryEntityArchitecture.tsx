@@ -8,19 +8,29 @@ const structureLayers = [
   "AT Property GmbHs / Canada Corps",
 ] as const;
 
-export function TreasuryEntityArchitecture() {
+export function TreasuryEntityArchitecture({ embedded = false }: { embedded?: boolean }) {
   return (
-    <section id="treasury-architecture" className="scroll-mt-24 space-y-10">
-      <div className="space-y-3">
-        <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
-          Treasury & entity architecture (discussion outline)
-        </h2>
+    <section
+      id={embedded ? undefined : "treasury-architecture"}
+      className={embedded ? "space-y-10" : "scroll-mt-24 space-y-10"}
+    >
+      {!embedded ? (
+        <div className="space-y-3">
+          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+            Treasury & entity architecture (discussion outline)
+          </h2>
+          <p className="text-sm text-zinc-500">
+            High-level institutional framing for diligence conversations only. Jurisdictions, labels,
+            and flows must be confirmed with qualified tax and securities counsel before any paid
+            marketing, onboarding, or capital movement.
+          </p>
+        </div>
+      ) : (
         <p className="text-sm text-zinc-500">
-          High-level institutional framing for diligence conversations only. Jurisdictions, labels,
-          and flows must be confirmed with qualified tax and securities counsel before any paid
-          marketing, onboarding, or capital movement.
+          High-level institutional framing for diligence only — confirm jurisdictions and flows with
+          counsel before any capital movement.
         </p>
-      </div>
+      )}
 
       <div className="space-y-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
         <h3 className="font-heading text-lg font-medium text-zinc-100">

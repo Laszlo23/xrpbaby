@@ -107,6 +107,11 @@ export function getFounderShowcaseConfig(fullName: string): FounderShowcaseConfi
 
 export const LASZLO_ECOSYSTEM_NODES: EcosystemNode[] = [
   { id: "ai-agents", label: "AI Agents", href: "/agent-os" },
+  {
+    id: "limx",
+    label: "Limx Revenue Agent",
+    externalUrl: "https://wallet.blockchain0x.com/a/limx",
+  },
   { id: "campaign-hub", label: "Campaign Hub", href: "/play" },
   { id: "grant-proof", label: "Grant Proof", href: "/grant-proof" },
   {
@@ -121,6 +126,16 @@ export const LASZLO_ECOSYSTEM_NODES: EcosystemNode[] = [
 ];
 
 export const LASZLO_CURATED_ACTIVITY: CuratedActivityItem[] = [
+  {
+    id: "milestone-limx-wallet",
+    category: "onchain",
+    title: "Limx revenue agent wallet",
+    excerpt:
+      "Non-custodial USDC wallet on Base — pay for grant, partnership, and sponsor opportunity briefs.",
+    url: "https://wallet.blockchain0x.com/a/limx",
+    publishedAt: "2026-06-11T06:51:15.000Z",
+    authorHandle: "buildingcultu3",
+  },
   {
     id: "milestone-agent-os",
     category: "product",
@@ -258,6 +273,14 @@ export const LASZLO_SHOWCASE: FounderShowcaseConfig = {
         "Experiments around RWA, ownership, and real estate-backed digital assets.",
       status: "exploring",
       href: "/products/culture-id",
+    },
+    {
+      id: "limx-revenue-agent",
+      title: "Limx Revenue Agent",
+      description:
+        "Blockchain0x agent wallet on Base — x402-paid grant, partnership, and sponsor briefs.",
+      status: "live",
+      href: "/agent-os#limx-agent",
     },
     {
       id: "agent-ecosystem",

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { ProductPageLayout } from "@/components/products/ProductPageLayout";
-import { pillarById } from "@/lib/landing-copy";
+import { CAMPAIGN_HUB_PRODUCT } from "@/lib/landing-copy";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/products/campaign-hub")({
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/products/campaign-hub")({
 });
 
 function CampaignHubProductPage() {
-  const pillar = pillarById("campaign-hub");
+  const pillar = CAMPAIGN_HUB_PRODUCT;
 
   return (
     <ProductPageLayout pillar={pillar}>

@@ -54,6 +54,8 @@ model Member {
   quidliDeliveries QuidliDelivery[]
   growthSessions  GrowthSession[]
   productFeedback ProductFeedback[]
+  cultureIdentity CultureIdentity?
+  userCredentials UserCredential[]
 }
 
 /// Linked social identity (Farcaster-verified X/TikTok/GitHub or direct Farcaster link).
@@ -680,4 +682,164 @@ model ProductFeedback {
   @@index([memberId, createdAt(sort: Desc)])
   @@index([status, createdAt(sort: Desc)])
   @@index([showOnWall, status])
+}
+
+// --- Trust layer (Culture ID → Credentials → Reputation → Access) ---
+
+model CultureIdentity {
+  id            String   @id @default(cuid())
+  memberId      String?  @unique
+  member        Member?  @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  handle        String   @unique
+  ownerAddress  String
+  tokenId       String?
+  chainId       Int      @default(8453)
+  mintedAt      DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  linkedWallets     LinkedWallet[]
+  userCredentials   UserCredential[]
+  reputationEvents  ReputationEvent[]
+
+  @@index([ownerAddress])
+}
+
+model LinkedWallet {
+  id         String          @id @default(cuid())
+  identityId String
+  identity   CultureIdentity @relation(fields: [identityId], references: [id], onDelete: Cascade)
+  chain      String
+  address    String
+  verified   Boolean         @default(false)
+  verifiedAt DateTime?
+  isPrimary  Boolean         @default(false)
+  source     String          @default("siwe")
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  @@unique([chain, address])
+  @@index([identityId])
+}
+
+model XrplLinkChallenge {
+  id         String    @id @default(cuid())
+  identityId String
+  handle     String
+  nonce      String    @unique
+  expiresAt  DateTime
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([identityId])
+  @@index([expiresAt])
+}
+
+model CredentialIssuer {
+  id            String       @id @default(cuid())
+  slug          String       @unique
+  name          String
+  did           String?
+  walletAddress String?
+  verified      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  credentials Credential[]
+}
+
+model Credential {
+  id             String           @id @default(cuid())
+  slug           String           @unique
+  name           String
+  description    String           @db.Text
+  category       String
+  issuerId       String
+  issuer         CredentialIssuer @relation(fields: [issuerId], references: [id], onDelete: Cascade)
+  metadataSchema Json             @default("{}")
+  earnRules      Json             @default("{}")
+  unlocks        Json             @default("[]")
+  xrplMapping    Json?
+  tier           Int              @default(1)
+  active         Boolean          @default(true)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  userCredentials UserCredential[]
+}
+
+model UserCredential {
+  id                String           @id @default(cuid())
+  credentialId      String
+  credential        Credential       @relation(fields: [credentialId], references: [id], onDelete: Cascade)
+  identityId        String?
+  identity          CultureIdentity? @relation(fields: [identityId], references: [id], onDelete: SetNull)
+  agentIdentityId   String?
+  agentIdentity     AgentIdentity?   @relation(fields: [agentIdentityId], references: [id], onDelete: SetNull)
+  memberId          String?
+  member            Member?          @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  status            String           @default("active")
+  evidence          Json             @default("{}")
+  issuedAt          DateTime         @default(now())
+  expiresAt         DateTime?
+  revokedAt         DateTime?
+  xrplCredentialHash String?
+
+  @@unique([credentialId, identityId])
+  @@index([memberId])
+  @@index([identityId])
+  @@index([status])
+}
+
+model ReputationEvent {
+  id         String          @id @default(cuid())
+  identityId String
+  identity   CultureIdentity @relation(fields: [identityId], references: [id], onDelete: Cascade)
+  type       String
+  weight     Float           @default(1)
+  source     String
+  proofRef   String?
+  metadata   Json?
+  createdAt  DateTime        @default(now())
+
+  @@index([identityId, createdAt(sort: Desc)])
+  @@index([type])
+}
+
+model AccessRule {
+  id                      String   @id @default(cuid())
+  slug                    String   @unique
+  resourceType            String
+  resourceId              String
+  minReputation           Float?
+  requiredCredentialSlugs String[]
+  description             String   @db.Text
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
+
+model AgentIdentity {
+  id                String           @id @default(cuid())
+  slug              String           @unique
+  name              String
+  walletAddress     String
+  chainId           Int              @default(8453)
+  agentCardUrl      String?
+  cultureIdentityId String?
+  status            String           @default("active")
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  userCredentials UserCredential[]
+}
+
+model ReputationLeaderboardSnapshot {
+  id         String   @id @default(cuid())
+  handle     String
+  score      Float
+  rank       Int
+  snapshotAt DateTime @default(now())
+
+  @@index([snapshotAt(sort: Desc)])
+  @@index([rank])
 }

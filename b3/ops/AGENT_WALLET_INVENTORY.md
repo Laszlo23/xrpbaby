@@ -42,6 +42,7 @@ cd alchemy-demo && npm run demo   # or from repo root: npm run alchemy:demo
 
 | Agent id | Purpose | Address (Base) | Notes |
 | --- | --- | --- | --- |
+| **limx_revenue_agent** | Revenue briefs — grants, partnerships, sponsors | `0xf424d59831fff6d3f404abf22ec23cdb0c4f584b` | [Blockchain0x public page](https://wallet.blockchain0x.com/a/limx). Settlement for `GET /api/agents/limx` (x402). Non-custodial USDC smart account with onchain spend cap. |
 | operator | Phase 0 ops / reads |  | funded ~0.05 ETH for Phase 0 |
 | ags-distributor-1 | ECON live mint+transfer signer |  | only fund when `ECON_LIVE=true` |
 

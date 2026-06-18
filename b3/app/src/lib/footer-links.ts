@@ -5,6 +5,7 @@ import {
   Bot,
   Briefcase,
   Building2,
+  Coins,
   Compass,
   Cookie,
   Fingerprint,
@@ -171,15 +172,45 @@ function ecosystemByLabel(labels: string[]): FooterHrefLink[] {
   });
 }
 
-/** Story landing footer — Ecosystem column (canonical URLs from footerEcosystemLinks). */
-export const landingFooterEcosystemColumn: FooterHrefLink[] = [
-  ...ecosystemByLabel(["Capital", "App"]),
-  { label: "Invest", href: "/places", icon: Briefcase },
-  ...ecosystemByLabel(["Home"]),
-  { label: "ID", href: "/join", icon: Fingerprint },
+/** Focused landing footer — Product column. */
+export const landingFooterProductColumn: FooterHrefLink[] = [
+  { label: "Culture ID", href: "/pass", icon: Fingerprint },
+  { label: "Credentials", href: "/credentials", icon: Shield },
+  { label: "Reputation", href: "/credentials/leaderboard", icon: Trophy },
+  { label: "Agent OS", href: "/agent-os", icon: Bot },
 ];
 
-/** Story landing footer — Layers column. */
+/** Focused landing footer — Community column. */
+export const landingFooterCommunityColumn: FooterHrefLink[] = [
+  { label: "Mission", href: "/mission", icon: Flag },
+  { label: "Story", href: "/story", icon: BookOpen },
+  { label: "Team", href: "/team", icon: Users },
+];
+
+/** Focused landing footer — Ecosystem column. */
+export const landingFooterEcosystemColumn: FooterHrefLink[] = [
+  { label: "Ecosystem Hub", href: "/ecosystem", icon: Layers },
+  { label: "Places", href: "/places", icon: Briefcase },
+  { label: "Art", href: "/drops/art", icon: Palette },
+  { label: "AI Apps", href: "/ecosystem#ai-apps", icon: Bot },
+];
+
+/** Focused landing footer — Capital column. */
+export const landingFooterCapitalColumn: FooterHrefLink[] = [
+  { label: "BCC", href: "/bcc/dashboard", icon: Coins },
+  { label: "Investors", href: "/investors", icon: PieChart },
+  { label: "Roadmap", href: "/roadmap", icon: MapPin },
+];
+
+/** Landing footer legal + contact (bottom bar extras). */
+export const landingFooterLegalColumn: FooterHrefLink[] = [
+  { label: "Terms", href: "/legal/terms", icon: FileText },
+  { label: "Privacy", href: "/legal/privacy", icon: Shield },
+  { label: "Imprint", href: "/legal/imprint", icon: Landmark },
+  { label: "Contact", href: footerContactMailto, icon: Mail },
+];
+
+/** @deprecated Use landingFooterLayersColumn on /ecosystem full directory only */
 export const landingFooterLayersColumn: FooterHrefLink[] = [
   ...ecosystemByLabel([
     "Art",
@@ -193,15 +224,11 @@ export const landingFooterLayersColumn: FooterHrefLink[] = [
   { label: "Community", href: "/forest", icon: Rocket },
 ];
 
-/** Story landing footer — Company column (hash anchors + legal + contact). */
-export const landingFooterCompanyColumn: FooterHrefLink[] = [
-  { label: "Products", href: "#products", icon: Layers },
-  { label: "Stats", href: "#stats", icon: Sparkles },
-  { label: "Places", href: "#places", icon: Briefcase },
-  { label: "Network", href: "#network", icon: MapIcon },
-  { label: "Grant Proof", href: "/grant-proof", icon: Shield },
-  { label: "Terms", href: "/legal/terms", icon: FileText },
-  { label: "Privacy", href: "/legal/privacy", icon: Shield },
-  { label: "Imprint", href: "/legal/imprint", icon: Landmark },
-  { label: "Contact", href: footerContactMailto, icon: Mail },
-];
+/** @deprecated Use landingFooterLegalColumn */
+export const landingFooterCompanyColumn: FooterHrefLink[] = landingFooterLegalColumn;
+
+/** Focused product footer columns (AppFooter focused variant). */
+export const focusedFooterProductColumn: FooterHrefLink[] = landingFooterProductColumn;
+export const focusedFooterCommunityColumn: FooterHrefLink[] = landingFooterCommunityColumn;
+export const focusedFooterEcosystemColumn: FooterHrefLink[] = landingFooterEcosystemColumn;
+export const focusedFooterCapitalColumn: FooterHrefLink[] = landingFooterCapitalColumn;

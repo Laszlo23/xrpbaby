@@ -7,7 +7,7 @@ import { SUCCESS_STORIES } from "@/lib/landing-copy";
 
 export function LandingSuccessStories() {
   return (
-    <section id="stories" className="relative w-full overflow-hidden bg-[#070707] py-28 sm:py-36">
+    <section id="community" className="relative w-full overflow-hidden bg-[#070707] py-28 sm:py-36 scroll-mt-32">
       <div className="absolute inset-0 bc-noise pointer-events-none" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="max-w-3xl">

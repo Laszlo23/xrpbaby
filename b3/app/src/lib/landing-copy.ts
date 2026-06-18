@@ -3,42 +3,45 @@ import type { EcosystemStatus } from "@/lib/landing-ecosystem";
 
 export const LANDING_TAGLINE = "Build Together. Grow Together. Own Together." as const;
 
+export const LANDING_NORTH_STAR =
+  "Building Culture is the trust layer where people, communities, businesses, and AI agents build reputation, earn credentials, and unlock opportunities together." as const;
+
 export const LANDING_HERO = {
-  eyebrow: "DIGITAL NATION · LIVE",
+  eyebrow: "TRUST LAYER · LIVE ON BASE",
   headline: "Who are you?",
   headlineAccent: "What can you build?",
   subhead:
-    "Building Culture is identity, reputation, agents, and economy — one stack for builders who create real impact.",
-  subheadSecondary:
-    "Who am I · What can I do · What can I earn · What can I build · Who can help me. BCC is the economic layer underneath.",
+    "Create your Culture ID. Earn credentials. Build reputation. Unlock opportunities.",
   valueProps: [
-    { label: "Claim .culture", emoji: "🪪" },
-    { label: "Earn Culture Score", emoji: "📈" },
-    { label: "Run AI Agents", emoji: "🤖" },
-    { label: "Earn BCC", emoji: "🌱" },
-    { label: "Build Together", emoji: "🤝" },
+    { label: "Culture ID", emoji: "🪪" },
+    { label: "Credentials", emoji: "📜" },
+    { label: "Reputation", emoji: "⭐" },
+    { label: "Opportunities", emoji: "🔓" },
   ],
   ctas: {
     join: { label: "Join Building Culture", href: "/join" as const },
-    explore: { label: "Explore Ecosystem", href: "#products" as const },
-    contribute: { label: "Start Contributing", href: "/play" as const },
+    explore: { label: "Explore credentials", href: "/credentials" as const },
+    contribute: { label: "Claim Culture ID", href: "/pass" as const },
   },
 } as const;
 
-export type PillarProductId = "culture-id" | "campaign-hub" | "ai-agents" | "bcc";
+export type PillarProductId = "culture-id" | "credentials" | "reputation" | "opportunities";
 
-export type ProductPageId = PillarProductId | "grant-proof";
+export type ProductPageId = PillarProductId | "grant-proof" | "campaign-hub" | "ai-agents" | "bcc";
 
 export type PillarProductCopy = {
   id: ProductPageId;
   name: string;
   emoji: string;
   tagline: string;
+  question: string;
   features: string[];
   productPageHref: string;
   primaryActionHref: string;
   primaryCta: string;
   status: EcosystemStatus;
+  /** Landing nav anchor id */
+  sectionId?: string;
 };
 
 /** Grant Proof product page — ecosystem satellite, not a core pillar. */
@@ -47,6 +50,7 @@ export const GRANT_PROOF_PRODUCT: PillarProductCopy = {
   name: "Grant Proof",
   emoji: "🏆",
   tagline: "Transparent proof of impact.",
+  question: "What impact can you prove?",
   features: [
     "Contributions",
     "Donations",
@@ -62,10 +66,10 @@ export const GRANT_PROOF_PRODUCT: PillarProductCopy = {
 
 export const WHY_NOW_COPY = {
   eyebrow: "WHY NOW",
-  headline: "Three waves.",
-  headlineAccent: "One culture layer.",
+  headline: "Four waves.",
+  headlineAccent: "One trust layer.",
   subhead:
-    "The internet connected information. Blockchain connected value. AI connected intelligence. Building Culture connects identity, reputation, agents, and economy into one stack.",
+    "Information connected the world. Blockchains connected value. AI connected intelligence. Building Culture connects proof, reputation, and access for people and agents.",
   eras: [
     {
       id: "internet",
@@ -88,8 +92,8 @@ export const WHY_NOW_COPY = {
     {
       id: "culture",
       label: "Now",
-      title: "Culture Layer",
-      body: "Identity + reputation + agents + economy — one portable stack for builders who create real impact.",
+      title: "Trust Layer",
+      body: "Culture ID + verifiable credentials + portable reputation + gated access + agent economy — one stack that works across chains.",
     },
   ],
 } as const;
@@ -100,15 +104,51 @@ export type EcosystemFlowStep = {
   href: string;
 };
 
-export const ECOSYSTEM_FLOW_STEPS: EcosystemFlowStep[] = [
-  { id: "user", label: "User", href: "/join" },
-  { id: "culture", label: ".culture", href: "/pass" },
-  { id: "score", label: "Culture Score", href: "/profile" },
-  { id: "bcc", label: "BCC", href: "/bcc/dashboard" },
-  { id: "agent", label: "Agent", href: "/agent-fleet" },
-  { id: "marketplace", label: "Marketplace", href: "/marketplace" },
-  { id: "community", label: "Community", href: "#ecosystem" },
+export const LANDING_FLOW_PRIMARY: EcosystemFlowStep[] = [
+  { id: "culture-id", label: "Culture ID", href: "/pass" },
+  { id: "credentials", label: "Credentials", href: "/credentials" },
+  { id: "reputation", label: "Reputation", href: "/id/laszlo.culture/reputation" },
+  { id: "opportunities", label: "Opportunities", href: "/play" },
 ];
+
+export const LANDING_FLOW_SECONDARY: EcosystemFlowStep[] = [
+  { id: "agents", label: "Agents", href: "/agent-os" },
+  { id: "economy", label: "Economy", href: "/marketplace" },
+];
+
+/** @deprecated Use LANDING_FLOW_PRIMARY + LANDING_FLOW_SECONDARY */
+export const ECOSYSTEM_FLOW_STEPS: EcosystemFlowStep[] = [
+  ...LANDING_FLOW_PRIMARY,
+  ...LANDING_FLOW_SECONDARY,
+];
+
+export const LANDING_FLOW_COPY = {
+  eyebrow: "HOW IT WORKS",
+  headline: "Culture ID → Credentials → Reputation → Opportunities",
+  body: "This is who you become — one identity loop for builders, communities, businesses, and agents.",
+  secondaryLead: "Then agents work and value settles in the economy.",
+} as const;
+
+export const PILLARS_SECTION = {
+  eyebrow: "THE TRUST LAYER",
+  headline: "Culture ID → Credentials →",
+  headlineAccent: "Reputation → Opportunities",
+  body: "Four questions every builder, community, business, and agent can answer — claim your ID, earn credentials, build reputation, unlock opportunities.",
+  ctas: {
+    claim: { label: "Claim Culture ID", href: "/pass" as const },
+    credentials: { label: "Explore credentials", href: "/credentials" as const },
+  },
+} as const;
+
+export const TRUST_LAYER_SECTION = {
+  eyebrow: "TRUST LAYER",
+  headline: "The trust layer for builders and agents",
+  body: "Claim your Culture ID. Earn credentials for real contributions. Turn proof into reputation. Unlock agents, campaigns, and marketplace tools. Settle value with BCC across chains.",
+  ctas: {
+    claim: { label: "Claim Culture ID", href: "/pass" as const },
+    credentials: { label: "Explore credentials", href: "/credentials" as const },
+  },
+} as const;
 
 export type FounderTimelineMilestone = {
   year: string;
@@ -147,73 +187,142 @@ export const FOUNDER_TIMELINE: FounderTimelineMilestone[] = [
 export const PILLAR_PRODUCTS: PillarProductCopy[] = [
   {
     id: "culture-id",
-    name: "Building Culture ID",
+    name: "Culture ID",
     emoji: "🆔",
-    tagline: "Your portable Web3 reputation.",
+    tagline: "Your portable identity anchor.",
+    question: "Who are you?",
     features: [
-      "Proof of contribution",
-      "Grant history",
-      "Community participation",
-      "Verifiable achievements",
-      "Soulbound credentials",
+      ".culture name on Base",
+      "Linked wallets",
+      "Credential wallet",
+      "Public profile",
+      "Portable across chains",
     ],
     productPageHref: "/products/culture-id",
     primaryActionHref: "/pass",
-    primaryCta: "Claim your .culture name",
+    primaryCta: "Claim Culture ID",
     status: "live",
+    sectionId: "identity",
   },
   {
-    id: "campaign-hub",
-    name: "Campaign Hub",
-    emoji: "🎯",
-    tagline: "Create and support community campaigns.",
+    id: "credentials",
+    name: "Credentials",
+    emoji: "📜",
+    tagline: "Verifiable proof you can show.",
+    question: "What have you done?",
     features: [
-      "Social impact",
-      "Grants",
-      "Fundraising",
-      "Local initiatives",
-      "Environmental projects",
+      "Builder Credential",
+      "Contributor Credential",
+      "Community Leader Credential",
+      "Verified Human Credential",
+      "Trusted Agent Credential",
+      "Verified Project Credential",
+    ],
+    productPageHref: "/credentials",
+    primaryActionHref: "/credentials",
+    primaryCta: "View credentials",
+    status: "live",
+    sectionId: "credentials",
+  },
+  {
+    id: "reputation",
+    name: "Reputation",
+    emoji: "⭐",
+    tagline: "Trust that travels with you.",
+    question: "Why should I trust you?",
+    features: [
+      "Culture Reputation score",
+      "Contribution history",
+      "Leaderboard ranking",
+      "Portable across communities",
+      "Human and agent profiles",
+    ],
+    productPageHref: "/id/laszlo.culture/reputation",
+    primaryActionHref: "/credentials/leaderboard",
+    primaryCta: "View leaderboard",
+    status: "live",
+    sectionId: "reputation",
+  },
+  {
+    id: "opportunities",
+    name: "Opportunities",
+    emoji: "🔓",
+    tagline: "Unlock campaigns, access, and rewards.",
+    question: "What can you unlock?",
+    features: [
+      "Fair drops & raffles",
+      "Community campaigns",
+      "Forest hub access",
+      "Grants & initiatives",
+      "Real-world assets",
     ],
     productPageHref: "/products/campaign-hub",
     primaryActionHref: "/play",
-    primaryCta: "Browse campaigns",
+    primaryCta: "Browse opportunities",
     status: "live",
-  },
-  {
-    id: "ai-agents",
-    name: "Agent OS",
-    emoji: "🤖",
-    tagline: "Community-powered AI workforce.",
-    features: [
-      "Grant Agent",
-      "Community Agent",
-      "Marketing Agent",
-      "Partnership Agent",
-      "Research & Content Agents",
-    ],
-    productPageHref: "/products/ai-agents",
-    primaryActionHref: "/agent-fleet",
-    primaryCta: "Meet the fleet",
-    status: "live",
-  },
-  {
-    id: "bcc",
-    name: "BCC",
-    emoji: "🌱",
-    tagline: "The economic layer underneath everything.",
-    features: [
-      "Staking & rewards",
-      "Grant funding",
-      "Agent shares",
-      "Treasury transparency",
-      "Community-owned capital",
-    ],
-    productPageHref: "/bcc/dashboard",
-    primaryActionHref: "/bcc/dashboard",
-    primaryCta: "Explore BCC",
-    status: "live",
+    sectionId: "opportunities",
   },
 ];
+
+/** Ecosystem product — not a core landing pillar. */
+export const AGENT_OS_PRODUCT: PillarProductCopy = {
+  id: "ai-agents",
+  name: "Agent OS",
+  emoji: "🤖",
+  tagline: "Trusted agents with budgets.",
+  question: "Who can help me?",
+  features: [
+    "Research Agent",
+    "Grant Agent",
+    "Limx revenue agent",
+    "x402 paid APIs",
+    "Human approval on outbound",
+  ],
+  productPageHref: "/products/ai-agents",
+  primaryActionHref: "/agent-os",
+  primaryCta: "Meet Agent OS",
+  status: "live",
+};
+
+/** Capital layer — not a core landing pillar. */
+export const BCC_PRODUCT: PillarProductCopy = {
+  id: "bcc",
+  name: "Economy (BCC)",
+  emoji: "🌱",
+  tagline: "Chain-agnostic value layer.",
+  question: "What can you earn?",
+  features: [
+    "Culture Points → BCC",
+    "Marketplace settlement",
+    "Treasury transparency",
+    "Agent shares",
+    "Multi-rail ready",
+  ],
+  productPageHref: "/bcc/dashboard",
+  primaryActionHref: "/bcc/dashboard",
+  primaryCta: "Explore BCC",
+  status: "live",
+};
+
+/** Campaign Hub product page — Access satellite, not a core pillar. */
+export const CAMPAIGN_HUB_PRODUCT: PillarProductCopy = {
+  id: "campaign-hub",
+  name: "Campaign Hub",
+  emoji: "🎯",
+  tagline: "Create and support community campaigns.",
+  question: "What can you unlock?",
+  features: [
+    "Social impact",
+    "Grants",
+    "Fundraising",
+    "Local initiatives",
+    "Environmental projects",
+  ],
+  productPageHref: "/products/campaign-hub",
+  primaryActionHref: "/play",
+  primaryCta: "Browse campaigns",
+  status: "live",
+};
 
 export const MANIFESTO_LINES = [
   { contrast: "Most platforms extract value.", ours: "We distribute it." },
@@ -331,8 +440,22 @@ export const ROADMAP_UPCOMING = [
   },
 ] as const;
 
+const ALL_PRODUCT_COPY: PillarProductCopy[] = [
+  ...PILLAR_PRODUCTS,
+  AGENT_OS_PRODUCT,
+  BCC_PRODUCT,
+  GRANT_PROOF_PRODUCT,
+  CAMPAIGN_HUB_PRODUCT,
+];
+
 export function pillarById(id: PillarProductId): PillarProductCopy {
   const pillar = PILLAR_PRODUCTS.find((p) => p.id === id);
   if (!pillar) throw new Error(`Unknown pillar: ${id}`);
   return pillar;
+}
+
+export function productById(id: ProductPageId): PillarProductCopy {
+  const product = ALL_PRODUCT_COPY.find((p) => p.id === id);
+  if (!product) throw new Error(`Unknown product: ${id}`);
+  return product;
 }

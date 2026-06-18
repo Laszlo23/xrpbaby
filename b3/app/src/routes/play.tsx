@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { plainLabels } from "@/lib/plain-labels";
 import { HeroSection } from "@/components/HeroSection";
@@ -39,6 +40,30 @@ function PlayPage() {
       <HomeLivePulse />
       <BcdEconomyBanner />
       <CommunityPulse />
+      <section className="border-b border-white/[0.06] bg-[#070707]/80 px-4 py-6 md:px-8">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-zinc-400">
+            <span className="font-medium text-zinc-200">Opportunities unlock after you build reputation.</span>{" "}
+            Claim your Culture ID and earn credentials first.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/pass"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white hover:border-[#C5FF41]/50"
+            >
+              Claim Culture ID
+              <ArrowUpRight size={12} />
+            </Link>
+            <Link
+              to="/credentials"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-zinc-300 hover:text-white"
+            >
+              View credentials
+              <ArrowUpRight size={12} />
+            </Link>
+          </div>
+        </div>
+      </section>
       <section
         id="how-it-works"
         className="scroll-mt-24 px-4 pb-16 md:scroll-mt-28 md:px-8 md:pb-24"

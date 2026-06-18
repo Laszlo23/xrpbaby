@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Bot, Coins, Fingerprint, Shield, Target } from "lucide-react";
+import { ArrowUpRight, Bot, Coins, Fingerprint, Shield, Star, Target, Unlock } from "lucide-react";
 
 import type { ReactNode } from "react";
 
@@ -10,9 +10,12 @@ import { StatusBadge } from "@/components/landing/StatusBadge";
 
 const PILLAR_ICONS = {
   "culture-id": Fingerprint,
+  credentials: Shield,
+  reputation: Star,
+  opportunities: Unlock,
   "campaign-hub": Target,
   "ai-agents": Bot,
-  "bcc": Coins,
+  bcc: Coins,
   "grant-proof": Shield,
 } as const;
 

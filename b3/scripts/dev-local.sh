@@ -6,7 +6,6 @@ cd "$ROOT"
 
 echo "==> Postgres + migrations"
 npm run db:start
-npm run db:migrate
 
 echo "==> Local DATABASE_URL (host → 127.0.0.1:55432)"
 APP_ENV="$ROOT/app/.env"
@@ -23,6 +22,8 @@ if grep -qE '^DATABASE_URL=' "$APP_ENV" 2>/dev/null; then
     sed -i "s|^DATABASE_URL=.*|DATABASE_URL=${LOCAL_DB_URL}|" "$APP_ENV"
   fi
 fi
+
+npm run db:migrate
 
 echo "==> Market / thirdweb env"
 npm run market:env 2>/dev/null || true

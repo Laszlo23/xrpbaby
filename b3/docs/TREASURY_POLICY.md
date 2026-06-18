@@ -50,3 +50,18 @@ When `ceo-orchestrator-0` runs with deployer/ops keys configured:
 ## Review cadence
 
 - Monthly: reconcile on-chain balances vs. internal ledger expectations (agent-runtime + Safe UI).
+
+## XRPL testnet intake (optional)
+
+| Field | Value |
+|-------|--------|
+| Network | XRPL Testnet (default `XRPL_NETWORK=testnet`) |
+| Address | `XRPL_TREASURY_INTAKE_ADDRESS` — fund via [testnet faucet](https://faucet.altnet.rippletest.net/) |
+| Role | Diligence demo rail on `/investors` — **not** protocol reserves |
+| Mainnet | **Disabled by default** — counsel + multisig before any mainnet XRPL treasury |
+
+See [XRPL_TREASURY_RAIL.md](./XRPL_TREASURY_RAIL.md). Code guard: `isXrplExecutionAllowed()` blocks mainnet execution even when `XRPL_EXECUTION_ENABLED=1`.
+
+## Public transparency
+
+Live labeled wallet balances: `/investors` and `GET /api/investors/treasury-balances`.

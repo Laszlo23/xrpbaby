@@ -8,6 +8,10 @@ import { erc20Abi, type Address } from "viem";
 import { BCC_ADDRESS } from "@bc/bcc-kit";
 
 import { Button } from "@/components/ui/button";
+import {
+  AccessUnlockPanel,
+  buildDefaultAccessUnlocks,
+} from "@/components/credentials/AccessUnlockPanel";
 import { GRANT_AGENT_BCC_PRICE, GRANT_AGENT_BCC_PRICE_WEI } from "@/lib/grant-agent-config";
 import { TREASURY_SAFE_ADDRESS } from "@/lib/treasury-revenue-rules";
 
@@ -24,12 +28,27 @@ export function GrantPanel() {
   const [report, setReport] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState<"idle" | "paying" | "running">("idle");
+  const [earnedSlugs, setEarnedSlugs] = useState<Set<string>>(new Set());
   const submittedTxRef = useRef<string | null>(null);
 
   const { writeContractAsync, data: txHash, isPending: isWritePending } = useWriteContract();
   const { isLoading: waitingTx, isSuccess: txConfirmed } = useWaitForTransactionReceipt({
     hash: txHash,
   });
+
+  useEffect(() => {
+    if (!address) {
+      setEarnedSlugs(new Set());
+      return;
+    }
+    fetch(`/api/credentials/member?address=${encodeURIComponent(address)}`)
+      .then((r) => r.json())
+      .then((d: { earned?: Array<{ credential: { slug: string } }> }) => {
+        const slugs = new Set((d.earned ?? []).map((e) => e.credential.slug));
+        setEarnedSlugs(slugs);
+      })
+      .catch(() => setEarnedSlugs(new Set()));
+  }, [address]);
 
   const submitGrant = useCallback(
     async (paymentTxHash: `0x${string}`) => {
@@ -156,6 +175,11 @@ export function GrantPanel() {
           </div>
         </div>
       ) : null}
+
+      <AccessUnlockPanel
+        title="Grant Agent access"
+        items={buildDefaultAccessUnlocks(earnedSlugs).filter((i) => i.slug === "grant-agent")}
+      />
     </section>
   );
 }

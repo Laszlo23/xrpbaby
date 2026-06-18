@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import { motion } from "@/components/landing/motion";
-import { ArrowDown, ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 import { LiveProofTicker } from "@/components/shared/LiveProofTicker";
 import { trackLandingEvent } from "@/lib/landing-api";
 import { LANDING_MEDIA } from "@/lib/landing-media";
-import { LANDING_HERO, LANDING_TAGLINE } from "@/lib/landing-copy";
-import { plainLabels } from "@/lib/plain-labels";
+import { LANDING_HERO } from "@/lib/landing-copy";
 
 export function LandingHero() {
   const ref = useRef(null);
@@ -94,15 +93,6 @@ export function LandingHero() {
           </motion.div>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.8 }}
-          className="mono-label mt-6 !text-[#C5FF41]"
-        >
-          {LANDING_TAGLINE}
-        </motion.p>
-
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -120,7 +110,6 @@ export function LandingHero() {
           className="mt-8 max-w-xl text-base leading-relaxed text-zinc-300/90 sm:text-lg"
         >
           {LANDING_HERO.subhead}
-          <span className="mt-2 block text-zinc-400">{plainLabels.landing.heroSubtitle}</span>
         </motion.p>
 
         <motion.div
@@ -147,27 +136,27 @@ export function LandingHero() {
           className="mt-10 flex flex-col gap-3 sm:flex-row"
         >
           <Link
-            to="/join"
-            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "join" })}
+            to={LANDING_HERO.ctas.contribute.href}
+            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "claim" })}
             className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-7 py-4 text-[15px] font-semibold text-black transition-all hover:scale-[1.02] hover:bg-white"
           >
-            {plainLabels.landing.ctaJoin}
+            {LANDING_HERO.ctas.contribute.label}
             <ArrowUpRight size={16} aria-hidden />
           </Link>
-          <a
-            href="#products"
-            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "explore" })}
+          <Link
+            to={LANDING_HERO.ctas.explore.href}
+            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "credentials" })}
             className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-[15px] font-semibold text-white backdrop-blur-md transition-all hover:border-[#00E5FF]/60 hover:bg-white/10"
           >
-            {plainLabels.landing.ctaExplore}
-            <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
-          </a>
+            {LANDING_HERO.ctas.explore.label}
+            <ArrowUpRight size={16} aria-hidden />
+          </Link>
           <Link
-            to="/play"
-            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "contribute" })}
+            to={LANDING_HERO.ctas.join.href}
+            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "join" })}
             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-zinc-300 transition-all hover:border-white/40 hover:text-white"
           >
-            {plainLabels.landing.ctaContribute}
+            {LANDING_HERO.ctas.join.label}
           </Link>
         </motion.div>
 

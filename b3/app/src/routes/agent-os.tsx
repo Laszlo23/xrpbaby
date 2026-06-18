@@ -4,10 +4,12 @@ import { Bot, ExternalLink, ShieldAlert } from "lucide-react";
 import { AgentOsCard, AgentOsStatsStrip } from "@/components/agent-os/AgentOsCard";
 import { BccAgentAccessBanner } from "@/components/agent-os/BccAgentAccessBanner";
 import { GrantPanel } from "@/components/agent-os/GrantPanel";
+import { LimxPanel } from "@/components/agent-os/LimxPanel";
 import { ResearchPanel } from "@/components/agent-os/ResearchPanel";
 import { MarketingShell } from "@/components/MarketingShell";
 import { Button } from "@/components/ui/button";
 import { getAgentOsOverviewFn } from "@/lib/agent-os-overview-fn";
+import type { AgentOsAgent } from "@/lib/agent-os-catalog";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/agent-os")({
@@ -33,8 +35,9 @@ export const Route = createFileRoute("/agent-os")({
 
 function AgentOsPage() {
   const { overview } = Route.useLoaderData();
-  const agents = overview?.agents ?? [];
+  const agents: AgentOsAgent[] = overview?.agents ?? [];
   const researchPrice = overview?.researchPrice ?? "$0.05";
+  const limxPrice = overview?.limxPrice ?? "$0.25";
 
   return (
     <MarketingShell
@@ -83,6 +86,7 @@ function AgentOsPage() {
         {overview ? (
           <AgentOsStatsStrip
             researchPrice={researchPrice}
+            limxPrice={limxPrice}
             bccCirculatingWei={overview.ecosystem.bccCirculatingWei}
             activityLast24h={overview.ecosystem.activityLast24h}
           />
@@ -96,6 +100,8 @@ function AgentOsPage() {
             ))}
           </div>
         </section>
+
+        <LimxPanel limxPrice={limxPrice} />
 
         <GrantPanel />
 
@@ -122,6 +128,17 @@ function AgentOsPage() {
                 Machine-readable offers <ExternalLink className="h-3 w-3" />
               </a>
               <p className="mt-1 text-xs">ERC-8004 / A2A discovery for other agents</p>
+            </li>
+            <li className="rounded-xl border border-white/[0.06] px-4 py-3">
+              <a
+                href="https://wallet.blockchain0x.com/a/limx"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1 font-semibold text-zinc-200 hover:text-white"
+              >
+                Limx agent wallet <ExternalLink className="h-3 w-3" />
+              </a>
+              <p className="mt-1 text-xs">Non-custodial USDC wallet on Base — pay or scan to fund Limx</p>
             </li>
             <li className="rounded-xl border border-white/[0.06] px-4 py-3">
               <Link to="/0g/agentid" className="font-semibold text-zinc-200 hover:text-white">

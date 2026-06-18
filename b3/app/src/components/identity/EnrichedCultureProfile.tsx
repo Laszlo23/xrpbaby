@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { IdentityGraphPanel, LinkedIdentitiesGrid } from "@/components/identity/IdentityGraphPanel";
+import { CultureIdWalletSettings } from "@/components/credentials/CultureIdWalletSettings";
 import { TrustCredentials } from "@/components/identity/TrustCredentials";
 import { useCultureNameOwnership } from "@/components/identity/useCultureNameOwnership";
 import { CultureScore } from "@/components/profile/CultureScore";
@@ -21,7 +22,7 @@ type Props = {
 };
 
 const SCORE_EXPLANATION =
-  "Culture Score combines Farcaster reach, verified wallets, onchain activity, badges, holdings, and ecosystem participation.";
+  "Culture Reputation combines credentials, contributions, social trust, onchain activity, and human verification.";
 
 function shortAddress(addr: string) {
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
@@ -115,6 +116,37 @@ export function EnrichedCultureProfile({ resolved, paramName, enrichment }: Prop
           )}
 
           <TrustCredentials credentials={enrichment?.credentials ?? null} />
+
+          {ownership.isOwner ? (
+            <CultureIdWalletSettings
+              handle={displayName}
+              address={resolved.owner}
+              title="Linked wallets"
+            />
+          ) : null}
+
+          <nav className="flex flex-wrap gap-3 text-sm">
+            <Link
+              to={`/id/${displayName}/credentials` as "/id/$name/credentials"}
+              params={{ name: displayName }}
+              className="rounded-full border border-white/15 px-4 py-1.5 text-zinc-300 hover:border-[#C5FF41]/40 hover:text-white"
+            >
+              Credentials →
+            </Link>
+            <Link
+              to={`/id/${displayName}/reputation` as "/id/$name/reputation"}
+              params={{ name: displayName }}
+              className="rounded-full border border-white/15 px-4 py-1.5 text-zinc-300 hover:border-[#C5FF41]/40 hover:text-white"
+            >
+              Reputation →
+            </Link>
+            <Link
+              to="/credentials"
+              className="rounded-full border border-white/15 px-4 py-1.5 text-zinc-300 hover:border-[#C5FF41]/40 hover:text-white"
+            >
+              Credential Center
+            </Link>
+          </nav>
 
           {cultureScore ? (
             <CultureScore

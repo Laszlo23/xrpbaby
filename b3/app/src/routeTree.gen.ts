@@ -37,6 +37,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as ExperiencesRouteImport } from './routes/experiences'
 import { Route as EliasRouteImport } from './routes/elias'
+import { Route as EcosystemRouteImport } from './routes/ecosystem'
 import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as ChatbaseRouteImport } from './routes/chatbase'
@@ -59,6 +60,7 @@ import { Route as ForestIndexRouteImport } from './routes/forest/index'
 import { Route as ExplorerIndexRouteImport } from './routes/explorer.index'
 import { Route as EarthIndexRouteImport } from './routes/earth/index'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
+import { Route as CredentialsIndexRouteImport } from './routes/credentials/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BccIndexRouteImport } from './routes/bcc/index'
 import { Route as WalletPacksRouteImport } from './routes/wallet/packs'
@@ -85,6 +87,7 @@ import { Route as ForestQuestsRouteImport } from './routes/forest/quests'
 import { Route as DropsArtRouteImport } from './routes/drops/art'
 import { Route as DropsSlugRouteImport } from './routes/drops.$slug'
 import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
+import { Route as CredentialsLeaderboardRouteImport } from './routes/credentials/leaderboard'
 import { Route as BridgeBccRouteImport } from './routes/bridge/bcc'
 import { Route as BlogFeedDotxmlRouteImport } from './routes/blog/feed[.]xml'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -95,6 +98,8 @@ import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as R0gAgentidRouteImport } from './routes/0g.agentid'
 import { Route as DotwellKnownFarcasterDotjsonRouteImport } from './routes/[.]well-known/farcaster[.]json'
 import { Route as DotwellKnownAgentDotjsonRouteImport } from './routes/[.]well-known/agent[.]json'
+import { Route as IdNameReputationRouteImport } from './routes/id/$name/reputation'
+import { Route as IdNameCredentialsRouteImport } from './routes/id/$name/credentials'
 import { Route as ExplorerTxHashRouteImport } from './routes/explorer.tx.$hash'
 import { Route as ExplorerAddressAddressRouteImport } from './routes/explorer.address.$address'
 import { Route as ApiX402PremiumRouteImport } from './routes/api/x402/premium'
@@ -144,6 +149,8 @@ import { Route as ApiMarketListingsRouteImport } from './routes/api/market/listi
 import { Route as ApiMarketHealthRouteImport } from './routes/api/market/health'
 import { Route as ApiMarketConfigRouteImport } from './routes/api/market/config'
 import { Route as ApiMarketBccRouteImport } from './routes/api/market/bcc'
+import { Route as ApiInvestorsXrplIntakeRouteImport } from './routes/api/investors/xrpl-intake'
+import { Route as ApiInvestorsTreasuryBalancesRouteImport } from './routes/api/investors/treasury-balances'
 import { Route as ApiInvestorsTractionRouteImport } from './routes/api/investors/traction'
 import { Route as ApiIntelligenceRecommendationsRouteImport } from './routes/api/intelligence/recommendations'
 import { Route as ApiIntelligenceOverviewRouteImport } from './routes/api/intelligence/overview'
@@ -168,11 +175,16 @@ import { Route as ApiFeedbackMineRouteImport } from './routes/api/feedback/mine'
 import { Route as ApiExplorerLookupRouteImport } from './routes/api/explorer/lookup'
 import { Route as ApiExplorerFeedRouteImport } from './routes/api/explorer/feed'
 import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
+import { Route as ApiCredentialsMemberRouteImport } from './routes/api/credentials/member'
+import { Route as ApiCredentialsLeaderboardRouteImport } from './routes/api/credentials/leaderboard'
+import { Route as ApiCredentialsClaimRouteImport } from './routes/api/credentials/claim'
+import { Route as ApiCredentialsCatalogRouteImport } from './routes/api/credentials/catalog'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
 import { Route as ApiBccMetricsRouteImport } from './routes/api/bcc/metrics'
 import { Route as ApiAirdropClaimRouteImport } from './routes/api/airdrop/claim'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiAgentsResearchRouteImport } from './routes/api/agents/research'
+import { Route as ApiAgentsLimxRouteImport } from './routes/api/agents/limx'
 import { Route as ApiAgentsGrantRouteImport } from './routes/api/agents/grant'
 import { Route as ApiAgentsAccessRouteImport } from './routes/api/agents/access'
 import { Route as ApiAgentOsOverviewRouteImport } from './routes/api/agent-os/overview'
@@ -205,6 +217,9 @@ import { Route as ApiMarketBccBnbRouteRouteImport } from './routes/api/market/bc
 import { Route as ApiInvestorsWorkshopSessionRouteImport } from './routes/api/investors/workshop/session'
 import { Route as ApiExplorerTxHashRouteImport } from './routes/api/explorer/tx.$hash'
 import { Route as ApiExplorerAddressAddressRouteImport } from './routes/api/explorer/address.$address'
+import { Route as ApiCredentialsXrplLinkRouteImport } from './routes/api/credentials/xrpl/link'
+import { Route as ApiCredentialsXrplChallengeRouteImport } from './routes/api/credentials/xrpl/challenge'
+import { Route as ApiCredentialsIdentitySyncRouteImport } from './routes/api/credentials/identity/sync'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 import { Route as ApiExplorerTxHashExplainRouteImport } from './routes/api/explorer/tx.$hash.explain'
 
@@ -348,6 +363,11 @@ const EliasRoute = EliasRouteImport.update({
   path: '/elias',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EcosystemRoute = EcosystemRouteImport.update({
+  id: '/ecosystem',
+  path: '/ecosystem',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreatorsRoute = CreatorsRouteImport.update({
   id: '/creators',
   path: '/creators',
@@ -456,6 +476,11 @@ const EarthIndexRoute = EarthIndexRouteImport.update({
 const DocsIndexRoute = DocsIndexRouteImport.update({
   id: '/docs/',
   path: '/docs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CredentialsIndexRoute = CredentialsIndexRouteImport.update({
+  id: '/credentials/',
+  path: '/credentials/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -588,6 +613,11 @@ const DocsSlugRoute = DocsSlugRouteImport.update({
   path: '/docs/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CredentialsLeaderboardRoute = CredentialsLeaderboardRouteImport.update({
+  id: '/credentials/leaderboard',
+  path: '/credentials/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BridgeBccRoute = BridgeBccRouteImport.update({
   id: '/bridge/bcc',
   path: '/bridge/bcc',
@@ -640,6 +670,16 @@ const DotwellKnownAgentDotjsonRoute =
     path: '/.well-known/agent.json',
     getParentRoute: () => rootRouteImport,
   } as any)
+const IdNameReputationRoute = IdNameReputationRouteImport.update({
+  id: '/reputation',
+  path: '/reputation',
+  getParentRoute: () => IdNameRoute,
+} as any)
+const IdNameCredentialsRoute = IdNameCredentialsRouteImport.update({
+  id: '/credentials',
+  path: '/credentials',
+  getParentRoute: () => IdNameRoute,
+} as any)
 const ExplorerTxHashRoute = ExplorerTxHashRouteImport.update({
   id: '/tx/$hash',
   path: '/tx/$hash',
@@ -890,6 +930,17 @@ const ApiMarketBccRoute = ApiMarketBccRouteImport.update({
   path: '/api/market/bcc',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiInvestorsXrplIntakeRoute = ApiInvestorsXrplIntakeRouteImport.update({
+  id: '/api/investors/xrpl-intake',
+  path: '/api/investors/xrpl-intake',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInvestorsTreasuryBalancesRoute =
+  ApiInvestorsTreasuryBalancesRouteImport.update({
+    id: '/api/investors/treasury-balances',
+    path: '/api/investors/treasury-balances',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInvestorsTractionRoute = ApiInvestorsTractionRouteImport.update({
   id: '/api/investors/traction',
   path: '/api/investors/traction',
@@ -1011,6 +1062,27 @@ const ApiEliasInboundRoute = ApiEliasInboundRouteImport.update({
   path: '/api/elias/inbound',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCredentialsMemberRoute = ApiCredentialsMemberRouteImport.update({
+  id: '/api/credentials/member',
+  path: '/api/credentials/member',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCredentialsLeaderboardRoute =
+  ApiCredentialsLeaderboardRouteImport.update({
+    id: '/api/credentials/leaderboard',
+    path: '/api/credentials/leaderboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCredentialsClaimRoute = ApiCredentialsClaimRouteImport.update({
+  id: '/api/credentials/claim',
+  path: '/api/credentials/claim',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCredentialsCatalogRoute = ApiCredentialsCatalogRouteImport.update({
+  id: '/api/credentials/catalog',
+  path: '/api/credentials/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiComplianceEligibilityRoute =
   ApiComplianceEligibilityRouteImport.update({
     id: '/api/compliance/eligibility',
@@ -1035,6 +1107,11 @@ const ApiAgentsStatusRoute = ApiAgentsStatusRouteImport.update({
 const ApiAgentsResearchRoute = ApiAgentsResearchRouteImport.update({
   id: '/api/agents/research',
   path: '/api/agents/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentsLimxRoute = ApiAgentsLimxRouteImport.update({
+  id: '/api/agents/limx',
+  path: '/api/agents/limx',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAgentsGrantRoute = ApiAgentsGrantRouteImport.update({
@@ -1206,6 +1283,23 @@ const ApiExplorerAddressAddressRoute =
     path: '/api/explorer/address/$address',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCredentialsXrplLinkRoute = ApiCredentialsXrplLinkRouteImport.update({
+  id: '/api/credentials/xrpl/link',
+  path: '/api/credentials/xrpl/link',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCredentialsXrplChallengeRoute =
+  ApiCredentialsXrplChallengeRouteImport.update({
+    id: '/api/credentials/xrpl/challenge',
+    path: '/api/credentials/xrpl/challenge',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCredentialsIdentitySyncRoute =
+  ApiCredentialsIdentitySyncRouteImport.update({
+    id: '/api/credentials/identity/sync',
+    path: '/api/credentials/identity/sync',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPulseFeedIdCommentsRoute = ApiPulseFeedIdCommentsRouteImport.update({
   id: '/$id/comments',
   path: '/$id/comments',
@@ -1228,6 +1322,7 @@ export interface FileRoutesByFullPath {
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
   '/creators': typeof CreatorsRoute
+  '/ecosystem': typeof EcosystemRoute
   '/elias': typeof EliasRoute
   '/experiences': typeof ExperiencesRoute
   '/explorer': typeof ExplorerRouteWithChildren
@@ -1266,11 +1361,12 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
+  '/credentials/leaderboard': typeof CredentialsLeaderboardRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
-  '/id/$name': typeof IdNameRoute
+  '/id/$name': typeof IdNameRouteWithChildren
   '/investors/workshop': typeof InvestorsWorkshopRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
@@ -1292,6 +1388,7 @@ export interface FileRoutesByFullPath {
   '/wallet/packs': typeof WalletPacksRoute
   '/bcc/': typeof BccIndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/credentials/': typeof CredentialsIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
   '/explorer/': typeof ExplorerIndexRoute
@@ -1310,11 +1407,16 @@ export interface FileRoutesByFullPath {
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
   '/api/agents/access': typeof ApiAgentsAccessRoute
   '/api/agents/grant': typeof ApiAgentsGrantRoute
+  '/api/agents/limx': typeof ApiAgentsLimxRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
+  '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
+  '/api/credentials/claim': typeof ApiCredentialsClaimRoute
+  '/api/credentials/leaderboard': typeof ApiCredentialsLeaderboardRoute
+  '/api/credentials/member': typeof ApiCredentialsMemberRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/explorer/feed': typeof ApiExplorerFeedRoute
   '/api/explorer/lookup': typeof ApiExplorerLookupRoute
@@ -1339,6 +1441,8 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/overview': typeof ApiIntelligenceOverviewRoute
   '/api/intelligence/recommendations': typeof ApiIntelligenceRecommendationsRoute
   '/api/investors/traction': typeof ApiInvestorsTractionRoute
+  '/api/investors/treasury-balances': typeof ApiInvestorsTreasuryBalancesRoute
+  '/api/investors/xrpl-intake': typeof ApiInvestorsXrplIntakeRoute
   '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
@@ -1388,6 +1492,11 @@ export interface FileRoutesByFullPath {
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/id/$name/credentials': typeof IdNameCredentialsRoute
+  '/id/$name/reputation': typeof IdNameReputationRoute
+  '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
+  '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
+  '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
   '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
   '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
@@ -1428,6 +1537,7 @@ export interface FileRoutesByTo {
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
   '/creators': typeof CreatorsRoute
+  '/ecosystem': typeof EcosystemRoute
   '/elias': typeof EliasRoute
   '/experiences': typeof ExperiencesRoute
   '/faq': typeof FaqRoute
@@ -1464,11 +1574,12 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
+  '/credentials/leaderboard': typeof CredentialsLeaderboardRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
-  '/id/$name': typeof IdNameRoute
+  '/id/$name': typeof IdNameRouteWithChildren
   '/investors/workshop': typeof InvestorsWorkshopRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
@@ -1490,6 +1601,7 @@ export interface FileRoutesByTo {
   '/wallet/packs': typeof WalletPacksRoute
   '/bcc': typeof BccIndexRoute
   '/blog': typeof BlogIndexRoute
+  '/credentials': typeof CredentialsIndexRoute
   '/docs': typeof DocsIndexRoute
   '/earth': typeof EarthIndexRoute
   '/explorer': typeof ExplorerIndexRoute
@@ -1508,11 +1620,16 @@ export interface FileRoutesByTo {
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
   '/api/agents/access': typeof ApiAgentsAccessRoute
   '/api/agents/grant': typeof ApiAgentsGrantRoute
+  '/api/agents/limx': typeof ApiAgentsLimxRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
+  '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
+  '/api/credentials/claim': typeof ApiCredentialsClaimRoute
+  '/api/credentials/leaderboard': typeof ApiCredentialsLeaderboardRoute
+  '/api/credentials/member': typeof ApiCredentialsMemberRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/explorer/feed': typeof ApiExplorerFeedRoute
   '/api/explorer/lookup': typeof ApiExplorerLookupRoute
@@ -1537,6 +1654,8 @@ export interface FileRoutesByTo {
   '/api/intelligence/overview': typeof ApiIntelligenceOverviewRoute
   '/api/intelligence/recommendations': typeof ApiIntelligenceRecommendationsRoute
   '/api/investors/traction': typeof ApiInvestorsTractionRoute
+  '/api/investors/treasury-balances': typeof ApiInvestorsTreasuryBalancesRoute
+  '/api/investors/xrpl-intake': typeof ApiInvestorsXrplIntakeRoute
   '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
@@ -1586,6 +1705,11 @@ export interface FileRoutesByTo {
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/id/$name/credentials': typeof IdNameCredentialsRoute
+  '/id/$name/reputation': typeof IdNameReputationRoute
+  '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
+  '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
+  '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
   '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
   '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
@@ -1627,6 +1751,7 @@ export interface FileRoutesById {
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
   '/creators': typeof CreatorsRoute
+  '/ecosystem': typeof EcosystemRoute
   '/elias': typeof EliasRoute
   '/experiences': typeof ExperiencesRoute
   '/explorer': typeof ExplorerRouteWithChildren
@@ -1665,11 +1790,12 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
+  '/credentials/leaderboard': typeof CredentialsLeaderboardRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
   '/forest/quests': typeof ForestQuestsRoute
-  '/id/$name': typeof IdNameRoute
+  '/id/$name': typeof IdNameRouteWithChildren
   '/investors/workshop': typeof InvestorsWorkshopRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
@@ -1691,6 +1817,7 @@ export interface FileRoutesById {
   '/wallet/packs': typeof WalletPacksRoute
   '/bcc/': typeof BccIndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/credentials/': typeof CredentialsIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
   '/explorer/': typeof ExplorerIndexRoute
@@ -1709,11 +1836,16 @@ export interface FileRoutesById {
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
   '/api/agents/access': typeof ApiAgentsAccessRoute
   '/api/agents/grant': typeof ApiAgentsGrantRoute
+  '/api/agents/limx': typeof ApiAgentsLimxRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
+  '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
+  '/api/credentials/claim': typeof ApiCredentialsClaimRoute
+  '/api/credentials/leaderboard': typeof ApiCredentialsLeaderboardRoute
+  '/api/credentials/member': typeof ApiCredentialsMemberRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/explorer/feed': typeof ApiExplorerFeedRoute
   '/api/explorer/lookup': typeof ApiExplorerLookupRoute
@@ -1738,6 +1870,8 @@ export interface FileRoutesById {
   '/api/intelligence/overview': typeof ApiIntelligenceOverviewRoute
   '/api/intelligence/recommendations': typeof ApiIntelligenceRecommendationsRoute
   '/api/investors/traction': typeof ApiInvestorsTractionRoute
+  '/api/investors/treasury-balances': typeof ApiInvestorsTreasuryBalancesRoute
+  '/api/investors/xrpl-intake': typeof ApiInvestorsXrplIntakeRoute
   '/api/market/bcc': typeof ApiMarketBccRouteWithChildren
   '/api/market/config': typeof ApiMarketConfigRoute
   '/api/market/health': typeof ApiMarketHealthRoute
@@ -1787,6 +1921,11 @@ export interface FileRoutesById {
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/id/$name/credentials': typeof IdNameCredentialsRoute
+  '/id/$name/reputation': typeof IdNameReputationRoute
+  '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
+  '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
+  '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
   '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
   '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
@@ -1829,6 +1968,7 @@ export interface FileRouteTypes {
     | '/chatbase'
     | '/collections'
     | '/creators'
+    | '/ecosystem'
     | '/elias'
     | '/experiences'
     | '/explorer'
@@ -1867,6 +2007,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
+    | '/credentials/leaderboard'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -1893,6 +2034,7 @@ export interface FileRouteTypes {
     | '/wallet/packs'
     | '/bcc/'
     | '/blog/'
+    | '/credentials/'
     | '/docs/'
     | '/earth/'
     | '/explorer/'
@@ -1911,11 +2053,16 @@ export interface FileRouteTypes {
     | '/api/agent-os/overview'
     | '/api/agents/access'
     | '/api/agents/grant'
+    | '/api/agents/limx'
     | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
     | '/api/bcc/metrics'
     | '/api/compliance/eligibility'
+    | '/api/credentials/catalog'
+    | '/api/credentials/claim'
+    | '/api/credentials/leaderboard'
+    | '/api/credentials/member'
     | '/api/elias/inbound'
     | '/api/explorer/feed'
     | '/api/explorer/lookup'
@@ -1940,6 +2087,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/overview'
     | '/api/intelligence/recommendations'
     | '/api/investors/traction'
+    | '/api/investors/treasury-balances'
+    | '/api/investors/xrpl-intake'
     | '/api/market/bcc'
     | '/api/market/config'
     | '/api/market/health'
@@ -1989,6 +2138,11 @@ export interface FileRouteTypes {
     | '/api/x402/premium'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
+    | '/id/$name/credentials'
+    | '/id/$name/reputation'
+    | '/api/credentials/identity/sync'
+    | '/api/credentials/xrpl/challenge'
+    | '/api/credentials/xrpl/link'
     | '/api/explorer/address/$address'
     | '/api/explorer/tx/$hash'
     | '/api/investors/workshop/session'
@@ -2029,6 +2183,7 @@ export interface FileRouteTypes {
     | '/chatbase'
     | '/collections'
     | '/creators'
+    | '/ecosystem'
     | '/elias'
     | '/experiences'
     | '/faq'
@@ -2065,6 +2220,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
+    | '/credentials/leaderboard'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -2091,6 +2247,7 @@ export interface FileRouteTypes {
     | '/wallet/packs'
     | '/bcc'
     | '/blog'
+    | '/credentials'
     | '/docs'
     | '/earth'
     | '/explorer'
@@ -2109,11 +2266,16 @@ export interface FileRouteTypes {
     | '/api/agent-os/overview'
     | '/api/agents/access'
     | '/api/agents/grant'
+    | '/api/agents/limx'
     | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
     | '/api/bcc/metrics'
     | '/api/compliance/eligibility'
+    | '/api/credentials/catalog'
+    | '/api/credentials/claim'
+    | '/api/credentials/leaderboard'
+    | '/api/credentials/member'
     | '/api/elias/inbound'
     | '/api/explorer/feed'
     | '/api/explorer/lookup'
@@ -2138,6 +2300,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/overview'
     | '/api/intelligence/recommendations'
     | '/api/investors/traction'
+    | '/api/investors/treasury-balances'
+    | '/api/investors/xrpl-intake'
     | '/api/market/bcc'
     | '/api/market/config'
     | '/api/market/health'
@@ -2187,6 +2351,11 @@ export interface FileRouteTypes {
     | '/api/x402/premium'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
+    | '/id/$name/credentials'
+    | '/id/$name/reputation'
+    | '/api/credentials/identity/sync'
+    | '/api/credentials/xrpl/challenge'
+    | '/api/credentials/xrpl/link'
     | '/api/explorer/address/$address'
     | '/api/explorer/tx/$hash'
     | '/api/investors/workshop/session'
@@ -2227,6 +2396,7 @@ export interface FileRouteTypes {
     | '/chatbase'
     | '/collections'
     | '/creators'
+    | '/ecosystem'
     | '/elias'
     | '/experiences'
     | '/explorer'
@@ -2265,6 +2435,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
+    | '/credentials/leaderboard'
     | '/docs/$slug'
     | '/drops/$slug'
     | '/drops/art'
@@ -2291,6 +2462,7 @@ export interface FileRouteTypes {
     | '/wallet/packs'
     | '/bcc/'
     | '/blog/'
+    | '/credentials/'
     | '/docs/'
     | '/earth/'
     | '/explorer/'
@@ -2309,11 +2481,16 @@ export interface FileRouteTypes {
     | '/api/agent-os/overview'
     | '/api/agents/access'
     | '/api/agents/grant'
+    | '/api/agents/limx'
     | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
     | '/api/bcc/metrics'
     | '/api/compliance/eligibility'
+    | '/api/credentials/catalog'
+    | '/api/credentials/claim'
+    | '/api/credentials/leaderboard'
+    | '/api/credentials/member'
     | '/api/elias/inbound'
     | '/api/explorer/feed'
     | '/api/explorer/lookup'
@@ -2338,6 +2515,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/overview'
     | '/api/intelligence/recommendations'
     | '/api/investors/traction'
+    | '/api/investors/treasury-balances'
+    | '/api/investors/xrpl-intake'
     | '/api/market/bcc'
     | '/api/market/config'
     | '/api/market/health'
@@ -2387,6 +2566,11 @@ export interface FileRouteTypes {
     | '/api/x402/premium'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
+    | '/id/$name/credentials'
+    | '/id/$name/reputation'
+    | '/api/credentials/identity/sync'
+    | '/api/credentials/xrpl/challenge'
+    | '/api/credentials/xrpl/link'
     | '/api/explorer/address/$address'
     | '/api/explorer/tx/$hash'
     | '/api/investors/workshop/session'
@@ -2428,6 +2612,7 @@ export interface RootRouteChildren {
   ChatbaseRoute: typeof ChatbaseRoute
   CollectionsRoute: typeof CollectionsRoute
   CreatorsRoute: typeof CreatorsRoute
+  EcosystemRoute: typeof EcosystemRoute
   EliasRoute: typeof EliasRoute
   ExperiencesRoute: typeof ExperiencesRoute
   ExplorerRoute: typeof ExplorerRouteWithChildren
@@ -2466,11 +2651,12 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   BlogFeedDotxmlRoute: typeof BlogFeedDotxmlRoute
   BridgeBccRoute: typeof BridgeBccRoute
+  CredentialsLeaderboardRoute: typeof CredentialsLeaderboardRoute
   DocsSlugRoute: typeof DocsSlugRoute
   DropsSlugRoute: typeof DropsSlugRoute
   DropsArtRoute: typeof DropsArtRoute
   ForestQuestsRoute: typeof ForestQuestsRoute
-  IdNameRoute: typeof IdNameRoute
+  IdNameRoute: typeof IdNameRouteWithChildren
   NNameRoute: typeof NNameRoute
   OpsAttributionRoute: typeof OpsAttributionRoute
   PSlugRoute: typeof PSlugRoute
@@ -2485,6 +2671,7 @@ export interface RootRouteChildren {
   WalletPacksRoute: typeof WalletPacksRoute
   BccIndexRoute: typeof BccIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  CredentialsIndexRoute: typeof CredentialsIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
   EarthIndexRoute: typeof EarthIndexRoute
   ForestIndexRoute: typeof ForestIndexRoute
@@ -2500,11 +2687,16 @@ export interface RootRouteChildren {
   ApiAgentOsOverviewRoute: typeof ApiAgentOsOverviewRoute
   ApiAgentsAccessRoute: typeof ApiAgentsAccessRoute
   ApiAgentsGrantRoute: typeof ApiAgentsGrantRoute
+  ApiAgentsLimxRoute: typeof ApiAgentsLimxRoute
   ApiAgentsResearchRoute: typeof ApiAgentsResearchRoute
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
   ApiAirdropClaimRoute: typeof ApiAirdropClaimRoute
   ApiBccMetricsRoute: typeof ApiBccMetricsRoute
   ApiComplianceEligibilityRoute: typeof ApiComplianceEligibilityRoute
+  ApiCredentialsCatalogRoute: typeof ApiCredentialsCatalogRoute
+  ApiCredentialsClaimRoute: typeof ApiCredentialsClaimRoute
+  ApiCredentialsLeaderboardRoute: typeof ApiCredentialsLeaderboardRoute
+  ApiCredentialsMemberRoute: typeof ApiCredentialsMemberRoute
   ApiEliasInboundRoute: typeof ApiEliasInboundRoute
   ApiExplorerFeedRoute: typeof ApiExplorerFeedRoute
   ApiExplorerLookupRoute: typeof ApiExplorerLookupRoute
@@ -2529,6 +2721,8 @@ export interface RootRouteChildren {
   ApiIntelligenceOverviewRoute: typeof ApiIntelligenceOverviewRoute
   ApiIntelligenceRecommendationsRoute: typeof ApiIntelligenceRecommendationsRoute
   ApiInvestorsTractionRoute: typeof ApiInvestorsTractionRoute
+  ApiInvestorsTreasuryBalancesRoute: typeof ApiInvestorsTreasuryBalancesRoute
+  ApiInvestorsXrplIntakeRoute: typeof ApiInvestorsXrplIntakeRoute
   ApiMarketBccRoute: typeof ApiMarketBccRouteWithChildren
   ApiMarketConfigRoute: typeof ApiMarketConfigRoute
   ApiMarketHealthRoute: typeof ApiMarketHealthRoute
@@ -2576,6 +2770,9 @@ export interface RootRouteChildren {
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
+  ApiCredentialsIdentitySyncRoute: typeof ApiCredentialsIdentitySyncRoute
+  ApiCredentialsXrplChallengeRoute: typeof ApiCredentialsXrplChallengeRoute
+  ApiCredentialsXrplLinkRoute: typeof ApiCredentialsXrplLinkRoute
   ApiExplorerAddressAddressRoute: typeof ApiExplorerAddressAddressRoute
   ApiExplorerTxHashRoute: typeof ApiExplorerTxHashRouteWithChildren
   ApiInvestorsWorkshopSessionRoute: typeof ApiInvestorsWorkshopSessionRoute
@@ -2799,6 +2996,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EliasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ecosystem': {
+      id: '/ecosystem'
+      path: '/ecosystem'
+      fullPath: '/ecosystem'
+      preLoaderRoute: typeof EcosystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/creators': {
       id: '/creators'
       path: '/creators'
@@ -2951,6 +3155,13 @@ declare module '@tanstack/react-router' {
       path: '/docs'
       fullPath: '/docs/'
       preLoaderRoute: typeof DocsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/credentials/': {
+      id: '/credentials/'
+      path: '/credentials'
+      fullPath: '/credentials/'
+      preLoaderRoute: typeof CredentialsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -3135,6 +3346,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/credentials/leaderboard': {
+      id: '/credentials/leaderboard'
+      path: '/credentials/leaderboard'
+      fullPath: '/credentials/leaderboard'
+      preLoaderRoute: typeof CredentialsLeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bridge/bcc': {
       id: '/bridge/bcc'
       path: '/bridge/bcc'
@@ -3204,6 +3422,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/.well-known/agent.json'
       preLoaderRoute: typeof DotwellKnownAgentDotjsonRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/id/$name/reputation': {
+      id: '/id/$name/reputation'
+      path: '/reputation'
+      fullPath: '/id/$name/reputation'
+      preLoaderRoute: typeof IdNameReputationRouteImport
+      parentRoute: typeof IdNameRoute
+    }
+    '/id/$name/credentials': {
+      id: '/id/$name/credentials'
+      path: '/credentials'
+      fullPath: '/id/$name/credentials'
+      preLoaderRoute: typeof IdNameCredentialsRouteImport
+      parentRoute: typeof IdNameRoute
     }
     '/explorer/tx/$hash': {
       id: '/explorer/tx/$hash'
@@ -3548,6 +3780,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMarketBccRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/investors/xrpl-intake': {
+      id: '/api/investors/xrpl-intake'
+      path: '/api/investors/xrpl-intake'
+      fullPath: '/api/investors/xrpl-intake'
+      preLoaderRoute: typeof ApiInvestorsXrplIntakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/investors/treasury-balances': {
+      id: '/api/investors/treasury-balances'
+      path: '/api/investors/treasury-balances'
+      fullPath: '/api/investors/treasury-balances'
+      preLoaderRoute: typeof ApiInvestorsTreasuryBalancesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/investors/traction': {
       id: '/api/investors/traction'
       path: '/api/investors/traction'
@@ -3716,6 +3962,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiEliasInboundRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/credentials/member': {
+      id: '/api/credentials/member'
+      path: '/api/credentials/member'
+      fullPath: '/api/credentials/member'
+      preLoaderRoute: typeof ApiCredentialsMemberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/credentials/leaderboard': {
+      id: '/api/credentials/leaderboard'
+      path: '/api/credentials/leaderboard'
+      fullPath: '/api/credentials/leaderboard'
+      preLoaderRoute: typeof ApiCredentialsLeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/credentials/claim': {
+      id: '/api/credentials/claim'
+      path: '/api/credentials/claim'
+      fullPath: '/api/credentials/claim'
+      preLoaderRoute: typeof ApiCredentialsClaimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/credentials/catalog': {
+      id: '/api/credentials/catalog'
+      path: '/api/credentials/catalog'
+      fullPath: '/api/credentials/catalog'
+      preLoaderRoute: typeof ApiCredentialsCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/compliance/eligibility': {
       id: '/api/compliance/eligibility'
       path: '/api/compliance/eligibility'
@@ -3749,6 +4023,13 @@ declare module '@tanstack/react-router' {
       path: '/api/agents/research'
       fullPath: '/api/agents/research'
       preLoaderRoute: typeof ApiAgentsResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agents/limx': {
+      id: '/api/agents/limx'
+      path: '/api/agents/limx'
+      fullPath: '/api/agents/limx'
+      preLoaderRoute: typeof ApiAgentsLimxRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/agents/grant': {
@@ -3975,6 +4256,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiExplorerAddressAddressRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/credentials/xrpl/link': {
+      id: '/api/credentials/xrpl/link'
+      path: '/api/credentials/xrpl/link'
+      fullPath: '/api/credentials/xrpl/link'
+      preLoaderRoute: typeof ApiCredentialsXrplLinkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/credentials/xrpl/challenge': {
+      id: '/api/credentials/xrpl/challenge'
+      path: '/api/credentials/xrpl/challenge'
+      fullPath: '/api/credentials/xrpl/challenge'
+      preLoaderRoute: typeof ApiCredentialsXrplChallengeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/credentials/identity/sync': {
+      id: '/api/credentials/identity/sync'
+      path: '/api/credentials/identity/sync'
+      fullPath: '/api/credentials/identity/sync'
+      preLoaderRoute: typeof ApiCredentialsIdentitySyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/pulse/feed/$id/comments': {
       id: '/api/pulse/feed/$id/comments'
       path: '/$id/comments'
@@ -4064,6 +4366,19 @@ const R0gAgentidRouteWithChildren = R0gAgentidRoute._addFileChildren(
   R0gAgentidRouteChildren,
 )
 
+interface IdNameRouteChildren {
+  IdNameCredentialsRoute: typeof IdNameCredentialsRoute
+  IdNameReputationRoute: typeof IdNameReputationRoute
+}
+
+const IdNameRouteChildren: IdNameRouteChildren = {
+  IdNameCredentialsRoute: IdNameCredentialsRoute,
+  IdNameReputationRoute: IdNameReputationRoute,
+}
+
+const IdNameRouteWithChildren =
+  IdNameRoute._addFileChildren(IdNameRouteChildren)
+
 interface ApiMarketBccRouteChildren {
   ApiMarketBccBnbRouteRoute: typeof ApiMarketBccBnbRouteRoute
   ApiMarketBccSolanaRouteRoute: typeof ApiMarketBccSolanaRouteRoute
@@ -4135,6 +4450,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChatbaseRoute: ChatbaseRoute,
   CollectionsRoute: CollectionsRoute,
   CreatorsRoute: CreatorsRoute,
+  EcosystemRoute: EcosystemRoute,
   EliasRoute: EliasRoute,
   ExperiencesRoute: ExperiencesRoute,
   ExplorerRoute: ExplorerRouteWithChildren,
@@ -4173,11 +4489,12 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   BlogFeedDotxmlRoute: BlogFeedDotxmlRoute,
   BridgeBccRoute: BridgeBccRoute,
+  CredentialsLeaderboardRoute: CredentialsLeaderboardRoute,
   DocsSlugRoute: DocsSlugRoute,
   DropsSlugRoute: DropsSlugRoute,
   DropsArtRoute: DropsArtRoute,
   ForestQuestsRoute: ForestQuestsRoute,
-  IdNameRoute: IdNameRoute,
+  IdNameRoute: IdNameRouteWithChildren,
   NNameRoute: NNameRoute,
   OpsAttributionRoute: OpsAttributionRoute,
   PSlugRoute: PSlugRoute,
@@ -4192,6 +4509,7 @@ const rootRouteChildren: RootRouteChildren = {
   WalletPacksRoute: WalletPacksRoute,
   BccIndexRoute: BccIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
+  CredentialsIndexRoute: CredentialsIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
   EarthIndexRoute: EarthIndexRoute,
   ForestIndexRoute: ForestIndexRoute,
@@ -4207,11 +4525,16 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAgentOsOverviewRoute: ApiAgentOsOverviewRoute,
   ApiAgentsAccessRoute: ApiAgentsAccessRoute,
   ApiAgentsGrantRoute: ApiAgentsGrantRoute,
+  ApiAgentsLimxRoute: ApiAgentsLimxRoute,
   ApiAgentsResearchRoute: ApiAgentsResearchRoute,
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
   ApiAirdropClaimRoute: ApiAirdropClaimRoute,
   ApiBccMetricsRoute: ApiBccMetricsRoute,
   ApiComplianceEligibilityRoute: ApiComplianceEligibilityRoute,
+  ApiCredentialsCatalogRoute: ApiCredentialsCatalogRoute,
+  ApiCredentialsClaimRoute: ApiCredentialsClaimRoute,
+  ApiCredentialsLeaderboardRoute: ApiCredentialsLeaderboardRoute,
+  ApiCredentialsMemberRoute: ApiCredentialsMemberRoute,
   ApiEliasInboundRoute: ApiEliasInboundRoute,
   ApiExplorerFeedRoute: ApiExplorerFeedRoute,
   ApiExplorerLookupRoute: ApiExplorerLookupRoute,
@@ -4236,6 +4559,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceOverviewRoute: ApiIntelligenceOverviewRoute,
   ApiIntelligenceRecommendationsRoute: ApiIntelligenceRecommendationsRoute,
   ApiInvestorsTractionRoute: ApiInvestorsTractionRoute,
+  ApiInvestorsTreasuryBalancesRoute: ApiInvestorsTreasuryBalancesRoute,
+  ApiInvestorsXrplIntakeRoute: ApiInvestorsXrplIntakeRoute,
   ApiMarketBccRoute: ApiMarketBccRouteWithChildren,
   ApiMarketConfigRoute: ApiMarketConfigRoute,
   ApiMarketHealthRoute: ApiMarketHealthRoute,
@@ -4283,6 +4608,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
+  ApiCredentialsIdentitySyncRoute: ApiCredentialsIdentitySyncRoute,
+  ApiCredentialsXrplChallengeRoute: ApiCredentialsXrplChallengeRoute,
+  ApiCredentialsXrplLinkRoute: ApiCredentialsXrplLinkRoute,
   ApiExplorerAddressAddressRoute: ApiExplorerAddressAddressRoute,
   ApiExplorerTxHashRoute: ApiExplorerTxHashRouteWithChildren,
   ApiInvestorsWorkshopSessionRoute: ApiInvestorsWorkshopSessionRoute,

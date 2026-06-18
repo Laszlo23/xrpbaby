@@ -57,6 +57,29 @@ Five-layer model (Community → Capital): sub-items, routes, and agent mapping i
 
 Env: `VITE_LANDING_GRAPH_IDENTITY`, optional `WEB3BIO_API_KEY` in `app/.env`.
 
+### Limx revenue agent (Blockchain0x)
+
+| Route | Role |
+| ----- | ---- |
+| `GET /api/agents/limx` | x402-paid opportunity brief — grants, partnerships, sponsors (USDC → Limx wallet) |
+
+- **Public wallet:** [wallet.blockchain0x.com/a/limx](https://wallet.blockchain0x.com/a/limx) — `0xf424d59831fff6d3f404abf22ec23cdb0c4f584b` on Base.
+- **UI:** `/agent-os#limx-agent` — `LimxPanel` + catalog entry `limx_revenue_agent`.
+- **Discovery:** `limx_revenue_brief_v1` in `/.well-known/agent.json`.
+- **Env:** `LIMX_AGENT_WALLET_ADDRESS`, `X402_LIMX_PRICE` (default `$0.25`). Optional `X402_PAY_TO` same address routes other x402 SKUs to Limx.
+
+### Trust layer (Credential Center)
+
+| Route | Role |
+| ----- | ---- |
+| `/credentials` | Credential Center catalog (6 types) |
+| `/id/{handle}/credentials` | Per-identity credentials + XRPL link |
+| `/id/{handle}/reputation` | Culture Reputation + timeline |
+| `GET /api/credentials/catalog` | JSON catalog |
+| `POST /api/credentials/claim` | Claim eligible credential |
+
+See [`../docs/TRUST_LAYER.md`](../docs/TRUST_LAYER.md). Seed: `npm run seed:credentials`.
+
 ## Tests
 
 `npm run test:all` — verify → unit → Playwright smoke.

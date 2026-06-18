@@ -22,6 +22,18 @@ Output:
 - Trading/market health and BCC market payload.
 - Pulse metrics status.
 - Grove tick status and brief preview.
+- **Treasury balances** (`/api/investors/treasury-balances`) — labeled Base + XRPL wallets.
+- **XRPL testnet intake** (`/api/investors/xrpl-intake`) — demo rail status when configured.
+
+## XRPL testnet proof (optional)
+
+When `XRPL_TREASURY_INTAKE_ADDRESS` is set on testnet:
+
+- `xrplTestnetIntake.intakeAddress` — published intake wallet
+- `xrplTestnetIntake.balanceXrp` — live testnet balance
+- `xrplTestnetIntake.recentPayments` — last inbound demo payments
+
+Not an investment offer. Mainnet requires counsel — see [XRPL_TREASURY_RAIL.md](./XRPL_TREASURY_RAIL.md).
 
 ## What must be filled manually
 

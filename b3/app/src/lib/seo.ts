@@ -344,6 +344,7 @@ export const SITEMAP_PATHS: string[] = [
   "/guide",
   "/elias",
   "/grant-proof",
+  "/ecosystem",
   "/products",
   "/products/culture-id",
   "/products/campaign-hub",

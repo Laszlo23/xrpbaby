@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { ProductPageLayout } from "@/components/products/ProductPageLayout";
 import { AGENT_FLEET } from "@/lib/bcd-agent-fleet";
-import { pillarById } from "@/lib/landing-copy";
+import { productById } from "@/lib/landing-copy";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/products/ai-agents")({
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/products/ai-agents")({
 });
 
 function AiAgentsProductPage() {
-  const pillar = pillarById("ai-agents");
+  const pillar = productById("ai-agents");
   const featured = AGENT_FLEET.slice(0, 6);
 
   return (

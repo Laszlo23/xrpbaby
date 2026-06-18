@@ -3,9 +3,13 @@ import { pageHead } from "@/lib/seo";
 import { MarketingShell } from "@/components/MarketingShell";
 import { DisclaimerBanner } from "@/components/investors/DisclaimerBanner";
 import { ChainlinkComplianceStrip } from "@/components/investors/ChainlinkComplianceStrip";
-import { ProductMap } from "@/components/investors/ProductMap";
+import { InvestorCapitalRails } from "@/components/investors/InvestorCapitalRails";
 import { InvestorLiveTraction } from "@/components/investors/InvestorLiveTraction";
+import { InvestorTreasuryBalances } from "@/components/investors/InvestorTreasuryBalances";
+import { ProductMap } from "@/components/investors/ProductMap";
 import { TreasuryEntityArchitecture } from "@/components/investors/TreasuryEntityArchitecture";
+import { XrplTestnetIntakePanel } from "@/components/investors/XrplTestnetIntakePanel";
+import { TREASURY_REVENUE_RULES } from "@/lib/treasury-revenue-rules";
 
 export const Route = createFileRoute("/investors")({
   head: () =>
@@ -42,7 +46,7 @@ function InvestorsPage() {
           </span>
         </>
       }
-      subtitle="An angel-friendly map of our umbrella brand, product surfaces (app + game), and the Building Culture Coin ($BCC) story inside BUILDCHAIN. Live ops metrics below; scenario sliders and /plan deck are illustrative—see disclaimers."
+      subtitle="Published treasury labels, live Base balances, and a simpler stablecoin-first capital story. Live ops metrics below; scenario sliders on /plan are illustrative—see disclaimers."
       actions={
         <Link
           to="/places"
@@ -67,6 +71,10 @@ function InvestorsPage() {
           . Operators run <code className="text-zinc-200">npm run grant:proof</code> before submissions.
         </section>
         <ChainlinkComplianceStrip />
+
+        <InvestorCapitalRails />
+        <InvestorTreasuryBalances />
+        <XrplTestnetIntakePanel />
 
         <section className="space-y-4">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
@@ -291,15 +299,69 @@ function InvestorsPage() {
             Categories we discuss with investors in private materials — not a public ask size or
             instrument (SAFE vs priced equity vs token) on this site.
           </p>
-          <ul className="list-inside list-disc space-y-2 text-zinc-400 marker:text-zinc-600">
-            <li>Product engineering: marketplace reliability, wallet UX, campaign tooling.</li>
-            <li>Growth: creator partnerships, drops programming, community.</li>
-            <li>Compliance & ops: counsel retainer, fulfillment playbooks, accounting.</li>
-            <li>Infrastructure: RPC, indexing, observability, security reviews.</li>
-          </ul>
+          <div className="overflow-x-auto rounded-2xl border border-white/[0.08]">
+            <table className="w-full min-w-[360px] text-left text-sm">
+              <thead>
+                <tr className="border-b border-white/[0.08] bg-white/[0.03] font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+                  <th className="px-4 py-3 font-medium">Bucket</th>
+                  <th className="px-4 py-3 font-medium">Share (discussion)</th>
+                  <th className="px-4 py-3 font-medium">Notes</th>
+                </tr>
+              </thead>
+              <tbody className="text-zinc-400">
+                <tr className="border-b border-white/[0.06]">
+                  <td className="px-4 py-3 text-zinc-300">Product engineering</td>
+                  <td className="px-4 py-3 font-mono">~40%</td>
+                  <td className="px-4 py-3 text-zinc-500">Marketplace, wallet UX, trust layer, Agent OS</td>
+                </tr>
+                <tr className="border-b border-white/[0.06]">
+                  <td className="px-4 py-3 text-zinc-300">Growth & community</td>
+                  <td className="px-4 py-3 font-mono">~25%</td>
+                  <td className="px-4 py-3 text-zinc-500">Creator partnerships, drops, distribution</td>
+                </tr>
+                <tr className="border-b border-white/[0.06]">
+                  <td className="px-4 py-3 text-zinc-300">Compliance & ops</td>
+                  <td className="px-4 py-3 font-mono">~15%</td>
+                  <td className="px-4 py-3 text-zinc-500">Counsel, fulfillment, accounting</td>
+                </tr>
+                <tr className="border-b border-white/[0.06]">
+                  <td className="px-4 py-3 text-zinc-300">Infrastructure</td>
+                  <td className="px-4 py-3 font-mono">~10%</td>
+                  <td className="px-4 py-3 text-zinc-500">RPC, indexing, observability, security reviews</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-zinc-300">Reserve / runway buffer</td>
+                  <td className="px-4 py-3 font-mono">~10%</td>
+                  <td className="px-4 py-3 text-zinc-500">Treasury Safe reserves on Base</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+              On-chain fee routing (when fees flow)
+            </p>
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+              {TREASURY_REVENUE_RULES.map((b) => (
+                <li key={b.id} className="text-sm text-zinc-400">
+                  <span className="font-mono text-zinc-300">{b.percent}%</span> {b.label}
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
-        <TreasuryEntityArchitecture />
+        <section id="treasury-architecture-appendix" className="scroll-mt-24 space-y-4">
+          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+            Appendix — institutional wrappers (when scale requires)
+          </h2>
+          <p className="text-sm text-zinc-500">
+            Default angel and partner flow uses stablecoin rails on Base (and XRPL testnet demos).
+            The entity stack below is for large checks and counsel-approved structures — not the
+            everyday path.
+          </p>
+          <TreasuryEntityArchitecture embedded />
+        </section>
 
         <section className="space-y-4">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
@@ -330,12 +392,21 @@ function InvestorsPage() {
           <ul className="flex flex-col gap-3 text-zinc-400">
             <li>
               <a
-                href="#treasury-architecture"
+                href="#capital-rails"
                 className="font-medium text-zinc-200 underline-offset-4 hover:text-white"
               >
-                Treasury & entity architecture
+                Capital rails & live balances
               </a>{" "}
-              — Delaware gateway, Swiss layer, DAO signals, SPV isolation (discussion only).
+              — Base treasury + XRPL testnet demo.
+            </li>
+            <li>
+              <a
+                href="#treasury-architecture-appendix"
+                className="font-medium text-zinc-200 underline-offset-4 hover:text-white"
+              >
+                Institutional entity architecture
+              </a>{" "}
+              — Delaware gateway, Swiss layer, SPV isolation (discussion only).
             </li>
             <li>
               <Link

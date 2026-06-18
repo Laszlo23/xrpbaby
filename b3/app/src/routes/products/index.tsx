@@ -11,7 +11,7 @@ export const Route = createFileRoute("/products/")({
     pageHead({
       title: "Products — Building Culture",
       description:
-        "Building Culture ID, Campaign Hub, AI Agents, and Grant Proof — the community OS for portable reputation and verifiable impact.",
+        "Culture ID, Credentials, Reputation, and Opportunities — the trust layer for builders, communities, businesses, and AI agents.",
       path: "/products",
       keywords: [
         "Building Culture",
@@ -36,8 +36,8 @@ function ProductsIndexPage() {
             Our products
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-zinc-400">
-            Four pillars that power community-owned growth — identity, campaigns, AI agents, and
-            grant proof.
+            Four pillars — identity, credentials, reputation, and opportunities. Everything else
+            lives in the ecosystem.
           </p>
         </div>
       </section>
@@ -66,8 +66,7 @@ function ProductsIndexPage() {
 
         <div className="mt-12 text-center">
           <Link
-            to="/"
-            hash="ecosystem"
+            to="/ecosystem"
             className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-400 hover:text-white"
           >
             Explore full ecosystem

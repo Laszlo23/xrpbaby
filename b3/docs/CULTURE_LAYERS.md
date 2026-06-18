@@ -11,7 +11,7 @@ Canonical five-layer model for Building Culture. Layer 1 is the foundation; Laye
 | Layer | Name | Sub-items |
 | ----- | ---- | --------- |
 | 1 | Community | People, Stories, Projects, Places |
-| 2 | Identity | .culture, Culture Score, Badges, Reputation |
+| 2 | Identity | .culture, Credentials, Culture Reputation, Linked wallets |
 | 3 | Agents | Research Agent, Marketing Agent, Grant Agent, Builder Agent |
 | 4 | Economy | Marketplace, Services, Creator Economy |
 | 5 | Capital | BCC Token, Treasury, Agent Shares |
@@ -25,9 +25,9 @@ Canonical five-layer model for Building Culture. Layer 1 is the foundation; Laye
 | Community | Projects | `/studio` | Live |
 | Community | Places | `/places` | Live |
 | Identity | .culture | `/pass` | Live |
-| Identity | Culture Score | `/id/laszlo.culture` | Live (showcase profile) |
-| Identity | Badges | `/forest` | Live |
-| Identity | Reputation | `#culture-identity-graph` | Live (landing graph) |
+| Identity | Credentials | `/credentials` | Live |
+| Identity | Culture Reputation | `/id/laszlo.culture/reputation` | Live |
+| Identity | Linked wallets | `/pass` | Live (EVM + XRPL Phase 1) |
 | Agents | Research Agent | `/agent-os` | Live (x402) |
 | Agents | Marketing Agent | `/agent-os` | Beta (Grove) |
 | Agents | Grant Agent | `/grant-proof` | Beta |

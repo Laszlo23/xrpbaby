@@ -3,6 +3,10 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import {
+  focusedFooterCapitalColumn,
+  focusedFooterCommunityColumn,
+  focusedFooterEcosystemColumn,
+  focusedFooterProductColumn,
   footerCommunityLinks,
   footerCompanyLinks,
   footerContactMailto,
@@ -12,14 +16,16 @@ import {
   footerProductLinks,
   footerSocialLinks,
   footerStoryHashLinks,
+  landingFooterLegalColumn,
   type ExternalFooterLink,
+  type FooterHrefLink,
   type InternalFooterLink,
 } from "@/lib/footer-links";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { LANDING_MEDIA } from "@/lib/landing-media";
 import { getEcoHubLandingUrl } from "@/lib/hub-landing";
 
-type FooterVariant = "story" | "product";
+type FooterVariant = "story" | "product" | "focused";
 
 function FooterColumnTitle({ label, variant }: { label: string; variant: FooterVariant }) {
   const accent =
@@ -118,16 +124,48 @@ function renderInternalLink(item: InternalFooterLink, variant: FooterVariant) {
   );
 }
 
+function FocusedFooterLink({ link, variant }: { link: FooterHrefLink; variant: FooterVariant }) {
+  const external = link.href.startsWith("http") || link.href.startsWith("mailto:");
+  const hoverIcon = variant === "story" ? "group-hover:text-[#00E5FF]" : "group-hover:text-neon";
+  const className =
+    "group flex items-start gap-3 rounded-lg px-2 py-2 -mx-2 text-sm text-zinc-400 transition-colors hover:bg-white/[0.05] hover:text-zinc-100";
+
+  if (external) {
+    return (
+      <a href={link.href} target="_blank" rel="noreferrer noopener" className={className}>
+        <link.icon
+          className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`}
+          strokeWidth={1.75}
+          aria-hidden
+        />
+        <span>{link.label}</span>
+      </a>
+    );
+  }
+
+  return (
+    <Link to={link.href} className={className}>
+      <link.icon
+        className={`mt-0.5 h-4 w-4 shrink-0 text-zinc-600 transition-colors ${hoverIcon}`}
+        strokeWidth={1.75}
+        aria-hidden
+      />
+      <span>{link.label}</span>
+    </Link>
+  );
+}
+
 type AppFooterProps = {
   variant?: FooterVariant;
   /** When true, add safe-area padding for bottom nav */
   withBottomNav?: boolean;
 };
 
-export function AppFooter({ variant = "product", withBottomNav = false }: AppFooterProps) {
+export function AppFooter({ variant = "focused", withBottomNav = false }: AppFooterProps) {
   const year = new Date().getFullYear();
   const ecoHubUrl = getEcoHubLandingUrl();
   const isStory = variant === "story";
+  const isFocused = variant === "focused";
 
   const shellClass = isStory
     ? "relative border-t border-white/5 bg-[#050505] py-16"
@@ -174,7 +212,64 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
           </div>
         ) : null}
 
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
+        <div
+          className={`grid gap-10 ${isFocused ? "sm:grid-cols-2 lg:grid-cols-4 lg:gap-8" : "sm:grid-cols-2 lg:grid-cols-5 lg:gap-8"}`}
+        >
+          {isFocused ? (
+            <>
+              <div>
+                <FooterColumnTitle label="Product" variant={variant} />
+                <ul className="space-y-1">
+                  {focusedFooterProductColumn.map((item) => (
+                    <li key={item.label}>
+                      <FocusedFooterLink link={item} variant={variant} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <FooterColumnTitle label="Community" variant={variant} />
+                <ul className="space-y-1">
+                  {focusedFooterCommunityColumn.map((item) => (
+                    <li key={item.label}>
+                      <FocusedFooterLink link={item} variant={variant} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <FooterColumnTitle label="Ecosystem" variant={variant} />
+                <ul className="space-y-1">
+                  {focusedFooterEcosystemColumn.map((item) => (
+                    <li key={item.label}>
+                      <FocusedFooterLink link={item} variant={variant} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <FooterColumnTitle label="Capital" variant={variant} />
+                <ul className="space-y-1">
+                  {focusedFooterCapitalColumn.map((item) => (
+                    <li key={item.label}>
+                      <FocusedFooterLink link={item} variant={variant} />
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6">
+                  <FooterColumnTitle label="Legal" variant={variant} />
+                  <ul className="space-y-1">
+                    {landingFooterLegalColumn.map((item) => (
+                      <li key={item.label}>
+                        <FocusedFooterLink link={item} variant={variant} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
           <div>
             <FooterColumnTitle label="Product" variant={variant} />
             <ul className="space-y-1">
@@ -285,6 +380,8 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
               </ul>
             </div>
           </div>
+            </>
+          )}
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/[0.08] pt-8 md:flex-row md:items-center md:justify-between">
@@ -302,5 +399,5 @@ export function AppFooter({ variant = "product", withBottomNav = false }: AppFoo
 
 /** @deprecated Use AppFooter */
 export function SiteFooter() {
-  return <AppFooter variant="product" withBottomNav />;
+  return <AppFooter variant="focused" withBottomNav />;
 }

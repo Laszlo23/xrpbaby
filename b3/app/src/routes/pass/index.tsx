@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { DomainCard3D } from "@/components/identity/DomainCard3D";
 import { CulturePassBccClaimPanel } from "@/components/bcc/CulturePassBccClaimPanel";
+import { PassTrustSettingsWithHint } from "@/components/credentials/CredentialsXrplLinkSection";
 import { IdentityParticles } from "@/components/identity/Particles";
 import { SearchMint } from "@/components/identity/SearchMint";
 import { NetworkSelector } from "@/components/wallet/NetworkSelector";
@@ -117,6 +118,14 @@ function PassMintDashboard() {
       </div>
 
       <CulturePassBccClaimPanel />
+
+      <div className="mt-12">
+        <p className="mono-label mb-4">TRUST LAYER</p>
+        <PassTrustSettingsWithHint />
+        <p className="mt-3 text-xs text-zinc-600">
+          Optional XRPL wallet linking under Culture ID — Building Culture is not an XRP project.
+        </p>
+      </div>
     </div>
   );
 }

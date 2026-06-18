@@ -2,6 +2,8 @@
  * Building Culture Agent OS — public agent catalog (from agentos/building_culture_seed.json + XML).
  */
 
+import { x402LimxPrice } from "@/lib/limx-agent-config";
+
 export type AgentOsStatus = "live" | "beta" | "coming_soon";
 
 export type AgentOsAgent = {
@@ -52,6 +54,18 @@ export function x402ResearchPrice(): string {
 
 /** Layer 3 agents — primary public catalog. */
 export const AGENT_OS_CATALOG: AgentOsAgent[] = [
+  {
+    id: "limx_revenue_agent",
+    name: "Limx Revenue Agent",
+    purpose: "Grants, partnerships, sponsors, and growth opportunities",
+    mainJob:
+      "Find grant programs, strategic partners, sponsors, and revenue pathways for Building Culture.",
+    approvalNeeded: false,
+    status: "live",
+    priceLabel: x402LimxPrice() + " / brief (USDC → Limx wallet)",
+    ctaRoute: "/agent-os#limx-agent",
+    ctaLabel: "Request opportunity brief",
+  },
   {
     id: "research_agent",
     name: "Research Agent",

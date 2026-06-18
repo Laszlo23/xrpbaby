@@ -2,11 +2,14 @@ import { motion } from "@/components/landing/motion";
 import { ArrowUpRight, Send, type LucideIcon } from "lucide-react";
 
 import {
-  landingFooterCompanyColumn,
+  landingFooterCapitalColumn,
+  landingFooterCommunityColumn,
   landingFooterEcosystemColumn,
-  landingFooterLayersColumn,
+  landingFooterLegalColumn,
+  landingFooterProductColumn,
   type FooterHrefLink,
 } from "@/lib/footer-links";
+import { LANDING_NORTH_STAR } from "@/lib/landing-copy";
 import { LANDING_MEDIA, LANDING_SOCIAL } from "@/lib/landing-media";
 
 function DiscordIcon({ size = 16, className }: { size?: number; className?: string }) {
@@ -85,7 +88,7 @@ export function LandingFooter() {
     <footer className="relative border-t border-white/5 bg-[#050505] py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
-          <motion.div className="md:col-span-5">
+          <motion.div className="md:col-span-4">
             <div className="flex items-center gap-2.5">
               <img
                 src={LANDING_MEDIA.logo}
@@ -99,8 +102,7 @@ export function LandingFooter() {
               </span>
             </div>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-zinc-400">
-              A new way to fund, build, own and experience real-world communities. Not through
-              banks. Through people.
+              {LANDING_NORTH_STAR}
             </p>
             <div className="mt-6 flex items-center gap-3">
               {SOCIAL_LINKS.map(({ Icon, label, href, title }) => (
@@ -119,10 +121,11 @@ export function LandingFooter() {
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 md:col-span-8">
+            <FooterCol title="Product" links={landingFooterProductColumn} />
+            <FooterCol title="Community" links={landingFooterCommunityColumn} />
             <FooterCol title="Ecosystem" links={landingFooterEcosystemColumn} />
-            <FooterCol title="Layers" links={landingFooterLayersColumn} />
-            <FooterCol title="Company" links={landingFooterCompanyColumn} />
+            <FooterCol title="Capital" links={landingFooterCapitalColumn} />
           </div>
         </div>
 
@@ -135,6 +138,17 @@ export function LandingFooter() {
           <p className="font-mono text-xs text-zinc-500">
             © {new Date().getFullYear()} BUILDING CULTURE — BUILT BY PEOPLE.
           </p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {landingFooterLegalColumn.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs text-zinc-500 transition-colors hover:text-zinc-300"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
           <p className="text-xs text-zinc-500">Vienna · Austria · Worldwide</p>
         </motion.div>
       </div>

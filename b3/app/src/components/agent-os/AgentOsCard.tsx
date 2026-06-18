@@ -48,6 +48,10 @@ export function AgentOsCard({ agent }: { agent: AgentOsAgent }) {
           <a href="#research-agent" className="inline-flex text-sm font-semibold text-emerald-300 hover:text-white">
             Try below →
           </a>
+        ) : agent.id === "limx_revenue_agent" ? (
+          <a href="#limx-agent" className="inline-flex text-sm font-semibold text-violet-300 hover:text-white">
+            Try below →
+          </a>
         ) : null}
       </div>
     </article>
@@ -56,10 +60,12 @@ export function AgentOsCard({ agent }: { agent: AgentOsAgent }) {
 
 export function AgentOsStatsStrip({
   researchPrice,
+  limxPrice,
   bccCirculatingWei,
   activityLast24h,
 }: {
   researchPrice: string;
+  limxPrice?: string;
   bccCirculatingWei: string | null;
   activityLast24h: number | null;
 }) {
@@ -68,16 +74,19 @@ export function AgentOsStatsStrip({
       ? `${(Number(bccCirculatingWei) / 1e18).toLocaleString(undefined, { maximumFractionDigits: 0 })} BCC est. circulating`
       : "BCC metrics loading…";
 
+  const items = [
+    { label: "Research query", value: researchPrice + " USDC" },
+    ...(limxPrice ? [{ label: "Limx brief", value: limxPrice + " USDC" }] : []),
+    { label: "Ecosystem", value: circulating },
+    {
+      label: "Agent activity (24h)",
+      value: activityLast24h != null ? String(activityLast24h) : "—",
+    },
+  ];
+
   return (
-    <div className="grid gap-3 sm:grid-cols-3">
-      {[
-        { label: "Research query", value: researchPrice + " USDC" },
-        { label: "Ecosystem", value: circulating },
-        {
-          label: "Agent activity (24h)",
-          value: activityLast24h != null ? String(activityLast24h) : "—",
-        },
-      ].map((item) => (
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {items.map((item) => (
         <div
           key={item.label}
           className="rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3"

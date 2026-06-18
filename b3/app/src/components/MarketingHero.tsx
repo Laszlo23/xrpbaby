@@ -30,6 +30,11 @@ const TONE_RING: Record<
     orb: "bg-[radial-gradient(circle_at_50%_0%,rgb(113_113_122/0.12),transparent_45%)]",
     eyebrow: "text-zinc-500",
   },
+  lime: {
+    wash: "from-[rgb(20_40_8/0.5)] via-black/78 to-black",
+    orb: "bg-[radial-gradient(circle_at_35%_25%,rgb(197_255_65/0.2),transparent_52%)]",
+    eyebrow: "text-[#C5FF41]/80",
+  },
 };
 
 export type MarketingHeroProps = {
@@ -37,7 +42,7 @@ export type MarketingHeroProps = {
   title: ReactNode;
   subtitle?: string;
   actions?: ReactNode;
-  tone?: "purple" | "amber" | "rose" | "cyan" | "slate";
+  tone?: "purple" | "amber" | "rose" | "cyan" | "slate" | "lime";
   size?: "hero" | "compact";
 };
 

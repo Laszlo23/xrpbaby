@@ -50,7 +50,7 @@ const sampleGraph: CultureIdentityGraph = {
 };
 
 describe("computeCultureScore", () => {
-  it("returns score between 0 and 10 with nine dimensions", () => {
+  it("returns score between 0 and 10 with eight reputation dimensions", () => {
     const result = computeCultureScore({
       resolved: {
         ok: true,
@@ -66,6 +66,8 @@ describe("computeCultureScore", () => {
       graph: sampleGraph,
       nftCount: 5,
       txCount: 10,
+      credentialCount: 2,
+      humanVerified: true,
       member: {
         farcasterUsername: "0xlaszlo",
         supportScore: 1200,
@@ -78,7 +80,7 @@ describe("computeCultureScore", () => {
     });
 
     assert.ok(result.score >= 0 && result.score <= 10);
-    assert.equal(result.dimensions.length, 9);
+    assert.equal(result.dimensions.length, 8);
     assert.ok(result.note.length > 0);
     assert.ok(result.rank.label.length > 0);
   });

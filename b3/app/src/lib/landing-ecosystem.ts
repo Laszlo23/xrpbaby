@@ -1,5 +1,5 @@
 import { identityMintPriceShort } from "@/lib/identity/mint-price";
-import type { PillarProductId } from "@/lib/landing-copy";
+import { PILLAR_PRODUCTS as LANDING_PILLARS, type PillarProductId } from "@/lib/landing-copy";
 
 export type EcosystemStatus = "live" | "beta" | "coming-soon";
 
@@ -26,100 +26,152 @@ export type LandingEcosystemApp = {
   externalUrl?: string;
 };
 
-/** Four pillar products — community OS positioning. */
-export const PILLAR_PRODUCTS: PillarProduct[] = [
+/** Four pillar products — trust layer positioning (synced from landing-copy). */
+export const PILLAR_PRODUCTS: PillarProduct[] = LANDING_PILLARS.map((p) => ({
+  id: p.id,
+  name: p.name,
+  tagline: p.tagline,
+  features: p.features,
+  href: p.productPageHref,
+  primaryCta: p.primaryCta,
+  status: p.status,
+}));
+
+export type EcosystemCategoryId =
+  | "places-living"
+  | "art-culture"
+  | "ai-apps"
+  | "games-play"
+  | "impact"
+  | "capital";
+
+export type EcosystemCategory = {
+  id: EcosystemCategoryId;
+  label: string;
+  description: string;
+  appIds: string[];
+};
+
+/** Agent OS and BCC entries for ecosystem directory (not core pillars). */
+export const ECOSYSTEM_CORE_APPS: LandingEcosystemApp[] = [
   {
-    id: "culture-id",
-    name: "Building Culture ID",
-    tagline: "Your portable Web3 reputation.",
-    features: [
-      "Proof of contribution",
-      "Grant history",
-      "Community participation",
-      "Verifiable achievements",
-      "Soulbound credentials",
-    ],
-    href: "/products/culture-id",
-    primaryCta: "Claim your .culture name",
-    status: "live",
-  },
-  {
-    id: "campaign-hub",
-    name: "Campaign Hub",
-    tagline: "Create and support community campaigns.",
-    features: [
-      "Social impact",
-      "Grants",
-      "Fundraising",
-      "Local initiatives",
-      "Environmental projects",
-    ],
-    href: "/products/campaign-hub",
-    primaryCta: "Browse campaigns",
-    status: "live",
-  },
-  {
-    id: "ai-agents",
+    id: "bc-agent-os",
     name: "Agent OS",
-    tagline: "Community-powered AI workforce.",
-    features: [
-      "Grant Agent",
-      "Community Agent",
-      "Marketing Agent",
-      "Partnership Agent",
-      "Research & Content Agents",
-    ],
-    href: "/products/ai-agents",
-    primaryCta: "Meet the fleet",
+    description: "Trusted AI agents with budgets — research, grants, and revenue workflows.",
+    tag: "AI Layer",
     status: "live",
+    layer: "ai",
+    href: "/agent-os",
   },
   {
-    id: "bcc",
-    name: "BCC",
-    tagline: "The economic layer underneath everything.",
-    features: [
-      "Staking & rewards",
-      "Grant funding",
-      "Agent shares",
-      "Treasury transparency",
-      "Community-owned capital",
-    ],
-    href: "/bcc/dashboard",
-    primaryCta: "Explore BCC",
+    id: "bc-bcc",
+    name: "BCC Economy",
+    description: "Chain-agnostic value layer — Culture Points, marketplace, and treasury.",
+    tag: "Capital",
     status: "live",
+    layer: "capital",
+    href: "/bcc/dashboard",
+  },
+  {
+    id: "bc-marketplace",
+    name: "Marketplace",
+    description: "Buy, sell, and settle with BCC across the culture economy.",
+    tag: "Capital",
+    status: "live",
+    layer: "capital",
+    href: "/marketplace",
+  },
+  {
+    id: "bc-play",
+    name: "Campaign Hub",
+    description: "Fair drops, grants, and community campaigns — your opportunities lane.",
+    tag: "Opportunities",
+    status: "live",
+    layer: "access",
+    href: "/play",
   },
 ];
 
-/** Primary trio for first-time visitors — pillars minus grant proof. */
-export const PRIMARY_STARTER_APPS: LandingEcosystemApp[] = [
+export const ECOSYSTEM_CATEGORIES: EcosystemCategory[] = [
   {
-    id: "bc-app",
-    name: "Campaign Hub",
-    description:
-      "Fair drops and raffle tickets for social impact, grants, and culture — the main member loop.",
-    tag: "Start here",
-    status: "live",
-    layer: "core",
-    href: "/play",
+    id: "places-living",
+    label: "Places & Living",
+    description: "Real-world impact — homes, spaces, and living opportunities.",
+    appIds: ["bc-places", "bc-home", "wohnai", "ankommen"],
   },
   {
+    id: "art-culture",
+    label: "Art & Culture",
+    description: "Art drops, cultural archives, and creator experiences.",
+    appIds: ["bc-art", "culture-atlas"],
+  },
+  {
+    id: "ai-apps",
+    label: "AI Apps",
+    description: "AI agents, copilots, and autonomous workflows.",
+    appIds: ["bc-agent-os", "bcdai", "wohnai"],
+  },
+  {
+    id: "games-play",
+    label: "Games & Play",
+    description: "Gamified engagement and campaign participation.",
+    appIds: ["bc-game", "bc-play", "bc-miniapp"],
+  },
+  {
+    id: "impact",
+    label: "Impact",
+    description: "Social impact tools and verifiable proof.",
+    appIds: ["forkids", "ankommen", "bc-grant-proof"],
+  },
+  {
+    id: "capital",
+    label: "Capital",
+    description: "Economy, marketplace, and treasury rails.",
+    appIds: ["bc-bcc", "bc-marketplace"],
+  },
+];
+
+export function ecosystemAppsByCategory(categoryId: EcosystemCategoryId): LandingEcosystemApp[] {
+  const category = ECOSYSTEM_CATEGORIES.find((c) => c.id === categoryId);
+  if (!category) return [];
+  const allApps = [...ECOSYSTEM_SATELLITES, ...ECOSYSTEM_CORE_APPS];
+  const byId = new Map(allApps.map((a) => [a.id, a]));
+  return category.appIds.flatMap((id) => {
+    const app = byId.get(id);
+    return app ? [app] : [];
+  });
+}
+
+/** Primary trio for first-time visitors — trust loop entry. */
+export const PRIMARY_STARTER_APPS: LandingEcosystemApp[] = [
+  {
     id: "bc-id",
-    name: "Building Culture ID",
-    description: `Claim your .culture name on Base — ${identityMintPriceShort}. Portable reputation across the ecosystem.`,
-    tag: "Identity",
+    name: "Culture ID",
+    description: `Claim your .culture name on Base — ${identityMintPriceShort}. Your anchor across the trust layer.`,
+    tag: "Start here",
     status: "live",
     layer: "identity",
     href: "/pass",
   },
   {
-    id: "bc-agents",
-    name: "AI Agents",
+    id: "bc-credentials",
+    name: "Credential Center",
     description:
-      "Community-powered AI workforce — grant, marketing, research, and coordination agents.",
-    tag: "Agents",
+      "Earn verifiable credentials for contributions, leadership, human verification, and agent trust.",
+    tag: "Credentials",
     status: "live",
-    layer: "ai",
-    href: "/agent-fleet",
+    layer: "identity",
+    href: "/credentials",
+  },
+  {
+    id: "bc-campaign",
+    name: "Campaign Hub",
+    description:
+      "Participate in fair drops, grants, and community campaigns — your opportunities lane into the ecosystem.",
+    tag: "Opportunities",
+    status: "live",
+    layer: "opportunities",
+    href: "/play",
   },
 ];
 

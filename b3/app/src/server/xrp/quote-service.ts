@@ -1,3 +1,5 @@
+import { isXrplExecutionAllowed, xrpExecutionEnabledFlag } from "@/lib/xrpl-env";
+
 export type XrpQuoteMode = "learn" | "live";
 
 export type XrpQuoteInput = {
@@ -34,7 +36,7 @@ export function xrpQuoteEnabled(): boolean {
 }
 
 export function xrpExecutionEnabled(): boolean {
-  return (process.env.XRPL_EXECUTION_ENABLED ?? "0").trim() === "1";
+  return xrpExecutionEnabledFlag() && isXrplExecutionAllowed();
 }
 
 export function buildXrpQuote(input: XrpQuoteInput): XrpQuoteResult {

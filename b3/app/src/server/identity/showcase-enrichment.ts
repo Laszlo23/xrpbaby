@@ -22,7 +22,9 @@ import {
   mergeIdentityGraphs,
 } from "@/server/identity/web3bio";
 import { getPrisma } from "@/server/db/prisma";
+import { buildMemberProfileBridge } from "@/server/identity/member-score-bridge";
 import { fetchBsAddressTransactions } from "@/server/explorer/blockscout";
+import { upsertCultureIdentityFromResolved } from "@/server/credentials/identity";
 
 export type { ActivityCategory } from "@/lib/profile/founder-showcase";
 
@@ -314,12 +316,15 @@ async function fetchMemberBridge(owner: string): Promise<MemberProfileBridge | n
     const culturePoints =
       member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
 
-    return {
+    return buildMemberProfileBridge(prisma, {
+      memberId: member.id,
+      walletId: member.walletId,
+      walletAddress: owner.toLowerCase(),
       farcasterUsername: member.farcasterUsername,
       supportScore: member.supportScore,
       culturePoints,
       supporterTier: member.supporterTier,
-    };
+    });
   } catch {
     return null;
   }
@@ -400,12 +405,31 @@ export async function getCultureIdentityEnrichment(
   const activity = mergeActivity(founderConfig, neynarItems);
   const wallet = await fetchWalletNfts(owner, resolved, displayHandle);
 
+  await upsertCultureIdentityFromResolved(resolved, null);
+
+  const prisma = getPrisma();
+  let credentialCount = 0;
+  if (prisma) {
+    const identity = await prisma.cultureIdentity.findUnique({
+      where: { handle: resolved.fullName.toLowerCase() },
+      include: { userCredentials: { where: { status: "active" } } },
+    });
+    credentialCount = identity?.userCredentials.length ?? 0;
+  }
+
+  const humanVerified = (credentials?.isHuman.length ?? 0) > 0;
+  const isRisky =
+    (credentials?.isRisky.length ?? 0) > 0 || (credentials?.isSpam.length ?? 0) > 0;
+
   const cultureScore = computeCultureScore({
     resolved,
     graph: web3bio,
     nftCount: wallet.nftCount,
     txCount,
     member,
+    credentialCount,
+    humanVerified,
+    isRisky,
   });
 
   return {

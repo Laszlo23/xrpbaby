@@ -1,52 +1,58 @@
 import { expect, test } from "./fixtures/skip-onboarding";
 import {
   footerEcosystemLinks,
+  landingFooterCapitalColumn,
+  landingFooterCommunityColumn,
   landingFooterEcosystemColumn,
-  landingFooterLayersColumn,
+  landingFooterProductColumn,
 } from "../src/lib/footer-links";
 
-/** External ecosystem URLs that must appear in story landing footer. */
-const LANDING_EXTERNAL_HREFS = [
-  ...landingFooterEcosystemColumn,
-  ...landingFooterLayersColumn,
-]
-  .map((l) => l.href)
-  .filter((h) => h.startsWith("http"));
-
-/** Canonical external URLs from global footer registry. */
+/** Canonical external URLs from global footer registry (full directory). */
 const REGISTRY_EXTERNAL_HREFS = footerEcosystemLinks
   .map((l) => l.href)
   .filter((h) => h.startsWith("http"));
 
+const LANDING_FOCUSED_LINKS = [
+  ...landingFooterProductColumn,
+  ...landingFooterCommunityColumn,
+  ...landingFooterEcosystemColumn,
+  ...landingFooterCapitalColumn,
+];
+
 test.describe("footer ecosystem links", () => {
-  test("story landing footer exposes canonical external hrefs", async ({ page }) => {
+  test("landing footer exposes focused product and ecosystem links", async ({ page }) => {
     await page.goto("/");
     const footer = page.locator("footer").last();
     await expect(footer).toBeVisible();
 
-    for (const href of LANDING_EXTERNAL_HREFS) {
-      await expect(footer.locator(`a[href="${href}"]`).first()).toBeVisible();
+    for (const link of LANDING_FOCUSED_LINKS) {
+      if (link.href.startsWith("http")) continue;
+      await expect(footer.locator(`a[href="${link.href}"]`).first()).toBeVisible();
     }
 
-    await expect(footer.locator('a[href="https://home.buildingcultureid.space"]').first()).toBeVisible();
-    await expect(footer.locator('a[href="https://app.buildingcultureid.space"]').first()).toBeVisible();
+    await expect(footer.getByText("Product")).toBeVisible();
+    await expect(footer.getByText("Ecosystem Hub", { exact: true })).toBeVisible();
+    await expect(footer.getByText("Culture ID", { exact: true })).toBeVisible();
   });
 
-  test("landing Home links to home hub not app alias", async ({ page }) => {
-    await page.goto("/");
-    const homeLink = page.locator('footer a[href="https://home.buildingcultureid.space"]').first();
-    await expect(homeLink).toBeVisible();
-    await expect(homeLink).toContainText(/Home/i);
+  test("ecosystem page exposes satellite external hrefs", async ({ page }) => {
+    await page.goto("/ecosystem");
+    await expect(page.getByRole("heading", { name: /Building Culture ecosystem/i })).toBeVisible();
+
+    for (const href of REGISTRY_EXTERNAL_HREFS) {
+      await expect(page.locator(`a[href="${href}"]`).first()).toBeVisible();
+    }
   });
 
-  test("product AppFooter registry hrefs match on /play", async ({ page }) => {
+  test("focused AppFooter on /play shows core pillars", async ({ page }) => {
     await page.goto("/play");
     const footer = page.getByRole("contentinfo");
     await expect(footer).toBeVisible();
 
-    for (const href of REGISTRY_EXTERNAL_HREFS) {
-      await expect(footer.locator(`a[href="${href}"]`).first()).toBeVisible();
-    }
+    await expect(footer.getByText("Culture ID", { exact: true })).toBeVisible();
+    await expect(footer.getByText("Credentials", { exact: true })).toBeVisible();
+    await expect(footer.getByText("Ecosystem Hub", { exact: true })).toBeVisible();
+    await expect(footer.getByText("BCC", { exact: true })).toBeVisible();
   });
 
   test("external ecosystem URLs respond on production when checked", async ({ request }) => {

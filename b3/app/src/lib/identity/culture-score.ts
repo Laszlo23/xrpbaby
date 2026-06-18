@@ -19,6 +19,12 @@ export type CultureScoreInput = {
   nftCount?: number;
   txCount?: number;
   member?: MemberProfileBridge | null;
+  /** Active BC-issued credentials count (weighted by tier in reputation formula). */
+  credentialCount?: number;
+  /** Web3.bio isHuman or Verified Human credential. */
+  humanVerified?: boolean;
+  /** Web3.bio isSpam / isRisky flags reduce leaderboard eligibility. */
+  isRisky?: boolean;
 };
 
 const SOCIAL_PLATFORMS = new Set(["farcaster", "lens", "twitter"]);
@@ -55,7 +61,16 @@ function rankLabel(score: number): CultureScoreRank {
 }
 
 export function computeCultureScore(input: CultureScoreInput): ComputedCultureScore {
-  const { resolved, graph, nftCount = 0, txCount = 0, member } = input;
+  const {
+    resolved,
+    graph,
+    nftCount = 0,
+    txCount = 0,
+    member,
+    credentialCount = 0,
+    humanVerified = false,
+    isRisky = false,
+  } = input;
 
   const socialFollowers = maxSocialFollowers(graph);
   const platformCount = graph ? Object.keys(graph.platformCounts).length : 0;
@@ -68,48 +83,53 @@ export function computeCultureScore(input: CultureScoreInput): ComputedCultureSc
   const buildCount = member?.buildCount ?? 0;
   const agentUseCount = member?.agentUseCount ?? 0;
 
-  const socialReachPct = clampPercent((Math.log10(socialFollowers + 1) / 5) * 100);
-  const verifiedLinksPct = clampPercent((verifiedLinks / 8) * 100);
-  const identityDepthPct = clampPercent((platformCount / 6) * 100);
+  const credentialsPct = clampPercent((Math.min(credentialCount, 6) / 6) * 100);
+  const contributionsPct = clampPercent(
+    (Math.min(culturePoints, 500) / 500) * 50 +
+      (Math.min(completedQuestCount, 12) / 12) * 30 +
+      (Math.min(buildCount, 5) / 5) * 20,
+  );
+  const socialTrustPct = clampPercent(
+    (Math.log10(socialFollowers + 1) / 5) * 70 + (verifiedLinks / 8) * 30,
+  );
+  const identityDepthPct = clampPercent((platformCount / 6) * 60 + Math.min(ageDays / 365, 1) * 40);
   const onchainPct = clampPercent(
     (Math.min(nftCount, 12) / 12) * 60 + (Math.min(txCount, 50) / 50) * 40,
   );
-  const cultureLayerPct = clampPercent(
-    (resolved.isFounding ? 40 : 0) +
-      (resolved.tokenId === "1" ? 30 : 0) +
-      Math.min(ageDays / 365, 1) * 30,
-  );
   const ecosystemPct = clampPercent(
-    (Math.min(culturePoints, 500) / 500) * 40 +
-      (Math.min(supportScore, 2000) / 2000) * 40 +
-      (Math.min(agentUseCount, 10) / 10) * 20,
+    (Math.min(supportScore, 2000) / 2000) * 40 +
+      (Math.min(agentUseCount, 10) / 10) * 30 +
+      (Math.min(culturePoints, 500) / 500) * 30,
   );
-  const questsPct = clampPercent((Math.min(completedQuestCount, 12) / 12) * 100);
-  const referralsPct = clampPercent((Math.min(referralCount, 5) / 5) * 100);
-  const buildsPct = clampPercent((Math.min(buildCount, 5) / 5) * 100);
+  const leadershipPct = clampPercent(
+    (Math.min(referralCount, 5) / 5) * 60 + (Math.min(buildCount, 5) / 5) * 40,
+  );
+  const humanPct = humanVerified ? 100 : clampPercent((verifiedLinks / 8) * 40);
 
   const dimensions: CultureScoreDimension[] = [
-    { id: "social-reach", label: "Social reach", percent: socialReachPct },
-    { id: "verified-links", label: "Verified links", percent: verifiedLinksPct },
+    { id: "credentials", label: "Credentials", percent: credentialsPct },
+    { id: "contributions", label: "Contributions", percent: contributionsPct },
+    { id: "social-trust", label: "Social trust", percent: socialTrustPct },
     { id: "identity-depth", label: "Identity depth", percent: identityDepthPct },
     { id: "onchain", label: "Onchain presence", percent: onchainPct },
-    { id: "culture-layer", label: "Culture Layer", percent: cultureLayerPct },
     { id: "ecosystem", label: "Ecosystem participation", percent: ecosystemPct },
-    { id: "quests", label: "Quests completed", percent: questsPct },
-    { id: "referrals", label: "Referrals", percent: referralsPct },
-    { id: "builds", label: "Builds shipped", percent: buildsPct },
+    { id: "leadership", label: "Referrals & leadership", percent: leadershipPct },
+    { id: "human", label: "Human verification", percent: humanPct },
   ];
 
-  const weighted =
-    socialReachPct * 0.16 +
-    verifiedLinksPct * 0.08 +
-    identityDepthPct * 0.12 +
-    onchainPct * 0.12 +
-    cultureLayerPct * 0.1 +
+  let weighted =
+    credentialsPct * 0.2 +
+    contributionsPct * 0.18 +
+    socialTrustPct * 0.12 +
+    identityDepthPct * 0.1 +
+    onchainPct * 0.1 +
     ecosystemPct * 0.12 +
-    questsPct * 0.12 +
-    referralsPct * 0.09 +
-    buildsPct * 0.09;
+    leadershipPct * 0.08 +
+    humanPct * 0.1;
+
+  if (isRisky) {
+    weighted *= 0.85;
+  }
 
   const score = Math.round((weighted / 10) * 1000) / 1000;
 
@@ -123,6 +143,9 @@ export function computeCultureScore(input: CultureScoreInput): ComputedCultureSc
   if (completedQuestCount > 0) {
     noteParts.push(`${completedQuestCount} quests`);
   }
+  if (credentialCount > 0) {
+    noteParts.push(`${credentialCount} credentials`);
+  }
   const note = noteParts.length > 0 ? noteParts.join(" · ") : "from wallet + contributions";
 
   return {
@@ -132,6 +155,9 @@ export function computeCultureScore(input: CultureScoreInput): ComputedCultureSc
     dimensions,
   };
 }
+
+/** Public alias — Culture Reputation uses the same engine as Culture Score. */
+export const computeCultureReputation = computeCultureScore;
 
 /** Wallet-only score when user has no .culture name yet. */
 export function computeWalletCultureScore(member: MemberProfileBridge): ComputedCultureScore {

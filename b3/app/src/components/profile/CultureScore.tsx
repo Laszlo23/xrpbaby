@@ -7,6 +7,7 @@ type CultureScoreProps = {
   rank: CultureScoreRank;
   explanation: string;
   dimensions: CultureScoreDimension[];
+  title?: string;
 };
 
 export function CultureScore({
@@ -15,13 +16,14 @@ export function CultureScore({
   rank,
   explanation,
   dimensions,
+  title = "Culture Reputation",
 }: CultureScoreProps) {
   const rankLabel =
     rank.rank != null ? `Rank #${rank.rank} · ${rank.label}` : rank.label;
 
   return (
     <section className="space-y-5">
-      <SectionHeading title="Culture Score" />
+      <SectionHeading title={title} />
       <GlassCard hover={false} className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

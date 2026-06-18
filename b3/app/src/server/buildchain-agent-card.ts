@@ -3,6 +3,7 @@
  */
 import { getServerPublicOrigin } from "@/lib/app-origin";
 import { x402ResearchPrice } from "@/lib/agent-os-catalog";
+import { LIMX_AGENT_PUBLIC_URL, x402LimxPrice } from "@/lib/limx-agent-config";
 import { buildMarketOffer } from "@/lib/market-offer";
 import {
   buildTradingAgentOffer,
@@ -48,6 +49,7 @@ export function buildBuildchainAgentCard(): BuildchainAgentCard {
       "x402-trading-agent",
       "x402-json-feed",
       "x402-research-agent",
+      "x402-limx-revenue-agent",
       "bcd-fixed-price-sale",
       "thirdweb-marketplace",
       "farcaster-miniapp",
@@ -104,6 +106,15 @@ export function buildBuildchainAgentCard(): BuildchainAgentCard {
         price_env: "X402_RESEARCH_PRICE",
       },
       {
+        id: "limx_revenue_brief_v1",
+        description:
+          "Limx revenue brief — grants, partnerships, sponsors, and growth opportunities for Building Culture. USDC settles to Limx agent wallet on Base.",
+        protocol: "x402",
+        method: "GET",
+        url: `${base}/api/agents/limx?q=Base+grants+and+partnerships+for+AI+community+identity`,
+        price_env: "X402_LIMX_PRICE",
+      },
+      {
         id: "buildchain_market_bcc_solana_v1",
         description: "Solana → BCC buy routes (Jumper, deBridge) + price estimate.",
         protocol: "https",
@@ -136,6 +147,8 @@ export function buildBuildchainAgentCard(): BuildchainAgentCard {
       docs: `${base}/docs`,
       agent_fleet: `${base}/agent-fleet`,
       agent_os: `${base}/agent-os`,
+      limx_wallet: LIMX_AGENT_PUBLIC_URL,
+      limx_brief: `${base}/api/agents/limx?q=Base+grants+and+partnerships+for+AI+community+identity`,
       trading_agent: `${base}/trading-agent`,
       trading_manifest: trading.free.manifest,
       market_manifest: market.endpoints.manifest,
@@ -151,5 +164,6 @@ export function tradingAgentPricingHints() {
     pools: x402TradingPoolsPrice(),
     swapPreview: x402TradingSwapPreviewPrice(),
     research: x402ResearchPrice(),
+    limx: x402LimxPrice(),
   };
 }

@@ -13,18 +13,40 @@ export type EcosystemMapNode = {
 export const ECOSYSTEM_MAP: EcosystemMapNode[] = [
   {
     id: "identity",
-    label: "Identity",
+    label: "Culture ID",
     href: "/pass",
-    children: [{ id: "culture", label: ".culture", href: "/pass" }],
+    children: [
+      { id: "culture", label: ".culture name", href: "/pass" },
+      { id: "credentials", label: "Credentials", href: "/credentials" },
+    ],
+  },
+  {
+    id: "reputation",
+    label: "Reputation",
+    href: "/id/laszlo.culture/reputation",
+    children: [
+      { id: "score", label: "Culture Reputation", href: "/id/laszlo.culture/reputation" },
+      { id: "leaderboard", label: "Leaderboard", href: "/credentials/leaderboard" },
+    ],
+  },
+  {
+    id: "opportunities",
+    label: "Opportunities",
+    href: "/play",
+    children: [
+      { id: "campaigns", label: "Campaign Hub", href: "/play" },
+      { id: "forest", label: "Forest hub", href: "/forest" },
+      { id: "studio", label: "BC Studio", href: "/studio" },
+    ],
   },
   {
     id: "agents",
     label: "Agents",
     href: "/agent-os",
     children: [
+      { id: "limx", label: "Limx Revenue Agent", href: "/agent-os#limx-agent" },
       { id: "grant", label: "Grant Agent", href: "/agent-os#grant-agent" },
-      { id: "builder", label: "Builder Agent", href: "/studio" },
-      { id: "marketing", label: "Marketing Agent", href: "/agent-os" },
+      { id: "research", label: "Research Agent", href: "/agent-os#research-agent" },
     ],
   },
   {
@@ -33,8 +55,8 @@ export const ECOSYSTEM_MAP: EcosystemMapNode[] = [
     href: "/marketplace",
     children: [
       { id: "marketplace", label: "Marketplace", href: "/marketplace" },
+      { id: "bcc", label: "BCC", href: "/bcc" },
       { id: "creators", label: "Creator Hub", href: "/creators" },
-      { id: "shares", label: "Agent Shares", href: "/campaign" },
     ],
   },
   {
@@ -43,22 +65,17 @@ export const ECOSYSTEM_MAP: EcosystemMapNode[] = [
     href: "/earth",
     children: [
       { id: "earth", label: "Earth", href: "/earth" },
-      { id: "ankommen", label: "Ankommen", href: "https://ankommen.buildingcultureid.space" },
-      { id: "forkids", label: "KinderStimme", href: "https://forkids.buildingcultureid.space" },
+      { id: "places", label: "Places", href: "/places" },
+      { id: "grant-proof", label: "Grant Proof", href: "/grant-proof" },
     ],
-  },
-  {
-    id: "capital",
-    label: "Capital",
-    href: "/bcc",
-    children: [{ id: "bcc", label: "BCC", href: "/bcc" }],
   },
 ];
 
 export const NORTH_STAR_QUESTIONS = [
-  { id: "who", question: "Who am I?", answer: ".culture + Culture Score", href: "/pass" },
-  { id: "do", question: "What can I do?", answer: "Quests + Agents", href: "/forest/quests" },
+  { id: "who", question: "Who am I?", answer: "Culture ID + credentials", href: "/pass" },
+  { id: "prove", question: "What can I prove?", answer: "Credential Center", href: "/credentials" },
+  { id: "trust", question: "How trusted am I?", answer: "Culture Reputation", href: "/id/laszlo.culture/reputation" },
+  { id: "opportunities", question: "What can I unlock?", answer: "Campaigns + forest access", href: "/play" },
+  { id: "agents", question: "Who can help me?", answer: "Agent OS", href: "/agent-os" },
   { id: "earn", question: "What can I earn?", answer: "Culture Points → BCC", href: "/profile" },
-  { id: "build", question: "What can I build?", answer: "Studio + Grant Agent", href: "/studio" },
-  { id: "help", question: "Who can help me?", answer: "Agent marketplace", href: "/agent-os" },
 ] as const;

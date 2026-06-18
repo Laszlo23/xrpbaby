@@ -13,6 +13,7 @@ import {
   useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
+  useSignMessage,
 } from "wagmi";
 import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import { privyEnabled } from "@/lib/privy-env";
@@ -32,6 +33,7 @@ import {
 } from "@/lib/bcc-config";
 import { BCC_SYMBOL } from "@bc/bcc-kit";
 import { saveIdentityForWallet } from "@/lib/identity/identityStorage";
+import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { IDENTITY_TLD_OPTIONS, tldLabelToId } from "@/lib/identity/tlds";
 
 type PassSearch = {
@@ -93,6 +95,7 @@ export function SearchMint({ id }: { id?: string }) {
   const isConnected = privyEnabled ? Boolean(privyAddress ?? wagmiAddress) : wagmiConnected;
   const { connect, connectors, isPending: isConnecting, error: connectError } = useConnect();
   const { switchChainAsync } = useSwitchChain();
+  const { signMessageAsync } = useSignMessage();
 
   const [name, setName] = useState("yourname");
   const [tld, setTld] = useState(".culture");
@@ -186,36 +189,65 @@ export function SearchMint({ id }: { id?: string }) {
 
   useEffect(() => {
     if (!isConfirmed || !address) return;
-    saveIdentityForWallet(address, fullIdentity);
-    void queryClient.invalidateQueries({ queryKey: ["walletIdentities", address] });
-    toast.success(`Minted ${fullIdentityDisplay}`, {
-      description: `Live at ${cultureGatewayPath(fullIdentity)}`,
-      action: {
-        label: "View profile",
-        onClick: () => {
-          void navigate({
-            to: "/id/$name",
-            params: { name: fullIdentity },
-          });
+
+    async function afterMint() {
+      saveIdentityForWallet(address!, fullIdentity);
+      void queryClient.invalidateQueries({ queryKey: ["walletIdentities", address] });
+
+      try {
+        const { prepared } = await buildPlatformSiweMessage(
+          address!,
+          identityChainId,
+          `Sync Culture ID ${fullIdentity} after mint.`,
+        );
+        const signature = await signMessageAsync({ message: prepared });
+        await fetch("/api/credentials/identity/sync", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            handle: fullIdentity,
+            address,
+            message: prepared,
+            signature,
+          }),
+        });
+      } catch {
+        // Non-blocking — profile enrichment also upserts identity
+      }
+
+      toast.success(`Minted ${fullIdentityDisplay}`, {
+        description: `Live at ${cultureGatewayPath(fullIdentity)}`,
+        action: {
+          label: "View profile",
+          onClick: () => {
+            void navigate({
+              to: "/id/$name",
+              params: { name: fullIdentity },
+            });
+          },
         },
-      },
-    });
-    resetWrite();
-    void navigate({
-      to: "/id/$name",
-      params: { name: fullIdentity },
-    }).then(() => {
-      void router.invalidate();
-    });
+      });
+      resetWrite();
+      void navigate({
+        to: "/id/$name",
+        params: { name: fullIdentity },
+      }).then(() => {
+        void router.invalidate();
+      });
+    }
+
+    void afterMint();
   }, [
     address,
     fullIdentity,
     fullIdentityDisplay,
+    identityChainId,
     isConfirmed,
     navigate,
     queryClient,
     resetWrite,
     router,
+    signMessageAsync,
   ]);
 
   async function handleMint() {
