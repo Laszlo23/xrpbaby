@@ -43,7 +43,7 @@ function PlayPage() {
       <section className="border-b border-white/[0.06] bg-[#070707]/80 px-4 py-6 md:px-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-zinc-400">
-            <span className="font-medium text-zinc-200">Opportunities unlock after you build reputation.</span>{" "}
+            <span className="font-medium text-zinc-200">Access unlocks after you build reputation.</span>{" "}
             Claim your Culture ID and earn credentials first.
           </p>
           <div className="flex flex-wrap gap-3">

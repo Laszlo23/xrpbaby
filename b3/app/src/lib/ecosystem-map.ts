@@ -30,9 +30,9 @@ export const ECOSYSTEM_MAP: EcosystemMapNode[] = [
     ],
   },
   {
-    id: "opportunities",
-    label: "Opportunities",
-    href: "/play",
+    id: "access",
+    label: "Access",
+    href: "/credentials",
     children: [
       { id: "campaigns", label: "Campaign Hub", href: "/play" },
       { id: "forest", label: "Forest hub", href: "/forest" },
@@ -75,7 +75,7 @@ export const NORTH_STAR_QUESTIONS = [
   { id: "who", question: "Who am I?", answer: "Culture ID + credentials", href: "/pass" },
   { id: "prove", question: "What can I prove?", answer: "Credential Center", href: "/credentials" },
   { id: "trust", question: "How trusted am I?", answer: "Culture Reputation", href: "/id/laszlo.culture/reputation" },
-  { id: "opportunities", question: "What can I unlock?", answer: "Campaigns + forest access", href: "/play" },
+  { id: "access", question: "What can I unlock?", answer: "Earned ecosystem access", href: "/credentials" },
   { id: "agents", question: "Who can help me?", answer: "Agent OS", href: "/agent-os" },
   { id: "earn", question: "What can I earn?", answer: "Culture Points → BCC", href: "/profile" },
 ] as const;

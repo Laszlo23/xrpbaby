@@ -44,7 +44,20 @@ test.describe("footer ecosystem links", () => {
     }
   });
 
-  test("focused AppFooter on /play shows core pillars", async ({ page }) => {
+  test("compact footer on /pass matches landing pillars", async ({ page }) => {
+    await page.goto("/pass");
+    const footer = page.getByRole("contentinfo");
+    await expect(footer).toBeVisible();
+
+    await expect(footer.getByText("Culture ID", { exact: true })).toBeVisible();
+    await expect(footer.getByText("Credentials", { exact: true })).toBeVisible();
+    await expect(footer.getByText("Ecosystem Hub", { exact: true })).toBeVisible();
+    await expect(footer.getByText("BCC", { exact: true })).toBeVisible();
+    await expect(footer.getByText("Product", { exact: true })).toBeVisible();
+    await expect(footer.getByText("Layers", { exact: true })).toHaveCount(0);
+  });
+
+  test("compact AppFooter on /play shows core pillars", async ({ page }) => {
     await page.goto("/play");
     const footer = page.getByRole("contentinfo");
     await expect(footer).toBeVisible();

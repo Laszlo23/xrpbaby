@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { LandingMotionRoot, motion } from "@/components/landing/motion";
 
 import { LandingNav } from "@/components/landing/LandingNav";
+import { LandingCultureIdExample } from "@/components/landing/LandingCultureIdExample";
 import { LandingEcosystemFlow } from "@/components/landing/LandingEcosystemFlow";
 import { LandingWhyNow } from "@/components/landing/LandingWhyNow";
 import { LandingFounderTimeline } from "@/components/landing/LandingFounderTimeline";
@@ -10,7 +11,6 @@ import { LandingProducts } from "@/components/landing/LandingProducts";
 import { LandingSuccessStories } from "@/components/landing/LandingSuccessStories";
 import { LandingEcosystemTeaser } from "@/components/landing/LandingEcosystemTeaser";
 import { LandingFinalCta } from "@/components/landing/LandingFinalCta";
-import { LandingFooter } from "@/components/landing/LandingFooter";
 import { trackLandingEvent } from "@/lib/landing-api";
 
 const LandingHero = lazy(() =>
@@ -34,6 +34,7 @@ export function LandingPage() {
           <Suspense fallback={<SectionFallback />}>
             <LandingHero />
           </Suspense>
+          <LandingCultureIdExample />
           <LandingEcosystemFlow />
           <LandingProducts />
           <LandingWhyNow />
@@ -42,7 +43,6 @@ export function LandingPage() {
           <LandingEcosystemTeaser />
           <LandingFinalCta />
         </main>
-        <LandingFooter />
       </motion.div>
     </LandingMotionRoot>
   );

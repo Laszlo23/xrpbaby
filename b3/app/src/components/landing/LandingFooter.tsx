@@ -1,5 +1,6 @@
+import { Link } from "@tanstack/react-router";
 import { motion } from "@/components/landing/motion";
-import { ArrowUpRight, Send, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Send } from "lucide-react";
 
 import {
   landingFooterCapitalColumn,
@@ -48,44 +49,73 @@ const SOCIAL_LINKS = [
   { label: "discord", href: LANDING_SOCIAL.discord, Icon: DiscordIcon, title: "Discord" },
 ] as const;
 
+function FooterLinkContent({ link }: { link: FooterHrefLink }) {
+  const external = link.href.startsWith("http") || link.href.startsWith("mailto:");
+  const className =
+    "group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-white";
+
+  const inner = (
+    <>
+      <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-500 transition-colors group-hover:border-[#00E5FF]/30 group-hover:text-[#00E5FF]">
+        <link.icon size={13} aria-hidden />
+      </span>
+      {link.label}
+      {external && link.href.startsWith("http") ? (
+        <ArrowUpRight
+          size={12}
+          className="-translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+          aria-hidden
+        />
+      ) : null}
+    </>
+  );
+
+  if (external) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={link.href} className={className}>
+      {inner}
+    </Link>
+  );
+}
+
 function FooterCol({ title, links }: { title: string; links: FooterHrefLink[] }) {
   return (
     <div>
       <p className="mono-label mb-4 text-zinc-500">{title}</p>
       <ul className="space-y-3">
-        {links.map((l) => {
-          const external = l.href.startsWith("http") || l.href.startsWith("mailto:");
-          return (
-            <li key={l.label}>
-              <a
-                href={l.href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-                className="group inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-white"
-              >
-                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-500 transition-colors group-hover:border-[#00E5FF]/30 group-hover:text-[#00E5FF]">
-                  <l.icon size={13} aria-hidden />
-                </span>
-                {l.label}
-                {external && l.href.startsWith("http") ? (
-                  <ArrowUpRight
-                    size={12}
-                    className="-translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
-                    aria-hidden
-                  />
-                ) : null}
-              </a>
-            </li>
-          );
-        })}
+        {links.map((l) => (
+          <li key={l.label}>
+            <FooterLinkContent link={l} />
+          </li>
+        ))}
       </ul>
     </div>
   );
 }
 
-export function LandingFooter() {
+type LandingFooterProps = {
+  /** When true, add safe-area padding for bottom nav */
+  withBottomNav?: boolean;
+};
+
+export function LandingFooter({ withBottomNav = false }: LandingFooterProps) {
   return (
-    <footer className="relative border-t border-white/5 bg-[#050505] py-16">
+    <footer
+      role="contentinfo"
+      className={`relative border-t border-white/5 bg-[#050505] py-16 ${withBottomNav ? "pb-nav-safe" : ""}`}
+    >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <motion.div className="md:col-span-4">
@@ -139,15 +169,29 @@ export function LandingFooter() {
             © {new Date().getFullYear()} BUILDING CULTURE — BUILT BY PEOPLE.
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
-            {landingFooterLegalColumn.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs text-zinc-500 transition-colors hover:text-zinc-300"
-              >
-                {link.label}
-              </a>
-            ))}
+            {landingFooterLegalColumn.map((link) => {
+              const external =
+                link.href.startsWith("http") || link.href.startsWith("mailto:");
+              const className = "text-xs text-zinc-500 transition-colors hover:text-zinc-300";
+              if (external) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+              return (
+                <Link key={link.label} to={link.href} className={className}>
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
           <p className="text-xs text-zinc-500">Vienna · Austria · Worldwide</p>
         </motion.div>

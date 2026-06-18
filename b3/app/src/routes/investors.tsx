@@ -76,6 +76,20 @@ function InvestorsPage() {
         <InvestorTreasuryBalances />
         <XrplTestnetIntakePanel />
 
+        <section className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <h2 className="font-heading text-lg font-semibold text-white">Infrastructure rails</h2>
+          <p className="text-sm text-zinc-400">
+            <strong className="font-medium text-zinc-200">Base</strong> is the live social and
+            execution layer — Culture ID, Agent OS, and BCC settlement today.{" "}
+            <strong className="font-medium text-zinc-200">BCC</strong> is the chain-agnostic
+            economic layer.{" "}
+            <strong className="font-medium text-zinc-200">XRPL</strong> is optional trust and
+            treasury infrastructure under Culture ID (testnet demo only — not a pivot to XRP).{" "}
+            <strong className="font-medium text-zinc-200">Agents</strong> are the workforce layer
+            for research, grants, and revenue workflows.
+          </p>
+        </section>
+
         <section className="space-y-4">
           <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
             Thesis (for discussion)

@@ -129,10 +129,9 @@ function useMinimalAppChrome(): boolean {
 
 function AppChrome() {
   const hideBottomNav = useHideBottomNav();
-  const footerVariant = hideBottomNav ? "story" : "product";
   return (
     <>
-      <AppFooter variant={footerVariant} withBottomNav={!hideBottomNav} />
+      <AppFooter withBottomNav={!hideBottomNav} />
       {!hideBottomNav ? <BottomNav /> : null}
     </>
   );

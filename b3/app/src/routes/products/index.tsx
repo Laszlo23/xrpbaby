@@ -11,7 +11,7 @@ export const Route = createFileRoute("/products/")({
     pageHead({
       title: "Products — Building Culture",
       description:
-        "Culture ID, Credentials, Reputation, and Opportunities — the trust layer for builders, communities, businesses, and AI agents.",
+        "Culture ID, Credentials, Reputation, and Access — the trust layer for builders, communities, businesses, and AI agents.",
       path: "/products",
       keywords: [
         "Building Culture",
@@ -36,8 +36,8 @@ function ProductsIndexPage() {
             Our products
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-zinc-400">
-            Four pillars — identity, credentials, reputation, and opportunities. Everything else
-            lives in the ecosystem.
+            Four pillars — identity, credentials, reputation, and access. Everything else lives in
+            the ecosystem.
           </p>
         </div>
       </section>

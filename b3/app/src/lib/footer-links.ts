@@ -177,7 +177,6 @@ export const landingFooterProductColumn: FooterHrefLink[] = [
   { label: "Culture ID", href: "/pass", icon: Fingerprint },
   { label: "Credentials", href: "/credentials", icon: Shield },
   { label: "Reputation", href: "/credentials/leaderboard", icon: Trophy },
-  { label: "Agent OS", href: "/agent-os", icon: Bot },
 ];
 
 /** Focused landing footer — Community column. */
@@ -185,21 +184,19 @@ export const landingFooterCommunityColumn: FooterHrefLink[] = [
   { label: "Mission", href: "/mission", icon: Flag },
   { label: "Story", href: "/story", icon: BookOpen },
   { label: "Team", href: "/team", icon: Users },
+  { label: "FAQ", href: "/faq", icon: HelpCircle },
+  { label: "Site guide", href: "/guide", icon: Compass },
 ];
 
 /** Focused landing footer — Ecosystem column. */
 export const landingFooterEcosystemColumn: FooterHrefLink[] = [
   { label: "Ecosystem Hub", href: "/ecosystem", icon: Layers },
-  { label: "Places", href: "/places", icon: Briefcase },
-  { label: "Art", href: "/drops/art", icon: Palette },
-  { label: "AI Apps", href: "/ecosystem#ai-apps", icon: Bot },
 ];
 
 /** Focused landing footer — Capital column. */
 export const landingFooterCapitalColumn: FooterHrefLink[] = [
   { label: "BCC", href: "/bcc/dashboard", icon: Coins },
   { label: "Investors", href: "/investors", icon: PieChart },
-  { label: "Roadmap", href: "/roadmap", icon: MapPin },
 ];
 
 /** Landing footer legal + contact (bottom bar extras). */

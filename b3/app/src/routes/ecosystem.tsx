@@ -2,12 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
 import { LandingNav } from "@/components/landing/LandingNav";
-import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ModuleBentoGrid } from "@/components/landing/ModuleBentoGrid";
 import {
   ECOSYSTEM_CATEGORIES,
   ECOSYSTEM_SATELLITES,
   ECOSYSTEM_CORE_APPS,
+  ECOSYSTEM_DIRECTORY_EXTRAS,
+  LANDING_ECOSYSTEM,
   ecosystemAppsByCategory,
   type EcosystemCategoryId,
 } from "@/lib/landing-ecosystem";
@@ -36,7 +37,16 @@ export const Route = createFileRoute("/ecosystem")({
 });
 
 function EcosystemPage() {
-  const allApps = [...ECOSYSTEM_SATELLITES, ...ECOSYSTEM_CORE_APPS];
+  const allApps = [
+    ...new Map(
+      [
+        ...ECOSYSTEM_SATELLITES,
+        ...ECOSYSTEM_CORE_APPS,
+        ...ECOSYSTEM_DIRECTORY_EXTRAS,
+        ...LANDING_ECOSYSTEM,
+      ].map((a) => [a.id, a]),
+    ).values(),
+  ];
 
   return (
     <div className="bc-surface min-h-screen antialiased">
@@ -114,7 +124,6 @@ function EcosystemPage() {
           </div>
         </section>
       </main>
-      <LandingFooter />
     </div>
   );
 }

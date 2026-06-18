@@ -25,6 +25,7 @@ import { Route as PlanRouteImport } from './routes/plan'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as LiquidityRouteImport } from './routes/liquidity'
+import { Route as LinksRouteImport } from './routes/links'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as JoinRouteImport } from './routes/join'
@@ -301,6 +302,11 @@ const MarketplaceRoute = MarketplaceRouteImport.update({
 const LiquidityRoute = LiquidityRouteImport.update({
   id: '/liquidity',
   path: '/liquidity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LinksRoute = LinksRouteImport.update({
+  id: '/links',
+  path: '/links',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LegalRoute = LegalRouteImport.update({
@@ -1335,6 +1341,7 @@ export interface FileRoutesByFullPath {
   '/join': typeof JoinRoute
   '/leaderboard': typeof LeaderboardRoute
   '/legal': typeof LegalRouteWithChildren
+  '/links': typeof LinksRoute
   '/liquidity': typeof LiquidityRoute
   '/marketplace': typeof MarketplaceRouteWithChildren
   '/mission': typeof MissionRoute
@@ -1549,6 +1556,7 @@ export interface FileRoutesByTo {
   '/join': typeof JoinRoute
   '/leaderboard': typeof LeaderboardRoute
   '/legal': typeof LegalRouteWithChildren
+  '/links': typeof LinksRoute
   '/liquidity': typeof LiquidityRoute
   '/mission': typeof MissionRoute
   '/plan': typeof PlanRoute
@@ -1764,6 +1772,7 @@ export interface FileRoutesById {
   '/join': typeof JoinRoute
   '/leaderboard': typeof LeaderboardRoute
   '/legal': typeof LegalRouteWithChildren
+  '/links': typeof LinksRoute
   '/liquidity': typeof LiquidityRoute
   '/marketplace': typeof MarketplaceRouteWithChildren
   '/mission': typeof MissionRoute
@@ -1981,6 +1990,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/leaderboard'
     | '/legal'
+    | '/links'
     | '/liquidity'
     | '/marketplace'
     | '/mission'
@@ -2195,6 +2205,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/leaderboard'
     | '/legal'
+    | '/links'
     | '/liquidity'
     | '/mission'
     | '/plan'
@@ -2409,6 +2420,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/leaderboard'
     | '/legal'
+    | '/links'
     | '/liquidity'
     | '/marketplace'
     | '/mission'
@@ -2625,6 +2637,7 @@ export interface RootRouteChildren {
   JoinRoute: typeof JoinRoute
   LeaderboardRoute: typeof LeaderboardRoute
   LegalRoute: typeof LegalRouteWithChildren
+  LinksRoute: typeof LinksRoute
   LiquidityRoute: typeof LiquidityRoute
   MarketplaceRoute: typeof MarketplaceRouteWithChildren
   MissionRoute: typeof MissionRoute
@@ -2910,6 +2923,13 @@ declare module '@tanstack/react-router' {
       path: '/liquidity'
       fullPath: '/liquidity'
       preLoaderRoute: typeof LiquidityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/links': {
+      id: '/links'
+      path: '/links'
+      fullPath: '/links'
+      preLoaderRoute: typeof LinksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal': {
@@ -4463,6 +4483,7 @@ const rootRouteChildren: RootRouteChildren = {
   JoinRoute: JoinRoute,
   LeaderboardRoute: LeaderboardRoute,
   LegalRoute: LegalRouteWithChildren,
+  LinksRoute: LinksRoute,
   LiquidityRoute: LiquidityRoute,
   MarketplaceRoute: MarketplaceRouteWithChildren,
   MissionRoute: MissionRoute,

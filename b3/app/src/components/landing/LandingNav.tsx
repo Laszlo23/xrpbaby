@@ -7,8 +7,8 @@ import {
   Menu,
   Shield,
   Star,
+  Unlock,
   UserPlus,
-  Users,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -16,10 +16,10 @@ import {
 import { LANDING_MEDIA } from "@/lib/landing-media";
 
 const NAV_ITEMS: { label: string; href: string; icon: LucideIcon; external?: boolean }[] = [
-  { label: "Identity", href: "#identity", icon: Fingerprint },
+  { label: "Identity", href: "#culture-id-example", icon: Fingerprint },
   { label: "Credentials", href: "#credentials", icon: Shield },
   { label: "Reputation", href: "#reputation", icon: Star },
-  { label: "Community", href: "#community", icon: Users },
+  { label: "Access", href: "#access", icon: Unlock },
   { label: "Ecosystem", href: "/ecosystem", icon: Layers, external: true },
 ];
 
@@ -39,7 +39,7 @@ export function LandingNav({ compact = false }: LandingNavProps) {
   }, []);
 
   const items = compact
-    ? NAV_ITEMS.filter((i) => ["Identity", "Community", "Ecosystem"].includes(i.label))
+    ? NAV_ITEMS.filter((i) => ["Identity", "Ecosystem"].includes(i.label))
     : NAV_ITEMS;
 
   const resolveHref = (item: (typeof NAV_ITEMS)[number]) => {

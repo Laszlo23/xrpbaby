@@ -4,19 +4,19 @@ import type { EcosystemStatus } from "@/lib/landing-ecosystem";
 export const LANDING_TAGLINE = "Build Together. Grow Together. Own Together." as const;
 
 export const LANDING_NORTH_STAR =
-  "Building Culture is the trust layer where people, communities, businesses, and AI agents build reputation, earn credentials, and unlock opportunities together." as const;
+  "Building Culture is the trust layer where people, communities, businesses, and AI agents build reputation, earn credentials, and unlock access together." as const;
 
 export const LANDING_HERO = {
   eyebrow: "TRUST LAYER · LIVE ON BASE",
   headline: "Who are you?",
   headlineAccent: "What can you build?",
   subhead:
-    "Create your Culture ID. Earn credentials. Build reputation. Unlock opportunities.",
+    "Create your Culture ID. Earn credentials. Build reputation. Unlock access.",
   valueProps: [
     { label: "Culture ID", emoji: "🪪" },
     { label: "Credentials", emoji: "📜" },
     { label: "Reputation", emoji: "⭐" },
-    { label: "Opportunities", emoji: "🔓" },
+    { label: "Access", emoji: "🔓" },
   ],
   ctas: {
     join: { label: "Join Building Culture", href: "/join" as const },
@@ -25,7 +25,7 @@ export const LANDING_HERO = {
   },
 } as const;
 
-export type PillarProductId = "culture-id" | "credentials" | "reputation" | "opportunities";
+export type PillarProductId = "culture-id" | "credentials" | "reputation" | "access";
 
 export type ProductPageId = PillarProductId | "grant-proof" | "campaign-hub" | "ai-agents" | "bcc";
 
@@ -108,7 +108,7 @@ export const LANDING_FLOW_PRIMARY: EcosystemFlowStep[] = [
   { id: "culture-id", label: "Culture ID", href: "/pass" },
   { id: "credentials", label: "Credentials", href: "/credentials" },
   { id: "reputation", label: "Reputation", href: "/id/laszlo.culture/reputation" },
-  { id: "opportunities", label: "Opportunities", href: "/play" },
+  { id: "access", label: "Access", href: "/credentials" },
 ];
 
 export const LANDING_FLOW_SECONDARY: EcosystemFlowStep[] = [
@@ -124,7 +124,7 @@ export const ECOSYSTEM_FLOW_STEPS: EcosystemFlowStep[] = [
 
 export const LANDING_FLOW_COPY = {
   eyebrow: "HOW IT WORKS",
-  headline: "Culture ID → Credentials → Reputation → Opportunities",
+  headline: "Culture ID → Credentials → Reputation → Access",
   body: "This is who you become — one identity loop for builders, communities, businesses, and agents.",
   secondaryLead: "Then agents work and value settles in the economy.",
 } as const;
@@ -132,8 +132,8 @@ export const LANDING_FLOW_COPY = {
 export const PILLARS_SECTION = {
   eyebrow: "THE TRUST LAYER",
   headline: "Culture ID → Credentials →",
-  headlineAccent: "Reputation → Opportunities",
-  body: "Four questions every builder, community, business, and agent can answer — claim your ID, earn credentials, build reputation, unlock opportunities.",
+  headlineAccent: "Reputation → Access",
+  body: "Four questions every builder, community, business, and agent can answer — claim your ID, earn credentials, build reputation, unlock access.",
   ctas: {
     claim: { label: "Claim Culture ID", href: "/pass" as const },
     credentials: { label: "Explore credentials", href: "/credentials" as const },
@@ -244,23 +244,23 @@ export const PILLAR_PRODUCTS: PillarProductCopy[] = [
     sectionId: "reputation",
   },
   {
-    id: "opportunities",
-    name: "Opportunities",
+    id: "access",
+    name: "Access",
     emoji: "🔓",
-    tagline: "Unlock campaigns, access, and rewards.",
+    tagline: "Earned unlocks across the ecosystem.",
     question: "What can you unlock?",
     features: [
-      "Fair drops & raffles",
-      "Community campaigns",
-      "Forest hub access",
+      "Campaigns & fair drops",
       "Grants & initiatives",
-      "Real-world assets",
+      "Marketplace tools",
+      "Forest hub access",
+      "Agent OS gates",
     ],
     productPageHref: "/products/campaign-hub",
-    primaryActionHref: "/play",
-    primaryCta: "Browse opportunities",
+    primaryActionHref: "/credentials",
+    primaryCta: "Explore access",
     status: "live",
-    sectionId: "opportunities",
+    sectionId: "access",
   },
 ];
 

@@ -13,6 +13,7 @@ const PILLAR_ICONS = {
   credentials: Shield,
   reputation: Star,
   opportunities: Unlock,
+  access: Unlock,
   "campaign-hub": Target,
   "ai-agents": Bot,
   bcc: Coins,

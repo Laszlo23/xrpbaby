@@ -19,8 +19,8 @@ export function LandingEcosystemTeaser() {
               Places, art, AI apps, and more — discover when you&apos;re ready.
             </h2>
             <p className="mt-4 text-base text-zinc-400">
-              BCC powers the economy. XRPL handles credentials and payments. Base is the social
-              layer. Agents are the workforce. Places create real-world impact.
+              Places, art, AI apps, and capital tools — explore the full ecosystem when you&apos;re
+              ready.
             </p>
           </div>
           <Link
