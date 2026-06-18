@@ -1,7 +1,15 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AuthLoginPage } from "@/components/auth/AuthLoginPage";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/auth/login")({
+  head: () =>
+    pageHead({
+      title: "Sign in",
+      description: "Sign in to Building Culture with your wallet.",
+      path: "/auth/login",
+      noIndex: true,
+    }),
   validateSearch: (search: Record<string, unknown>) => ({
     returnUrl: typeof search.returnUrl === "string" ? search.returnUrl : undefined,
   }),

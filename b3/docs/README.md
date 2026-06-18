@@ -24,6 +24,8 @@ Canonical product entrypoint: `https://app.buildingcultureid.space`.
 
 ### Builders
 
+- [protocol/README.md](protocol/README.md) — **BCID v1** protocol spec (identity, reputation, agent economy)
+- [TRUST_LAYER.md](TRUST_LAYER.md) — live Culture ID trust layer
 - [SMART_WALLET_AND_PACKS.md](SMART_WALLET_AND_PACKS.md)
 - [BCC_TOKEN.md](BCC_TOKEN.md)
 - [MARKET_API.md](MARKET_API.md)

@@ -1,6 +1,6 @@
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
 import { isFounderShowcaseProfile } from "@/lib/profile/founder-showcase";
-import type { CultureIdentityEnrichment } from "@/server/identity/showcase-enrichment";
+import type { CultureIdentityEnrichment } from "@/lib/profile/showcase-types";
 import { EnrichedCultureProfile } from "@/components/identity/EnrichedCultureProfile";
 import { FounderShowcaseProfile } from "@/components/profile/FounderShowcaseProfile";
 import { Link } from "@tanstack/react-router";

@@ -3,7 +3,7 @@ import { z } from "zod";
 import Stripe from "stripe";
 import { getPackBySlug } from "@/lib/packs";
 import { checkRateLimit, readJsonBody } from "@/server/platform/rate-limit";
-import { verifyPrivyAccessToken } from "@/server/wallet/privy-auth";
+import { verifyPrivyAccessToken, isPrivyConfigured, requirePrivyWalletMatch } from "@/server/wallet/privy-auth";
 
 const bodySchema = z.object({
   packSlug: z.string().min(1),
@@ -53,8 +53,20 @@ export const Route = createFileRoute("/api/wallet/packs/checkout")({
           return json({ ok: false, error: "unknown_pack" }, 400);
         }
 
-        const auth = await verifyPrivyAccessToken(request.headers.get("authorization"));
-        const privyUserId = "userId" in auth ? auth.userId : undefined;
+        let privyUserId: string | undefined;
+        if (isPrivyConfigured()) {
+          const auth = await requirePrivyWalletMatch(
+            request.headers.get("authorization"),
+            parsed.data.walletAddress,
+          );
+          if ("error" in auth) {
+            return json({ ok: false, error: auth.error }, auth.status);
+          }
+          privyUserId = auth.userId;
+        } else {
+          const auth = await verifyPrivyAccessToken(request.headers.get("authorization"));
+          privyUserId = "userId" in auth ? auth.userId : undefined;
+        }
 
         const { ensureWalletAndMember } = await import("@/server/platform/member");
         const { member, wallet } = await ensureWalletAndMember(prisma, parsed.data.walletAddress, {

@@ -3,20 +3,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { logEliasAgentAction } from "@/server/elias/audit";
 import { parseInboundPartnerPayload } from "@/server/elias/inbound-email";
 import { insertPartnerOfferFromInbound } from "@/server/elias/elias-store";
+import { requireEliasInboundSecret } from "@/server/platform/admin-secret";
 
 export const Route = createFileRoute("/api/elias/inbound")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const expected = process.env.ELIAS_INBOUND_SECRET?.trim();
-        if (expected) {
-          const hdr = request.headers.get("x-elias-inbound-secret");
-          if (hdr !== expected) {
-            return new Response(JSON.stringify({ ok: false, error: "unauthorized" }), {
-              status: 401,
-              headers: { "Content-Type": "application/json" },
-            });
-          }
+        const gate = requireEliasInboundSecret(request);
+        if (!gate.ok) {
+          return new Response(JSON.stringify({ ok: false, error: gate.error }), {
+            status: gate.status,
+            headers: { "Content-Type": "application/json" },
+          });
         }
 
         let body: unknown;

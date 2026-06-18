@@ -6,6 +6,15 @@ import { createHash } from "node:crypto";
 import { isPlausibleTwitterStatusUrl } from "@/lib/twitter-intents";
 import { isPlausibleTelegramProofUrl } from "@/lib/telegram-proof";
 import { ensureWalletAndMember } from "@/server/platform/member";
+import { requireSiweAuthFromMessage } from "@/server/platform/siwe";
+
+async function requireSiwePointsAddress(message: string, signature: string): Promise<string> {
+  const auth = await requireSiweAuthFromMessage(message, signature);
+  if ("error" in auth) {
+    throw new Error(auth.error);
+  }
+  return auth.address;
+}
 
 const addressSchema = z.object({
   address: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
@@ -126,7 +135,6 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { ensureDefaultTasks } = await import("@/server/points/tasks");
 
       const prisma = getPrisma();
@@ -134,7 +142,7 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
         return { ok: false, balance: 0, alreadyCompleted: false, error: "no_database" };
       }
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         await ensureDefaultTasks(prisma);
 
         const task = await prisma.taskDefinition.findUnique({ where: { slug: data.taskSlug } });
@@ -246,7 +254,6 @@ export const postCompleteFarcasterSocialTask = createServerFn({ method: "POST" }
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { ensureDefaultTasks } = await import("@/server/points/tasks");
       const { verifyFarcasterSocialTask } = await import("@/server/neynar/farcaster-social-verify");
 
@@ -260,7 +267,7 @@ export const postCompleteFarcasterSocialTask = createServerFn({ method: "POST" }
         };
       }
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         await ensureDefaultTasks(prisma);
 
         const task = await prisma.taskDefinition.findUnique({ where: { slug: data.taskSlug } });
@@ -423,7 +430,6 @@ export const postCompleteTelegramProofTask = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { ensureDefaultTasks } = await import("@/server/points/tasks");
 
       if (!isPlausibleTelegramProofUrl(data.proofUrl)) {
@@ -440,7 +446,7 @@ export const postCompleteTelegramProofTask = createServerFn({ method: "POST" })
         return { ok: false, balance: 0, alreadyCompleted: false, error: "no_database" };
       }
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         await ensureDefaultTasks(prisma);
 
         const task = await prisma.taskDefinition.findUnique({
@@ -532,7 +538,6 @@ export const postCompleteXProofTask = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { ensureDefaultTasks } = await import("@/server/points/tasks");
 
       if (!isPlausibleTwitterStatusUrl(data.proofUrl)) {
@@ -549,7 +554,7 @@ export const postCompleteXProofTask = createServerFn({ method: "POST" })
         return { ok: false, balance: 0, alreadyCompleted: false, error: "no_database" };
       }
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         await ensureDefaultTasks(prisma);
 
         const task = await prisma.taskDefinition.findUnique({ where: { slug: data.taskSlug } });
@@ -689,7 +694,6 @@ export const postCompleteDailyChainCheckIn = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { creditDailyCheckInPoints } = await import("@/server/points/daily-checkin-credit");
       const { verifyDailyCheckInTx } = await import("@bc/proof");
       const { utcCheckInDayIndex } = await import("@/lib/daily-checkin");
@@ -700,7 +704,7 @@ export const postCompleteDailyChainCheckIn = createServerFn({ method: "POST" })
       }
 
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
 
         if (data.txHash) {
           const proof = await verifyDailyCheckInTx({
@@ -796,7 +800,6 @@ export const postClaimPanicSwitchVoucherNft = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { ensureDefaultTasks } = await import("@/server/points/tasks");
       const { tryMintPanicVoucherNft } = await import("@/server/wallet/panic-voucher-mint");
 
@@ -805,7 +808,7 @@ export const postClaimPanicSwitchVoucherNft = createServerFn({ method: "POST" })
         return { ok: false, alreadyCompleted: false, error: "no_database" };
       }
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         await ensureDefaultTasks(prisma);
         const task = await prisma.taskDefinition.findUnique({
           where: { slug: "panic-switch-voucher-nft-claim" },
@@ -969,7 +972,6 @@ export const postCompleteEliasPlanConfirmed = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { ensureDefaultTasks } = await import("@/server/points/tasks");
       const { getPlanConfirmationContext } = await import("@/server/elias/elias-store");
 
@@ -979,7 +981,7 @@ export const postCompleteEliasPlanConfirmed = createServerFn({ method: "POST" })
       }
 
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         const ctx = await getPlanConfirmationContext(data.planId);
         if (!ctx) {
           return { ok: false, balance: 0, alreadyCompleted: false, error: "plan_not_found" };
@@ -1098,7 +1100,6 @@ export const postClaimPanicSwitchBccReward = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { ensureDefaultTasks } = await import("@/server/points/tasks");
 
       const prisma = getPrisma();
@@ -1106,7 +1107,7 @@ export const postClaimPanicSwitchBccReward = createServerFn({ method: "POST" })
         return { ok: false, balance: 0, alreadyCompleted: false, error: "no_database" };
       }
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         await ensureDefaultTasks(prisma);
         const task = await prisma.taskDefinition.findUnique({
           where: { slug: "panic-switch-bcc-daily" },
@@ -1235,7 +1236,6 @@ export const postRedeemPointsForBcc = createServerFn({ method: "POST" })
       error?: string;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { verifySiweSignature } = await import("@bc/identity/server");
       const { redeemPointsForBcc } = await import("@/server/points/redeem");
 
       const prisma = getPrisma();
@@ -1243,7 +1243,7 @@ export const postRedeemPointsForBcc = createServerFn({ method: "POST" })
         return { ok: false, balance: 0, error: "no_database" };
       }
       try {
-        const address = await verifySiweSignature(data.message, data.signature);
+        const address = await requireSiwePointsAddress(data.message, data.signature);
         return redeemPointsForBcc(prisma, {
           address,
           points: data.points,
@@ -1258,3 +1258,45 @@ export const postRedeemPointsForBcc = createServerFn({ method: "POST" })
       }
     },
   );
+
+const weeklyClaimQuoteSchema = z.object({
+  address: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+});
+
+const weeklyClaimSchema = z.object({
+  message: z.string().min(10),
+  signature: z.string().min(10),
+});
+
+/** Weekly Culture Points → BCC claim quote (7-day cooldown, staking boost). */
+export const postWeeklyClaimQuote = createServerFn({ method: "POST" })
+  .inputValidator((raw: unknown) => weeklyClaimQuoteSchema.parse(raw))
+  .handler(async ({ data }) => {
+    const { getPrisma } = await import("@/server/db/prisma");
+    const { quoteWeeklyClaim } = await import("@/server/points/weekly-claim");
+    const prisma = getPrisma();
+    if (!prisma) return { ok: false, error: "no_database" };
+    return quoteWeeklyClaim(prisma, data.address);
+  });
+
+/** SIWE-gated weekly BCC claim (full balance, once per cooldown window). */
+export const postClaimWeeklyBcc = createServerFn({ method: "POST" })
+  .inputValidator((raw: unknown) => weeklyClaimSchema.parse(raw))
+  .handler(async ({ data }) => {
+    const { getPrisma } = await import("@/server/db/prisma");
+    const { claimWeeklyBcc } = await import("@/server/points/weekly-claim");
+    const prisma = getPrisma();
+    if (!prisma) return { ok: false, balance: 0, error: "no_database" };
+    try {
+      const address = await requireSiwePointsAddress(data.message, data.signature);
+      return claimWeeklyBcc(prisma, {
+        address,
+      });
+    } catch (e) {
+      return {
+        ok: false,
+        balance: 0,
+        error: e instanceof Error ? e.message : "weekly_claim_error",
+      };
+    }
+  });

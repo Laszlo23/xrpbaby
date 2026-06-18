@@ -1,6 +1,4 @@
-/* Brand accent: Base / Coinbase primary blue (#0052FF) — load fonts before Tailwind */
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
-@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap");
+/* Brand accent: Base / Coinbase primary blue (#0052FF) — fonts loaded via seo.ts rootFontPreconnectLinks */
 
 @import "tailwindcss" source(none);
 @source "../src";

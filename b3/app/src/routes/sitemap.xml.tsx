@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { sitemapXmlResponse } from "@/server/sitemap-xml";
 
-/** Legacy path; prefer canonical `/sitemap.xml` (see [sitemap].xml.tsx). */
+/** Legacy path — redirect to canonical `/sitemap.xml`. */
 export const Route = createFileRoute("/sitemap/xml")({
   server: {
     handlers: {
-      GET: async () => sitemapXmlResponse(),
+      GET: async () =>
+        new Response(null, {
+          status: 301,
+          headers: { Location: "/sitemap.xml" },
+        }),
     },
   },
   component: () => null,

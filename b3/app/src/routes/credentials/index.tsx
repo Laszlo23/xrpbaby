@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { CredentialCard } from "@/components/credentials/CredentialCard";
+import { CredentialsProgressSection } from "@/components/credentials/CredentialsProgressSection";
 import { CredentialsXrplLinkSection } from "@/components/credentials/CredentialsXrplLinkSection";
 import { MarketingShell } from "@/components/MarketingShell";
 import { Button } from "@/components/ui/button";
@@ -62,6 +63,8 @@ function CredentialsPage() {
             />
           ))}
         </section>
+
+        <CredentialsProgressSection catalog={catalog} />
 
         <CredentialsXrplLinkSection />
 

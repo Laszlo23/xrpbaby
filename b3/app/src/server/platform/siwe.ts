@@ -42,3 +42,17 @@ export async function requireSiweAuth(
 
   return { address: verifiedAddress };
 }
+
+/** SIWE auth when the client sends message + signature only (address recovered from signature). */
+export async function requireSiweAuthFromMessage(
+  message: string,
+  signature: string,
+): Promise<{ address: string } | { error: string; status: number }> {
+  let verifiedAddress: string;
+  try {
+    verifiedAddress = await verifySiweSignature(message, signature);
+  } catch {
+    return { error: "invalid_signature", status: 401 };
+  }
+  return requireSiweAuth({ address: verifiedAddress, message, signature });
+}

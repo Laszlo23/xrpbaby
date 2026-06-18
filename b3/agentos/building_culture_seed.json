@@ -1,6 +1,7 @@
 {
   "project": "Building Culture",
-  "version": "1.0",
+  "version": "2.0",
+  "description": "Outcome-based agent workstreams for BCID v1. Tasks are outcome-owned, not technology-owned.",
   "agents": [
     {
       "id": "research_agent",
@@ -29,5 +30,147 @@
     "Agents",
     "Economy",
     "Capital"
-  ]
+  ],
+  "workstreams": [
+    {
+      "id": "ws1_protocol_architect",
+      "name": "Protocol Architect Agent",
+      "mission": "Design BCID v1 protocol specification",
+      "outcome": "Complete identity, wallet, recovery, reputation, and ZK architecture docs",
+      "deliverables": [
+        "docs/protocol/BCID_V1_PRD.md",
+        "docs/architecture/IDENTITY_ARCHITECTURE.md",
+        "docs/architecture/WALLET_ARCHITECTURE.md",
+        "docs/security/RECOVERY_ARCHITECTURE.md",
+        "docs/architecture/ZK_ARCHITECTURE.md"
+      ],
+      "inputDocs": [
+        "docs/TRUST_LAYER.md",
+        "docs/IDENTITY_RESOLUTION.md",
+        "docs/protocol/COMPETITOR_ANALYSIS.md"
+      ],
+      "dependsOn": ["phase0_prd"],
+      "assignedAgent": "research_agent",
+      "status": "complete"
+    },
+    {
+      "id": "ws2_user_research",
+      "name": "User Research Agent",
+      "mission": "Validate demand for BCID",
+      "outcome": "100 interviews, top 20 pain points, top 10 opportunities",
+      "deliverables": ["docs/protocol/USER_RESEARCH.md"],
+      "inputDocs": ["docs/protocol/BCID_V1_PRD.md"],
+      "dependsOn": ["phase0_prd"],
+      "assignedAgent": "research_agent",
+      "status": "in_progress",
+      "targets": { "interviewsMonth1": 20, "interviewsMonth2": 100 }
+    },
+    {
+      "id": "ws3_tokenomics",
+      "name": "Tokenomics Agent",
+      "mission": "Design BCC economy for BCID",
+      "outcome": "Fee, treasury, validator, burn, and agent economy models",
+      "deliverables": ["docs/protocol/TOKENOMICS.md"],
+      "inputDocs": ["docs/BCC_TOKEN.md", "docs/protocol/BCID_V1_PRD.md"],
+      "dependsOn": ["phase0_prd"],
+      "assignedAgent": "research_agent",
+      "status": "complete"
+    },
+    {
+      "id": "ws4_reputation",
+      "name": "Reputation Agent",
+      "mission": "Define verifiable reputation without social scoring",
+      "outcome": "Builder, Trust, Contribution, Verification scores",
+      "deliverables": [
+        "docs/architecture/REPUTATION_ARCHITECTURE.md",
+        "app/src/lib/identity/bcid-reputation.ts"
+      ],
+      "inputDocs": ["docs/protocol/BCID_V1_PRD.md", "app/src/lib/identity/culture-score.ts"],
+      "dependsOn": ["phase0_prd"],
+      "assignedAgent": "builder_agent",
+      "status": "in_progress"
+    },
+    {
+      "id": "ws5_storage",
+      "name": "Storage Agent",
+      "mission": "Research best storage stack for encrypted credentials",
+      "outcome": "Cost analysis, security analysis, architecture recommendation",
+      "deliverables": ["docs/architecture/STORAGE_ARCHITECTURE.md"],
+      "inputDocs": ["docs/protocol/BCID_V1_PRD.md"],
+      "dependsOn": ["ws1_protocol_architect"],
+      "assignedAgent": "research_agent",
+      "status": "complete"
+    },
+    {
+      "id": "ws6_zk_privacy",
+      "name": "zkSync Agent",
+      "mission": "Design privacy layer and proof boundaries",
+      "outcome": "Age, Human, Ownership, KYC proof specifications",
+      "deliverables": ["docs/architecture/ZK_ARCHITECTURE.md"],
+      "inputDocs": ["docs/protocol/COMPETITOR_ANALYSIS.md", "docs/architecture/STORAGE_ARCHITECTURE.md"],
+      "dependsOn": ["ws1_protocol_architect", "ws5_storage"],
+      "assignedAgent": "research_agent",
+      "status": "complete"
+    },
+    {
+      "id": "ws7_identity",
+      "name": "Identity Agent",
+      "mission": "Design four BCID types",
+      "outcome": "Human, Company, Asset, Agent BCID specifications",
+      "deliverables": [
+        "docs/architecture/IDENTITY_ARCHITECTURE.md",
+        "docs/architecture/DATABASE_SCHEMA.md",
+        "contracts/src/bcid/BcidRegistry.sol"
+      ],
+      "inputDocs": ["docs/protocol/BCID_V1_PRD.md"],
+      "dependsOn": ["phase0_prd"],
+      "assignedAgent": "builder_agent",
+      "status": "in_progress"
+    },
+    {
+      "id": "ws8_asset_tokenization",
+      "name": "Asset Tokenization Agent",
+      "mission": "Design asset metadata standards",
+      "outcome": "House, Car, Watch, Business, Certificate NFT metadata schemas",
+      "deliverables": ["docs/protocol/ASSET_METADATA_STANDARDS.md"],
+      "inputDocs": ["docs/architecture/IDENTITY_ARCHITECTURE.md"],
+      "dependsOn": ["ws7_identity"],
+      "assignedAgent": "research_agent",
+      "status": "complete"
+    },
+    {
+      "id": "ws9_agent_economy",
+      "name": "Agent Economy Agent",
+      "mission": "Design AI agent identity and monetization layer",
+      "outcome": "Agent NFT, wallet, reputation, revenue, marketplace spec",
+      "deliverables": ["docs/protocol/AGENT_ECONOMY.md"],
+      "inputDocs": ["docs/BCD_AGENT_MONETIZATION.md", "docs/protocol/TOKENOMICS.md", "docs/architecture/REPUTATION_ARCHITECTURE.md"],
+      "dependsOn": ["ws3_tokenomics", "ws4_reputation"],
+      "assignedAgent": "research_agent",
+      "status": "complete"
+    },
+    {
+      "id": "ws10_gtm",
+      "name": "GTM Agent",
+      "mission": "Get first 100 BCIDs",
+      "outcome": "Landing page, waitlist conversion, Farcaster strategy, referral program",
+      "deliverables": [
+        "docs/protocol/GTM_PLAYBOOK.md",
+        "app/src/routes/bcid/index.tsx",
+        "app/src/routes/api/bcid/farcaster/frame.ts",
+        "app/src/routes/api/bcid/waitlist/convert.ts"
+      ],
+      "inputDocs": ["docs/protocol/USER_RESEARCH.md", "docs/architecture/IDENTITY_ARCHITECTURE.md"],
+      "dependsOn": ["ws2_user_research", "ws7_identity", "ws9_agent_economy"],
+      "assignedAgent": "marketing_agent",
+      "status": "in_progress",
+      "targets": { "bcidsMinted": 100, "deadline": "month3" }
+    }
+  ],
+  "phase0": {
+    "id": "phase0_prd",
+    "task": "Create complete BCID v1 Product Requirements Document",
+    "status": "complete",
+    "outputTree": ["docs/protocol/", "docs/architecture/", "docs/security/"]
+  }
 }

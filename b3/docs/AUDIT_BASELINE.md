@@ -6,7 +6,8 @@ Established: 2026-06-18. Refresh with `npm run audit:gate -- --write-scorecard`.
 
 | Area | Status | Owner | Notes |
 |------|--------|-------|-------|
-| App unit tests | warn | platform | 77/78 pass; `bcc-config.test.ts` circular init (pre-existing) |
+| App unit tests | pass | platform | Includes `admin-secret`, `siwe`, `xrpl-link-env` auth tests |
+| Auth hardening pass | pass | security | SIWE nonce on payouts, credential claim, admin fail-closed, Privy binding — see `SECURITY_AUDIT.md` |
 | App Playwright | pass | platform | ~87 specs; flows in `app/e2e/flows/` |
 | Root contracts forge | pass | contracts | 50 tests |
 | Places forge | pass | places | 42+ tests |

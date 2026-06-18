@@ -1,10 +1,9 @@
 import { Configuration, NeynarAPIClient } from "@neynar/nodejs-sdk";
 
-import { computeCultureScore, type ComputedCultureScore } from "@/lib/identity/culture-score";
+import { computeCultureScore } from "@/lib/identity/culture-score";
 import type {
   CultureIdentityGraph,
   MemberProfileBridge,
-  Web3BioCredentials,
 } from "@/lib/identity/identity-graph-types";
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
 import {
@@ -13,6 +12,7 @@ import {
   type ActivityCategory,
   type FounderShowcaseConfig,
 } from "@/lib/profile/founder-showcase";
+import type { ShowcaseActivityItem, ShowcaseNftItem } from "@/lib/profile/showcase-types";
 import { getOrFetchIdentityGraph } from "@/server/identity/enrichment-cache";
 import {
   fetchCultureIdentityGraphFromAddress,
@@ -23,48 +23,17 @@ import {
 } from "@/server/identity/web3bio";
 import { getPrisma } from "@/server/db/prisma";
 import { buildMemberProfileBridge } from "@/server/identity/member-score-bridge";
-import { fetchBsAddressTransactions } from "@/server/explorer/blockscout";
+import { fetchBsAddressTransactions, blockscoutBaseUrl, type BsTransaction } from "@/server/explorer/blockscout";
 import { upsertCultureIdentityFromResolved } from "@/server/credentials/identity";
 
-export type { ActivityCategory } from "@/lib/profile/founder-showcase";
-
-export type ActivitySource = "curated" | "neynar";
-
-export type ShowcaseActivityItem = {
-  id: string;
-  category: ActivityCategory;
-  title: string;
-  excerpt: string;
-  url: string;
-  publishedAt: string;
-  authorHandle: string;
-  source?: ActivitySource;
-};
-
-export type ShowcaseNftItem = {
-  id: string;
-  name: string;
-  imageUrl: string | null;
-  chainLabel: string;
-  openSeaUrl: string | null;
-  isIdentity?: boolean;
-};
-
-export type CultureIdentityEnrichment = {
-  ok: true;
-  followerCount: number | null;
-  neynarEnabled: boolean;
-  avatarImageUrl: string | null;
-  nfts: ShowcaseNftItem[];
-  activity: Record<ActivityCategory, ShowcaseActivityItem[]>;
-  web3bio: CultureIdentityGraph | null;
-  credentials: Web3BioCredentials | null;
-  cultureScore: ComputedCultureScore;
-  member: MemberProfileBridge | null;
-};
-
-/** @deprecated Use CultureIdentityEnrichment */
-export type ShowcaseEnrichment = CultureIdentityEnrichment;
+export type {
+  ActivityCategory,
+  ActivitySource,
+  CultureIdentityEnrichment,
+  ShowcaseActivityItem,
+  ShowcaseEnrichment,
+  ShowcaseNftItem,
+} from "@/lib/profile/showcase-types";
 
 type AlchemyNftRow = {
   contract?: { address?: string; name?: string };
@@ -330,13 +299,51 @@ async function fetchMemberBridge(owner: string): Promise<MemberProfileBridge | n
   }
 }
 
-async function fetchTxCount(owner: string): Promise<number> {
+async function fetchTxBundle(owner: string): Promise<{ count: number; items: ShowcaseActivityItem[] }> {
   try {
     const txs = await fetchBsAddressTransactions(owner.toLowerCase());
-    return txs.length;
+    return {
+      count: txs.length,
+      items: txs.slice(0, 8).map(mapTxToActivity),
+    };
   } catch {
-    return 0;
+    return { count: 0, items: [] };
   }
+}
+
+function resolveFarcasterUsername(
+  web3bio: CultureIdentityGraph | null,
+  member: MemberProfileBridge | null,
+  founderConfig: FounderShowcaseConfig | null,
+): string | null {
+  if (founderConfig?.warpcastPersonalUsername) {
+    return founderConfig.warpcastPersonalUsername.replace(/^@/, "");
+  }
+  if (member?.farcasterUsername) {
+    return member.farcasterUsername.replace(/^@/, "");
+  }
+  const fc = web3bio?.graph.find((n) => n.platform === "farcaster");
+  if (fc?.identity) return fc.identity.replace(/^@/, "");
+  if (fc?.displayName) return fc.displayName.replace(/^@/, "");
+  return null;
+}
+
+function mapTxToActivity(tx: BsTransaction): ShowcaseActivityItem {
+  const method =
+    tx.decoded_input?.method_call?.split("(")[0]?.trim() ??
+    tx.method ??
+    "Transaction";
+  const shortHash = `${tx.hash.slice(0, 10)}…${tx.hash.slice(-4)}`;
+  return {
+    id: `tx-${tx.hash}`,
+    category: "onchain",
+    title: method.length > 36 ? `${method.slice(0, 36)}…` : method,
+    excerpt: `Base transaction ${shortHash}${tx.status === "error" ? " (reverted)" : ""}`,
+    url: `${blockscoutBaseUrl()}/tx/${tx.hash}`,
+    publishedAt: tx.timestamp ?? new Date().toISOString(),
+    authorHandle: "onchain",
+    source: "onchain",
+  };
 }
 
 function pickAvatarUrl(
@@ -368,15 +375,18 @@ export async function getCultureIdentityEnrichment(
   const displayHandle = resolved.fullName ?? `${resolved.handle}.${resolved.tld}`;
   const founderConfig = getFounderShowcaseConfig(resolved.fullName);
 
-  const [profileGraph, member, txCount, walletBundle, credentialFallback] = await Promise.all([
+  const [profileGraph, member, txBundle, walletBundle, credentialFallback] = await Promise.all([
     getOrFetchIdentityGraph(owner, resolved.fullName, () =>
       fetchCultureIdentityGraphFromAddress(owner),
     ),
     fetchMemberBridge(owner),
-    fetchTxCount(owner),
+    fetchTxBundle(owner),
     fetchWeb3BioWalletBundle(owner),
     fetchWeb3BioCredentials(ethereumProfileQuery(owner)),
   ]);
+
+  const txCount = txBundle.count;
+  const onchainItems = txBundle.items;
 
   const web3bio = mergeIdentityGraphs(profileGraph, walletBundle?.graph ?? []);
   const credentials =
@@ -387,22 +397,30 @@ export async function getCultureIdentityEnrichment(
   const client = neynarClient();
   let neynarFollowerCount: number | null = null;
   const neynarItems: ShowcaseActivityItem[] = [];
+  const farcasterUsername = resolveFarcasterUsername(web3bio, member, founderConfig);
 
-  if (client && founderConfig) {
-    const personal = await fetchNeynarUser(client, founderConfig.warpcastPersonalUsername);
+  if (client && farcasterUsername) {
+    const personal = await fetchNeynarUser(client, farcasterUsername);
     if (personal) neynarFollowerCount = personal.followerCount;
 
-    const [personalCasts, brandCasts] = await Promise.all([
-      fetchCastsForUsername(client, founderConfig.warpcastPersonalUsername, 12),
-      fetchCastsForUsername(client, founderConfig.warpcastBrandUsername, 12),
-    ]);
-
-    for (const cast of [...personalCasts, ...brandCasts]) {
+    const personalCasts = await fetchCastsForUsername(client, farcasterUsername, 12);
+    for (const cast of personalCasts) {
       neynarItems.push(mapCastToActivity(cast));
+    }
+
+    if (founderConfig?.warpcastBrandUsername) {
+      const brandCasts = await fetchCastsForUsername(
+        client,
+        founderConfig.warpcastBrandUsername,
+        8,
+      );
+      for (const cast of brandCasts) {
+        neynarItems.push(mapCastToActivity(cast));
+      }
     }
   }
 
-  const activity = mergeActivity(founderConfig, neynarItems);
+  const activity = mergeActivity(founderConfig, [...neynarItems, ...onchainItems]);
   const wallet = await fetchWalletNfts(owner, resolved, displayHandle);
 
   await upsertCultureIdentityFromResolved(resolved, null);

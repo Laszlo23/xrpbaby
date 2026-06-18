@@ -205,8 +205,10 @@ From [`contracts/deployments/84532.json`](../contracts/deployments/84532.json).
 | BuildingCultureDollar | `0x11c57fd49daf5f3b3e89c9c6d7c06849957fe552` |
 | BCDGenesisClaim | `0x7192b8d144ac6904ed3b9a381011b4af7e58b2cb` |
 | CulturePulseAnchor | `0x64f0009581a7007cc31040664e5d2d635f6a84fd` |
+| **BcidRegistry** | `0xa901817e46F98d52eb3643a365f4D9C33A19092c` |
+| **BcidSoulboundCredential** | `0xc01667959E0F7B4c34F909140eB46bCD80c95075` |
 
----
+Registry JSON: [`contracts/deployments/bcid-84532.json`](../contracts/deployments/bcid-84532.json). App env: `VITE_BCID_*` in `app/.env`.
 
 ## 0G Galileo testnet (`16602`) — Places (legacy / QA)
 

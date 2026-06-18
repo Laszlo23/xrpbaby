@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 
 import { GlassCard, SectionHeading } from "@/components/profile/profile-ui";
-import type { ShowcaseNftItem } from "@/server/identity/showcase-enrichment";
+import type { ShowcaseNftItem } from "@/lib/profile/showcase-types";
 import type { FounderShowcaseConfig } from "@/lib/profile/founder-showcase";
 
 function NftCard({ nft }: { nft: ShowcaseNftItem }) {

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { checkRateLimit } from "@/server/platform/rate-limit";
 import { syncMemberSupportScore } from "@/server/social/support-score-sync";
-import { verifyPrivyAccessToken } from "@/server/wallet/privy-auth";
+import { isPrivyConfigured, requirePrivyWalletMatch } from "@/server/wallet/privy-auth";
 
 const querySchema = z.object({
   walletAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
@@ -15,14 +15,19 @@ export const Route = createFileRoute("/api/social/sync-score")({
         const limited = checkRateLimit(request, "sync-score", 10);
         if (!limited.ok) return json({ ok: false, error: "rate_limited" }, 429);
 
-        const auth = await verifyPrivyAccessToken(request.headers.get("authorization"));
-        if ("error" in auth) return json({ ok: false, error: auth.error }, auth.status);
-
         const url = new URL(request.url);
         const parsed = querySchema.safeParse({
           walletAddress: url.searchParams.get("walletAddress"),
         });
         if (!parsed.success) return json({ ok: false, error: "invalid_address" }, 400);
+
+        const auth = isPrivyConfigured()
+          ? await requirePrivyWalletMatch(
+              request.headers.get("authorization"),
+              parsed.data.walletAddress,
+            )
+          : { error: "privy_not_configured", status: 503 };
+        if ("error" in auth) return json({ ok: false, error: auth.error }, auth.status);
 
         const { getPrisma } = await import("@/server/db/prisma");
         const prisma = getPrisma();

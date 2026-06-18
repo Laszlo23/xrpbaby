@@ -1,17 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { requireOpsDashboardSecret } from "@/server/platform/admin-secret";
+
 export const Route = createFileRoute("/api/platform/attribution-dashboard")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        const secret = process.env.OPS_DASHBOARD_SECRET?.trim();
-        if (secret) {
-          const header = request.headers.get("x-ops-dashboard-secret")?.trim();
-          const url = new URL(request.url);
-          const query = url.searchParams.get("secret")?.trim();
-          if (header !== secret && query !== secret) {
-            return json({ ok: false, error: "unauthorized" }, 401);
-          }
+        const gate = requireOpsDashboardSecret(request);
+        if (!gate.ok) {
+          return json({ ok: false, error: gate.error }, gate.status);
         }
 
         const { getPrisma } = await import("@/server/db/prisma");

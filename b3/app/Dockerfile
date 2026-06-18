@@ -26,9 +26,12 @@ RUN npm -w @bc/contracts-sdk run build \
   && npm -w @bc/bcd-orchestration run build \
   && npm -w @bc/growth-intelligence run build
 
+COPY scripts ./scripts
 COPY app ./app
 COPY app/docker/dotenv-for-build ./app/.env
 ARG NODE_MAX_OLD_SPACE=4096
+WORKDIR /repo
+RUN npm run resources:optimize && npm run pwa:icons
 WORKDIR /repo/app
 RUN NODE_OPTIONS="--max-old-space-size=${NODE_MAX_OLD_SPACE}" npm run build
 

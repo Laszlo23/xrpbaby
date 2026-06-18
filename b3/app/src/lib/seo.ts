@@ -74,12 +74,20 @@ export function getDefaultOgImageUrl(): string {
   return `${origin}/meta/home-meta-og.png`;
 }
 
-/** Preconnect for external font CDNs (reduces blocking latency). */
+/** Preconnect + non-blocking font stylesheets (avoid CSS @import). */
 export function rootFontPreconnectLinks(): HeadPayload["links"] {
   return [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     { rel: "preconnect", href: "https://api.fontshare.com" },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
+    },
+    {
+      rel: "stylesheet",
+      href: "https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap",
+    },
   ];
 }
 
@@ -352,6 +360,15 @@ export const SITEMAP_PATHS: string[] = [
   "/products/grant-proof",
   "/pass",
   "/voice",
+  "/credentials",
+  "/credentials/leaderboard",
+  "/forest",
+  "/forest/quests",
+  "/join",
+  "/welcome",
+  "/roots",
+  "/explorer",
+  "/creators",
   "/chatbase",
   "/docs",
   "/blog",

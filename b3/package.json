@@ -82,6 +82,8 @@
     "deploy:full-stack": "bash scripts/deploy-full-stack.sh",
     "smoke:production": "bash scripts/production-smoke.sh",
     "links:audit": "node scripts/link-audit.mjs",
+    "bcc:roots-install-cron": "bash scripts/install-bcc-roots-cron.sh",
+    "bcc:farcaster-follower-airdrop": "node scripts/farcaster-follower-bcc-airdrop.mjs",
     "links:verify-dns": "bash scripts/verify-satellite-dns.sh",
     "deploy:wohnai": "bash scripts/deploy-wohnai.sh",
     "deploy:forkids": "bash scripts/deploy-forkids.sh",

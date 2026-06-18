@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { readJsonBody } from "@/server/platform/rate-limit";
+import { requirePlatformInternalSecret } from "@/server/platform/admin-secret";
 import { ensureWalletAndMember } from "@/server/platform/member";
 
 const bodySchema = z.object({
@@ -17,10 +18,9 @@ export const Route = createFileRoute("/api/points/import-founding-xp")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const secret = process.env.PLATFORM_INTERNAL_SECRET?.trim();
-        const header = request.headers.get("x-platform-internal-secret");
-        if (!secret || header !== secret) {
-          return json({ ok: false, error: "forbidden" }, 403);
+        const gate = requirePlatformInternalSecret(request);
+        if (!gate.ok) {
+          return json({ ok: false, error: gate.error }, gate.status);
         }
 
         const { getPrisma } = await import("@/server/db/prisma");

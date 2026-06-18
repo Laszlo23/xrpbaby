@@ -1,7 +1,15 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AuthLogoutPage } from "@/components/auth/AuthLogoutPage";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/auth/logout")({
+  head: () =>
+    pageHead({
+      title: "Sign out",
+      description: "Sign out of Building Culture.",
+      path: "/auth/logout",
+      noIndex: true,
+    }),
   validateSearch: (search: Record<string, unknown>) => ({
     returnUrl: typeof search.returnUrl === "string" ? search.returnUrl : undefined,
   }),

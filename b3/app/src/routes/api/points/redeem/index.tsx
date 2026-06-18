@@ -22,17 +22,15 @@ export const Route = createFileRoute("/api/points/redeem/")({
         const parsed = bodySchema.safeParse(raw.body);
         if (!parsed.success) return json({ ok: false, error: "invalid_body" }, 400);
 
-        const { verifySiweSignature } = await import("@bc/identity/server");
-        let address: string;
-        try {
-          address = await verifySiweSignature(parsed.data.message, parsed.data.signature);
-        } catch {
-          return json({ ok: false, error: "invalid_siwe" }, 401);
+        const { requireSiweAuthFromMessage } = await import("@/server/platform/siwe");
+        const auth = await requireSiweAuthFromMessage(parsed.data.message, parsed.data.signature);
+        if ("error" in auth) {
+          return json({ ok: false, error: auth.error }, auth.status);
         }
 
         const { redeemPointsForBcc } = await import("@/server/points/redeem");
         const result = await redeemPointsForBcc(prisma, {
-          address,
+          address: auth.address,
           points: parsed.data.points,
           idempotencyKey: parsed.data.idempotencyKey,
         });

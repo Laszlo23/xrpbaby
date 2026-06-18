@@ -27,31 +27,14 @@ import { TelegramMiniAppReady } from "@/components/TelegramMiniAppReady";
 import { JsonLd } from "@/components/JsonLd";
 import { BuilderVoicePrompt } from "@/components/BuilderVoicePrompt";
 import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootFontPreconnectLinks, rootIconLinks, rootTechnicalMeta } from "@/lib/seo";
+import { NotFoundPage } from "@/components/NotFoundPage";
 import { registerPwaServiceWorker } from "@/lib/pwa";
 
 import appCss from "../styles.css?url";
 import "@neynar/react/dist/style.css";
 
 function NotFoundComponent() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+  return <NotFoundPage />;
 }
 
 export const Route = createRootRoute({
@@ -74,9 +57,9 @@ export const Route = createRootRoute({
 
     if (isNotFound) {
       const nf = pageHead({
-        title: "Page not found",
+        title: "Under development",
         description:
-          "This URL is not part of Build Culture. Use the home link or navigation to find drops, marketplace, and docs.",
+          "This page is still being built. Head home, open founding quests, or create your Culture pass.",
         path: pathname,
         noIndex: true,
       });

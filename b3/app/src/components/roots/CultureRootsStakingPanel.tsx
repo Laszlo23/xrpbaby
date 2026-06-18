@@ -89,6 +89,22 @@ export function CultureRootsStakingPanel() {
     query: { enabled: Boolean(stakingAddress && address), refetchInterval: 15_000 },
   });
 
+  const { data: pendingWithdraw } = useReadContract({
+    address: stakingAddress,
+    abi: BCC_ROOTS_STAKING_ABI,
+    functionName: "pendingWithdraw",
+    args: stakingAddress && address ? [BigInt(selectedPool), address] : undefined,
+    query: { enabled: Boolean(stakingAddress && address) },
+  });
+
+  const { data: unstakeUnlockAt } = useReadContract({
+    address: stakingAddress,
+    abi: BCC_ROOTS_STAKING_ABI,
+    functionName: "unstakeUnlockAt",
+    args: stakingAddress && address ? [BigInt(selectedPool), address] : undefined,
+    query: { enabled: Boolean(stakingAddress && address) },
+  });
+
   const { writeContract, data: txHash, isPending } = useWriteContract();
   const { isLoading: confirming } = useWaitForTransactionReceipt({ hash: txHash });
 
@@ -149,6 +165,35 @@ export function CultureRootsStakingPanel() {
       }),
     );
   }
+
+  function requestUnstake() {
+    if (!stakingAddress || parsedAmount === 0n) return;
+    runTx("Request unstake", () =>
+      writeContract({
+        address: stakingAddress,
+        abi: BCC_ROOTS_STAKING_ABI,
+        functionName: "requestUnstake",
+        args: [BigInt(selectedPool), parsedAmount],
+      }),
+    );
+  }
+
+  function completeUnstake() {
+    if (!stakingAddress) return;
+    runTx("Complete unstake", () =>
+      writeContract({
+        address: stakingAddress,
+        abi: BCC_ROOTS_STAKING_ABI,
+        functionName: "completeUnstake",
+        args: [BigInt(selectedPool)],
+      }),
+    );
+  }
+
+  const unstakeReady =
+    unstakeUnlockAt !== undefined &&
+    unstakeUnlockAt > 0n &&
+    BigInt(Math.floor(Date.now() / 1000)) >= unstakeUnlockAt;
 
   async function claimPointsTask() {
     setClaimingPts(true);
@@ -302,8 +347,35 @@ export function CultureRootsStakingPanel() {
             >
               Claim rewards
             </Button>
+            <Button
+              variant="outline"
+              className="rounded-full"
+              disabled={!isConnected || isPending || confirming || parsedAmount === 0n}
+              onClick={requestUnstake}
+            >
+              Request unstake
+            </Button>
+            <Button
+              variant="outline"
+              className="rounded-full"
+              disabled={!isConnected || isPending || confirming || !unstakeReady}
+              onClick={completeUnstake}
+            >
+              Complete unstake
+            </Button>
           </div>
         </div>
+
+        {pendingWithdraw !== undefined && pendingWithdraw > 0n ? (
+          <p className="mt-3 text-xs text-amber-200/80">
+            Pending unstake: {formatUnits(pendingWithdraw, 18)} BCC
+            {unstakeReady ? " — cooldown complete, tap Complete unstake" : " — 7-day cooldown active"}
+          </p>
+        ) : null}
+
+        <p className="mt-2 text-xs text-zinc-600">
+          Staking boosts your weekly BCC claim on profile and /forest/quests.
+        </p>
 
         {isConnected ? (
           <div className="mt-4 grid gap-2 text-xs text-zinc-500 sm:grid-cols-3">

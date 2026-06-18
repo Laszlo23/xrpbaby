@@ -63,6 +63,7 @@ import { Route as EarthIndexRouteImport } from './routes/earth/index'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as CredentialsIndexRouteImport } from './routes/credentials/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BcidIndexRouteImport } from './routes/bcid/index'
 import { Route as BccIndexRouteImport } from './routes/bcc/index'
 import { Route as WalletPacksRouteImport } from './routes/wallet/packs'
 import { Route as TgDevRouteImport } from './routes/tg/dev'
@@ -92,6 +93,8 @@ import { Route as CredentialsLeaderboardRouteImport } from './routes/credentials
 import { Route as BridgeBccRouteImport } from './routes/bridge/bcc'
 import { Route as BlogFeedDotxmlRouteImport } from './routes/blog/feed[.]xml'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as BcidMintRouteImport } from './routes/bcid/mint'
+import { Route as BcidLeaderboardRouteImport } from './routes/bcid/leaderboard'
 import { Route as BccFairLaunchRouteImport } from './routes/bcc/fair-launch'
 import { Route as BccDashboardRouteImport } from './routes/bcc/dashboard'
 import { Route as AuthLogoutRouteImport } from './routes/auth/logout'
@@ -181,6 +184,12 @@ import { Route as ApiCredentialsLeaderboardRouteImport } from './routes/api/cred
 import { Route as ApiCredentialsClaimRouteImport } from './routes/api/credentials/claim'
 import { Route as ApiCredentialsCatalogRouteImport } from './routes/api/credentials/catalog'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
+import { Route as ApiBcidSyncRouteImport } from './routes/api/bcid/sync'
+import { Route as ApiBcidScoresRouteImport } from './routes/api/bcid/scores'
+import { Route as ApiBcidResolveRouteImport } from './routes/api/bcid/resolve'
+import { Route as ApiBcidLeaderboardRouteImport } from './routes/api/bcid/leaderboard'
+import { Route as ApiBcidCatalogRouteImport } from './routes/api/bcid/catalog'
+import { Route as ApiBcidByCultureRouteImport } from './routes/api/bcid/by-culture'
 import { Route as ApiBccMetricsRouteImport } from './routes/api/bcc/metrics'
 import { Route as ApiAirdropClaimRouteImport } from './routes/api/airdrop/claim'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
@@ -191,6 +200,7 @@ import { Route as ApiAgentsAccessRouteImport } from './routes/api/agents/access'
 import { Route as ApiAgentOsOverviewRouteImport } from './routes/api/agent-os/overview'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
 import { Route as R0gAgentid1DotjsonRouteImport } from './routes/0g/agentid/1[.]json'
+import { Route as ApiPointsWeeklyClaimIndexRouteImport } from './routes/api/points/weekly-claim/index'
 import { Route as ApiPointsRedeemIndexRouteImport } from './routes/api/points/redeem/index'
 import { Route as PlacesApiReocPropertyIdRouteImport } from './routes/places/api/reoc/$propertyId'
 import { Route as ApiWalletPacksCheckoutRouteImport } from './routes/api/wallet/packs/checkout'
@@ -204,6 +214,7 @@ import { Route as ApiSocialNeynarAuthorizeRouteImport } from './routes/api/socia
 import { Route as ApiPulseIngestManualRouteImport } from './routes/api/pulse/ingest/manual'
 import { Route as ApiPulseDigestDayIdRouteImport } from './routes/api/pulse/digest/$dayId'
 import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/pulse/attestation/latest'
+import { Route as ApiPointsWeeklyClaimQuoteRouteImport } from './routes/api/points/weekly-claim/quote'
 import { Route as ApiPointsRedeemStatsRouteImport } from './routes/api/points/redeem/stats'
 import { Route as ApiPointsRedeemQuoteRouteImport } from './routes/api/points/redeem/quote'
 import { Route as ApiMarketingSocialCampaignTickRouteImport } from './routes/api/marketing/social-campaign/tick'
@@ -221,6 +232,10 @@ import { Route as ApiExplorerAddressAddressRouteImport } from './routes/api/expl
 import { Route as ApiCredentialsXrplLinkRouteImport } from './routes/api/credentials/xrpl/link'
 import { Route as ApiCredentialsXrplChallengeRouteImport } from './routes/api/credentials/xrpl/challenge'
 import { Route as ApiCredentialsIdentitySyncRouteImport } from './routes/api/credentials/identity/sync'
+import { Route as ApiBcidWaitlistConvertRouteImport } from './routes/api/bcid/waitlist/convert'
+import { Route as ApiBcidReferralCodeRouteImport } from './routes/api/bcid/referral/$code'
+import { Route as ApiBcidFarcasterFrameRouteImport } from './routes/api/bcid/farcaster/frame'
+import { Route as ApiBcidBridgeCultureRouteImport } from './routes/api/bcid/bridge/culture'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 import { Route as ApiExplorerTxHashExplainRouteImport } from './routes/api/explorer/tx.$hash.explain'
 
@@ -494,6 +509,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BcidIndexRoute = BcidIndexRouteImport.update({
+  id: '/bcid/',
+  path: '/bcid/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BccIndexRoute = BccIndexRouteImport.update({
   id: '/bcc/',
   path: '/bcc/',
@@ -637,6 +657,16 @@ const BlogFeedDotxmlRoute = BlogFeedDotxmlRouteImport.update({
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BcidMintRoute = BcidMintRouteImport.update({
+  id: '/bcid/mint',
+  path: '/bcid/mint',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BcidLeaderboardRoute = BcidLeaderboardRouteImport.update({
+  id: '/bcid/leaderboard',
+  path: '/bcid/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BccFairLaunchRoute = BccFairLaunchRouteImport.update({
@@ -1095,6 +1125,36 @@ const ApiComplianceEligibilityRoute =
     path: '/api/compliance/eligibility',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBcidSyncRoute = ApiBcidSyncRouteImport.update({
+  id: '/api/bcid/sync',
+  path: '/api/bcid/sync',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidScoresRoute = ApiBcidScoresRouteImport.update({
+  id: '/api/bcid/scores',
+  path: '/api/bcid/scores',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidResolveRoute = ApiBcidResolveRouteImport.update({
+  id: '/api/bcid/resolve',
+  path: '/api/bcid/resolve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidLeaderboardRoute = ApiBcidLeaderboardRouteImport.update({
+  id: '/api/bcid/leaderboard',
+  path: '/api/bcid/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidCatalogRoute = ApiBcidCatalogRouteImport.update({
+  id: '/api/bcid/catalog',
+  path: '/api/bcid/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidByCultureRoute = ApiBcidByCultureRouteImport.update({
+  id: '/api/bcid/by-culture',
+  path: '/api/bcid/by-culture',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBccMetricsRoute = ApiBccMetricsRouteImport.update({
   id: '/api/bcc/metrics',
   path: '/api/bcc/metrics',
@@ -1145,6 +1205,12 @@ const R0gAgentid1DotjsonRoute = R0gAgentid1DotjsonRouteImport.update({
   path: '/1.json',
   getParentRoute: () => R0gAgentidRoute,
 } as any)
+const ApiPointsWeeklyClaimIndexRoute =
+  ApiPointsWeeklyClaimIndexRouteImport.update({
+    id: '/api/points/weekly-claim/',
+    path: '/api/points/weekly-claim/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPointsRedeemIndexRoute = ApiPointsRedeemIndexRouteImport.update({
   id: '/api/points/redeem/',
   path: '/api/points/redeem/',
@@ -1211,6 +1277,12 @@ const ApiPulseAttestationLatestRoute =
   ApiPulseAttestationLatestRouteImport.update({
     id: '/api/pulse/attestation/latest',
     path: '/api/pulse/attestation/latest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPointsWeeklyClaimQuoteRoute =
+  ApiPointsWeeklyClaimQuoteRouteImport.update({
+    id: '/api/points/weekly-claim/quote',
+    path: '/api/points/weekly-claim/quote',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPointsRedeemStatsRoute = ApiPointsRedeemStatsRouteImport.update({
@@ -1306,6 +1378,26 @@ const ApiCredentialsIdentitySyncRoute =
     path: '/api/credentials/identity/sync',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBcidWaitlistConvertRoute = ApiBcidWaitlistConvertRouteImport.update({
+  id: '/api/bcid/waitlist/convert',
+  path: '/api/bcid/waitlist/convert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidReferralCodeRoute = ApiBcidReferralCodeRouteImport.update({
+  id: '/api/bcid/referral/$code',
+  path: '/api/bcid/referral/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidFarcasterFrameRoute = ApiBcidFarcasterFrameRouteImport.update({
+  id: '/api/bcid/farcaster/frame',
+  path: '/api/bcid/farcaster/frame',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidBridgeCultureRoute = ApiBcidBridgeCultureRouteImport.update({
+  id: '/api/bcid/bridge/culture',
+  path: '/api/bcid/bridge/culture',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPulseFeedIdCommentsRoute = ApiPulseFeedIdCommentsRouteImport.update({
   id: '/$id/comments',
   path: '/$id/comments',
@@ -1365,6 +1457,8 @@ export interface FileRoutesByFullPath {
   '/auth/logout': typeof AuthLogoutRoute
   '/bcc/dashboard': typeof BccDashboardRoute
   '/bcc/fair-launch': typeof BccFairLaunchRoute
+  '/bcid/leaderboard': typeof BcidLeaderboardRoute
+  '/bcid/mint': typeof BcidMintRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
@@ -1394,6 +1488,7 @@ export interface FileRoutesByFullPath {
   '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
   '/bcc/': typeof BccIndexRoute
+  '/bcid/': typeof BcidIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/credentials/': typeof CredentialsIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -1419,6 +1514,12 @@ export interface FileRoutesByFullPath {
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
+  '/api/bcid/by-culture': typeof ApiBcidByCultureRoute
+  '/api/bcid/catalog': typeof ApiBcidCatalogRoute
+  '/api/bcid/leaderboard': typeof ApiBcidLeaderboardRoute
+  '/api/bcid/resolve': typeof ApiBcidResolveRoute
+  '/api/bcid/scores': typeof ApiBcidScoresRoute
+  '/api/bcid/sync': typeof ApiBcidSyncRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
@@ -1501,6 +1602,10 @@ export interface FileRoutesByFullPath {
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
   '/id/$name/credentials': typeof IdNameCredentialsRoute
   '/id/$name/reputation': typeof IdNameReputationRoute
+  '/api/bcid/bridge/culture': typeof ApiBcidBridgeCultureRoute
+  '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
+  '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
+  '/api/bcid/waitlist/convert': typeof ApiBcidWaitlistConvertRoute
   '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
   '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
@@ -1518,6 +1623,7 @@ export interface FileRoutesByFullPath {
   '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
+  '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -1531,6 +1637,7 @@ export interface FileRoutesByFullPath {
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
+  '/api/points/weekly-claim/': typeof ApiPointsWeeklyClaimIndexRoute
   '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
@@ -1579,6 +1686,8 @@ export interface FileRoutesByTo {
   '/auth/logout': typeof AuthLogoutRoute
   '/bcc/dashboard': typeof BccDashboardRoute
   '/bcc/fair-launch': typeof BccFairLaunchRoute
+  '/bcid/leaderboard': typeof BcidLeaderboardRoute
+  '/bcid/mint': typeof BcidMintRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
@@ -1608,6 +1717,7 @@ export interface FileRoutesByTo {
   '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
   '/bcc': typeof BccIndexRoute
+  '/bcid': typeof BcidIndexRoute
   '/blog': typeof BlogIndexRoute
   '/credentials': typeof CredentialsIndexRoute
   '/docs': typeof DocsIndexRoute
@@ -1633,6 +1743,12 @@ export interface FileRoutesByTo {
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
+  '/api/bcid/by-culture': typeof ApiBcidByCultureRoute
+  '/api/bcid/catalog': typeof ApiBcidCatalogRoute
+  '/api/bcid/leaderboard': typeof ApiBcidLeaderboardRoute
+  '/api/bcid/resolve': typeof ApiBcidResolveRoute
+  '/api/bcid/scores': typeof ApiBcidScoresRoute
+  '/api/bcid/sync': typeof ApiBcidSyncRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
@@ -1715,6 +1831,10 @@ export interface FileRoutesByTo {
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
   '/id/$name/credentials': typeof IdNameCredentialsRoute
   '/id/$name/reputation': typeof IdNameReputationRoute
+  '/api/bcid/bridge/culture': typeof ApiBcidBridgeCultureRoute
+  '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
+  '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
+  '/api/bcid/waitlist/convert': typeof ApiBcidWaitlistConvertRoute
   '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
   '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
@@ -1732,6 +1852,7 @@ export interface FileRoutesByTo {
   '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
+  '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -1745,6 +1866,7 @@ export interface FileRoutesByTo {
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/points/redeem': typeof ApiPointsRedeemIndexRoute
+  '/api/points/weekly-claim': typeof ApiPointsWeeklyClaimIndexRoute
   '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
@@ -1796,6 +1918,8 @@ export interface FileRoutesById {
   '/auth/logout': typeof AuthLogoutRoute
   '/bcc/dashboard': typeof BccDashboardRoute
   '/bcc/fair-launch': typeof BccFairLaunchRoute
+  '/bcid/leaderboard': typeof BcidLeaderboardRoute
+  '/bcid/mint': typeof BcidMintRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
   '/bridge/bcc': typeof BridgeBccRoute
@@ -1825,6 +1949,7 @@ export interface FileRoutesById {
   '/tg/dev': typeof TgDevRoute
   '/wallet/packs': typeof WalletPacksRoute
   '/bcc/': typeof BccIndexRoute
+  '/bcid/': typeof BcidIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/credentials/': typeof CredentialsIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -1850,6 +1975,12 @@ export interface FileRoutesById {
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
+  '/api/bcid/by-culture': typeof ApiBcidByCultureRoute
+  '/api/bcid/catalog': typeof ApiBcidCatalogRoute
+  '/api/bcid/leaderboard': typeof ApiBcidLeaderboardRoute
+  '/api/bcid/resolve': typeof ApiBcidResolveRoute
+  '/api/bcid/scores': typeof ApiBcidScoresRoute
+  '/api/bcid/sync': typeof ApiBcidSyncRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
@@ -1932,6 +2063,10 @@ export interface FileRoutesById {
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
   '/id/$name/credentials': typeof IdNameCredentialsRoute
   '/id/$name/reputation': typeof IdNameReputationRoute
+  '/api/bcid/bridge/culture': typeof ApiBcidBridgeCultureRoute
+  '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
+  '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
+  '/api/bcid/waitlist/convert': typeof ApiBcidWaitlistConvertRoute
   '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
   '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
@@ -1949,6 +2084,7 @@ export interface FileRoutesById {
   '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
+  '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
   '/api/pulse/attestation/latest': typeof ApiPulseAttestationLatestRoute
   '/api/pulse/digest/$dayId': typeof ApiPulseDigestDayIdRoute
   '/api/pulse/ingest/manual': typeof ApiPulseIngestManualRoute
@@ -1962,6 +2098,7 @@ export interface FileRoutesById {
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
+  '/api/points/weekly-claim/': typeof ApiPointsWeeklyClaimIndexRoute
   '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
 }
@@ -2014,6 +2151,8 @@ export interface FileRouteTypes {
     | '/auth/logout'
     | '/bcc/dashboard'
     | '/bcc/fair-launch'
+    | '/bcid/leaderboard'
+    | '/bcid/mint'
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
@@ -2043,6 +2182,7 @@ export interface FileRouteTypes {
     | '/tg/dev'
     | '/wallet/packs'
     | '/bcc/'
+    | '/bcid/'
     | '/blog/'
     | '/credentials/'
     | '/docs/'
@@ -2068,6 +2208,12 @@ export interface FileRouteTypes {
     | '/api/agents/status'
     | '/api/airdrop/claim'
     | '/api/bcc/metrics'
+    | '/api/bcid/by-culture'
+    | '/api/bcid/catalog'
+    | '/api/bcid/leaderboard'
+    | '/api/bcid/resolve'
+    | '/api/bcid/scores'
+    | '/api/bcid/sync'
     | '/api/compliance/eligibility'
     | '/api/credentials/catalog'
     | '/api/credentials/claim'
@@ -2150,6 +2296,10 @@ export interface FileRouteTypes {
     | '/explorer/tx/$hash'
     | '/id/$name/credentials'
     | '/id/$name/reputation'
+    | '/api/bcid/bridge/culture'
+    | '/api/bcid/farcaster/frame'
+    | '/api/bcid/referral/$code'
+    | '/api/bcid/waitlist/convert'
     | '/api/credentials/identity/sync'
     | '/api/credentials/xrpl/challenge'
     | '/api/credentials/xrpl/link'
@@ -2167,6 +2317,7 @@ export interface FileRouteTypes {
     | '/api/marketing/social-campaign/tick'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
+    | '/api/points/weekly-claim/quote'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -2180,6 +2331,7 @@ export interface FileRouteTypes {
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/points/redeem/'
+    | '/api/points/weekly-claim/'
     | '/api/explorer/tx/$hash/explain'
     | '/api/pulse/feed/$id/comments'
   fileRoutesByTo: FileRoutesByTo
@@ -2228,6 +2380,8 @@ export interface FileRouteTypes {
     | '/auth/logout'
     | '/bcc/dashboard'
     | '/bcc/fair-launch'
+    | '/bcid/leaderboard'
+    | '/bcid/mint'
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
@@ -2257,6 +2411,7 @@ export interface FileRouteTypes {
     | '/tg/dev'
     | '/wallet/packs'
     | '/bcc'
+    | '/bcid'
     | '/blog'
     | '/credentials'
     | '/docs'
@@ -2282,6 +2437,12 @@ export interface FileRouteTypes {
     | '/api/agents/status'
     | '/api/airdrop/claim'
     | '/api/bcc/metrics'
+    | '/api/bcid/by-culture'
+    | '/api/bcid/catalog'
+    | '/api/bcid/leaderboard'
+    | '/api/bcid/resolve'
+    | '/api/bcid/scores'
+    | '/api/bcid/sync'
     | '/api/compliance/eligibility'
     | '/api/credentials/catalog'
     | '/api/credentials/claim'
@@ -2364,6 +2525,10 @@ export interface FileRouteTypes {
     | '/explorer/tx/$hash'
     | '/id/$name/credentials'
     | '/id/$name/reputation'
+    | '/api/bcid/bridge/culture'
+    | '/api/bcid/farcaster/frame'
+    | '/api/bcid/referral/$code'
+    | '/api/bcid/waitlist/convert'
     | '/api/credentials/identity/sync'
     | '/api/credentials/xrpl/challenge'
     | '/api/credentials/xrpl/link'
@@ -2381,6 +2546,7 @@ export interface FileRouteTypes {
     | '/api/marketing/social-campaign/tick'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
+    | '/api/points/weekly-claim/quote'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -2394,6 +2560,7 @@ export interface FileRouteTypes {
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/points/redeem'
+    | '/api/points/weekly-claim'
     | '/api/explorer/tx/$hash/explain'
     | '/api/pulse/feed/$id/comments'
   id:
@@ -2444,6 +2611,8 @@ export interface FileRouteTypes {
     | '/auth/logout'
     | '/bcc/dashboard'
     | '/bcc/fair-launch'
+    | '/bcid/leaderboard'
+    | '/bcid/mint'
     | '/blog/$slug'
     | '/blog/feed.xml'
     | '/bridge/bcc'
@@ -2473,6 +2642,7 @@ export interface FileRouteTypes {
     | '/tg/dev'
     | '/wallet/packs'
     | '/bcc/'
+    | '/bcid/'
     | '/blog/'
     | '/credentials/'
     | '/docs/'
@@ -2498,6 +2668,12 @@ export interface FileRouteTypes {
     | '/api/agents/status'
     | '/api/airdrop/claim'
     | '/api/bcc/metrics'
+    | '/api/bcid/by-culture'
+    | '/api/bcid/catalog'
+    | '/api/bcid/leaderboard'
+    | '/api/bcid/resolve'
+    | '/api/bcid/scores'
+    | '/api/bcid/sync'
     | '/api/compliance/eligibility'
     | '/api/credentials/catalog'
     | '/api/credentials/claim'
@@ -2580,6 +2756,10 @@ export interface FileRouteTypes {
     | '/explorer/tx/$hash'
     | '/id/$name/credentials'
     | '/id/$name/reputation'
+    | '/api/bcid/bridge/culture'
+    | '/api/bcid/farcaster/frame'
+    | '/api/bcid/referral/$code'
+    | '/api/bcid/waitlist/convert'
     | '/api/credentials/identity/sync'
     | '/api/credentials/xrpl/challenge'
     | '/api/credentials/xrpl/link'
@@ -2597,6 +2777,7 @@ export interface FileRouteTypes {
     | '/api/marketing/social-campaign/tick'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
+    | '/api/points/weekly-claim/quote'
     | '/api/pulse/attestation/latest'
     | '/api/pulse/digest/$dayId'
     | '/api/pulse/ingest/manual'
@@ -2610,6 +2791,7 @@ export interface FileRouteTypes {
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/points/redeem/'
+    | '/api/points/weekly-claim/'
     | '/api/explorer/tx/$hash/explain'
     | '/api/pulse/feed/$id/comments'
   fileRoutesById: FileRoutesById
@@ -2661,6 +2843,8 @@ export interface RootRouteChildren {
   AuthLogoutRoute: typeof AuthLogoutRoute
   BccDashboardRoute: typeof BccDashboardRoute
   BccFairLaunchRoute: typeof BccFairLaunchRoute
+  BcidLeaderboardRoute: typeof BcidLeaderboardRoute
+  BcidMintRoute: typeof BcidMintRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogFeedDotxmlRoute: typeof BlogFeedDotxmlRoute
   BridgeBccRoute: typeof BridgeBccRoute
@@ -2683,6 +2867,7 @@ export interface RootRouteChildren {
   TgDevRoute: typeof TgDevRoute
   WalletPacksRoute: typeof WalletPacksRoute
   BccIndexRoute: typeof BccIndexRoute
+  BcidIndexRoute: typeof BcidIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
   CredentialsIndexRoute: typeof CredentialsIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
@@ -2705,6 +2890,12 @@ export interface RootRouteChildren {
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
   ApiAirdropClaimRoute: typeof ApiAirdropClaimRoute
   ApiBccMetricsRoute: typeof ApiBccMetricsRoute
+  ApiBcidByCultureRoute: typeof ApiBcidByCultureRoute
+  ApiBcidCatalogRoute: typeof ApiBcidCatalogRoute
+  ApiBcidLeaderboardRoute: typeof ApiBcidLeaderboardRoute
+  ApiBcidResolveRoute: typeof ApiBcidResolveRoute
+  ApiBcidScoresRoute: typeof ApiBcidScoresRoute
+  ApiBcidSyncRoute: typeof ApiBcidSyncRoute
   ApiComplianceEligibilityRoute: typeof ApiComplianceEligibilityRoute
   ApiCredentialsCatalogRoute: typeof ApiCredentialsCatalogRoute
   ApiCredentialsClaimRoute: typeof ApiCredentialsClaimRoute
@@ -2783,6 +2974,10 @@ export interface RootRouteChildren {
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
+  ApiBcidBridgeCultureRoute: typeof ApiBcidBridgeCultureRoute
+  ApiBcidFarcasterFrameRoute: typeof ApiBcidFarcasterFrameRoute
+  ApiBcidReferralCodeRoute: typeof ApiBcidReferralCodeRoute
+  ApiBcidWaitlistConvertRoute: typeof ApiBcidWaitlistConvertRoute
   ApiCredentialsIdentitySyncRoute: typeof ApiCredentialsIdentitySyncRoute
   ApiCredentialsXrplChallengeRoute: typeof ApiCredentialsXrplChallengeRoute
   ApiCredentialsXrplLinkRoute: typeof ApiCredentialsXrplLinkRoute
@@ -2798,6 +2993,7 @@ export interface RootRouteChildren {
   ApiMarketingSocialCampaignTickRoute: typeof ApiMarketingSocialCampaignTickRoute
   ApiPointsRedeemQuoteRoute: typeof ApiPointsRedeemQuoteRoute
   ApiPointsRedeemStatsRoute: typeof ApiPointsRedeemStatsRoute
+  ApiPointsWeeklyClaimQuoteRoute: typeof ApiPointsWeeklyClaimQuoteRoute
   ApiPulseAttestationLatestRoute: typeof ApiPulseAttestationLatestRoute
   ApiPulseDigestDayIdRoute: typeof ApiPulseDigestDayIdRoute
   ApiPulseIngestManualRoute: typeof ApiPulseIngestManualRoute
@@ -2809,6 +3005,7 @@ export interface RootRouteChildren {
   ApiWalletPacksCheckoutRoute: typeof ApiWalletPacksCheckoutRoute
   PlacesApiReocPropertyIdRoute: typeof PlacesApiReocPropertyIdRoute
   ApiPointsRedeemIndexRoute: typeof ApiPointsRedeemIndexRoute
+  ApiPointsWeeklyClaimIndexRoute: typeof ApiPointsWeeklyClaimIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -3191,6 +3388,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bcid/': {
+      id: '/bcid/'
+      path: '/bcid'
+      fullPath: '/bcid/'
+      preLoaderRoute: typeof BcidIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bcc/': {
       id: '/bcc/'
       path: '/bcc'
@@ -3392,6 +3596,20 @@ declare module '@tanstack/react-router' {
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bcid/mint': {
+      id: '/bcid/mint'
+      path: '/bcid/mint'
+      fullPath: '/bcid/mint'
+      preLoaderRoute: typeof BcidMintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bcid/leaderboard': {
+      id: '/bcid/leaderboard'
+      path: '/bcid/leaderboard'
+      fullPath: '/bcid/leaderboard'
+      preLoaderRoute: typeof BcidLeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bcc/fair-launch': {
@@ -4017,6 +4235,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiComplianceEligibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/bcid/sync': {
+      id: '/api/bcid/sync'
+      path: '/api/bcid/sync'
+      fullPath: '/api/bcid/sync'
+      preLoaderRoute: typeof ApiBcidSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/scores': {
+      id: '/api/bcid/scores'
+      path: '/api/bcid/scores'
+      fullPath: '/api/bcid/scores'
+      preLoaderRoute: typeof ApiBcidScoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/resolve': {
+      id: '/api/bcid/resolve'
+      path: '/api/bcid/resolve'
+      fullPath: '/api/bcid/resolve'
+      preLoaderRoute: typeof ApiBcidResolveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/leaderboard': {
+      id: '/api/bcid/leaderboard'
+      path: '/api/bcid/leaderboard'
+      fullPath: '/api/bcid/leaderboard'
+      preLoaderRoute: typeof ApiBcidLeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/catalog': {
+      id: '/api/bcid/catalog'
+      path: '/api/bcid/catalog'
+      fullPath: '/api/bcid/catalog'
+      preLoaderRoute: typeof ApiBcidCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/by-culture': {
+      id: '/api/bcid/by-culture'
+      path: '/api/bcid/by-culture'
+      fullPath: '/api/bcid/by-culture'
+      preLoaderRoute: typeof ApiBcidByCultureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/bcc/metrics': {
       id: '/api/bcc/metrics'
       path: '/api/bcc/metrics'
@@ -4086,6 +4346,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/0g/agentid/1.json'
       preLoaderRoute: typeof R0gAgentid1DotjsonRouteImport
       parentRoute: typeof R0gAgentidRoute
+    }
+    '/api/points/weekly-claim/': {
+      id: '/api/points/weekly-claim/'
+      path: '/api/points/weekly-claim'
+      fullPath: '/api/points/weekly-claim/'
+      preLoaderRoute: typeof ApiPointsWeeklyClaimIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/points/redeem/': {
       id: '/api/points/redeem/'
@@ -4176,6 +4443,13 @@ declare module '@tanstack/react-router' {
       path: '/api/pulse/attestation/latest'
       fullPath: '/api/pulse/attestation/latest'
       preLoaderRoute: typeof ApiPulseAttestationLatestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/points/weekly-claim/quote': {
+      id: '/api/points/weekly-claim/quote'
+      path: '/api/points/weekly-claim/quote'
+      fullPath: '/api/points/weekly-claim/quote'
+      preLoaderRoute: typeof ApiPointsWeeklyClaimQuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/points/redeem/stats': {
@@ -4295,6 +4569,34 @@ declare module '@tanstack/react-router' {
       path: '/api/credentials/identity/sync'
       fullPath: '/api/credentials/identity/sync'
       preLoaderRoute: typeof ApiCredentialsIdentitySyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/waitlist/convert': {
+      id: '/api/bcid/waitlist/convert'
+      path: '/api/bcid/waitlist/convert'
+      fullPath: '/api/bcid/waitlist/convert'
+      preLoaderRoute: typeof ApiBcidWaitlistConvertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/referral/$code': {
+      id: '/api/bcid/referral/$code'
+      path: '/api/bcid/referral/$code'
+      fullPath: '/api/bcid/referral/$code'
+      preLoaderRoute: typeof ApiBcidReferralCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/farcaster/frame': {
+      id: '/api/bcid/farcaster/frame'
+      path: '/api/bcid/farcaster/frame'
+      fullPath: '/api/bcid/farcaster/frame'
+      preLoaderRoute: typeof ApiBcidFarcasterFrameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/bridge/culture': {
+      id: '/api/bcid/bridge/culture'
+      path: '/api/bcid/bridge/culture'
+      fullPath: '/api/bcid/bridge/culture'
+      preLoaderRoute: typeof ApiBcidBridgeCultureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/pulse/feed/$id/comments': {
@@ -4507,6 +4809,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthLogoutRoute: AuthLogoutRoute,
   BccDashboardRoute: BccDashboardRoute,
   BccFairLaunchRoute: BccFairLaunchRoute,
+  BcidLeaderboardRoute: BcidLeaderboardRoute,
+  BcidMintRoute: BcidMintRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogFeedDotxmlRoute: BlogFeedDotxmlRoute,
   BridgeBccRoute: BridgeBccRoute,
@@ -4529,6 +4833,7 @@ const rootRouteChildren: RootRouteChildren = {
   TgDevRoute: TgDevRoute,
   WalletPacksRoute: WalletPacksRoute,
   BccIndexRoute: BccIndexRoute,
+  BcidIndexRoute: BcidIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   CredentialsIndexRoute: CredentialsIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
@@ -4551,6 +4856,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
   ApiAirdropClaimRoute: ApiAirdropClaimRoute,
   ApiBccMetricsRoute: ApiBccMetricsRoute,
+  ApiBcidByCultureRoute: ApiBcidByCultureRoute,
+  ApiBcidCatalogRoute: ApiBcidCatalogRoute,
+  ApiBcidLeaderboardRoute: ApiBcidLeaderboardRoute,
+  ApiBcidResolveRoute: ApiBcidResolveRoute,
+  ApiBcidScoresRoute: ApiBcidScoresRoute,
+  ApiBcidSyncRoute: ApiBcidSyncRoute,
   ApiComplianceEligibilityRoute: ApiComplianceEligibilityRoute,
   ApiCredentialsCatalogRoute: ApiCredentialsCatalogRoute,
   ApiCredentialsClaimRoute: ApiCredentialsClaimRoute,
@@ -4629,6 +4940,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
+  ApiBcidBridgeCultureRoute: ApiBcidBridgeCultureRoute,
+  ApiBcidFarcasterFrameRoute: ApiBcidFarcasterFrameRoute,
+  ApiBcidReferralCodeRoute: ApiBcidReferralCodeRoute,
+  ApiBcidWaitlistConvertRoute: ApiBcidWaitlistConvertRoute,
   ApiCredentialsIdentitySyncRoute: ApiCredentialsIdentitySyncRoute,
   ApiCredentialsXrplChallengeRoute: ApiCredentialsXrplChallengeRoute,
   ApiCredentialsXrplLinkRoute: ApiCredentialsXrplLinkRoute,
@@ -4645,6 +4960,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMarketingSocialCampaignTickRoute: ApiMarketingSocialCampaignTickRoute,
   ApiPointsRedeemQuoteRoute: ApiPointsRedeemQuoteRoute,
   ApiPointsRedeemStatsRoute: ApiPointsRedeemStatsRoute,
+  ApiPointsWeeklyClaimQuoteRoute: ApiPointsWeeklyClaimQuoteRoute,
   ApiPulseAttestationLatestRoute: ApiPulseAttestationLatestRoute,
   ApiPulseDigestDayIdRoute: ApiPulseDigestDayIdRoute,
   ApiPulseIngestManualRoute: ApiPulseIngestManualRoute,
@@ -4656,6 +4972,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWalletPacksCheckoutRoute: ApiWalletPacksCheckoutRoute,
   PlacesApiReocPropertyIdRoute: PlacesApiReocPropertyIdRoute,
   ApiPointsRedeemIndexRoute: ApiPointsRedeemIndexRoute,
+  ApiPointsWeeklyClaimIndexRoute: ApiPointsWeeklyClaimIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

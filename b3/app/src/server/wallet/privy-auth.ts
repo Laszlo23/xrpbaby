@@ -40,6 +40,51 @@ export type PrivyFarcasterLink = {
 };
 
 /** Extract linked Farcaster account from Privy user linked accounts. */
+function extractPrivyWalletAddresses(
+  linkedAccounts: Array<{ type: string; address?: string }>,
+): string[] {
+  const out: string[] = [];
+  for (const acct of linkedAccounts) {
+    if (acct.type === "wallet" && typeof acct.address === "string") {
+      out.push(acct.address.toLowerCase());
+    }
+  }
+  return out;
+}
+
+/** Verify Bearer token and that walletAddress belongs to the Privy user. */
+export async function requirePrivyWalletMatch(
+  authorizationHeader: string | null,
+  walletAddress: string,
+): Promise<{ userId: string } | { error: string; status: number }> {
+  const auth = await verifyPrivyAccessToken(authorizationHeader);
+  if ("error" in auth) {
+    return auth;
+  }
+  const privy = getPrivyClient();
+  if (!privy) {
+    return { error: "privy_not_configured", status: 503 };
+  }
+  try {
+    const user = await privy.getUser(auth.userId);
+    const wallets = extractPrivyWalletAddresses(user.linkedAccounts ?? []);
+    const target = walletAddress.toLowerCase();
+    if (!wallets.includes(target)) {
+      return { error: "wallet_not_linked_to_privy", status: 403 };
+    }
+    return { userId: auth.userId };
+  } catch {
+    return { error: "privy_user_lookup_failed", status: 503 };
+  }
+}
+
+export function isPrivyConfigured(): boolean {
+  return (
+    Boolean(process.env.PRIVY_APP_ID?.trim() || process.env.VITE_PRIVY_APP_ID?.trim()) &&
+    Boolean(process.env.PRIVY_APP_SECRET?.trim())
+  );
+}
+
 export async function getPrivyFarcasterLink(userId: string): Promise<PrivyFarcasterLink | null> {
   const privy = getPrivyClient();
   if (!privy) return null;

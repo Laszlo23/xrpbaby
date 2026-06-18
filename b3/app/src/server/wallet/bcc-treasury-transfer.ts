@@ -77,6 +77,28 @@ export function resolveBccTreasuryChainId(): number {
   return parseChainId(e.BCC_TREASURY_CHAIN_ID ?? e.PANIC_SWITCH_BCC_REWARD_CHAIN_ID);
 }
 
+/** Comma-separated payout whitelist; empty = open to all. */
+export function parseBccPayoutWhitelist(): Set<string> {
+  const raw = env().BCC_PAYOUT_WHITELIST?.trim();
+  if (!raw) return new Set();
+  return new Set(
+    raw
+      .split(",")
+      .map((a) => a.trim().toLowerCase())
+      .filter((a) => /^0x[a-f0-9]{40}$/.test(a)),
+  );
+}
+
+export function isBccPayoutWhitelistActive(): boolean {
+  return parseBccPayoutWhitelist().size > 0;
+}
+
+export function isAddressOnBccPayoutWhitelist(address: string): boolean {
+  const list = parseBccPayoutWhitelist();
+  if (list.size === 0) return true;
+  return list.has(address.toLowerCase());
+}
+
 /** Transfer BCC from treasury hot wallet to recipient. */
 export async function trySendBccFromTreasury(input: {
   to: Address;
@@ -86,6 +108,10 @@ export async function trySendBccFromTreasury(input: {
   void input.memo;
   if (!isBccTreasuryOnchainEnabled()) {
     return { ok: false, mode: "disabled", error: "bcc_treasury_onchain_disabled" };
+  }
+
+  if (!isAddressOnBccPayoutWhitelist(input.to)) {
+    return { ok: false, mode: "failed", error: "not_on_payout_whitelist" };
   }
 
   const privateKey = resolveBccTreasuryPrivateKey();

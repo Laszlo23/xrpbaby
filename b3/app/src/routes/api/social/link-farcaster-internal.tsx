@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { readJsonBody } from "@/server/platform/rate-limit";
+import { requirePlatformInternalSecret } from "@/server/platform/admin-secret";
 import { fetchFarcasterUsername } from "@/server/neynar/client";
 import { linkFarcasterToMember } from "@/server/platform/member";
 import { syncMemberSupportScore } from "@/server/social/support-score-sync";
@@ -15,10 +16,9 @@ export const Route = createFileRoute("/api/social/link-farcaster-internal")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const secret = process.env.PLATFORM_INTERNAL_SECRET?.trim();
-        const header = request.headers.get("x-platform-internal-secret");
-        if (!secret || header !== secret) {
-          return json({ ok: false, error: "forbidden" }, 403);
+        const gate = requirePlatformInternalSecret(request);
+        if (!gate.ok) {
+          return json({ ok: false, error: gate.error }, gate.status);
         }
 
         const raw = await readJsonBody(request);

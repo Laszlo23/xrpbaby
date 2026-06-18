@@ -2,11 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { getGrowthOverview } from "@/server/growth-intelligence/overview";
 import { ensureGrowthApps, resolveAppBySlug } from "@/server/growth-intelligence/seed";
+import { requireOpsDashboardSecret } from "@/server/platform/admin-secret";
 
 export const Route = createFileRoute("/api/intelligence/overview")({
   server: {
     handlers: {
       GET: async ({ request }) => {
+        const gate = requireOpsDashboardSecret(request);
+        if (!gate.ok) {
+          return json({ ok: false, error: gate.error }, gate.status);
+        }
+
         const url = new URL(request.url);
         const slug = url.searchParams.get("app") ?? "bc-id";
         const days = Number(url.searchParams.get("days") ?? "7");

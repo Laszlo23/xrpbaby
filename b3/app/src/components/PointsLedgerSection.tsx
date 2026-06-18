@@ -26,6 +26,7 @@ import { ConnectFarcasterButton } from "@bc/culture-auth/react";
 import { NeynarConnectBoundary } from "@/components/NeynarConnectBoundary";
 import { Input } from "@/components/ui/input";
 import { PointsRedeemSection } from "@/components/PointsRedeemSection";
+import { WeeklyBccClaimPanel } from "@/components/WeeklyBccClaimPanel";
 
 function formatXProofError(code?: string): string {
   switch (code) {
@@ -345,6 +346,7 @@ export function PointsLedgerSection() {
             </p>
           </div>
         </div>
+        <WeeklyBccClaimPanel onBalanceChange={(b) => setBalance(b)} />
         <div className="flex flex-col gap-2 sm:items-end">
           <Button
             type="button"

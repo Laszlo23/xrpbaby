@@ -33,6 +33,13 @@ export async function claimCredential(input: {
 
   let identityId: string | null = null;
   if (input.resolved?.status === "claimed") {
+    if (
+      input.walletAddress &&
+      input.resolved.owner &&
+      input.resolved.owner.toLowerCase() !== input.walletAddress.toLowerCase()
+    ) {
+      return { ok: false, error: "not_culture_id_owner" };
+    }
     identityId = await upsertCultureIdentityFromResolved(input.resolved, input.memberId);
   } else if (input.handle) {
     const existing = await findCultureIdentityByHandle(input.handle);
@@ -153,11 +160,18 @@ export async function getMemberCredentialState(input: {
   });
 
   const eligibility = await evaluateCredentialEligibility(ctx, earnedSlugs);
+  const humans = ctx.web3bioCredentials?.isHuman ?? [];
 
   return {
     identity,
     eligibility,
     earned: identity?.userCredentials ?? [],
     linkedWallets: identity?.linkedWallets ?? [],
+    hasCultureIdentity: Boolean(identity),
+    pointsTotal: ctx.pointsTotal ?? 0,
+    questCount: ctx.questCount ?? 0,
+    studioProjectCount: ctx.studioProjectCount ?? 0,
+    referralCount: ctx.referralCount ?? 0,
+    hasHumanAttestation: humans.length > 0,
   };
 }

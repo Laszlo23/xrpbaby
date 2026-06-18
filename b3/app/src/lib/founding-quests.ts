@@ -7,15 +7,38 @@ export type FoundingQuest = {
   culturePoints: number;
   /** When false, quest is shown as coming soon (no server claim path yet). */
   wired: boolean;
+  /** Where to complete or claim this quest. */
+  claimRoute?: string;
+  /** Inline claim on quest hub (SIWE task slug). */
+  inlineClaim?: boolean;
 };
 
 export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
+  {
+    slug: "connect-wallet",
+    title: "Connect wallet",
+    description: "Sign in with your wallet on Base — your first Culture Points.",
+    culturePoints: 25,
+    wired: true,
+    claimRoute: "/profile",
+    inlineClaim: true,
+  },
   {
     slug: "join-forest",
     title: "Create your pass",
     description: "Finish onboarding at /join if you have not yet.",
     culturePoints: 50,
     wired: true,
+    claimRoute: "/join",
+  },
+  {
+    slug: "visit-marketplace",
+    title: "Visit marketplace",
+    description: "Browse culture drops and listings.",
+    culturePoints: 15,
+    wired: true,
+    claimRoute: "/profile",
+    inlineClaim: true,
   },
   {
     slug: "visit-liquidity-hub",
@@ -23,6 +46,15 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     description: "Complete the lesson track at /liquidity.",
     culturePoints: 40,
     wired: true,
+    claimRoute: "/liquidity",
+  },
+  {
+    slug: "bcc-roots-stake",
+    title: "Stake in Culture Roots",
+    description: "Lock BCC in a Roots pool to boost weekly claims.",
+    culturePoints: 50,
+    wired: true,
+    claimRoute: "/roots",
   },
   {
     slug: "studio-first-app",
@@ -30,6 +62,7 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     description: "Create your first app in BC Studio.",
     culturePoints: 50,
     wired: true,
+    claimRoute: "/studio",
   },
   {
     slug: "daily-studio-build",
@@ -37,6 +70,16 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     description: "Run one AI generation in BC Studio today.",
     culturePoints: 25,
     wired: true,
+    claimRoute: "/studio",
+  },
+  {
+    slug: "daily-checkin-onchain",
+    title: "Daily on-chain check-in",
+    description: "Stamp your wallet once per UTC day.",
+    culturePoints: 20,
+    wired: true,
+    claimRoute: "/profile",
+    inlineClaim: true,
   },
   {
     slug: "daily-visit-ecosystem",

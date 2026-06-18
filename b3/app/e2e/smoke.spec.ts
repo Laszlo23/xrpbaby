@@ -79,6 +79,29 @@ test.describe("smoke", () => {
     await expect(page.locator("body")).toBeVisible();
   });
 
+  test("404 page shows under development copy", async ({ page }) => {
+    await page.goto("/this-route-does-not-exist-bc-smoke");
+    await expect(page.getByRole("heading", { name: /Still building something culture-worthy/i })).toBeVisible();
+    await expect(page.getByText(/Under development/i)).toBeVisible();
+  });
+
+  test("weekly claim quote API", async ({ request }) => {
+    const res = await request.get(
+      "/api/points/weekly-claim/quote?address=0x0000000000000000000000000000000000000001",
+    );
+    expect([200, 503]).toContain(res.status());
+    if (res.status() === 200) {
+      const body = (await res.json()) as { ok?: boolean };
+      expect(body.ok).toBe(true);
+    }
+  });
+
+  test("OG image asset returns 200", async ({ request }) => {
+    const res = await request.get("/meta/home-meta-og.png");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toMatch(/image\/png/i);
+  });
+
   test("sitemap.xml returns urls", async ({ request }) => {
     const res = await request.get("/sitemap.xml");
     expect(res.ok()).toBeTruthy();

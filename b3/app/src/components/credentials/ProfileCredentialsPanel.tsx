@@ -2,17 +2,23 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { useAccount } from "wagmi";
 
 import {
   AccessUnlockPanel,
   buildDefaultAccessUnlocks,
 } from "@/components/credentials/AccessUnlockPanel";
+import {
+  buildCredentialProgressItems,
+  CredentialProgressPanel,
+} from "@/components/credentials/CredentialProgressPanel";
 import { CultureIdWalletSettings } from "@/components/credentials/CultureIdWalletSettings";
 import { CredentialCard } from "@/components/credentials/CredentialCard";
 import { TrustCredentials } from "@/components/identity/TrustCredentials";
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
 import type { Web3BioCredentials } from "@/lib/identity/identity-graph-types";
 import type { CredentialCatalogItem } from "@/lib/credentials/credential-catalog-fn";
+import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
 
 type EligibilityRow = {
   slug: string;
@@ -25,6 +31,12 @@ type MemberCredentialState = {
   eligibility: EligibilityRow[];
   earned: Array<{ credential: { slug: string; name: string } }>;
   linkedWallets: Array<{ chain: string; address: string; verified: boolean; isPrimary?: boolean }>;
+  hasCultureIdentity?: boolean;
+  pointsTotal?: number;
+  questCount?: number;
+  studioProjectCount?: number;
+  referralCount?: number;
+  hasHumanAttestation?: boolean;
 };
 
 type ProfileCredentialsPanelProps = {
@@ -41,6 +53,8 @@ export function ProfileCredentialsPanel({
   const [state, setState] = useState<MemberCredentialState | null>(null);
   const [claiming, setClaiming] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { isConnected } = useAccount();
+  const { signSiwe, signing: siweSigning } = usePointsSiweSign();
 
   const load = useCallback(async () => {
     const params = new URLSearchParams({
@@ -60,13 +74,25 @@ export function ProfileCredentialsPanel({
     setClaiming(slug);
     setError(null);
     try {
+      if (!isConnected) {
+        setError("Connect your wallet to claim credentials.");
+        return;
+      }
+      const signed = await signSiwe();
+      if (!signed) {
+        setError("Wallet signature required.");
+        return;
+      }
       const res = await fetch("/api/credentials/claim", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           slug,
           handle: resolved.fullName,
-          walletAddress: resolved.owner,
+          walletAddress: signed.address,
+          address: signed.address,
+          message: signed.prepared,
+          signature: signed.signature,
         }),
       });
       const data = (await res.json()) as { ok?: boolean; error?: string };
@@ -114,6 +140,19 @@ export function ProfileCredentialsPanel({
 
       <CultureIdWalletSettings handle={resolved.fullName} address={resolved.owner} />
 
+      <CredentialProgressPanel
+        hasCultureIdentity={state?.hasCultureIdentity ?? Boolean(resolved.owner)}
+        items={buildCredentialProgressItems({
+          catalog,
+          eligibility: state?.eligibility ?? [],
+          pointsTotal: state?.pointsTotal,
+          questCount: state?.questCount,
+          studioProjectCount: state?.studioProjectCount,
+          referralCount: state?.referralCount,
+          hasHumanAttestation: state?.hasHumanAttestation,
+        })}
+      />
+
       <section className="grid gap-4 md:grid-cols-2">
         {catalog.map((item) => {
           const row = state?.eligibility.find((e) => e.slug === item.slug);
@@ -132,7 +171,7 @@ export function ProfileCredentialsPanel({
               status={status}
               reason={row?.reason}
               onClaim={status === "eligible" ? () => void claim(item.slug) : undefined}
-              claimPending={claiming === item.slug}
+              claimPending={claiming === item.slug || siweSigning}
             />
           );
         })}

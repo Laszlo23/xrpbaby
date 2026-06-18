@@ -1,0 +1,11 @@
+{
+  "chainId": 84532,
+  "network": "base-sepolia",
+  "deployedAt": "2026-06-18",
+  "deployer": "0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5",
+  "contracts": {
+    "BcidRegistry": "0xa901817e46F98d52eb3643a365f4D9C33A19092c",
+    "BcidSoulboundCredential": "0xc01667959E0F7B4c34F909140eB46bCD80c95075"
+  },
+  "mintPriceWei": "370000000000000"
+}

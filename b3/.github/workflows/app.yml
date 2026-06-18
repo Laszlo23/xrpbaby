@@ -56,6 +56,8 @@ jobs:
         run: npm run audit:vite-env
         env:
           CI: "true"
+      - name: Optimize public assets
+        run: npm run resources:optimize && npm run pwa:icons
       - name: Build
         working-directory: app
         run: npm run build

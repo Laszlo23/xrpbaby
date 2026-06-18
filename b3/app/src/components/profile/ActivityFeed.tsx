@@ -8,7 +8,7 @@ import { GlassCard, SectionHeading, StatusBadge } from "@/components/profile/pro
 import type {
   ActivityCategory,
   ShowcaseActivityItem,
-} from "@/server/identity/showcase-enrichment";
+} from "@/lib/profile/showcase-types";
 import type { FounderShowcaseConfig } from "@/lib/profile/founder-showcase";
 import { cn } from "@/lib/utils";
 
