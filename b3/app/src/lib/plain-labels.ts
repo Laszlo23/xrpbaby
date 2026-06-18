@@ -4,9 +4,10 @@ import { identityMintPriceShort } from "@/lib/identity/mint-price";
 
 export const plainLabels = {
   landing: {
-    heroSubtitle: "We help people bring empty places back to life — together, not through banks.",
-    ctaExplore: "See what we build",
-    ctaJoin: "Join free",
+    heroSubtitle: "Not through banks. Through people who build, contribute, and own together.",
+    ctaExplore: "Explore Ecosystem",
+    ctaJoin: "Join Building Culture",
+    ctaContribute: "Start Contributing",
   },
   join: {
     eyebrow: "Get started",

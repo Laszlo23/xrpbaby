@@ -5,7 +5,7 @@ test.describe("landing flow", () => {
   test("hero and primary CTAs visible", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: /We Bring Places Back To Life/i }),
+      page.getByRole("heading", { name: /Who are you/i }),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: /Join free/i }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: /See what we build/i }).first()).toBeVisible();
@@ -25,6 +25,12 @@ test.describe("landing flow", () => {
     await page.goto("/#ecosystem");
     await expect(page.locator("#ecosystem")).toBeVisible();
     await expect(page.locator('#ecosystem a[href="/play"]').first()).toBeVisible();
+  });
+
+  test("ecosystem map visible below hero", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("#map")).toBeVisible();
+    await expect(page.getByTestId("ecosystem-pillar-identity")).toBeVisible();
   });
 
   test("waitlist accepts valid email via API", async ({ request }) => {
@@ -49,5 +55,28 @@ test.describe("landing flow", () => {
       .getByRole("button", { name: /Email updates/i })
       .click();
     await expect(page.locator("#join").getByText(/valid email/i)).toBeVisible();
+  });
+
+  test("culture layer explorer shows sub-items and navigates", async ({ page }) => {
+    await page.goto("/");
+    await expect(
+      page.getByRole("heading", { name: /Who are you/i }),
+    ).toBeVisible();
+
+    const cultureSection = page.locator("#culture");
+    await cultureSection.scrollIntoViewIfNeeded();
+    await expect(cultureSection).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByTestId("culture-panel-community")).toBeVisible();
+    await expect(page.getByTestId("culture-subitem-people")).toBeVisible();
+
+    await page.getByTestId("culture-layer-capital").click();
+    await expect(page.getByTestId("culture-panel-capital")).toBeVisible();
+    await expect(page.getByTestId("culture-subitem-bcc-token")).toBeVisible();
+
+    await page.getByTestId("culture-layer-agents").click();
+    await expect(page.getByTestId("culture-subitem-research-agent")).toBeVisible();
+
+    await page.getByTestId("culture-subitem-people").click();
+    await expect(page).toHaveURL(/\/team$/);
   });
 });

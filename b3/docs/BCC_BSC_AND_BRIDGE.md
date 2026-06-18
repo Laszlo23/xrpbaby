@@ -1,87 +1,123 @@
 # BCC on BNB Chain + cross-chain bridge
 
-Canonical **one** BCC token on Base (`0xb890…` on chain `8453`). BNB Chain users get the **same** token — not a new coin.
+Canonical **one** BCC token on Base (`0xB890a5289F789f1346032Ccc1847939e855FAb07` on chain `8453`). BNB Chain users receive **wBCC** — a wrapped 1:1 representation backed by locked canonical BCC.
 
 ## Policy
 
 | Rule | Detail |
 |------|--------|
-| Single supply | Bridging locks canonical Base BCC and mints 1:1 on BSC (LayerZero OFT) |
-| Fair-launch pool | Base: Uniswap. BSC: PancakeSwap V3 BCC/WBNB after OFT deploy |
-| Discount rails | `mintWithBcc` and v2 pay rails stay on **Base** today |
-| Identity | Culture Layer `.culture` etc. on Base + **Space ID `.bnb`** linked on profile |
+| Single supply | Bridging locks canonical Base BCC; relayer mints wBCC 1:1 on BSC |
+| wBCC ticker | Explicit `Wrapped Building Culture Capital` / `wBCC` — not the legacy `BccOFT` (`0x81cC…`) |
+| Fair-launch pool | Base: Uniswap. BSC: PancakeSwap wBCC/WBNB after wBCC deploy |
+| Discount rails | `mintWithBcc` and v2 pay rails stay on **Base** |
+| Identity | Culture Layer `.culture` on Base + Space ID `.bnb` on profile |
 
-## Phase 1 — BNB → Base (live now)
-
-- Kit: [`packages/bcc-kit/src/bnb.ts`](../packages/bcc-kit/src/bnb.ts)
-- API: `GET /api/market/bcc/bnb-route?bnb=0.1`
-- UI: Buy BCC modal **From BNB** tab, `/swap` BNB chain selector (bridge panel)
-
-Aggregators: Jumper (LI.FI), deBridge, Rango — deliver Base BCC to the user's Base address.
-
-## Phase 2 — Native BSC + OFT bridge
+## Phase 1 — Custom relayer bridge (current)
 
 ### Contracts
 
 | Contract | Chain | Role |
 |----------|-------|------|
-| `BccOFTAdapter` | Base 8453 | Locks canonical BCC |
-| `BccOFT` | BSC 56 | Mints/burns bridged BCC 1:1 |
+| `BccBridgeVault` | Base 8453 | Locks canonical BCC, emits `Locked` |
+| `WrappedBCC` | BSC 56 | Mint/burn wBCC via `BRIDGE_ROLE` relayer |
 
 Deploy:
 
 ```bash
-# Base adapter
 cd contracts
-BCC_TOKEN_ADDRESS=0xb890a5289f789f1346032ccc1847939e855fab07 \
-  forge script script/DeployBccOFT.s.sol:DeployBccOFTAdapter \
+
+# Base vault
+forge script script/DeployBccBridge.s.sol:DeployBccBridge \
   --rpc-url $BASE_RPC --broadcast --chain-id 8453
 
-# BSC OFT peer
-forge script script/DeployBccOFT.s.sol:DeployBccOFT \
+# BSC wBCC
+forge script script/DeployBccBridge.s.sol:DeployWrappedBCC \
   --rpc-url $BSC_RPC --broadcast --chain-id 56
+
+# Wire relayer hot wallet
+BCC_BRIDGE_VAULT=0x... WBCC_ADDRESS=0x... BRIDGE_RELAYER_ADDRESS=0x... \
+  forge script script/DeployBccBridge.s.sol:WireBccBridge \
+  --rpc-url $BASE_RPC --broadcast --chain-id 8453
+# Repeat WireBccBridge on BSC for wBCC.setBridge
 ```
 
 Registry: [`contracts/deployments/bcc-56.json`](../contracts/deployments/bcc-56.json)
 
-Wire LayerZero peers (EID Base `30184`, BSC `30102`), then set `bridge` on both contracts.
+### Relayer service
+
+```bash
+# Env: BRIDGE_RELAYER_PRIVATE_KEY, BASE_RPC_URL, BSC_RPC_URL,
+#      BCC_BRIDGE_VAULT, WBCC_ADDRESS
+node scripts/bcc-bridge-relayer.mjs
+```
+
+Flow:
+
+1. User `vault.lock(to, amount, 56)` on Base
+2. Relayer watches `Locked` → `wBCC.bridgeMint(to, amount, nonce)` on BSC
+3. User `wBCC.bridgeBurn(amount, 8453)` on BSC
+4. Relayer watches `BridgeBurned` → `vault.registerBurn` + `vault.unlock` on Base
+
+Idempotency: nonce replay protection on vault unlock; relayer keeps processed tx set in memory (restart-safe via on-chain `processedUnlocks`).
 
 ### App env
 
 ```bash
-VITE_BCC_OFT_ADAPTER_ADDRESS=0x...
-VITE_BCC_BSC_OFT_ADDRESS=0x...
-# Optional after pool seed:
-VITE_BCC_PANCAKE_POOL=0x...
+VITE_BRIDGE_MODE=relayer
+VITE_BCC_BRIDGE_VAULT=0x...
+VITE_WBCC_BSC_ADDRESS=0x...
+# Fair launch + rewards (after deploy):
+VITE_BCC_FAIR_LAUNCH_SALE=0x...
+VITE_CULTURE_PASS_BCC_REWARDS=0x...
+VITE_WBCC_ROOTS_STAKING_ADDRESS=0x...
 ```
-
-### Liquidity
-
-```bash
-npm run pancakeswap:seed -- --dry-run
-PANCAKE_BNB_AMOUNT=0.1 npm run pancakeswap:seed
-```
-
-Treasury seeds BCC/WBNB on PancakeSwap V3. LP fee routing: treasury Safe + dev share (see [CLANKER_LAUNCH_OPTIONS.md](./CLANKER_LAUNCH_OPTIONS.md) locker intent).
 
 ### UI
 
-- `/swap` — BNB tab: `BscBccSwapPanel` (PancakeSwap V3) when OFT configured
-- `/bridge/bcc` — 1:1 Base ↔ BSC transfer
+- `/bridge/bcc` — lock BCC → wBCC / burn wBCC → BCC
+- `/bcc/dashboard` — supply, vault locks, burns, staking TVL
+- `/bcc/fair-launch` — BSC fixed-price wBCC sale
+- `/pass` — Culture Pass BCC merkle claims
 
-## Phase 3 — Space ID (.bnb)
+## Phase 2 — LayerZero OFT migration
 
-- Resolve: `GET /api/identity/resolve-bnb?name=handle.bnb` or `?address=0x…`
-- Check: `GET /api/identity/check-bnb?label=handle`
-- Profiles at `/id/*` show linked `.bnb` when the owner wallet has a Space ID name
+Legacy MVP (deprecated for production):
 
-`.bnb` and `.culture` are **different namespaces** — the app links both to one wallet profile.
+| Contract | Address |
+|----------|---------|
+| `BccOFTAdapter` Base | `0xd323e5b266FA7A13C9c572ad5c7b7f996846EFc0` |
+| `BccOFT` BSC | `0x81cCda83704985FcB88e1174Da4367eEa40871C4` |
+
+Migration checklist: `forge script script/MigrateBccLayerZero.s.sol:MigrateBccLayerZero`
+
+After LZ deploy:
+
+```bash
+VITE_BRIDGE_MODE=layerzero
+VITE_BCC_OFT_ADAPTER_ADDRESS=0x...
+VITE_BCC_BSC_OFT_ADDRESS=0x...
+```
+
+## Phase 1 — BNB → Base (aggregators, live)
+
+- Kit: [`packages/bcc-kit/src/bnb.ts`](../packages/bcc-kit/src/bnb.ts)
+- API: `GET /api/market/bcc/bnb-route?bnb=0.1`
+- UI: Buy BCC modal **From BNB** tab
+
+## Liquidity
+
+```bash
+npm run pancakeswap:seed -- --dry-run
+# Update script for wBCC address after deploy
+```
+
+## Security
+
+See [BCC_BRIDGE_SECURITY.md](./BCC_BRIDGE_SECURITY.md). Multisig owns contracts; relayer holds `BRIDGE_ROLE` only.
 
 ## API index
 
 | Endpoint | Purpose |
 |----------|---------|
-| `/api/market/bcc/bnb-route` | BNB buy routes + estimate |
-| `/api/market/bcc/solana-route` | Solana buy routes |
-| `/api/identity/resolve-bnb` | Space ID forward/reverse |
-| `/api/identity/check-bnb` | `.bnb` availability hint |
+| `GET /api/bcc/metrics` | Supply, vault, wBCC, burns, staking TVL |
+| `GET /api/market/bcc` | Market + liquidity snapshot |

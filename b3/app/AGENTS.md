@@ -37,6 +37,10 @@
 
 Backed by **`../cms`**. See **`../cms/AGENTS.md`** if present and `../cms/data/api-inventory.json`.
 
+## Culture Layer stack
+
+Five-layer model (Community → Capital): sub-items, routes, and agent mapping in [`../docs/CULTURE_LAYERS.md`](../docs/CULTURE_LAYERS.md). Canonical config: `src/lib/culture-layers.ts`.
+
 ## Tests
 
 `npm run test:all` — verify → unit → Playwright smoke.

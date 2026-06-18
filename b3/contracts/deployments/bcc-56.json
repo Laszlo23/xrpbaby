@@ -2,12 +2,25 @@
   "chainId": 56,
   "name": "BNB Smart Chain",
   "canonicalBccBase": "0xB890a5289F789f1346032Ccc1847939e855FAb07",
-  "bccOft": "0x81cCda83704985FcB88e1174Da4367eEa40871C4",
-  "bccOftAdapterBase": "0xd323e5b266FA7A13C9c572ad5c7b7f996846EFc0",
+  "wbcc": "",
+  "bccBridgeVaultBase": "",
+  "deprecated": {
+    "bccOft": "0x81cCda83704985FcB88e1174Da4367eEa40871C4",
+    "bccOftAdapterBase": "0xd323e5b266FA7A13C9c572ad5c7b7f996846EFc0",
+    "note": "Legacy MVP — do not seed liquidity; use wBCC instead"
+  },
   "layerZero": {
     "baseEid": 30184,
     "bscEid": 30102,
-    "note": "MVP lock/mint bridge — replace bridge role with LayerZero OApp when wiring peers"
+    "phase": "2-migration-planned",
+    "migrationScript": "script/MigrateBccLayerZero.s.sol"
+  },
+  "fairLaunch": {
+    "sale": "",
+    "roundId": 0
+  },
+  "staking": {
+    "wbccRootsStaking": ""
   },
   "pancakeswap": {
     "router": "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4",
@@ -15,8 +28,14 @@
     "factory": "0x0BFbCF9fa4f9C56B0F40a671Ad40E8275Dc091A3",
     "wbnb": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
     "pool": "",
-    "note": "Run npm run pancakeswap:seed after bridging BCC to BSC OFT"
+    "note": "Run npm run pancakeswap:seed with wBCC address after deploy"
   },
-  "deployInstructions": "forge script script/DeployBccOFT.s.sol:DeployBccOFT --rpc-url $BSC_RPC --broadcast --chain-id 56",
-  "updatedAt": "2026-06-11T12:00:00.000Z"
+  "deployInstructions": {
+    "wbcc": "forge script script/DeployBccBridge.s.sol:DeployWrappedBCC --rpc-url $BSC_RPC --broadcast --chain-id 56",
+    "vault": "forge script script/DeployBccBridge.s.sol:DeployBccBridge --rpc-url $BASE_RPC --broadcast --chain-id 8453",
+    "wire": "BCC_BRIDGE_VAULT=... WBCC_ADDRESS=... BRIDGE_RELAYER_ADDRESS=... forge script script/DeployBccBridge.s.sol:WireBccBridge --broadcast",
+    "fairLaunch": "forge script script/DeployBccEcosystem.s.sol:DeployBccFairLaunchSale --rpc-url $BSC_RPC --broadcast --chain-id 56",
+    "passRewards": "forge script script/DeployBccEcosystem.s.sol:DeployCulturePassBccRewards --rpc-url $BASE_RPC --broadcast --chain-id 8453"
+  },
+  "updatedAt": "2026-06-11T18:00:00.000Z"
 }

@@ -1,6 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
 
 const DEFAULT_TASKS = [
+  { slug: "join-forest", title: "Create your pass", points: 50, active: true },
   { slug: "connect-wallet", title: "Connect wallet", points: 25, active: true },
   { slug: "visit-marketplace", title: "Open Project shares", points: 15, active: true },
   {

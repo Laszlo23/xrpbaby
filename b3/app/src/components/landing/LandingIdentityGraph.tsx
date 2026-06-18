@@ -31,7 +31,7 @@ export function LandingIdentityGraph() {
   const demoName = data?.identity ?? DEFAULT_IDENTITY;
 
   return (
-    <div className="relative mt-24">
+    <div id="culture-identity-graph" className="relative mt-24 scroll-mt-24">
       <div className="mx-auto max-w-3xl text-center">
         <p className="mono-label">IDENTITY GRAPH</p>
         <h3 className="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">

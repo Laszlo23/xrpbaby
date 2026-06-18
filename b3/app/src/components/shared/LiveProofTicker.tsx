@@ -1,9 +1,6 @@
 import { usePublicProof } from "@/hooks/usePublicProof";
-import {
-  proofSignalHref,
-  proofSignalValue,
-  proofSignalsFor,
-} from "@/lib/proof-signals";
+import { landingProofLabel, landingProofValue } from "@/lib/landing-proof-display";
+import { proofSignalHref, proofSignalsFor } from "@/lib/proof-signals";
 
 type LiveProofTickerProps = {
   section: "ticker" | "bcc";
@@ -20,10 +17,11 @@ export function LiveProofTicker({ section, className = "" }: LiveProofTickerProp
     >
       {signals.map((signal) => {
         const href = proofSignalHref(signal.key, proof);
-        const value = proofSignalValue(signal.key, proof, isLoading);
+        const value = landingProofValue(signal.key, proof, isLoading);
+        const label = landingProofLabel(signal.key, signal.label);
         const inner = (
           <>
-            <span className="text-zinc-600">{signal.label}</span>{" "}
+            <span className="text-zinc-600">{label}</span>{" "}
             <span className="tabular-nums text-[#00E5FF]">{value}</span>
           </>
         );

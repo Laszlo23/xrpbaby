@@ -1,27 +1,46 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { motion } from "@/components/landing/motion";
+import { Check } from "lucide-react";
 
-import { ROADMAP_SHIPPED, ROADMAP_UPCOMING } from "@/lib/landing-copy";
+import { FUTURE_NETWORK, ROADMAP_SHIPPED, ROADMAP_UPCOMING } from "@/lib/landing-copy";
 
 export function LandingFuture() {
   return (
-    <section id="future" className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36">
+    <section id="network" className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36">
       <div className="absolute inset-0 bc-grid opacity-40" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="max-w-3xl">
-          <p className="mono-label">THE FUTURE</p>
+          <p className="mono-label">{FUTURE_NETWORK.eyebrow}</p>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mt-4 font-display text-[40px] leading-[1] font-bold tracking-tight text-white sm:text-7xl"
           >
-            What we&apos;re <br />
-            <span className="text-zinc-500">building next.</span>
+            {FUTURE_NETWORK.headline} <br />
+            <span className="text-zinc-500">everyone wins.</span>
           </motion.h2>
+          <p className="mt-6 text-base text-zinc-400 sm:text-lg">{FUTURE_NETWORK.closing}</p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+        <ul className="mt-12 grid gap-3 sm:grid-cols-2">
+          {FUTURE_NETWORK.promises.map((promise, i) => (
+            <motion.li
+              key={promise}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="flex items-center gap-3 rounded-2xl bc-glass px-5 py-4"
+            >
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#00E5FF]/40 bg-[#00E5FF]/10">
+                <Check size={12} className="text-[#00E5FF]" />
+              </span>
+              <span className="text-[15px] font-medium text-white">{promise}</span>
+            </motion.li>
+          ))}
+        </ul>
+
+        <div className="mt-20 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
             <div className="mb-8 flex items-center gap-3">
               <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-[#C5FF41]" />
@@ -46,7 +65,7 @@ export function LandingFuture() {
             </ul>
           </div>
 
-          <motion.div>
+          <div>
             <div className="mb-8 flex items-center gap-3">
               <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-[#00E5FF]" />
               <p className="mono-label">UPCOMING</p>
@@ -56,22 +75,17 @@ export function LandingFuture() {
                 <motion.li
                   key={u.title}
                   initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-start gap-4 rounded-2xl bc-glass px-5 py-5 transition-all hover:border-[#00E5FF]/30"
+                  className="rounded-2xl bc-glass px-5 py-5"
                 >
-                  <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#00E5FF]/40 bg-[#00E5FF]/10">
-                    <ArrowRight size={12} className="text-[#00E5FF]" />
-                  </span>
-                  <div>
-                    <p className="text-[15px] font-semibold text-white">{u.title}</p>
-                    <p className="mt-1 text-sm text-zinc-500">{u.note}</p>
-                  </div>
+                  <p className="text-[15px] font-semibold text-white">{u.title}</p>
+                  <p className="mt-1 text-sm text-zinc-500">{u.note}</p>
                 </motion.li>
               ))}
             </ul>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { bccDiscountedUsd, getBccDiscountBps } from "./bcc-config.ts";
+import { bccDiscountedUsd } from "@bc/bcc-kit";
+
+import { getBccDiscountBps } from "./bcc-config.ts";
 
 describe("bcc-config", () => {
   it("default discount bps is 1111", () => {

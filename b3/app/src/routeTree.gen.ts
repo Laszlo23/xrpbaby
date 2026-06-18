@@ -135,6 +135,7 @@ import { Route as ApiPlatformAttributionDashboardRouteImport } from './routes/ap
 import { Route as ApiPlatformAnalyticsRouteImport } from './routes/api/platform/analytics'
 import { Route as ApiMemberMeRouteImport } from './routes/api/member/me'
 import { Route as ApiMemberLeaderboardRouteImport } from './routes/api/member/leaderboard'
+import { Route as ApiMemberCultureScoreRouteImport } from './routes/api/member/culture-score'
 import { Route as ApiMarketingXPostRouteImport } from './routes/api/marketing/x-post'
 import { Route as ApiMarketXrpQuoteRouteImport } from './routes/api/market/xrp-quote'
 import { Route as ApiMarketSampleMintRouteImport } from './routes/api/market/sample-mint'
@@ -172,6 +173,8 @@ import { Route as ApiBccMetricsRouteImport } from './routes/api/bcc/metrics'
 import { Route as ApiAirdropClaimRouteImport } from './routes/api/airdrop/claim'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiAgentsResearchRouteImport } from './routes/api/agents/research'
+import { Route as ApiAgentsGrantRouteImport } from './routes/api/agents/grant'
+import { Route as ApiAgentsAccessRouteImport } from './routes/api/agents/access'
 import { Route as ApiAgentOsOverviewRouteImport } from './routes/api/agent-os/overview'
 import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
 import { Route as R0gAgentid1DotjsonRouteImport } from './routes/0g/agentid/1[.]json'
@@ -842,6 +845,11 @@ const ApiMemberLeaderboardRoute = ApiMemberLeaderboardRouteImport.update({
   path: '/api/member/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMemberCultureScoreRoute = ApiMemberCultureScoreRouteImport.update({
+  id: '/api/member/culture-score',
+  path: '/api/member/culture-score',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiMarketingXPostRoute = ApiMarketingXPostRouteImport.update({
   id: '/api/marketing/x-post',
   path: '/api/marketing/x-post',
@@ -1027,6 +1035,16 @@ const ApiAgentsStatusRoute = ApiAgentsStatusRouteImport.update({
 const ApiAgentsResearchRoute = ApiAgentsResearchRouteImport.update({
   id: '/api/agents/research',
   path: '/api/agents/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentsGrantRoute = ApiAgentsGrantRouteImport.update({
+  id: '/api/agents/grant',
+  path: '/api/agents/grant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentsAccessRoute = ApiAgentsAccessRouteImport.update({
+  id: '/api/agents/access',
+  path: '/api/agents/access',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAgentOsOverviewRoute = ApiAgentOsOverviewRouteImport.update({
@@ -1290,6 +1308,8 @@ export interface FileRoutesByFullPath {
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
+  '/api/agents/access': typeof ApiAgentsAccessRoute
+  '/api/agents/grant': typeof ApiAgentsGrantRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
@@ -1327,6 +1347,7 @@ export interface FileRoutesByFullPath {
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
   '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
+  '/api/member/culture-score': typeof ApiMemberCultureScoreRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
@@ -1485,6 +1506,8 @@ export interface FileRoutesByTo {
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
+  '/api/agents/access': typeof ApiAgentsAccessRoute
+  '/api/agents/grant': typeof ApiAgentsGrantRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
@@ -1522,6 +1545,7 @@ export interface FileRoutesByTo {
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
   '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
+  '/api/member/culture-score': typeof ApiMemberCultureScoreRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
@@ -1683,6 +1707,8 @@ export interface FileRoutesById {
   '/0g/agentid/1.json': typeof R0gAgentid1DotjsonRoute
   '/api/activity/log': typeof ApiActivityLogRoute
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
+  '/api/agents/access': typeof ApiAgentsAccessRoute
+  '/api/agents/grant': typeof ApiAgentsGrantRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
   '/api/airdrop/claim': typeof ApiAirdropClaimRoute
@@ -1720,6 +1746,7 @@ export interface FileRoutesById {
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
   '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
+  '/api/member/culture-score': typeof ApiMemberCultureScoreRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
@@ -1882,6 +1909,8 @@ export interface FileRouteTypes {
     | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agent-os/overview'
+    | '/api/agents/access'
+    | '/api/agents/grant'
     | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
@@ -1919,6 +1948,7 @@ export interface FileRouteTypes {
     | '/api/market/sample-mint'
     | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
+    | '/api/member/culture-score'
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
@@ -2077,6 +2107,8 @@ export interface FileRouteTypes {
     | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agent-os/overview'
+    | '/api/agents/access'
+    | '/api/agents/grant'
     | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
@@ -2114,6 +2146,7 @@ export interface FileRouteTypes {
     | '/api/market/sample-mint'
     | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
+    | '/api/member/culture-score'
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
@@ -2274,6 +2307,8 @@ export interface FileRouteTypes {
     | '/0g/agentid/1.json'
     | '/api/activity/log'
     | '/api/agent-os/overview'
+    | '/api/agents/access'
+    | '/api/agents/grant'
     | '/api/agents/research'
     | '/api/agents/status'
     | '/api/airdrop/claim'
@@ -2311,6 +2346,7 @@ export interface FileRouteTypes {
     | '/api/market/sample-mint'
     | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
+    | '/api/member/culture-score'
     | '/api/member/leaderboard'
     | '/api/member/me'
     | '/api/platform/analytics'
@@ -2462,6 +2498,8 @@ export interface RootRouteChildren {
   WelcomeIndexRoute: typeof WelcomeIndexRoute
   ApiActivityLogRoute: typeof ApiActivityLogRoute
   ApiAgentOsOverviewRoute: typeof ApiAgentOsOverviewRoute
+  ApiAgentsAccessRoute: typeof ApiAgentsAccessRoute
+  ApiAgentsGrantRoute: typeof ApiAgentsGrantRoute
   ApiAgentsResearchRoute: typeof ApiAgentsResearchRoute
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
   ApiAirdropClaimRoute: typeof ApiAirdropClaimRoute
@@ -2499,6 +2537,7 @@ export interface RootRouteChildren {
   ApiMarketSampleMintRoute: typeof ApiMarketSampleMintRoute
   ApiMarketXrpQuoteRoute: typeof ApiMarketXrpQuoteRoute
   ApiMarketingXPostRoute: typeof ApiMarketingXPostRoute
+  ApiMemberCultureScoreRoute: typeof ApiMemberCultureScoreRoute
   ApiMemberLeaderboardRoute: typeof ApiMemberLeaderboardRoute
   ApiMemberMeRoute: typeof ApiMemberMeRoute
   ApiPlatformAnalyticsRoute: typeof ApiPlatformAnalyticsRoute
@@ -3446,6 +3485,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMemberLeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/member/culture-score': {
+      id: '/api/member/culture-score'
+      path: '/api/member/culture-score'
+      fullPath: '/api/member/culture-score'
+      preLoaderRoute: typeof ApiMemberCultureScoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/marketing/x-post': {
       id: '/api/marketing/x-post'
       path: '/api/marketing/x-post'
@@ -3703,6 +3749,20 @@ declare module '@tanstack/react-router' {
       path: '/api/agents/research'
       fullPath: '/api/agents/research'
       preLoaderRoute: typeof ApiAgentsResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agents/grant': {
+      id: '/api/agents/grant'
+      path: '/api/agents/grant'
+      fullPath: '/api/agents/grant'
+      preLoaderRoute: typeof ApiAgentsGrantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agents/access': {
+      id: '/api/agents/access'
+      path: '/api/agents/access'
+      fullPath: '/api/agents/access'
+      preLoaderRoute: typeof ApiAgentsAccessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/agent-os/overview': {
@@ -4145,6 +4205,8 @@ const rootRouteChildren: RootRouteChildren = {
   WelcomeIndexRoute: WelcomeIndexRoute,
   ApiActivityLogRoute: ApiActivityLogRoute,
   ApiAgentOsOverviewRoute: ApiAgentOsOverviewRoute,
+  ApiAgentsAccessRoute: ApiAgentsAccessRoute,
+  ApiAgentsGrantRoute: ApiAgentsGrantRoute,
   ApiAgentsResearchRoute: ApiAgentsResearchRoute,
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
   ApiAirdropClaimRoute: ApiAirdropClaimRoute,
@@ -4182,6 +4244,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMarketSampleMintRoute: ApiMarketSampleMintRoute,
   ApiMarketXrpQuoteRoute: ApiMarketXrpQuoteRoute,
   ApiMarketingXPostRoute: ApiMarketingXPostRoute,
+  ApiMemberCultureScoreRoute: ApiMemberCultureScoreRoute,
   ApiMemberLeaderboardRoute: ApiMemberLeaderboardRoute,
   ApiMemberMeRoute: ApiMemberMeRoute,
   ApiPlatformAnalyticsRoute: ApiPlatformAnalyticsRoute,

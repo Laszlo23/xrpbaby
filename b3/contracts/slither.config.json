@@ -1,0 +1,11 @@
+{
+  "filter_paths": ["src"],
+  "exclude_dependencies": true,
+  "exclude_informational": true,
+  "exclude_optimization": true,
+  "detectors_to_exclude": [
+    "solc-version",
+    "naming-convention",
+    "immutable-states"
+  ]
+}

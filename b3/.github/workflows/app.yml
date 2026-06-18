@@ -64,6 +64,15 @@ jobs:
       - name: Unit tests
         working-directory: app
         run: npm run test:unit
+      - name: Backtest suite
+        run: npm run backtest
+      - name: Package tests
+        run: |
+          npm test -w @bc/agent-runtime
+          npm test -w @bc/bcc-kit
+          npm test -w @bc/culture-auth
+          npm test -w @bc/support-score
+          npm test -w @bc/growth-intelligence
       - name: Install Playwright
         working-directory: app
         run: npx playwright install chromium --with-deps

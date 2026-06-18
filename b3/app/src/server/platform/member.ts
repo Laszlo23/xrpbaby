@@ -172,12 +172,21 @@ export async function grantWelcomeRewards(
     data: { memberId, kind: "welcome_badge", amount: 1 },
   });
 
-  return prisma.pointLedger.create({
+  const ledger = await prisma.pointLedger.create({
     data: {
       walletId,
       delta: 50,
       reason: "welcome_forest",
-      taskSlug: "join_forest",
+      taskSlug: "join-forest",
     },
   });
+
+  await logActivity(prisma, {
+    memberId,
+    type: "task_completion:join-forest",
+    sourceModule: "onboarding",
+    payload: { taskSlug: "join-forest", points: 50 },
+  });
+
+  return ledger;
 }

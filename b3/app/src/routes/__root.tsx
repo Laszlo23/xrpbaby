@@ -118,6 +118,7 @@ function useHideBottomNav(): boolean {
   if (pathname.startsWith("/welcome")) return true;
   if (pathname.startsWith("/tg")) return true;
   if (pathname.startsWith("/intelligence")) return true;
+  if (pathname.startsWith("/id")) return true;
   return false;
 }
 

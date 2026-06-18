@@ -1,3 +1,5 @@
+import fs from "node:fs";
+
 import addressesData from "@/data/addresses.json";
 import { OG_AGENT_ID_DEFAULTS } from "@/lib/og-hackathon";
 import { TALENTAPP_PROJECT_VERIFICATION } from "@/lib/seo";
@@ -100,6 +102,39 @@ function addRouteChecks(
       detail: code ? `HTTP ${code}` : "unreachable",
     });
   });
+}
+
+/** Merge audit-gate matrix rows when GRANT_VERIFY_MATRIX_PATH is set (ops / CI). */
+export function mergeAuditMatrixChecks(checks: GrantCheck[]): GrantCheck[] {
+  const matrixPath = process.env.GRANT_VERIFY_MATRIX_PATH?.trim();
+  if (!matrixPath || !fs.existsSync(matrixPath)) {
+    return checks;
+  }
+  try {
+    const matrix = JSON.parse(fs.readFileSync(matrixPath, "utf8")) as {
+      checks?: GrantCheck[];
+    };
+    const auditIds = new Set([
+      "forge_all",
+      "app_unit",
+      "app_e2e",
+      "package_tests",
+      "backtest_suite",
+      "security_scan",
+      "slither",
+      "grant_verify",
+      "flow_tests",
+    ]);
+    const byId = new Map(checks.map((c) => [c.id, c]));
+    for (const row of matrix.checks ?? []) {
+      if (auditIds.has(row.id)) {
+        byId.set(row.id, row);
+      }
+    }
+    return [...byId.values()];
+  } catch {
+    return checks;
+  }
 }
 
 export async function buildGrantVerificationPayload(
@@ -294,12 +329,21 @@ export async function buildGrantVerificationPayload(
   const passed = hardChecks.filter((c) => c.status === "pass").length;
   const overallScore = hardChecks.length > 0 ? Math.round((passed / hardChecks.length) * 100) : 0;
 
+  const mergedChecks = mergeAuditMatrixChecks(checks);
+
   return {
-    ok: checks.every((c) => c.status !== "fail"),
+    ok: mergedChecks.every((c) => c.status !== "fail"),
     generatedAt: new Date().toISOString(),
     origin: base,
-    overallScore,
-    checks,
+    overallScore:
+      mergedChecks.filter((c) => c.status !== "warn").length > 0
+        ? Math.round(
+            (mergedChecks.filter((c) => c.status !== "warn" && c.status === "pass").length /
+              mergedChecks.filter((c) => c.status !== "warn").length) *
+              100,
+          )
+        : overallScore,
+    checks: mergedChecks,
     addresses: addressesData,
     proofLinks: {
       grantProof: `${base}/grant-proof`,

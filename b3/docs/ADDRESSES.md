@@ -26,6 +26,7 @@ Last updated from repo state: **2026-06-08** — see [CONTRACTS_AUDIT.md](./CONT
 | Ankommen AI | [ankommen.buildingcultureid.space](https://ankommen.buildingcultureid.space/) | Austria newcomer companion (beta); repo `apps/Ankommen`; native Next.js on VPS `:3020` — `npm run deploy:ankommen` |
 | KinderStimme (For Kids) | [forkids.buildingcultureid.space](https://forkids.buildingcultureid.space/) | OCPP child protection (beta); repo `apps/behoerden/forkids`; native TanStack on VPS `:3030` — `npm run deploy:forkids` |
 | BC Studio | [app.buildingcultureid.space/studio](https://app.buildingcultureid.space/studio) | Community AI app builder (beta) |
+| Culture Atlas | [buildingcultureid.space/demo/atlas/](https://buildingcultureid.space/demo/atlas/) | Living cultural NFT archive — repo `apps/cultureatlasnft`; deploy via `npm run deploy:atlas` |
 | Community apps | `{slug}.buildingcultureid.space` | Published BC Studio projects — see [BC_STUDIO.md](./BC_STUDIO.md) |
 
 ---

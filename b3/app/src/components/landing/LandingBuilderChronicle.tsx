@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { BUILDER_PULL_QUOTES, BUILDER_PROFILE, featuredEssays } from "@/content/builder-chronicle";
 import { EssayCard } from "@/components/story/EssayCard";

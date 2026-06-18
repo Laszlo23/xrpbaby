@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 import { ArrowUpRight, Briefcase, CheckCircle2, Layers, UserPlus } from "lucide-react";
 
 import { joinLandingWaitlist, trackLandingEvent } from "@/lib/landing-api";
@@ -49,14 +49,13 @@ export function LandingFinalCta() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-6 font-display text-[44px] leading-[0.96] font-bold tracking-[-0.04em] text-white sm:text-7xl lg:text-[96px]"
+          className="mt-6 font-display text-[44px] leading-[0.96] font-bold tracking-[-0.04em] text-white sm:text-7xl lg:text-[88px]"
         >
-          The future isn&apos;t built <br />
-          by <span className="text-zinc-500">institutions.</span> <br />
-          It&apos;s built by <span className="bc-text-gradient">people.</span>
+          Build together. <br />
+          <span className="bc-text-gradient">Own together.</span>
         </motion.h2>
         <p className="mx-auto mt-8 max-w-xl text-lg text-zinc-300/90">
-          Create your pass in one step — then grow with the community.
+          Create your pass, earn reputation, and participate in a community-owned ecosystem.
         </p>
 
         <Link
@@ -122,11 +121,11 @@ export function LandingFinalCta() {
             <ArrowUpRight size={16} aria-hidden />
           </Link>
           <a
-            href="#ecosystem"
+            href="#products"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[14px] font-semibold text-white hover:border-[#00E5FF]/60"
           >
             <Layers size={16} aria-hidden />
-            Explore The Ecosystem
+            Explore Products
           </a>
         </div>
       </div>

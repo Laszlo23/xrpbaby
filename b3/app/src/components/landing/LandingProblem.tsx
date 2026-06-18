@@ -1,129 +1,104 @@
-import { motion } from "framer-motion";
-import { Building2, Coins, Lock, TrendingDown, Users } from "lucide-react";
+import { motion } from "@/components/landing/motion";
+import { Activity, Coins, Sparkles, Target, Trophy, Users } from "lucide-react";
 
+import { LandingProofCountUp } from "@/components/landing/LandingProofCountUp";
 import { usePublicProof } from "@/hooks/usePublicProof";
-import { LANDING_MEDIA } from "@/lib/landing-media";
-import {
-  proofSignalHref,
-  proofSignalValue,
-  proofSignalsFor,
-} from "@/lib/proof-signals";
+import { landingProofLabel } from "@/lib/landing-proof-display";
+import { proofSignalHref, proofSignalsFor } from "@/lib/proof-signals";
 
-const PROBLEM_ICONS = [Building2, TrendingDown, Coins, Lock, Users] as const;
+const STATS_ICONS = [Users, Activity, Target, Trophy, Sparkles, Coins] as const;
 
 export function LandingProblem() {
   const { data: proof, isLoading } = usePublicProof();
-  const signals = proofSignalsFor("problem");
+  const signals = proofSignalsFor("stats");
 
   return (
-    <section id="problem" className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36">
+    <section id="stats" className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36">
       <motion.div className="absolute inset-0 bc-grid" />
       <motion.div className="absolute inset-0 bc-noise" />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8 }}
-              className="relative overflow-hidden rounded-3xl border border-white/5"
-            >
-              <img
-                src={LANDING_MEDIA.problem}
-                alt="Decline of community spaces"
-                width={1280}
-                height={896}
-                loading="lazy"
-                className="h-[420px] w-full object-cover sm:h-[520px]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              <div className="absolute right-6 bottom-6 left-6">
-                <p className="mono-label mb-2 !text-[#C47C59]">CHAPTER 01 · THE LOSS</p>
-                <p className="font-display text-2xl leading-tight font-bold text-white sm:text-3xl">
-                  Every empty building was once a home, a story, a community.
-                </p>
-              </div>
-            </motion.div>
-          </div>
+        <div className="max-w-3xl">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mono-label"
+          >
+            COMMUNITY STATS
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mt-4 font-display text-[40px] leading-[1.02] font-bold tracking-tight text-white sm:text-6xl"
+          >
+            Community <br />
+            <span className="text-zinc-500">momentum.</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
+          >
+            Founding-phase growth signals for builders joining early. Auditors and partners can
+            verify raw figures on{" "}
+            <a href="/grant-proof" className="text-[#00E5FF] underline-offset-2 hover:underline">
+              /grant-proof
+            </a>{" "}
+            and our public traction API.
+          </motion.p>
+        </div>
 
-          <div className="lg:col-span-7">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mono-label"
-            >
-              BUILDING IN PUBLIC
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="mt-4 font-display text-[40px] leading-[1.02] font-bold tracking-tight text-white sm:text-6xl"
-            >
-              What we can <br />
-              <span className="text-zinc-500">prove today.</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
-            >
-              No inflated MAU, no vanity followers, no deck-slide fiction. Every figure below is
-              reproducible from Postgres, public Base RPC reads, or documented APIs.
-            </motion.p>
-
-            <div className="relative mt-14">
-              <div className="absolute top-2 bottom-2 left-[19px] w-px bg-gradient-to-b from-[#C47C59]/60 via-white/10 to-[#00E5FF]/40" />
-              <ul className="space-y-5">
-                {signals.map((signal, i) => {
-                  const Icon = PROBLEM_ICONS[i % PROBLEM_ICONS.length] ?? Building2;
-                  const href = proofSignalHref(signal.key, proof);
-                  const value = proofSignalValue(signal.key, proof, isLoading);
-                  return (
-                    <motion.li
-                      key={signal.key}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, amount: 0.4 }}
-                      transition={{ delay: i * 0.06 }}
-                      className="relative flex items-center gap-5 rounded-2xl bc-glass py-5 pr-6 pl-5 transition-all hover:border-white/20"
-                    >
-                      <span className="relative z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0A]">
-                        <Icon size={16} className="text-[#C47C59]" />
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-[13px] font-semibold text-white">{signal.label}</p>
-                        <p className="mt-0.5 text-xs text-zinc-500">{signal.note}</p>
-                        <p className="mt-1 font-mono text-[10px] tracking-widest text-zinc-600 uppercase">
-                          {signal.location}
-                        </p>
-                      </div>
-                      {href ? (
-                        <a
-                          href={href}
-                          target={href.startsWith("http") ? "_blank" : undefined}
-                          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                          className="font-display shrink-0 text-2xl font-bold text-white tabular-nums hover:text-[#00E5FF]"
-                          title="View proof"
-                        >
-                          {value}
-                        </a>
-                      ) : (
-                        <p className="font-display shrink-0 text-2xl font-bold text-white tabular-nums">
-                          {value}
-                        </p>
-                      )}
-                    </motion.li>
-                  );
-                })}
-              </ul>
-            </div>
+        <div className="relative mt-14">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {signals.map((signal, i) => {
+              const Icon = STATS_ICONS[i % STATS_ICONS.length] ?? Users;
+              const href = proofSignalHref(signal.key, proof);
+              const label = landingProofLabel(signal.key, signal.label);
+              const valueNode = (
+                <LandingProofCountUp
+                  signalKey={signal.key}
+                  proof={proof}
+                  loading={isLoading}
+                  className="font-display text-3xl font-bold text-white tabular-nums"
+                />
+              );
+              return (
+                <motion.div
+                  key={signal.key}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ delay: i * 0.06 }}
+                  className="rounded-2xl bc-glass p-6 transition-all hover:border-white/20"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0A]">
+                      <Icon size={16} className="text-[#C5FF41]" />
+                    </span>
+                    {href ? (
+                      <a
+                        href={href}
+                        target={href.startsWith("http") ? "_blank" : undefined}
+                        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="hover:text-[#00E5FF]"
+                        title="View proof"
+                      >
+                        {valueNode}
+                      </a>
+                    ) : (
+                      valueNode
+                    )}
+                  </div>
+                  <p className="mt-4 text-[13px] font-semibold text-white">{label}</p>
+                  <p className="mt-1 text-xs text-zinc-500">{signal.note}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -1,0 +1,167 @@
+// Building Culture Agent Database - Prisma Schema
+// Generated from available ChatGPT conversation context.
+// Recommended DB: PostgreSQL
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+  LOW_MED
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  BLOCKED
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  type        String
+  mission     String
+  positioning String?
+  tokenSymbol String?
+  tokenContract String?
+  rule        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products Product[]
+  agents   Agent[]
+  tasks    Task[]
+  metrics  Metric[]
+}
+
+model Product {
+  id           String   @id @default(cuid())
+  projectId    String
+  name         String
+  category     String
+  purpose      String
+  targetUser   String?
+  mvpFeatures  String?
+  revenueModel String?
+  priority     Priority @default(MEDIUM)
+  status       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+
+  @@index([projectId])
+  @@index([category])
+  @@index([priority])
+}
+
+model Agent {
+  id             String   @id @default(cuid())
+  projectId      String
+  name           String
+  mainJob        String
+  inputs         String?
+  outputs        String?
+  toolsApis      String?
+  approvalNeeded Boolean  @default(true)
+  usefulFor      String?
+  mvpPriority    Priority @default(MEDIUM)
+  systemPrompt   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+  metrics Metric[]
+
+  @@index([projectId])
+  @@index([mvpPriority])
+}
+
+model FunnelStage {
+  id          String   @id @default(cuid())
+  projectId   String
+  stage       String
+  offer       String
+  userAction  String?
+  agentRole   String?
+  metric      String?
+  notes       String?
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([orderIndex])
+}
+
+model Task {
+  id            String     @id @default(cuid())
+  projectId     String
+  productId     String?
+  agentId       String?
+  title         String
+  owner         String?
+  priority      Priority   @default(MEDIUM)
+  status        TaskStatus @default(TODO)
+  nextStep      String?
+  successMetric String?
+  dueDate       DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  project Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id])
+  agent   Agent?   @relation(fields: [agentId], references: [id])
+
+  @@index([projectId])
+  @@index([priority])
+  @@index([status])
+}
+
+model Metric {
+  id              String   @id @default(cuid())
+  projectId       String
+  agentId         String?
+  name            String
+  category        String
+  baseline        String?
+  target          String?
+  updateFrequency String?
+  currentValue    Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  agent   Agent?  @relation(fields: [agentId], references: [id])
+
+  @@index([projectId])
+  @@index([category])
+}
+
+model KnowledgeEntry {
+  id        String   @id @default(cuid())
+  projectId String
+  type      String
+  title     String
+  content   String
+  source    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([type])
+}

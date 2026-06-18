@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 import { ArrowUpRight, Building2, FileText, Layers, LineChart, Maximize2 } from "lucide-react";
 
 import { usePublicProof } from "@/hooks/usePublicProof";

@@ -10,6 +10,18 @@ export function explorerAddressUrl(chainId: number, address: string): string {
   return `${baseUrl}${address}`;
 }
 
+/** In-app human-friendly explorer path for Base txs; null for other chains. */
+export function internalExplorerTxPath(chainId: number, hash: string): string | null {
+  if (chainId === base.id) return `/explorer/tx/${hash.toLowerCase()}`;
+  return null;
+}
+
+/** In-app human-friendly explorer path for Base addresses; null for other chains. */
+export function internalExplorerAddressPath(chainId: number, address: string): string | null {
+  if (chainId === base.id) return `/explorer/address/${address.toLowerCase()}`;
+  return null;
+}
+
 function explorerTxBase(chainId: number): string {
   if (chainId === baseSepolia.id) return "https://sepolia.basescan.org/tx/";
   if (chainId === base.id) return "https://basescan.org/tx/";

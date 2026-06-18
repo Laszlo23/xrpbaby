@@ -205,6 +205,12 @@ cat "$growth_log"
 rm -f "$growth_log"
 echo ""
 
+echo "==> 5/5 Audit program stubs (full run: npm run audit:gate)"
+add_check "flow_tests" "Critical flow Playwright specs" "warn" "run npm run audit:gate locally or in CI"
+add_check "backtest_suite" "Backtest suite" "warn" "run npm run backtest"
+add_check "security_scan" "Security scan" "warn" "run npm run security:scan"
+add_check "slither" "Slither static analysis" "warn" "run npm run slither"
+
 echo ""
 echo "Matrix saved: $MATRIX_FILE"
 

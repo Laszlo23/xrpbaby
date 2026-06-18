@@ -1,25 +1,25 @@
 {
-  "updated": "2026-06-10",
-  "note": "Refreshed by scripts/update-test-gate-snapshot.mjs and manual forge/playwright run",
+  "updated": "2026-06-17",
+  "note": "Auto-refreshed by scripts/update-test-gate-snapshot.mjs",
   "packages": {
-    "unit": 33,
+    "unit": 15,
     "breakdown": {
-      "agent-runtime": 20,
-      "bcc-kit": 5,
+      "agent-runtime": 7,
+      "bcc-kit": 0,
       "culture-auth": 5,
       "support-score": 3
     }
   },
   "forge": {
-    "contracts": 50,
-    "identity": 9,
-    "art": 3,
-    "places": 42,
+    "contracts": 2,
+    "identity": 2,
+    "art": 1,
+    "places": 4,
     "chainlink": 9,
-    "total": 113
+    "total": 18
   },
   "app": {
-    "playwright": 87,
-    "unit": 59
+    "playwright": 0,
+    "unit": 79
   }
 }

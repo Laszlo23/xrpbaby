@@ -25,7 +25,11 @@ export function BcdEconomyProvider({ children }: { children: ReactNode }) {
 export function useBcdEconomy(): BcdEconomyContextValue {
   const ctx = useContext(BcdEconomyContext);
   if (!ctx) {
-    throw new Error("useBcdEconomy must be used within BcdEconomyProvider");
+    return {
+      getBcdOpen: false,
+      openGetBcd: () => {},
+      closeGetBcd: () => {},
+    };
   }
   return ctx;
 }

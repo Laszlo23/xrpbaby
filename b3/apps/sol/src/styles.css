@@ -1,0 +1,213 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  --background: oklch(0.14 0.01 90);
+  --foreground: oklch(0.97 0.01 90);
+
+  --surface: oklch(0.18 0.012 90);
+  --surface-elevated: oklch(0.22 0.014 90);
+
+  --card: oklch(0.18 0.012 90);
+  --card-foreground: oklch(0.97 0.01 90);
+  --popover: oklch(0.18 0.012 90);
+  --popover-foreground: oklch(0.97 0.01 90);
+
+  --primary: oklch(0.92 0.19 110);
+  --primary-foreground: oklch(0.14 0.01 90);
+
+  --signal: oklch(0.92 0.19 110);
+  --signal-foreground: oklch(0.14 0.01 90);
+
+  --secondary: oklch(0.26 0.015 90);
+  --secondary-foreground: oklch(0.97 0.01 90);
+
+  --muted: oklch(0.22 0.012 90);
+  --muted-foreground: oklch(0.65 0.015 90);
+
+  --accent: oklch(0.7 0.18 35);
+  --accent-foreground: oklch(0.14 0.01 90);
+
+  --destructive: oklch(0.6 0.24 27);
+  --destructive-foreground: oklch(0.97 0.01 90);
+
+  --border: oklch(0.28 0.012 90);
+  --input: oklch(0.28 0.012 90);
+  --ring: oklch(0.92 0.19 110);
+
+  --gradient-signal: linear-gradient(135deg, oklch(0.92 0.19 110), oklch(0.85 0.21 95));
+  --gradient-dark: radial-gradient(
+    ellipse at top,
+    oklch(0.22 0.015 90) 0%,
+    oklch(0.14 0.01 90) 60%
+  );
+  --shadow-signal: 0 0 60px -10px oklch(0.92 0.19 110 / 0.5);
+  --shadow-hard: 8px 8px 0 0 oklch(0.92 0.19 110);
+}
+
+.dark {
+  --background: oklch(0.14 0.01 90);
+  --foreground: oklch(0.97 0.01 90);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+  .shadow-brutal {
+    box-shadow: var(--shadow-hard);
+  }
+  .glow {
+    box-shadow: var(--shadow-signal);
+  }
+  .marquee {
+    animation: marquee 40s linear infinite;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-ring {
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+  .pulse-ring {
+    animation: pulse-ring 2.4s ease-in-out infinite;
+  }
+}
+
+/* Solana wallet adapter — match BCA brutalist theme */
+.wallet-adapter-button,
+.wallet-adapter-button-trigger {
+  background: var(--signal) !important;
+  color: var(--signal-foreground) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  border-radius: 0 !important;
+  height: 2.5rem !important;
+  line-height: 2.5rem !important;
+  padding: 0 1rem !important;
+  border: none !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover,
+.wallet-adapter-button-trigger:not([disabled]):hover {
+  background: oklch(0.88 0.19 110) !important;
+}
+
+.wallet-adapter-modal-wrapper,
+.wallet-adapter-modal {
+  font-family: var(--font-sans) !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.wallet-adapter-modal-title {
+  font-family: var(--font-display) !important;
+}
+
+.wallet-adapter-modal-list {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button {
+  width: 100% !important;
+  justify-content: flex-start !important;
+  background: var(--surface) !important;
+  color: var(--foreground) !important;
+  margin-bottom: 0.5rem !important;
+}

@@ -34,9 +34,33 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
   },
   {
     id: "app_home",
-    label: "Drops home",
+    label: "Campaign Hub",
     href: "/play",
-    hint: "Tickets, campaigns, live pools.",
+    hint: "Tickets, campaigns, live pools — social impact and fundraising.",
+  },
+  {
+    id: "campaign_hub",
+    label: "Campaign Hub",
+    href: "/products/campaign-hub",
+    hint: "Product page — create and support community campaigns.",
+  },
+  {
+    id: "culture_id",
+    label: "Building Culture ID",
+    href: "/products/culture-id",
+    hint: "Portable Web3 reputation — proof of contribution and credentials.",
+  },
+  {
+    id: "ai_agents",
+    label: "AI Agents",
+    href: "/products/ai-agents",
+    hint: "Community-powered AI workforce — grant, marketing, research agents.",
+  },
+  {
+    id: "grant_proof",
+    label: "Grant Proof",
+    href: "/products/grant-proof",
+    hint: "Transparent proof of impact for grants and milestones.",
   },
   {
     id: "mission",
@@ -70,9 +94,9 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
   },
   {
     id: "pass",
-    label: "Culture pass",
+    label: "Building Culture ID",
     href: "/pass",
-    hint: "Identity across the platform.",
+    hint: "Identity and portable reputation across the platform.",
   },
   {
     id: "bcdai",
@@ -124,8 +148,8 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
   },
   {
     id: "campaigns",
-    label: "Drops hub",
-    href: "/campaigns",
+    label: "Campaign Hub",
+    href: "/play",
     hint: "Active mints / ticket pools.",
   },
   {
@@ -139,6 +163,18 @@ export const BC_TOUCHPOINTS: BcTouchpoint[] = [
     label: "Marketing front door",
     href: "/",
     hint: "Story landing at the app root.",
+  },
+  {
+    id: "culture_atlas",
+    label: "Culture Atlas",
+    absoluteUrl: "https://buildingcultureid.space/demo/atlas/",
+    hint: "Living cultural archives — explore, collect editions, submit Culture Voices.",
+  },
+  {
+    id: "creators",
+    label: "Creators hub",
+    href: "/creators",
+    hint: "Artists, musicians, storytellers — apply to contribute to Culture Atlas.",
   },
 ];
 

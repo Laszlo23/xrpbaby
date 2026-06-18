@@ -30,6 +30,7 @@ import { explorerAddressUrl } from "@/lib/explorer";
 import { CommunityProfilePanel } from "@/components/community-profile/CommunityProfilePanel";
 import { PointsLedgerSection } from "@/components/PointsLedgerSection";
 import { UnifiedPointsSummary } from "@/components/UnifiedPointsSummary";
+import { CultureScoreSummary } from "@/components/profile/CultureScoreSummary";
 import { DailyOnChainCheckIn } from "@/components/DailyOnChainCheckIn";
 import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
 import { getDailyCheckInAddress } from "@/lib/daily-checkin";
@@ -474,6 +475,10 @@ function ProfilePage() {
       </div>
 
       <UnifiedPointsSummary localXp={xp} />
+
+      <div className="mt-10">
+        <CultureScoreSummary />
+      </div>
 
       <PointsLedgerSection />
 

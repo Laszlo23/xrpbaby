@@ -1,0 +1,7 @@
+{
+  "allowedAdvisories": [
+    "GHSA-2435-9934-6775",
+    "GHSA-8mgj-vmqj-5v47"
+  ],
+  "notes": "WalletConnect/Reown transitive moderate advisories documented in docs/0G_HACKATHON_SUBMISSION.md. Review monthly."
+}

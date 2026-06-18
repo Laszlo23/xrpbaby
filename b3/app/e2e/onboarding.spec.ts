@@ -13,7 +13,7 @@ test.describe("onboarding flow", () => {
     await page.getByRole("link", { name: /Back to the story/i }).click();
     await expect(page).toHaveURL(/\/$/);
     await expect(
-      page.getByRole("heading", { name: /We Bring Places Back To Life/i }),
+      page.getByRole("heading", { name: /Who are you/i }),
     ).toBeVisible();
   });
 

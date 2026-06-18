@@ -201,6 +201,18 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
           });
         }
 
+        const member = await prisma.member.findFirst({
+          where: { walletId: wallet.id },
+          select: { id: true },
+        });
+        const { logTaskCompletionActivity } = await import(
+          "@/server/points/task-completion-events"
+        );
+        await logTaskCompletionActivity(prisma, {
+          memberId: member?.id,
+          taskSlug: data.taskSlug,
+        });
+
         const agg = await prisma.pointLedger.aggregate({
           where: { walletId: wallet.id },
           _sum: { delta: true },

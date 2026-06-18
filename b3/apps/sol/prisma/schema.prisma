@@ -1,0 +1,335 @@
+generator client {
+  provider   = "prisma-client"
+  output     = "../src/generated/prisma"
+  engineType = "client"
+  runtime    = "bun"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── Web2 membership (primary product) ───────────────────────────────────────
+
+enum MemberPlan {
+  TRIAL
+  MONTHLY
+  LIFETIME
+}
+
+model Member {
+  id                   String     @id @default(cuid())
+  email                String     @unique
+  name                 String
+  referralCode         String     @unique
+  referredById         String?
+  plan                 MemberPlan @default(TRIAL)
+  trackSlug            String
+  buildFocus           String?
+  walletAddress        String?
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  programStartDate     DateTime?
+  streak               Int        @default(0)
+  lastActiveDate       DateTime?
+  identityJson         String?
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+
+  referredBy        Member?              @relation("ReferralTree", fields: [referredById], references: [id])
+  directReferrals   Member[]             @relation("ReferralTree")
+  sessions          MemberSession[]
+  deliverables      MemberDeliverable[]
+  earnings          ReferralEarning[]    @relation("Earner")
+  earningsGenerated ReferralEarning[]    @relation("Source")
+  checkouts         StripeCheckout[]
+  journalEntries    JournalEntry[]
+  achievements      MemberAchievement[]
+  moodCheckIns      MoodCheckIn[]
+  proofSnapshots    ProofSnapshot[]
+  proofAnchors      ProofAnchor[]
+  communityStakes   MemberCommunityStake[]
+  linkWalletNonce         String?
+  linkWalletNonceExpiresAt DateTime?
+
+  @@index([email])
+  @@index([referralCode])
+  @@index([referredById])
+  @@index([stripeCustomerId])
+}
+
+model JournalEntry {
+  id        String   @id @default(cuid())
+  memberId  String
+  dayNumber Int
+  prompt    String
+  body      String
+  mood      Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId])
+  @@index([memberId, dayNumber])
+}
+
+model MemberAchievement {
+  id          String   @id @default(cuid())
+  memberId    String
+  slug        String
+  title       String
+  description String
+  earnedAt    DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([memberId, slug])
+  @@index([memberId])
+}
+
+model MoodCheckIn {
+  id            String    @id @default(cuid())
+  memberId      String
+  programDay    Int
+  energySlug    String?
+  energyScore   Int?
+  innerSlug     String?
+  innerScore    Int?
+  momentumSlug  String?
+  momentumScore Int?
+  morningAt     DateTime?
+  eveningAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([memberId, programDay])
+  @@index([memberId])
+}
+
+model StripeCheckout {
+  id              String     @id @default(cuid())
+  stripeSessionId String     @unique
+  email           String
+  name            String
+  trackSlug       String
+  plan            MemberPlan
+  referralCode    String?
+  memberId        String?
+  fulfilledAt     DateTime?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  member Member? @relation(fields: [memberId], references: [id])
+
+  @@index([stripeSessionId])
+  @@index([email])
+}
+
+model MemberSession {
+  id        String   @id @default(cuid())
+  memberId  String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([memberId])
+}
+
+model Deliverable {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  type        String
+  dayNumber   Int
+  trackSlug   String?
+  content     String
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members MemberDeliverable[]
+
+  @@index([dayNumber])
+  @@index([trackSlug])
+}
+
+model MemberDeliverable {
+  id            String    @id @default(cuid())
+  memberId      String
+  deliverableId String
+  unlockedAt    DateTime  @default(now())
+  completedAt   DateTime?
+  checklistJson String?
+  reflectionNote String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  member      Member      @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  deliverable Deliverable @relation(fields: [deliverableId], references: [id], onDelete: Cascade)
+
+  @@unique([memberId, deliverableId])
+  @@index([memberId])
+}
+
+model ReferralEarning {
+  id           String   @id @default(cuid())
+  earnerId     String
+  sourceId     String
+  level        Int
+  amountCents  Int
+  plan         MemberPlan
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  earner Member @relation("Earner", fields: [earnerId], references: [id], onDelete: Cascade)
+  source Member @relation("Source", fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([earnerId])
+  @@index([sourceId])
+}
+
+model ProofSnapshot {
+  id                   String   @id @default(cuid())
+  memberId             String
+  periodKey            String
+  periodStart          DateTime
+  periodEnd            DateTime
+  proofScore           Int
+  signalsJson          String
+  contentHash          String
+  status               String   @default("draft")
+  anchorNonce          String?
+  anchorNonceExpiresAt DateTime?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  member Member       @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  anchor ProofAnchor?
+
+  @@unique([memberId, periodKey])
+  @@index([memberId])
+}
+
+model MemberCommunityStake {
+  id              String     @id @default(cuid())
+  memberId        String
+  plan            MemberPlan
+  paidCents       Int
+  lockCents       Int
+  bccAmount       Int
+  status          String     @default("pending_wallet")
+  walletAddress   String?
+  lockTxSignature String?
+  stakedAt        DateTime?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId])
+  @@index([status])
+}
+
+model ProofAnchor {
+  id            String   @id @default(cuid())
+  snapshotId    String   @unique
+  memberId      String
+  walletAddress String
+  txSignature   String   @unique
+  anchoredAt    DateTime @default(now())
+
+  snapshot ProofSnapshot @relation(fields: [snapshotId], references: [id], onDelete: Cascade)
+  member   Member         @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId])
+}
+
+// ─── Optional Solana layer (proof / rewards) ───────────────────────────────
+
+model Builder {
+  id               String    @id @default(cuid())
+  walletAddress    String    @unique
+  displayName      String?
+  xp               Int       @default(0)
+  streak           Int       @default(0)
+  lastActiveDate   DateTime?
+  builderScore     Int       @default(0)
+  enrolledPathSlug String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  completions  MissionCompletion[]
+  achievements Achievement[]
+
+  @@index([walletAddress])
+}
+
+model Mission {
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  title             String
+  description       String
+  xpReward          Int      @default(0)
+  bccReward         Int      @default(0)
+  nftAchievementKey String?
+  pathSlug          String?
+  sortOrder         Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  completions MissionCompletion[]
+
+  @@index([slug])
+  @@index([pathSlug])
+}
+
+model MissionCompletion {
+  id          String    @id @default(cuid())
+  builderId   String
+  missionId   String
+  completedAt DateTime  @default(now())
+  claimedAt   DateTime?
+  txSignature String?
+  nftMint     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  builder Builder @relation(fields: [builderId], references: [id], onDelete: Cascade)
+  mission Mission @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@unique([builderId, missionId])
+  @@index([builderId])
+  @@index([missionId])
+}
+
+enum AchievementType {
+  nft
+  badge
+}
+
+model Achievement {
+  id          String          @id @default(cuid())
+  builderId   String
+  type        AchievementType
+  title       String
+  metadataUri String?
+  mintAddress String?
+  missionSlug String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  builder Builder @relation(fields: [builderId], references: [id], onDelete: Cascade)
+
+  @@index([builderId])
+  @@index([mintAddress])
+}

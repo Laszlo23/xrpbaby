@@ -50,7 +50,7 @@ const sampleGraph: CultureIdentityGraph = {
 };
 
 describe("computeCultureScore", () => {
-  it("returns score between 0 and 10 with six dimensions", () => {
+  it("returns score between 0 and 10 with nine dimensions", () => {
     const result = computeCultureScore({
       resolved: {
         ok: true,
@@ -66,11 +66,19 @@ describe("computeCultureScore", () => {
       graph: sampleGraph,
       nftCount: 5,
       txCount: 10,
-      member: { farcasterUsername: "0xlaszlo", supportScore: 1200, culturePoints: 200, supporterTier: "founding" },
+      member: {
+        farcasterUsername: "0xlaszlo",
+        supportScore: 1200,
+        culturePoints: 200,
+        supporterTier: "founding",
+        completedQuestCount: 4,
+        referralCount: 1,
+        buildCount: 2,
+      },
     });
 
     assert.ok(result.score >= 0 && result.score <= 10);
-    assert.equal(result.dimensions.length, 6);
+    assert.equal(result.dimensions.length, 9);
     assert.ok(result.note.length > 0);
     assert.ok(result.rank.label.length > 0);
   });
@@ -86,6 +94,6 @@ describe("computeCultureScore", () => {
       graph: null,
     });
     assert.ok(result.score >= 0);
-    assert.equal(result.note, "from onchain identity");
+    assert.equal(result.note, "from wallet + contributions");
   });
 });

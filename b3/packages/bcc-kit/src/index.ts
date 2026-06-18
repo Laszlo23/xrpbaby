@@ -7,11 +7,7 @@
  * Base-only.
  */
 
-/** BCC ERC-20 contract address on Base mainnet. */
-export const BCC_ADDRESS = "0xb890a5289f789f1346032ccc1847939e855fab07" as const;
-
-/** Base mainnet chain id (BCC is Base-only). */
-export const BCC_CHAIN_ID = 8453 as const;
+export { BCC_ADDRESS, BCC_CHAIN_ID } from "./constants.js";
 
 /** Token symbol for UI copy (ticker with $ prefix). */
 export const BCC_SYMBOL = "$BCC" as const;
@@ -141,15 +137,22 @@ export {
 } from "./bsc-swap.js";
 
 export {
+  BCC_BURN_ADDRESS,
   DEFAULT_BCC_BRIDGE_CONFIG,
   LZ_EID_BASE,
   LZ_EID_BSC,
   addressToBytes32,
   bridgeDirectionLabel,
+  bridgeTokenSymbol,
+  bridgeVaultAbi,
   getBridgeDestEid,
   getBridgeSourceToken,
   isBridgeConfigured,
+  isLayerZeroBridgeConfigured,
+  isRelayerBridgeConfigured,
   oftSendAbi,
+  wbccAbi,
   type BccBridgeConfig,
   type BccBridgeDirection,
+  type BccBridgeMode,
 } from "./bridge.js";

@@ -2,6 +2,7 @@
  * Dynamic ERC-8004 / A2A-style discovery payload for /.well-known/agent.json
  */
 import { getServerPublicOrigin } from "@/lib/app-origin";
+import { x402ResearchPrice } from "@/lib/agent-os-catalog";
 import { buildMarketOffer } from "@/lib/market-offer";
 import {
   buildTradingAgentOffer,
@@ -46,6 +47,7 @@ export function buildBuildchainAgentCard(): BuildchainAgentCard {
     capabilities: [
       "x402-trading-agent",
       "x402-json-feed",
+      "x402-research-agent",
       "bcd-fixed-price-sale",
       "thirdweb-marketplace",
       "farcaster-miniapp",
@@ -93,6 +95,15 @@ export function buildBuildchainAgentCard(): BuildchainAgentCard {
         price_env: trading.pricing.arbitrage_scan.price_env,
       },
       {
+        id: "buildchain_research_brief_v1",
+        description:
+          "Paid research brief — Web3, AI, ecosystem and competitor analysis. GET with q= query and x402 payment.",
+        protocol: "x402",
+        method: "GET",
+        url: `${base}/api/agents/research?q=What+grants+fit+Base+AI+agents`,
+        price_env: "X402_RESEARCH_PRICE",
+      },
+      {
         id: "buildchain_market_bcc_solana_v1",
         description: "Solana → BCC buy routes (Jumper, deBridge) + price estimate.",
         protocol: "https",
@@ -124,6 +135,7 @@ export function buildBuildchainAgentCard(): BuildchainAgentCard {
       marketplace: `${base}/marketplace`,
       docs: `${base}/docs`,
       agent_fleet: `${base}/agent-fleet`,
+      agent_os: `${base}/agent-os`,
       trading_agent: `${base}/trading-agent`,
       trading_manifest: trading.free.manifest,
       market_manifest: market.endpoints.manifest,
@@ -138,5 +150,6 @@ export function tradingAgentPricingHints() {
     quote: x402TradingQuotePrice(),
     pools: x402TradingPoolsPrice(),
     swapPreview: x402TradingSwapPreviewPrice(),
+    research: x402ResearchPrice(),
   };
 }

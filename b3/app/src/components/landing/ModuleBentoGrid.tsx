@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 import { ArrowUpRight } from "lucide-react";
 
 import { getLayerAccent, getLayerIcon } from "@/lib/ecosystem-layers";

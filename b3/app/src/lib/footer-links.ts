@@ -64,15 +64,22 @@ export type ExternalFooterLink = {
 
 export const footerProductLinks: InternalFooterLink[] = [
   { to: "/", label: "Story", icon: Home },
-  { to: "/play", label: "Play", icon: Zap },
+  { to: "/products", label: "Products", icon: Layers },
+  { to: "/products/culture-id", label: "Building Culture ID", icon: Fingerprint },
+  { to: "/products/campaign-hub", label: "Campaign Hub", icon: Zap },
+  { to: "/products/ai-agents", label: "AI Agents", icon: Bot },
+  { to: "/products/grant-proof", label: "Grant Proof", icon: Shield },
+  { to: "/play", label: "Campaign Hub app", icon: Zap },
   { to: "/join", label: "Join", icon: Fingerprint },
-  { to: "/pass", label: "Claim your .tld", icon: Fingerprint },
+  { to: "/pass", label: "Claim your .culture name", icon: Fingerprint },
   { to: "/forest", label: "Community hub", icon: Rocket },
   { to: "/voice", label: "Builder Voice", icon: MessageSquareQuote },
   { to: "/marketplace", label: "Marketplace", icon: Building2 },
+  { to: "/explorer", label: "Explorer for humans", icon: Compass },
   { to: "/collections", label: "Collections", icon: Layers },
-  { to: "/campaign", label: "Campaign", icon: Rocket },
+  { to: "/campaign", label: "Agent shares", icon: Rocket },
   { to: "/elias", label: "Elias", icon: Gem },
+  { to: "/creators", label: "Creators", icon: Palette },
 ];
 
 export const footerEcosystemLinks: { label: string; href: string; icon: LucideIcon }[] = [
@@ -85,12 +92,18 @@ export const footerEcosystemLinks: { label: string; href: string; icon: LucideIc
   { label: "Game", href: "https://game.buildingcultureid.space", icon: Gamepad2 },
   { label: "Ankommen AI", href: "https://ankommen.buildingcultureid.space", icon: Globe },
   { label: "KinderStimme", href: "https://forkids.buildingcultureid.space", icon: Shield },
+  {
+    label: "Culture Atlas",
+    href: "https://buildingcultureid.space/demo/atlas/",
+    icon: Globe,
+  },
 ];
 
 export const footerLayerLinks: InternalFooterLink[] = [
   { to: "/signal", label: "Culture Pulse", icon: Sparkles },
   { to: "/earth", label: "Earth lane", icon: Globe },
   { to: "/drops/art", label: "Art drops", icon: Palette },
+  { to: "/agent-os", label: "Agent OS", icon: Bot },
   { to: "/0g/agentid", label: "0G Agent ID (hackathon)", icon: Bot },
   { to: "/trading-agent", label: "Trading agent (x402)", icon: Zap },
 ];
@@ -168,16 +181,25 @@ export const landingFooterEcosystemColumn: FooterHrefLink[] = [
 
 /** Story landing footer — Layers column. */
 export const landingFooterLayersColumn: FooterHrefLink[] = [
-  ...ecosystemByLabel(["Art", "WohnAI", "BCDAI", "Game", "Ankommen AI", "KinderStimme"]),
+  ...ecosystemByLabel([
+    "Art",
+    "Culture Atlas",
+    "WohnAI",
+    "BCDAI",
+    "Game",
+    "Ankommen AI",
+    "KinderStimme",
+  ]),
   { label: "Community", href: "/forest", icon: Rocket },
 ];
 
 /** Story landing footer — Company column (hash anchors + legal + contact). */
 export const landingFooterCompanyColumn: FooterHrefLink[] = [
-  { label: "Vision", href: "#vision", icon: Sparkles },
-  { label: "Investors", href: "#investors", icon: Briefcase },
-  { label: "Roadmap", href: "#future", icon: MapIcon },
-  { label: "Grant proof", href: "/grant-proof", icon: Shield },
+  { label: "Products", href: "#products", icon: Layers },
+  { label: "Stats", href: "#stats", icon: Sparkles },
+  { label: "Places", href: "#places", icon: Briefcase },
+  { label: "Network", href: "#network", icon: MapIcon },
+  { label: "Grant Proof", href: "/grant-proof", icon: Shield },
   { label: "Terms", href: "/legal/terms", icon: FileText },
   { label: "Privacy", href: "/legal/privacy", icon: Shield },
   { label: "Imprint", href: "/legal/imprint", icon: Landmark },

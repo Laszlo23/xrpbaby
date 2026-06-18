@@ -134,6 +134,46 @@ function GrantProofPage() {
 
             <section className="space-y-4">
               <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+                Audit program (local / CI)
+              </h2>
+              <p className="text-sm text-zinc-500">
+                Rows from <code className="text-zinc-400">npm run audit:gate</code> when{" "}
+                <code className="text-zinc-400">GRANT_VERIFY_MATRIX_PATH</code> is set on the
+                server.
+              </p>
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {data.checks
+                  .filter((c) =>
+                    [
+                      "forge_all",
+                      "app_unit",
+                      "app_e2e",
+                      "backtest_suite",
+                      "security_scan",
+                      "slither",
+                      "flow_tests",
+                    ].includes(c.id),
+                  )
+                  .map((check) => (
+                    <li
+                      key={check.id}
+                      className={cn(
+                        "rounded-xl border px-4 py-3 text-sm",
+                        statusStyles(check.status),
+                      )}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="font-medium">{check.label}</span>
+                        <span className="shrink-0 uppercase text-xs opacity-80">{check.status}</span>
+                      </div>
+                      {check.detail && <p className="mt-1 text-xs opacity-80">{check.detail}</p>}
+                    </li>
+                  ))}
+              </ul>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
                 Live checks
               </h2>
               <ul className="grid gap-2 sm:grid-cols-2">

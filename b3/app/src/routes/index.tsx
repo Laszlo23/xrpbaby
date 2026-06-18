@@ -5,17 +5,18 @@ import { LandingPage } from "@/components/landing/LandingPage";
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
-      title: "Building Culture — We Bring Places Back To Life",
+      title: "Building Culture — The Home of Community-Owned Growth",
       description:
-        "Building Culture is creating a new way to fund, build, own and experience real-world communities. Not through banks. Through people.",
+        "Portable Web3 reputation, community campaigns, AI agents, and grant proof — an operating system for communities that build culture, not just attention.",
       path: "/",
       keywords: [
         "Building Culture",
-        "community capital",
-        "real estate",
-        "tokenized property",
-        "Vienna",
-        "culture",
+        "community OS",
+        "Web3 reputation",
+        "campaign hub",
+        "AI agents",
+        "grant proof",
+        "community ownership",
       ],
     }),
   component: Index,

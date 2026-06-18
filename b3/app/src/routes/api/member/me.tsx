@@ -39,6 +39,21 @@ export const Route = createFileRoute("/api/member/me")({
           return json({ ok: true, member: null });
         }
         const balance = member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
+        const ledgerTasks = await prisma.pointLedger.findMany({
+          where: {
+            walletId: member.wallet?.id ?? member.walletId ?? undefined,
+            OR: [{ reason: "task_completion" }, { reason: "welcome_forest" }],
+            taskSlug: { not: null },
+          },
+          select: { taskSlug: true },
+        });
+        const completedSlugs = [
+          ...new Set(
+            ledgerTasks
+              .map((r) => r.taskSlug)
+              .filter((s): s is string => typeof s === "string" && s.length > 0),
+          ),
+        ];
         const { memberToSocialPayload } = await import("@/server/social/support-score-sync");
         return json({
           ok: true,
@@ -50,6 +65,7 @@ export const Route = createFileRoute("/api/member/me")({
             supporterTier: member.supporterTier,
             forestStage: member.forestStage,
             culturePoints: balance,
+            completedSlugs,
             recentActivities: member.activities,
             rewards: member.rewardGrants,
             ...memberToSocialPayload(member),

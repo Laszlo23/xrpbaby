@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { animate, motion, useMotionValue, useTransform, type MotionValue } from "framer-motion";
+import { animate, useMotionValue, useTransform, type MotionValue } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 import {
   Brain,
   ChevronRight,
@@ -34,9 +35,9 @@ const VALUE_FLOW_STEPS: {
 }[] = [
   { Icon: UserPlus, label: "User joins", accent: "#839788" },
   { Icon: Fingerprint, label: "claims .culture ID", accent: "#C5FF41" },
-  { Icon: Brain, label: "agents build memory", accent: "#00E5FF" },
+  { Icon: Brain, label: "agents create value", accent: "#00E5FF" },
   { Icon: ShieldCheck, label: "proof grows", accent: "#C47C59" },
-  { Icon: Coins, label: "value flows in $BCC", accent: "#C5FF41", highlight: true },
+  { Icon: Coins, label: "BCC settles value", accent: "#839788", highlight: true },
 ];
 
 function BccValueFlow() {
@@ -220,20 +221,20 @@ export function LandingBcd() {
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C47C59]/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
-        <p className="mono-label">BUILDING CULTURE COIN</p>
+        <p className="mono-label">CAPITAL LAYER</p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-4 font-display text-[40px] leading-[1] font-bold tracking-tight text-white sm:text-7xl"
         >
-          One Ecosystem. <br />
-          One <span className="bc-text-gradient">Currency.</span>
+          The economic layer <br />
+          <span className="bc-text-gradient">underneath everything.</span>
         </motion.h2>
 
         <p className="mx-auto mt-8 max-w-2xl text-base text-zinc-400 sm:text-lg">
-          $BCC is the internal currency for agent tasks, referrals, reputation, rewards, marketplace
-          payments, and ecosystem coordination.
+          BCC is not the product — it settles agent payments, rewards contribution, and unlocks
+          access. Treasury rules are public on the dashboard.
         </p>
 
         <BccValueFlow />
@@ -284,8 +285,8 @@ export function LandingBcd() {
                   background: "radial-gradient(circle, rgba(0,229,255,0.35) 0%, transparent 65%)",
                 }}
               />
-              <div className="relative font-display text-2xl font-black text-white sm:text-4xl">
-                $BCC
+              <div className="relative font-display text-xl font-black text-white sm:text-3xl">
+                BCC
               </div>
             </motion.div>
           </motion.div>

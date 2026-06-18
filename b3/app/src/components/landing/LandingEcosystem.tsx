@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 
 import { ModuleBentoGrid } from "@/components/landing/ModuleBentoGrid";
-import { LANDING_ECOSYSTEM, PRIMARY_STARTER_APPS } from "@/lib/landing-ecosystem";
+import { ECOSYSTEM_SATELLITES } from "@/lib/landing-ecosystem";
 
 export function LandingEcosystem() {
   return (
@@ -13,7 +13,7 @@ export function LandingEcosystem() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className="mono-label">THE ECOSYSTEM</p>
+            <p className="mono-label">ECOSYSTEM APPS</p>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -21,27 +21,21 @@ export function LandingEcosystem() {
               transition={{ duration: 0.8 }}
               className="mt-4 font-display text-[44px] leading-[1] font-bold tracking-tight text-white sm:text-7xl"
             >
-              One Mission. <br />
-              Multiple Products. <br />
-              <span className="text-zinc-500">One Culture.</span>
+              Built on the <br />
+              <span className="text-zinc-500">culture layer.</span>
             </motion.h2>
           </div>
           <div className="lg:col-span-5">
             <p className="text-base text-zinc-400 sm:text-lg">
-              Start with Play, Pass, or Places — then explore {LANDING_ECOSYSTEM.length}{" "}
-              interconnected products in the full ecosystem.
+              Satellite apps extend the core — art, AI, places, games, and impact tools. One culture,
+              many surfaces.
             </p>
           </div>
         </div>
 
-        <div className="mt-16">
-          <p className="mono-label mb-6">START HERE</p>
-          <ModuleBentoGrid apps={PRIMARY_STARTER_APPS} section="ecosystem_starter" bento={false} />
-        </div>
-
         <div className="mt-20">
-          <p className="mono-label mb-6">FULL ECOSYSTEM</p>
-          <ModuleBentoGrid apps={LANDING_ECOSYSTEM} section="ecosystem" bento />
+          <p className="mono-label mb-6">ECOSYSTEM APPS</p>
+          <ModuleBentoGrid apps={ECOSYSTEM_SATELLITES} section="ecosystem" bento />
         </div>
       </div>
     </section>

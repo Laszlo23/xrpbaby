@@ -11,7 +11,7 @@ test.describe("smoke", () => {
     await page.goto("/");
     await expect(page.locator("body")).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: /We Bring Places Back To Life/i }),
+      page.getByRole("heading", { name: /Who are you/i }),
     ).toBeVisible();
   });
 

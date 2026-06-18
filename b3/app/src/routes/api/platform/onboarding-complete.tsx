@@ -37,11 +37,16 @@ export const Route = createFileRoute("/api/platform/onboarding-complete")({
 
         const { ensureWalletAndMember, grantWelcomeRewards, logActivity } =
           await import("@/server/platform/member");
+        const { grantOnboardingBccIfEligible } = await import("@/server/rewards/first-bcc");
         const { wallet, member } = await ensureWalletAndMember(prisma, auth.address, {
           intent: parsed.data.intent,
           email: parsed.data.email,
         });
         await grantWelcomeRewards(prisma, member.id, wallet.id);
+        const bccGrant = await grantOnboardingBccIfEligible(prisma, {
+          memberId: member.id,
+          walletAddress: auth.address,
+        });
         await logActivity(prisma, {
           memberId: member.id,
           type: "onboarding_complete",
@@ -58,6 +63,11 @@ export const Route = createFileRoute("/api/platform/onboarding-complete")({
           forestStage: member.forestStage,
           supporterTier: member.supporterTier,
           balance: agg._sum.delta ?? 0,
+          bccGrant: bccGrant.ok
+            ? { mode: bccGrant.mode, amountWei: bccGrant.amountWei, txHash: "txHash" in bccGrant ? bccGrant.txHash : undefined }
+            : bccGrant.alreadyGranted
+              ? { mode: "already_granted" as const }
+              : { mode: "skipped" as const, reason: bccGrant.reason },
         });
       },
     },

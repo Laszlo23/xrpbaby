@@ -19,7 +19,7 @@ export type ProofSignalKey =
   | "verifiedSocialLinks"
   | "packPurchases";
 
-export type ProofSignalSection = "problem" | "impact" | "ticker" | "bcc";
+export type ProofSignalSection = "problem" | "impact" | "ticker" | "bcc" | "stats";
 
 export type ProofSignalDef = {
   key: ProofSignalKey;
@@ -33,17 +33,17 @@ export type ProofSignalDef = {
 export const PROOF_SIGNALS: readonly ProofSignalDef[] = [
   {
     key: "members",
-    label: "Member profiles",
+    label: "Members",
     note: "Postgres Member rows — cumulative sign-ups",
     location: "App · DB",
-    sections: ["problem", "impact", "ticker"],
+    sections: ["problem", "impact", "ticker", "stats"],
   },
   {
     key: "membersWithWallet",
-    label: "Wallets on file",
-    note: "Members with walletAddress set",
+    label: "Contributors",
+    note: "Members with wallet connected — active participants",
     location: "App · DB",
-    sections: ["problem"],
+    sections: ["problem", "stats"],
   },
   {
     key: "membersWithFarcaster",
@@ -89,17 +89,17 @@ export const PROOF_SIGNALS: readonly ProofSignalDef[] = [
   },
   {
     key: "raffleTickets",
-    label: "Raffle tickets minted",
+    label: "Campaign tickets",
     note: "RaffleTicketCampaign.totalSupply() on Base",
     location: "Raffle · Base",
-    sections: ["problem", "impact", "ticker"],
+    sections: ["problem", "impact", "ticker", "stats"],
   },
   {
     key: "agentShareMints",
-    label: "Agent share NFTs",
+    label: "Grant milestones",
     note: "AgentShareCampaign.totalSupply() on Base",
     location: "Base · on-chain",
-    sections: ["problem"],
+    sections: ["problem", "stats"],
   },
   {
     key: "waitlist",
@@ -110,17 +110,17 @@ export const PROOF_SIGNALS: readonly ProofSignalDef[] = [
   },
   {
     key: "culturePoints",
-    label: "Culture Points (net)",
-    note: "Sum of PointLedger.delta",
+    label: "Reputation points",
+    note: "Sum of PointLedger.delta (Culture Points net)",
     location: "App · DB",
-    sections: ["problem", "ticker"],
+    sections: ["problem", "ticker", "stats"],
   },
   {
     key: "activity24h",
-    label: "Activity (24h)",
+    label: "Onchain actions (24h)",
     note: "ActivityEvent rows in last 24 hours",
     location: "App · DB",
-    sections: ["problem"],
+    sections: ["problem", "stats"],
   },
   {
     key: "marketplaceListings",

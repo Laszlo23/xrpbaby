@@ -33,6 +33,14 @@ export type MemberProfileBridge = {
   supportScore: number | null;
   culturePoints: number;
   supporterTier: string;
+  /** Completed task slugs from PointLedger */
+  completedQuestCount?: number;
+  /** Referral task completions (raffle-referral-bonus) */
+  referralCount?: number;
+  /** Studio / builder task completions */
+  buildCount?: number;
+  /** Agent calls logged for this wallet */
+  agentUseCount?: number;
 };
 
 export type Web3BioCredential = {

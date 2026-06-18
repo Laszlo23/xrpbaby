@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 
 export function hashApiKey(key: string): string {
   return createHash("sha256").update(key).digest("hex");
@@ -31,6 +31,9 @@ export function envApiKeyForSlug(slug: string): string | undefined {
 export function verifyIngestKey(slug: string, apiKey: string | null): boolean {
   if (!apiKey) return false;
   const expected = envApiKeyForSlug(slug);
-  if (expected) return apiKey === expected;
-  return false;
+  if (!expected) return false;
+  const a = Buffer.from(hashApiKey(apiKey), "hex");
+  const b = Buffer.from(hashApiKey(expected), "hex");
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }

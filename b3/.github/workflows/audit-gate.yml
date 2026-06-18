@@ -1,0 +1,70 @@
+name: audit-gate
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+    inputs:
+      origin:
+        description: "Public app origin for grant verify"
+        required: false
+        default: "https://app.buildingcultureid.space"
+      skip_e2e:
+        description: "Skip Playwright e2e (faster)"
+        type: boolean
+        default: false
+
+jobs:
+  audit-gate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci -d ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: foundry-rs/foundry-toolchain@v1
+      - run: npm ci
+      - name: Prisma migrate
+        working-directory: app
+        env:
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci?schema=public
+        run: npx prisma migrate deploy
+      - name: Install Playwright
+        working-directory: app
+        run: npx playwright install --with-deps chromium
+      - name: Audit gate
+        env:
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci?schema=public
+          PUBLIC_APP_ORIGIN: ${{ github.event.inputs.origin || 'https://app.buildingcultureid.space' }}
+        run: |
+          ARGS="--write-scorecard --origin=${PUBLIC_APP_ORIGIN}"
+          if [ "${{ github.event.inputs.skip_e2e }}" = "true" ]; then
+            ARGS="$ARGS --skip-e2e"
+          fi
+          bash scripts/audit-gate.sh $ARGS || true
+      - name: Upload proof bundle
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-gate-matrix
+          path: |
+            proof-bundles/
+            docs/AUDIT_SCORECARD.md

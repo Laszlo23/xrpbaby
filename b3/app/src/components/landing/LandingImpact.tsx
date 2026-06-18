@@ -1,13 +1,10 @@
-import { motion } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 import { MapPin } from "lucide-react";
 
 import { usePublicProof } from "@/hooks/usePublicProof";
 import { LANDING_MEDIA } from "@/lib/landing-media";
-import {
-  proofSignalHref,
-  proofSignalValue,
-  proofSignalsFor,
-} from "@/lib/proof-signals";
+import { landingProofLabel, landingProofValue } from "@/lib/landing-proof-display";
+import { proofSignalHref, proofSignalsFor } from "@/lib/proof-signals";
 
 export function LandingImpact() {
   const { data: proof, isLoading } = usePublicProof();
@@ -32,8 +29,12 @@ export function LandingImpact() {
           </div>
           <div className="lg:col-span-5">
             <p className="text-base text-zinc-400 sm:text-lg">
-              We measure success with numbers we can prove — members, holders, mints, and waitlist
-              rows you can audit on-chain or via our public APIs.
+              Momentum on the landing reflects our founding community. Raw counts for diligence live
+              on{" "}
+              <a href="/grant-proof" className="text-[#00E5FF] underline-offset-2 hover:underline">
+                /grant-proof
+              </a>{" "}
+              and our traction API.
             </p>
           </div>
         </div>
@@ -66,7 +67,8 @@ export function LandingImpact() {
           <div className="grid grid-cols-2 gap-5 lg:col-span-5">
             {signals.map((signal, i) => {
               const href = proofSignalHref(signal.key, proof);
-              const value = proofSignalValue(signal.key, proof, isLoading);
+              const value = landingProofValue(signal.key, proof, isLoading);
+              const label = landingProofLabel(signal.key, signal.label);
               return (
                 <motion.div
                   key={signal.key}
@@ -102,7 +104,7 @@ export function LandingImpact() {
                     )}
                   </div>
                   <div>
-                    <p className="font-display text-xl font-bold text-white">{signal.label}</p>
+                    <p className="font-display text-xl font-bold text-white">{label}</p>
                     <p className="mt-2 text-sm leading-relaxed text-zinc-400">{signal.note}</p>
                   </div>
                 </motion.div>

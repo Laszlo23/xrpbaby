@@ -7,6 +7,7 @@ import { LandingNav } from "@/components/landing/LandingNav";
 import { ModuleBentoGrid } from "@/components/landing/ModuleBentoGrid";
 import { IdentityMintBand } from "@/components/identity/IdentityMintBand";
 import { MemberForestSummary } from "@/components/MemberForestSummary";
+import { CultureScoreSummary } from "@/components/profile/CultureScoreSummary";
 import { MemberGettingStartedChecklist } from "@/components/MemberGettingStartedChecklist";
 import { PostJoinPackPrompt } from "@/components/PostJoinPackPrompt";
 import { bcdStagingHint } from "@/lib/bcd-configured";
@@ -108,6 +109,10 @@ function CommunityHubPage() {
           ) : null}
 
           <MemberGettingStartedChecklist highlight={justJoined} />
+
+          <div className="mt-8">
+            <CultureScoreSummary compact />
+          </div>
 
           <div className="mt-10">
             <MemberForestSummary />

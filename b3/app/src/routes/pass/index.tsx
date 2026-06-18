@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { DomainCard3D } from "@/components/identity/DomainCard3D";
+import { CulturePassBccClaimPanel } from "@/components/bcc/CulturePassBccClaimPanel";
 import { IdentityParticles } from "@/components/identity/Particles";
 import { SearchMint } from "@/components/identity/SearchMint";
 import { NetworkSelector } from "@/components/wallet/NetworkSelector";
@@ -114,6 +115,8 @@ function PassMintDashboard() {
           </Link>
         </div>
       </div>
+
+      <CulturePassBccClaimPanel />
     </div>
   );
 }

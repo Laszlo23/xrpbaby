@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Briefcase, Sparkles } from "lucide-react";
+import { useScroll, useTransform } from "framer-motion";
+import { motion } from "@/components/landing/motion";
+import { ArrowDown, ArrowUpRight, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 import { LiveProofTicker } from "@/components/shared/LiveProofTicker";
 import { trackLandingEvent } from "@/lib/landing-api";
 import { LANDING_MEDIA } from "@/lib/landing-media";
+import { LANDING_HERO, LANDING_TAGLINE } from "@/lib/landing-copy";
 import { plainLabels } from "@/lib/plain-labels";
 
 export function LandingHero() {
@@ -79,7 +81,7 @@ export function LandingHero() {
               <span className="absolute inset-0 animate-ping rounded-full bg-[#C5FF41] opacity-75" />
               <span className="relative h-2 w-2 rounded-full bg-[#C5FF41]" />
             </span>
-            <span className="mono-label !text-[10px] !text-zinc-300">ECOSYSTEM · LIVE · BETA</span>
+            <span className="mono-label !text-[10px] !text-zinc-300">{LANDING_HERO.eyebrow}</span>
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
@@ -92,15 +94,23 @@ export function LandingHero() {
           </motion.div>
         </div>
 
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.8 }}
+          className="mono-label mt-6 !text-[#C5FF41]"
+        >
+          {LANDING_TAGLINE}
+        </motion.p>
+
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display max-w-5xl text-[44px] leading-[0.95] font-bold tracking-[-0.045em] text-white sm:text-7xl lg:text-[120px] lg:leading-[0.92]"
+          className="font-display max-w-5xl text-[44px] leading-[0.95] font-bold tracking-[-0.045em] text-white sm:text-7xl lg:text-[96px] lg:leading-[0.92]"
         >
-          We Bring <br />
-          <span className="bc-text-gradient">Places Back</span> <br />
-          To Life.
+          {LANDING_HERO.headline} <br />
+          <span className="bc-text-gradient">{LANDING_HERO.headlineAccent}</span>
         </motion.h1>
 
         <motion.p
@@ -109,10 +119,26 @@ export function LandingHero() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="mt-8 max-w-xl text-base leading-relaxed text-zinc-300/90 sm:text-lg"
         >
-          Building Culture is creating a new way to fund, build, own and experience real-world
-          communities.
+          {LANDING_HERO.subhead}
           <span className="mt-2 block text-zinc-400">{plainLabels.landing.heroSubtitle}</span>
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.8 }}
+          className="mt-8 flex flex-wrap gap-2"
+        >
+          {LANDING_HERO.valueProps.map((prop) => (
+            <span
+              key={prop.label}
+              className="inline-flex items-center gap-1.5 rounded-full bc-glass px-3 py-1.5 text-[12px] font-medium text-zinc-200"
+            >
+              <span aria-hidden>{prop.emoji}</span>
+              {prop.label}
+            </span>
+          ))}
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -129,7 +155,7 @@ export function LandingHero() {
             <ArrowUpRight size={16} aria-hidden />
           </Link>
           <a
-            href="#ecosystem"
+            href="#products"
             onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "explore" })}
             className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-[15px] font-semibold text-white backdrop-blur-md transition-all hover:border-[#00E5FF]/60 hover:bg-white/10"
           >
@@ -137,12 +163,11 @@ export function LandingHero() {
             <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
           </a>
           <Link
-            to="/places"
-            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "invest_now" })}
+            to="/play"
+            onClick={() => void trackLandingEvent("hero_cta_click", "hero", { cta: "contribute" })}
             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-zinc-300 transition-all hover:border-white/40 hover:text-white"
           >
-            <Briefcase size={16} aria-hidden />
-            Invest now
+            {plainLabels.landing.ctaContribute}
           </Link>
         </motion.div>
 

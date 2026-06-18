@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "@/components/landing/motion";
 import { ArrowUpRight, Send, type LucideIcon } from "lucide-react";
 
 import {

@@ -24,7 +24,7 @@ import {
 import { raffleCampaignAbi } from "@bc/contracts-sdk";
 import { BCD_SYMBOL, getBcdPerWholeEth, showLegacyEthSettlement } from "@/lib/bcd-config";
 import { formatEthWeiAsBcd } from "@/lib/bcd-price";
-import { explorerTxUrl } from "@/lib/explorer";
+import { explorerTxUrl, internalExplorerTxPath } from "@/lib/explorer";
 import { grantFirstMintBonus, loadProgress } from "@/lib/playerProgress";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -326,7 +326,7 @@ export function DropCard({
       <span>
         You&apos;re in the draw.{" "}
         <a
-          href={explorerTxUrl(chainId, txHash)}
+          href={internalExplorerTxPath(chainId, txHash) ?? explorerTxUrl(chainId, txHash)}
           target="_blank"
           rel="noreferrer"
           className="underline font-semibold"

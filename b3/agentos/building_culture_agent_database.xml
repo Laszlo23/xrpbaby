@@ -1,0 +1,517 @@
+<?xml version='1.0' encoding='utf-8'?>
+<buildingCultureAgentDatabase>
+  <overview>
+    <item>
+      <project>Building Culture</project>
+    </item>
+    <item>
+      <type>Web3 + AI + community ecosystem</type>
+    </item>
+    <item>
+      <mission>Build culture through onchain identity, community growth, education, rewards, funding tools, and social-impact products.</mission>
+    </item>
+    <item>
+      <target_user>Non-technical builders, communities, Web3 creators, social-impact founders, partners, and supporters.</target_user>
+    </item>
+    <item>
+      <status>Beta / early live ecosystem with Telegram Mini App, BCC token, Grant Proof, identity/social layers, campaigns, and AI-agent roadmap.</status>
+    </item>
+    <item>
+      <positioning>The operating system for culture builders: identity, community, AI agents, token rewards, grants, campaigns, and social impact in one ecosystem.</positioning>
+    </item>
+    <item>
+      <economic_layer>BCC token</economic_layer>
+    </item>
+    <item>
+      <bcc_contract>0xB890a5289F789f1346032Ccc1847939e855FAb07</bcc_contract>
+    </item>
+    <item>
+      <metrics_mentioned>Approx. 8 community members, 86 BCC holders, 20 ticket NFTs minted, ~$92k market cap in week-one beta context.</metrics_mentioned>
+    </item>
+    <item>
+      <rule>No fully autonomous treasury actions; revenue, partnerships, grants, and transactions should stay human-approved.</rule>
+    </item>
+  </overview>
+  <products>
+    <item>
+      <product>Building Culture ID</product>
+      <category>Identity</category>
+      <purpose>Trust layer for builders and members.</purpose>
+      <target_user>Builders, members, partners</target_user>
+      <mvp_features>Profile, wallet connect, reputation, proof of participation, social links</mvp_features>
+      <revenue_model>Subscription, verification fee, partner integrations</revenue_model>
+      <priority>High</priority>
+      <status>Planned / active concept</status>
+    </item>
+    <item>
+      <product>Telegram Mini App</product>
+      <category>Community App</category>
+      <purpose>Simple daily engagement loop.</purpose>
+      <target_user>Telegram users, BCC holders</target_user>
+      <mvp_features>Daily XP, streaks, leaderboard, friend invites, wallet connection, grove growth</mvp_features>
+      <revenue_model>Token utility, sponsorships, premium missions</revenue_model>
+      <priority>High</priority>
+      <status>Live / beta</status>
+    </item>
+    <item>
+      <product>Grant Proof</product>
+      <category>Funding Tool</category>
+      <purpose>Help builders show contribution proof and apply for grants.</purpose>
+      <target_user>Web3 builders, public goods projects</target_user>
+      <mvp_features>Contribution profile, proof links, grant-ready page, shareable proof</mvp_features>
+      <revenue_model>Subscription, success fee, grant support packages</revenue_model>
+      <priority>High</priority>
+      <status>Live / active</status>
+    </item>
+    <item>
+      <product>Campaigns</product>
+      <category>Growth Tool</category>
+      <purpose>Run social/community campaigns with tasks and rewards.</purpose>
+      <target_user>Projects, DAOs, brands</target_user>
+      <mvp_features>Tasks, rewards, leaderboard, campaign pages, wallet/social verification</mvp_features>
+      <revenue_model>Campaign setup fee, SaaS plan, sponsorships</revenue_model>
+      <priority>High</priority>
+      <status>Planned / active concept</status>
+    </item>
+    <item>
+      <product>BCC Token Ecosystem</product>
+      <category>Token Layer</category>
+      <purpose>Power rewards, participation, governance, and community economy.</purpose>
+      <target_user>Holders, contributors, builders</target_user>
+      <mvp_features>Token page, rewards, holder perks, LP/fair launch routes, burn/wrap logic</mvp_features>
+      <revenue_model>Token utility, treasury, partner revenue</revenue_model>
+      <priority>High</priority>
+      <status>Active</status>
+    </item>
+    <item>
+      <product>AI Builder Agents</product>
+      <category>AI Product</category>
+      <purpose>Help users build, grow, write, research, and find opportunities.</purpose>
+      <target_user>Non-coders, creators, founders</target_user>
+      <mvp_features>Chat UI, prompts, workflows, saved outputs, agent memory</mvp_features>
+      <revenue_model>Monthly subscription</revenue_model>
+      <priority>High</priority>
+      <status>Planned</status>
+    </item>
+    <item>
+      <product>Autonomous Revenue Agent</product>
+      <category>AI Agent</category>
+      <purpose>Find revenue, grants, partners, sponsors, leads, and opportunities.</purpose>
+      <target_user>Building Culture team</target_user>
+      <mvp_features>Daily scans, scoring, outreach drafts, reporting, human approval</mvp_features>
+      <revenue_model>Internal leverage, consulting package</revenue_model>
+      <priority>High</priority>
+      <status>Planned</status>
+    </item>
+    <item>
+      <product>Trading Agent</product>
+      <category>AI / Finance Tool</category>
+      <purpose>Simple WhatsApp-like trading assistant with backtest hook.</purpose>
+      <target_user>Normal crypto users</target_user>
+      <mvp_features>AI chat, backtest checker, Binance read-only API, strategy optimizer, subscriptions</mvp_features>
+      <revenue_model>Free + $9/$19/$49 subscription</revenue_model>
+      <priority>Medium</priority>
+      <status>Prompt created</status>
+    </item>
+    <item>
+      <product>WohnAI</product>
+      <category>Social Impact AI</category>
+      <purpose>Housing guidance and letter help.</purpose>
+      <target_user>People needing housing help</target_user>
+      <mvp_features>Document helper, advice agent, letter generator, resource navigator</mvp_features>
+      <revenue_model>Subscription / public funding / sponsorship</revenue_model>
+      <priority>Medium</priority>
+      <status>Concept</status>
+    </item>
+    <item>
+      <product>Ankommen AI</product>
+      <category>Social Impact AI</category>
+      <purpose>Help immigrants in Austria navigate support, housing, money, documents, and integration.</purpose>
+      <target_user>Immigrants/new arrivals in Austria</target_user>
+      <mvp_features>Multilingual guide, agent workflows, forms, local info, appointment guidance</mvp_features>
+      <revenue_model>Subscription / public sector / NGO</revenue_model>
+      <priority>Medium</priority>
+      <status>Concept</status>
+    </item>
+    <item>
+      <product>KinderStimme</product>
+      <category>Social Impact AI</category>
+      <purpose>Help parents document cases, write letters/motions, and understand child-focused support.</purpose>
+      <target_user>Parents / families</target_user>
+      <mvp_features>Court letter upload, anonymization, advice workflows, motion drafts, statistics layer</mvp_features>
+      <revenue_model>Subscription / donations / advocacy grants</revenue_model>
+      <priority>Medium</priority>
+      <status>Concept</status>
+    </item>
+    <item>
+      <product>NFT / Multimedia Culture Collection</product>
+      <category>NFT / Media</category>
+      <purpose>Create cultural multimedia NFTs as identity, story, and community assets.</purpose>
+      <target_user>Collectors, community, creators</target_user>
+      <mvp_features>AI art, music/story metadata, minting, community creation flow</mvp_features>
+      <revenue_model>Mint revenue, royalties, access passes</revenue_model>
+      <priority>Medium</priority>
+      <status>Concept</status>
+    </item>
+    <item>
+      <product>Real Estate / RWA Layer</product>
+      <category>RWA</category>
+      <purpose>Long-term bridge to real-world ownership and housing.</purpose>
+      <target_user>Investors, community, tenants</target_user>
+      <mvp_features>Property proof, tokenized access, DAO participation, rent/ownership models</mvp_features>
+      <revenue_model>RWA fees, management fee, token utility</revenue_model>
+      <priority>Low-Med</priority>
+      <status>Long-term vision</status>
+    </item>
+  </products>
+  <agents>
+    <item>
+      <agent>Building Culture OS Agent</agent>
+      <main_job>Unify priorities, roadmap, posts, community, grants, and revenue tasks.</main_job>
+      <inputs>Project database, calendar, chat notes, metrics, tasks</inputs>
+      <outputs>Daily plan, next actions, risk warnings, weekly report</outputs>
+      <tools_apis>ChatGPT/OpenAI, Supabase, Telegram, Farcaster, Gmail/Calendar optional</tools_apis>
+      <approval_needed>Yes for external actions</approval_needed>
+      <useful_for>Founder focus</useful_for>
+      <mvp_priority>High</mvp_priority>
+    </item>
+    <item>
+      <agent>Opportunity Hunter Agent</agent>
+      <main_job>Find grants, sponsorships, partnerships, bounties, and investor leads.</main_job>
+      <inputs>Project profile, keywords, eligibility, location, current metrics</inputs>
+      <outputs>Ranked opportunity list, deadlines, draft applications, outreach messages</outputs>
+      <tools_apis>Web search, grant databases, CRM, Gmail</tools_apis>
+      <approval_needed>Yes</approval_needed>
+      <useful_for>Money and partnerships</useful_for>
+      <mvp_priority>High</mvp_priority>
+    </item>
+    <item>
+      <agent>Content Agent</agent>
+      <main_job>Turn one idea into posts across platforms.</main_job>
+      <inputs>Voice notes, screenshots, product updates, links</inputs>
+      <outputs>Farcaster, LinkedIn, Telegram, Paragraph posts</outputs>
+      <tools_apis>Farcaster, LinkedIn, Telegram, Paragraph</tools_apis>
+      <approval_needed>Yes before posting</approval_needed>
+      <useful_for>Distribution</useful_for>
+      <mvp_priority>High</mvp_priority>
+    </item>
+    <item>
+      <agent>Community Agent</agent>
+      <main_job>Welcome members, answer FAQs, track engagement, suggest ambassadors.</main_job>
+      <inputs>Telegram/Farcaster activity, member profile, FAQ</inputs>
+      <outputs>Welcome messages, summaries, engagement scores, ambassador suggestions</outputs>
+      <tools_apis>Telegram bot, Farcaster API, DB</tools_apis>
+      <approval_needed>Yes for sensitive replies</approval_needed>
+      <useful_for>Community growth</useful_for>
+      <mvp_priority>High</mvp_priority>
+    </item>
+    <item>
+      <agent>Grant Proof Agent</agent>
+      <main_job>Create grant-ready proof pages and application drafts.</main_job>
+      <inputs>Contributions, wallet activity, posts, product links, metrics</inputs>
+      <outputs>Grant proof profile, application draft, budget, milestones</outputs>
+      <tools_apis>Wallet indexers, Farcaster, GitHub, forms</tools_apis>
+      <approval_needed>Yes before submission</approval_needed>
+      <useful_for>Funding</useful_for>
+      <mvp_priority>High</mvp_priority>
+    </item>
+    <item>
+      <agent>Revenue Agent</agent>
+      <main_job>Generate sustainable revenue pathways.</main_job>
+      <inputs>Products, pricing, audience, partner list, current traction</inputs>
+      <outputs>Revenue ideas, outreach, offers, sponsor packages, weekly pipeline</outputs>
+      <tools_apis>CRM, Gmail, web, payment links</tools_apis>
+      <approval_needed>Yes</approval_needed>
+      <useful_for>Cashflow</useful_for>
+      <mvp_priority>High</mvp_priority>
+    </item>
+    <item>
+      <agent>Research Agent</agent>
+      <main_job>Research projects, markets, competitors, grants, and product strategies.</main_job>
+      <inputs>Topic, sources, questions</inputs>
+      <outputs>Briefing, comparison table, summary, recommendations</outputs>
+      <tools_apis>Web search, PDFs, docs</tools_apis>
+      <approval_needed>No for research; yes for external action</approval_needed>
+      <useful_for>Strategy</useful_for>
+      <mvp_priority>Medium</mvp_priority>
+    </item>
+    <item>
+      <agent>Trading Agent</agent>
+      <main_job>Make crypto analysis understandable for normal users.</main_job>
+      <inputs>Market data, Binance API read-only, user risk profile</inputs>
+      <outputs>Trend, support/resistance, backtest, risk score, do-nothing signal</outputs>
+      <tools_apis>Binance API, chart data, AI model</tools_apis>
+      <approval_needed>Yes before any trade</approval_needed>
+      <useful_for>Product monetization</useful_for>
+      <mvp_priority>Medium</mvp_priority>
+    </item>
+    <item>
+      <agent>Life OS Agent</agent>
+      <main_job>Support habits, money, health, meditation, learning, and focus.</main_job>
+      <inputs>Calendar, tasks, goals, reflections</inputs>
+      <outputs>Daily alignment report, habit nudges, weekly review</outputs>
+      <tools_apis>Calendar, reminders, notes</tools_apis>
+      <approval_needed>No / optional</approval_needed>
+      <useful_for>Personal consistency</useful_for>
+      <mvp_priority>Low-Med</mvp_priority>
+    </item>
+  </agents>
+  <funnel>
+    <item>
+      <stage>Traffic</stage>
+      <offer>Farcaster, Telegram, LinkedIn, Paragraph posts</offer>
+      <user_action>Clicks content/link</user_action>
+      <agent_role>Content Agent creates daily posts</agent_role>
+      <metric>Views, clicks, follows</metric>
+      <notes>Use story + building in public</notes>
+    </item>
+    <item>
+      <stage>Lead Magnet</stage>
+      <offer>Free Grant Proof / Builder Checklist / AI Agent Demo</offer>
+      <user_action>User enters email or connects wallet</user_action>
+      <agent_role>OS Agent routes user to right path</agent_role>
+      <metric>Opt-in rate</metric>
+      <notes>Keep it simple</notes>
+    </item>
+    <item>
+      <stage>Activation</stage>
+      <offer>Telegram Mini App + daily XP</offer>
+      <user_action>Daily claim, invite, mission</user_action>
+      <agent_role>Community Agent drives engagement</agent_role>
+      <metric>DAU, streaks, invites</metric>
+      <notes>Gamified community loop</notes>
+    </item>
+    <item>
+      <stage>Low Ticket</stage>
+      <offer>Builder OS template / prompt pack / backtest checker</offer>
+      <user_action>Pays small amount</user_action>
+      <agent_role>Revenue Agent suggests offer</agent_role>
+      <metric>Conversion rate</metric>
+      <notes>$9-$29 entry product</notes>
+    </item>
+    <item>
+      <stage>Subscription</stage>
+      <offer>Building Culture Pro</offer>
+      <user_action>Monthly subscription</user_action>
+      <agent_role>OS Agent unlocks tools</agent_role>
+      <metric>MRR, churn</metric>
+      <notes>$19-$49/month</notes>
+    </item>
+    <item>
+      <stage>Partner / B2B</stage>
+      <offer>Campaigns, sponsor packages, grant support</offer>
+      <user_action>Books call / buys campaign</user_action>
+      <agent_role>Opportunity + Revenue Agent handle pipeline</agent_role>
+      <metric>Pipeline value</metric>
+      <notes>$500-$5k+ offers</notes>
+    </item>
+    <item>
+      <stage>High Ticket</stage>
+      <offer>Done-with-you launch, token, agent, community setup</offer>
+      <user_action>Consulting deal</user_action>
+      <agent_role>Revenue Agent creates proposal</agent_role>
+      <metric>Revenue</metric>
+      <notes>$2k-$20k+</notes>
+    </item>
+  </funnel>
+  <tasks>
+    <item>
+      <task>Create master Building Culture knowledge base</task>
+      <owner>Laszlo</owner>
+      <agent>Building Culture OS Agent</agent>
+      <priority>High</priority>
+      <status>To Do</status>
+      <next_step>Import project/product/agent data into DB</next_step>
+      <success_metric>Agent gives consistent answers</success_metric>
+    </item>
+    <item>
+      <task>Connect Telegram Mini App metrics</task>
+      <owner>Laszlo/dev</owner>
+      <agent>Community Agent</agent>
+      <priority>High</priority>
+      <status>To Do</status>
+      <next_step>Track daily XP, streaks, invites, holders</next_step>
+      <success_metric>DAU and retention dashboard</success_metric>
+    </item>
+    <item>
+      <task>Create public Building Culture Pro landing page</task>
+      <owner>Laszlo/dev</owner>
+      <agent>Content + Revenue Agent</agent>
+      <priority>High</priority>
+      <status>To Do</status>
+      <next_step>Hero, pricing, features, CTA</next_step>
+      <success_metric>First paid subscribers</success_metric>
+    </item>
+    <item>
+      <task>Build Opportunity Hunter MVP</task>
+      <owner>Laszlo/dev</owner>
+      <agent>Opportunity Agent</agent>
+      <priority>High</priority>
+      <status>To Do</status>
+      <next_step>Daily manual search + scoring first</next_step>
+      <success_metric>10 qualified opportunities/week</success_metric>
+    </item>
+    <item>
+      <task>Build Grant Proof workflow</task>
+      <owner>Laszlo/dev</owner>
+      <agent>Grant Proof Agent</agent>
+      <priority>High</priority>
+      <status>In Progress</status>
+      <next_step>Standardize proof profile + grant application template</next_step>
+      <success_metric>Grant applications submitted</success_metric>
+    </item>
+    <item>
+      <task>Create sponsor package</task>
+      <owner>Laszlo</owner>
+      <agent>Revenue Agent</agent>
+      <priority>High</priority>
+      <status>To Do</status>
+      <next_step>Define $500/$1500/$5000 packages</next_step>
+      <success_metric>Sponsor conversations</success_metric>
+    </item>
+    <item>
+      <task>Create content calendar</task>
+      <owner>Laszlo</owner>
+      <agent>Content Agent</agent>
+      <priority>Medium</priority>
+      <status>To Do</status>
+      <next_step>Daily Farcaster, 3x LinkedIn/week, Telegram updates</next_step>
+      <success_metric>Posting consistency</success_metric>
+    </item>
+    <item>
+      <task>Create agent prompt library</task>
+      <owner>Laszlo</owner>
+      <agent>OS Agent</agent>
+      <priority>Medium</priority>
+      <status>To Do</status>
+      <next_step>Save prompts for posts, grants, partnerships, trading, community</next_step>
+      <success_metric>Reusable workflows</success_metric>
+    </item>
+    <item>
+      <task>Define BCC token utility map</task>
+      <owner>Laszlo</owner>
+      <agent>BCC Token Agent</agent>
+      <priority>High</priority>
+      <status>To Do</status>
+      <next_step>Map token to rewards, access, campaigns, governance</next_step>
+      <success_metric>Clear token story</success_metric>
+    </item>
+    <item>
+      <task>Create human approval workflow</task>
+      <owner>Laszlo/dev</owner>
+      <agent>OS Agent</agent>
+      <priority>High</priority>
+      <status>To Do</status>
+      <next_step>All outbound/action tasks require approve button</next_step>
+      <success_metric>No unauthorized actions</success_metric>
+    </item>
+  </tasks>
+  <metrics>
+    <item>
+      <metric>Community members</metric>
+      <category>Community</category>
+      <current_baseline>Approx. 8 in early beta context</current_baseline>
+      <target>100, then 1,000</target>
+      <update_frequency>Daily</update_frequency>
+      <owner_agent>Community Agent</owner_agent>
+    </item>
+    <item>
+      <metric>BCC holders</metric>
+      <category>Token</category>
+      <current_baseline>Approx. 86 mentioned</current_baseline>
+      <target>250, then 1,000</target>
+      <update_frequency>Daily</update_frequency>
+      <owner_agent>BCC Agent</owner_agent>
+    </item>
+    <item>
+      <metric>Ticket NFTs minted</metric>
+      <category>NFT</category>
+      <current_baseline>Approx. 20 mentioned</current_baseline>
+      <target>100+</target>
+      <update_frequency>Weekly</update_frequency>
+      <owner_agent>NFT Agent</owner_agent>
+    </item>
+    <item>
+      <metric>Market cap</metric>
+      <category>Token</category>
+      <current_baseline>Approx. $92k mentioned</current_baseline>
+      <target>Track only, no promise</target>
+      <update_frequency>Daily</update_frequency>
+      <owner_agent>BCC Agent</owner_agent>
+    </item>
+    <item>
+      <metric>Daily active users</metric>
+      <category>App</category>
+      <current_baseline>Needs tracking</current_baseline>
+      <target>30% of community</target>
+      <update_frequency>Daily</update_frequency>
+      <owner_agent>Community Agent</owner_agent>
+    </item>
+    <item>
+      <metric>Grant opportunities found</metric>
+      <category>Funding</category>
+      <current_baseline>Needs tracking</current_baseline>
+      <target>10/week</target>
+      <update_frequency>Weekly</update_frequency>
+      <owner_agent>Opportunity Agent</owner_agent>
+    </item>
+    <item>
+      <metric>Grant applications submitted</metric>
+      <category>Funding</category>
+      <current_baseline>Needs tracking</current_baseline>
+      <target>2-5/month</target>
+      <update_frequency>Monthly</update_frequency>
+      <owner_agent>Grant Proof Agent</owner_agent>
+    </item>
+    <item>
+      <metric>MRR</metric>
+      <category>Revenue</category>
+      <current_baseline>$0/unknown</current_baseline>
+      <target>$1k, $5k, $10k</target>
+      <update_frequency>Monthly</update_frequency>
+      <owner_agent>Revenue Agent</owner_agent>
+    </item>
+    <item>
+      <metric>Posts published</metric>
+      <category>Content</category>
+      <current_baseline>Manual</current_baseline>
+      <target>1-3/day</target>
+      <update_frequency>Daily</update_frequency>
+      <owner_agent>Content Agent</owner_agent>
+    </item>
+    <item>
+      <metric>Partner leads</metric>
+      <category>Revenue</category>
+      <current_baseline>Manual</current_baseline>
+      <target>20/month</target>
+      <update_frequency>Weekly</update_frequency>
+      <owner_agent>Revenue Agent</owner_agent>
+    </item>
+  </metrics>
+  <agent_prompt>
+    <item>
+      <section>Agent Name</section>
+      <prompt_text>Building Culture OS Agent</prompt_text>
+    </item>
+    <item>
+      <section>Mission</section>
+      <prompt_text>You are the operating system for the Building Culture ecosystem. Help Laszlo grow revenue, community, grants, partnerships, content, product clarity, and token utility while staying ethical, transparent, and human-approved.</prompt_text>
+    </item>
+    <item>
+      <section>Core Context</section>
+      <prompt_text>Building Culture is a Web3 + AI + community ecosystem with BCC token, Telegram Mini App, Building Culture ID, Grant Proof, campaigns, AI agents, social impact tools, NFTs, and long-term RWA vision.</prompt_text>
+    </item>
+    <item>
+      <section>Daily Behavior</section>
+      <prompt_text>Every day, summarize the most important priorities, opportunities, community signals, content ideas, revenue actions, and risks. Keep answers simple, direct, and action-oriented.</prompt_text>
+    </item>
+    <item>
+      <section>Rules</section>
+      <prompt_text>Never promise token price or profit. Never make treasury moves or send external messages without approval. Always explain risk. Always prioritize real users, trust, transparency, and community value.</prompt_text>
+    </item>
+    <item>
+      <section>Output Format</section>
+      <prompt_text>Return: 1) Today’s top 3 actions, 2) Revenue opportunity, 3) Content idea, 4) Community action, 5) Product task, 6) Risk or warning, 7) Draft message if useful.</prompt_text>
+    </item>
+  </agent_prompt>
+</buildingCultureAgentDatabase>

@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/bcc/")({
   beforeLoad: () => {
-    throw redirect({ to: "/mission", hash: "token-home" });
+    throw redirect({ to: "/bcc/dashboard" });
   },
   component: () => null,
 });

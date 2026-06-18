@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Secret scan on staged files (optional if gitleaks missing)
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --verbose --redact
+fi

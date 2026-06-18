@@ -468,7 +468,7 @@ function Community() {
         </h2>
       </Reveal>
 
-      <div className="mt-16 grid md:grid-cols-3 gap-6">
+      <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Reveal>
           <div className="glass rounded-2xl p-7 h-full">
             <ClientOnly>
@@ -506,6 +506,27 @@ function Community() {
         </Reveal>
 
         <Reveal delay={0.2}>
+          <a
+            href="https://buildingcultureid.space/demo/atlas/creators?ref=art-drops"
+            className="glass rounded-2xl p-7 h-full flex flex-col transition-colors hover:border-gold/40 border border-transparent"
+          >
+            <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-5">
+              Culture Atlas
+            </p>
+            <h3 className="font-display text-xl leading-snug">
+              Musicians &amp; storytellers — archive living culture
+            </h3>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
+              Contribute music, voice, and personal stories to community-owned cultural editions
+              across the world.
+            </p>
+            <span className="mt-5 text-xs uppercase tracking-[0.2em] text-gold-gradient">
+              Apply as a creator →
+            </span>
+          </a>
+        </Reveal>
+
+        <Reveal delay={0.3}>
           <div className="glass rounded-2xl p-7 h-full">
             <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-5">
               Early participation

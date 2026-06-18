@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  BookOpen,
-  Briefcase,
-  Coins,
-  Layers,
-  Map,
-  Menu,
-  Sparkles,
-  TrendingUp,
-  UserPlus,
-  X,
-  type LucideIcon,
-} from "lucide-react";
+import { AnimatePresence, motion } from "@/components/landing/motion";
+import { ArrowUpRight, BarChart3, Briefcase, Clock, Coins, Layers, Map, Menu, Package, Sparkles, Trophy, UserPlus, X, type LucideIcon } from "lucide-react";
 
 import { LANDING_MEDIA } from "@/lib/landing-media";
 
 const NAV_ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
-  { label: "Story", href: "#story", icon: BookOpen },
-  { label: "Vision", href: "#vision", icon: Sparkles },
+  { label: "Why Now", href: "#why-now", icon: Sparkles },
+  { label: "Products", href: "#products", icon: Package },
+  { label: "Stats", href: "#stats", icon: BarChart3 },
+  { label: "Story", href: "#founder-timeline", icon: Clock },
+  { label: "Stories", href: "#stories", icon: Trophy },
+  { label: "Places", href: "#places", icon: Briefcase },
   { label: "Ecosystem", href: "#ecosystem", icon: Layers },
   { label: "$BCC", href: "#bcc", icon: Coins },
-  { label: "Impact", href: "#impact", icon: TrendingUp },
-  { label: "Investors", href: "#investors", icon: Briefcase },
-  { label: "Roadmap", href: "#future", icon: Map },
+  { label: "Network", href: "#network", icon: Map },
 ];
 
 type LandingNavProps = {
@@ -44,7 +33,7 @@ export function LandingNav({ compact = false }: LandingNavProps) {
   }, []);
 
   const items = compact
-    ? NAV_ITEMS.filter((i) => ["Ecosystem", "Impact"].includes(i.label))
+    ? NAV_ITEMS.filter((i) => ["Products", "Ecosystem", "Stats"].includes(i.label))
     : NAV_ITEMS;
 
   return (
@@ -73,16 +62,16 @@ export function LandingNav({ compact = false }: LandingNavProps) {
             </span>
           </a>
 
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="hidden items-center gap-5 xl:flex">
             {items.map((it) => {
               const href = compact && it.href.startsWith("#") ? `/${it.href}` : it.href;
               return (
                 <a
                   key={it.href}
                   href={href}
-                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-zinc-400 transition-colors hover:text-white"
+                  className="inline-flex items-center gap-1.5 text-[12px] font-medium text-zinc-400 transition-colors hover:text-white"
                 >
-                  <it.icon size={15} strokeWidth={2} className="shrink-0 opacity-70" aria-hidden />
+                  <it.icon size={14} strokeWidth={2} className="shrink-0 opacity-70" aria-hidden />
                   {it.label}
                 </a>
               );

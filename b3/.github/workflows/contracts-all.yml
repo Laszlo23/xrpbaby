@@ -1,0 +1,42 @@
+name: contracts-all
+
+on:
+  push:
+    paths:
+      - "contracts/**"
+      - "apps/places/**"
+      - "apps/identity/contracts/**"
+      - "apps/art/contracts/**"
+      - "scripts/forge-test-all.sh"
+      - ".github/workflows/contracts-all.yml"
+  pull_request:
+    paths:
+      - "contracts/**"
+      - "apps/places/**"
+      - "apps/identity/contracts/**"
+      - "apps/art/contracts/**"
+
+jobs:
+  forge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@v1
+      - name: Run all Foundry suites
+        run: bash scripts/forge-test-all.sh
+
+  slither:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install slither-analyzer
+      - name: Slither (warn-only in CI until clean)
+        run: SLITHER_REQUIRED=0 bash scripts/run-slither.sh

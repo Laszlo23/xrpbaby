@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAccount } from "wagmi";
 import { useCallback, useEffect, useState } from "react";
-import { CheckCircle2, Circle } from "lucide-react";
+import { CheckCircle2, Circle, Clock } from "lucide-react";
 
 import { platformModules } from "@/lib/modules";
-import { FOUNDING_DAILY_QUESTS } from "@/lib/founding-quests";
+import { FOUNDING_WIRED_QUESTS, FOUNDING_DAILY_QUESTS } from "@/lib/founding-quests";
 
 export const Route = createFileRoute("/forest/quests")({
   component: FoundingQuestsPage,
@@ -21,14 +21,10 @@ function FoundingQuestsPage() {
       const res = await fetch(`/api/member/me?address=${encodeURIComponent(address)}`);
       const data = (await res.json()) as {
         ok?: boolean;
-        member?: { recentActivities?: { type: string }[] } | null;
+        member?: { completedSlugs?: string[] } | null;
       };
       if (!data.ok || !data.member) return;
-      const fromLedger =
-        data.member.recentActivities
-          ?.filter((a) => a.type.startsWith("task_completion"))
-          .map((a) => a.type.replace("task_completion:", "")) ?? [];
-      setCompletedSlugs(fromLedger);
+      setCompletedSlugs(data.member.completedSlugs ?? []);
     } catch {
       /* ignore */
     }
@@ -41,6 +37,8 @@ function FoundingQuestsPage() {
   if (!platformModules.founding) {
     return <p className="p-8 text-white">Founding module off.</p>;
   }
+
+  const comingSoon = FOUNDING_DAILY_QUESTS.filter((q) => !q.wired);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -63,7 +61,7 @@ function FoundingQuestsPage() {
           </Link>
         ) : null}
         <ul className="space-y-3">
-          {FOUNDING_DAILY_QUESTS.map((q) => {
+          {FOUNDING_WIRED_QUESTS.map((q) => {
             const done = completedSlugs.includes(q.slug);
             return (
               <li key={q.slug} className="flex gap-4 rounded-xl border border-white/10 px-4 py-4">
@@ -81,6 +79,27 @@ function FoundingQuestsPage() {
             );
           })}
         </ul>
+
+        {comingSoon.length > 0 ? (
+          <div className="mt-10">
+            <p className="mono-label">COMING SOON</p>
+            <ul className="mt-4 space-y-3 opacity-70">
+              {comingSoon.map((q) => (
+                <li
+                  key={q.slug}
+                  className="flex gap-4 rounded-xl border border-dashed border-white/10 px-4 py-4"
+                >
+                  <Clock className="h-5 w-5 shrink-0 text-zinc-600" />
+                  <div>
+                    <p className="font-medium text-zinc-400">{q.title}</p>
+                    <p className="mt-1 text-sm text-zinc-600">{q.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
         <Link
           to="/profile"
           className="mt-8 block w-full rounded-full bg-white py-3 text-center text-sm font-semibold text-black hover:bg-[#C5FF41]"

@@ -1,0 +1,33 @@
+{
+  "project": "Building Culture",
+  "version": "1.0",
+  "agents": [
+    {
+      "id": "research_agent",
+      "name": "Research Agent",
+      "purpose": "Web3, AI, ecosystem and competitor research"
+    },
+    {
+      "id": "marketing_agent",
+      "name": "Marketing Agent",
+      "purpose": "Social, campaigns, and onchain marketing (Grove)"
+    },
+    {
+      "id": "grant_agent",
+      "name": "Grant Agent",
+      "purpose": "Find grants, sponsorships, ecosystem funding"
+    },
+    {
+      "id": "builder_agent",
+      "name": "Builder Agent",
+      "purpose": "Ship projects, pages, and proof artifacts (BC Studio)"
+    }
+  ],
+  "products": [
+    "Community",
+    "Identity",
+    "Agents",
+    "Economy",
+    "Capital"
+  ]
+}
