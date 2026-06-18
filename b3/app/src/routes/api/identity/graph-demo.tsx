@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { fetchCultureIdentityGraphFromIdentity } from "@/server/identity/web3bio";
-
-const DEFAULT_DEMO_IDENTITY = "laszloleonardo.eth";
+import { getOrFetchIdentityGraphByIdentity } from "@/server/identity/enrichment-cache";
+import {
+  DEFAULT_LANDING_GRAPH_IDENTITY,
+  fetchCultureIdentityGraphFromIdentity,
+} from "@/server/identity/web3bio";
 
 export const Route = createFileRoute("/api/identity/graph-demo")({
   server: {
@@ -12,9 +14,12 @@ export const Route = createFileRoute("/api/identity/graph-demo")({
         const identity =
           url.searchParams.get("identity")?.trim() ||
           process.env.VITE_LANDING_GRAPH_IDENTITY?.trim() ||
-          DEFAULT_DEMO_IDENTITY;
+          DEFAULT_LANDING_GRAPH_IDENTITY;
 
-        const graph = await fetchCultureIdentityGraphFromIdentity(identity);
+        const graph = await getOrFetchIdentityGraphByIdentity(identity, () =>
+          fetchCultureIdentityGraphFromIdentity(identity),
+        );
+
         return json({ ok: true, identity, graph });
       },
     },

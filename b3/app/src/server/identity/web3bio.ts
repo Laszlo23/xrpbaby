@@ -3,8 +3,11 @@ import type {
   IdentityGraphLink,
   IdentityGraphNode,
   Web3BioCredential,
+  Web3BioCredentials,
   Web3BioWalletBundle,
 } from "@/lib/identity/identity-graph-types";
+
+export { DEFAULT_LANDING_GRAPH_IDENTITY } from "@/lib/identity/landing-graph";
 
 const WEB3BIO_BASE = "https://api.web3.bio";
 const FETCH_TIMEOUT_MS = 12_000;
@@ -244,6 +247,43 @@ function mapCredentials(rows: Web3BioWalletCredentialRow[] | undefined): Web3Bio
       link: row.link?.trim() || null,
     }))
     .filter((row) => row.label.length > 0);
+}
+
+export async function fetchWeb3BioCredentials(
+  identityQuery: string,
+): Promise<Web3BioCredentials | null> {
+  const encoded = encodeURIComponent(identityQuery);
+  try {
+    const res = await fetch(`${WEB3BIO_BASE}/credential/${encoded}`, {
+      headers: web3bioHeaders(),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+
+    const json = (await res.json()) as {
+      isHuman?: Web3BioWalletCredentialRow[];
+      isRisky?: Web3BioWalletCredentialRow[];
+      isSpam?: Web3BioWalletCredentialRow[];
+    };
+
+    const credentials: Web3BioCredentials = {
+      isHuman: mapCredentials(json.isHuman),
+      isRisky: mapCredentials(json.isRisky),
+      isSpam: mapCredentials(json.isSpam),
+    };
+
+    if (
+      credentials.isHuman.length === 0 &&
+      credentials.isRisky.length === 0 &&
+      credentials.isSpam.length === 0
+    ) {
+      return null;
+    }
+
+    return credentials;
+  } catch {
+    return null;
+  }
 }
 
 export async function fetchWeb3BioWalletBundle(

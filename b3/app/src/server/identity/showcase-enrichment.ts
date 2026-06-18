@@ -16,7 +16,9 @@ import {
 import { getOrFetchIdentityGraph } from "@/server/identity/enrichment-cache";
 import {
   fetchCultureIdentityGraphFromAddress,
+  fetchWeb3BioCredentials,
   fetchWeb3BioWalletBundle,
+  ethereumProfileQuery,
   mergeIdentityGraphs,
 } from "@/server/identity/web3bio";
 import { getPrisma } from "@/server/db/prisma";
@@ -361,17 +363,21 @@ export async function getCultureIdentityEnrichment(
   const displayHandle = resolved.fullName ?? `${resolved.handle}.${resolved.tld}`;
   const founderConfig = getFounderShowcaseConfig(resolved.fullName);
 
-  const [profileGraph, member, txCount, walletBundle] = await Promise.all([
+  const [profileGraph, member, txCount, walletBundle, credentialFallback] = await Promise.all([
     getOrFetchIdentityGraph(owner, resolved.fullName, () =>
       fetchCultureIdentityGraphFromAddress(owner),
     ),
     fetchMemberBridge(owner),
     fetchTxCount(owner),
     fetchWeb3BioWalletBundle(owner),
+    fetchWeb3BioCredentials(ethereumProfileQuery(owner)),
   ]);
 
   const web3bio = mergeIdentityGraphs(profileGraph, walletBundle?.graph ?? []);
-  const credentials = walletBundle?.credentials ?? null;
+  const credentials =
+    walletBundle?.credentials ??
+    credentialFallback ??
+    null;
 
   const client = neynarClient();
   let neynarFollowerCount: number | null = null;

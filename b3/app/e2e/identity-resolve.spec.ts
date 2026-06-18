@@ -44,4 +44,33 @@ test.describe("culture name resolution", () => {
     const res = await request.get("/api/identity/enrich");
     expect(res.status()).toBe(400);
   });
+
+  test("landing culture section shows live identity graph", async ({ page }) => {
+    await page.goto("/#culture-identity-graph");
+    await expect(page.getByText("IDENTITY GRAPH")).toBeVisible();
+    await expect(page.getByText("See the graph connect.")).toBeVisible();
+    await expect(page.getByText("Identity Graph", { exact: true }).first()).toBeVisible({
+      timeout: 15_000,
+    });
+  });
+
+  test("laszlo.culture shows identity graph when enrichment available", async ({ page }) => {
+    await page.goto("/id/laszlo.culture");
+    await expect(page.getByText("Identity Graph", { exact: true }).first()).toBeVisible({
+      timeout: 15_000,
+    });
+  });
+
+  test("graph demo returns linked identities for default identity", async ({ request }) => {
+    const res = await request.get(
+      "/api/identity/graph-demo?identity=laszloleonardo.eth",
+    );
+    expect(res.ok()).toBeTruthy();
+    const data = (await res.json()) as {
+      ok?: boolean;
+      graph?: { graph?: unknown[] };
+    };
+    expect(data.ok).toBe(true);
+    expect((data.graph?.graph?.length ?? 0) > 0).toBeTruthy();
+  });
 });

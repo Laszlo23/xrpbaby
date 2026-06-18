@@ -1,7 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { fetchCultureIdentityGraphFromIdentity } from "@/server/identity/web3bio";
-import { getOrFetchIdentityGraph } from "@/server/identity/enrichment-cache";
+import {
+  fetchCultureIdentityGraphFromAddress,
+  fetchCultureIdentityGraphFromIdentity,
+} from "@/server/identity/web3bio";
+import {
+  getOrFetchIdentityGraph,
+  getOrFetchIdentityGraphByIdentity,
+} from "@/server/identity/enrichment-cache";
 
 export const Route = createFileRoute("/api/identity/graph")({
   server: {
@@ -12,17 +18,16 @@ export const Route = createFileRoute("/api/identity/graph")({
         const identity = url.searchParams.get("identity")?.trim();
 
         if (address) {
-          const graph = await getOrFetchIdentityGraph(address, undefined, async () => {
-            const { fetchCultureIdentityGraphFromAddress } = await import(
-              "@/server/identity/web3bio"
-            );
-            return fetchCultureIdentityGraphFromAddress(address);
-          });
+          const graph = await getOrFetchIdentityGraph(address, undefined, () =>
+            fetchCultureIdentityGraphFromAddress(address),
+          );
           return json({ ok: true, graph });
         }
 
         if (identity) {
-          const graph = await fetchCultureIdentityGraphFromIdentity(identity);
+          const graph = await getOrFetchIdentityGraphByIdentity(identity, () =>
+            fetchCultureIdentityGraphFromIdentity(identity),
+          );
           return json({ ok: true, graph });
         }
 

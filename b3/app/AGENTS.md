@@ -41,6 +41,22 @@ Backed by **`../cms`**. See **`../cms/AGENTS.md`** if present and `../cms/data/a
 
 Five-layer model (Community → Capital): sub-items, routes, and agent mapping in [`../docs/CULTURE_LAYERS.md`](../docs/CULTURE_LAYERS.md). Canonical config: `src/lib/culture-layers.ts`.
 
+### Web3.bio identity graph
+
+| Route | Role |
+| ----- | ---- |
+| `GET /api/identity/graph-demo` | Landing demo graph (`VITE_LANDING_GRAPH_IDENTITY`, default `laszloleonardo.eth`) |
+| `GET /api/identity/graph` | Graph by `?address=` or `?identity=` |
+| `GET /api/identity/enrich` | Full Culture Layer enrichment for `?name=handle.culture` |
+
+- **Profile graph:** `GET https://api.web3.bio/profile/{identity}` — no API key required (rate-limited).
+- **Credentials:** `GET https://api.web3.bio/credential/ethereum,{address}` — no key; used for trust badges until `WEB3BIO_API_KEY` arrives.
+- **Wallet bundle:** `GET https://api.web3.bio/wallet/{address}` — requires `WEB3BIO_API_KEY`.
+- **Cache:** `IdentityEnrichmentCache` (Prisma) — 6h TTL keyed by owner wallet or `identity:{name}`.
+- **Smoke:** `bash scripts/identity-graph-smoke.sh [origin]`
+
+Env: `VITE_LANDING_GRAPH_IDENTITY`, optional `WEB3BIO_API_KEY` in `app/.env`.
+
 ## Tests
 
 `npm run test:all` — verify → unit → Playwright smoke.

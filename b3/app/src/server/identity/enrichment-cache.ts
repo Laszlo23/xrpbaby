@@ -70,3 +70,11 @@ export async function getOrFetchIdentityGraph(
   }
   return fresh;
 }
+
+export async function getOrFetchIdentityGraphByIdentity(
+  identity: string,
+  fetcher: () => Promise<CultureIdentityGraph | null>,
+): Promise<CultureIdentityGraph | null> {
+  const cacheKey = `identity:${identity.toLowerCase()}`;
+  return getOrFetchIdentityGraph(cacheKey, identity, fetcher);
+}

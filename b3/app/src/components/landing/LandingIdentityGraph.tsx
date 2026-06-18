@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 
 import { IdentityGraphPanel } from "@/components/identity/IdentityGraphPanel";
 import type { CultureIdentityGraph } from "@/lib/identity/identity-graph-types";
+import { DEFAULT_LANDING_GRAPH_IDENTITY } from "@/lib/identity/landing-graph";
 
 const DEFAULT_IDENTITY =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_LANDING_GRAPH_IDENTITY?.trim()) ||
-  "laszloleonardo.eth";
+  DEFAULT_LANDING_GRAPH_IDENTITY;
 
 type GraphDemoResponse = {
   ok?: boolean;
@@ -57,8 +58,8 @@ export function LandingIdentityGraph() {
           />
         ) : (
           <div className="rounded-2xl border border-dashed border-white/15 p-12 text-center text-sm text-zinc-500">
-            Identity graph preview unavailable right now. The profile API is free; add{" "}
-            <code className="text-zinc-300">WEB3BIO_API_KEY</code> for wallet trust signals.
+            Identity graph preview is temporarily unavailable. Check your connection or try again
+            in a moment.
           </div>
         )}
 
