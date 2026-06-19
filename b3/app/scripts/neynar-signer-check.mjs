@@ -99,7 +99,9 @@ async function createSigner() {
   return data;
 }
 
-let lookup = signerUuid ? await lookupSigner(signerUuid) : { res: { status: 404, ok: false }, data: {} };
+let lookup = signerUuid
+  ? await lookupSigner(signerUuid)
+  : { res: { status: 404, ok: false }, data: {} };
 
 if (!signerUuid || lookup.res.status === 404) {
   if (!signerUuid) {

@@ -8,6 +8,10 @@ import { toast } from "sonner";
 import { platformModules } from "@/lib/modules";
 import { FOUNDING_WIRED_QUESTS, FOUNDING_DAILY_QUESTS } from "@/lib/founding-quests";
 import { WeeklyBccClaimPanel } from "@/components/WeeklyBccClaimPanel";
+import { QuestHeroCarousel } from "@/components/character/QuestHeroCarousel";
+import { QuestCoachStrip } from "@/components/character/QuestCoachStrip";
+import { SocialAmplifyPanel } from "@/components/quests/SocialAmplifyPanel";
+import { pickCoachSceneByProgress, pickCoachSceneForQuest } from "@/lib/character/culture-coach";
 import { postCompleteTaskWithSiwe } from "@/lib/points-fns";
 import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
 import { Button } from "@/components/ui/button";
@@ -30,19 +34,24 @@ function FoundingQuestsPage() {
   const completeTask = useServerFn(postCompleteTaskWithSiwe);
   const [completedSlugs, setCompletedSlugs] = useState<string[]>([]);
   const [claimingSlug, setClaimingSlug] = useState<string | null>(null);
+  const [memberLoadError, setMemberLoadError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     if (!address) return;
+    setMemberLoadError(null);
     try {
       const res = await fetch(`/api/member/me?address=${encodeURIComponent(address)}`);
       const data = (await res.json()) as {
         ok?: boolean;
         member?: { completedSlugs?: string[] } | null;
       };
-      if (!data.ok || !data.member) return;
+      if (!res.ok || !data.ok || !data.member) {
+        setMemberLoadError("Could not load your quest progress. Try again in a moment.");
+        return;
+      }
       setCompletedSlugs(data.member.completedSlugs ?? []);
     } catch {
-      /* ignore */
+      setMemberLoadError("Could not load your quest progress. Try again in a moment.");
     }
   }, [address]);
 
@@ -77,6 +86,7 @@ function FoundingQuestsPage() {
   const doneCount = FOUNDING_WIRED_QUESTS.filter((q) => completedSlugs.includes(q.slug)).length;
   const totalWired = FOUNDING_WIRED_QUESTS.length;
   const progressPct = totalWired > 0 ? Math.round((doneCount / totalWired) * 100) : 0;
+  const headerCoach = pickCoachSceneByProgress(progressPct);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -88,8 +98,20 @@ function FoundingQuestsPage() {
         <p className="mt-2 text-sm text-zinc-400">
           Stack Culture Points all week — claim BCC once per week. Stake on /roots to boost payout.
         </p>
+        {memberLoadError ? (
+          <p className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100/90">
+            {memberLoadError}{" "}
+            <button
+              type="button"
+              className="underline underline-offset-2 hover:text-white"
+              onClick={() => void load()}
+            >
+              Retry
+            </button>
+          </p>
+        ) : null}
         {isConnected ? (
-          <div className="mt-4 flex items-center gap-3">
+          <div className="mt-4 flex flex-wrap items-center gap-3">
             <div
               className="relative h-10 w-10 shrink-0 rounded-full border border-[#C5FF41]/40"
               style={{
@@ -100,11 +122,33 @@ function FoundingQuestsPage() {
                 {doneCount}/{totalWired}
               </div>
             </div>
-            <p className="text-xs text-zinc-500">{progressPct}% of wired quests complete</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs text-zinc-500">{progressPct}% of wired quests complete</p>
+              <p className="mt-1 text-xs italic text-zinc-400">
+                &ldquo;
+                {progressPct >= 100 && headerCoach.quoteWin
+                  ? headerCoach.quoteWin
+                  : headerCoach.quote}
+                &rdquo;
+              </p>
+            </div>
+            <img
+              src={headerCoach.thumbSrc}
+              alt=""
+              width={40}
+              height={40}
+              className="h-10 w-10 shrink-0 rounded-lg border border-white/10 object-cover"
+            />
           </div>
         ) : null}
       </header>
-      <main className="mx-auto max-w-lg px-6 py-8">
+      <main className="mx-auto max-w-2xl px-6 py-8">
+        <QuestHeroCarousel className="mb-8" />
+        <SocialAmplifyPanel
+          className="mb-8"
+          completedSlugs={completedSlugs}
+          onClaimed={() => void load()}
+        />
         {!isConnected ? (
           <Link
             to="/join"
@@ -120,6 +164,7 @@ function FoundingQuestsPage() {
         <ul className="space-y-3">
           {FOUNDING_WIRED_QUESTS.map((q) => {
             const done = completedSlugs.includes(q.slug);
+            const coachScene = pickCoachSceneForQuest(q.slug, q.coachSceneId);
             return (
               <li key={q.slug} className="rounded-xl border border-white/10 px-4 py-4">
                 <div className="flex gap-4">
@@ -132,6 +177,7 @@ function FoundingQuestsPage() {
                     <p className="font-medium">{q.title}</p>
                     <p className="mt-1 text-sm text-zinc-500">{q.description}</p>
                     <p className="mt-2 text-xs text-[#C5FF41]">+{q.culturePoints} Culture Points</p>
+                    <QuestCoachStrip scene={coachScene} done={done} />
                     {!done && q.claimRoute ? (
                       <div className="mt-3 flex flex-wrap gap-2">
                         {q.inlineClaim && isConnected ? (
@@ -149,7 +195,12 @@ function FoundingQuestsPage() {
                             )}
                           </Button>
                         ) : null}
-                        <Button asChild size="sm" variant="outline" className="rounded-full text-xs">
+                        <Button
+                          asChild
+                          size="sm"
+                          variant="outline"
+                          className="rounded-full text-xs"
+                        >
                           <Link to={q.claimRoute}>
                             Open
                             <ExternalLink className="ml-1 h-3 w-3" />
@@ -168,18 +219,24 @@ function FoundingQuestsPage() {
           <div className="mt-10">
             <p className="mono-label">COMING SOON</p>
             <ul className="mt-4 space-y-3 opacity-70">
-              {comingSoon.map((q) => (
-                <li
-                  key={q.slug}
-                  className="flex gap-4 rounded-xl border border-dashed border-white/10 px-4 py-4"
-                >
-                  <Clock className="h-5 w-5 shrink-0 text-zinc-600" />
-                  <div>
-                    <p className="font-medium text-zinc-400">{q.title}</p>
-                    <p className="mt-1 text-sm text-zinc-600">{q.description}</p>
-                  </div>
-                </li>
-              ))}
+              {comingSoon.map((q) => {
+                const coachScene = pickCoachSceneForQuest(q.slug, q.coachSceneId);
+                return (
+                  <li
+                    key={q.slug}
+                    className="rounded-xl border border-dashed border-white/10 px-4 py-4"
+                  >
+                    <div className="flex gap-4">
+                      <Clock className="h-5 w-5 shrink-0 text-zinc-600" />
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-zinc-400">{q.title}</p>
+                        <p className="mt-1 text-sm text-zinc-600">{q.description}</p>
+                        <QuestCoachStrip scene={coachScene} compact />
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ) : null}

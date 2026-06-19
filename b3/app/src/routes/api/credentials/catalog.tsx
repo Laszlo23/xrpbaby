@@ -10,7 +10,8 @@ export const Route = createFileRoute("/api/credentials/catalog")({
           return Response.json({ ok: true, catalog });
         } catch (error) {
           console.warn("GET /api/credentials/catalog:", error);
-          const { getStaticCredentialCatalog } = await import("@/lib/credentials/credential-catalog");
+          const { getStaticCredentialCatalog } =
+            await import("@/lib/credentials/credential-catalog");
           return Response.json({ ok: true, catalog: getStaticCredentialCatalog() });
         }
       },

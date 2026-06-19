@@ -1,0 +1,46 @@
+{
+  "generatedAt": "2026-06-18T21:20:56.274Z",
+  "chain": "sepolia",
+  "dryRun": true,
+  "schemaRegistry": "0x4200000000000000000000000000000000000021",
+  "easContract": "0x4200000000000000000000000000000000000020",
+  "schemaString": "bytes32 bcidDid,string credentialSlug,uint64 issuedAt,bytes32 evidenceHash",
+  "schemas": [
+    {
+      "slug": "bcid-builder-v1",
+      "schemaUid": "0x0000000000000000000000000000000000000000000000000000000000bcid01",
+      "revocable": true,
+      "note": "Placeholder UID — run with PRIVATE_KEY + @ethereum-attestation-service/eas-sdk to deploy"
+    },
+    {
+      "slug": "bcid-contributor-v1",
+      "schemaUid": "0x0000000000000000000000000000000000000000000000000000000000bcid02",
+      "revocable": true,
+      "note": "Placeholder UID — run with PRIVATE_KEY + @ethereum-attestation-service/eas-sdk to deploy"
+    },
+    {
+      "slug": "bcid-community-leader-v1",
+      "schemaUid": "0x0000000000000000000000000000000000000000000000000000000000bcid03",
+      "revocable": true,
+      "note": "Placeholder UID — run with PRIVATE_KEY + @ethereum-attestation-service/eas-sdk to deploy"
+    },
+    {
+      "slug": "bcid-verified-human-v1",
+      "schemaUid": "0x0000000000000000000000000000000000000000000000000000000000bcid04",
+      "revocable": true,
+      "note": "Placeholder UID — run with PRIVATE_KEY + @ethereum-attestation-service/eas-sdk to deploy"
+    },
+    {
+      "slug": "bcid-dao-member-v1",
+      "schemaUid": "0x0000000000000000000000000000000000000000000000000000000000bcid05",
+      "revocable": true,
+      "note": "Placeholder UID — run with PRIVATE_KEY + @ethereum-attestation-service/eas-sdk to deploy"
+    },
+    {
+      "slug": "bcid-grant-applicant-v1",
+      "schemaUid": "0x0000000000000000000000000000000000000000000000000000000000bcid06",
+      "revocable": true,
+      "note": "Placeholder UID — run with PRIVATE_KEY + @ethereum-attestation-service/eas-sdk to deploy"
+    }
+  ]
+}

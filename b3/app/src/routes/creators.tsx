@@ -68,7 +68,7 @@ const DISCIPLINES: {
 
 function CreatorsHubPage() {
   return (
-    <MarketingShell>
+    <MarketingShell title="Creators">
       <section className="mx-auto max-w-4xl px-5 py-16 sm:py-24">
         <p className="mono-label">OPEN CALL</p>
         <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">

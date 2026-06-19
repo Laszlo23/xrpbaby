@@ -55,7 +55,9 @@ for (let i = 2; i < process.argv.length; i++) {
 let text = rest.join(" ").trim();
 if (text === "-") text = await readStdin();
 if (!text) {
-  console.error('Usage: node scripts/grove-x-post.mjs [--reply-to ID] [--image /social/foo.webp] "text"');
+  console.error(
+    'Usage: node scripts/grove-x-post.mjs [--reply-to ID] [--image /social/foo.webp] "text"',
+  );
   process.exit(2);
 }
 

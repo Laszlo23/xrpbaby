@@ -78,11 +78,12 @@ export const postPointsBalance = createServerFn({ method: "POST" })
       balance: number;
       completedSlugs?: string[];
       dailyCheckInToday?: boolean;
+      wellSpinToday?: boolean;
     }> => {
       const { getPrisma } = await import("@/server/db/prisma");
-      const { walletDailyCheckInCreditedToday } = await import(
-        "@/server/points/daily-checkin-credit"
-      );
+      const { walletDailyCheckInCreditedToday } =
+        await import("@/server/points/daily-checkin-credit");
+      const { walletWellSpinCreditedToday } = await import("@/server/points/well-spin-credit");
       const prisma = getPrisma();
       if (!prisma) {
         return {
@@ -91,12 +92,19 @@ export const postPointsBalance = createServerFn({ method: "POST" })
           balance: 0,
           completedSlugs: [],
           dailyCheckInToday: false,
+          wellSpinToday: false,
         };
       }
       const addr = data.address.toLowerCase();
       const wallet = await prisma.wallet.findUnique({ where: { address: addr } });
       if (!wallet) {
-        return { ok: true, balance: 0, completedSlugs: [], dailyCheckInToday: false };
+        return {
+          ok: true,
+          balance: 0,
+          completedSlugs: [],
+          dailyCheckInToday: false,
+          wellSpinToday: false,
+        };
       }
       const agg = await prisma.pointLedger.aggregate({
         where: { walletId: wallet.id },
@@ -118,7 +126,14 @@ export const postPointsBalance = createServerFn({ method: "POST" })
         ),
       ];
       const dailyCheckInToday = await walletDailyCheckInCreditedToday(prisma, wallet.id);
-      return { ok: true, balance: agg._sum.delta ?? 0, completedSlugs, dailyCheckInToday };
+      const wellSpinToday = await walletWellSpinCreditedToday(prisma, wallet.id);
+      return {
+        ok: true,
+        balance: agg._sum.delta ?? 0,
+        completedSlugs,
+        dailyCheckInToday,
+        wellSpinToday,
+      };
     },
   );
 
@@ -179,6 +194,55 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
           }
         }
 
+        const {
+          parseChronicleEditionTaskSlug,
+          walletOwnsChronicleEdition,
+          walletChronicleOwnedCount,
+        } = await import("@/server/chronicles/balance-proof");
+        const editionFromSlug = parseChronicleEditionTaskSlug(data.taskSlug);
+        if (editionFromSlug !== undefined) {
+          const owned = await walletOwnsChronicleEdition(address as Address, editionFromSlug);
+          if (!owned.ok) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: owned.error ?? "chronicle_not_owned",
+            };
+          }
+        }
+        if (data.taskSlug === "chronicle-founder-complete") {
+          const set = await walletChronicleOwnedCount(address as Address);
+          if (!set.ok || (set.count ?? 0) < 11) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: set.error ?? "chronicle_set_incomplete",
+            };
+          }
+        }
+
+        if (data.taskSlug === "daily-invite-friend") {
+          const groveMember = await prisma.member.findFirst({
+            where: { walletId: wallet.id },
+            select: { id: true },
+          });
+          const groveCount = groveMember
+            ? await prisma.cultureGroveLink.count({
+                where: { inviterMemberId: groveMember.id },
+              })
+            : 0;
+          if (groveCount < 2) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: "grove_twin_bloom_required",
+            };
+          }
+        }
+
         const existing = await prisma.pointLedger.findFirst({
           where: {
             walletId: wallet.id,
@@ -213,9 +277,8 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
           where: { walletId: wallet.id },
           select: { id: true },
         });
-        const { logTaskCompletionActivity } = await import(
-          "@/server/points/task-completion-events"
-        );
+        const { logTaskCompletionActivity } =
+          await import("@/server/points/task-completion-events");
         await logTaskCompletionActivity(prisma, {
           memberId: member?.id,
           taskSlug: data.taskSlug,
@@ -225,6 +288,15 @@ export const postCompleteTaskWithSiwe = createServerFn({ method: "POST" })
           where: { walletId: wallet.id },
           _sum: { delta: true },
         });
+
+        const { touchMemberPowerAfterMaintenance, refreshMemberPower } =
+          await import("@/server/member/culture-power");
+        if (data.taskSlug === "bcc-lp-proof" || data.taskSlug === "bcc-roots-stake") {
+          await refreshMemberPower(prisma, addr);
+        } else {
+          await touchMemberPowerAfterMaintenance(prisma, addr);
+        }
+
         return {
           ok: true,
           alreadyCompleted: false,
@@ -648,6 +720,141 @@ export const postCompleteXProofTask = createServerFn({ method: "POST" })
     },
   );
 
+const socialShareStorySchema = z.object({
+  message: z.string().min(10),
+  signature: z.string().min(10),
+  proofUrl: z.string().trim().min(10),
+  platform: z.enum(["farcaster", "x"]),
+});
+
+/** Daily share quest — variable Culture Value from effort-based verification + optional agent score. */
+export const postCompleteSocialShareStory = createServerFn({ method: "POST" })
+  .inputValidator((raw: unknown) => socialShareStorySchema.parse(raw))
+  .handler(
+    async ({
+      data,
+    }): Promise<{
+      ok: boolean;
+      balance: number;
+      alreadyCompleted: boolean;
+      cultureValue?: number;
+      breakdown?: Record<string, number>;
+      actionType?: string;
+      agentScored?: boolean;
+      error?: string;
+    }> => {
+      const { getPrisma } = await import("@/server/db/prisma");
+      const { ensureDefaultTasks } = await import("@/server/points/tasks");
+      const { verifySocialShareStory, socialShareErrorMessage } =
+        await import("@/server/social/share-story-verify");
+      const { walletShareStoryCreditedToday, proofUrlAlreadyClaimed, SHARE_TASK_SLUG } =
+        await import("@/server/social/share-story-credit");
+      const { utcDayString } = await import("@/server/points/daily-checkin-credit");
+
+      const prisma = getPrisma();
+      if (!prisma) {
+        return { ok: false, balance: 0, alreadyCompleted: false, error: "no_database" };
+      }
+
+      try {
+        const address = await requireSiwePointsAddress(data.message, data.signature);
+        await ensureDefaultTasks(prisma);
+
+        const task = await prisma.taskDefinition.findUnique({ where: { slug: SHARE_TASK_SLUG } });
+        if (!task || !task.active) {
+          return { ok: false, balance: 0, alreadyCompleted: false, error: "invalid_task" };
+        }
+
+        const addr = address.toLowerCase();
+        const { wallet } = await ensureWalletAndMember(prisma, addr);
+        const dayUTC = utcDayString();
+
+        if (await walletShareStoryCreditedToday(prisma, wallet.id, dayUTC)) {
+          const agg = await prisma.pointLedger.aggregate({
+            where: { walletId: wallet.id },
+            _sum: { delta: true },
+          });
+          return {
+            ok: true,
+            alreadyCompleted: true,
+            balance: agg._sum.delta ?? 0,
+            error: socialShareErrorMessage("already_claimed_today"),
+          };
+        }
+
+        const verified = await verifySocialShareStory({
+          platform: data.platform,
+          proofUrl: data.proofUrl,
+          walletAddress: address as `0x${string}`,
+        });
+
+        if (!verified.ok) {
+          return {
+            ok: false,
+            balance: 0,
+            alreadyCompleted: false,
+            error: socialShareErrorMessage(verified.code),
+          };
+        }
+
+        const normalizedProof = verified.proofUrl.trim().toLowerCase().split("?")[0];
+        if (await proofUrlAlreadyClaimed(prisma, normalizedProof)) {
+          return {
+            ok: false,
+            balance: 0,
+            alreadyCompleted: false,
+            error: socialShareErrorMessage("proof_already_used"),
+          };
+        }
+
+        const metadata = {
+          kind: "social_share_story" as const,
+          dayUTC,
+          platform: data.platform,
+          proofUrl: normalizedProof,
+          cultureValue: verified.cultureValue,
+          actionType: verified.actionType,
+          breakdown: verified.breakdown,
+          agentScored: verified.agentScored,
+        };
+
+        if (verified.cultureValue > 0) {
+          await prisma.pointLedger.create({
+            data: {
+              walletId: wallet.id,
+              delta: verified.cultureValue,
+              reason: "task_completion",
+              taskSlug: SHARE_TASK_SLUG,
+              metadata,
+            },
+          });
+        }
+
+        const agg = await prisma.pointLedger.aggregate({
+          where: { walletId: wallet.id },
+          _sum: { delta: true },
+        });
+
+        return {
+          ok: true,
+          alreadyCompleted: false,
+          balance: agg._sum.delta ?? 0,
+          cultureValue: verified.cultureValue,
+          breakdown: verified.breakdown,
+          actionType: verified.actionType,
+          agentScored: verified.agentScored,
+        };
+      } catch (e) {
+        return {
+          ok: false,
+          balance: 0,
+          alreadyCompleted: false,
+          error: e instanceof Error ? e.message : "share_story_error",
+        };
+      }
+    },
+  );
+
 const dailyCheckInSchema = z
   .object({
     message: z.string().min(10),
@@ -755,6 +962,118 @@ export const postCompleteDailyChainCheckIn = createServerFn({ method: "POST" })
           balance: 0,
           alreadyCompleted: false,
           error: e instanceof Error ? e.message : "daily_error",
+        };
+      }
+    },
+  );
+
+const wellSpinSchema = z
+  .object({
+    message: z.string().min(10),
+    signature: z.string().min(10),
+    value: z.number().int().min(1).max(33),
+    txHash: z
+      .string()
+      .regex(/^0x[a-fA-F0-9]{64}$/)
+      .optional(),
+    chainId: z.number().int().optional(),
+  })
+  .superRefine((val, ctx) => {
+    if (val.txHash && val.chainId == null) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "chainId required when txHash is set",
+        path: ["chainId"],
+      });
+    }
+  });
+
+/** Awards culture well points once per UTC day — on-chain spin tx and/or SIWE when contract unset. */
+export const postCompleteWellSpin = createServerFn({ method: "POST" })
+  .inputValidator((raw: unknown) => wellSpinSchema.parse(raw))
+  .handler(
+    async ({
+      data,
+    }): Promise<{
+      ok: boolean;
+      balance: number;
+      alreadyCompleted: boolean;
+      pointsGranted?: number;
+      error?: string;
+    }> => {
+      const { getPrisma } = await import("@/server/db/prisma");
+      const { creditWellSpinPoints } = await import("@/server/points/well-spin-credit");
+      const { verifyWellSpinTx } = await import("@bc/proof");
+      const { utcCheckInDayIndex } = await import("@/lib/daily-checkin");
+
+      const prisma = getPrisma();
+      if (!prisma) {
+        return { ok: false, balance: 0, alreadyCompleted: false, error: "no_database" };
+      }
+
+      try {
+        const address = await requireSiwePointsAddress(data.message, data.signature);
+
+        if (data.txHash) {
+          const proof = await verifyWellSpinTx({
+            txHash: data.txHash as Hex,
+            expectedWallet: address as Address,
+            chainId: data.chainId!,
+            getEnv: () => mergeProofEnv(),
+          });
+
+          if (!proof.ok) {
+            const msg =
+              proof.code === "contract_not_configured"
+                ? "Server missing CULTURE_SPINNING_WELL_CONTRACT_ADDRESS."
+                : proof.code === "wrong_chain"
+                  ? "Switch to Base mainnet."
+                  : proof.code === "tx_failed"
+                    ? "Transaction failed on-chain."
+                    : proof.code === "wrong_signer"
+                      ? "Wallet must match transaction sender."
+                      : proof.code === "no_well_event"
+                        ? "That transaction is not a culture well spin."
+                        : proof.code === "wrong_user_event"
+                          ? "Spin address mismatch."
+                          : proof.code;
+            return { ok: false, balance: 0, alreadyCompleted: false, error: msg };
+          }
+
+          if (proof.value !== data.value) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: "On-chain value does not match game result.",
+            };
+          }
+
+          return creditWellSpinPoints(prisma, {
+            address,
+            message: data.message,
+            signature: data.signature,
+            mode: "onchain",
+            value: data.value,
+            txHash: data.txHash,
+            dayIndex: proof.dayIndex.toString(),
+          });
+        }
+
+        return creditWellSpinPoints(prisma, {
+          address,
+          message: data.message,
+          signature: data.signature,
+          mode: "siwe",
+          value: data.value,
+          dayIndex: utcCheckInDayIndex().toString(),
+        });
+      } catch (e) {
+        return {
+          ok: false,
+          balance: 0,
+          alreadyCompleted: false,
+          error: e instanceof Error ? e.message : "well_spin_error",
         };
       }
     },
@@ -1070,6 +1389,11 @@ const panicBccRewardSchema = z.object({
   signature: z.string().min(10),
   sessionId: z.string().min(6).max(128),
   precisionScore: z.number().int().min(0).max(777),
+  holdSeconds: z.number().int().min(0).max(5220).optional(),
+  txHash: z
+    .string()
+    .regex(/^0x[a-fA-F0-9]{64}$/)
+    .optional(),
 });
 
 function readPanicBccRewardWei(): bigint {
@@ -1139,6 +1463,53 @@ export const postClaimPanicSwitchBccReward = createServerFn({ method: "POST" })
           };
         }
 
+        const holdSeconds = data.holdSeconds ?? 0;
+        let onchainProof:
+          | {
+              streakDays: number;
+              holdSeconds: number;
+              totalRuns: number;
+              precisionScore: number;
+              dayIndex: bigint;
+            }
+          | undefined;
+
+        const { resolvePanicSwitchAttestationAddress } = await import("@bc/contracts-sdk");
+        const { getDefaultChain } = await import("@/lib/chains");
+        const chainId = getDefaultChain().id;
+        const attestContract = resolvePanicSwitchAttestationAddress(
+          chainId,
+          process.env as Record<string, string | undefined>,
+        );
+
+        if (attestContract) {
+          if (!data.txHash) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: "panic_attest_tx_required",
+            };
+          }
+          const { verifyPanicSwitchAttestTx } = await import("@bc/proof");
+          const verified = await verifyPanicSwitchAttestTx({
+            txHash: data.txHash as `0x${string}`,
+            expectedWallet: addr as `0x${string}`,
+            chainId,
+            expectedPrecision: data.precisionScore,
+            expectedHoldSeconds: holdSeconds,
+          });
+          if (!verified.ok) {
+            return {
+              ok: false,
+              balance: 0,
+              alreadyCompleted: false,
+              error: verified.code,
+            };
+          }
+          onchainProof = verified.proof;
+        }
+
         if (task.points > 0) {
           await prisma.pointLedger.create({
             data: {
@@ -1150,7 +1521,11 @@ export const postClaimPanicSwitchBccReward = createServerFn({ method: "POST" })
                 dayUTC,
                 sessionId: data.sessionId,
                 precisionScore: data.precisionScore,
+                holdSeconds,
                 kind: "panic_switch_daily_attestation",
+                attestTxHash: data.txHash?.toLowerCase(),
+                onchainStreakDays: onchainProof?.streakDays,
+                onchainTotalRuns: onchainProof?.totalRuns,
                 siweMessageSha256: createHash("sha256").update(data.message).digest("hex"),
                 siweSignatureSha256: createHash("sha256").update(data.signature).digest("hex"),
               },
@@ -1165,7 +1540,20 @@ export const postClaimPanicSwitchBccReward = createServerFn({ method: "POST" })
             : data.precisionScore >= 600
               ? 11_000_000_000_000_000n
               : 0n;
-        const rewardWei = baseRewardWei + precisionBonusWei;
+
+        let secretBonusWei = 0n;
+        if (onchainProof) {
+          const { computePanicSecretBonusWei } =
+            await import("@/server/wallet/panic-onchain-bonus");
+          secretBonusWei = computePanicSecretBonusWei({
+            streakDays: onchainProof.streakDays,
+            holdSeconds: onchainProof.holdSeconds,
+            totalRuns: onchainProof.totalRuns,
+            precisionScore: onchainProof.precisionScore,
+          });
+        }
+
+        const rewardWei = baseRewardWei + precisionBonusWei + secretBonusWei;
         const { trySendPanicBccReward } = await import("@/server/wallet/panic-bcc-payout");
         const payout = await trySendPanicBccReward({
           to: addr as Address,
@@ -1300,3 +1688,52 @@ export const postClaimWeeklyBcc = createServerFn({ method: "POST" })
       };
     }
   });
+
+const builderTapeListenSchema = z.object({
+  message: z.string().min(10),
+  signature: z.string().min(10),
+  slug: z.string().min(1).max(64),
+  listenedSeconds: z.number().min(0),
+  durationSeconds: z.number().min(1),
+});
+
+/** One-time Culture Points for listening to a Builder Tape episode (≥80% progress). */
+export const postCompleteBuilderTapeListen = createServerFn({ method: "POST" })
+  .inputValidator((raw: unknown) => builderTapeListenSchema.parse(raw))
+  .handler(
+    async ({
+      data,
+    }): Promise<{
+      ok: boolean;
+      balance: number;
+      alreadyCompleted: boolean;
+      seriesJustCompleted?: boolean;
+      error?: string;
+    }> => {
+      const { getPrisma } = await import("@/server/db/prisma");
+      const { creditBuilderTapeListen } =
+        await import("@/server/points/builder-tape-listen-credit");
+
+      const prisma = getPrisma();
+      if (!prisma) {
+        return { ok: false, balance: 0, alreadyCompleted: false, error: "no_database" };
+      }
+
+      try {
+        const address = await requireSiwePointsAddress(data.message, data.signature);
+        return creditBuilderTapeListen(prisma, {
+          address,
+          slug: data.slug,
+          listenedSeconds: data.listenedSeconds,
+          durationSeconds: data.durationSeconds,
+        });
+      } catch (e) {
+        return {
+          ok: false,
+          balance: 0,
+          alreadyCompleted: false,
+          error: e instanceof Error ? e.message : "listen_claim_error",
+        };
+      }
+    },
+  );

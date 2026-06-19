@@ -9,5 +9,9 @@ export const privyClientId =
     (import.meta.env.VITE_PRIVY_CLIENT_ID as string | undefined)?.trim()) ||
   "";
 
-/** When false, fall back to legacy wagmi connectors (World, MetaMask, etc.). */
-export const privyEnabled = privyAppId.length > 0;
+export const legacyInjectedWallet =
+  (typeof import.meta !== "undefined" && import.meta.env.VITE_WALLET_LEGACY_INJECTED === "1") ||
+  false;
+
+/** When false, fall back to legacy wagmi connectors (World, MetaMask, Brave, etc.). */
+export const privyEnabled = privyAppId.length > 0 && !legacyInjectedWallet;

@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { tweetSatisfiesXProofTask } from "./verify-proof.ts";
+import {
+  tweetSatisfiesXProofTask,
+  analyzeXShareTweet,
+  classifyXShareAction,
+} from "./verify-proof.ts";
 
 describe("tweetSatisfiesXProofTask", () => {
   const target = "100";
@@ -41,5 +45,21 @@ describe("tweetSatisfiesXProofTask", () => {
   it("empty refs fails", () => {
     assert.equal(tweetSatisfiesXProofTask("x-reply-official", target, []), false);
     assert.equal(tweetSatisfiesXProofTask("x-reply-official", target, undefined), false);
+  });
+});
+
+describe("analyzeXShareTweet", () => {
+  it("detects original tweet with mentions", () => {
+    const analysis = analyzeXShareTweet({
+      text: "Love @bihary41418 and @buildingcultu3 #BuildCulture https://app.buildingcultureid.space",
+      referenced_tweets: [],
+    });
+    assert.equal(analysis.actionType, "original");
+    assert.equal(analysis.mentionsOk, true);
+    assert.equal(analysis.hasHashtag, true);
+  });
+
+  it("classifies retweet refs", () => {
+    assert.equal(classifyXShareAction([{ id: "1", type: "retweeted" }]), "repost");
   });
 });

@@ -67,8 +67,7 @@ function BcidLeaderboardPage() {
               </tr>
             ) : (
               entries.map((row: BcidLeaderboardEntry) => {
-                const label =
-                  row.cultureHandle ?? row.publicHandle ?? `${row.did.slice(0, 24)}…`;
+                const label = row.cultureHandle ?? row.publicHandle ?? `${row.did.slice(0, 24)}…`;
                 const profilePath = row.cultureHandle
                   ? (`/id/${row.cultureHandle}` as "/id/$name")
                   : null;

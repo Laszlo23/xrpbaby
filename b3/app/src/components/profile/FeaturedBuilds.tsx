@@ -18,7 +18,10 @@ function BuildCard({ build }: { build: FeaturedBuild }) {
     <>
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-heading text-lg font-semibold text-white">{build.title}</h3>
-        <StatusBadge label={featuredBuildStatusLabel(build.status)} tone={statusTone(build.status)} />
+        <StatusBadge
+          label={featuredBuildStatusLabel(build.status)}
+          tone={statusTone(build.status)}
+        />
       </div>
       <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{build.description}</p>
       <p className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#C5FF41]">

@@ -77,6 +77,17 @@ function StatCard({
   );
 }
 
+const FUNNEL_HEATMAP_PATHS = [
+  "/",
+  "/join",
+  "/forest",
+  "/play",
+  "/profile",
+  "/pass",
+  "/credentials",
+  "/ecosystem",
+] as const;
+
 export function GrowthIntelligencePage() {
   const [apps, setApps] = useState<AppOption[]>([]);
   const [app, setApp] = useState("bc-id");
@@ -149,8 +160,8 @@ export function GrowthIntelligencePage() {
             Product intelligence for Building Culture
           </h1>
           <p className="mt-3 max-w-2xl text-zinc-400">
-            Observe behavior, identify friction, and prioritize improvements across the
-            ecosystem. The AI watches. The AI learns. The AI recommends.
+            Observe behavior, identify friction, and prioritize improvements across the ecosystem.
+            The AI watches. The AI learns. The AI recommends.
           </p>
         </header>
 
@@ -210,6 +221,20 @@ export function GrowthIntelligencePage() {
               Click heatmap
             </h2>
             <div className="mb-3 flex flex-wrap gap-2">
+              {FUNNEL_HEATMAP_PATHS.map((path) => (
+                <button
+                  key={`funnel-${path}`}
+                  type="button"
+                  onClick={() => setHeatmapPath(path)}
+                  className={`rounded-md px-2 py-1 font-mono text-xs ${
+                    heatmapPath === path
+                      ? "bg-violet-500/20 text-violet-200"
+                      : "bg-white/5 text-zinc-500 hover:text-zinc-200"
+                  }`}
+                >
+                  {path}
+                </button>
+              ))}
               {(overview?.topPages ?? [{ pathname: "/" }]).slice(0, 5).map((p) => (
                 <button
                   key={p.pathname}
@@ -275,10 +300,7 @@ export function GrowthIntelligencePage() {
                 </p>
               )}
               {recommendations.map((rec) => (
-                <article
-                  key={rec.id}
-                  className="rounded-xl border border-white/10 bg-white/5 p-4"
-                >
+                <article key={rec.id} className="rounded-xl border border-white/10 bg-white/5 p-4">
                   <div className="mb-2 flex items-center justify-between">
                     <span
                       className={`text-xs font-semibold uppercase ${PRIORITY_CLASS[rec.priority] ?? ""}`}

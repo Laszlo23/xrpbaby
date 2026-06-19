@@ -33,11 +33,7 @@ export function HomeLivePulse() {
             id="live-pulse-heading"
             className="font-heading text-2xl font-semibold tabular-nums text-white md:text-3xl"
           >
-            {proofLoading && entries == null
-              ? "…"
-              : entries == null
-                ? "—"
-                : fmtProofInt(entries)}{" "}
+            {proofLoading && entries == null ? "…" : entries == null ? "—" : fmtProofInt(entries)}{" "}
             <span className="text-base font-normal text-zinc-500 md:text-lg">
               raffle tickets minted on-chain
             </span>

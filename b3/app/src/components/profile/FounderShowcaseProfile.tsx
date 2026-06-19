@@ -15,6 +15,7 @@ import { NFTStrip } from "@/components/profile/NFTStrip";
 import { ActivityFeed } from "@/components/profile/ActivityFeed";
 import { CollaborationCTA } from "@/components/profile/CollaborationCTA";
 import { ProfileFooterCTA } from "@/components/profile/ProfileFooterCTA";
+import { BuilderTapesPromo } from "@/components/stories/BuilderTapesHub";
 import { ProfileGamificationBar } from "@/components/profile/ProfileGamificationBar";
 import { ProfileSocialStrip } from "@/components/profile/ProfileSocialStrip";
 import { useCultureNameOwnership } from "@/components/identity/useCultureNameOwnership";
@@ -161,6 +162,8 @@ export function FounderShowcaseProfile({ resolved, enrichment }: Props) {
           />
 
           <ProfileGamificationBar gamification={gamification} />
+
+          <BuilderTapesPromo />
 
           <FounderMetrics
             config={config}

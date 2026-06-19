@@ -7,6 +7,7 @@ export const CREDENTIAL_SLUGS = [
   "verified-human",
   "trusted-agent",
   "verified-project",
+  "limited-merch-holder",
 ] as const;
 
 export type CredentialSlug = (typeof CREDENTIAL_SLUGS)[number];
@@ -19,7 +20,7 @@ export type CredentialCatalogEntry = {
   purpose: string;
   unlocks: string[];
   earnSummary: string;
-  icon: "hammer" | "seedling" | "crown" | "shield" | "bot" | "building";
+  icon: "hammer" | "seedling" | "crown" | "shield" | "bot" | "building" | "shirt";
   accent: string;
 };
 
@@ -90,6 +91,21 @@ export const CREDENTIAL_CATALOG: CredentialCatalogEntry[] = [
     icon: "building",
     accent: "#C47C59",
   },
+  {
+    slug: "limited-merch-holder",
+    name: "Limited Merch Holder",
+    description: "Physical Building Culture tee with inside-label QR — clothing plus credential.",
+    category: "community",
+    purpose: "Prove you hold a numbered edition from a funded merch batch.",
+    unlocks: [
+      "Merch-holder channel access",
+      "Edition serial on profile",
+      "Culture Points on claim",
+    ],
+    earnSummary: "Buy a limited tee and scan the inside label at /merch/claim.",
+    icon: "shirt",
+    accent: "#D4AF37",
+  },
 ];
 
 export type CredentialCatalogItem = CredentialCatalogEntry & { tier: number };
@@ -122,3 +138,5 @@ export const ACCESS_RULES = [
     description: "BC Studio priority queue for Builder Credential holders.",
   },
 ] as const;
+
+export { QUEST_BADGES as QUEST_BADGE_CATALOG } from "@/components/rewards/BadgeRevealModal";

@@ -150,6 +150,37 @@ export const homeDrops: HomeDrop[] = [
     campaignAddress,
     experienceCategory: "stay",
   },
+  {
+    slug: "triple-333",
+    title: "Triple 333 — Ops Raffle",
+    artist: "Building Culture",
+    assetValueLabel: "$999 round · AI · winner · marketing",
+    worthLabel: "333 TICKETS",
+    winnerMode: "one",
+    winnerCopy: "1 winner per round",
+    image: "/chronicles/pop-culture.webp",
+    story:
+      "333 tickets at $3 fund a $999 round split three ways: AI & servers, one community winner, and marketing. Transparent buckets — not a bet, a culture ops raffle.",
+    ticketsSold: 0,
+    totalTickets: 333,
+    endsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    rarity: "rare",
+    campaignAddress,
+    ticketPriceLabel: "$3 · card or ETH",
+    storyPage: {
+      theStory: [
+        "Every round funds the machine, the myth, and the megaphone.",
+        "333 entries. One winner. Three equal $333 buckets.",
+      ],
+      theValue: {
+        origin: "Building Culture ops fund",
+        artist: "Community",
+        rarity: "333 per round",
+        cultural: "AI infra, builder prize, growth",
+      },
+      theAccess: "Enter at /triple-333 — card or on-chain ticket.",
+    },
+  },
 ];
 
 export function featuredHomeDrops(): HomeDrop[] {
@@ -159,4 +190,3 @@ export function featuredHomeDrops(): HomeDrop[] {
 export function getDropBySlug(slug: string): HomeDrop | undefined {
   return homeDrops.find((d) => d.slug === slug);
 }
-

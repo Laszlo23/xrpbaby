@@ -4,6 +4,7 @@ import {
   Crown,
   Hammer,
   Shield,
+  Shirt,
   Sprout,
   type LucideIcon,
 } from "lucide-react";
@@ -17,6 +18,7 @@ const ICONS: Record<CredentialCatalogEntry["icon"], LucideIcon> = {
   shield: Shield,
   bot: Bot,
   building: Building2,
+  shirt: Shirt,
 };
 
 export type CredentialCardStatus = "locked" | "eligible" | "earned" | "expired";
@@ -32,6 +34,7 @@ export type CredentialCardProps = {
   accent?: string;
   status: CredentialCardStatus;
   reason?: string;
+  evidenceLine?: string;
   onClaim?: () => void;
   claimPending?: boolean;
 };
@@ -46,6 +49,7 @@ export function CredentialCard({
   accent = "#C5FF41",
   status,
   reason,
+  evidenceLine,
   onClaim,
   claimPending,
 }: CredentialCardProps) {
@@ -107,6 +111,10 @@ export function CredentialCard({
       ) : null}
 
       {reason ? <p className="mt-3 text-xs text-zinc-500">{reason}</p> : null}
+
+      {evidenceLine && status === "earned" ? (
+        <p className="mt-2 font-mono text-xs text-[#C5FF41]/90">{evidenceLine}</p>
+      ) : null}
 
       {status === "eligible" && onClaim ? (
         <button

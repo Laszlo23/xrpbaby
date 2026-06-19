@@ -12,7 +12,11 @@ import {
   type ActivityCategory,
   type FounderShowcaseConfig,
 } from "@/lib/profile/founder-showcase";
-import type { ShowcaseActivityItem, ShowcaseNftItem } from "@/lib/profile/showcase-types";
+import type {
+  ShowcaseActivityItem,
+  ShowcaseNftItem,
+  CultureIdentityEnrichment,
+} from "@/lib/profile/showcase-types";
 import { getOrFetchIdentityGraph } from "@/server/identity/enrichment-cache";
 import {
   fetchCultureIdentityGraphFromAddress,
@@ -23,7 +27,11 @@ import {
 } from "@/server/identity/web3bio";
 import { getPrisma } from "@/server/db/prisma";
 import { buildMemberProfileBridge } from "@/server/identity/member-score-bridge";
-import { fetchBsAddressTransactions, blockscoutBaseUrl, type BsTransaction } from "@/server/explorer/blockscout";
+import {
+  fetchBsAddressTransactions,
+  blockscoutBaseUrl,
+  type BsTransaction,
+} from "@/server/explorer/blockscout";
 import { upsertCultureIdentityFromResolved } from "@/server/credentials/identity";
 
 export type {
@@ -172,11 +180,7 @@ async function fetchWalletNfts(
       name: displayHandle,
       imageUrl: null,
       chainLabel: "Base",
-      openSeaUrl: openSeaAssetUrl(
-        resolved.chainId,
-        resolved.contractAddress,
-        resolved.tokenId,
-      ),
+      openSeaUrl: openSeaAssetUrl(resolved.chainId, resolved.contractAddress, resolved.tokenId),
       isIdentity: true,
     });
   }
@@ -233,7 +237,9 @@ function emptyActivity(): Record<ActivityCategory, ShowcaseActivityItem[]> {
   return { product: [], community: [], onchain: [], social: [] };
 }
 
-function bucketActivity(items: ShowcaseActivityItem[]): Record<ActivityCategory, ShowcaseActivityItem[]> {
+function bucketActivity(
+  items: ShowcaseActivityItem[],
+): Record<ActivityCategory, ShowcaseActivityItem[]> {
   const buckets = emptyActivity();
   for (const item of items) {
     buckets[item.category].push(item);
@@ -282,8 +288,7 @@ async function fetchMemberBridge(owner: string): Promise<MemberProfileBridge | n
     });
     if (!member) return null;
 
-    const culturePoints =
-      member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
+    const culturePoints = member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
 
     return buildMemberProfileBridge(prisma, {
       memberId: member.id,
@@ -299,7 +304,9 @@ async function fetchMemberBridge(owner: string): Promise<MemberProfileBridge | n
   }
 }
 
-async function fetchTxBundle(owner: string): Promise<{ count: number; items: ShowcaseActivityItem[] }> {
+async function fetchTxBundle(
+  owner: string,
+): Promise<{ count: number; items: ShowcaseActivityItem[] }> {
   try {
     const txs = await fetchBsAddressTransactions(owner.toLowerCase());
     return {
@@ -329,10 +336,7 @@ function resolveFarcasterUsername(
 }
 
 function mapTxToActivity(tx: BsTransaction): ShowcaseActivityItem {
-  const method =
-    tx.decoded_input?.method_call?.split("(")[0]?.trim() ??
-    tx.method ??
-    "Transaction";
+  const method = tx.decoded_input?.method_call?.split("(")[0]?.trim() ?? tx.method ?? "Transaction";
   const shortHash = `${tx.hash.slice(0, 10)}…${tx.hash.slice(-4)}`;
   return {
     id: `tx-${tx.hash}`,
@@ -389,10 +393,7 @@ export async function getCultureIdentityEnrichment(
   const onchainItems = txBundle.items;
 
   const web3bio = mergeIdentityGraphs(profileGraph, walletBundle?.graph ?? []);
-  const credentials =
-    walletBundle?.credentials ??
-    credentialFallback ??
-    null;
+  const credentials = walletBundle?.credentials ?? credentialFallback ?? null;
 
   const client = neynarClient();
   let neynarFollowerCount: number | null = null;
@@ -436,8 +437,7 @@ export async function getCultureIdentityEnrichment(
   }
 
   const humanVerified = (credentials?.isHuman.length ?? 0) > 0;
-  const isRisky =
-    (credentials?.isRisky.length ?? 0) > 0 || (credentials?.isSpam.length ?? 0) > 0;
+  const isRisky = (credentials?.isRisky.length ?? 0) > 0 || (credentials?.isSpam.length ?? 0) > 0;
 
   const cultureScore = computeCultureScore({
     resolved,

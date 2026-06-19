@@ -61,14 +61,7 @@ export type TgMeResponse = {
   };
 };
 
-export type TgTaskKind =
-  | "tap"
-  | "emoji"
-  | "quiz"
-  | "share"
-  | "thanks"
-  | "wallet"
-  | "voice";
+export type TgTaskKind = "tap" | "emoji" | "quiz" | "share" | "thanks" | "wallet" | "voice";
 
 export type TgTask = {
   id: string;

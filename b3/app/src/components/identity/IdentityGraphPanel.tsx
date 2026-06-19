@@ -23,13 +23,7 @@ function platformColor(platform: string): string {
   return PLATFORM_COLORS[platform.toLowerCase()] ?? "#00E5FF";
 }
 
-function GraphNodeChip({
-  node,
-  compact = false,
-}: {
-  node: IdentityGraphNode;
-  compact?: boolean;
-}) {
+function GraphNodeChip({ node, compact = false }: { node: IdentityGraphNode; compact?: boolean }) {
   const color = platformColor(node.platform);
   const href = identityGraphNodeUrl(node);
   const className = compact
@@ -64,9 +58,7 @@ function GraphNodeChip({
           </p>
         ) : null}
       </div>
-      {href ? (
-        <ExternalLink className="h-3.5 w-3.5 shrink-0 text-zinc-600" aria-hidden />
-      ) : null}
+      {href ? <ExternalLink className="h-3.5 w-3.5 shrink-0 text-zinc-600" aria-hidden /> : null}
     </>
   );
 

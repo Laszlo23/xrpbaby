@@ -1,0 +1,25 @@
+{
+  "name": "Culture Chronicles — Once Upon a Scroll",
+  "description": "You're not background NPC energy. You're the main character.",
+  "image": "https://app.buildingcultureid.space/chronicles/story-begins.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/story.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-03",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 3
+    },
+    {
+      "trait_type": "Tier",
+      "value": "common"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "idle"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "identity"
+    }
+  ]
+}

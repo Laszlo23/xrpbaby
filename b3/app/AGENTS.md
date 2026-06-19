@@ -43,11 +43,11 @@ Five-layer model (Community → Capital): sub-items, routes, and agent mapping i
 
 ### Web3.bio identity graph
 
-| Route | Role |
-| ----- | ---- |
+| Route                          | Role                                                                             |
+| ------------------------------ | -------------------------------------------------------------------------------- |
 | `GET /api/identity/graph-demo` | Landing demo graph (`VITE_LANDING_GRAPH_IDENTITY`, default `laszloleonardo.eth`) |
-| `GET /api/identity/graph` | Graph by `?address=` or `?identity=` |
-| `GET /api/identity/enrich` | Full Culture Layer enrichment for `?name=handle.culture` |
+| `GET /api/identity/graph`      | Graph by `?address=` or `?identity=`                                             |
+| `GET /api/identity/enrich`     | Full Culture Layer enrichment for `?name=handle.culture`                         |
 
 - **Profile graph:** `GET https://api.web3.bio/profile/{identity}` — no API key required (rate-limited).
 - **Credentials:** `GET https://api.web3.bio/credential/ethereum,{address}` — no key; used for trust badges until `WEB3BIO_API_KEY` arrives.
@@ -59,8 +59,8 @@ Env: `VITE_LANDING_GRAPH_IDENTITY`, optional `WEB3BIO_API_KEY` in `app/.env`.
 
 ### Limx revenue agent (Blockchain0x)
 
-| Route | Role |
-| ----- | ---- |
+| Route                  | Role                                                                              |
+| ---------------------- | --------------------------------------------------------------------------------- |
 | `GET /api/agents/limx` | x402-paid opportunity brief — grants, partnerships, sponsors (USDC → Limx wallet) |
 
 - **Public wallet:** [wallet.blockchain0x.com/a/limx](https://wallet.blockchain0x.com/a/limx) — `0xf424d59831fff6d3f404abf22ec23cdb0c4f584b` on Base.
@@ -70,13 +70,13 @@ Env: `VITE_LANDING_GRAPH_IDENTITY`, optional `WEB3BIO_API_KEY` in `app/.env`.
 
 ### Trust layer (Credential Center)
 
-| Route | Role |
-| ----- | ---- |
-| `/credentials` | Credential Center catalog (6 types) |
-| `/id/{handle}/credentials` | Per-identity credentials + XRPL link |
-| `/id/{handle}/reputation` | Culture Reputation + timeline |
-| `GET /api/credentials/catalog` | JSON catalog |
-| `POST /api/credentials/claim` | Claim eligible credential |
+| Route                          | Role                                 |
+| ------------------------------ | ------------------------------------ |
+| `/credentials`                 | Credential Center catalog (6 types)  |
+| `/id/{handle}/credentials`     | Per-identity credentials + XRPL link |
+| `/id/{handle}/reputation`      | Culture Reputation + timeline        |
+| `GET /api/credentials/catalog` | JSON catalog                         |
+| `POST /api/credentials/claim`  | Claim eligible credential            |
 
 See [`../docs/TRUST_LAYER.md`](../docs/TRUST_LAYER.md). Seed: `npm run seed:credentials`.
 

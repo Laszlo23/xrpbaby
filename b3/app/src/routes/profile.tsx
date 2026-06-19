@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { WalletControls } from "@/components/WalletControls";
+import { WalletIdentityBar } from "@/components/identity/WalletIdentityBar";
+import { useWalletCultureIdentity } from "@/hooks/useWalletCultureIdentity";
 import { pageHead } from "@/lib/seo";
 import { LevelBadge, getLevel } from "@/components/LevelBadge";
 import { Wallet, Ticket, Trophy, Flame, Star, TrendingUp, Gem } from "lucide-react";
@@ -31,11 +33,13 @@ import { CommunityProfilePanel } from "@/components/community-profile/CommunityP
 import { PointsLedgerSection } from "@/components/PointsLedgerSection";
 import { UnifiedPointsSummary } from "@/components/UnifiedPointsSummary";
 import { CultureScoreSummary } from "@/components/profile/CultureScoreSummary";
+import { CulturePowerReactor } from "@/components/profile/CulturePowerReactor";
 import { DailyOnChainCheckIn } from "@/components/DailyOnChainCheckIn";
 import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
 import { getDailyCheckInAddress } from "@/lib/daily-checkin";
 import { WalletPortfolio } from "@/components/wallet-portfolio/WalletPortfolio";
 import { RootsStakeSummary } from "@/components/roots/RootsStakeSummary";
+import { SectionErrorBoundary } from "@/components/SectionErrorBoundary";
 import { dailyCultureChallenge } from "@/lib/daily-culture-challenge";
 import {
   dailyXpBonusForGenesisVaultTier,
@@ -75,6 +79,7 @@ const QUESTS = [
 
 function ProfilePage() {
   const { address, isConnected } = useAccount();
+  const cultureIdentity = useWalletCultureIdentity();
   const chainId = useChainId();
   const { signSiwe, signing: siweSigning } = usePointsSiweSign();
   const dailyCheckInContract = getDailyCheckInAddress();
@@ -381,6 +386,29 @@ function ProfilePage() {
 
   return (
     <div className="min-h-screen pb-nav-safe px-4 pt-12 max-w-5xl mx-auto space-y-8">
+      <p className="text-sm text-zinc-500">
+        <Link to="/forest" className="text-[#C5FF41] underline underline-offset-2 hover:text-white">
+          ← Back to dashboard
+        </Link>
+      </p>
+
+      {cultureIdentity.primaryName ? (
+        <div className="rounded-2xl border border-[var(--vault-gold)]/25 bg-gradient-to-r from-[var(--vault-gold)]/10 to-transparent p-6 text-center space-y-4">
+          <WalletIdentityBar size="md" />
+          <Link
+            to="/id/$name"
+            params={{ name: cultureIdentity.primaryName }}
+            className="inline-flex font-heading text-2xl font-semibold text-[var(--vault-gold)] underline underline-offset-4 hover:text-white"
+          >
+            View public profile →
+          </Link>
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+          <WalletIdentityBar size="md" />
+        </div>
+      )}
+
       <CommunityProfilePanel evmAddress={address} />
 
       <WalletPortfolio address={address} />
@@ -388,99 +416,117 @@ function ProfilePage() {
       <RootsStakeSummary />
 
       <div className="glass rounded-2xl p-6 text-center space-y-4">
-        <div className="mx-auto h-20 w-20 rounded-full gradient-neon flex items-center justify-center glow-neon">
-          <span className="text-2xl font-heading font-bold text-neon-foreground">
-            {address.slice(2, 4).toUpperCase()}
-          </span>
-        </div>
-        <div>
-          <h1 className="font-heading text-2xl font-bold text-foreground">Builder</h1>
-          {highestGenesisTier === "phase0" ? (
-            <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-emerald-200/95">
-              <Gem className="h-3.5 w-3.5 text-emerald-300" aria-hidden />
-              Genesis vault · Phase 0
-            </p>
-          ) : null}
-          {highestGenesisTier === "phase1" ? (
-            <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-cyan-500/35 bg-cyan-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-cyan-200/95">
-              <Gem className="h-3.5 w-3.5 text-cyan-300" aria-hidden />
-              Early builder · Phase 1
-            </p>
-          ) : null}
-          {highestGenesisTier === "phase2" ? (
-            <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-violet-500/35 bg-violet-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-violet-200/95">
-              <Gem className="h-3.5 w-3.5 text-violet-300" aria-hidden />
-              Vault access · Phase 2
-            </p>
-          ) : null}
-          {hasBuilderVoiceBadge ? (
-            <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-gold-500/35 bg-gold-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-gold-200/95">
-              <MessageSquareQuote className="h-3.5 w-3.5 text-gold-300" aria-hidden />
-              Builder Voice · Gold
-            </p>
-          ) : null}
-          <p className="text-xs text-muted-foreground flex items-center justify-center gap-1 mt-1">
-            <Wallet className="h-3 w-3" />
-            <a
-              href={explorerAddressUrl(chainId, address)}
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono hover:text-neon"
-            >
-              {address.slice(0, 6)}…{address.slice(-4)}
-            </a>
-          </p>
-        </div>
-        <LevelBadge xp={xp} />
-
-        {progress?.eliasPrimaryIntent ? (
-          <p className="text-xs font-mono text-emerald-200/90">
-            Elias lane · priority{" "}
-            <span className="text-white">
-              {intentById(progress.eliasPrimaryIntent)?.label ?? progress.eliasPrimaryIntent}
-            </span>
-          </p>
-        ) : null}
-
-        {progress?.bcBadges?.length ? (
-          <div className="flex flex-wrap justify-center gap-1.5">
-            {progress.bcBadges.map((b) => (
-              <span
-                key={b}
-                className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-0.5 text-[10px] font-mono uppercase tracking-wide text-zinc-300"
-              >
-                {b.replace(/intent:/i, "").replace(/_/g, " ")}
+        <SectionErrorBoundary label="Profile progression">
+          <div className="space-y-4">
+            <div className="mx-auto h-20 w-20 rounded-full gradient-neon flex items-center justify-center glow-neon">
+              <span className="text-2xl font-heading font-bold text-neon-foreground">
+                {address.slice(2, 4).toUpperCase()}
               </span>
-            ))}
-          </div>
-        ) : null}
+            </div>
+            <div>
+              <h1 className="font-heading text-2xl font-bold text-foreground">
+                {cultureIdentity.primaryName ?? "Builder"}
+              </h1>
+              {cultureIdentity.primaryName ? (
+                <Link
+                  to="/id/$name"
+                  params={{ name: cultureIdentity.primaryName }}
+                  className="mt-1 inline-block text-sm text-[var(--vault-gold)] underline underline-offset-2 hover:text-white"
+                >
+                  {cultureIdentity.primaryName} · public profile
+                </Link>
+              ) : null}
+              {highestGenesisTier === "phase0" ? (
+                <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-emerald-200/95">
+                  <Gem className="h-3.5 w-3.5 text-emerald-300" aria-hidden />
+                  Genesis vault · Phase 0
+                </p>
+              ) : null}
+              {highestGenesisTier === "phase1" ? (
+                <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-cyan-500/35 bg-cyan-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-cyan-200/95">
+                  <Gem className="h-3.5 w-3.5 text-cyan-300" aria-hidden />
+                  Early builder · Phase 1
+                </p>
+              ) : null}
+              {highestGenesisTier === "phase2" ? (
+                <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-violet-500/35 bg-violet-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-violet-200/95">
+                  <Gem className="h-3.5 w-3.5 text-violet-300" aria-hidden />
+                  Vault access · Phase 2
+                </p>
+              ) : null}
+              {hasBuilderVoiceBadge ? (
+                <p className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-gold-500/35 bg-gold-500/10 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-gold-200/95">
+                  <MessageSquareQuote className="h-3.5 w-3.5 text-gold-300" aria-hidden />
+                  Builder Voice · Gold
+                </p>
+              ) : null}
+              <p className="text-xs text-muted-foreground flex items-center justify-center gap-1 mt-1">
+                <Wallet className="h-3 w-3" />
+                <a
+                  href={explorerAddressUrl(chainId, address)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono hover:text-neon"
+                >
+                  {address.slice(0, 6)}…{address.slice(-4)}
+                </a>
+              </p>
+            </div>
+            <LevelBadge xp={xp} />
 
-        {progress?.bcdTutorialSeen ? (
-          <p className="text-xs font-mono text-amber-200/85">
-            Building Culture cadence · opened Get $BCC
-          </p>
-        ) : null}
+            {progress?.eliasPrimaryIntent ? (
+              <p className="text-xs font-mono text-emerald-200/90">
+                Elias lane · priority{" "}
+                <span className="text-white">
+                  {intentById(progress.eliasPrimaryIntent)?.label ?? progress.eliasPrimaryIntent}
+                </span>
+              </p>
+            ) : null}
 
-        <div className="space-y-1">
-          <div className="h-2 rounded-full bg-secondary overflow-hidden">
-            <div
-              className="h-full rounded-full gradient-emerald transition-all duration-500"
-              style={{ width: `${lvl.progress}%` }}
-            />
+            {progress?.bcBadges?.length ? (
+              <div className="flex flex-wrap justify-center gap-1.5">
+                {progress.bcBadges.map((b) => (
+                  <span
+                    key={b}
+                    className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-0.5 text-[10px] font-mono uppercase tracking-wide text-zinc-300"
+                  >
+                    {b.replace(/intent:/i, "").replace(/_/g, " ")}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+
+            {progress?.bcdTutorialSeen ? (
+              <p className="text-xs font-mono text-amber-200/85">
+                Building Culture cadence · opened Get $BCC
+              </p>
+            ) : null}
+
+            <div className="space-y-1">
+              <div className="h-2 rounded-full bg-secondary overflow-hidden">
+                <div
+                  className="h-full rounded-full gradient-emerald transition-all duration-500"
+                  style={{ width: `${lvl.progress}%` }}
+                />
+              </div>
+              <p className="text-[10px] text-muted-foreground">
+                {lvl.progress >= 100 ? "Max tier" : `${Math.round(lvl.progress)}% to next rank`}
+              </p>
+            </div>
           </div>
-          <p className="text-[10px] text-muted-foreground">
-            {lvl.progress >= 100 ? "Max tier" : `${Math.round(lvl.progress)}% to next rank`}
-          </p>
-        </div>
+        </SectionErrorBoundary>
       </div>
 
       <UnifiedPointsSummary localXp={xp} />
 
-      <div className="mt-10">
-        <CultureScoreSummary />
+      <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        <CulturePowerReactor />
+        <CultureScoreSummary compact />
       </div>
 
-      <PointsLedgerSection />
+      <SectionErrorBoundary label="Culture Points ledger">
+        <PointsLedgerSection />
+      </SectionErrorBoundary>
 
       <div className="grid grid-cols-2 gap-3">
         <Stat

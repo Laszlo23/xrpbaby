@@ -72,6 +72,9 @@ export function requireFeedbackAdmin(request: Request): boolean {
   const secret = process.env.FEEDBACK_ADMIN_SECRET?.trim();
   if (!secret) return false;
   const header = request.headers.get("x-feedback-admin-secret")?.trim();
-  const bearer = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "").trim();
+  const bearer = request.headers
+    .get("authorization")
+    ?.replace(/^Bearer\s+/i, "")
+    .trim();
   return header === secret || bearer === secret;
 }

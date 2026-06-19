@@ -311,7 +311,12 @@ function FeaturedRwaTile({
             aria-hidden
           />
         ) : (
-          <img src={stripSrc} alt={drop.title} className="h-full w-full object-cover" loading="lazy" />
+          <img
+            src={stripSrc}
+            alt={drop.title}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         )}
 
         {/* Persistent bottom strip — always visible */}
@@ -386,7 +391,12 @@ export function HomeRwaDropsSection() {
   const { holdsAny, isPending, highestTier } = useGenesisVaultHighestTier();
 
   const fetchMergedDrops = useServerFn(postMergedHomeDrops);
-  const { data: mergedResult } = useQuery({
+  const {
+    data: mergedResult,
+    isError: mergedDropsError,
+    refetch: refetchMergedDrops,
+    isFetching: mergedDropsFetching,
+  } = useQuery({
     queryKey: ["home-drops-merged"],
     queryFn: async () => fetchMergedDrops({ data: {} }),
     staleTime: 60_000,
@@ -413,6 +423,22 @@ export function HomeRwaDropsSection() {
       aria-labelledby="rwa-drops-heading"
     >
       <div className="mx-auto max-w-6xl space-y-10 md:space-y-12">
+        {mergedDropsError ? (
+          <div
+            role="status"
+            className="flex flex-col gap-2 rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100/90 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <p>Live drop list unavailable — showing featured pools from catalog.</p>
+            <button
+              type="button"
+              className="shrink-0 rounded-full border border-amber-400/30 px-3 py-1 text-xs font-medium text-amber-100 hover:bg-amber-500/15"
+              disabled={mergedDropsFetching}
+              onClick={() => void refetchMergedDrops()}
+            >
+              {mergedDropsFetching ? "Retrying…" : "Retry"}
+            </button>
+          </div>
+        ) : null}
         <div id="vault" className="scroll-mt-24 space-y-3 md:scroll-mt-28">
           <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-600">
             Live pools · real-world prizes

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
 import dropArt1 from "@/assets/drop-art-1.jpg";
-import { Bell, Layers, Star, Ticket } from "lucide-react";
+import { Bell, Layers, Star, Ticket, BookOpen } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAccount, useChainId, useReadContract, useReadContracts } from "wagmi";
 import { useMemo } from "react";
@@ -15,6 +15,10 @@ import { explorerAddressUrl } from "@/lib/explorer";
 import { getDropBySlug } from "@/content/home-drops";
 import { farcasterFollowProfileUrl } from "@/lib/community-links";
 import { warpcastComposeUrl } from "@/lib/campaign-share";
+import { CHRONICLES, CHRONICLE_EDITION_COUNT } from "@/content/culture-chronicles";
+import { cultureChronicles1155Abi } from "@/lib/culture-chronicles-abi";
+import { getCultureChroniclesAddress } from "@/lib/culture-chronicles-config";
+import { useChronicleProgress } from "@/hooks/useChronicleProgress";
 
 export const Route = createFileRoute("/collections")({
   head: () =>
@@ -58,6 +62,104 @@ function rarityFromSerial(serial: number): "legendary" | "rare" | "common" {
   if (serial % 17 === 0) return "legendary";
   if (serial % 5 === 0) return "rare";
   return "common";
+}
+
+function ChroniclesSetCard() {
+  const progress = useChronicleProgress();
+  const contract = getCultureChroniclesAddress();
+  const deployChain = getDefaultChain();
+
+  const supplyContracts = useMemo(
+    () =>
+      CHRONICLES.map((ch) => ({
+        chainId: deployChain.id,
+        address: contract!,
+        abi: cultureChronicles1155Abi,
+        functionName: "editionMinted" as const,
+        args: [BigInt(ch.editionId)] as const,
+      })),
+    [contract, deployChain.id],
+  );
+
+  const maxContracts = useMemo(
+    () =>
+      CHRONICLES.map((ch) => ({
+        chainId: deployChain.id,
+        address: contract!,
+        abi: cultureChronicles1155Abi,
+        functionName: "editionMaxSupply" as const,
+        args: [BigInt(ch.editionId)] as const,
+      })),
+    [contract, deployChain.id],
+  );
+
+  const { data: mintedResults } = useReadContracts({
+    contracts: supplyContracts,
+    query: { enabled: !!contract },
+  });
+  const { data: maxResults } = useReadContracts({
+    contracts: maxContracts,
+    query: { enabled: !!contract },
+  });
+
+  return (
+    <section className="rounded-2xl border border-[var(--vault-gold)]/20 bg-card/40 p-6 space-y-4">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <BookOpen className="h-6 w-6 text-[var(--vault-gold)]" />
+          <div>
+            <h2 className="font-heading text-lg font-semibold">Culture Chronicles</h2>
+            <p className="text-xs text-muted-foreground">
+              Meme Edition · {progress.ownedCount}/{CHRONICLE_EDITION_COUNT} owned
+              {progress.isFounder ? " · Chronicle Founder" : ""}
+            </p>
+          </div>
+        </div>
+        <Link
+          to="/chronicles"
+          className="text-xs font-mono uppercase tracking-widest text-[var(--vault-gold)] hover:underline"
+        >
+          Open story
+        </Link>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-2">
+        {CHRONICLES.map((ch, i) => {
+          const minted = mintedResults?.[i]?.result;
+          const max = maxResults?.[i]?.result;
+          const pct =
+            typeof minted === "bigint" && typeof max === "bigint" && max > 0n
+              ? Number((minted * 100n) / max)
+              : 0;
+          const owned = (progress.balances.get(ch.editionId) ?? 0n) > 0n;
+          return (
+            <Link
+              key={ch.id}
+              to="/chronicles/$chapterId"
+              params={{ chapterId: ch.id }}
+              className={`flex items-center gap-3 rounded-xl border px-3 py-2 text-sm ${
+                owned ? "border-emerald-500/30 bg-emerald-500/5" : "border-border bg-background/50"
+              }`}
+            >
+              <img
+                src={ch.thumbSrc}
+                alt=""
+                className="h-10 w-10 rounded-lg object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = ch.bucketFallback;
+                }}
+              />
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-medium">{ch.title}</p>
+                <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
+                  <div className="h-full bg-[var(--vault-gold)]" style={{ width: `${pct}%` }} />
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 
 function CollectionsPage() {
@@ -153,6 +255,7 @@ function CollectionsPage() {
         {demoCollections.map((col) => (
           <DemoCollection key={col.name} col={col} />
         ))}
+        <ChroniclesSetCard />
       </div>
     );
   }
@@ -175,6 +278,8 @@ function CollectionsPage() {
         <Layers className="h-6 w-6 text-neon" />
         <h1 className="font-heading text-2xl font-bold text-foreground">My Collections</h1>
       </div>
+
+      <ChroniclesSetCard />
 
       <p className="text-xs text-muted-foreground font-mono">
         Campaign:{" "}

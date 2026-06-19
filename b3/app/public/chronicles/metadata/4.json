@@ -1,0 +1,29 @@
+{
+  "name": "Culture Chronicles — Father of the Culture",
+  "description": "Legacy isn't inherited. It's compiled commit by commit.",
+  "image": "https://app.buildingcultureid.space/chronicles/father-figure.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/father.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-04",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 4
+    },
+    {
+      "trait_type": "Tier",
+      "value": "uncommon"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "focus"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "identity"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    }
+  ]
+}

@@ -22,11 +22,7 @@ export const Route = createFileRoute("/api/points/redeem/quote")({
         if (!parsed.success) return json({ ok: false, error: "invalid_query" }, 400);
 
         const { quotePointsRedeem } = await import("@/server/points/redeem");
-        const quote = await quotePointsRedeem(
-          prisma,
-          parsed.data.address,
-          parsed.data.points,
-        );
+        const quote = await quotePointsRedeem(prisma, parsed.data.address, parsed.data.points);
         return json(quote);
       },
     },

@@ -25,8 +25,7 @@ export function LinkedWalletsStrip({ wallets }: { wallets: LinkedWalletRow[] }) 
       </h3>
       <ul className="flex flex-wrap gap-2">
         {wallets.map((w) => {
-          const explorer =
-            w.chain === "xrpl" ? xrplAccountExplorerUrl(w.address) : null;
+          const explorer = w.chain === "xrpl" ? xrplAccountExplorerUrl(w.address) : null;
           const label = `${CHAIN_LABELS[w.chain] ?? w.chain}: ${w.address.slice(0, 6)}…${w.address.slice(-4)}${w.verified ? " ✓" : ""}${w.isPrimary ? " · primary" : ""}`;
           return (
             <li

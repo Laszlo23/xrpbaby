@@ -1,0 +1,10 @@
+{
+  "name": "Building Culture — Twin Bloom",
+  "description": "Awarded when two friends join your Culture Grove.",
+  "image": "https://app.buildingcultureid.space/og-default.png",
+  "animation_url": "ipfs://bafybeibxeu27qjq7lv3acq5s47uvhrgiidgzi2wmcin76w7owbrbujlwle",
+  "attributes": [
+    { "trait_type": "Unlock", "value": "Twin Bloom" },
+    { "trait_type": "Type", "value": "Culture Grove Anthem" }
+  ]
+}

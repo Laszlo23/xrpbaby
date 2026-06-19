@@ -15,10 +15,7 @@ type AccessUnlockPanelProps = {
   items: AccessUnlockItem[];
 };
 
-export function AccessUnlockPanel({
-  title = "Access unlocks",
-  items,
-}: AccessUnlockPanelProps) {
+export function AccessUnlockPanel({ title = "Access unlocks", items }: AccessUnlockPanelProps) {
   if (items.length === 0) return null;
 
   return (
@@ -47,7 +44,10 @@ export function AccessUnlockPanel({
               ) : null}
             </div>
             {item.href ? (
-              <Link to={item.href} className="text-xs font-semibold text-[#C5FF41] hover:text-white">
+              <Link
+                to={item.href}
+                className="text-xs font-semibold text-[#C5FF41] hover:text-white"
+              >
                 Go →
               </Link>
             ) : null}

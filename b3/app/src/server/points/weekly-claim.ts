@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 import type { Address } from "viem";
 import { createPublicClient, http } from "viem";
 import { base } from "viem/chains";
@@ -6,19 +6,14 @@ import {
   isWeeklyClaimBypassTvl,
   isWeeklyClaimEnabledServer,
   resolveWeeklyCooldownMs,
-  applyStakingBoost,
-  STAKING_BOOST_BPS,
   buildWeeklyClaimIdempotencyKey,
 } from "@/lib/weekly-claim-policy";
+import { applyPowerMultiplier, isCulturePowerEnabledServer } from "@/lib/identity/culture-power";
 import { getServerRedemptionReadiness } from "@/lib/redemption-policy";
 import { buildBccLiquidityMarket } from "@/server/liquidity/bcc-pools";
 import { ensureWalletAndMember } from "@/server/platform/member";
 import { isSyntheticTelegramWallet } from "@/server/points/wallet-utils";
-import {
-  getPointsBalance,
-  pointsToBccWei,
-  resolvePointsPerBccWei,
-} from "@/server/points/redeem";
+import { getPointsBalance, pointsToBccWei, resolvePointsPerBccWei } from "@/server/points/redeem";
 import {
   isAddressOnBccPayoutWhitelist,
   isBccPayoutWhitelistActive,
@@ -68,7 +63,7 @@ export async function resolveStakingBoostPoolId(address: Address): Promise<numbe
 }
 
 export async function getLastWeeklyClaimAt(
-  prisma: PrismaClient,
+  prisma: PrismaClient | Prisma.TransactionClient,
   walletId: string,
 ): Promise<Date | null> {
   const row = await prisma.pointRedemption.findFirst({
@@ -95,6 +90,11 @@ export type WeeklyClaimQuote = {
   boostedBccWei: string;
   stakingBoostPoolId: number;
   stakingBoostLabel: string;
+  culturePower?: number;
+  powerMultiplierLabel?: string;
+  powerEnabled?: boolean;
+  maintenanceDueAt?: string | null;
+  streakDays?: number;
   canClaim: boolean;
   nextClaimAt: string | null;
   cooldownMs: number;
@@ -102,7 +102,7 @@ export type WeeklyClaimQuote = {
 };
 
 export async function quoteWeeklyClaim(
-  prisma: PrismaClient,
+  prisma: PrismaClient | Prisma.TransactionClient,
   address: string,
 ): Promise<WeeklyClaimQuote> {
   const enabled = isWeeklyClaimEnabledServer();
@@ -110,10 +110,7 @@ export async function quoteWeeklyClaim(
   const pointsPerBccWei = resolvePointsPerBccWei();
   const market = await buildBccLiquidityMarket();
   const readiness = getServerRedemptionReadiness(market.combinedLiquidityUsd);
-  const ready =
-    enabled &&
-    pointsPerBccWei > 0n &&
-    (readiness.ready || isWeeklyClaimBypassTvl());
+  const ready = enabled && pointsPerBccWei > 0n && (readiness.ready || isWeeklyClaimBypassTvl());
 
   const addr = address.toLowerCase() as Address;
   const wallet = await prisma.wallet.findUnique({ where: { address: addr } });
@@ -121,8 +118,31 @@ export async function quoteWeeklyClaim(
 
   const stakingBoostPoolId = await resolveStakingBoostPoolId(addr);
   const baseBccWei = pointsToBccWei(balance, pointsPerBccWei);
-  const boostedBccWei = applyStakingBoost(baseBccWei, stakingBoostPoolId);
-  const bps = STAKING_BOOST_BPS[stakingBoostPoolId] ?? 10_000;
+
+  let boostedBccWei = baseBccWei;
+  let stakingBoostLabel = "1.00×";
+  let culturePower: number | undefined;
+  let powerMultiplierLabel: string | undefined;
+  let powerEnabled = false;
+  let maintenanceDueAt: string | null = null;
+  let streakDays: number | undefined;
+
+  if (isCulturePowerEnabledServer()) {
+    const { getMemberPowerQuote } = await import("@/server/member/culture-power");
+    const power = await getMemberPowerQuote(prisma, addr);
+    powerEnabled = power.enabled;
+    culturePower = power.powerScore;
+    powerMultiplierLabel = power.powerMultiplierLabel;
+    maintenanceDueAt = power.maintenanceDueAt;
+    streakDays = power.streakDays;
+    boostedBccWei = applyPowerMultiplier(baseBccWei, power.effectiveMultiplierBps);
+    stakingBoostLabel = power.powerMultiplierLabel;
+  } else {
+    const { applyStakingBoost, STAKING_BOOST_BPS } = await import("@/lib/weekly-claim-policy");
+    boostedBccWei = applyStakingBoost(baseBccWei, stakingBoostPoolId);
+    const bps = STAKING_BOOST_BPS[stakingBoostPoolId] ?? 10_000;
+    stakingBoostLabel = `${(bps / 10_000).toFixed(2)}×`;
+  }
 
   let nextClaimAt: string | null = null;
   let canClaim = false;
@@ -150,7 +170,12 @@ export async function quoteWeeklyClaim(
     baseBccWei: baseBccWei.toString(),
     boostedBccWei: boostedBccWei.toString(),
     stakingBoostPoolId,
-    stakingBoostLabel: `${(bps / 10_000).toFixed(2)}×`,
+    stakingBoostLabel,
+    culturePower,
+    powerMultiplierLabel,
+    powerEnabled,
+    maintenanceDueAt,
+    streakDays,
     canClaim,
     nextClaimAt,
     cooldownMs,
@@ -264,7 +289,7 @@ export async function claimWeeklyBcc(
     const points = quote.balance;
     const pointsPerBccWei = BigInt(quote.pointsPerBccWei);
     const baseBccWei = pointsToBccWei(points, pointsPerBccWei);
-    const boostedBccWei = applyStakingBoost(baseBccWei, quote.stakingBoostPoolId);
+    const boostedBccWei = BigInt(quote.boostedBccWei);
     if (boostedBccWei <= 0n) {
       return { ok: false, error: "invalid_conversion_rate", balance: quote.balance };
     }
@@ -294,6 +319,8 @@ export async function claimWeeklyBcc(
           baseBccWei: baseBccWei.toString(),
           boostedBccWei: boostedBccWei.toString(),
           stakingBoostPoolId: quote.stakingBoostPoolId,
+          powerMultiplierLabel: quote.powerMultiplierLabel,
+          culturePower: quote.culturePower,
         },
       },
     });

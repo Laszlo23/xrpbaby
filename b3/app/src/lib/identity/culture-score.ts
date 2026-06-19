@@ -1,7 +1,4 @@
-import type {
-  CultureScoreDimension,
-  CultureScoreRank,
-} from "@/lib/profile/founder-showcase";
+import type { CultureScoreDimension, CultureScoreRank } from "@/lib/profile/founder-showcase";
 import type { CultureIdentityGraph } from "@/lib/identity/identity-graph-types";
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
 import type { MemberProfileBridge } from "@/lib/identity/identity-graph-types";

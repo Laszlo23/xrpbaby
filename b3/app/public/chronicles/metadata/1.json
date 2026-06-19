@@ -1,0 +1,25 @@
+{
+  "name": "Culture Chronicles — The Feed Explained",
+  "description": "Pop culture isn't random — it's engineered attention.",
+  "image": "https://app.buildingcultureid.space/chronicles/pop-culture.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/popcultureexplain.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-01",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 1
+    },
+    {
+      "trait_type": "Tier",
+      "value": "common"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "focus"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    }
+  ]
+}

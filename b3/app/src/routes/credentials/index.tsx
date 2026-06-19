@@ -4,9 +4,14 @@ import { CredentialCard } from "@/components/credentials/CredentialCard";
 import { CredentialsProgressSection } from "@/components/credentials/CredentialsProgressSection";
 import { CredentialsXrplLinkSection } from "@/components/credentials/CredentialsXrplLinkSection";
 import { MarketingShell } from "@/components/MarketingShell";
+import { SectionErrorBoundary } from "@/components/SectionErrorBoundary";
 import { Button } from "@/components/ui/button";
+import { getCoachScene } from "@/lib/character/culture-coach";
 import { fetchCredentialCatalogFn } from "@/lib/credentials/credential-catalog-fn";
-import { getStaticCredentialCatalog } from "@/lib/credentials/credential-catalog";
+import {
+  getStaticCredentialCatalog,
+  type CredentialCatalogItem,
+} from "@/lib/credentials/credential-catalog";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/credentials/")({
@@ -32,6 +37,7 @@ export const Route = createFileRoute("/credentials/")({
 
 function CredentialsPage() {
   const { catalog } = Route.useLoaderData();
+  const coachScene = getCoachScene("historical-vs");
 
   return (
     <MarketingShell
@@ -52,8 +58,33 @@ function CredentialsPage() {
       }
     >
       <div className="flex flex-col gap-12">
+        {coachScene ? (
+          <section className="flex flex-col gap-4 overflow-hidden rounded-3xl border border-[#C5FF41]/20 bg-gradient-to-r from-[#C5FF41]/5 via-black/40 to-[#00E5FF]/5 p-6 sm:flex-row sm:items-center">
+            <img
+              src={coachScene.thumbSrc}
+              alt=""
+              width={120}
+              height={120}
+              loading="lazy"
+              className="h-28 w-28 shrink-0 rounded-2xl border border-white/10 object-cover sm:h-32 sm:w-32"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[#C5FF41]">
+                New game
+              </p>
+              <h2 className="mt-1 font-heading text-xl font-semibold text-white">
+                {coachScene.title}
+              </h2>
+              <p className="mt-2 text-sm text-zinc-400">{coachScene.quote}</p>
+            </div>
+            <Button className="shrink-0 rounded-full" asChild>
+              <Link to="/forest/quests">Start quests</Link>
+            </Button>
+          </section>
+        ) : null}
+
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {catalog.map((item) => (
+          {catalog.map((item: CredentialCatalogItem) => (
             <CredentialCard
               key={item.slug}
               slug={item.slug}
@@ -70,7 +101,9 @@ function CredentialsPage() {
           ))}
         </section>
 
-        <CredentialsProgressSection catalog={catalog} />
+        <SectionErrorBoundary label="Credential progress">
+          <CredentialsProgressSection catalog={catalog} />
+        </SectionErrorBoundary>
 
         <CredentialsXrplLinkSection />
 

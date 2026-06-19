@@ -27,7 +27,10 @@ async function sendBcc(to, amountWei) {
     console.log(`[dry-run] would send ${amountWei} wei BCC → ${to}`);
     return { ok: true, txHash: "0x" + "0".repeat(64) };
   }
-  if (process.env.BCC_TREASURY_ONCHAIN !== "1" && process.env.PANIC_SWITCH_BCC_REWARD_ONCHAIN !== "1") {
+  if (
+    process.env.BCC_TREASURY_ONCHAIN !== "1" &&
+    process.env.PANIC_SWITCH_BCC_REWARD_ONCHAIN !== "1"
+  ) {
     return { ok: false, error: "treasury_onchain_disabled" };
   }
   const privateKey = resolvePrivateKey();

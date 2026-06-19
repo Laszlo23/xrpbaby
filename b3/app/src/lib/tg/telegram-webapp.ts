@@ -24,6 +24,7 @@ type TelegramWebApp = {
     offClick: (cb: () => void) => void;
   };
   openTelegramLink?: (url: string) => void;
+  openLink?: (url: string) => void;
 };
 
 declare global {

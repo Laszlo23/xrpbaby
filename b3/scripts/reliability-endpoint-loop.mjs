@@ -35,10 +35,10 @@ async function probe(endpoint) {
       body = null;
     }
     let ok = res.ok;
-    if (endpoint.kind === "json" && endpoint.requiredOk) {
-      ok = res.ok && body && body.ok === true;
-    } else if (endpoint.kind === "json" && endpoint.allowUnreachable && body?.reachable === false) {
+    if (endpoint.kind === "json" && endpoint.allowUnreachable && body?.reachable === false) {
       ok = true;
+    } else if (endpoint.kind === "json" && endpoint.requiredOk) {
+      ok = res.ok && body && body.ok === true;
     } else if (endpoint.path.includes("/pulse/metrics")) {
       ok = res.ok;
     }

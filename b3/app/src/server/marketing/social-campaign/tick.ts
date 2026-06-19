@@ -138,7 +138,11 @@ export async function runSocialCampaignTick(
     }
     const account =
       opts.account ??
-      (asset.channel === "grove" ? "grove" : asset.channel === "official" ? "official" : "official");
+      (asset.channel === "grove"
+        ? "grove"
+        : asset.channel === "official"
+          ? "official"
+          : "official");
     pick = { asset, account };
   } else {
     pick = await pickNextPost(db);
@@ -147,7 +151,9 @@ export async function runSocialCampaignTick(
   if (!pick) {
     result.ok = false;
     result.x = { ok: false, skipped: "all_assets_posted" };
-    result.slack = await postSlack("*[SocialCampaign]* all manifest assets posted for all channels.");
+    result.slack = await postSlack(
+      "*[SocialCampaign]* all manifest assets posted for all channels.",
+    );
     return result;
   }
 
@@ -226,7 +232,9 @@ export async function runSocialCampaignTick(
       result.x = { ok: true, url: xRes.url };
       if (db) {
         result.nativeFeedItemId = await createNativeFeedItem(db, {
-          content: [text, "", imageUrl, xRes.url ? `X: ${xRes.url}` : ""].filter(Boolean).join("\n"),
+          content: [text, "", imageUrl, xRes.url ? `X: ${xRes.url}` : ""]
+            .filter(Boolean)
+            .join("\n"),
           authorName: account === "official" ? "SocialCampaign:official" : "SocialCampaign:grove",
           permalink: xRes.url,
           externalId: `campaign-${asset.id}-${account}`,
@@ -243,7 +251,13 @@ export async function runSocialCampaignTick(
       `• Pillar: ${asset.pillar}`,
       `• Image: ${imageUrl}`,
       `• Posts today: official ${postsTodayOfficial}/${capOfficial}, grove ${postsTodayGrove}/${capGrove}`,
-      result.x?.url ? `• X: ${result.x.url}` : result.x?.skipped ? `• Skipped: ${result.x.skipped}` : result.x?.error ? `• Error: ${result.x.error}` : "",
+      result.x?.url
+        ? `• X: ${result.x.url}`
+        : result.x?.skipped
+          ? `• Skipped: ${result.x.skipped}`
+          : result.x?.error
+            ? `• Error: ${result.x.error}`
+            : "",
       "",
       "```",
       text,

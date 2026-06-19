@@ -1,7 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { useReadContract } from "wagmi";
 import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
-import { formatIdentityMintPrice, identityMintPriceShort } from "@/lib/identity/mint-price";
+import {
+  formatIdentityMintPrice,
+  formatIdentityMintLadderUrgency,
+  identityMintPriceShort,
+  IDENTITY_MINT_LADDER_RANGE_LABEL,
+} from "@/lib/identity/mint-price";
+import { culturePointsForMint, usdPriceForTotalMinted } from "@/lib/identity/mint-ladder";
 import { cultureLayerIdentityAbi } from "@/lib/identity/identityAbi";
 import { IDENTITY_TLD_OPTIONS } from "@/lib/identity/tlds";
 
@@ -15,13 +21,27 @@ export function IdentityMintBand() {
     query: { enabled: identity.isIdentityContractConfigured },
   });
 
+  const { data: totalMintedRaw } = useReadContract({
+    address: identity.identityContractAddress || undefined,
+    abi: cultureLayerIdentityAbi,
+    functionName: "totalMinted",
+    chainId: identity.identityChainId,
+    query: { enabled: identity.isIdentityContractConfigured },
+  });
+
+  const totalMinted = totalMintedRaw !== undefined ? Number(totalMintedRaw) : undefined;
+  const tierUsd = totalMinted !== undefined ? usdPriceForTotalMinted(totalMinted) : undefined;
+  const cpPreview = totalMinted !== undefined ? culturePointsForMint(totalMinted) : undefined;
+
   const priceLabel = formatIdentityMintPrice(mintPriceWei, {
     networkId: identity.networkId,
+    totalMinted,
+    tierUsd,
   });
 
   return (
     <section className="mt-12 overflow-hidden rounded-3xl border border-[#C5FF41]/35 bg-gradient-to-br from-[#C5FF41]/10 via-transparent to-[#00E5FF]/10 p-6 sm:p-8">
-      <p className="mono-label !text-[#C5FF41]">CULTURE LAYER</p>
+      <p className="mono-label !text-[#C5FF41]">CULTURE LAYER · 77-MINT LADDER</p>
       <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
         Claim your .culture name
       </h2>
@@ -29,6 +49,12 @@ export function IdentityMintBand() {
         Mint a transferable identity NFT on {identity.identityChainLabel} — {identityMintPriceShort}
         . Live: <span className="font-mono text-zinc-200">{priceLabel}</span>
       </p>
+      {totalMinted !== undefined ? (
+        <p className="mt-2 font-mono text-[11px] text-[var(--base-blue)]">
+          {formatIdentityMintLadderUrgency(totalMinted)}
+          {cpPreview ? ` · +${cpPreview} Culture Points on mint` : null}
+        </p>
+      ) : null}
       <div className="mt-4 flex flex-wrap gap-2">
         {IDENTITY_TLD_OPTIONS.map((tld) => (
           <span
@@ -44,7 +70,7 @@ export function IdentityMintBand() {
         search={{ name: "yourname", tld: ".culture" }}
         className="mt-6 inline-flex items-center rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
       >
-        Claim your name →
+        Claim from {IDENTITY_MINT_LADDER_RANGE_LABEL} →
       </Link>
     </section>
   );

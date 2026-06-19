@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Set CultureLayerIdentity.mintPrice on Base to ~$1.11 USD in ETH.
+# Set CultureLayerIdentity.mintPrice on Base to a target USD tier (see docs/IDENTITY_MINT_PRICE.md).
+# Prefer: node scripts/sync-identity-mint-ladder.mjs
 # Requires: forge, PRIVATE_KEY (contract owner), optional ETH_USD for wei calc.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

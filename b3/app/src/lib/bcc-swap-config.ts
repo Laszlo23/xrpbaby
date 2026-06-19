@@ -1,7 +1,4 @@
-import {
-  BCC_SWAP_CHAIN_ID,
-  type BccSwapInput,
-} from "@bc/bcc-kit";
+import { BCC_SWAP_CHAIN_ID, type BccSwapInput } from "@bc/bcc-kit";
 import { base } from "@/lib/chains";
 
 /** Default slippage tolerance in basis points. */

@@ -5,7 +5,11 @@ test.describe("landing trust narrative", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { name: /What is a Culture ID/i })).toBeVisible();
     await expect(page.getByText("laszlo.culture")).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Culture ID → Credentials → Reputation → Access/i }).first()).toBeVisible();
+    await expect(
+      page
+        .getByRole("heading", { name: /Culture ID → Credentials → Reputation → Access/i })
+        .first(),
+    ).toBeVisible();
     await expect(page.getByText("Opportunities", { exact: true })).toHaveCount(0);
   });
 

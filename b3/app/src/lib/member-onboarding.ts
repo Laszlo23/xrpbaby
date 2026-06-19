@@ -3,7 +3,7 @@
 export const MEMBER_CHECKLIST_KEY = "bc_member_checklist_v1";
 export const POST_JOIN_PACK_DISMISSED_KEY = "bc_post_join_pack_dismissed_v1";
 
-export type ChecklistStepId = "identity" | "first-quest" | "first-drop";
+export type ChecklistStepId = "identity" | "first-quest" | "first-drop" | "grove";
 
 export type MemberChecklist = Record<ChecklistStepId, boolean>;
 
@@ -11,6 +11,7 @@ const DEFAULT_CHECKLIST: MemberChecklist = {
   identity: false,
   "first-quest": false,
   "first-drop": false,
+  grove: false,
 };
 
 export function loadMemberChecklist(): MemberChecklist {

@@ -1,7 +1,11 @@
 import { BASE_USDC } from "@bc/bcc-kit";
 
 import { limxAgentWalletAddress } from "@/lib/limx-agent-config";
-import { getXrplNetwork, getXrplTreasuryIntakeAddress, xrplExplorerAccountUrl } from "@/lib/xrpl-env";
+import {
+  getXrplNetwork,
+  getXrplTreasuryIntakeAddress,
+  xrplExplorerAccountUrl,
+} from "@/lib/xrpl-env";
 import { TREASURY_SAFE_ADDRESS } from "@/lib/treasury-revenue-rules";
 
 export type TreasuryWalletKind = "evm" | "xrpl";

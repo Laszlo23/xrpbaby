@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 
 /** Telegram mini-app synthetic wallet — not redeemable for on-chain BCC. */
 export function syntheticWalletAddressForTelegram(userId: number): string {
@@ -9,7 +9,7 @@ export function syntheticWalletAddressForTelegram(userId: number): string {
 
 /** True when this wallet row is a Telegram-only synthetic placeholder. */
 export async function isSyntheticTelegramWallet(
-  prisma: PrismaClient,
+  prisma: PrismaClient | Prisma.TransactionClient,
   walletId: string,
   address: string,
 ): Promise<boolean> {

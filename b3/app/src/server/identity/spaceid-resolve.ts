@@ -1,4 +1,9 @@
-import { checkBnbNameAvailable, formatBnbName, resolveBnbName, reverseBnbAddress } from "@/lib/identity/spaceid";
+import {
+  checkBnbNameAvailable,
+  formatBnbName,
+  resolveBnbName,
+  reverseBnbAddress,
+} from "@/lib/identity/spaceid";
 
 export async function handleIdentityResolveBnbGet(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -7,12 +12,12 @@ export async function handleIdentityResolveBnbGet(request: Request): Promise<Res
 
   if (name) {
     const result = await resolveBnbName(name);
-    return jsonResponse({ ok: result.ok, ...result });
+    return jsonResponse(result);
   }
 
   if (address) {
     const result = await reverseBnbAddress(address);
-    return jsonResponse({ ok: result.ok, ...result });
+    return jsonResponse(result);
   }
 
   return jsonResponse({ ok: false, error: "name_or_address_required" }, 400);

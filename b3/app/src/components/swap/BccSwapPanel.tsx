@@ -9,12 +9,7 @@ import {
   type BccSwapInput,
 } from "@bc/bcc-kit";
 import { formatEther, formatUnits, parseEther, parseUnits } from "viem";
-import {
-  useAccount,
-  useBalance,
-  useReadContract,
-  useSwitchChain,
-} from "wagmi";
+import { useAccount, useBalance, useReadContract, useSwitchChain } from "wagmi";
 import { WalletControls } from "@/components/WalletControls";
 import { Button } from "@/components/ui/button";
 import { useBccSwap } from "@/hooks/useBccSwap";
@@ -92,10 +87,7 @@ export function BccSwapPanel({ compact = false }: BccSwapPanelProps) {
     }
   }, [amount, input]);
 
-  const hasFunds =
-    input === "eth"
-      ? (ethBalance?.value ?? 0n) > 0n
-      : (usdcBalance ?? 0n) > 0n;
+  const hasFunds = input === "eth" ? (ethBalance?.value ?? 0n) > 0n : (usdcBalance ?? 0n) > 0n;
 
   const canAfford =
     amountInWei > 0n &&
@@ -218,8 +210,7 @@ export function BccSwapPanel({ compact = false }: BccSwapPanelProps) {
             onClick={() => {
               if (input === "eth" && ethBalance) {
                 const gasReserve = parseEther("0.001");
-                const max =
-                  ethBalance.value > gasReserve ? ethBalance.value - gasReserve : 0n;
+                const max = ethBalance.value > gasReserve ? ethBalance.value - gasReserve : 0n;
                 setAmount(formatEther(max));
               } else if (input === "usdc" && usdcBalance !== undefined) {
                 setAmount(formatUnits(usdcBalance, 6));
@@ -257,16 +248,14 @@ export function BccSwapPanel({ compact = false }: BccSwapPanelProps) {
                 ? "—"
                 : "Enter an amount"}
         </p>
-        {quote.error ? (
-          <p className="mt-1 text-[11px] text-amber-400/90">{quote.error}</p>
-        ) : null}
+        {quote.error ? <p className="mt-1 text-[11px] text-amber-400/90">{quote.error}</p> : null}
       </div>
 
       {!hasFunds ? (
         <div className="space-y-2 rounded-xl border border-[#00E5FF]/25 bg-[#00E5FF]/5 p-3">
           <p className="text-xs text-zinc-300">
-            Your wallet has no {input === "eth" ? "ETH" : "USDC"} on Base. Add funds with a card, then
-            swap here.
+            Your wallet has no {input === "eth" ? "ETH" : "USDC"} on Base. Add funds with a card,
+            then swap here.
           </p>
           <Button
             type="button"
@@ -297,9 +286,7 @@ export function BccSwapPanel({ compact = false }: BccSwapPanelProps) {
         </Button>
       )}
 
-      {swapHook.error ? (
-        <p className="text-xs text-red-400">{swapHook.error}</p>
-      ) : null}
+      {swapHook.error ? <p className="text-xs text-red-400">{swapHook.error}</p> : null}
 
       {swapHook.txHash ? (
         <p className="text-xs text-zinc-400">

@@ -110,4 +110,30 @@ Open source: github.com/Laszlo23/xrpbaby
 
 ---
 
+## F) Chainlink BUILD — partner email
+
+```
+Subject: Building Culture Places — ACE/DTA pilot on Base
+
+Hi Chainlink team,
+
+Building Culture ships fractional real-estate rails on Base (PropertyRegistry 0x5aca…, ComplianceRegistry, PropertyShareFactory) with ACE adapter stubs ready for sandbox.
+
+Grant proof: https://app.buildingcultureid.space/grant-proof
+Compliance: docs/CHAINLINK_RWA_COMPLIANCE.md
+
+Request: ACE sandbox + DTA pilot for property-share subscribe/redeem.
+
+Contact: laszlo.bihary@gmail.com
+Wallet: 0xd13e1cD3f0d2e83494EeAb8130EfD671C368FD22
+```
+
+---
+
+## G) Amplify (Telegram / X)
+
+See [CASH_SPRINT_AMPLIFY.md](CASH_SPRINT_AMPLIFY.md).
+
+---
+
 Log submissions in `proof-bundles/submission-log.txt`.

@@ -40,7 +40,8 @@ function parseBigIntEnv(name, fallback = 0n) {
 }
 
 async function main() {
-  const staking = process.env.BCC_ROOTS_STAKING_ADDRESS?.trim() ||
+  const staking =
+    process.env.BCC_ROOTS_STAKING_ADDRESS?.trim() ||
     process.env.VITE_BCC_ROOTS_STAKING_ADDRESS?.trim();
   if (!staking || !/^0x[a-fA-F0-9]{40}$/.test(staking)) {
     console.error("Set BCC_ROOTS_STAKING_ADDRESS");
@@ -68,7 +69,10 @@ async function main() {
     return;
   }
 
-  if (process.env.BCC_TREASURY_ONCHAIN !== "1" && process.env.PANIC_SWITCH_BCC_REWARD_ONCHAIN !== "1") {
+  if (
+    process.env.BCC_TREASURY_ONCHAIN !== "1" &&
+    process.env.PANIC_SWITCH_BCC_REWARD_ONCHAIN !== "1"
+  ) {
     console.error("treasury_onchain_disabled");
     process.exit(1);
   }

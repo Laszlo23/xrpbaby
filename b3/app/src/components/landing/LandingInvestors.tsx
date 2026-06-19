@@ -189,7 +189,10 @@ export function LandingInvestors() {
               />
               <motion.div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-transparent to-[#00E5FF]/10" />
               <a
-                href={proof?.proofUrls.dexScreener ?? "https://dexscreener.com/base/0xb890a5289f789f1346032ccc1847939e855fab07"}
+                href={
+                  proof?.proofUrls.dexScreener ??
+                  "https://dexscreener.com/base/0xb890a5289f789f1346032ccc1847939e855fab07"
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute top-6 left-6 max-w-[200px] rounded-2xl bc-glass-strong p-4 transition hover:border-[#C5FF41]/40"

@@ -18,6 +18,7 @@ const SOCIAL_QUEST_SLUGS = [
   "x-retweet-official",
   "x-quote-official",
   "telegram-join-buildingculture",
+  "daily-share-post",
 ] as const;
 
 export type MemberSocialSnapshot = {

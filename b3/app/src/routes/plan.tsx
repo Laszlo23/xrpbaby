@@ -80,7 +80,10 @@ function RevenueMixDonut() {
       <ul className="grid gap-2 text-sm">
         {PLAN_REVENUE_MIX.map((slice) => (
           <li key={slice.name} className="flex items-center gap-2 text-zinc-400">
-            <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: slice.color }} />
+            <span
+              className="h-2.5 w-2.5 shrink-0 rounded-full"
+              style={{ backgroundColor: slice.color }}
+            />
             <span className="text-zinc-300">{slice.pct}%</span>
             <span>{slice.name}</span>
           </li>
@@ -130,11 +133,24 @@ function DemandLineChart() {
       <p className="mb-3 text-xs font-medium text-zinc-400">
         Growth in demand for alternative real estate solutions (2019–2023)
       </p>
-      <svg viewBox={`0 0 ${w} ${h}`} className="w-full max-w-md" role="img" aria-label="Demand growth line chart">
+      <svg
+        viewBox={`0 0 ${w} ${h}`}
+        className="w-full max-w-md"
+        role="img"
+        aria-label="Demand growth line chart"
+      >
         {[0, 4.5, 9, 13.5, 18].map((tick) => {
           const y = h - pad - (tick / max) * (h - pad * 2);
           return (
-            <line key={tick} x1={pad} y1={y} x2={w - pad} y2={y} stroke="rgb(63 63 70)" strokeWidth="0.5" />
+            <line
+              key={tick}
+              x1={pad}
+              y1={y}
+              x2={w - pad}
+              y2={y}
+              stroke="rgb(63 63 70)"
+              strokeWidth="0.5"
+            />
           );
         })}
         <polyline fill="none" stroke="rgb(217 119 6)" strokeWidth="2.5" points={points} />
@@ -166,8 +182,15 @@ function LtvCacChart() {
 
   return (
     <div className="rounded-xl border border-stone-700/30 bg-stone-950/50 p-4">
-      <p className="mb-3 text-xs font-medium text-zinc-400">LTV:CAC ratio improvement over 36 months</p>
-      <svg viewBox={`0 0 ${w} ${h}`} className="w-full max-w-md" role="img" aria-label="LTV to CAC ratio chart">
+      <p className="mb-3 text-xs font-medium text-zinc-400">
+        LTV:CAC ratio improvement over 36 months
+      </p>
+      <svg
+        viewBox={`0 0 ${w} ${h}`}
+        className="w-full max-w-md"
+        role="img"
+        aria-label="LTV to CAC ratio chart"
+      >
         <polyline fill="none" stroke="rgb(0 82 255)" strokeWidth="2.5" points={points} />
         {PLAN_LTV_CAC_SERIES.map((d, i) => {
           const x = pad + (i / (PLAN_LTV_CAC_SERIES.length - 1)) * (w - pad * 2);
@@ -207,7 +230,10 @@ function PlanBlockView({ block }: { block: PlanBlock }) {
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       {block.items.map((stat) => (
-        <div key={stat.label} className="rounded-xl border border-stone-700/30 bg-stone-900/20 px-4 py-3">
+        <div
+          key={stat.label}
+          className="rounded-xl border border-stone-700/30 bg-stone-900/20 px-4 py-3"
+        >
           <p className="text-lg font-semibold text-stone-100">{stat.value}</p>
           <p className="text-sm text-[rgb(217_119_6)]">{stat.label}</p>
           {stat.detail ? <p className="mt-0.5 text-xs text-zinc-500">{stat.detail}</p> : null}
@@ -219,7 +245,9 @@ function PlanBlockView({ block }: { block: PlanBlock }) {
 
 function PlanPage() {
   const scrollToSection = useCallback((id: PlanSectionId) => {
-    document.getElementById(`plan-section-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById(`plan-section-${id}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   return (
@@ -258,8 +286,8 @@ function PlanPage() {
         <DisclaimerBanner />
 
         <section className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.05] px-5 py-4 text-sm text-amber-100/90">
-          <strong className="font-medium text-amber-50">Deck vs reality:</strong> Figures below are planning
-          scenarios from our business plan narrative. Audited production metrics live on{" "}
+          <strong className="font-medium text-amber-50">Deck vs reality:</strong> Figures below are
+          planning scenarios from our business plan narrative. Audited production metrics live on{" "}
           <Link to="/investors" className="underline underline-offset-4">
             /investors
           </Link>{" "}
@@ -280,7 +308,9 @@ function PlanPage() {
               key={stat.label}
               className="rounded-2xl border border-stone-700/35 bg-gradient-to-br from-stone-900/50 to-stone-950/80 p-5"
             >
-              <p className="text-2xl font-semibold tracking-tight text-stone-50 md:text-3xl">{stat.value}</p>
+              <p className="text-2xl font-semibold tracking-tight text-stone-50 md:text-3xl">
+                {stat.value}
+              </p>
               <p className="mt-1 text-sm font-medium text-[rgb(217_119_6)]">{stat.label}</p>
               <p className="mt-0.5 text-xs text-zinc-500">{stat.detail}</p>
             </div>
@@ -288,7 +318,9 @@ function PlanPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">Jump to section</h2>
+          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+            Jump to section
+          </h2>
           <nav className="flex flex-wrap gap-2">
             {PLAN_SECTIONS.map((section) => (
               <button
@@ -305,11 +337,15 @@ function PlanPage() {
 
         <section className="grid gap-8 rounded-2xl border border-stone-700/30 bg-stone-950/40 p-6 md:grid-cols-2 md:p-8">
           <div className="space-y-4">
-            <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">Revenue trajectory</h2>
+            <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+              Revenue trajectory
+            </h2>
             <RevenueBarChart />
           </div>
           <div className="space-y-4">
-            <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">Year 1 revenue mix</h2>
+            <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+              Year 1 revenue mix
+            </h2>
             <RevenueMixDonut />
           </div>
         </section>
@@ -320,15 +356,22 @@ function PlanPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">Year 1 operating expenses</h2>
+          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+            Year 1 operating expenses
+          </h2>
           <OpexBarChart />
         </section>
 
         <section className="space-y-6">
-          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">Who we build for</h2>
+          <h2 className="font-heading text-xl font-semibold text-white md:text-2xl">
+            Who we build for
+          </h2>
           <div className="grid gap-4 md:grid-cols-3">
             {PLAN_PERSONAS.map((persona) => (
-              <div key={persona.name} className="rounded-2xl border border-stone-700/35 bg-stone-900/25 p-5">
+              <div
+                key={persona.name}
+                className="rounded-2xl border border-stone-700/35 bg-stone-900/25 p-5"
+              >
                 <p className="text-lg font-semibold text-stone-100">{persona.name}</p>
                 <p className="text-sm text-[rgb(217_119_6)]">{persona.role}</p>
                 <dl className="mt-3 grid grid-cols-2 gap-2 text-xs text-zinc-500">
@@ -348,14 +391,22 @@ function PlanPage() {
         </section>
 
         {PLAN_SECTIONS.map((chapter) => (
-          <section key={chapter.id} id={`plan-section-${chapter.id}`} className="scroll-mt-24 space-y-8">
+          <section
+            key={chapter.id}
+            id={`plan-section-${chapter.id}`}
+            className="scroll-mt-24 space-y-8"
+          >
             <div className="border-b border-stone-700/40 pb-4">
-              <h2 className="font-heading text-2xl font-semibold text-white md:text-3xl">{chapter.label}</h2>
+              <h2 className="font-heading text-2xl font-semibold text-white md:text-3xl">
+                {chapter.label}
+              </h2>
               <p className="mt-1 text-sm text-zinc-500">{chapter.description}</p>
             </div>
             {chapter.subsections.map((sub) => (
               <article key={sub.id} className="space-y-4">
-                <h3 className="font-heading text-lg font-semibold text-stone-100 md:text-xl">{sub.title}</h3>
+                <h3 className="font-heading text-lg font-semibold text-stone-100 md:text-xl">
+                  {sub.title}
+                </h3>
                 <div className="flex flex-col gap-4">
                   {sub.blocks.map((block, i) => (
                     <PlanBlockView key={`${sub.id}-${i}`} block={block} />
@@ -367,12 +418,16 @@ function PlanPage() {
         ))}
 
         <section className="rounded-2xl border border-[rgb(0_82_255/25%)] bg-[rgb(0_82_255/8%)] px-5 py-4 text-sm text-zinc-300">
-          <strong className="font-medium text-white">Due diligence:</strong> pair this narrative with live checks on{" "}
+          <strong className="font-medium text-white">Due diligence:</strong> pair this narrative
+          with live checks on{" "}
           <Link to="/grant-proof" className="text-white underline underline-offset-4">
             /grant-proof
           </Link>
           . Contact{" "}
-          <a href="mailto:laszlo.bihary@gmail.com" className="text-white underline underline-offset-4">
+          <a
+            href="mailto:laszlo.bihary@gmail.com"
+            className="text-white underline underline-offset-4"
+          >
             laszlo.bihary@gmail.com
           </a>{" "}
           for the full document or data room access.

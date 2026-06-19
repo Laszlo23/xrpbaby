@@ -4,6 +4,7 @@
 import { getServerPublicOrigin } from "@/lib/app-origin";
 import { BLOG_SLUGS } from "@/content/blog/markdown-posts";
 import { homeDrops } from "@/content/home-drops";
+import { CHRONICLES } from "@/content/culture-chronicles";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 
 export const SEO_SITE_NAME = BRAND_DISPLAY_NAME;
@@ -29,6 +30,8 @@ export type PageSeoInput = {
   articleModifiedTime?: string;
   /** Use noindex for dashboards / drafts */
   noIndex?: boolean;
+  /** Additional `<meta name=… content=…>` tags (grant smoke, verification). */
+  extraMeta?: Array<{ name: string; content: string }>;
 };
 
 /** Optional global OG overrides (still wins under per-route `image` in `pageHead`). */
@@ -52,6 +55,7 @@ export function getOgImageForPath(path: string): string {
     p.startsWith("/profile/") ||
     p === "/agent-fleet" ||
     p === "/collections" ||
+    p.startsWith("/chronicles") ||
     p === "/leaderboard" ||
     p === "/admin" ||
     p === "/presale" ||
@@ -226,6 +230,7 @@ export function pageHead(opts: PageSeoInput): HeadPayload {
     { name: "twitter:image", content: imageUrl },
     ...articleMeta,
     ...(twitterSite ? [{ name: "twitter:site", content: twitterSite }] : []),
+    ...(opts.extraMeta ?? []),
   ];
 
   if (keywords) {
@@ -315,6 +320,7 @@ export function buildWebsiteJsonLd(): Record<string, unknown> {
 
 const blogPaths = BLOG_SLUGS.map((slug) => `/blog/${slug}`);
 const dropPaths = homeDrops.map((d) => `/drops/${d.slug}`);
+const chroniclePaths = CHRONICLES.map((c) => `/chronicles/${c.id}`);
 
 /** Optional: comma-separated community profile slugs to surface in sitemap (e.g. featured creators). */
 function profileSitemapPaths(): string[] {
@@ -342,6 +348,8 @@ export const SITEMAP_PATHS: string[] = [
   "/marketplace",
   "/experiences",
   "/investors",
+  "/hq",
+  "/triple-333",
   "/plan",
   "/presale",
   "/leaderboard",
@@ -364,6 +372,8 @@ export const SITEMAP_PATHS: string[] = [
   "/credentials/leaderboard",
   "/forest",
   "/forest/quests",
+  "/chronicles",
+  ...chroniclePaths,
   "/join",
   "/welcome",
   "/roots",
@@ -371,6 +381,10 @@ export const SITEMAP_PATHS: string[] = [
   "/creators",
   "/chatbase",
   "/docs",
+  "/docs/bcid",
+  "/docs/interop",
+  "/docs/rfc",
+  "/bcid",
   "/blog",
   ...blogPaths,
   ...dropPaths,

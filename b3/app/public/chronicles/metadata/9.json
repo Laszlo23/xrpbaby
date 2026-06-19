@@ -1,0 +1,41 @@
+{
+  "name": "Culture Chronicles — Evolution",
+  "description": "Same human needs. Upgraded infrastructure.",
+  "image": "https://app.buildingcultureid.space/chronicles/evolution.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/evolution.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-09",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 9
+    },
+    {
+      "trait_type": "Tier",
+      "value": "rare"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "idle"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "identity"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "credentials"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "reputation"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "access"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    }
+  ]
+}

@@ -65,15 +65,12 @@ export function BcidScorePanel({
       </div>
 
       <p className="mt-4 text-xs text-zinc-500">
-        {credentialCount} BCID credential{credentialCount === 1 ? "" : "s"} · Verifiable contributions
-        only (no follower weight)
+        {credentialCount} BCID credential{credentialCount === 1 ? "" : "s"} · Verifiable
+        contributions only (no follower weight)
       </p>
 
       {isOwner ? (
-        <Link
-          to="/bcid/mint"
-          className="mt-4 inline-block text-sm text-[#C5FF41] hover:underline"
-        >
+        <Link to="/bcid/mint" className="mt-4 inline-block text-sm text-[#C5FF41] hover:underline">
           Manage BCID →
         </Link>
       ) : publicHandle ? (

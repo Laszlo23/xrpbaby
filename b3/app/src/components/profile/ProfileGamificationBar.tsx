@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 
+import { pickProfileMoodScene } from "@/lib/character/culture-coach";
 import type { ProfileGamification } from "@/lib/profile/gamification";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +13,12 @@ const BADGE_TONES: Record<ProfileGamification["badges"][0]["tone"], string> = {
 };
 
 export function ProfileGamificationBar({ gamification }: { gamification: ProfileGamification }) {
+  const moodScene = pickProfileMoodScene(gamification.progressPercent);
+  const moodQuote =
+    gamification.progressPercent >= 100 && moodScene.quoteWin
+      ? moodScene.quoteWin
+      : moodScene.quote;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -20,17 +27,29 @@ export function ProfileGamificationBar({ gamification }: { gamification: Profile
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
+          <img
+            src={moodScene.thumbSrc}
+            alt=""
+            width={56}
+            height={56}
+            loading="lazy"
+            className="h-14 w-14 shrink-0 rounded-2xl border-2 border-[#C5FF41]/30 object-cover shadow-[0_0_16px_-4px_#C5FF41]"
+          />
           <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-[#C5FF41]/50 bg-[#C5FF41]/10 shadow-[0_0_24px_-6px_#C5FF41]">
-            <span className="font-display text-xl font-bold text-[#C5FF41]">{gamification.level}</span>
+            <span className="font-display text-xl font-bold text-[#C5FF41]">
+              {gamification.level}
+            </span>
           </div>
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-500">Culture XP</p>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-500">
+              Culture XP
+            </p>
             <p className="font-display text-lg font-semibold text-white">
               {gamification.xp.toLocaleString()} XP
             </p>
             <p className="text-xs text-zinc-500">
-              {gamification.xpInLevel.toLocaleString()} / {gamification.xpToNextLevel.toLocaleString()} to
-              Level {gamification.level + 1}
+              {gamification.xpInLevel.toLocaleString()} /{" "}
+              {gamification.xpToNextLevel.toLocaleString()} to Level {gamification.level + 1}
             </p>
           </div>
         </div>
@@ -48,6 +67,12 @@ export function ProfileGamificationBar({ gamification }: { gamification: Profile
           ))}
         </div>
       </div>
+      <p className="mt-3 text-xs italic text-zinc-400">
+        <span className="font-mono not-italic text-[10px] uppercase tracking-wider text-zinc-500">
+          Culture Coach ·{" "}
+        </span>
+        &ldquo;{moodQuote}&rdquo;
+      </p>
       <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
         <motion.div
           initial={{ width: 0 }}

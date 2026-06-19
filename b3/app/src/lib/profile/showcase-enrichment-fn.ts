@@ -11,7 +11,8 @@ export const fetchShowcaseEnrichmentFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const { resolveCultureName } = await import("@/server/identity/resolve");
-      const { getCultureIdentityEnrichment } = await import("@/server/identity/showcase-enrichment");
+      const { getCultureIdentityEnrichment } =
+        await import("@/server/identity/showcase-enrichment");
 
       const resolved = await resolveCultureName(data.name);
       if (resolved.status !== "claimed") return null;

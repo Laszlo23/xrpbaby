@@ -9,7 +9,9 @@ export function usePointsSiweSign() {
   const chainId = useChainId();
   const { signMessageAsync, isPending: signing } = useSignMessage();
 
-  async function signSiwe(): Promise<{ prepared: string; signature: string; address: string } | undefined> {
+  async function signSiwe(): Promise<
+    { prepared: string; signature: string; address: string } | undefined
+  > {
     if (!address || !chainId) return undefined;
     const { prepared } = await buildPlatformSiweMessage(
       address,

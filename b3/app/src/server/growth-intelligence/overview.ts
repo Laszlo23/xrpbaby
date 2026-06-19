@@ -51,8 +51,7 @@ export async function getGrowthOverview(
     },
   });
 
-  const conversionRate =
-    sessions > 0 ? Math.round((walletConnects / sessions) * 1000) / 10 : null;
+  const conversionRate = sessions > 0 ? Math.round((walletConnects / sessions) * 1000) / 10 : null;
 
   return {
     activeUsers,

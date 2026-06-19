@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { usePrivy } from "@privy-io/react-auth";
 import { ChainBanner } from "@/modules/art/components/web3/ChainBanner";
+import { useCultureLogin } from "@/hooks/useCultureLogin";
 import { privyEnabled } from "@/lib/privy-env";
 
 export function ArtNav() {
-  const { login, ready, authenticated } = usePrivy();
+  const { ready, authenticated } = usePrivy();
+  const { openPreferredLogin, primaryLoginLabel } = useCultureLogin();
 
   return (
     <>
@@ -37,11 +39,11 @@ export function ArtNav() {
         {privyEnabled ? (
           <button
             type="button"
-            onClick={() => void login()}
+            onClick={() => openPreferredLogin()}
             disabled={!ready}
             className="rounded-full bg-primary px-5 py-2 text-xs uppercase tracking-[0.18em] text-primary-foreground transition hover:scale-[1.02] disabled:opacity-50"
           >
-            {authenticated ? "Wallet connected" : "Connect wallet"}
+            {authenticated ? "Wallet connected" : primaryLoginLabel}
           </button>
         ) : null}
       </nav>

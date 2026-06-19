@@ -7,6 +7,12 @@ test.describe("play drops home", () => {
     await expect(page.getByText(/drops and rewards|Win Real-World/i).first()).toBeVisible();
   });
 
+  test("Culture Spinning Well shell renders", async ({ page }) => {
+    await page.goto("/play#culture-well");
+    await expect(page.getByRole("heading", { name: /Culture Spinning Well/i })).toBeVisible();
+    await expect(page.getByText(/Connect wallet at the top/i)).toBeVisible();
+  });
+
   test("bottom nav Play is visible and active", async ({ page }) => {
     await page.goto("/play");
     const playNav = page.getByTitle("Play — drops & rewards");

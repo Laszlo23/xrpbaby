@@ -19,6 +19,11 @@ Building Culture Identity (BCID) v1 is a **parallel identity standard** alongsid
 
 | Document | Purpose |
 |----------|---------|
+| [BCID_LITE_PAPER.md](./BCID_LITE_PAPER.md) | 6–8 page protocol overview (public) |
+| [BCID_SPEC_RFC.md](./BCID_SPEC_RFC.md) | Specification v1 RFC — public comment |
+| [DAO_PARTNERSHIP_BRIEF.md](./DAO_PARTNERSHIP_BRIEF.md) | DAO / protocol pilot offer |
+| [EAS_SCHEMA_PACK.md](./EAS_SCHEMA_PACK.md) | EAS credential schemas on Base |
+| [OUTREACH_PLAYBOOK.md](./OUTREACH_PLAYBOOK.md) | Human-approved outreach funnel |
 | [BCID_V1_PRD.md](./BCID_V1_PRD.md) | Master product requirements |
 | [COMPETITOR_ANALYSIS.md](./COMPETITOR_ANALYSIS.md) | Farcaster, ENS, World ID, EAS, Gitcoin Passport, zkSync, Lens |
 | [INTEROP_CULTURE_ID.md](./INTEROP_CULTURE_ID.md) | `.culture` → BCID bridge rules |

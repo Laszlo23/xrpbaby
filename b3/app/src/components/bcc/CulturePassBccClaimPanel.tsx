@@ -77,7 +77,8 @@ export function CulturePassBccClaimPanel() {
           <code className="text-zinc-300">VITE_CULTURE_PASS_BCC_REWARDS</code> in env.
         </p>
         <p className="mt-2 text-xs text-zinc-500">
-          Canonical BCC on Base ({BCC_ADDRESS.slice(0, 10)}…) — no inflation; treasury-funded pool only.
+          Canonical BCC on Base ({BCC_ADDRESS.slice(0, 10)}…) — no inflation; treasury-funded pool
+          only.
         </p>
       </section>
     );

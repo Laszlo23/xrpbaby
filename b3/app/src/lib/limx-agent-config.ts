@@ -3,8 +3,7 @@
 export const LIMX_AGENT_ID = "limx_revenue_agent";
 
 /** Canonical Limx smart account — settlement for `/api/agents/limx`. */
-export const LIMX_AGENT_WALLET_ADDRESS =
-  "0xf424d59831fff6d3f404abf22ec23cdb0c4f584b" as const;
+export const LIMX_AGENT_WALLET_ADDRESS = "0xf424d59831fff6d3f404abf22ec23cdb0c4f584b" as const;
 
 export const LIMX_AGENT_PUBLIC_URL = "https://wallet.blockchain0x.com/a/limx";
 

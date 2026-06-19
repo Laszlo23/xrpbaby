@@ -92,8 +92,8 @@ export function BuyBccButton() {
             <DialogTitle className="font-heading text-xl">Get {BCC_SYMBOL}</DialogTitle>
             <DialogDescription className="text-zinc-500">
               One fair-launch token on Base. Pay with {BCC_SYMBOL} for{" "}
-              <span className="font-semibold text-[#C5FF41]">{BCC_DISCOUNT_LABEL}</span> on identity,
-              art, and Places.
+              <span className="font-semibold text-[#C5FF41]">{BCC_DISCOUNT_LABEL}</span> on
+              identity, art, and Places.
             </DialogDescription>
           </DialogHeader>
 

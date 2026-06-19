@@ -108,7 +108,10 @@ export function InvestorWorkshopGate() {
               redeploy, then share the password privately with advisors — never in public docs or
               grant forms.
             </p>
-            <Link to="/investors" className="inline-block text-amber-200 underline underline-offset-4">
+            <Link
+              to="/investors"
+              className="inline-block text-amber-200 underline underline-offset-4"
+            >
               ← Back to public investors page
             </Link>
           </div>
@@ -131,7 +134,10 @@ export function InvestorWorkshopGate() {
           </div>
         </aside>
 
-        <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
+        <form
+          onSubmit={onSubmit}
+          className="space-y-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6"
+        >
           <div className="space-y-2">
             <Label htmlFor="workshop-password" className="text-zinc-400">
               Workshop password

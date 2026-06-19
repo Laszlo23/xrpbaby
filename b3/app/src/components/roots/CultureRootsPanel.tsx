@@ -37,7 +37,9 @@ export function CultureRootsPanel() {
           to="/liquidity"
           className="group flex flex-col rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 transition hover:border-amber-500/30 hover:bg-white/[0.04]"
         >
-          <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Compare</span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+            Compare
+          </span>
           <span className="mt-3 font-heading font-semibold text-zinc-100">LP vs Roots</span>
           <span className="mt-1 text-xs text-zinc-500">
             Aerodrome gauge staking is LP infrastructure — Culture Roots is pure BCC lock-up.

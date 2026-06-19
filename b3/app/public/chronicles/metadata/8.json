@@ -1,0 +1,29 @@
+{
+  "name": "Culture Chronicles — Reputation Upgrade",
+  "description": "Because likes don't pay rent.",
+  "image": "https://app.buildingcultureid.space/chronicles/reputation-upgrade.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/reputation.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-08",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 8
+    },
+    {
+      "trait_type": "Tier",
+      "value": "rare"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "win"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "reputation"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "credentials"
+    }
+  ]
+}

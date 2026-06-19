@@ -101,6 +101,24 @@ export function optionalX402PayTo(): string | undefined {
   return raw;
 }
 
+/** True when thirdweb x402 facilitator can initialize (research/trading paid routes). */
+export function isX402Configured(): boolean {
+  const w = process.env.X402_SERVER_WALLET_ADDRESS?.trim();
+  const key = process.env.THIRDWEB_SECRET_KEY?.trim();
+  return Boolean(key && w && /^0x[a-fA-F0-9]{40}$/.test(w));
+}
+
+export function x402ConfigurationError(): string | null {
+  if (!process.env.THIRDWEB_SECRET_KEY?.trim()) {
+    return "THIRDWEB_SECRET_KEY is required for x402.";
+  }
+  const w = process.env.X402_SERVER_WALLET_ADDRESS?.trim();
+  if (!w || !/^0x[a-fA-F0-9]{40}$/.test(w)) {
+    return "X402_SERVER_WALLET_ADDRESS is missing or invalid.";
+  }
+  return null;
+}
+
 export type X402GetSettleOptions = {
   price: string;
   description: string;
@@ -110,7 +128,7 @@ export type X402GetSettleOptions = {
 export async function settleX402Get(
   request: Request,
   opts: X402GetSettleOptions,
-  buildBody: () => object,
+  buildBody: () => object | Promise<object>,
 ): Promise<Response> {
   const paymentData = request.headers.get("payment-signature") ?? request.headers.get("x-payment");
   const resourceUrl = resolveX402ResourceUrl(request);
@@ -132,7 +150,8 @@ export async function settleX402Get(
   const cors = x402CorsHeadersFor(request);
 
   if (result.status === 200) {
-    return Response.json(buildBody(), {
+    const body = await buildBody();
+    return Response.json(body, {
       headers: { ...cors, ...result.responseHeaders },
     });
   }

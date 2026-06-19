@@ -1,4 +1,6 @@
 export const FOUNDER_SHOWCASE_NAME = "laszlo.culture";
+export const FOUNDER_SHOWCASE_TAGLINE = "Turning identity into proof.";
+export const FOUNDER_SHOWCASE_METRICS_LABEL = "Building Culture Metrics";
 
 export type ActivityCategory = "product" | "community" | "onchain" | "social";
 
@@ -150,7 +152,8 @@ export const LASZLO_CURATED_ACTIVITY: CuratedActivityItem[] = [
     id: "milestone-grant-proof",
     category: "product",
     title: "Grant Proof verifier",
-    excerpt: "Transparent proof of impact — verifiable contributions, grants, and community milestones.",
+    excerpt:
+      "Transparent proof of impact — verifiable contributions, grants, and community milestones.",
     url: "/grant-proof",
     publishedAt: "2026-01-15T10:00:00.000Z",
     authorHandle: "buildingcultu3",
@@ -159,7 +162,8 @@ export const LASZLO_CURATED_ACTIVITY: CuratedActivityItem[] = [
     id: "milestone-culture-layer",
     category: "onchain",
     title: "Culture Layer identity #1",
-    excerpt: "laszlo.culture minted on Base — founding Culture Layer name and portable reputation anchor.",
+    excerpt:
+      "laszlo.culture minted on Base — founding Culture Layer name and portable reputation anchor.",
     url: "/id/laszlo.culture",
     publishedAt: "2025-11-01T08:00:00.000Z",
     authorHandle: "bihary41418",
@@ -168,7 +172,8 @@ export const LASZLO_CURATED_ACTIVITY: CuratedActivityItem[] = [
     id: "milestone-culture-atlas",
     category: "community",
     title: "Culture Atlas open call",
-    excerpt: "Community-owned cultural archive — musicians, storytellers, and curators welcome to contribute.",
+    excerpt:
+      "Community-owned cultural archive — musicians, storytellers, and curators welcome to contribute.",
     url: "/creators",
     publishedAt: "2025-10-20T14:00:00.000Z",
     authorHandle: "buildingcultu3",
@@ -186,7 +191,8 @@ export const LASZLO_CURATED_ACTIVITY: CuratedActivityItem[] = [
     id: "milestone-campaign-hub",
     category: "product",
     title: "Campaign Hub shipped",
-    excerpt: "Fair drops, raffles, and community campaigns — the main member loop for Building Culture.",
+    excerpt:
+      "Fair drops, raffles, and community campaigns — the main member loop for Building Culture.",
     url: "/play",
     publishedAt: "2025-08-01T11:00:00.000Z",
     authorHandle: "buildingcultu3",
@@ -195,7 +201,8 @@ export const LASZLO_CURATED_ACTIVITY: CuratedActivityItem[] = [
     id: "milestone-building-culture",
     category: "product",
     title: "Building Culture platform",
-    excerpt: "Proof-first culture economy on Base — identity, places, art, BCC utility, and community ownership.",
+    excerpt:
+      "Proof-first culture economy on Base — identity, places, art, BCC utility, and community ownership.",
     url: "/",
     publishedAt: "2025-05-17T16:00:00.000Z",
     authorHandle: "bihary41418",
@@ -204,7 +211,8 @@ export const LASZLO_CURATED_ACTIVITY: CuratedActivityItem[] = [
     id: "milestone-join",
     category: "community",
     title: "Community growth",
-    excerpt: "Join Building Culture — onboarding, quests, and Forest hub for builders and creators.",
+    excerpt:
+      "Join Building Culture — onboarding, quests, and Forest hub for builders and creators.",
     url: "/join",
     publishedAt: "2025-06-01T10:00:00.000Z",
     authorHandle: "buildingcultu3",
@@ -254,8 +262,7 @@ export const LASZLO_SHOWCASE: FounderShowcaseConfig = {
     {
       id: "building-culture",
       title: "Building Culture",
-      description:
-        "AI-powered identity, reputation, and community layer for onchain builders.",
+      description: "AI-powered identity, reputation, and community layer for onchain builders.",
       status: "live",
       href: "/",
     },
@@ -269,8 +276,7 @@ export const LASZLO_SHOWCASE: FounderShowcaseConfig = {
     {
       id: "tokenized-re",
       title: "Tokenized Real Estate",
-      description:
-        "Experiments around RWA, ownership, and real estate-backed digital assets.",
+      description: "Experiments around RWA, ownership, and real estate-backed digital assets.",
       status: "exploring",
       href: "/products/culture-id",
     },

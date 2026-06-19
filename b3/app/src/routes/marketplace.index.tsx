@@ -131,6 +131,41 @@ function MarketplaceIndexPage() {
 
   return (
     <div className="space-y-8">
+      <Link
+        to="/marketplace/merch"
+        className="block rounded-xl border border-amber-500/25 bg-amber-950/20 px-5 py-4 transition hover:border-amber-500/40"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-amber-400/80">
+              New — Culture merch
+            </p>
+            <p className="mt-1 text-sm text-zinc-300">
+              Four limited tees — ladder pricing, 77 units each. Physical shirt + QR credential.
+            </p>
+          </div>
+          <span className="text-sm font-medium text-amber-300">Shop merch →</span>
+        </div>
+      </Link>
+
+      <Link
+        to="/marketplace/services"
+        className="block rounded-xl border border-emerald-500/25 bg-emerald-950/20 px-5 py-4 transition hover:border-emerald-500/40"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-400/80">
+              New — Services
+            </p>
+            <p className="mt-1 text-sm text-zinc-300">
+              Agent-backed Farcaster growth, web funnels, and Replay Guy — pay kickoff via x402
+              USDC.
+            </p>
+          </div>
+          <span className="text-sm font-medium text-emerald-300">Browse services →</span>
+        </div>
+      </Link>
+
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex items-start gap-3">
           <Building2 className="mt-0.5 h-8 w-8 shrink-0 text-neon" aria-hidden />

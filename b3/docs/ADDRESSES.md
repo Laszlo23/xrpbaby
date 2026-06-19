@@ -76,6 +76,24 @@ Then set **both** (same address):
 
 Profile **Daily & quests** and **Points ledger** call `checkIn()` → SIWE → task `daily-checkin-onchain` in Postgres + local profile XP via `claimDaily`.
 
+### PanicSwitchAttestation (daily panic round)
+
+Deploy on Base (gas-only `attest(precision, holdSeconds)` — **one attestation per wallet per UTC day**):
+
+```bash
+cd contracts
+source .env   # PRIVATE_KEY, optional BASE_RPC_URL
+forge script script/DeployPanicSwitchAttestation.s.sol:DeployPanicSwitchAttestationScript \
+  --rpc-url "$BASE_RPC_URL" --broadcast --verify
+```
+
+Then set **both** (same address):
+
+- `VITE_PANIC_SWITCH_ATTESTATION_ADDRESS=0x…` (browser / wagmi in Panic Switch overlay)
+- `PANIC_SWITCH_ATTESTATION_ADDRESS=0x…` (server tx verification in `postClaimPanicSwitchBccReward`)
+
+Flow: complete Panic Switch run → **Attest on-chain** → SIWE claim BCC. Streak + hold time feed a server-side bonus layer (not advertised in UI).
+
 ---
 
 ## Base mainnet (`8453`) — Culture Layer identity

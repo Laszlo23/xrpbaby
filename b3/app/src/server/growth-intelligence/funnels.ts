@@ -55,7 +55,10 @@ export async function computeFunnelAnalysis(
     orderBy: { occurredAt: "asc" },
   });
 
-  const bySession = new Map<string, { kind: string; pathname: string; selector: string | null }[]>();
+  const bySession = new Map<
+    string,
+    { kind: string; pathname: string; selector: string | null }[]
+  >();
   for (const sid of sessionIds) bySession.set(sid, []);
   for (const ev of events) {
     bySession.get(ev.sessionId)?.push({

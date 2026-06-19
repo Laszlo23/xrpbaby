@@ -9,7 +9,9 @@ type CredentialsXrplLinkSectionProps = {
   handle?: string;
 };
 
-export function CredentialsXrplLinkSection({ handle: handleProp }: CredentialsXrplLinkSectionProps) {
+export function CredentialsXrplLinkSection({
+  handle: handleProp,
+}: CredentialsXrplLinkSectionProps) {
   const address = usePrivyWalletAddress();
   const [handle, setHandle] = useState(handleProp ?? "");
 
@@ -63,8 +65,8 @@ export function PassTrustSettingsWithHint() {
   return (
     <div>
       <p className="mb-3 text-xs text-zinc-500">
-        Mint your <strong className="text-zinc-300">.culture</strong> name above, then link an optional
-        XRPL wallet below (Crossmark + manual fallback).
+        Mint your <strong className="text-zinc-300">.culture</strong> name above, then link an
+        optional XRPL wallet below (Crossmark + manual fallback).
       </p>
       <PassTrustSettings />
     </div>

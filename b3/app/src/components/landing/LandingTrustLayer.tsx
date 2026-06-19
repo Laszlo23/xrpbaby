@@ -12,7 +12,11 @@ export function LandingTrustLayer() {
     >
       <div className="absolute inset-0 bc-grid opacity-20" />
       <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
-        <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
           <p className="mono-label">{TRUST_LAYER_SECTION.eyebrow}</p>
           <h2 className="mt-4 font-display text-2xl font-bold text-white sm:text-4xl">
             {TRUST_LAYER_SECTION.headline}

@@ -10,8 +10,7 @@ export const LANDING_HERO = {
   eyebrow: "TRUST LAYER · LIVE ON BASE",
   headline: "Who are you?",
   headlineAccent: "What can you build?",
-  subhead:
-    "Create your Culture ID. Earn credentials. Build reputation. Unlock access.",
+  subhead: "Create your Culture ID. Earn credentials. Build reputation. Unlock access.",
   valueProps: [
     { label: "Culture ID", emoji: "🪪" },
     { label: "Credentials", emoji: "📜" },
@@ -51,13 +50,7 @@ export const GRANT_PROOF_PRODUCT: PillarProductCopy = {
   emoji: "🏆",
   tagline: "Transparent proof of impact.",
   question: "What impact can you prove?",
-  features: [
-    "Contributions",
-    "Donations",
-    "Rewards",
-    "Grants",
-    "Community milestones",
-  ],
+  features: ["Contributions", "Donations", "Rewards", "Grants", "Community milestones"],
   productPageHref: "/products/grant-proof",
   primaryActionHref: "/grant-proof",
   primaryCta: "View verification",

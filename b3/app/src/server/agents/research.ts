@@ -9,15 +9,13 @@ import {
 } from "@/lib/agent-os-catalog";
 import { getPrisma } from "@/server/db/prisma";
 import { runInference } from "@/server/llm/inference";
-import { resolveX402ResourceUrl } from "@/lib/x402-resource-url";
-import { getX402SettlementChain } from "@/lib/x402-network";
 import {
-  getX402Facilitator,
   handleX402Options,
-  optionalX402PayTo,
+  isX402Configured,
+  settleX402Get,
+  x402ConfigurationError,
   x402CorsHeadersFor,
 } from "@/server/x402-settle";
-import { settlePayment } from "thirdweb/x402";
 
 const RESEARCH_AGENT_ID = "research_agent";
 
@@ -57,7 +55,9 @@ async function logResearchAction(input: {
   }
 }
 
-async function runResearchBrief(query: string): Promise<
+async function runResearchBrief(
+  query: string,
+): Promise<
   | { ok: true; brief: string; source: "openai" | "0g" }
   | { ok: false; error: string; source?: string }
 > {
@@ -114,58 +114,48 @@ export async function handleResearchX402Get(request: Request): Promise<Response>
   const price = x402ResearchPrice();
   const cors = x402CorsHeadersFor(request);
 
-  try {
-    const paymentData = request.headers.get("payment-signature") ?? request.headers.get("x-payment");
-    const resourceUrl = resolveX402ResourceUrl(request);
+  if (!isX402Configured()) {
+    return Response.json(
+      {
+        error: "payment_required",
+        detail: x402ConfigurationError(),
+        price,
+        agent: "research",
+      },
+      { status: 402, headers: cors },
+    );
+  }
 
-    const result = await settlePayment({
-      resourceUrl,
-      method: "GET",
-      paymentData,
-      network: getX402SettlementChain(),
-      price,
-      facilitator: getX402Facilitator(),
-      payTo: optionalX402PayTo(),
-      routeConfig: {
-        description:
-          "Building Culture Research Agent — structured Web3/AI/ecosystem brief (JSON)",
+  try {
+    return await settleX402Get(
+      request,
+      {
+        price,
+        description: "Building Culture Research Agent — structured Web3/AI/ecosystem brief (JSON)",
         mimeType: "application/json",
       },
-    });
-
-    if (result.status !== 200) {
-      return new Response(JSON.stringify(result.responseBody), {
-        status: result.status,
-        headers: {
-          "Content-Type": "application/json",
-          ...result.responseHeaders,
-          ...cors,
-        },
-      });
-    }
-
-    const outcome = await runResearchBrief(q);
-    const body = outcome.ok
-      ? {
+      async () => {
+        const outcome = await runResearchBrief(q);
+        if (!outcome.ok) {
+          return {
+            ok: false as const,
+            agent: "research" as const,
+            query: q,
+            error: outcome.error,
+            source: outcome.source ?? null,
+            generatedAt: new Date().toISOString(),
+          };
+        }
+        return {
           ok: true as const,
           agent: "research" as const,
           query: q,
           brief: outcome.brief,
           source: outcome.source,
           generatedAt: new Date().toISOString(),
-        }
-      : {
-          ok: false as const,
-          agent: "research" as const,
-          query: q,
-          error: outcome.error,
-          source: outcome.source ?? null,
-          generatedAt: new Date().toISOString(),
         };
-
-    return Response.json(body, {
-      headers: { ...cors, ...result.responseHeaders },
-    });
+      },
+    );
   } catch (e) {
     const message = e instanceof Error ? e.message : "x402 configuration or settlement failed";
     return Response.json({ error: message }, { status: 503, headers: cors });

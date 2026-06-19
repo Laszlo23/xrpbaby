@@ -13,6 +13,7 @@ import { plainLabels } from "@/lib/plain-labels";
 import { pageHead } from "@/lib/seo";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { identityMintPriceShort } from "@/lib/identity/mint-price";
+import { getPersistedMarketingAttribution } from "@/lib/agent-attribution";
 
 export const Route = createFileRoute("/join")({
   component: JoinPage,
@@ -48,6 +49,7 @@ function JoinPage() {
     try {
       const { prepared } = await buildPlatformSiweMessage(address, chainId);
       const signature = await signMessageAsync({ message: prepared });
+      const attribution = getPersistedMarketingAttribution();
       const res = await fetch("/api/platform/onboarding-complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,15 +59,29 @@ function JoinPage() {
           email: email || undefined,
           message: prepared,
           signature,
+          agent_ref: attribution.agent_ref,
         }),
       });
-      const data = (await res.json()) as { ok?: boolean; error?: string };
+      const data = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        groveLinked?: boolean;
+      };
       if (!res.ok || !data.ok) {
         setError(plainLabels.join.errors.saveFailed);
         return;
       }
-      toast.message("Welcome to the grove!", {
-        description: "Tell us what confused you during join → earn Builder Voice points.",
+      if (data.groveLinked) {
+        toast.success("Culture DNA linked!", {
+          description: "+25 Culture Points — you joined through a friend's grove.",
+        });
+      } else {
+        toast.success("Welcome to the grove!", {
+          description: "Plant your Culture DNA — invite 2 friends after you land in the forest.",
+        });
+      }
+      toast.message("Builder Voice bonus", {
+        description: "Tell us what confused you during join → earn points.",
         action: {
           label: "Builder Voice",
           onClick: () => {
@@ -129,6 +145,19 @@ function JoinPage() {
 
         <div className="mt-8">
           <WalletControls className="mx-auto" />
+        </div>
+
+        <div className="mt-6 rounded-xl border border-[#C5FF41]/25 bg-[#C5FF41]/[0.06] p-4 text-left">
+          <p className="text-sm font-medium text-zinc-100">Culture packs from $0.70</p>
+          <p className="mt-1 text-xs text-zinc-400">
+            Buy Culture Points with card after sign-in — no crypto required for the Starter pack.
+          </p>
+          <Link
+            to="/wallet/packs"
+            className="mt-3 inline-block text-sm font-semibold text-[#C5FF41] underline underline-offset-2 hover:text-white"
+          >
+            View packs →
+          </Link>
         </div>
 
         {isConnected && address ? (

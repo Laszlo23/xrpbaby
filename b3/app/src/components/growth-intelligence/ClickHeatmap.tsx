@@ -43,7 +43,9 @@ export function ClickHeatmap({
               gridRow: cell.gy + 1,
               backgroundColor: `rgba(34, 211, 238, ${0.15 + cell.intensity * 0.75})`,
               boxShadow:
-                cell.intensity > 0.5 ? `0 0 ${8 + cell.intensity * 12}px rgba(34,211,238,0.35)` : undefined,
+                cell.intensity > 0.5
+                  ? `0 0 ${8 + cell.intensity * 12}px rgba(34,211,238,0.35)`
+                  : undefined,
             }}
           />
         ))}

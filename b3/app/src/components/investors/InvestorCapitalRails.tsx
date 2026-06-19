@@ -52,8 +52,8 @@ export function InvestorCapitalRails() {
           </div>
           <h3 className="font-heading text-lg font-semibold text-white">XRPL (optional demo)</h3>
           <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-            Testnet intake wallet for diligence demos as stablecoin rails mature. Infrastructure under
-            Culture ID — Building Culture is not an XRP project. Mainnet requires counsel and
+            Testnet intake wallet for diligence demos as stablecoin rails mature. Infrastructure
+            under Culture ID — Building Culture is not an XRP project. Mainnet requires counsel and
             multisig policy before any settlement.
           </p>
           <ul className="mt-4 space-y-1.5 text-xs text-zinc-500">

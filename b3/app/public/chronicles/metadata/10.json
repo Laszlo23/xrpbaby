@@ -1,0 +1,29 @@
+{
+  "name": "Culture Chronicles — Park Token",
+  "description": "We own it. We build it. We earn together.",
+  "image": "https://app.buildingcultureid.space/chronicles/park-token.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/parktoken.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-10",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 10
+    },
+    {
+      "trait_type": "Tier",
+      "value": "uncommon"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "focus"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "identity"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    }
+  ]
+}

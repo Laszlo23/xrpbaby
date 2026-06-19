@@ -72,12 +72,7 @@ function FooterLinkContent({ link }: { link: FooterHrefLink }) {
 
   if (external) {
     return (
-      <a
-        href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-      >
+      <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
         {inner}
       </a>
     );
@@ -170,8 +165,7 @@ export function LandingFooter({ withBottomNav = false }: LandingFooterProps) {
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {landingFooterLegalColumn.map((link) => {
-              const external =
-                link.href.startsWith("http") || link.href.startsWith("mailto:");
+              const external = link.href.startsWith("http") || link.href.startsWith("mailto:");
               const className = "text-xs text-zinc-500 transition-colors hover:text-zinc-300";
               if (external) {
                 return (

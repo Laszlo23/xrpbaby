@@ -1,0 +1,6842 @@
+{
+  "campaignId": "2026-06-18",
+  "username": "0xleonardo",
+  "targetFid": 873944,
+  "scoreMin": 0.55,
+  "amountBcc": "7.77",
+  "stats": {
+    "total": 2685,
+    "noScore": 0,
+    "lowScore": 1708,
+    "noWallet": 124,
+    "duplicateWallet": 0,
+    "eligible": 853
+  },
+  "eligible": [
+    {
+      "fid": 490811,
+      "username": "theunsecretman",
+      "score": 0.84,
+      "wallet": "0xaf33d07073707befa504d9f9b3332cec1e4b7787",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 357355,
+      "username": "annie-45",
+      "score": 0.71,
+      "wallet": "0x557c9723c56cda06e20f9e6a97647fe770c04376",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1059075,
+      "username": "sugarz.eth",
+      "score": 0.96,
+      "wallet": "0x76bc75ef2f1f0f25e078641910d8e23a430204f5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 352764,
+      "username": "george-georgiou",
+      "score": 0.58,
+      "wallet": "0x151b583360959a1bf66149539a319bb5e4c291af",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 316952,
+      "username": "pointgmail09",
+      "score": 0.8,
+      "wallet": "0xff79569119cd9647c801e20b316ebf569b59c646",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1450388,
+      "username": "lucifercaretaker",
+      "score": 0.66,
+      "wallet": "0xa7b75869ad863d744a483020e46fc8ab8769f1cd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1004065,
+      "username": "makachu",
+      "score": 0.6,
+      "wallet": "0x8a8d8601e8fbb0363150f32d26c389786a15b937",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1079922,
+      "username": "presdency.eth",
+      "score": 0.95,
+      "wallet": "0x33ec776a05c832d51894cf3e70b29162717eade4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 3335803,
+      "username": "axiomorigins",
+      "score": 0.6,
+      "wallet": "0xf579d1c0fb54527cd4908acf3dc9177c8c63790b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1109570,
+      "username": "based-eth-ryan",
+      "score": 0.6,
+      "wallet": "0x8cb0216b9668728412af9e29f8a42e6407d77897",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1074234,
+      "username": "thatfineboykp",
+      "score": 0.64,
+      "wallet": "0x70a8bcf7740744cb1b4b4e12f5b15bb0416a2f5e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1156216,
+      "username": "voodoonemesi",
+      "score": 0.85,
+      "wallet": "0xbdf76322a02414c173705863c4bd568a0ad181fc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1146642,
+      "username": "chainsawrara",
+      "score": 0.85,
+      "wallet": "0x0ab7ea889c5652eda909fb34b68880d5736eacab",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 246060,
+      "username": "yaroojaan",
+      "score": 0.94,
+      "wallet": "0x6f98983f93bc84159cd4f1cc3a44768c6ff257f7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 395346,
+      "username": "lambchop",
+      "score": 1,
+      "wallet": "0x4f96e16c10a0bcb004d5b9f5e6198d27dc74c711",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2745,
+      "username": "stevedv.eth",
+      "score": 0.99,
+      "wallet": "0x34db35639eafe2712ae1f69dfa298b06a5c25053",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1002208,
+      "username": "lordsatoby",
+      "score": 0.9,
+      "wallet": "0x669c56ce4f8f51061f3da3501f762a3f5d5f8ca5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 17673,
+      "username": "road",
+      "score": 0.98,
+      "wallet": "0x9b3269e698fbc329c18a723e5dddff8c51c5ac98",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1035587,
+      "username": "flanneldonut",
+      "score": 0.95,
+      "wallet": "0xc3441834dba2509afae2e1d63bf6caf873ffec71",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1110131,
+      "username": "dau",
+      "score": 0.91,
+      "wallet": "0x747996871acdf334d8454747291dc1c5c40feed5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 248903,
+      "username": "nobitaganteng",
+      "score": 0.58,
+      "wallet": "0x6d1d4d706a5f8b3d10974200ab29fc2462e0eb26",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1456429,
+      "username": "unizsawp",
+      "score": 0.82,
+      "wallet": "0x980559c5549b388a51dd77058e0181bd688ae7e6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1477344,
+      "username": "cryptodiscovery.eth",
+      "score": 0.82,
+      "wallet": "0x76db16ebd0a31a8ca0db3209e0836422db02f48b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 543139,
+      "username": "imrankhanniazi",
+      "score": 0.76,
+      "wallet": "0xc8b69603d36cd8a1c4ffd0602975ac8699360b6f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 392562,
+      "username": "mahbub64",
+      "score": 0.69,
+      "wallet": "0x7e2e37bee91a068d669828d8a48a19e907a8ea46",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 428043,
+      "username": "cna",
+      "score": 0.96,
+      "wallet": "0xe0215f79e1d1097e20cc06c776fcc0ef4f164239",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 18612,
+      "username": "pcryptowoman",
+      "score": 0.95,
+      "wallet": "0x6c923f0771102cadf7ddcb84b9ad15bb6fd914c9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 449014,
+      "username": "ranatanveer02",
+      "score": 0.77,
+      "wallet": "0xf5d38fe24729f1129b209552b28a912d099524ae",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 299998,
+      "username": "rexxorgcountry.base.eth",
+      "score": 0.94,
+      "wallet": "0x22a8b461e63252fe89a7f5c1c4fbcde87a7beea6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 315508,
+      "username": "rynn12",
+      "score": 0.63,
+      "wallet": "0x84b5aefd0e99a619400c02bdb4fb7eaa24d25ef0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 924978,
+      "username": "thisworld.base.eth",
+      "score": 0.93,
+      "wallet": "0x662cdbc2ea59de72118d80f6d4d198aad9978d48",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1067062,
+      "username": "findmeows.base.eth",
+      "score": 0.8,
+      "wallet": "0x8b0a7656dcb07a5f08be72b698229e150d62db1c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1135818,
+      "username": "seril",
+      "score": 0.75,
+      "wallet": "0x1a7f41a4eccae9ee594ef001e7c61f636200dc81",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 18634,
+      "username": "afaringan",
+      "score": 0.85,
+      "wallet": "0x550ed25eeba1a57f59bc117856d63df149a71282",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 257818,
+      "username": "poor",
+      "score": 0.57,
+      "wallet": "0xd3c0e9ff628ce1fc0c7e598502c3c04502432d74",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 299067,
+      "username": "dezoir",
+      "score": 0.61,
+      "wallet": "0xe32e9f668ff67c97d26f09790304ccdfb312f718",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 240781,
+      "username": "hamzaameen",
+      "score": 0.86,
+      "wallet": "0x278d76c7eb269edc0a465b8014639260f63ac175",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 615647,
+      "username": "legendsword.eth",
+      "score": 0.95,
+      "wallet": "0x8dbc89feeb8ad805407ff8593a94805b20ee1136",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 524572,
+      "username": "rider09",
+      "score": 0.77,
+      "wallet": "0x102e1a60a174987cccc1c9821072fa8f3f91a345",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 235266,
+      "username": "leave",
+      "score": 0.79,
+      "wallet": "0xeb27810654fe994078ae1c77df554269e808a74c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 217605,
+      "username": "sheikh",
+      "score": 0.78,
+      "wallet": "0xfd27347ee4eda8b2371135185aeb828c85d0c54e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1150100,
+      "username": "mehdihasan",
+      "score": 0.94,
+      "wallet": "0x953edccd7d5d3683b64c9d240b5a7c470675e64d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 396057,
+      "username": "mannaushack",
+      "score": 0.88,
+      "wallet": "0x5872286f932e5b015ef74b2f9c8723022d1b5e1b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 277059,
+      "username": "azzam",
+      "score": 0.79,
+      "wallet": "0x409adbbef0d920dc05a90083f1388f2d2c0205d1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1404987,
+      "username": "rakibb250",
+      "score": 0.68,
+      "wallet": "0x160283e04f10404178f429abb6d9547501b3f9f8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 452857,
+      "username": "wiiisaaa.eth",
+      "score": 0.78,
+      "wallet": "0x1d174652779f7ad79e3ef24b1583d2b6532b0988",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1456371,
+      "username": "indicawolf",
+      "score": 0.59,
+      "wallet": "0xbf02c7ae5ff680d0303fbb19ba6d29b17b0df7e9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 16981,
+      "username": "netman",
+      "score": 0.79,
+      "wallet": "0xdbe78dec8de11aa9b12c05996bdd1f6d0db39e3f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 262438,
+      "username": "ozkantr1903",
+      "score": 0.74,
+      "wallet": "0xa8bcbd3f5ef7aca3ae330b7650f1687ede956862",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 258972,
+      "username": "lemi",
+      "score": 0.77,
+      "wallet": "0xcc74aaaa3a5220a2b55a42d59be5e98f74391776",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 299894,
+      "username": "alienware",
+      "score": 0.59,
+      "wallet": "0x86010b858966a44a70e5d0b8a0a20af31385e315",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 777268,
+      "username": "chosenfestus",
+      "score": 0.67,
+      "wallet": "0x18573133247ad55028c9476efe51f151061e9a67",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1390332,
+      "username": "tradingzone.base.eth",
+      "score": 0.86,
+      "wallet": "0x21673ff674aa6cb7dbd30cd0e657ac8426e82965",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 514860,
+      "username": "srcklc",
+      "score": 0.93,
+      "wallet": "0x827e382cf76844b42c570ef7a3b20afbcb18ca05",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 447623,
+      "username": "04sveta04",
+      "score": 0.69,
+      "wallet": "0x741ed5abf3872b500e4bfe90149bfeaa46c33476",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 193425,
+      "username": "lammz",
+      "score": 0.56,
+      "wallet": "0x8841c206aecf0018c68ea25fec8522d7fd2a97fc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 410296,
+      "username": "green911",
+      "score": 0.62,
+      "wallet": "0xf28455fcc8dac56584c707c9726301b502d4abdb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 339166,
+      "username": "chideraorji",
+      "score": 0.83,
+      "wallet": "0xf2ee4853e9bf7031c81643d5c5c05c2c37b388c8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 394081,
+      "username": "amirhz",
+      "score": 0.87,
+      "wallet": "0x765b164b32c295af2eec1d94a84871668a4ffe9f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 345765,
+      "username": "adexmakai.eth",
+      "score": 0.94,
+      "wallet": "0xe20d0d6b62d6bd2a536d21654f682f28f78f8f66",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 892889,
+      "username": "hazelramon",
+      "score": 0.75,
+      "wallet": "0xd96a94dd7c89a498cbb60f2803730293f41c40d3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 533329,
+      "username": "ayeshawaqas",
+      "score": 0.79,
+      "wallet": "0xe1dcb3cd01168db52f29172388fb5a41a7c32288",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 892902,
+      "username": "liadavid",
+      "score": 0.89,
+      "wallet": "0xb518bbf70f4fbb51420c6766e237b70758ef331b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 940217,
+      "username": "futurepicker",
+      "score": 0.57,
+      "wallet": "0x0e6d70a309532f175ca27bad144799ec1d5b702a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 519322,
+      "username": "hircani200",
+      "score": 0.84,
+      "wallet": "0x76b530845eeabe52d256535313fc01c64017e998",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 434449,
+      "username": "warpcast-com",
+      "score": 0.93,
+      "wallet": "0x3dbd0ffbaaafadd11f0b0190b6830b00f8071b60",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 459278,
+      "username": "nikootine",
+      "score": 0.96,
+      "wallet": "0x717a9688b3b20767ef12a1ce4be73eb3e091c3c4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 250022,
+      "username": "abdel19",
+      "score": 0.69,
+      "wallet": "0xf3339936cb5d16ef6ec5df4f825820011e4bb741",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 385507,
+      "username": "miloos",
+      "score": 0.83,
+      "wallet": "0xecb508afde31af7c4402c40a5024e7323dc86f77",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1067981,
+      "username": "olbajol",
+      "score": 0.56,
+      "wallet": "0x6a377d9bfd0e16d34954b46de353bedf601a8895",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 428560,
+      "username": "putper",
+      "score": 0.64,
+      "wallet": "0x50327073f1dc4313879787caa82e30b06e40972d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 388622,
+      "username": "mona67",
+      "score": 0.73,
+      "wallet": "0x1f37067741620ede5dd87964fe9e7e2cef4a180f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 431068,
+      "username": "ana1378",
+      "score": 0.93,
+      "wallet": "0x460bd1ace0d2e3b846f1d7f7f95446dbd793c24a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 490963,
+      "username": "scorpion6",
+      "score": 0.72,
+      "wallet": "0x4f8d9db539d1fbcb43aad915f10fafd46c7a9591",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 242095,
+      "username": "nostoryboss",
+      "score": 0.77,
+      "wallet": "0x52f02ece9967df166aa9553fbad0140bb2f49bc3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 293662,
+      "username": "krn",
+      "score": 0.93,
+      "wallet": "0x9fddd2024553edd19a43964b6e37d369f70089c3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 988167,
+      "username": "kyloo.eth",
+      "score": 0.97,
+      "wallet": "0x505dc6685bd1666a11ba664bc6788d56b19e3256",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 548063,
+      "username": "zeebabe",
+      "score": 0.73,
+      "wallet": "0x0ee15f3123555c186d2270b98012ee1bb2d94088",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 921932,
+      "username": "p1vscpu",
+      "score": 0.71,
+      "wallet": "0x61a2266d8d0e90209b4ef57786185fecd3fd4261",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1065495,
+      "username": "kamal78",
+      "score": 0.74,
+      "wallet": "0x27e42a5aa7de19e00c02cbeeff38ff71f6ce2f32",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 521994,
+      "username": "develi",
+      "score": 0.7,
+      "wallet": "0x94520b0228d764df1b9787f921d959a0e6742ce2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 607731,
+      "username": "turabkhan",
+      "score": 0.97,
+      "wallet": "0x56bfb4811f56bbc8bc92d588559f07f625b84168",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 990929,
+      "username": "zayron",
+      "score": 0.79,
+      "wallet": "0x04363bc17667727484fb5369b97ba56c07229b20",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1125965,
+      "username": "yusuf6253",
+      "score": 0.73,
+      "wallet": "0x805d49945d0e0686d9ad32d6c5466747796b8e96",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 376360,
+      "username": "alisa77",
+      "score": 0.73,
+      "wallet": "0x6b2e6f5861496474023d6570a0c49c99a7b4bb64",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 514036,
+      "username": "subhanahmad",
+      "score": 0.72,
+      "wallet": "0xa69b565ad1d4a11dc1bd8997645c77f1f70a3a22",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1025388,
+      "username": "vipulpapriwal",
+      "score": 0.83,
+      "wallet": "0x8649d3dec31d9be9ccc9b8ef742ebb9add8642ac",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 310405,
+      "username": "nfc",
+      "score": 0.83,
+      "wallet": "0x3a10befba177bb2febd504d9ef52c3f9f87d92c8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1856253,
+      "username": "eddieamin",
+      "score": 0.73,
+      "wallet": "0x49f05d9f1d117184d57fad7976437ed22e8f1456",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 519325,
+      "username": "cryptoglory",
+      "score": 0.96,
+      "wallet": "0xb6f032e8cc3e8dc899597dfbd61d067ce486c36d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 252884,
+      "username": "primitivee",
+      "score": 0.88,
+      "wallet": "0x92257167080db4a4fdfc7c7cad7015c80b584f75",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 213559,
+      "username": "mustang",
+      "score": 0.99,
+      "wallet": "0x4cf6e70a9918ad86899c2c902312eb761a1e7776",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 392332,
+      "username": "yass1221",
+      "score": 0.74,
+      "wallet": "0x815662e966ef405023b1b8cdfa1c7e9ecd3c84e8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 500861,
+      "username": "amaliee.eth",
+      "score": 0.97,
+      "wallet": "0x5dc8bbcb1ddb0dec2274707546761b22fdbbf93d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 477604,
+      "username": "vonenzo",
+      "score": 0.8,
+      "wallet": "0x6195088f4aaae1f8c0a03fe0cd18bb84a57aa11b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 255189,
+      "username": "0xhmm",
+      "score": 0.74,
+      "wallet": "0x243a17374400ce162ba0076ac39410f9de550457",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 261023,
+      "username": "yans01",
+      "score": 0.6,
+      "wallet": "0x17be5fca82cb0fff5add38c97bb71534d1cb03d5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 458143,
+      "username": "ikimehar",
+      "score": 0.56,
+      "wallet": "0x85af8beb08216d0727b87066b10e32af079e5ac5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 439489,
+      "username": "xingping",
+      "score": 0.64,
+      "wallet": "0x9eed5937f2dcdd846229c9eec6ce290cb99acee7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 255122,
+      "username": "onlymoms",
+      "score": 0.92,
+      "wallet": "0x73d3a571a5cdff6b6d8b6c5421f7c9812dbad4a3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 440212,
+      "username": "mobeen02",
+      "score": 0.74,
+      "wallet": "0xb2469a35264d6e4e772768896cad96d237c30945",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 948872,
+      "username": "husk",
+      "score": 0.91,
+      "wallet": "0x8dc1426fa34dc5aa3cb1e3f2e6b980c7215f83d5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 250061,
+      "username": "web3degen",
+      "score": 0.58,
+      "wallet": "0xf70977a1521f673d563899da50aba798d2a0f111",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 299216,
+      "username": "ogechi",
+      "score": 0.71,
+      "wallet": "0x3d6b2cec224643267b2e4f8f81bb0b18f62f3c1e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 484150,
+      "username": "monada",
+      "score": 0.91,
+      "wallet": "0x68dd9ce71496777d0aae90c216696b7bb0c34d0a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 535151,
+      "username": "romz",
+      "score": 0.62,
+      "wallet": "0x41dfeed190d5c5afccafadb009d2f864e6b7a9af",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 345377,
+      "username": "basevip",
+      "score": 0.92,
+      "wallet": "0x2015db0380c2b754bfbe722ad76ca58dd6bc8a52",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 350575,
+      "username": "rimonnr",
+      "score": 0.63,
+      "wallet": "0x4803fe376b4c6fe651e3f04e99a560e704805f79",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 439425,
+      "username": "farwabatool",
+      "score": 0.63,
+      "wallet": "0x1c680f3a8e7a80ca76c8490e3f44dc3475f753e9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 254929,
+      "username": "islamic",
+      "score": 0.63,
+      "wallet": "0x8895dafbce656ac789f5a63df59d40331a4278c5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 905676,
+      "username": "kissableviv",
+      "score": 0.6,
+      "wallet": "0x7b6eb7d53b4438ca9fc2a042dc46cf60be3aaf9a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 530826,
+      "username": "ziah",
+      "score": 0.59,
+      "wallet": "0x38b27671a908960fcd16358d4ddb9f86f688a36a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 946827,
+      "username": "tanazolam",
+      "score": 0.83,
+      "wallet": "0xba397faae1d5fe10c0356f2e585bef34577ab111",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1076010,
+      "username": "kamal98",
+      "score": 0.9,
+      "wallet": "0xbfaf9cda52f8f9b3d3b2eb2ef7cc931ba078d688",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 534280,
+      "username": "anitarohima",
+      "score": 0.69,
+      "wallet": "0x76b429c6ddc43578775183d5962317b059965827",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1084807,
+      "username": "kcrypto",
+      "score": 0.83,
+      "wallet": "0x2d6b97297af0835d0f8cf32b2567e46165b396cf",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 252549,
+      "username": "iiccii",
+      "score": 0.97,
+      "wallet": "0xa656970460a8911d1758c6be19367bb4a032f061",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 407288,
+      "username": "elmengin",
+      "score": 0.84,
+      "wallet": "0x5f42f7b655b5e24c2b677e60598594ee0598a2ef",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 379428,
+      "username": "imanparisay",
+      "score": 0.79,
+      "wallet": "0x02e3e4d16ceb291a00f2d66f84e426ec4bc0f9ea",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 473807,
+      "username": "star99",
+      "score": 0.58,
+      "wallet": "0xd7de59486e5012c68eb099233c32b87d7253c1d1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 298503,
+      "username": "vinito",
+      "score": 0.98,
+      "wallet": "0xd275fa8933c6994e51a3337b65237800f4ba54c1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 3319169,
+      "username": "saboluffy",
+      "score": 0.77,
+      "wallet": "0x101139b515836f1a12faefc2259ede472302536e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 268958,
+      "username": "ukaritakino",
+      "score": 0.57,
+      "wallet": "0x92e933b29987fe10c8a7833192da7a9d6e40356d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 268438,
+      "username": "cashlessman.eth",
+      "score": 0.98,
+      "wallet": "0x21808ee320edf64c019a6bb0f7e4bfb3d62f06ec",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 462627,
+      "username": "artsabide",
+      "score": 0.9,
+      "wallet": "0xad72f28fbd5b37863d5dd5103f058089be3940e4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 316323,
+      "username": "smshakil",
+      "score": 0.94,
+      "wallet": "0x46f25ac4dd7612e77374f9902187d59de454bc33",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 217261,
+      "username": "duckfacts.eth",
+      "score": 0.98,
+      "wallet": "0x98bb6321aa10562ba458e9e449485a9d93520263",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 200506,
+      "username": "stemo.eth",
+      "score": 0.95,
+      "wallet": "0x46e9beef5dc68dff095eca56dadf90247f1af7ef",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1052964,
+      "username": "geesmike",
+      "score": 0.9,
+      "wallet": "0x4123282cf01ff00d31ce2834863dd266a2fe6806",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 210376,
+      "username": "skippywalks",
+      "score": 0.89,
+      "wallet": "0x3f8085b030b2178d5d5bae587ef39981b02da836",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 272304,
+      "username": "e-lon",
+      "score": 0.56,
+      "wallet": "0xcf0b0dae20183aecd2cd8a8c220cbb7a39060c2e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 267941,
+      "username": "jolyeth",
+      "score": 0.63,
+      "wallet": "0x1569abd317901a3c582e81e141731b40e55a05fe",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 267598,
+      "username": "baselove",
+      "score": 0.69,
+      "wallet": "0x34995dc71b7f0134deba51c8688f07f58b20933b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 237056,
+      "username": "botakel.base.eth",
+      "score": 0.82,
+      "wallet": "0xcee2244b58af2c8ddca97a4aed0b819c5fcb6910",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 306358,
+      "username": "sammydoe",
+      "score": 0.93,
+      "wallet": "0xfbe4b0f8d68d7dd11e29c663c1241465701b9ea3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 389352,
+      "username": "cryptoolga",
+      "score": 0.76,
+      "wallet": "0x12cce5d76cc9dbd7e8dd1991b0beba2809073f23",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 956832,
+      "username": "mara01",
+      "score": 0.94,
+      "wallet": "0x8770600a4a436f275458d116d92009d831092b6c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 260396,
+      "username": "cuanmx.base.eth",
+      "score": 0.69,
+      "wallet": "0x37bc769c78cdaa3d04d67f874107d64fc6c20276",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 235187,
+      "username": "sajibdeb.eth",
+      "score": 0.9,
+      "wallet": "0xf405c5428b463e4d1e1722fea7a0dd605efface0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 294149,
+      "username": "vitot212",
+      "score": 0.69,
+      "wallet": "0x9f29acb8108be9b6f79bad958854dee46abb5633",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 237733,
+      "username": "esc",
+      "score": 0.64,
+      "wallet": "0x012278ef02773768ae01d3ba85b3d4870c35c119",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 506958,
+      "username": "ikaaa",
+      "score": 0.77,
+      "wallet": "0x53d0b1f17318a3ad973d9e77b9d5dd980cdbe42b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 972506,
+      "username": "romo7",
+      "score": 0.88,
+      "wallet": "0xa4ce961997f2bc25ff364cf25ca407e4fd159ddf",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1477142,
+      "username": "ghostmintops",
+      "score": 0.73,
+      "wallet": "0x7d79e902482469da64977d2b0977120c77029593",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 948795,
+      "username": "cloudweb3",
+      "score": 0.84,
+      "wallet": "0x2805ecc9bcd0279ca88a74e29d13999247a2dcd1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1074424,
+      "username": "adex05",
+      "score": 0.65,
+      "wallet": "0xfadb8e76269867b774010db0310145bf4de0cd8a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 287921,
+      "username": "cahya68",
+      "score": 0.59,
+      "wallet": "0x150e9f3dff8817a7973a34ed8a20f9bb91376eee",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 214825,
+      "username": "bulem69",
+      "score": 0.82,
+      "wallet": "0xc55d437df9bcaa2988004f0556f99a75525bfacd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 327679,
+      "username": "emudin",
+      "score": 0.57,
+      "wallet": "0xd15c7c28c4cf6fdfe0cd8c9846b4903416a4a52d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1183131,
+      "username": "calvorith",
+      "score": 0.83,
+      "wallet": "0xddb6eb433ae2828f739b5577da9834fb61f74797",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 357897,
+      "username": "bizarrebeast",
+      "score": 1,
+      "wallet": "0x93db1b0ad7365ebab85f3ed98b055af579a589c2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 479003,
+      "username": "mrbiswas",
+      "score": 0.86,
+      "wallet": "0xa7ba61c29616e0ceeda033313fec9ef8a3423ad8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 997694,
+      "username": "raprapghost2",
+      "score": 0.78,
+      "wallet": "0x540c91ee263f5422ca94ba18979e12c767f827be",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 332281,
+      "username": "casterchain.eth",
+      "score": 0.78,
+      "wallet": "0xd38fc058788ef5451c1050f79e8f237f33bcb1c7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 284991,
+      "username": "ranggapuraji",
+      "score": 0.97,
+      "wallet": "0xc627fd4bec977b2845057e64153bbdbc88ef9333",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 256858,
+      "username": "elonmusic",
+      "score": 0.9,
+      "wallet": "0x30ecfc0af2c322e475ee0a2be8f21fff2721b3f1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1023760,
+      "username": "jhibrahim",
+      "score": 0.83,
+      "wallet": "0x1c5f5c86233227844eef0b477af9fddfd80336f4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 306438,
+      "username": "komol0",
+      "score": 0.85,
+      "wallet": "0xc4ce9988708f1f447609b38560e8afcb540b5f56",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 883074,
+      "username": "foisal1",
+      "score": 0.99,
+      "wallet": "0xcc70907269738db8581fe7d28589d465ff62a4af",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 308284,
+      "username": "tushar12",
+      "score": 0.94,
+      "wallet": "0x99a8dc4b9c217eb7dd7cee34519435984160b6c2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 202051,
+      "username": "r0za",
+      "score": 0.82,
+      "wallet": "0xf251912bf3a6fadb3cdab8ecd96e5e0a21beedd3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1080343,
+      "username": "sirchidex",
+      "score": 0.79,
+      "wallet": "0x6a9a0cedc0e9cfc6d99af631aa78090b9a57e273",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 483462,
+      "username": "janicka",
+      "score": 1,
+      "wallet": "0x3ae5d538f2e3bba7949e9bfb46ff664a0e68fc06",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 315490,
+      "username": "sajibdev00",
+      "score": 0.58,
+      "wallet": "0x6a1dfbadf6d1b4691489dbbe2b90c537f10dc393",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1114438,
+      "username": "chosen11",
+      "score": 0.71,
+      "wallet": "0x92c7d39203533d5ab587a555b2b0fee524befedb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 322040,
+      "username": "kazi3298",
+      "score": 0.58,
+      "wallet": "0xa158aeeed86e67479af55affe132859fa332b837",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 214598,
+      "username": "thugkitten.eth",
+      "score": 0.91,
+      "wallet": "0x7a698336902a0f71ef7d0575ede9f0b904acbf5f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 227554,
+      "username": "oce3n",
+      "score": 0.87,
+      "wallet": "0xbe3c2967098cb72ba828a52540a120c2cd1c5248",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 406233,
+      "username": "k0j1",
+      "score": 0.82,
+      "wallet": "0x9eb566cc59e3e9d42209dd2d832740a6a74f5f23",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 4027,
+      "username": "awkquarian",
+      "score": 1,
+      "wallet": "0x3a2fac2ab3cf4bc342910eac744cc68c8b9a69bf",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14974,
+      "username": "900",
+      "score": 0.9,
+      "wallet": "0xdef3156f55d7e958f5170f13f34113e01a26e083",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14451,
+      "username": "37",
+      "score": 0.82,
+      "wallet": "0xf68b52fba3a59c18d7a1383798bf3f1a767f5111",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1117407,
+      "username": "asif0608",
+      "score": 0.65,
+      "wallet": "0x3fd4d41b984086b42bd57fcf51aeed3c6bd3ec52",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 988485,
+      "username": "okeaniderya.eth",
+      "score": 0.96,
+      "wallet": "0xdfe5264ee30c257f350c52da3fac8b250ff7b1e2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1057806,
+      "username": "kasabiann",
+      "score": 0.94,
+      "wallet": "0x6db58604b7e2bedaa986fed40bfda289392c3304",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 200635,
+      "username": "jmanva75",
+      "score": 0.58,
+      "wallet": "0xd6976e5c2954184e2ed24eae783d51659b198869",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1085971,
+      "username": "retrojoystick",
+      "score": 0.98,
+      "wallet": "0x6e59ac54501eeabff94d022e08e9e8b44e953a21",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 328875,
+      "username": "0xcemycon",
+      "score": 0.8,
+      "wallet": "0x2cbd423af8e64863a617d27e691b4f6fb59db220",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 918783,
+      "username": "darkonee420",
+      "score": 0.92,
+      "wallet": "0xfb30c98f33427c07854382f5b3f499a3b1e871de",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 338060,
+      "username": "aleekhoso",
+      "score": 0.72,
+      "wallet": "0xa6604025d6e1b29bf2fd46105f072140d6582855",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1192389,
+      "username": "jdferguson.base.eth",
+      "score": 0.96,
+      "wallet": "0x72ab0555f83df7d5124b6bd0abcd94cec46023f6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 548049,
+      "username": "babareazam",
+      "score": 0.61,
+      "wallet": "0x21d2b12007e150bded895c4131a98b92399a5b57",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 301276,
+      "username": "tahiyangan",
+      "score": 0.94,
+      "wallet": "0x4d1d419f4eebe9f1825c051de4bf8548cbe35ba5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 538697,
+      "username": "artdante",
+      "score": 0.72,
+      "wallet": "0x8ced244d275c08ac77f6cf2d7c40db648903428a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 514068,
+      "username": "mohsinhonyr",
+      "score": 0.59,
+      "wallet": "0x2bd6cc370dcee9dae63c7f6c765025a55726891e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 527166,
+      "username": "tafaduke",
+      "score": 0.66,
+      "wallet": "0xd7ff4da61540e6e869c26e21d80a8c5c610ddc1a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 248222,
+      "username": "anonymouse69",
+      "score": 0.79,
+      "wallet": "0x609f63f0e1995a150e8ed33d4c6b29893a28e52c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 866305,
+      "username": "shanta1446",
+      "score": 0.92,
+      "wallet": "0xe4f0381002bc0c85de314b4087fe36e73afce759",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 777884,
+      "username": "joy1444.base.eth",
+      "score": 0.71,
+      "wallet": "0x00f44a125a98451b51490d0482dc72db7888a8d4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 273453,
+      "username": "oneplus",
+      "score": 0.67,
+      "wallet": "0x1e1e9ff27e50097d36e3c23ff469d2814b8e2992",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 266624,
+      "username": "kira-eth",
+      "score": 0.56,
+      "wallet": "0xdeb3bdddf0410ceda012eb760a533fb682471f7f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 235335,
+      "username": "0xbatman",
+      "score": 0.69,
+      "wallet": "0x5194eee482f45c8bfbf6fd35613839765ddadf64",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 243644,
+      "username": "ben007",
+      "score": 0.56,
+      "wallet": "0xfc52cf7245e9a88c676c813926194a07ea4e599f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 316734,
+      "username": "ems911",
+      "score": 0.7,
+      "wallet": "0x2f9ea193a21b446f62264a8f0c354c293447507f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 325473,
+      "username": "shajib17",
+      "score": 0.77,
+      "wallet": "0xb3d567163a5bb03661a2388340181a3b05cc7a37",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 284986,
+      "username": "dongtahds",
+      "score": 0.64,
+      "wallet": "0x0f393b52e339ad658b8f3f266a15bbad136fb21c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1025242,
+      "username": "fearless04",
+      "score": 0.66,
+      "wallet": "0x21857dcc7025d2786577d7bac147277cc46173cc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 279528,
+      "username": "fahim12",
+      "score": 0.96,
+      "wallet": "0xf24ced7797b59fde018d022ef3a82b18547c5993",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 447746,
+      "username": "nida",
+      "score": 0.9,
+      "wallet": "0x0cebe171852201584ce3e490c323a81273a57c33",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 463703,
+      "username": "banger01",
+      "score": 0.8,
+      "wallet": "0x7122212368b5293a20dd45a53ce6610fa48c2603",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 236911,
+      "username": "surbaisse",
+      "score": 0.86,
+      "wallet": "0xaeacab7cf6605fd77dceb1854810a9ddc1b95f1b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 266942,
+      "username": "popsie",
+      "score": 0.57,
+      "wallet": "0x9c2d060af05458d349704e0322fb934c68e4e972",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1429912,
+      "username": "seedaltar.eth",
+      "score": 0.64,
+      "wallet": "0x41a401dc5d699da00140077ee15838e368abbd57",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1370078,
+      "username": "juelrana",
+      "score": 0.7,
+      "wallet": "0x7cb49adc92ad814b3f102d508a3ccc9b668a9734",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 336007,
+      "username": "omid4111",
+      "score": 0.8,
+      "wallet": "0x4f2e9f1dad84a145bf506b3d5f9018ebc38a8f44",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 511692,
+      "username": "zoya21",
+      "score": 0.65,
+      "wallet": "0xee76c3637a7ae5f72c45fa497356348d6ea162f0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 511661,
+      "username": "elskhan",
+      "score": 0.83,
+      "wallet": "0xb1e6ef693fd5b7856ca7a770be2231c35994362a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1157372,
+      "username": "nuelcrypts",
+      "score": 0.57,
+      "wallet": "0xf2d2e12444b857c254904a66b09d6c90f2bb87ad",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 401491,
+      "username": "zosphotos",
+      "score": 0.98,
+      "wallet": "0x5f957ea55911ca2241330bf68c17c60c15b79b27",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 228903,
+      "username": "ball",
+      "score": 0.93,
+      "wallet": "0xd63c3a9cf4278ab0bf28eef62df21067d1d7362f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 260753,
+      "username": "setianugraha",
+      "score": 0.69,
+      "wallet": "0xa771cf73ed1fdeb2c2be64b9b6ce1789ecca3594",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 521007,
+      "username": "h2-10",
+      "score": 0.85,
+      "wallet": "0x74f241e1a79ac4e4fdcc287d74dbbca7669d299f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 424033,
+      "username": "theodore1098",
+      "score": 0.97,
+      "wallet": "0x1faa68e5e78427d042bf5cafaa2fe79ef120e531",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 507505,
+      "username": "alamin529",
+      "score": 0.75,
+      "wallet": "0xc64c699514e74451a627cce93d45dc2e8f3a7793",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 328663,
+      "username": "edyhoky87",
+      "score": 0.76,
+      "wallet": "0x784e87779f5ca2617df51b77020b0119f0986709",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 463939,
+      "username": "zyel",
+      "score": 0.83,
+      "wallet": "0x481a2cafe7e0f685b42cfc9b557b28ac89e54445",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 304536,
+      "username": "arenamiri",
+      "score": 0.77,
+      "wallet": "0xcb1d3203481dc82cc25f39de87729e0b2d6f26a8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 212942,
+      "username": "nhattung99",
+      "score": 0.57,
+      "wallet": "0x4c562b4590a5c1e90bd4ac0d5c229492358db0eb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 266892,
+      "username": "president1",
+      "score": 0.64,
+      "wallet": "0x549c27e27f7f80af6f5b0ee991e09372ecb11020",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 15211,
+      "username": "statuette",
+      "score": 0.98,
+      "wallet": "0x2f21f94e1e57543f4663b722b6b1bed97c576bd4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 254790,
+      "username": "0xmonkey420",
+      "score": 0.65,
+      "wallet": "0x58af3cb6634d6918f52109edd18a8e3fed2816ba",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1429095,
+      "username": "krish123",
+      "score": 0.77,
+      "wallet": "0x6d533cfa409d4a11cfb6bc2f55c7ef8327dd05cb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 743946,
+      "username": "walidsikder",
+      "score": 0.63,
+      "wallet": "0x493ef0d6986877282073cf90ee5654909ebc9d92",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1377132,
+      "username": "shafi35",
+      "score": 0.82,
+      "wallet": "0x38472a7467d1e3baf8370bf67943f0aa62a8464c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 392305,
+      "username": "andri45",
+      "score": 0.67,
+      "wallet": "0xe6e0de95f062fc9c013e130ca6760301c15a5745",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 265520,
+      "username": "peopledrop",
+      "score": 0.7,
+      "wallet": "0xe96822932b960a4be3acd2f8e8864e2949c2b7a8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1063716,
+      "username": "yossshuaa",
+      "score": 0.86,
+      "wallet": "0x9bb9eaeab9bd829fe4dcae7860b85dd7639ac155",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 247805,
+      "username": "thebankplus",
+      "score": 0.8,
+      "wallet": "0x07042ce9513fe5e5aba283ac4f061adc663674f7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1049461,
+      "username": "ucho",
+      "score": 0.74,
+      "wallet": "0x772bff46b19ee1ee1598e7f02b28e4de69aac2bb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1013049,
+      "username": "mizages",
+      "score": 0.57,
+      "wallet": "0x2583e6fb97ac8c2366d496924e916569afcf9373",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 259514,
+      "username": "mohsinbnb",
+      "score": 0.69,
+      "wallet": "0x3b8a5303b832756fe7277129a23d61ae119268e6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1006671,
+      "username": "mirabe",
+      "score": 0.58,
+      "wallet": "0x685c8adbf1792d775001709cdcdf1e4fa4f1c28f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 526579,
+      "username": "sunkanmi",
+      "score": 0.59,
+      "wallet": "0x321390fdc0e17ba0d621e70ed3999244361f25c0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 277296,
+      "username": "himmamari",
+      "score": 0.86,
+      "wallet": "0x7597a500be81d983f51a81651a86403c5ab413ce",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1107123,
+      "username": "rubayatasnim5",
+      "score": 0.62,
+      "wallet": "0x830dca803bc5e60ec85d471a50868fa19656b18d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 332249,
+      "username": "runner",
+      "score": 0.79,
+      "wallet": "0x6db6ff6a8e948745bd5e8b2f29d6954933e64152",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 208744,
+      "username": "25thhour.eth",
+      "score": 0.78,
+      "wallet": "0xed56965b8e3963b1c380de31af27783927c10a82",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1108383,
+      "username": "boofincaps",
+      "score": 0.6,
+      "wallet": "0xbc75f2f911beb70558a90dd8e9461032855207da",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1477579,
+      "username": "pare",
+      "score": 0.7,
+      "wallet": "0xd1ab146981d50adcfe18433500e852af396ea7b1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 875956,
+      "username": "muhammadareeb",
+      "score": 0.56,
+      "wallet": "0xcf6bf5d0e164a6f9707018f3a0295463ef19f9dd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 250822,
+      "username": "putraskayz",
+      "score": 0.62,
+      "wallet": "0x8b75a74ed5e314906bd7dde7724ce86082f96326",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 249806,
+      "username": "iiz",
+      "score": 0.83,
+      "wallet": "0x0000000d9e7ac498cd37e8b17f88ac3669c411d7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 439195,
+      "username": "0x1x",
+      "score": 0.82,
+      "wallet": "0xe1fdda3d1e58149dcfbbef8ad1bbd1fe68abdc48",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 332286,
+      "username": "arabic",
+      "score": 0.8,
+      "wallet": "0x488c9332a090e74a39dc050034bdab91c32a41fe",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 313400,
+      "username": "baqi",
+      "score": 0.68,
+      "wallet": "0x1e13c2060f8c1fcb2de809adc551bc833987f8ba",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 370259,
+      "username": "baycclark.eth",
+      "score": 0.84,
+      "wallet": "0x00c7ecc4187f239e09d4cfea5abe6d3c18f923bc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 505214,
+      "username": "jarif",
+      "score": 0.63,
+      "wallet": "0xbe836d671c9f7c9b98c2cb1f40ac8d21822300a4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1099382,
+      "username": "ch1m3z13",
+      "score": 0.56,
+      "wallet": "0xcba17379c3bb0e12f103a6b93f5e5067e26050bb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 247655,
+      "username": "0xkimpada",
+      "score": 0.78,
+      "wallet": "0xbacdbd36fef7266cd41e31a1a10af48c47de3b09",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1667823,
+      "username": "neha-khan",
+      "score": 0.57,
+      "wallet": "0xca45bd9943bf6488f9b4f76bcc7a86f40b75908f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1166188,
+      "username": "neha007",
+      "score": 0.93,
+      "wallet": "0x4aba84482b4b7462eff56cf5ef785ac92457429e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 331388,
+      "username": "education",
+      "score": 0.8,
+      "wallet": "0x94b7773e088bc3240ebcb9822e5f1e60720f5d4d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 320802,
+      "username": "newera",
+      "score": 0.82,
+      "wallet": "0xeecf05f81a30d12a57f8adb7a0dee7156517be4c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1095510,
+      "username": "antokundu007",
+      "score": 0.94,
+      "wallet": "0x7c45c2247873ef1e91d6137fd787d8d0e6340801",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 322673,
+      "username": "rontukundu90",
+      "score": 0.72,
+      "wallet": "0x9d5ffe8a5298826c49fbd8d60f47e96dd4764860",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 445000,
+      "username": "tonyrich.eth",
+      "score": 0.83,
+      "wallet": "0xbd97296d6ba14382d861208ee8ff928f74da4ec3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 255479,
+      "username": "watcher1001",
+      "score": 0.75,
+      "wallet": "0xde6a382888bb122be6dbf73d96ae2d640bf250a0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 509017,
+      "username": "rashedur",
+      "score": 0.78,
+      "wallet": "0x2f7dfe66d76f067a30c89df7ac6e8afb35de12af",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 448905,
+      "username": "majidjeelani",
+      "score": 0.95,
+      "wallet": "0xa537bfe81c2f91d4fd00520e1179ce6cab38921a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 259637,
+      "username": "gombret",
+      "score": 0.57,
+      "wallet": "0xb39e150c0000d902e5aa8e7cfc2c36485a0292d3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 251849,
+      "username": "neozyx",
+      "score": 0.58,
+      "wallet": "0x48a61457f8d2962503a771d62668e9512244e9d6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 259597,
+      "username": "aldirus",
+      "score": 0.93,
+      "wallet": "0x76b9d2f5bf9b1661f135c230f3bc7843ada11bc7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 350074,
+      "username": "maycky",
+      "score": 0.84,
+      "wallet": "0xbc614efc6229fcf8ad50e0f1a9d1345d438eea48",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1356438,
+      "username": "aishy90.eth",
+      "score": 0.57,
+      "wallet": "0xf774f9098da57fd6af93cde8f47eda540ed29bb6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1016707,
+      "username": "levento",
+      "score": 0.8,
+      "wallet": "0x87075d3527ddbe8ef5f9dd74a9db4e1ef40da557",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 296050,
+      "username": "jt-longo",
+      "score": 0.69,
+      "wallet": "0x68288a41b4ba864503860fc33648d787a5c34790",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 514366,
+      "username": "block1337.eth",
+      "score": 0.99,
+      "wallet": "0xfd4c6c370bfa54d6cce1b6585a6cfd74bf06f4ac",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 315768,
+      "username": "erinaa.eth",
+      "score": 0.97,
+      "wallet": "0x5112e655741d56a66267918340be0fad01ce7aca",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 262656,
+      "username": "mhtawsif",
+      "score": 0.77,
+      "wallet": "0xfb0922c1f7fde260290ce50cb3b89c5ff50a1c80",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1023830,
+      "username": "mizanur837",
+      "score": 0.88,
+      "wallet": "0x2f1189e40e7996701031c9fc97b1709fe7540a15",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1073560,
+      "username": "mksigyt",
+      "score": 0.9,
+      "wallet": "0x8f14d1fae1d6d81a3d9dd649121016eb63a18b09",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 459422,
+      "username": "whalle89",
+      "score": 0.63,
+      "wallet": "0x7a03d1264508d402e78aaadf02732cb999513a1e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 281893,
+      "username": "buckypaper.eth",
+      "score": 0.97,
+      "wallet": "0xd94f2074bc092452ca52ee8c4d2f0adf41dfe768",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 671554,
+      "username": "krtashin.eth",
+      "score": 0.95,
+      "wallet": "0x8f54cb6f55e3b524d80a6833a32843049281984f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 299030,
+      "username": "hich",
+      "score": 0.72,
+      "wallet": "0x9984853452d60f5acb832e5120c3debcafe43458",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 685089,
+      "username": "forgottenone.eth",
+      "score": 0.98,
+      "wallet": "0xa427acc90683f439eb980f5f1c157f29faab05f1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 294658,
+      "username": "sagorsakib.eth",
+      "score": 0.79,
+      "wallet": "0x303309811eb860e9725612a3a16823dab869fd3d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 647182,
+      "username": "bella007",
+      "score": 0.59,
+      "wallet": "0xa647b5a43cba30cd95032b97f5abe7a16f2e1e64",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1066943,
+      "username": "realmonnaf",
+      "score": 0.63,
+      "wallet": "0xb3b7501da2620ea2c8b310f36fdb82b253ce39d0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 253418,
+      "username": "najidsalman",
+      "score": 0.85,
+      "wallet": "0x5ab98795159195094c98b79ef78659dd47adb2ea",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 400645,
+      "username": "georgeagbe",
+      "score": 0.71,
+      "wallet": "0xffdd2f83555c64d1caa17f5646c08b80013ed38b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 291302,
+      "username": "ajrony",
+      "score": 0.92,
+      "wallet": "0x897dd68ac9cf2ba259dc1eebb95c4c3278c089df",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 474644,
+      "username": "abeg007.eth",
+      "score": 0.91,
+      "wallet": "0x3c39f4b90935c4a5c7dc2c8f1ecb6c2065a54f8b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1116896,
+      "username": "dyahayuneer",
+      "score": 0.75,
+      "wallet": "0xd2f5d007e1f3695098af99a985e97cbe7149fd2b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 476026,
+      "username": "tops87sqweezz.base.eth",
+      "score": 0.76,
+      "wallet": "0x3fa68a4952b2439c636b0340a1296a46fa25d99c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1149231,
+      "username": "rasyid.eth",
+      "score": 0.57,
+      "wallet": "0xb8ab5ee50a5d29b30f52ec45527b94ce971f51b3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 535036,
+      "username": "shamimarshad",
+      "score": 0.87,
+      "wallet": "0x59766e72bf27f6944c5ad36c04c360c0e6f23ead",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1073251,
+      "username": "dipedas",
+      "score": 0.56,
+      "wallet": "0xa5431bcf6c766e6bba4ef21549e8186f97471017",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 485585,
+      "username": "raj108x.eth",
+      "score": 0.97,
+      "wallet": "0x65cc65ef988865233e836dc3bb4e05b69da5a2f4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 531601,
+      "username": "0xvalse",
+      "score": 0.61,
+      "wallet": "0x8569b45d8f4193b0acaabcebeb626500ad150595",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 498929,
+      "username": "jasmine24",
+      "score": 0.68,
+      "wallet": "0xb22c4a53949dc8a0861ff5ef486e3f58dfbdfd33",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1059035,
+      "username": "madco",
+      "score": 0.86,
+      "wallet": "0xf801ae2a8eb12b1b141970e31a43c2f34e85367d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 937300,
+      "username": "telekq",
+      "score": 0.68,
+      "wallet": "0x78972afaeebc9d85fb0e134d233058e13e14ea4a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 407004,
+      "username": "ross23",
+      "score": 0.62,
+      "wallet": "0x04d393ef7143c0d7c92569f19d54e2335dde559b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 363666,
+      "username": "uwuw",
+      "score": 0.75,
+      "wallet": "0x6b1e8f0de319f0f827da44d7c0b89c401512ba49",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 420612,
+      "username": "breath",
+      "score": 0.86,
+      "wallet": "0x5fc0d98edcc48a0d3b4d974c6af607a4b9f5e054",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 613116,
+      "username": "soempit",
+      "score": 0.83,
+      "wallet": "0x964079d5e8fb1fdbf1878c2485ee373f7f677dcd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1123158,
+      "username": "blownshades",
+      "score": 0.78,
+      "wallet": "0x6949b7ee38d4cbb5224bb8d7083210d390c0d449",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 282926,
+      "username": "snrcaptain",
+      "score": 0.77,
+      "wallet": "0x4188f043852c6fef692d99b7cc594f71be2f848d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 376945,
+      "username": "marufm05",
+      "score": 0.71,
+      "wallet": "0xaf020afb3fe94f3a1068f742a05070718c42019f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1103112,
+      "username": "simo34",
+      "score": 0.83,
+      "wallet": "0x9ce282682e75bd511825eafc979277b0dd3ee548",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 308764,
+      "username": "ceciliaeth",
+      "score": 0.69,
+      "wallet": "0xb8f73b269567dec47ceafe54749d17484941856a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 255185,
+      "username": "kakzob77",
+      "score": 0.69,
+      "wallet": "0x32479e95df7d5073db8a4b7d48554548a2bb173e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 970045,
+      "username": "kaito09",
+      "score": 0.58,
+      "wallet": "0x3d1c5de3f221331d4020772c176c59e8267b708d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1107112,
+      "username": "asifsalman",
+      "score": 0.65,
+      "wallet": "0xf6382c1f83993ddf6394716f488c98c8ef599352",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 518127,
+      "username": "hunainashiekh",
+      "score": 0.75,
+      "wallet": "0xe2da8c83a4a36c8076a9b0860392dacc921027f3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 513276,
+      "username": "aimanfatima",
+      "score": 0.74,
+      "wallet": "0x04bcbd69b9981414fa6d2ba449930b13781aef3a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 514113,
+      "username": "eliasvm",
+      "score": 0.98,
+      "wallet": "0x3588009adf58eb7f0953d2b5707254034cc0b96e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1062506,
+      "username": "jambalw1",
+      "score": 0.61,
+      "wallet": "0xcee6c8319a01fce846d6ff6d131b42cc737b5193",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 258330,
+      "username": "deo",
+      "score": 0.59,
+      "wallet": "0xc7411bf95bb8cef41fd7ade87cf6623681f9bbd1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1495622,
+      "username": "jemickeys.eth",
+      "score": 0.61,
+      "wallet": "0xe09f439743b0de26de50552b4c8d5f14dd1d647b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 449748,
+      "username": "turjoy85",
+      "score": 0.98,
+      "wallet": "0xdb67fa906f5c206c77fdace8a44bd61dd6b05d96",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 22731,
+      "username": "88bet",
+      "score": 0.64,
+      "wallet": "0x946957ec2e910621cb13cb4781a067e64d7c22b1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1117360,
+      "username": "shifat007",
+      "score": 0.71,
+      "wallet": "0xae535defa59c3233d93167952f3c71da37159fc0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1067873,
+      "username": "encryptedogo.eth",
+      "score": 0.9,
+      "wallet": "0x31738aa26d6021615ade11a09accf04dd6c93acb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 511323,
+      "username": "8992",
+      "score": 0.63,
+      "wallet": "0x863cbf53e8ad05b45d657ed5921e2b0bf84a08d8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1173963,
+      "username": "moses112",
+      "score": 0.6,
+      "wallet": "0x8d938bff8917d2b2b91e46300d58da8838048b8b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 252329,
+      "username": "elrufaee",
+      "score": 0.92,
+      "wallet": "0xa0a1a3e397f222cfcc9c7a4ff09d1204523902c4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 846343,
+      "username": "pilkesh",
+      "score": 0.84,
+      "wallet": "0x7285be537839148cdd2fd625cdc28f8e9b1392f8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 439768,
+      "username": "seizee",
+      "score": 0.59,
+      "wallet": "0x2809892c26403b41e43f4fc37398b04ee230aace",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 403450,
+      "username": "dexwhale",
+      "score": 0.9,
+      "wallet": "0x61b41947d9105c174dad4548537c58a2cef6c8fa",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 230272,
+      "username": "btcop.eth",
+      "score": 0.96,
+      "wallet": "0x25d89ad88ea0eb0d70727827d50a3f202dfcd5f8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1075583,
+      "username": "aryavia",
+      "score": 0.63,
+      "wallet": "0x2873f5f50a48d2656333376e4c06f5fe34846100",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 250916,
+      "username": "muchreza",
+      "score": 0.84,
+      "wallet": "0xa66a2e021da8d00dc6e6146e948cca976b7e4c7e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 417714,
+      "username": "tanin",
+      "score": 0.72,
+      "wallet": "0x254b55625f4209ee606641daf02d20725f594b57",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 801019,
+      "username": "dathito",
+      "score": 0.75,
+      "wallet": "0x541422acf8dcd32dd00d3b3c879c28f942f2e76d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 277673,
+      "username": "endangsutrisno",
+      "score": 0.58,
+      "wallet": "0x6e7f46a718e22b9acba3ab749621987e4c5b9fc4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 875499,
+      "username": "muhammadalii",
+      "score": 0.86,
+      "wallet": "0xb22f8baa90381fc3a93ff1e291b1d750aeeed09b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 732194,
+      "username": "nooriya",
+      "score": 0.92,
+      "wallet": "0x6a372e7973a2cca625525573ac9d747912a9eded",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 238032,
+      "username": "5050",
+      "score": 0.92,
+      "wallet": "0xf980bb10341b80b11e5f774a8e2495f38783b75a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 384418,
+      "username": "qisiebensoul2049",
+      "score": 0.79,
+      "wallet": "0xe28dc742f9ea962c03806306a3a020f7e53fda85",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 236578,
+      "username": "pepenn212",
+      "score": 0.58,
+      "wallet": "0x07c8687758d8a45bbfdab0c818a2767a08b8d5cc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1016917,
+      "username": "spartaneck",
+      "score": 0.78,
+      "wallet": "0x0d2d879aff7dd97118a1144de436755b794e7ae3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 460666,
+      "username": "homaamini",
+      "score": 0.99,
+      "wallet": "0x58cb89c8bbab3ff6b025fc140979cae5da7a53dd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 11782,
+      "username": "jalleo",
+      "score": 0.97,
+      "wallet": "0xe47ed204b63adfb80c90082c088fc2a430f9a558",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1071281,
+      "username": "spidbn",
+      "score": 0.64,
+      "wallet": "0x94f3fcb5bf201612f7211bbfeee3b6e52d364479",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 950794,
+      "username": "seftasilo",
+      "score": 0.7,
+      "wallet": "0xc622e93742bd12e43f8e3755403e779e95038c6b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 489158,
+      "username": "asifbodla",
+      "score": 0.89,
+      "wallet": "0xbe7e4d2698ab6a3fb720778d717d13d28197d74b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 475250,
+      "username": "atakgoo.eth",
+      "score": 0.78,
+      "wallet": "0xe98d7cb560e347d418ef206682c4ba659acf78b2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 859032,
+      "username": "aliyaindah",
+      "score": 0.84,
+      "wallet": "0x0c09feb8bda18addcf196361ebedefb498381b35",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1071216,
+      "username": "fattylazyboy",
+      "score": 0.74,
+      "wallet": "0x31b25607fb6f0d358b72bc11ca9a0350c8bdebc5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1051182,
+      "username": "sianidamir",
+      "score": 0.87,
+      "wallet": "0x6b5ca4508ebb2f3c87d3a17298d21a9345103fd9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1050713,
+      "username": "littleanjel",
+      "score": 0.83,
+      "wallet": "0x244b02436dc6e319e469924c60a710cf8d36ae53",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1070750,
+      "username": "aryanjahed",
+      "score": 0.65,
+      "wallet": "0x44303fcc2f2e2017c5e946c6cabead849c9a66d3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1131909,
+      "username": "0xjoshlito",
+      "score": 0.81,
+      "wallet": "0x92f2334d75fceb0338ee088038277a7061220a22",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 649360,
+      "username": "namrufretep",
+      "score": 0.97,
+      "wallet": "0x69d77152842eff2642af99cde5b8513e7c77b1b3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1538246,
+      "username": "crazybowbot",
+      "score": 0.66,
+      "wallet": "0x3e68aed94c80ea7822082a0ed9201e77f006f13f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 242482,
+      "username": "redwine",
+      "score": 0.64,
+      "wallet": "0x308e665ef7f9801387032c7fcd0c757460fedb3c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1371320,
+      "username": "thefundamentals",
+      "score": 0.72,
+      "wallet": "0x78405b81a20d66ec0cc1228a81117585247d01eb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1020531,
+      "username": "kexius",
+      "score": 0.78,
+      "wallet": "0xbf2d4e930b360bf7156c2636b98380dc92128647",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 419545,
+      "username": "eli-web3",
+      "score": 0.75,
+      "wallet": "0x81792d30df85f2b49610575a6702f33a31394963",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 18561,
+      "username": "ezincrypto",
+      "score": 0.96,
+      "wallet": "0xfab9a3d37999e12252b47468d2ffd4be15936012",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 24204,
+      "username": "ozengk.eth",
+      "score": 0.78,
+      "wallet": "0x943962699b2f223848fbd996d8be3fdd98117699",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 19711,
+      "username": "mary8992",
+      "score": 0.75,
+      "wallet": "0xa656b3b6ad67d96b1a2032b129185288ea3d7fe1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 516857,
+      "username": "zeeshanali1",
+      "score": 0.77,
+      "wallet": "0xee4ba036d4a20f016264efafe60a4701692b4231",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2607614,
+      "username": "wendy-o",
+      "score": 0.85,
+      "wallet": "0xf2d640a4d83a8a7ecf72e4976ecc21d19ace179a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1428448,
+      "username": "shedopumping",
+      "score": 0.61,
+      "wallet": "0xa3c110219bcca3f278f7850a0591072d9da77540",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1939528,
+      "username": "rre",
+      "score": 0.58,
+      "wallet": "0x5bd77d08c1e2d91eeddaf720aa695d0b0fc52bcd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2871869,
+      "username": "n0de",
+      "score": 0.74,
+      "wallet": "0x7e6b746c463bde6b5718d8296f0b0b05b5b64f0a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 903908,
+      "username": "spawniz",
+      "score": 0.82,
+      "wallet": "0x596a08a5ba8c7fec6105f192d64305f4fc5b08ff",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 497484,
+      "username": "victorwin",
+      "score": 0.9,
+      "wallet": "0xc87d74bf290933c2a05ae40b8a24b61045b251a3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1327752,
+      "username": "willwisher",
+      "score": 0.65,
+      "wallet": "0x776467efa1c3159995908d4ab0b2767b07828361",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 875630,
+      "username": "rana510345",
+      "score": 0.64,
+      "wallet": "0x903338b026ef8bb2b8c059a0fbc0e5137f7ddbd6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 288321,
+      "username": "rahulkr",
+      "score": 0.83,
+      "wallet": "0xc2cd85974c5e256cb0b1dac2d92c7c9e06d4bbc6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2628325,
+      "username": "tevens",
+      "score": 0.56,
+      "wallet": "0x2111489626807c51d5325f4b40ec750b7b32ea17",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2505461,
+      "username": "dpatton",
+      "score": 0.56,
+      "wallet": "0x05f2e9edb478ee4916e86fb091de9a2bc2ac228d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1108840,
+      "username": "euvouserdoutor",
+      "score": 0.97,
+      "wallet": "0xdd53c6e5a487f13a2bff447ba37d1a1daa658289",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1112252,
+      "username": "darkness-dex",
+      "score": 0.58,
+      "wallet": "0x5f09757be6fcf415dab79fb931cd787e620f65ed",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 795320,
+      "username": "nextias",
+      "score": 0.96,
+      "wallet": "0x2dfb7ffd445e869ce50ef316e45cb3ddf59bc350",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 758401,
+      "username": "nodecapital",
+      "score": 0.63,
+      "wallet": "0xb372bcf8ae1afaded16be307d143b357499cc675",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 450255,
+      "username": "happenings",
+      "score": 0.68,
+      "wallet": "0xcbdfeae8494b3ddd17ea1e51abfca22a8b4e1467",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1848913,
+      "username": "qwertykorn2025",
+      "score": 0.61,
+      "wallet": "0xe489b10e7ddc50b67b06704f9761556ef9fe26eb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1004351,
+      "username": "fluffyunicorn",
+      "score": 0.75,
+      "wallet": "0xda200d30f5ff599bbf8ac43243907cbbf5a03bed",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1084951,
+      "username": "merin",
+      "score": 0.82,
+      "wallet": "0xc49c0a50fbae5fb6a6805052ed3b7f81db702184",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14408,
+      "username": "pptulliana.eth",
+      "score": 0.77,
+      "wallet": "0x7e21749ab7fc3bc1a77fa5814cdfb651ca9e241c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1235208,
+      "username": "iamgrenade",
+      "score": 0.63,
+      "wallet": "0xfcb518e934d91736bda63fb6b4d4cf1d86a87f28",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 3117344,
+      "username": "cateforbes",
+      "score": 0.57,
+      "wallet": "0x96ae49875e612034377ed78756efe821972d415c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 5516,
+      "username": "sky",
+      "score": 0.97,
+      "wallet": "0xb68a6a83cfca2e7fde2aa5749b85e753f55d58cd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 260299,
+      "username": "tieubochet.eth",
+      "score": 0.9,
+      "wallet": "0x01b37edd07ea71eaf552b6ef1b8dcfbb328e1f39",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1341880,
+      "username": "ugozfb",
+      "score": 0.9,
+      "wallet": "0x7494b0360769c0bb0824a06f13e43baa05d790a5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 355566,
+      "username": "duodomusica",
+      "score": 1,
+      "wallet": "0x0d3c16f2d152373539610da87d231f4d78f73a35",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1469403,
+      "username": "crazyhorse",
+      "score": 0.6,
+      "wallet": "0xdebf8bdfedada7d9993c073643c7825221c2f9f4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1541486,
+      "username": "sandra000",
+      "score": 0.57,
+      "wallet": "0xd13025cf905624d3af419690521adcee4d50668c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 8152,
+      "username": "beep.eth",
+      "score": 0.98,
+      "wallet": "0x5be51f8fe19af2543828a241e7555889a2ac9532",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 692211,
+      "username": "studi08f0rev3r",
+      "score": 0.73,
+      "wallet": "0xa9557a3a69e838744acd2100574ebc76fbe6be73",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 349718,
+      "username": "arvis",
+      "score": 0.9,
+      "wallet": "0x16a9f96ffb3c2336a49b75ae5ab032063ce3f5a5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 487455,
+      "username": "farnley",
+      "score": 0.8,
+      "wallet": "0xf6e1d9f27a4d298011bfc4f618d7b0d80b0457cc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 529925,
+      "username": "f4z4k.base.eth",
+      "score": 0.75,
+      "wallet": "0x836b06491adc4d0befd684d5d047073ee865d513",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 230941,
+      "username": "willywonka.eth",
+      "score": 0.98,
+      "wallet": "0x05a1ff0a32bc24265bcb39499d0c5d9a6cb2011c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1344347,
+      "username": "emrahkrks",
+      "score": 0.59,
+      "wallet": "0x998ed33163bc00d1c281e0850e094b961e916525",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 874592,
+      "username": "frutti",
+      "score": 0.96,
+      "wallet": "0x0b756d9f279d5246bed024e651a9259304a98970",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 524709,
+      "username": "mianpk.base.eth",
+      "score": 0.57,
+      "wallet": "0x7f4a6aae6a08c7dd3134281097b2b7e5811819b7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 339950,
+      "username": "rairoy412",
+      "score": 0.89,
+      "wallet": "0x2bc7b2953c872c11bb11c19cb41412bef80d0ed0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 251,
+      "username": "jc",
+      "score": 0.97,
+      "wallet": "0x997b0cced542b6d2a7e0bae5649afd9d0861cb4e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1733,
+      "username": "nezzar",
+      "score": 0.98,
+      "wallet": "0x26bbec292e5080ecfd36f38ff1619ff35826b113",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 372654,
+      "username": "nagarajan",
+      "score": 0.59,
+      "wallet": "0x96f588d1a950a3ab0440fbb0cd6126a49027c5ff",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1362424,
+      "username": "grkx",
+      "score": 0.57,
+      "wallet": "0x818bbff1815ed8010dcb6b4c720dddc350862506",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2850895,
+      "username": "casaislabs",
+      "score": 0.75,
+      "wallet": "0xa81f6e861daa0ccda1c2c24eca4a7cbc6c01b9d6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1137142,
+      "username": "hanifa2841",
+      "score": 0.59,
+      "wallet": "0xdd8bdd7ef4516ebdd2736b5ad093ec05284cfe9a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 867869,
+      "username": "arjunlevi",
+      "score": 0.92,
+      "wallet": "0x979bd79e0a2d074d652ca9e03ac99f04cbf84316",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 189896,
+      "username": "vibecaster.eth",
+      "score": 0.99,
+      "wallet": "0xf641e2800a94b49b8b428353ea71aae85865dece",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 509587,
+      "username": "mehdi-benembarek",
+      "score": 0.98,
+      "wallet": "0x001c213fc52654c2a3dc3ad4f7ac5233f2a31df7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 369722,
+      "username": "rakibsk",
+      "score": 0.86,
+      "wallet": "0x3063ee0ae9cc2ba24fa75a4118688d9f2f5ab4d7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1470945,
+      "username": "knheiste",
+      "score": 0.56,
+      "wallet": "0x27d14455401a7311c0a085cefc2b5047e5b8b2e5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 603153,
+      "username": "artirawat",
+      "score": 0.92,
+      "wallet": "0xb6170a508edad218834fa40bd169e8b3d2d53b49",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 557645,
+      "username": "brioni.base.eth",
+      "score": 0.95,
+      "wallet": "0xddc0d404cdea3f44f360297639144e495d6141b0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 330170,
+      "username": "ridhafajri",
+      "score": 0.75,
+      "wallet": "0x5afb1ccb5f2308b8d6e3add591bff4e75974a41f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1023756,
+      "username": "jidan",
+      "score": 0.58,
+      "wallet": "0x2cc6cfdbf792842ca6b804022677005d51903391",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1076846,
+      "username": "smolemaru",
+      "score": 0.96,
+      "wallet": "0x6f1bdf6a93e4d26d0316c62a9dbde0ff553de6d1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 437066,
+      "username": "interstellgretz",
+      "score": 0.81,
+      "wallet": "0xa32ac6f43458c40369385e60f704912b33312919",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 16851,
+      "username": "zazza",
+      "score": 0.83,
+      "wallet": "0x5c2703acfe96eeb6f9c12bf364ce7b9288b92207",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1082404,
+      "username": "songsofeden",
+      "score": 0.95,
+      "wallet": "0xe7b0f63a44e519d5a9c8c96fe3b644fa217d40a1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1116515,
+      "username": "poolfans",
+      "score": 0.96,
+      "wallet": "0x9e6ff974255c615dae8efc5f0baa9e3e5f94ad7c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 214250,
+      "username": "xicortm",
+      "score": 0.95,
+      "wallet": "0xd61bb0db003571c76fbcdc77b995a656d1a88cb9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 210167,
+      "username": "susan33g",
+      "score": 0.65,
+      "wallet": "0x654228306266a18fcd1414c95fb6244adaecd815",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2579461,
+      "username": "tomsol",
+      "score": 0.6,
+      "wallet": "0x831a45a6b449cba274df0522fe6923f842c0b6bd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1479995,
+      "username": "pyrofirezerox",
+      "score": 0.73,
+      "wallet": "0x682ebe895e62e046d86cbc1652e61196dff1f256",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 231387,
+      "username": "bambunio30",
+      "score": 0.58,
+      "wallet": "0x839fe4eb9aaa9543f5274cfa6cd7c526183aed3c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1458202,
+      "username": "dl39",
+      "score": 0.7,
+      "wallet": "0x8e5caf3f39b83dbc7663f7fc2b929e21d55482af",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1044434,
+      "username": "superfluidlabs",
+      "score": 0.97,
+      "wallet": "0x7ccdc409f4a324183409a25674c882b14c7bba98",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 539591,
+      "username": "nftsafrica",
+      "score": 0.57,
+      "wallet": "0x44986388c2ff878d67567779edf1086536d3403e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1352305,
+      "username": "sulaiman0",
+      "score": 0.73,
+      "wallet": "0x986c180c95e064d29fabb35acab70e3b8b629565",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 889513,
+      "username": "firoz2022",
+      "score": 0.82,
+      "wallet": "0x56bc5cbd9a7d95124ae44a3acfbf165535917e52",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1020660,
+      "username": "milanyia",
+      "score": 0.88,
+      "wallet": "0xb821df877d2e2f126d513921b3455f60df6c4c72",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 281371,
+      "username": "pmashia66",
+      "score": 0.74,
+      "wallet": "0x9149ff5b1937740d577fb511daa5085919fc367f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1153754,
+      "username": "mr-r0b0t",
+      "score": 0.96,
+      "wallet": "0x86e36c9ba3c6a2542fd761bc2b4fd61a110ea6cd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1075087,
+      "username": "aaronjackarts",
+      "score": 0.94,
+      "wallet": "0xcd0393fa7b3872217df537eb1fbc78ddf53b584d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1069340,
+      "username": "alex000115",
+      "score": 0.93,
+      "wallet": "0x339288172fab5a57bd382504fb565defd15f8a50",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1076536,
+      "username": "james777",
+      "score": 0.62,
+      "wallet": "0x0b3c5691911b4ff322084a42009e5e07fcc29aef",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 365409,
+      "username": "gireesh",
+      "score": 0.7,
+      "wallet": "0x5230c81f3a6a841b46bf708f23af153a6433fa14",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1043089,
+      "username": "julius-eth-dev",
+      "score": 0.96,
+      "wallet": "0xa31741713228b36e80f3599b8e482401a9fba9df",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1016442,
+      "username": "marchesco.eth",
+      "score": 0.59,
+      "wallet": "0x2e3baa9ec2a73e6813cbcea552f8a8db39e70bde",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1357452,
+      "username": "hersonc00",
+      "score": 0.58,
+      "wallet": "0x027b12793cc3652c2e1782be3f1ae2cb8c86327d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 257927,
+      "username": "nanda12",
+      "score": 0.79,
+      "wallet": "0xdf21eec3b6d6cfb52b8a91864ec2cc46ed930688",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 892358,
+      "username": "mrhunter34",
+      "score": 0.59,
+      "wallet": "0x0292c6a4aec6304b3435809d1b17041da70d5bba",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 525292,
+      "username": "tthkn2425",
+      "score": 0.77,
+      "wallet": "0xa27c532b28bcd3af67161b148c4d2b20d712f0ce",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 939387,
+      "username": "neghvar.eth",
+      "score": 0.71,
+      "wallet": "0xc7aab24ede583b0dc9041343ae51466bb86a1ab7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 935885,
+      "username": "vorcha",
+      "score": 0.77,
+      "wallet": "0xe5bd8b07f960e77fea96f4b73271efb53f5dc00d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1084478,
+      "username": "l1kleesh",
+      "score": 0.72,
+      "wallet": "0x797264949985c7deeec56a0bed3d478544bcaa07",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 459837,
+      "username": "muzammil7475",
+      "score": 0.8,
+      "wallet": "0xd70c3e490f528d49b7e36122630b0fde617f7a0a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 400462,
+      "username": "raselhossain",
+      "score": 0.66,
+      "wallet": "0x68a16fc7ea2b40be436c092967611ada569f7edb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 19640,
+      "username": "zaal",
+      "score": 0.98,
+      "wallet": "0x7234c36a71ec237c2ae7698e8916e0735001e9af",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 939842,
+      "username": "snoova",
+      "score": 0.94,
+      "wallet": "0x22f833f5a9e355f75496463210985c9dd6cd9b68",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1001206,
+      "username": "adrijan",
+      "score": 0.76,
+      "wallet": "0x868edb819af54a9c938dea4c2e027fe050b18d0a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 333643,
+      "username": "saratov",
+      "score": 0.93,
+      "wallet": "0x496d658a8f0fd654f7d54e6cd16be435de5c6956",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1365308,
+      "username": "asbinm",
+      "score": 0.58,
+      "wallet": "0x8f15f8fd98d2671a36fa329254a24edb7f2466dc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1022504,
+      "username": "lev7cryptoxp.eth",
+      "score": 0.72,
+      "wallet": "0x809323ae267218e1f81e38762fb99d5ae4329d27",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1161445,
+      "username": "ram999",
+      "score": 0.57,
+      "wallet": "0xdb33fe9bd48c842e52344f55eebcf7bf9e568e98",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 290186,
+      "username": "shakib09",
+      "score": 0.91,
+      "wallet": "0xf000da7bf5542cea8e2a8975f97dad24bcb237e1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 290448,
+      "username": "tanju",
+      "score": 0.83,
+      "wallet": "0x379154c475105059bb600b304a23de2994b3fdd8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1373603,
+      "username": "ilovetacos",
+      "score": 0.62,
+      "wallet": "0xc9e9ca2848e7199197ce8dfbc203487c4256b451",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 305492,
+      "username": "hasifn456",
+      "score": 0.73,
+      "wallet": "0x7cf2f96df12554463031c3f573c58c6d77849720",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 236617,
+      "username": "trungg.eth",
+      "score": 0.97,
+      "wallet": "0x5697d59ea1a062e39857eb04cd4b259a702a6913",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 274935,
+      "username": "chizk",
+      "score": 0.8,
+      "wallet": "0xecaaf0914855d7444a0babd68c9a2f88a7c95231",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1125364,
+      "username": "cleber.base.eth",
+      "score": 0.89,
+      "wallet": "0xc1777a50800502f58ed7a86b0a5de8f43ef73ee5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 522008,
+      "username": "tanercan55",
+      "score": 0.8,
+      "wallet": "0xf6289c0d33f3bfd2b8d7335c5dea01c3737b2227",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 481084,
+      "username": "martingborth",
+      "score": 0.84,
+      "wallet": "0x34db6de368f335100bd46dd05f65ebdb4c7ea786",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 2110983,
+      "username": "brata85",
+      "score": 0.87,
+      "wallet": "0xa4779f033f6d6a643046b2e4a2e3282e8a4b2855",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 202681,
+      "username": "nftart",
+      "score": 0.93,
+      "wallet": "0x13ff77c9315dde5ac9cfdb7258f99d7d70011803",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1205431,
+      "username": "binfergu",
+      "score": 0.93,
+      "wallet": "0xcb6c20144609f21daac3821e9d2a1f1bb57de360",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1101250,
+      "username": "sifat125",
+      "score": 0.62,
+      "wallet": "0x6e1da4ca0871f084c610e22a1ea18d93d50222a2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 370108,
+      "username": "luonghoa9x",
+      "score": 0.67,
+      "wallet": "0x91c48c9c98c9491ffd95223ccc5b7cbed8dd91ca",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 18823,
+      "username": "ariemax",
+      "score": 0.85,
+      "wallet": "0x021b47851c123c955abc6dd73be88f0bcafda5a7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 439613,
+      "username": "cybermonk777",
+      "score": 0.92,
+      "wallet": "0xf7aa171c8db08131e3bed992147b7f63bc096d3c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1490474,
+      "username": "ahs002",
+      "score": 0.87,
+      "wallet": "0xa9bcc6932bf43315aed40d8b28a6947856a45829",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 295682,
+      "username": "kazishahporan",
+      "score": 0.94,
+      "wallet": "0xfd67210dadd7a91dd5e08dff695b777b848224f0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 312552,
+      "username": "sakil65",
+      "score": 0.59,
+      "wallet": "0x16b1b9efd5001ebb2305106f1d663256b6f9e917",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1025296,
+      "username": "ismail1243118",
+      "score": 0.9,
+      "wallet": "0x17af9a301c528824596d9e20b469fe82f23d9077",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 950452,
+      "username": "kalpa120",
+      "score": 0.78,
+      "wallet": "0xaf4f25d4aced59a22d6b929fa73020d4b0eb3b9d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 349675,
+      "username": "kinwiz",
+      "score": 1,
+      "wallet": "0xbcd980d37293cbee62bf5f93a26a0b744c18964d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1045581,
+      "username": "aoexys",
+      "score": 0.68,
+      "wallet": "0x5231275b3a17f433f35efc47b84707c70c3075ac",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 675236,
+      "username": "zeedn",
+      "score": 0.82,
+      "wallet": "0x8f81e69b171e8f2f1a483c755ff7b9f8a66a7ab5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 675150,
+      "username": "maxplay.base.eth",
+      "score": 0.92,
+      "wallet": "0xae8f28ef83588d445d4761c7918120801551e527",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 302436,
+      "username": "maxplay-.base.eth",
+      "score": 0.94,
+      "wallet": "0x11315cce8f009e4cb4234ffeaf2e860b84e5b0f6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1470738,
+      "username": "tiimiinii",
+      "score": 0.96,
+      "wallet": "0x4efe8c576f7c8ae884128c228f6808ef1f577649",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 263867,
+      "username": "electraz.eth",
+      "score": 0.8,
+      "wallet": "0xbbb0fddaae4c30ef8e1520a1c73b5acd570f1f3e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1106464,
+      "username": "maradono6",
+      "score": 0.65,
+      "wallet": "0xa1796efa07166de14c7f887e68d8147a01c0cd09",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 542453,
+      "username": "parves400",
+      "score": 0.72,
+      "wallet": "0x422f07d08b55f808f7e8caaa072570b6bb026eda",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1403670,
+      "username": "uhmojo",
+      "score": 0.77,
+      "wallet": "0x631c81085d95488a033c637c1bab2ae7bbe05a33",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1051125,
+      "username": "maestrobr",
+      "score": 0.77,
+      "wallet": "0x4ba61b974ce0d1190cff5a2a4bb8c63a1e7db618",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1079054,
+      "username": "sadheeyq",
+      "score": 0.77,
+      "wallet": "0x6193cd165fed02d914e812afc478f0889853e735",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 619993,
+      "username": "bagirhektor",
+      "score": 0.58,
+      "wallet": "0xa0c7822423a959356bb4ab8cee51a50a795e0979",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 272956,
+      "username": "0xsweet",
+      "score": 0.92,
+      "wallet": "0xe656df09cca0f9967fc326a807217ec2c4dec9c8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1545384,
+      "username": "unclewazza",
+      "score": 0.6,
+      "wallet": "0x89f769e70e5614672baaccc3e6f27825591c11ec",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 847274,
+      "username": "c2bsolution",
+      "score": 0.94,
+      "wallet": "0x0e4bf3cffb64c8c005372ee63aa14918c6a3e96a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 488819,
+      "username": "pdan",
+      "score": 0.76,
+      "wallet": "0x1df6035f143b799484eb92286e018b388df867ad",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1345383,
+      "username": "aaadult",
+      "score": 0.63,
+      "wallet": "0x79839ae0b0bace4725c8b49188ee28128ad75664",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 290132,
+      "username": "chainvirus",
+      "score": 0.95,
+      "wallet": "0x373555fa55a0833663b3cc48ac64f8d71b89249e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 376919,
+      "username": "hemnkurd",
+      "score": 0.75,
+      "wallet": "0xee78c5d6220628b63bc5c0a169122d5d37f523d3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1074286,
+      "username": "abi998",
+      "score": 0.63,
+      "wallet": "0x41faecada3c9ea6973099879a4190f8571441dbb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1041687,
+      "username": "block-key",
+      "score": 0.64,
+      "wallet": "0x9f9d5df0d4739b7d171b867d96e91d755a96013b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 811782,
+      "username": "kyivcryptohome",
+      "score": 0.93,
+      "wallet": "0x2fe55021aa3319de7b7e8390d52d1b9eeabab889",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 330718,
+      "username": "khaleefah",
+      "score": 0.94,
+      "wallet": "0xa5e09af54fc710755541d6a020b7a3c5cde968aa",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1093215,
+      "username": "uptopia-xyz",
+      "score": 0.92,
+      "wallet": "0xf4caf65eff21585a30a4b9fbe3fd925d01fa23a1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1237167,
+      "username": "kimzzz",
+      "score": 0.56,
+      "wallet": "0x62861fe29ddb8a0aff4e7c8e7f7dd251dfee5817",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 544548,
+      "username": "feiyuka.base.eth",
+      "score": 0.77,
+      "wallet": "0x3057a4c65d58a632dc76cff4bbe1fd97960b7053",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1095006,
+      "username": "dachangzhu",
+      "score": 0.59,
+      "wallet": "0x5a72885e824122965cfe1dac5b30f654fe3cbc50",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 459348,
+      "username": "samaneh8993",
+      "score": 0.88,
+      "wallet": "0xcc05e021de9b5dac6796e145e12460ed20da56a2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 738574,
+      "username": "kokocodes",
+      "score": 0.98,
+      "wallet": "0xe2e65285945353f291c45f56cd8dba0273566927",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1109872,
+      "username": "albertofdez20",
+      "score": 0.86,
+      "wallet": "0x159daa05fe1c5ea72ce9537739e958ff7e1b6cd8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 393313,
+      "username": "4x4",
+      "score": 0.59,
+      "wallet": "0x17bb2d0bd4cde19fabf85336f6b7ce82e3a1dce0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 314643,
+      "username": "hanif206307",
+      "score": 0.91,
+      "wallet": "0x5a66650712fc9dd779a968162c6838c65facb5f4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 268216,
+      "username": "elx",
+      "score": 0.97,
+      "wallet": "0x228a131932c1c5f37f8a957aeec97bac0ce5470e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 290384,
+      "username": "rojatroy1e",
+      "score": 0.8,
+      "wallet": "0x99eb1acebdda74d9c14df8c81f8cbc91d51f3672",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1599824,
+      "username": "beckyelestinec",
+      "score": 0.58,
+      "wallet": "0x620ee3f045973e8e1f6112011248e21bfce1e049",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1376778,
+      "username": "way4out",
+      "score": 0.79,
+      "wallet": "0x777f1e528dc857adb9f7f83e454032752e5cb640",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 246557,
+      "username": "panik",
+      "score": 0.97,
+      "wallet": "0x702ba46435d1e55b18440100bc81eb055574875e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 762859,
+      "username": "teberen",
+      "score": 0.91,
+      "wallet": "0x90b265eb08d3ce4d364177fb3af72b8e890c4238",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1085426,
+      "username": "shakil6965r",
+      "score": 0.9,
+      "wallet": "0x7ddfb72a3121f60cdf2214a11f70f1427be472c4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1469682,
+      "username": "ninerolls.eth",
+      "score": 0.6,
+      "wallet": "0x77fbb21175913e00be9e1d9c19acbd2752e7b976",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 291971,
+      "username": "megajayar.eth",
+      "score": 0.97,
+      "wallet": "0x2ff673a287a816fc4089cc51933f32e8c16fd416",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 305369,
+      "username": "heleknax",
+      "score": 0.87,
+      "wallet": "0x5981ed1f094b46cf6148162ee3a246970858afe6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1115947,
+      "username": "cptbased",
+      "score": 0.84,
+      "wallet": "0x9ae06d099415a8cd55ffce40f998bc7356c9c798",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 309710,
+      "username": "nomadicframe",
+      "score": 0.97,
+      "wallet": "0x255148be130862531729937152d82c51142a5d56",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 298897,
+      "username": "newscypto",
+      "score": 0.71,
+      "wallet": "0x9d1c777fad8d28e9f28f631ae4424e0d1aa611f9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 630,
+      "username": "rliriano",
+      "score": 0.92,
+      "wallet": "0xc8e0b13b8a33f85e4e715d8d17e2a0d7085c55aa",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 233625,
+      "username": "arafah",
+      "score": 0.79,
+      "wallet": "0x1e3cfee7b721e17b057e93d2e4af33723818f766",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 429180,
+      "username": "strangergirl",
+      "score": 0.7,
+      "wallet": "0x937190b27491acc0938e4e60d3011dace66236d0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 213222,
+      "username": "hendrazk",
+      "score": 0.7,
+      "wallet": "0x195e317f0616d1c3b3a4171a9997467aa05b376f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1046731,
+      "username": "marabara",
+      "score": 0.95,
+      "wallet": "0xb0ba77917cdda6e7cc2366bc3f49f247a760f70d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1050268,
+      "username": "stlifestyle.base.eth",
+      "score": 0.85,
+      "wallet": "0x98b630395acfbbf944711bc470e3c89e5e52e253",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 20081,
+      "username": "alexandergt",
+      "score": 0.97,
+      "wallet": "0xaca2f322d69e07993e073c8730180fb139ca4446",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1165252,
+      "username": "edriceth",
+      "score": 0.68,
+      "wallet": "0xdd0933bc0d2921132cdfe2f91422f56d1b6d89ab",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 544630,
+      "username": "sabidah",
+      "score": 0.61,
+      "wallet": "0x0b00b78a91ca498b7df12bdbd2089cb2fdc17a77",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 939438,
+      "username": "fireog",
+      "score": 0.91,
+      "wallet": "0x3e290cf558f98cf444b948bf962a6378b78fe369",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 203754,
+      "username": "satoshinaka",
+      "score": 0.67,
+      "wallet": "0x2136184d88f0e711f59098586511e60005404db8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1009776,
+      "username": "betobutter",
+      "score": 0.92,
+      "wallet": "0x8f7971130abbad9dbe9caf6886c31b64d4504737",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 5395,
+      "username": "0xconca.eth",
+      "score": 0.97,
+      "wallet": "0x788f6b0226553f7331054438e3bda08f989cc007",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 194071,
+      "username": "duccpt992",
+      "score": 0.59,
+      "wallet": "0x11886d015734a3b21e31e64708e9dad7d460febc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 221255,
+      "username": "ligne12",
+      "score": 0.82,
+      "wallet": "0x586b616470edc7640466d7ac2182b017b9000820",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 277093,
+      "username": "gang101",
+      "score": 0.67,
+      "wallet": "0x1a337066433877c0ec34afade14945cb0aaf39a6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 342433,
+      "username": "ireside.eth",
+      "score": 0.95,
+      "wallet": "0xa5ec502a322dd8ed24f154c3a830475ca2d71e48",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 17817,
+      "username": "rezanonestop",
+      "score": 0.62,
+      "wallet": "0xca26f58a0a6d0bc06354305f46c4225fce7aa550",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 862378,
+      "username": "eternalval.eth",
+      "score": 0.56,
+      "wallet": "0x92d0ea405c02a5afda6154989d207493f9789972",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1501006,
+      "username": "web3webguy",
+      "score": 0.57,
+      "wallet": "0x674d1d17a6b961a1ea4b361fa46c3708a5e41f46",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 5494,
+      "username": "jachian",
+      "score": 1,
+      "wallet": "0x9b327cd5c79b58bd64388a742adc9489dc7f2dbb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1362089,
+      "username": "trololololo00.eth",
+      "score": 0.6,
+      "wallet": "0x265a965706bca4e83a5993eaae0e9caaf12f63f0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1371361,
+      "username": "frustration",
+      "score": 0.84,
+      "wallet": "0xcbd5b4ecac88bf7d9653c19fd422f4fa255dba2b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 321163,
+      "username": "paulc7.base.eth",
+      "score": 0.6,
+      "wallet": "0x5415f65eac0bc3d3cccc2338c1efa3126c2ee5cb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1358782,
+      "username": "vibeofficial",
+      "score": 0.64,
+      "wallet": "0xd6f81a9d256c667837c120ad5d01247755a5ebb1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 268626,
+      "username": "subairtec",
+      "score": 0.72,
+      "wallet": "0xf54c3de95f9da695f96699b8ccf40fe512661712",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 300025,
+      "username": "blueowl",
+      "score": 0.78,
+      "wallet": "0xf8589b54fd7fa01f48ede3a8ab857fdff2eda510",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 339133,
+      "username": "mikeaknin",
+      "score": 0.69,
+      "wallet": "0x55cfce6f38f2d7272e30b14fafe418946caa876c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1436370,
+      "username": "crazyy",
+      "score": 0.83,
+      "wallet": "0xa853c3ce1cfdfba89b7ceea3bfc06cd94ff512ff",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 201721,
+      "username": "daves",
+      "score": 0.63,
+      "wallet": "0x75a82e93f72db7c83a72b36e5dff0f068b4c5676",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 333144,
+      "username": "mehedi01320",
+      "score": 0.76,
+      "wallet": "0x70997ccb5ebf5b94aa0968f62349ffcde9024f4e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 880558,
+      "username": "geniusjoe",
+      "score": 0.88,
+      "wallet": "0x50e023954e4ef678e0c906c0d761fea854b63c6e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 214746,
+      "username": "jvhbo",
+      "score": 0.95,
+      "wallet": "0x2a9585da40de004d6ff0f5f12cfe726bd2f98b52",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 552763,
+      "username": "robivai",
+      "score": 0.85,
+      "wallet": "0x33ee7611307b6e689b537abf9a6ad38845707cd3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1412592,
+      "username": "hoangduongbilly8",
+      "score": 0.78,
+      "wallet": "0x5fbc0f6f2d8e3ba4d76d1738e89dc6e2bea4fb74",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1060495,
+      "username": "delahuntagram",
+      "score": 0.91,
+      "wallet": "0x7cb71fc5af75e4879869629977b4e436db3970e8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1440432,
+      "username": "agritoken",
+      "score": 0.84,
+      "wallet": "0xc690ea5c4ba81e4980c8fde4eb8a6fb76fcb9d3a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1076086,
+      "username": "bearland.base.eth",
+      "score": 0.92,
+      "wallet": "0xe0584bd41c11f9f16e57e45b183d3dc18599547c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1456214,
+      "username": "kauersaki",
+      "score": 0.71,
+      "wallet": "0x2566c41ee904074a643b023278f0f89df1156370",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 310444,
+      "username": "faithe",
+      "score": 0.76,
+      "wallet": "0x776462ff8707c8520a70cbb62e4a6410acef247d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 253930,
+      "username": "0xdecentralist.eth",
+      "score": 0.63,
+      "wallet": "0x9df097378fd24d51a5ade0d0c895975b78e7e4ac",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1076972,
+      "username": "ahmedkhan919",
+      "score": 0.6,
+      "wallet": "0x2b242e410538ebd8ebe7bba3b0ae5d2655a13e76",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1218036,
+      "username": "burgermoney",
+      "score": 0.9,
+      "wallet": "0x1bbcccea0f329b0b0389655886a86b5172f7b84a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 714965,
+      "username": "tasnimmily",
+      "score": 0.78,
+      "wallet": "0x5f741994c563112e09861cd9c9fa88efec15c3c5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 898346,
+      "username": "hungthanh402",
+      "score": 0.62,
+      "wallet": "0xf6042f30af88dc859fac4a1d3e568b1bcbc57213",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1457139,
+      "username": "wan2firdauz",
+      "score": 0.58,
+      "wallet": "0x20dc129a6c45f920e5566cf477e3d24bbc658c8c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1060579,
+      "username": "shafiul94",
+      "score": 0.72,
+      "wallet": "0x848e4c220d78dae7e730d165788a12e16f1fa2c2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14978,
+      "username": "hypoweb3.eth",
+      "score": 0.94,
+      "wallet": "0xb06437c630b57598a6c177513f2f4ab04b95744b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 933834,
+      "username": "dexca",
+      "score": 0.93,
+      "wallet": "0x55fbfddd6ba05a474137d6d290d3aeac9757363d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 237548,
+      "username": "mutlucankurt",
+      "score": 0.7,
+      "wallet": "0x00167dc74b2a630547951858f6e3cadad3c629ed",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1306706,
+      "username": "sarhat",
+      "score": 0.6,
+      "wallet": "0xd2883a6756797b929e9a79e909e5f50323d986ba",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 255169,
+      "username": "n00ts",
+      "score": 0.9,
+      "wallet": "0xa26997a78e5d90704437cecde7b6021280ed029a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 273791,
+      "username": "315",
+      "score": 0.73,
+      "wallet": "0x9509ad9a025155857f9d788f34d30f52aa2db8ed",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 198826,
+      "username": "shockwavedragons",
+      "score": 0.91,
+      "wallet": "0x2ebfc3f01d584fb7428495b46e16cb40b141e700",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 548007,
+      "username": "trunghieu95",
+      "score": 0.56,
+      "wallet": "0x885d524bd147191a1f6bd79ec75346036c1365e6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1067707,
+      "username": "mominsdcc",
+      "score": 0.6,
+      "wallet": "0x1522269d59d352a1d88bc67ec7be52199d50bee2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14731,
+      "username": "sanchotero",
+      "score": 0.7,
+      "wallet": "0xf77e2c9b9ea81843d97a034e50aaa61b54edcc92",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 301258,
+      "username": "namsom",
+      "score": 0.83,
+      "wallet": "0x688e603bf3cb0aed46f39635035d341abe1d5466",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 278694,
+      "username": "blotta",
+      "score": 0.74,
+      "wallet": "0x6d505d731a4d7bc24e5b8547066615029b9a81b9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1357164,
+      "username": "mvcinvesting",
+      "score": 0.6,
+      "wallet": "0xea71bf8d754ada562074229904e7187740fe80fe",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1399580,
+      "username": "iamthetake",
+      "score": 0.57,
+      "wallet": "0x5efa157f23d18eccbee008cc83534b10d98e9833",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 329223,
+      "username": "demonstarieze",
+      "score": 0.61,
+      "wallet": "0x2bcb2c0eb5e16046802f0ce1a4c94537781a7718",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1380168,
+      "username": "cannabicool",
+      "score": 0.73,
+      "wallet": "0xe9d6e4e364f08dd16c8d50a6333e3be4ad927aaa",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 679893,
+      "username": "shibin",
+      "score": 0.87,
+      "wallet": "0x49ee9234fca7ee714f28386869db54bba78f2fb9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 457572,
+      "username": "grims",
+      "score": 0.86,
+      "wallet": "0xe3be356a8b27eb199e53a251e1a84ddad0ead9b7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1116733,
+      "username": "visionofweb4",
+      "score": 0.97,
+      "wallet": "0x2216b7755f4bd2909756c41ddfe8f7c620ff2cea",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 685189,
+      "username": "larovitchhh",
+      "score": 0.73,
+      "wallet": "0x3b90ee4962571ee9b706d4a8f29ccd70e40060d9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1064034,
+      "username": "nilsu",
+      "score": 0.64,
+      "wallet": "0x0d66b7ceb324dbf60d144274ccdc70f92189efa3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1383608,
+      "username": "dgbet",
+      "score": 0.82,
+      "wallet": "0xde25ecfc56786d62a6302e6c0b53280a9f01d6eb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 557503,
+      "username": "farmer1400",
+      "score": 0.67,
+      "wallet": "0xb98eeaaf30cf6f2e5532023d00a7dfaa35c69862",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 434598,
+      "username": "moooneth",
+      "score": 0.63,
+      "wallet": "0x3fcfe8768917faebf08a2a3920d5c738dda07518",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 311722,
+      "username": "metamaks.eth",
+      "score": 0.72,
+      "wallet": "0x1046394abffeec81be8c48136745a4a46917ccbc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1329742,
+      "username": "jonsmith0",
+      "score": 0.69,
+      "wallet": "0x0097a0515218696cc5b94ae266037cab1937fd20",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 263383,
+      "username": "farukyasar",
+      "score": 0.79,
+      "wallet": "0x43ab61dbe594aef507adcb9dec0fd4423f194cc9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 542216,
+      "username": "lordszaszy",
+      "score": 0.59,
+      "wallet": "0x0249490813ac95fbe72141d6fd85bf4c1e31841b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 446853,
+      "username": "owaisarain",
+      "score": 0.57,
+      "wallet": "0x5b1828e86b396625af9c9eb3570e4e52ef170d07",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 303226,
+      "username": "nawazyg",
+      "score": 0.84,
+      "wallet": "0x390e29d45f47c352fee126165f133ff61a282ec4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 240020,
+      "username": "streetz",
+      "score": 0.83,
+      "wallet": "0xee3522db3fcd9ec3c1bdedd4e96daf792d8f0b48",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1067317,
+      "username": "kokmeto",
+      "score": 0.56,
+      "wallet": "0x1c179300aa1d38d8160f223f2707949f00503230",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 897704,
+      "username": "nakshatra",
+      "score": 0.71,
+      "wallet": "0xf619ddb6d0c52cc083aa9fece2943d04f671bf7f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 425865,
+      "username": "cryptocaster",
+      "score": 0.95,
+      "wallet": "0x90866dd1e733af642d56938dc6998670d8cbf183",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 954784,
+      "username": "bitswagger",
+      "score": 0.78,
+      "wallet": "0x699f325b644fbc3b7e4be90a70946a750252e157",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 10920,
+      "username": "paragism",
+      "score": 0.66,
+      "wallet": "0xc7964cf98eb028ad27855c78b30e2474f920f7e5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1065161,
+      "username": "vellia77",
+      "score": 0.78,
+      "wallet": "0x787e60e6fd52459292111297614a6f8a360f2f81",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 898185,
+      "username": "revoxrexx",
+      "score": 0.6,
+      "wallet": "0x27c297a21efc5d9e98a5c74930f3011488536ec5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1375836,
+      "username": "cryptoinseder",
+      "score": 0.6,
+      "wallet": "0x9ee201139fd5fb5e35812acbfb99835a9b0fe2eb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 242090,
+      "username": "at79w",
+      "score": 0.96,
+      "wallet": "0xc18537d069feeb6cd32cd06834669069838aa3eb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 209707,
+      "username": "greentime1",
+      "score": 0.86,
+      "wallet": "0x083bdc85a2aab9898f5d17a853202e57b6d76891",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1370581,
+      "username": "daiacustodio",
+      "score": 0.6,
+      "wallet": "0xfcdb4d3a3881a77e8a7d7310169eb1004c763b62",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 268608,
+      "username": "darkknightutk",
+      "score": 0.99,
+      "wallet": "0x79db69724610cfd36e272eeb415207cac31ae7c3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1122642,
+      "username": "shhsh.base.eth",
+      "score": 0.75,
+      "wallet": "0x834fd0731c609f3165fce30cd001df3c33692198",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1359341,
+      "username": "jenniferrose",
+      "score": 0.61,
+      "wallet": "0x48451929db848e9da5552d881e1a48223262d001",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 315981,
+      "username": "sadikul",
+      "score": 0.89,
+      "wallet": "0xabdb3591aa07b7d533dd8aa546568c573430f5a7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1066589,
+      "username": "untasspanamorr.base.eth",
+      "score": 0.81,
+      "wallet": "0x1fedcfd24af4a78d8c04bf49b7418dc4f88a7a3f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 867011,
+      "username": "sangdo",
+      "score": 0.65,
+      "wallet": "0xf636be2323c2c13a8fb84a090256b316f4392673",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1064009,
+      "username": "zakie4u",
+      "score": 0.98,
+      "wallet": "0x5143f2585bcf01f7d8d61ca70c378648db558064",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 301776,
+      "username": "mgx",
+      "score": 0.68,
+      "wallet": "0x904944e8453dbe3eb7e9ca6ae15612fc4f49a8cb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 285781,
+      "username": "yarramsetty",
+      "score": 0.7,
+      "wallet": "0x203e3fba20387fdff31fa050e6fded3227cd82e9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 650620,
+      "username": "bobyboby2828",
+      "score": 0.85,
+      "wallet": "0x66d844d651cfcc593663f003dd259d7812071b00",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 244039,
+      "username": "zakir71",
+      "score": 0.97,
+      "wallet": "0xeae06f08800c01cf4ed888b7cb359ac3249d9442",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 266513,
+      "username": "murtaza71",
+      "score": 0.94,
+      "wallet": "0xc714e0dfc3f82321b1033d202a3ad02daad10f13",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 308343,
+      "username": "fayyaz",
+      "score": 0.87,
+      "wallet": "0x4f478cbeb659e30bd33e63b7880a2c50fc13c4a3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 385556,
+      "username": "0xrobot",
+      "score": 0.81,
+      "wallet": "0x9a32601eb30cc7bb17cc831c18bd5d1388f428f9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 441451,
+      "username": "apemax",
+      "score": 0.67,
+      "wallet": "0xc719f03f0e6a22e95e8a94b7b9f992d481435d7c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 288461,
+      "username": "mdshaon",
+      "score": 0.78,
+      "wallet": "0xb3bc0e8a321d78c36e30a24a97940d532e5902d0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 267671,
+      "username": "ccv",
+      "score": 0.97,
+      "wallet": "0x0bff2342cea541817120802b09b2d2f634b20521",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 880473,
+      "username": "profkavosh",
+      "score": 0.86,
+      "wallet": "0x4f670f80357ffc51cb49d04fe55aa52baf102c47",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 301340,
+      "username": "kdaniels.eth",
+      "score": 0.99,
+      "wallet": "0xaac60c858895befaf42378467bc9f3bd69c5efae",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1049927,
+      "username": "cartoonmeseries",
+      "score": 0.57,
+      "wallet": "0x4ba58317b1dd49a050668e7fcbf3569fba6b97b9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 387719,
+      "username": "drishka.eth",
+      "score": 0.94,
+      "wallet": "0x9f80825a2a234cf3c7484b6042e572f707dcb05a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 189949,
+      "username": "minhtung",
+      "score": 0.8,
+      "wallet": "0xdca6535094676644882f4a3c8296b64116fe31a8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1111249,
+      "username": "chengsengchee",
+      "score": 0.77,
+      "wallet": "0x35c3a97e5c8327ae68455d76988171930b3ea3e0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 311822,
+      "username": "bedlam520.eth",
+      "score": 0.76,
+      "wallet": "0xdece49ef08a75f02499d965a36eeaeffcdd3d483",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 351756,
+      "username": "bmummpy",
+      "score": 0.57,
+      "wallet": "0x041babb1495fbb106531b210c5abf354986ece0b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1097919,
+      "username": "vandhoe",
+      "score": 0.57,
+      "wallet": "0x17e6ffac3a4645d25d9823036c02e7bfd931bb87",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 320189,
+      "username": "drakhonen.eth",
+      "score": 1,
+      "wallet": "0x11bc6e6e4739c24332c5d384f939f2da3c06b130",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 267642,
+      "username": "hendy",
+      "score": 0.81,
+      "wallet": "0x9fbf06ef704fa5aa3b5da008ce8f115c8726e545",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 235390,
+      "username": "minazuki",
+      "score": 0.83,
+      "wallet": "0xe6543e28ee030ff3b12b964030e847798519a024",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1084615,
+      "username": "kingdropsol",
+      "score": 0.7,
+      "wallet": "0xa94a2c5c7cb6b79df57787c9db44f01364465bf1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 492032,
+      "username": "jinwoopark",
+      "score": 0.86,
+      "wallet": "0xf8a33a86af4fc17f4fcfe81bf815c802510700bf",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 365716,
+      "username": "huj",
+      "score": 0.84,
+      "wallet": "0x73d52bf205839bb5b090ad68d8691a2462492bf1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 812705,
+      "username": "ck007",
+      "score": 0.58,
+      "wallet": "0xc26bb2890cdaeb0f695c20531affd66dc300deae",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 445796,
+      "username": "drmat",
+      "score": 1,
+      "wallet": "0x6d538c0db342c493f864a42d6e5696a3e5bc8047",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 512380,
+      "username": "artstudio48",
+      "score": 0.97,
+      "wallet": "0x796af61116ab898b4f5c9f6fad15313f52977c2d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 512551,
+      "username": "redroze94",
+      "score": 0.57,
+      "wallet": "0x8a25b532c1fbe8ad7d16611b7283b1c90fe8122f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 377020,
+      "username": "moris6",
+      "score": 0.57,
+      "wallet": "0x77b7afcb653c07fc89656b8b4845635c2b3ce382",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 315225,
+      "username": "nmnima",
+      "score": 0.73,
+      "wallet": "0x2667b25119e38e2d308ea3685d67a38a4f8021a5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1132473,
+      "username": "cranck86",
+      "score": 0.68,
+      "wallet": "0x3f59ca9f94a7f5c40a3e679ecbf536c6178b18f6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14253,
+      "username": "paydar",
+      "score": 0.98,
+      "wallet": "0xfe042b1aeb471cff2e1a6709e5682533d19cbcc7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1088194,
+      "username": "mojubreen",
+      "score": 0.56,
+      "wallet": "0x3635d5c049cbb0f2b1f356f58cb03e29930157b5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 229801,
+      "username": "poke",
+      "score": 0.7,
+      "wallet": "0x0af44f107dcb69f228c14c28e124140ad77407b5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 455965,
+      "username": "nhp",
+      "score": 0.98,
+      "wallet": "0x5f38c6bb41423831ed47e3ba7f9794a35ec2afb9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 441960,
+      "username": "jacobellman",
+      "score": 0.93,
+      "wallet": "0xb3a87f9e469ed58df6bde34b2dea438f5838c52b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 669960,
+      "username": "mrsgee",
+      "score": 0.67,
+      "wallet": "0xd37b859f91ae02e7c86e9c4f5eb32a65a3d9dccb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 236443,
+      "username": "kosiris",
+      "score": 0.95,
+      "wallet": "0x60a9862d3cfaa3e422c6238c5ef1d26ed7507b1c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1117113,
+      "username": "jeyloo.eth",
+      "score": 0.97,
+      "wallet": "0xceac422b0db8e2924824b5ca4741c464b9b7b6f4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 387282,
+      "username": "hadisrad",
+      "score": 0.64,
+      "wallet": "0xffd090bf2a3effa0c720d8f9eebe2c78f04742a9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1057524,
+      "username": "imanuelbuchi",
+      "score": 0.64,
+      "wallet": "0xb6ead26988c6b17d3b04d556aa893137796e416e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 880427,
+      "username": "sashmash",
+      "score": 0.63,
+      "wallet": "0x0a2427fa7f2a56cab87708f830f5801c1c09ddc7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1047423,
+      "username": "adityaranvijay",
+      "score": 0.73,
+      "wallet": "0xbb681a58732fd1d93cb1d95072b2da9628cb0236",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 456355,
+      "username": "negin1368",
+      "score": 0.86,
+      "wallet": "0xd51e5909ceb373e782d7c346623b6c5605111dda",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 337781,
+      "username": "manempowered",
+      "score": 0.74,
+      "wallet": "0xa118214350a7f63d6ef4e261a3d60a063eee62be",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 303577,
+      "username": "hoki69",
+      "score": 0.6,
+      "wallet": "0x93a65633a725fc88b8a2a21eb844efc7a79a0241",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 19613,
+      "username": "fractalvisions.eth",
+      "score": 0.97,
+      "wallet": "0xc17fc70370ab7cf81865057bd1dca966cd1a9aa3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 541936,
+      "username": "zuny",
+      "score": 0.57,
+      "wallet": "0x8fcd8a4ab80fd0b8a4cbf506ac049b03b8de0fb8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14871,
+      "username": "themrsazon",
+      "score": 0.97,
+      "wallet": "0xc3c7202ac60523880f40ee9ec17f8d8e3337c380",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 8914,
+      "username": "not3nough-eth",
+      "score": 0.88,
+      "wallet": "0x4accdfd779e8fa60a3686030a6eb36d663399e13",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 380885,
+      "username": "cryp2romz.eth",
+      "score": 0.9,
+      "wallet": "0x2f10cff66f98860ad46f5ba4e71eb341fb187a55",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 677707,
+      "username": "oyale",
+      "score": 0.75,
+      "wallet": "0xbbcebe0382ae0a85afc1dc9450f323fa48c2fd96",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 266153,
+      "username": "deathnotes.eth",
+      "score": 0.93,
+      "wallet": "0xab4f01e48d3304516ba6b925132d8695ea4fa657",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 979652,
+      "username": "rehankhn01",
+      "score": 0.88,
+      "wallet": "0xcbcb64cf207b1762434f2ace17b0d0b1726d457a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 249432,
+      "username": "hdr",
+      "score": 0.81,
+      "wallet": "0x35aaab0d9eacfcaf93d84a5b563f5ba73ef27ef8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 271946,
+      "username": "kindkknd",
+      "score": 0.96,
+      "wallet": "0xe2bb7f77bef73b6c4bae8e9460462cdfa5be151b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 246962,
+      "username": "jimicohen",
+      "score": 0.96,
+      "wallet": "0xfc9265a28f66cf4561d74a4e25d7bbd3f482b8e6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1042494,
+      "username": "babartos.base.eth",
+      "score": 0.97,
+      "wallet": "0xb37bf0176558b9e76507b79d38d4696dd1805bee",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 369495,
+      "username": "lifesaylor",
+      "score": 0.79,
+      "wallet": "0x701377685672e38803cdf17b7f4986bafb5937db",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 240260,
+      "username": "nodes",
+      "score": 0.95,
+      "wallet": "0x9c9adcc2129b3f0c299e0fc4e23d8b51ae22e183",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 845356,
+      "username": "dimapas91.eth",
+      "score": 0.76,
+      "wallet": "0x775c69eb45bd329da933780a5caab26916606bec",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 853424,
+      "username": "dhammrr",
+      "score": 0.7,
+      "wallet": "0xadcdb97cf704b63f32f0d63452f4edcc6cb4fbb4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 404703,
+      "username": "jawarpe",
+      "score": 0.78,
+      "wallet": "0x568777c80a34a32c7e90c9b05edc8732232c7e94",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 430082,
+      "username": "0xabir",
+      "score": 0.66,
+      "wallet": "0x53ddeed4ab88e5d904d16432c096dcbd94753e84",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 307163,
+      "username": "caplockbase.eth",
+      "score": 0.97,
+      "wallet": "0xf1a871af236ec0da070c3b09302270ccf4e35794",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 229658,
+      "username": "userbox",
+      "score": 0.95,
+      "wallet": "0x2c58f853b21becbf9abb59995c7ae33a6750bd0b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1082483,
+      "username": "mahanazadii",
+      "score": 0.57,
+      "wallet": "0x6d02512855e2bc5345eeb92486221b6e69eaf211",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 324395,
+      "username": "brybrye.eth",
+      "score": 0.99,
+      "wallet": "0x9e866cca73e7c7a18c42457b25caa45d8d10aa5c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 427349,
+      "username": "dosir",
+      "score": 1,
+      "wallet": "0x644e09bea250a6edd577271b0be08d5fb29f716d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 311845,
+      "username": "reisub.eth",
+      "score": 0.99,
+      "wallet": "0x11415669286d998fd85a2a6146c41f6be41a794d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1064776,
+      "username": "shayed71",
+      "score": 0.7,
+      "wallet": "0xd280d0a6977a293e1a00c724858dcd97b95ac631",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 843630,
+      "username": "leventis",
+      "score": 0.88,
+      "wallet": "0xa35d653a6a50291e1647a36cd6323b74848cc672",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 312874,
+      "username": "itsltlthings",
+      "score": 0.9,
+      "wallet": "0xe043bf24d5fccf6ff829b2d037179d0420310e84",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 263574,
+      "username": "tonyminh",
+      "score": 1,
+      "wallet": "0x5b3cec6a5e219674d4485be572cd3faae338bfc6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 409573,
+      "username": "memeceo.eth",
+      "score": 0.98,
+      "wallet": "0x199554ccb0c7e11a8c5275a41f3e61a92c235846",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 262825,
+      "username": "ahadul",
+      "score": 0.78,
+      "wallet": "0x4b85201a69de75d72b65c1c9db069cd08fab0792",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1252503,
+      "username": "cobuild",
+      "score": 0.94,
+      "wallet": "0x1563eef7dc135e7d8c6c6793eb5538da5ca6e596",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 322860,
+      "username": "moniruzzaman",
+      "score": 0.85,
+      "wallet": "0xa32b7fa0a5b3a7630be3facbfd61c2f674950ffc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 15798,
+      "username": "cyberelitex",
+      "score": 0.93,
+      "wallet": "0x91c2232f8eab20b21aa95c325aaf9aad639ff486",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 688178,
+      "username": "brownskinope",
+      "score": 0.71,
+      "wallet": "0x921d49ad77c58b91403c2a2c34ccd01372e21ede",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 836625,
+      "username": "blessskateshop",
+      "score": 0.85,
+      "wallet": "0xaadfcfadeaf8424b7a3d345c3131ff0e975ad09d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 20138,
+      "username": "fcarva",
+      "score": 0.89,
+      "wallet": "0xaaed9fff9858d48925904e391b77892ba5fda824",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 888823,
+      "username": "sethnuno00",
+      "score": 0.68,
+      "wallet": "0xef2c19dca414511ecbbb9fd8d0b201d293d341ab",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 379811,
+      "username": "tinaaa",
+      "score": 0.64,
+      "wallet": "0x4c5d9bfa7baaa68b992204092ae036758af59026",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 11552,
+      "username": "alecpap",
+      "score": 0.96,
+      "wallet": "0x82ca1976bd5b5a35a1bc52d09467e3b962bfb9c7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 5644,
+      "username": "ebeezy.eth",
+      "score": 0.97,
+      "wallet": "0xe41f56122d44f63c4492096d54d8be96d600bb06",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 238425,
+      "username": "rocketman",
+      "score": 0.97,
+      "wallet": "0xf5179fcf14f5c233689b0b4e9b7b03785ecba5a5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 846009,
+      "username": "tatake",
+      "score": 0.71,
+      "wallet": "0x60e943598ed671e8f9d57f1d482f3c68165ae953",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1146083,
+      "username": "bigbroali",
+      "score": 0.66,
+      "wallet": "0x7b12b2f06c694e0e7e1060e9628ebd36de519351",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1233229,
+      "username": "cillibirisi",
+      "score": 0.61,
+      "wallet": "0xe90b1fcaece845364a6e701c1960b7d6551c666c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1096584,
+      "username": "bbmeme",
+      "score": 0.6,
+      "wallet": "0x1f8ee6393a5cf6cf8e96b8a44e4f5d0ffde56444",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 389808,
+      "username": "disky.eth",
+      "score": 1,
+      "wallet": "0x9a97068d25987ec6ba36afb3f36a9c784529526a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 277636,
+      "username": "hustletrees",
+      "score": 0.99,
+      "wallet": "0xf6e9c766cad8b6ecf06accf64b57f92995be6e50",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 267104,
+      "username": "femmie",
+      "score": 0.98,
+      "wallet": "0x9467b927697024ae0b66c8635d967db0acc3d96b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1004506,
+      "username": "sanjisaturo",
+      "score": 0.79,
+      "wallet": "0x82ff7943c6f33401c2918f88923858a4dddd7f6b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1020976,
+      "username": "joker4fun",
+      "score": 0.87,
+      "wallet": "0x26bf81b208103d20013e74948fe4066aae49c216",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 439015,
+      "username": "ifun",
+      "score": 0.92,
+      "wallet": "0xc2188f6d67fed5f32feb14b8f3520f058e978551",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 314062,
+      "username": "pktdat.eth",
+      "score": 0.68,
+      "wallet": "0x2585247ddeb117710094111906aa2d1ff223a032",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1082268,
+      "username": "sftwr",
+      "score": 0.61,
+      "wallet": "0xc2fe76df4335c570960b875299ec958819b9e043",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 448502,
+      "username": "nimaleophotos.eth",
+      "score": 0.98,
+      "wallet": "0x000179fe59dbdc25c4d399c16c5c6b2d9a32093e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 368483,
+      "username": "cgardens710",
+      "score": 0.74,
+      "wallet": "0x9929ea260f9bb09486f318c922d85353059f9e0e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 251619,
+      "username": "0xfrt",
+      "score": 0.66,
+      "wallet": "0x99344b575b83360410a0e4dce75189edecacc824",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1124307,
+      "username": "zeusdev",
+      "score": 0.88,
+      "wallet": "0x9d631fc85420f4c1f742093f081d51ae63b7e9d7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1041984,
+      "username": "mdaslam1917",
+      "score": 0.81,
+      "wallet": "0x19da563c69f26f3fa3711477ca6c7467b5f768bc",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 482984,
+      "username": "nushinomidi28972",
+      "score": 0.9,
+      "wallet": "0xc947b00d5646d2d0167100c06dce3bc638b4253b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1073358,
+      "username": "vkassurance72",
+      "score": 0.6,
+      "wallet": "0x4a5ddfc28e1d0f7d9767851b666af9178e4ec4ea",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1163976,
+      "username": "mitra116",
+      "score": 0.57,
+      "wallet": "0xdcc36cfac535696afab825bd02d75040fab1f7a2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1023346,
+      "username": "basednukem",
+      "score": 0.82,
+      "wallet": "0xcd7edea4be83d02db5cfe0079847581723bb28b4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1101604,
+      "username": "zk420",
+      "score": 0.82,
+      "wallet": "0x617e1cbaf2441f971758740e4c282f576f3a3718",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 8151,
+      "username": "if",
+      "score": 0.96,
+      "wallet": "0x980cd99311f3b3264f5dfdce33d204a8d6d492e4",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 356019,
+      "username": "flyinbanjoplayer",
+      "score": 0.63,
+      "wallet": "0xf76ff1c0fe747a170baaa67b090d61d47023a215",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 427102,
+      "username": "bisaswar",
+      "score": 0.66,
+      "wallet": "0x4984856cc0d328be9c42a4a519a620916904faac",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1052782,
+      "username": "alexanderdgreat",
+      "score": 0.6,
+      "wallet": "0x772ab5e41e03752f48bac27f29823600c37b2e5d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 484486,
+      "username": "mrsa",
+      "score": 0.86,
+      "wallet": "0xbb09c5e6809baf55013475cf94213f4137c80f4d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 875885,
+      "username": "pranta1000",
+      "score": 0.8,
+      "wallet": "0xb230ffc4fc091bdd41d83d54eb4f7c0f0cc147a3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 502916,
+      "username": "juvelir",
+      "score": 0.59,
+      "wallet": "0xe7a6f2a51de5ae0c6ea17b5ec3c44cecbdf2dadf",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 423255,
+      "username": "minchow",
+      "score": 0.98,
+      "wallet": "0x756c338c3e3890288846e13972f2a49b7f90e83e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14366,
+      "username": "marygh",
+      "score": 0.82,
+      "wallet": "0xef5ed4c180bd3bff857ac50c66a65a2ee6e3d998",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 474817,
+      "username": "attilagaliba.eth",
+      "score": 0.96,
+      "wallet": "0x491c630d4f81f7f6b1e577a5a673583477b94188",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 417384,
+      "username": "aadarsh",
+      "score": 0.91,
+      "wallet": "0xabcf21dd7d027fb6b04ca0da1d0fb2ed8d6d4701",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 468732,
+      "username": "shivala1370",
+      "score": 0.79,
+      "wallet": "0x75f8554d24cc7204414cb21ee003105f7ea6a0f0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1019945,
+      "username": "digitaldogg",
+      "score": 0.91,
+      "wallet": "0x9dce7e35640fb10696949a5e1fc8c8e0b511a994",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 385955,
+      "username": "degenfans",
+      "score": 0.99,
+      "wallet": "0xbc57373c9b99524f6300664e2602a0427a9ec0db",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 528697,
+      "username": "juckson",
+      "score": 0.87,
+      "wallet": "0x2734d08d2a9711c414ff2d9dd4c2262ad6d9ba5a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1076679,
+      "username": "ahsenkhan",
+      "score": 0.58,
+      "wallet": "0xf6e8de1e488514e4da3f577625b2ad578309915d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 449301,
+      "username": "milad47.eth",
+      "score": 0.98,
+      "wallet": "0x29ec3409729ff4cbed66d69a88ac94234b8c0ca1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 249629,
+      "username": "eman26",
+      "score": 0.8,
+      "wallet": "0x74770c5d2a5a4f3ed5413533aede786a3d0b34bd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 5431,
+      "username": "esdotge",
+      "score": 0.99,
+      "wallet": "0x3cc1a943b27c2af7c6dcf3be0137f66c2f22e712",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 370406,
+      "username": "ntlhutech",
+      "score": 0.64,
+      "wallet": "0x900d6d956b6c43d54564dfc7b821c376a7a49ce9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 412734,
+      "username": "dragon868",
+      "score": 0.71,
+      "wallet": "0x0713a96da2d7ab7db0bc22f9003a53b29e129a96",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 506544,
+      "username": "fundry.eth",
+      "score": 0.56,
+      "wallet": "0x646715452c3f9f8e31318e6d8808d88f756a07ec",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 222479,
+      "username": "lupinnguyen.eth",
+      "score": 0.58,
+      "wallet": "0x1c2959d2bfbdd7df23dad132430e165c5cee0199",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 16715,
+      "username": "normancomics.eth",
+      "score": 0.95,
+      "wallet": "0xe0ad8c715dbce1912a820233f7138959c84c1b9c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 12731,
+      "username": "naz1188",
+      "score": 0.95,
+      "wallet": "0xeaccffa191f39313578fa08b5e290c366cb163a9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 349228,
+      "username": "crezno",
+      "score": 0.97,
+      "wallet": "0xd861602fcb5557314fcf0dca576414d2b3f68592",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 239748,
+      "username": "vlady",
+      "score": 1,
+      "wallet": "0x2e5e1d7d74d17c5ab0376ca1d99cbc5619607672",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 644583,
+      "username": "minooart",
+      "score": 0.87,
+      "wallet": "0xd60ddcd7c7d3820a7653dfabdf456555c63e13dd",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 298464,
+      "username": "sezar",
+      "score": 0.93,
+      "wallet": "0x1afcea61042318d6f9ab4cd6801e19960c7c998c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 255497,
+      "username": "phamduytien",
+      "score": 0.8,
+      "wallet": "0x93b0cef108d69ca989a66c3c104a38398a5dd87d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 313938,
+      "username": "usama",
+      "score": 0.67,
+      "wallet": "0x4180f027e1a0f69bffb918192cde9c0ec44af375",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 315983,
+      "username": "homer27",
+      "score": 0.92,
+      "wallet": "0x1652c63d51105a9ac631da5138e84ec849253d2e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 831491,
+      "username": "chaeyoung",
+      "score": 0.98,
+      "wallet": "0xf6c2f27f8efd2bf75fdda7506593643c1e9b70a3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 410577,
+      "username": "zwillow",
+      "score": 1,
+      "wallet": "0x82f487b71ac65d7a8ef8fe868ac16c2ca524e08b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 474179,
+      "username": "crezzang",
+      "score": 0.92,
+      "wallet": "0x50f40e1b8f960657d42bf67f22e47c65ccabc608",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 896633,
+      "username": "emarketin",
+      "score": 0.66,
+      "wallet": "0xa6a7641158076f3a8056c838aabf8f1f12a5cc70",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1048590,
+      "username": "senpi.eth",
+      "score": 0.89,
+      "wallet": "0xa05ec17cb9e27fafb2cbcb95e72be09050fde79c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 378275,
+      "username": "bihukim",
+      "score": 0.8,
+      "wallet": "0xccfe27e0a33ab85025e67d18f2de41284ce8c53d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1116005,
+      "username": "mnvvr",
+      "score": 0.56,
+      "wallet": "0x1792d0f47720693a56a477952a4dc57f0365fc68",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 528280,
+      "username": "blueswing",
+      "score": 0.56,
+      "wallet": "0x8af62160fd3b1e2166de1d691efac7205da7457d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 565068,
+      "username": "yougetnone",
+      "score": 0.92,
+      "wallet": "0x3c0ed9ab1a12ba804900da2807c09b8afec10f67",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 651924,
+      "username": "volodymyr2202",
+      "score": 0.56,
+      "wallet": "0xfc09be2db0a0e2c09517cc23faec0bd9f4e667eb",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 493501,
+      "username": "fcfsproject.eth",
+      "score": 0.93,
+      "wallet": "0xdb12b7b9c92fa3b2e44f40b15bdf441d80c78373",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 276961,
+      "username": "sihab",
+      "score": 0.77,
+      "wallet": "0x37eb7f3f5ba1a056ac29ba4feac15da050451613",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 489626,
+      "username": "conedesk",
+      "score": 0.78,
+      "wallet": "0x93d65ba301f155192847a86c20b07e5277977c03",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 434268,
+      "username": "hamedns",
+      "score": 0.97,
+      "wallet": "0x2b07789f279e8e5cd64413417a247f8a782331a6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1116868,
+      "username": "stratemn",
+      "score": 0.79,
+      "wallet": "0x2722df57340dab87bba358fbdcbaab7bb3189b89",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1103974,
+      "username": "oche1",
+      "score": 0.62,
+      "wallet": "0xaaf56ab941b7d683a66b71df087b998d0f9331d6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1071510,
+      "username": "gasfees",
+      "score": 0.67,
+      "wallet": "0x56dfd8cfcff4845707608c833f2ce7081a7ecf43",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 999046,
+      "username": "mrbrick",
+      "score": 0.88,
+      "wallet": "0x34acb0c4a25c49c1b1beddf5a78c9c90b5d85650",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 271931,
+      "username": "azalea",
+      "score": 0.9,
+      "wallet": "0xadccee0ce6629e10b38a2fa7881683110f445ff6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 860323,
+      "username": "crybabygoblin",
+      "score": 0.85,
+      "wallet": "0x965f7b2fe4ef6e88c56a8e7e9418e38101d1d2ce",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 282520,
+      "username": "geaux.eth",
+      "score": 0.99,
+      "wallet": "0x96168acf7f3925e7a9eaa08ddb21e59643da8097",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1103699,
+      "username": "sereinma",
+      "score": 0.6,
+      "wallet": "0x7913526b4d1185aced001de98a7383696402566d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 891234,
+      "username": "jackstar20",
+      "score": 0.85,
+      "wallet": "0xd29420c21a8d98dc2c8755126aff64b8d6e68693",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 389830,
+      "username": "0xbamse.eth",
+      "score": 0.98,
+      "wallet": "0x377efb92e4d0418585ed9a6d81c90cd987581625",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 411286,
+      "username": "alimnd",
+      "score": 0.96,
+      "wallet": "0x17d355ed607835092af602676a01ffabef00467f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 313710,
+      "username": "jetman",
+      "score": 0.82,
+      "wallet": "0xefe73c8d2f362ba8b20b9ea71b164ea5cdefd6a8",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 454826,
+      "username": "luci13.eth",
+      "score": 0.95,
+      "wallet": "0x58371d22ec5d2af6c0b4bfa971b60174da05fa52",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 777797,
+      "username": "xc95f",
+      "score": 0.74,
+      "wallet": "0x2079b519104fe766d5adf375a3732da2e37273a5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 507986,
+      "username": "freshte",
+      "score": 0.77,
+      "wallet": "0x80a6097611c63b5423158311378e53dbb4db3b3f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 14839,
+      "username": "zilong",
+      "score": 0.7,
+      "wallet": "0x037354e9ca2c1f3ede8b4cec712eed9834c2abc3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 195091,
+      "username": "greyseymour",
+      "score": 0.99,
+      "wallet": "0xf7c0d5e897666ce6590a749ff1bd9edaf7eab2a5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 939045,
+      "username": "exdigy",
+      "score": 0.75,
+      "wallet": "0x102ff40f712799ccbb1b6bd95f79537f1b1cf5ae",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 460170,
+      "username": "chris33",
+      "score": 0.85,
+      "wallet": "0xa7db89466b6745b29e977bdc61f984e6999ad313",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 263163,
+      "username": "astrozorian27",
+      "score": 0.6,
+      "wallet": "0x12de4a597e03cde3d4002cd2d14e296c0abd805d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 21024,
+      "username": "terricola.eth",
+      "score": 1,
+      "wallet": "0xde2334fdb25481f138bec792d1f37a1dca0f329f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 1050617,
+      "username": "bballhy",
+      "score": 0.89,
+      "wallet": "0xb849d645dbabc40ae01a967f50db5dba61a7ac23",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 318436,
+      "username": "computrinsic",
+      "score": 0.64,
+      "wallet": "0x7d164b50a0a2c835a132d53bfafabe5c79b21199",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 602923,
+      "username": "aungthurakap25",
+      "score": 0.67,
+      "wallet": "0x5e5812fd1b56fce69891ad12d0ca07877be65207",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 243453,
+      "username": "nftmoon",
+      "score": 0.88,
+      "wallet": "0xb2ac961d1a04b6eb8aa842ba32c198d142106107",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 288072,
+      "username": "blackrock007",
+      "score": 0.59,
+      "wallet": "0x13bab04dfd4a1ba36eda0165fbdc4181942268d1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 314189,
+      "username": "cakash",
+      "score": 0.76,
+      "wallet": "0xc0845bdd8c47017cae947ca959741f970024abf1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 859268,
+      "username": "fx1hubs.base.eth",
+      "score": 0.87,
+      "wallet": "0x92fc40720b3159d756ca7abba3b42d0d3607900d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 601844,
+      "username": "yspro123",
+      "score": 0.73,
+      "wallet": "0x237df8964d199a654fbe43f3a8cb9d48e1a903f9",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 915048,
+      "username": "metamessiah",
+      "score": 0.8,
+      "wallet": "0xf2545eacc99d316c01aa7a91069157592f043961",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 453069,
+      "username": "onuraskar",
+      "score": 0.58,
+      "wallet": "0xcfddd09cc267fba594c62c838a39b9ea6700bb43",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 967511,
+      "username": "kamilz",
+      "score": 0.85,
+      "wallet": "0x91b62615ac8ee015a2ba88f27fa47998ac238833",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 885391,
+      "username": "kinexa",
+      "score": 0.88,
+      "wallet": "0x24cc2000b39eb67aedc9648bca9eacb296e26a76",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 656908,
+      "username": "gbm",
+      "score": 0.9,
+      "wallet": "0x961497a5b35098ded0ac451145e572a20d2b475c",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 364424,
+      "username": "testnetnew",
+      "score": 0.85,
+      "wallet": "0xdcb0b7744ef6c7c7b53da161896958fb8b167b62",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 404757,
+      "username": "sergvask",
+      "score": 0.97,
+      "wallet": "0xb9b4e752486299a200e7b59433415223fe389884",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 344741,
+      "username": "rubel6698",
+      "score": 0.58,
+      "wallet": "0x8ccb7213348915e2863ad9c67b7cc4531778ef27",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 16523,
+      "username": "aidinboy",
+      "score": 0.57,
+      "wallet": "0xfc1b78bce0b5e42cde3ce0b4ea872fdc95bfac49",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 305373,
+      "username": "cryptorakib",
+      "score": 0.66,
+      "wallet": "0x47398c8fa62df36e58914dbe0ef9cdce9a9b5c7a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 650982,
+      "username": "seeyah",
+      "score": 0.82,
+      "wallet": "0xd064d81b7f3cae6e44ed9fab4e6f6fad579f53f2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 299583,
+      "username": "nesar",
+      "score": 0.59,
+      "wallet": "0x80240627034907835878f43feb1bb686d1d24f3e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 213396,
+      "username": "gyzsolt",
+      "score": 0.88,
+      "wallet": "0xf0e795f51414da582c1ddf6ef82aa3df3c7bbf63",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 361304,
+      "username": "garywilbanks2",
+      "score": 0.93,
+      "wallet": "0x64c3a78c1398234ac1f85490034e4357d76d1a41",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 249869,
+      "username": "khobau",
+      "score": 0.71,
+      "wallet": "0x1b354bcfd40a64a573758173976884756e4b9948",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 451841,
+      "username": "seeimagery",
+      "score": 0.98,
+      "wallet": "0x2756dcd696a657824a90a90fcde4d2ac62362351",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 409857,
+      "username": "yerbearserker",
+      "score": 1,
+      "wallet": "0xc77d66286d8832112225de79717fbaac4727a901",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 479301,
+      "username": "aliced.eth",
+      "score": 0.89,
+      "wallet": "0xa5d9bf36c5de27f11cadea7f20f3afd625c6ca18",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 240969,
+      "username": "afterlife13",
+      "score": 0.97,
+      "wallet": "0x085fd8de13087511677983cccdee261cab65aa79",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 274,
+      "username": "n",
+      "score": 0.99,
+      "wallet": "0xebe9e50473a1dc5018e59923afba121cbdee89d0",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 368989,
+      "username": "dante4ever.eth",
+      "score": 0.94,
+      "wallet": "0x2784b95ab45b5766a6912c1823ef782a35772dad",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 451799,
+      "username": "nomibodla",
+      "score": 0.88,
+      "wallet": "0x6dc2d277cca5346c45f1848e19c28f0093ff4029",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 971996,
+      "username": "mindtrip",
+      "score": 0.83,
+      "wallet": "0x9ce6bc19208b4c84a77b017fbf99e0e64b9f69a1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 223778,
+      "username": "jerry-d",
+      "score": 0.95,
+      "wallet": "0xc99af5c773da20e9b909eb44dd6a045937ba31c7",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 382827,
+      "username": "civort",
+      "score": 0.98,
+      "wallet": "0x8bf0091f5166b5c0bdeeb7d769a8c8aa85176b9a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 335087,
+      "username": "jilt",
+      "score": 0.89,
+      "wallet": "0x51f16ac6345d21dfd9d54ee9d36d5acc66225cfe",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 382940,
+      "username": "asrin",
+      "score": 0.88,
+      "wallet": "0xf106a3c526f8ee64d0a8703bbed3bb0f4a56fbdf",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 11656,
+      "username": "papabearded",
+      "score": 0.97,
+      "wallet": "0x1a53b8b97d76cb27e9c1fb9a8087661e2d4842ba",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 205937,
+      "username": "cellar",
+      "score": 0.93,
+      "wallet": "0xe5c49b50cf1ea16837b7e47d29e8a45cd4b6eaf2",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 836142,
+      "username": "akhsan25",
+      "score": 0.63,
+      "wallet": "0xccaa51fff3513ad5b7f7bd5891c1d4d7613a3a92",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 385947,
+      "username": "leerooy",
+      "score": 0.88,
+      "wallet": "0x30eea02c29a641bbecaf33ef2df426f8d8c922df",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 837046,
+      "username": "rhodelle",
+      "score": 0.61,
+      "wallet": "0x4f0b49b3d6b43a2ca61212ab6c98c5ec636e0469",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 294019,
+      "username": "sevo1643",
+      "score": 0.63,
+      "wallet": "0x3696ccf5c3dd62fcce6c00d268ef9a00631c95b5",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 327403,
+      "username": "zudi1907",
+      "score": 0.7,
+      "wallet": "0x3fd8f6b1928de355479b5729ef52423a32a5663f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 3966,
+      "username": "jackmcdermott",
+      "score": 0.97,
+      "wallet": "0xb9447ca592c68d56ee481d5d12adf11db1008a72",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 302916,
+      "username": "gapopo",
+      "score": 0.59,
+      "wallet": "0x0cda38f039add2feb6c0dd443db972bc43d41163",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 421765,
+      "username": "mohammad999eye.eth",
+      "score": 0.78,
+      "wallet": "0x44de2dbd4f271de179768a038f713ca1c89c2fad",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 377453,
+      "username": "monosh",
+      "score": 0.57,
+      "wallet": "0xc82ec61274482d8a2e0439361957dae1bf309cb6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 323158,
+      "username": "hani1",
+      "score": 0.78,
+      "wallet": "0xfb0f6f3e2c4ead649b6b1ba155067430e95eecc1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 384973,
+      "username": "nevertheless",
+      "score": 0.59,
+      "wallet": "0xb7baed4979d0854dc9fb03bc56a662a133616c39",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 861426,
+      "username": "selfawareness",
+      "score": 0.83,
+      "wallet": "0xf6b7522e2248b6838b1475aaad96bcd1c1012005",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 389212,
+      "username": "bangxen",
+      "score": 0.76,
+      "wallet": "0xa0dec165d9b4441a46e7022f347c191c4e233587",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 390940,
+      "username": "assayer",
+      "score": 0.95,
+      "wallet": "0x17ddb7427da2acc4892db5c1e76fc15959fa121e",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 309310,
+      "username": "metamu",
+      "score": 0.97,
+      "wallet": "0x2d9cbc4ecfbd1b8f66aa798fd51585ae058daa8b",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 480691,
+      "username": "fairu",
+      "score": 0.56,
+      "wallet": "0xfa0e9f4d799990905749e33badec5eb0ff518617",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 236636,
+      "username": "zeronftt.eth",
+      "score": 0.97,
+      "wallet": "0x1198667d6cc00afa078dd4333f8328d8870f3c6d",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 882505,
+      "username": "saqlainabbas",
+      "score": 0.56,
+      "wallet": "0xf4805150ecdc30294f7a0ab0d12fc3b7293205ab",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 210629,
+      "username": "br3no.eth",
+      "score": 0.96,
+      "wallet": "0xf3abc40f8799daac47928d59c83c7f378bdc6c21",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 302918,
+      "username": "kaikub",
+      "score": 0.66,
+      "wallet": "0xfc7857fcadf861ea9bd6915de1eb2b3fafd8d212",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 365672,
+      "username": "0xfae",
+      "score": 0.96,
+      "wallet": "0x4179fe925903a4e9fce03638706234ad869e12f6",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 321764,
+      "username": "hyrae",
+      "score": 0.98,
+      "wallet": "0x1326b0396197bf0a49ca286a8fce1f2835a97d66",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 443305,
+      "username": "kimsungok",
+      "score": 0.7,
+      "wallet": "0x9fc3f9c82fd76df4677393efad2151e174a5391a",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 291967,
+      "username": "000th",
+      "score": 0.62,
+      "wallet": "0xaaba6c12e38c2b3c5a7f6a87a3b07e1975ba090f",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 223367,
+      "username": "banlamduocma",
+      "score": 0.8,
+      "wallet": "0x02b5fd2a1e3b7ccb1431328a036588dd72d8cec1",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 444323,
+      "username": "herojik",
+      "score": 0.72,
+      "wallet": "0x11316ebfd1486c632c6d2f58f7af992b9a0ebf74",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 295081,
+      "username": "electron",
+      "score": 0.8,
+      "wallet": "0xd6f40e3b82f89b6d20ef3b3f873fd9cf41f8abb3",
+      "eligible": true,
+      "reason": "eligible"
+    },
+    {
+      "fid": 195186,
+      "username": "huyanh",
+      "score": 0.67,
+      "wallet": "0xa883a59e85fb0bfbc035a8fae73a91a9c6bc36e7",
+      "eligible": true,
+      "reason": "eligible"
+    }
+  ],
+  "generatedAt": "2026-06-18T13:33:46.056Z"
+}

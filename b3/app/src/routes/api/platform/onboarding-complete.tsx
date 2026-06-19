@@ -43,6 +43,13 @@ export const Route = createFileRoute("/api/platform/onboarding-complete")({
           email: parsed.data.email,
         });
         await grantWelcomeRewards(prisma, member.id, wallet.id);
+        const { recordCultureGroveLink } = await import("@/server/culture-grove/grove");
+        const groveLink = await recordCultureGroveLink(
+          prisma,
+          member.id,
+          wallet.id,
+          parsed.data.agent_ref,
+        );
         const bccGrant = await grantOnboardingBccIfEligible(prisma, {
           memberId: member.id,
           walletAddress: auth.address,
@@ -63,8 +70,13 @@ export const Route = createFileRoute("/api/platform/onboarding-complete")({
           forestStage: member.forestStage,
           supporterTier: member.supporterTier,
           balance: agg._sum.delta ?? 0,
+          groveLinked: groveLink.linked,
           bccGrant: bccGrant.ok
-            ? { mode: bccGrant.mode, amountWei: bccGrant.amountWei, txHash: "txHash" in bccGrant ? bccGrant.txHash : undefined }
+            ? {
+                mode: bccGrant.mode,
+                amountWei: bccGrant.amountWei,
+                txHash: "txHash" in bccGrant ? bccGrant.txHash : undefined,
+              }
             : bccGrant.alreadyGranted
               ? { mode: "already_granted" as const }
               : { mode: "skipped" as const, reason: bccGrant.reason },

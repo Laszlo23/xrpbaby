@@ -12,9 +12,8 @@ export const Route = createFileRoute("/api/bcid/scores")({
           return Response.json({ ok: false, error: "did_or_handle_required" }, { status: 400 });
         }
 
-        const { findBcidByDid, findBcidByHandle, recomputeBcidScores } = await import(
-          "@/server/bcid/identity"
-        );
+        const { findBcidByDid, findBcidByHandle, recomputeBcidScores } =
+          await import("@/server/bcid/identity");
         const identity = did ? await findBcidByDid(did) : await findBcidByHandle(handle!);
 
         if (!identity) {
@@ -30,7 +29,8 @@ export const Route = createFileRoute("/api/bcid/scores")({
           trust: scores?.trust ?? 0,
           contribution: scores?.contribution ?? 0,
           verification: scores?.verification ?? 0,
-          updatedAt: identity.reputationScores?.updatedAt?.toISOString() ?? new Date().toISOString(),
+          updatedAt:
+            identity.reputationScores?.updatedAt?.toISOString() ?? new Date().toISOString(),
         });
       },
     },

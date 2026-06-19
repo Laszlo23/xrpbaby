@@ -59,8 +59,7 @@ Rules: no airdrop/moon/hype. Actionable UX recommendations only. Cite only provi
       .map((i) => ({
         title: String(i.title).slice(0, 120),
         body: String(i.body).slice(0, 800),
-        severity:
-          i.severity === "critical" || i.severity === "warning" ? i.severity : "info",
+        severity: i.severity === "critical" || i.severity === "warning" ? i.severity : "info",
       }));
   } catch {
     return [];

@@ -52,7 +52,11 @@ export function PostJoinPackPrompt({ open, onOpenChange }: Props) {
               <p className="mt-1 text-sm text-zinc-400">
                 {formatPackUsd(STARTER.usd)} · {STARTER.culturePoints} Culture Points
               </p>
-              <Button asChild size="sm" className="mt-3 w-full rounded-full bg-[#C5FF41] text-black">
+              <Button
+                asChild
+                size="sm"
+                className="mt-3 w-full rounded-full bg-[#C5FF41] text-black"
+              >
                 <Link to="/wallet/packs" search={{ pack: STARTER.slug }} onClick={close}>
                   Buy starter pack
                 </Link>

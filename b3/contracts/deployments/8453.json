@@ -12,7 +12,9 @@
     "GenesisVaultPassPhase0": "0x39952f562279f8a6517ED9d36a1Ff9d495e4e38d",
     "GenesisVaultPassPhase1": "0x0fE8AE7f7207f8C04377cdD4A711A67811cf3a73",
     "GenesisVaultPassPhase2": "0x01B971794c4C5C265bc0326dE329e1f4c937C765",
-    "CulturePassBccRewards": "0xAAE3Eb068026cab39A841c2628F983C559AD6C10"
+    "CulturePassBccRewards": "0xAAE3Eb068026cab39A841c2628F983C559AD6C10",
+    "PanicSwitchAttestation": "0x3f60465e70042b52e3fe95fec8e80680b6830b6a",
+    "CultureChronicles1155": "0x667a11c6e05e37652e57a962059310384e71258a"
   },
   "note": "Curated from broadcast/DeployAll.s.sol/8453/run-latest.json. CulturePulseAnchor deployed 2026-05-23. GenesisVaultPass tiers deployed 2026-06-08 (DeployGenesisVaultPassAll). Optional: DailyCheckIn, BCDFixedPriceSale — env only. BCC v2 bundle: bcc-8453.json."
 }

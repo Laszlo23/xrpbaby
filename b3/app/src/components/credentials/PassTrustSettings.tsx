@@ -9,10 +9,5 @@ export function PassTrustSettings() {
 
   if (!address) return null;
 
-  return (
-    <CultureIdWalletSettings
-      address={address}
-      title="Trust layer settings"
-    />
-  );
+  return <CultureIdWalletSettings address={address} title="Trust layer settings" />;
 }

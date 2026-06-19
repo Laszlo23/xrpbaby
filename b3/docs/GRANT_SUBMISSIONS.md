@@ -18,6 +18,7 @@
 | Proof bundle | `npm run grant:proof` → JSON + markdown in `proof-bundles/` |
 | Business plan (site) | https://app.buildingcultureid.space/plan — native content, illustrative projections |
 | Culture Points → BCC | Treasury-backed redeem pipeline shipped (see `SMART_WALLET_AND_PACKS.md`) |
+| Culture merch drop | Dual-rail commerce (Stripe + x402 USDC), QR credential claims, 77-unit ladder editions — `/marketplace/merch` |
 | Tests cited | 33 package unit, 45+47 forge, 78 Playwright (see `TEST_GATE_SNAPSHOT.json`) |
 
 **Known gaps (disclose in forms):** trading sidecar offline (`/api/trading/health` warn), Grove X/Farcaster not configured, `ECON_LIVE=0`, **Talent Protocol meta on homepage** (in code — redeploy app to clear 3 verifier fails).
@@ -38,7 +39,7 @@
 
 **Grants do not auto-send to a wallet.** Programs review shipped work, may interview you, require KYC, then pay milestones to the address you provide.
 
-**Agent roadmap (optional):** Grove can amplify `/grant-proof` on social; a future `grant-outreach` cron could email RFP aliases — not wired today.
+**Agent roadmap (optional):** Grove can amplify `/grant-proof` on social; outreach CRM at `/ops/outreach` drafts partnership email — human approves Resend send from hello@buildingcultureid.space.
 
 ---
 
@@ -76,7 +77,7 @@ Repo: https://github.com/Laszlo23/xrpbaby (b3/)
 
 Shipped on Base: CultureLayerIdentity 0x3634dD45BDdbEf2Aa1f4BEf50A97e4b844004863, BCC 0xb890a5289f789f1346032ccc1847939e855fab07, Places PropertyRegistry 0x5aca19274B17B97e38da9eA851d91F0CC59DafBf
 
-Why Base: Wallet auth (Privy), Telegram Mini App, thirdweb marketplace, pulse anchor, Culture Points ledger with treasury-backed BCC redemption — bringing users onchain with inspectable settlement.
+Why Base: Wallet auth (Privy), Telegram Mini App, thirdweb marketplace, pulse anchor, Culture Points ledger with treasury-backed BCC redemption, and Culture merch drop (Stripe + x402 USDC, ladder editions, QR credential claims) — bringing users onchain with inspectable settlement.
 
 Business plan: https://app.buildingcultureid.space/plan
 
@@ -115,7 +116,7 @@ Grant wallet: 0xd13e1cD3f0d2e83494EeAb8130EfD671C368FD22
 | Website | https://app.buildingcultureid.space |
 | GitHub | https://github.com/Laszlo23/xrpbaby |
 | 0G integration | AgentId.sol deployed 0G mainnet 16661; tokenURI + proof UI; roadmap: 0G Storage anchors for Places artifacts |
-| Traction | Live production app; grant verifier 36/36 hard checks; hackathon submission pack in repo |
+| Traction | Live production app; grant verifier 36/36 hard checks; Culture merch drop (Stripe + x402, 77-unit ladder editions); hackathon submission pack in repo |
 | Funding ask | $25K–$50K milestone 1: deepen Agent ID + agent-card + 0G Storage commitments for RWA docs |
 | Payout wallet | 0xd13e1cD3f0d2e83494EeAb8130EfD671C368FD22 |
 

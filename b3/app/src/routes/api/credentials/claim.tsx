@@ -7,7 +7,10 @@ import { readJsonBody } from "@/server/platform/rate-limit";
 const bodySchema = z.object({
   slug: z.string().min(1),
   handle: z.string().min(1).optional(),
-  walletAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
+  walletAddress: z
+    .string()
+    .regex(/^0x[a-fA-F0-9]{40}$/)
+    .optional(),
   memberId: z.string().min(1).optional(),
   address: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
   message: z.string().min(10),

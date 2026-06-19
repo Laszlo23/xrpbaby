@@ -49,12 +49,12 @@ export function FounderMetrics({ config, followerCount, resolved }: FounderMetri
           value={followers.toLocaleString()}
           subtitle="Farcaster reach"
         />
-        <MetricCard label="Culture Score" value={scoreFormatted} subtitle={config.cultureScoreNote} />
         <MetricCard
-          label="Products"
-          value={metrics.productCountLabel}
-          subtitle="Ecosystem apps"
+          label="Culture Score"
+          value={scoreFormatted}
+          subtitle={config.cultureScoreNote}
         />
+        <MetricCard label="Products" value={metrics.productCountLabel} subtitle="Ecosystem apps" />
         <MetricCard
           label="Founder Identity"
           value="1"

@@ -4,7 +4,10 @@ import { ArrowUpRight, Layers } from "lucide-react";
 
 export function LandingEcosystemTeaser() {
   return (
-    <section id="ecosystem-teaser" className="relative w-full overflow-hidden bg-[#070707] py-20 sm:py-28">
+    <section
+      id="ecosystem-teaser"
+      className="relative w-full overflow-hidden bg-[#070707] py-20 sm:py-28"
+    >
       <div className="absolute inset-0 bc-grid opacity-30" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <motion.div

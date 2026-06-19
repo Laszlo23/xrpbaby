@@ -1,0 +1,29 @@
+{
+  "name": "Culture Chronicles — The Standard",
+  "description": "Likes are the old scoreboard. Credentials are the new one.",
+  "image": "https://app.buildingcultureid.space/chronicles/the-standard.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/standartexplain.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-02",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 2
+    },
+    {
+      "trait_type": "Tier",
+      "value": "common"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "focus"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "credentials"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "reputation"
+    }
+  ]
+}

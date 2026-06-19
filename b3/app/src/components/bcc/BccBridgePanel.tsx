@@ -14,12 +14,7 @@ import {
   type BccBridgeDirection,
 } from "@bc/bcc-kit";
 import { formatUnits, parseUnits } from "viem";
-import {
-  useAccount,
-  useReadContract,
-  useSwitchChain,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, useReadContract, useSwitchChain, useWriteContract } from "wagmi";
 import { WalletControls } from "@/components/WalletControls";
 import { Button } from "@/components/ui/button";
 import { getBccBridgeConfig } from "@/lib/bcc-bridge-config";
@@ -248,9 +243,7 @@ export function BccBridgePanel({ compact = false }: BccBridgePanelProps) {
             Relayer confirms in ~1–3 minutes.
           </>
         ) : (
-          <>
-            Move the same {BCC_SYMBOL} 1:1 between chains via LayerZero. Supply stays unified.
-          </>
+          <>Move the same {BCC_SYMBOL} 1:1 between chains via LayerZero. Supply stays unified.</>
         )}
       </p>
 

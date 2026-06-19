@@ -23,8 +23,7 @@ function arg(name: string): string | undefined {
 const dryRunFlag = process.argv.includes("--dry-run");
 const assetId = arg("--asset");
 const accountRaw = arg("--account");
-const account =
-  accountRaw === "official" || accountRaw === "grove" ? accountRaw : undefined;
+const account = accountRaw === "official" || accountRaw === "grove" ? accountRaw : undefined;
 
 async function main() {
   const prisma = getPrisma();

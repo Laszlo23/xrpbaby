@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { useAccount } from "wagmi";
+import { WalletIdentityBar } from "@/components/identity/WalletIdentityBar";
 import { AnimatePresence, motion } from "@/components/landing/motion";
 import {
   Fingerprint,
@@ -16,11 +18,18 @@ import {
 import { LANDING_MEDIA } from "@/lib/landing-media";
 
 const NAV_ITEMS: { label: string; href: string; icon: LucideIcon; external?: boolean }[] = [
-  { label: "Identity", href: "#culture-id-example", icon: Fingerprint },
-  { label: "Credentials", href: "#credentials", icon: Shield },
-  { label: "Reputation", href: "#reputation", icon: Star },
-  { label: "Access", href: "#access", icon: Unlock },
+  { label: "Identity", href: "/pass", icon: Fingerprint },
+  { label: "Credentials", href: "/credentials", icon: Shield },
+  { label: "Reputation", href: "/credentials/leaderboard", icon: Star },
+  { label: "Connect", href: "/connect", icon: Unlock, external: true },
   { label: "Ecosystem", href: "/ecosystem", icon: Layers, external: true },
+];
+
+const CONNECTED_NAV: { label: string; to: string; icon: LucideIcon }[] = [
+  { label: "Dashboard", to: "/forest", icon: Layers },
+  { label: "Connect", to: "/connect", icon: Unlock },
+  { label: "Profile", to: "/profile", icon: Fingerprint },
+  { label: "Ecosystem", to: "/ecosystem", icon: Star },
 ];
 
 type LandingNavProps = {
@@ -31,6 +40,7 @@ type LandingNavProps = {
 export function LandingNav({ compact = false }: LandingNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { isConnected } = useAccount();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -39,8 +49,12 @@ export function LandingNav({ compact = false }: LandingNavProps) {
   }, []);
 
   const items = compact
-    ? NAV_ITEMS.filter((i) => ["Identity", "Ecosystem"].includes(i.label))
-    : NAV_ITEMS;
+    ? isConnected
+      ? CONNECTED_NAV.map((i) => ({ label: i.label, href: i.to, icon: i.icon, external: true }))
+      : NAV_ITEMS.filter((i) => ["Identity", "Ecosystem"].includes(i.label))
+    : isConnected
+      ? CONNECTED_NAV.map((i) => ({ label: i.label, href: i.to, icon: i.icon, external: true }))
+      : NAV_ITEMS;
 
   const resolveHref = (item: (typeof NAV_ITEMS)[number]) => {
     if (item.external) return item.href;
@@ -83,7 +97,12 @@ export function LandingNav({ compact = false }: LandingNavProps) {
                     to={href}
                     className="inline-flex items-center gap-1.5 text-[12px] font-medium text-zinc-400 transition-colors hover:text-white"
                   >
-                    <it.icon size={14} strokeWidth={2} className="shrink-0 opacity-70" aria-hidden />
+                    <it.icon
+                      size={14}
+                      strokeWidth={2}
+                      className="shrink-0 opacity-70"
+                      aria-hidden
+                    />
                     {it.label}
                   </Link>
                 );
@@ -102,13 +121,27 @@ export function LandingNav({ compact = false }: LandingNavProps) {
           </nav>
 
           <motion.div className="flex items-center gap-2">
-            <Link
-              to="/join"
-              className="hidden items-center gap-1.5 rounded-full bg-[#C5FF41] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-white sm:inline-flex"
-            >
-              <UserPlus size={15} strokeWidth={2.25} aria-hidden />
-              Join
-            </Link>
+            {isConnected ? (
+              <div className="hidden sm:block">
+                <WalletIdentityBar />
+              </div>
+            ) : null}
+            {isConnected ? (
+              <Link
+                to="/forest"
+                className="hidden items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-[13px] font-semibold text-white transition hover:border-[#C5FF41]/40 sm:inline-flex"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                to="/join"
+                className="hidden items-center gap-1.5 rounded-full bg-[#C5FF41] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-white sm:inline-flex"
+              >
+                <UserPlus size={15} strokeWidth={2.25} aria-hidden />
+                Join
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -157,12 +190,12 @@ export function LandingNav({ compact = false }: LandingNavProps) {
                   );
                 })}
                 <Link
-                  to="/join"
+                  to={isConnected ? "/forest" : "/join"}
                   onClick={() => setOpen(false)}
                   className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-4 py-2.5 text-[13px] font-semibold text-black"
                 >
                   <UserPlus size={16} strokeWidth={2.25} aria-hidden />
-                  Join Building Culture
+                  {isConnected ? "Open dashboard" : "Join Building Culture"}
                 </Link>
               </div>
             </motion.div>

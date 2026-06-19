@@ -6,7 +6,10 @@ import {
   evaluateCredentialEligibility,
   type EligibilityContext,
 } from "@/server/credentials/eligibility";
-import { findCultureIdentityByHandle, upsertCultureIdentityFromResolved } from "@/server/credentials/identity";
+import {
+  findCultureIdentityByHandle,
+  upsertCultureIdentityFromResolved,
+} from "@/server/credentials/identity";
 import { recordReputationEvent } from "@/server/reputation/events";
 import { getPrisma } from "@/server/db/prisma";
 import type { ResolvedCultureName } from "@/lib/identity/resolve-types";
@@ -75,9 +78,7 @@ export async function claimCredential(input: {
   });
   if (!identity) return { ok: false, error: "identity_not_found" };
 
-  const earnedSlugs = new Set(
-    identity.userCredentials.map((uc) => uc.credential.slug),
-  );
+  const earnedSlugs = new Set(identity.userCredentials.map((uc) => uc.credential.slug));
 
   const ctx: EligibilityContext = await buildEligibilityContext({
     memberId: input.memberId ?? identity.memberId,

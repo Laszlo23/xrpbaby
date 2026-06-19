@@ -8,9 +8,7 @@ import type { BcidLeaderboardEntry } from "@/lib/reputation/bcid-leaderboard-fn"
 
 function BcidCard({ entry }: { entry: BcidLeaderboardEntry }) {
   const label =
-    entry.cultureHandle ??
-    entry.publicHandle ??
-    entry.did.replace("did:bcid:human:", "bcid-");
+    entry.cultureHandle ?? entry.publicHandle ?? entry.did.replace("did:bcid:human:", "bcid-");
   const profileHref = entry.cultureHandle
     ? (`/id/${entry.cultureHandle}` as "/id/$name")
     : "/bcid/leaderboard";

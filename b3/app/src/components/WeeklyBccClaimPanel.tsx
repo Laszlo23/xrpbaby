@@ -17,6 +17,10 @@ type Quote = {
   balance: number;
   boostedBccWei: string;
   stakingBoostLabel: string;
+  culturePower?: number;
+  powerMultiplierLabel?: string;
+  powerEnabled?: boolean;
+  streakDays?: number;
   canClaim: boolean;
   nextClaimAt: string | null;
   onPayoutWhitelist: boolean;
@@ -117,9 +121,7 @@ export function WeeklyBccClaimPanel({
         toast.message("Already claimed this week.");
       } else {
         const bcc =
-          result.bccWei && result.bccWei !== "0"
-            ? formatUnits(BigInt(result.bccWei), 18)
-            : null;
+          result.bccWei && result.bccWei !== "0" ? formatUnits(BigInt(result.bccWei), 18) : null;
         toast.success(
           bcc
             ? `Weekly BCC claimed — ~${bcc} BCC${result.stakingBoostLabel ? ` (${result.stakingBoostLabel} boost)` : ""}`
@@ -170,7 +172,12 @@ export function WeeklyBccClaimPanel({
             <span className="text-xs text-zinc-500">Culture Points</span>
           </p>
         </div>
-        {quote?.stakingBoostLabel && quote.stakingBoostLabel !== "1.00×" ? (
+        {quote?.powerEnabled && quote.powerMultiplierLabel ? (
+          <span className="inline-flex items-center gap-1 rounded-full border border-[#00E5FF]/30 bg-[#00E5FF]/10 px-2 py-1 text-xs font-semibold text-[#00E5FF]">
+            <Zap className="h-3 w-3" aria-hidden />
+            {quote.powerMultiplierLabel} Power
+          </span>
+        ) : quote?.stakingBoostLabel && quote.stakingBoostLabel !== "1.00×" ? (
           <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-xs font-semibold text-emerald-300">
             <Sprout className="h-3 w-3" aria-hidden />
             {quote.stakingBoostLabel} stake boost
@@ -188,8 +195,7 @@ export function WeeklyBccClaimPanel({
 
       {bccDisplay && Number(bccDisplay) > 0 ? (
         <p className="flex items-center gap-2 text-sm text-zinc-300">
-          <Coins className="h-4 w-4 text-[#C5FF41]" aria-hidden />
-          ≈ {bccDisplay} BCC this week
+          <Coins className="h-4 w-4 text-[#C5FF41]" aria-hidden />≈ {bccDisplay} BCC this week
         </p>
       ) : (
         <p className="text-xs text-zinc-500">
@@ -210,6 +216,7 @@ export function WeeklyBccClaimPanel({
             <>
               <Zap className="mr-2 h-4 w-4" aria-hidden />
               Claim weekly BCC
+              {quote?.powerMultiplierLabel ? ` (${quote.powerMultiplierLabel})` : ""}
             </>
           )}
         </Button>
@@ -222,15 +229,15 @@ export function WeeklyBccClaimPanel({
         <Button asChild variant="outline" className="w-full rounded-full border-white/15">
           <Link to="/forest/quests">Earn Culture Points</Link>
         </Button>
-      ) : quote?.balance > 0 && quote.onPayoutWhitelist === false ? (
+      ) : quote != null && quote.balance > 0 && quote.onPayoutWhitelist === false ? (
         <p className="rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-2.5 text-center text-sm text-amber-200/90">
           Weekly BCC payouts are limited to approved wallets during launch.
         </p>
       ) : null}
 
       <p className="font-mono text-[10px] text-zinc-600">
-        One on-chain BCC payout per week · Staking on /roots boosts your conversion · Separate from
-        pool rewards
+        One on-chain BCC payout per week · Culture Power multiplies your conversion · Maintain daily
+        rituals on /profile
       </p>
     </div>
   );

@@ -21,7 +21,14 @@ const ABI_ARTIFACTS = [
   { contract: "RaffleTicketCampaign", file: "raffle-ticket-campaign", export: "raffleTicketCampaignAbi" },
   { contract: "AgentShareCampaign", file: "agent-share-campaign", export: "agentShareCampaignAbi" },
   { contract: "DailyCheckIn", file: "daily-check-in", export: "dailyCheckInAbi" },
+  { contract: "CultureSpinningWell", file: "culture-spinning-well", export: "cultureSpinningWellAbi" },
+  { contract: "PanicSwitchAttestation", file: "panic-switch-attestation", export: "panicSwitchAttestationAbi" },
   { contract: "GenesisVaultPass", file: "genesis-vault-pass", export: "genesisVaultPassAbi" },
+  {
+    contract: "CultureChronicles1155",
+    file: "culture-chronicles-1155",
+    export: "cultureChronicles1155Abi",
+  },
 ];
 
 function readJson(p) {
@@ -90,11 +97,15 @@ ${entries}
     })
     .join("\n");
 
+  const typeUnion = chainIds
+    .map((id) => `keyof typeof deploymentAddresses${id}`)
+    .join("\n  | ");
+
   const addressesTs = `/* eslint-disable -- generated */
 ${chainBlocks.join("\n\n")}
 
 export type DeploymentContractName =
-  | keyof typeof deploymentAddresses${chainIds[0] ?? 8453};
+  | ${typeUnion || "never"};
 
 export function getDeploymentAddress(
   name: DeploymentContractName,

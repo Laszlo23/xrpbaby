@@ -30,7 +30,12 @@ function isoWeekId(d = new Date()): string {
 async function resolveSocialTarget(
   prisma: PrismaClient,
   walletAddress: string,
-): Promise<{ platform: QuidliPlatform; handle: string; walletId: string; memberId: string | null } | null> {
+): Promise<{
+  platform: QuidliPlatform;
+  handle: string;
+  walletId: string;
+  memberId: string | null;
+} | null> {
   const wallet = await prisma.wallet.findFirst({
     where: {
       OR: [{ address: walletAddress }, { address: walletAddress.toLowerCase() }],

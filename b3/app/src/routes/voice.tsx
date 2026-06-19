@@ -86,7 +86,7 @@ function VoicePage() {
   const { signSiwe, signing } = usePointsSiweSign();
   const queryClient = useQueryClient();
   const initDataRaw =
-    typeof window !== "undefined" ? window.Telegram?.WebApp?.initData ?? null : null;
+    typeof window !== "undefined" ? (window.Telegram?.WebApp?.initData ?? null) : null;
   const isTelegram = Boolean(initDataRaw) || source === "tg";
 
   const [tab, setTab] = useState<"submit" | "mine" | "wall">("submit");
@@ -155,11 +155,7 @@ function VoicePage() {
   const { data: mineData, refetch: refetchMine } = useQuery({
     queryKey: ["feedback-mine", address, isTelegram],
     queryFn: async () => {
-      const headers = isTelegram
-        ? telegramAuthHeaders(initDataRaw)
-        : address
-          ? {}
-          : null;
+      const headers = isTelegram ? telegramAuthHeaders(initDataRaw) : address ? {} : null;
       if (!headers && !address) return { ok: true, submissions: [] as Submission[] };
       const url = address ? `/api/feedback/mine?address=${address}` : "/api/feedback/mine";
       const res = await fetch(url, { headers: headers ?? undefined });
@@ -260,7 +256,7 @@ function VoicePage() {
   const canSubmit = isTelegram || (isConnected && address);
 
   return (
-    <MarketingShell>
+    <MarketingShell title="Builder Voice">
       <div className="mx-auto max-w-3xl space-y-10 pb-20">
         <header className="space-y-4 text-center">
           <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-gold-500/90">
@@ -367,7 +363,9 @@ function VoicePage() {
             </label>
 
             <label className="block text-sm">
-              <span className="text-zinc-500">What went wrong or felt confusing? (min. 60 chars)</span>
+              <span className="text-zinc-500">
+                What went wrong or felt confusing? (min. 60 chars)
+              </span>
               <textarea
                 value={problem}
                 onChange={(e) => setProblem(e.target.value)}
@@ -453,7 +451,9 @@ function VoicePage() {
         {tab === "mine" ? (
           <div className="space-y-3">
             {!canSubmit ? (
-              <p className="text-sm text-zinc-500">Connect wallet or use Telegram to see your submissions.</p>
+              <p className="text-sm text-zinc-500">
+                Connect wallet or use Telegram to see your submissions.
+              </p>
             ) : mineData?.submissions?.length ? (
               mineData.submissions.map((s) => (
                 <div
@@ -461,7 +461,9 @@ function VoicePage() {
                   className="flex items-center justify-between rounded-xl border border-white/10 bg-black/30 px-4 py-3"
                 >
                   <div>
-                    <p className="text-sm text-white">{AREA_LABELS[s.area as FeedbackArea] ?? s.area}</p>
+                    <p className="text-sm text-white">
+                      {AREA_LABELS[s.area as FeedbackArea] ?? s.area}
+                    </p>
                     <p className="text-xs text-zinc-500">
                       {statusLabel(s.status)} · score {s.qualityScore} ·{" "}
                       {new Date(s.createdAt).toLocaleDateString()}
@@ -489,8 +491,9 @@ function VoicePage() {
                     <div>
                       <p className="font-medium text-white">{item.title}</p>
                       <p className="mt-1 text-xs text-zinc-500">
-                        {statusLabel(item.status)} · {AREA_LABELS[item.area as FeedbackArea] ?? item.area}{" "}
-                        · {item.contributor} · +{item.pointsGranted} pts
+                        {statusLabel(item.status)} ·{" "}
+                        {AREA_LABELS[item.area as FeedbackArea] ?? item.area} · {item.contributor} ·
+                        +{item.pointsGranted} pts
                       </p>
                     </div>
                   </div>
@@ -509,7 +512,10 @@ function VoicePage() {
                 </p>
                 <ul className="space-y-2">
                   {statsData.topVoicesThisMonth.map((v, i) => (
-                    <li key={`${v.contributor}-${i}`} className="flex justify-between text-sm text-zinc-300">
+                    <li
+                      key={`${v.contributor}-${i}`}
+                      className="flex justify-between text-sm text-zinc-300"
+                    >
                       <span>{v.contributor}</span>
                       <span className="text-gold-300">+{v.pointsGranted} pts</span>
                     </li>
@@ -521,8 +527,8 @@ function VoicePage() {
         ) : null}
 
         <p className="text-center text-xs text-zinc-600">
-          Useful and Gold rewards are granted after human review — usually within 7 days. Not legal or
-          investment advice.
+          Useful and Gold rewards are granted after human review — usually within 7 days. Not legal
+          or investment advice.
         </p>
       </div>
     </MarketingShell>

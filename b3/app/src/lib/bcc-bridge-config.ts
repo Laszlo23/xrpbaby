@@ -1,8 +1,4 @@
-import {
-  DEFAULT_BCC_BRIDGE_CONFIG,
-  type BccBridgeConfig,
-  type BccBridgeMode,
-} from "@bc/bcc-kit";
+import { DEFAULT_BCC_BRIDGE_CONFIG, type BccBridgeConfig, type BccBridgeMode } from "@bc/bcc-kit";
 
 function parseAddr(raw: string | undefined): `0x${string}` | "" {
   const v = raw?.trim() ?? "";

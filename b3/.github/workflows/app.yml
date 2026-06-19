@@ -58,6 +58,8 @@ jobs:
           CI: "true"
       - name: Optimize public assets
         run: npm run resources:optimize && npm run pwa:icons
+      - name: Build contracts-sdk
+        run: npm run build -w @bc/contracts-sdk
       - name: Build
         working-directory: app
         run: npm run build
@@ -84,3 +86,10 @@ jobs:
         env:
           CI: "true"
           DATABASE_URL: postgresql://user:pass@localhost:5432/ci?schema=public
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: app/playwright-report/
+          retention-days: 14

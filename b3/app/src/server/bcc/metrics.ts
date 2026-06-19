@@ -102,7 +102,10 @@ async function sumRootsStaked(client: PublicClient, staking: Address): Promise<b
 
 export async function fetchBccMetrics(): Promise<BccMetricsSnapshot> {
   const bridgeConfig = getBccBridgeConfigServer();
-  const baseClient = createPublicClient({ chain: base, transport: http(baseRpc()) }) as PublicClient;
+  const baseClient = createPublicClient({
+    chain: base,
+    transport: http(baseRpc()),
+  }) as PublicClient;
   const bscClient = createPublicClient({ chain: bsc, transport: http(bscRpc()) }) as PublicClient;
 
   const bcc = BCC_ADDRESS as Address;
@@ -127,8 +130,16 @@ export async function fetchBccMetrics(): Promise<BccMetricsSnapshot> {
     const vault = bridgeConfig.baseBridgeVault as Address;
     try {
       [totalLocked, totalUnlocked, lockNonce] = await Promise.all([
-        baseClient.readContract({ address: vault, abi: bridgeVaultAbi, functionName: "totalLocked" }),
-        baseClient.readContract({ address: vault, abi: bridgeVaultAbi, functionName: "totalUnlocked" }),
+        baseClient.readContract({
+          address: vault,
+          abi: bridgeVaultAbi,
+          functionName: "totalLocked",
+        }),
+        baseClient.readContract({
+          address: vault,
+          abi: bridgeVaultAbi,
+          functionName: "totalUnlocked",
+        }),
         baseClient.readContract({ address: vault, abi: bridgeVaultAbi, functionName: "lockNonce" }),
       ]);
     } catch {

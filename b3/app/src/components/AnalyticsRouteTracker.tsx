@@ -6,6 +6,7 @@ import {
   mergeMarketingAttributionFromUrl,
 } from "@/lib/agent-attribution";
 import { initGrowthIntelligenceClient } from "@/lib/growth-intelligence-client";
+import { warnMissingClientEnv } from "@/lib/env-health";
 import { trackLandingEvent } from "@/lib/landing-api";
 import { storeRaffleReferrerFromUrl } from "@/lib/raffle-referral";
 
@@ -17,6 +18,7 @@ export function AnalyticsRouteTracker() {
   useEffect(() => {
     initProductAnalytics();
     initGrowthIntelligenceClient();
+    warnMissingClientEnv();
   }, []);
 
   useEffect(() => {

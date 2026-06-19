@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import type { Prisma } from "@prisma/client";
 
 import { getPrisma } from "@/server/db/prisma";
 
@@ -31,7 +32,7 @@ export async function recordReputationEvent(input: ReputationEventInput): Promis
       weight: input.weight ?? 1,
       source: input.source,
       proofRef: input.proofRef ?? null,
-      metadata: input.metadata ?? undefined,
+      metadata: (input.metadata ?? undefined) as Prisma.InputJsonValue | undefined,
     },
   });
 }

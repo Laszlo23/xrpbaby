@@ -68,7 +68,8 @@ function InvestorsPage() {
           <Link to="/plan" className="text-white underline underline-offset-4">
             /plan
           </Link>
-          . Operators run <code className="text-zinc-200">npm run grant:proof</code> before submissions.
+          . Operators run <code className="text-zinc-200">npm run grant:proof</code> before
+          submissions.
         </section>
         <ChainlinkComplianceStrip />
 
@@ -82,11 +83,10 @@ function InvestorsPage() {
             <strong className="font-medium text-zinc-200">Base</strong> is the live social and
             execution layer — Culture ID, Agent OS, and BCC settlement today.{" "}
             <strong className="font-medium text-zinc-200">BCC</strong> is the chain-agnostic
-            economic layer.{" "}
-            <strong className="font-medium text-zinc-200">XRPL</strong> is optional trust and
-            treasury infrastructure under Culture ID (testnet demo only — not a pivot to XRP).{" "}
-            <strong className="font-medium text-zinc-200">Agents</strong> are the workforce layer
-            for research, grants, and revenue workflows.
+            economic layer. <strong className="font-medium text-zinc-200">XRPL</strong> is optional
+            trust and treasury infrastructure under Culture ID (testnet demo only — not a pivot to
+            XRP). <strong className="font-medium text-zinc-200">Agents</strong> are the workforce
+            layer for research, grants, and revenue workflows.
           </p>
         </section>
 
@@ -203,7 +203,9 @@ function InvestorsPage() {
                 </tr>
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3">Sponsored drops & experiences</td>
-                  <td className="px-4 py-3 text-zinc-500">Partnership pipeline — not disclosed publicly</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    Partnership pipeline — not disclosed publicly
+                  </td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">API / infra (e.g. x402-style)</td>
@@ -232,8 +234,8 @@ function InvestorsPage() {
           <div className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.05] px-5 py-4 text-sm text-amber-100/90">
             <strong className="font-medium text-amber-50">Not on this page:</strong> raise amount,
             valuation, cap table %, GMV forecasts, or fee-revenue projections. Those belong in
-            counsel-approved materials and direct conversations—not a public URL that could read like
-            an offering.
+            counsel-approved materials and direct conversations—not a public URL that could read
+            like an offering.
           </div>
 
           <div className="overflow-x-auto rounded-2xl border border-white/[0.08]">
@@ -274,7 +276,10 @@ function InvestorsPage() {
                 <tr>
                   <td className="px-4 py-3 text-zinc-300">Live-call scenario sliders</td>
                   <td className="px-4 py-3">
-                    <Link to="/investors/workshop" className="text-zinc-300 underline underline-offset-4">
+                    <Link
+                      to="/investors/workshop"
+                      className="text-zinc-300 underline underline-offset-4"
+                    >
                       /investors/workshop
                     </Link>{" "}
                     — password-gated, noindex; shared privately on advisor calls
@@ -298,8 +303,8 @@ function InvestorsPage() {
                 if volume follows — not assumed in public numbers.
               </li>
               <li>
-                <span className="text-zinc-300">Downside risks:</span> regulatory scrutiny, fulfillment
-                ops, chain/custody dependencies — see risks below.
+                <span className="text-zinc-300">Downside risks:</span> regulatory scrutiny,
+                fulfillment ops, chain/custody dependencies — see risks below.
               </li>
             </ul>
           </div>
@@ -326,12 +331,16 @@ function InvestorsPage() {
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3 text-zinc-300">Product engineering</td>
                   <td className="px-4 py-3 font-mono">~40%</td>
-                  <td className="px-4 py-3 text-zinc-500">Marketplace, wallet UX, trust layer, Agent OS</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    Marketplace, wallet UX, trust layer, Agent OS
+                  </td>
                 </tr>
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3 text-zinc-300">Growth & community</td>
                   <td className="px-4 py-3 font-mono">~25%</td>
-                  <td className="px-4 py-3 text-zinc-500">Creator partnerships, drops, distribution</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    Creator partnerships, drops, distribution
+                  </td>
                 </tr>
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3 text-zinc-300">Compliance & ops</td>
@@ -341,7 +350,9 @@ function InvestorsPage() {
                 <tr className="border-b border-white/[0.06]">
                   <td className="px-4 py-3 text-zinc-300">Infrastructure</td>
                   <td className="px-4 py-3 font-mono">~10%</td>
-                  <td className="px-4 py-3 text-zinc-500">RPC, indexing, observability, security reviews</td>
+                  <td className="px-4 py-3 text-zinc-500">
+                    RPC, indexing, observability, security reviews
+                  </td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3 text-zinc-300">Reserve / runway buffer</td>

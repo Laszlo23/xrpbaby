@@ -1,17 +1,7 @@
 import { useMemo, useState } from "react";
-import {
-  BCC_SYMBOL,
-  BSC_USDT_SWAP,
-  erc20Abi,
-  type BscSwapInput,
-} from "@bc/bcc-kit";
+import { BCC_SYMBOL, BSC_USDT_SWAP, erc20Abi, type BscSwapInput } from "@bc/bcc-kit";
 import { formatEther, formatUnits, parseEther, parseUnits } from "viem";
-import {
-  useAccount,
-  useBalance,
-  useReadContract,
-  useSwitchChain,
-} from "wagmi";
+import { useAccount, useBalance, useReadContract, useSwitchChain } from "wagmi";
 import { WalletControls } from "@/components/WalletControls";
 import { Button } from "@/components/ui/button";
 import { useBscBccSwap } from "@/hooks/useBscBccSwap";

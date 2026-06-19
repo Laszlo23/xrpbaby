@@ -5,7 +5,10 @@ import { FOUNDER_TIMELINE } from "@/lib/landing-copy";
 
 export function LandingFounderTimeline() {
   return (
-    <section id="founder-timeline" className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36">
+    <section
+      id="founder-timeline"
+      className="relative w-full overflow-hidden bg-[#050505] py-28 sm:py-36"
+    >
       <div className="absolute inset-0 bc-grid opacity-40" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="max-w-3xl">
@@ -51,7 +54,9 @@ export function LandingFounderTimeline() {
                       </p>
                     </div>
                   ) : (
-                    <p className="max-w-sm text-sm leading-relaxed text-zinc-400">{milestone.body}</p>
+                    <p className="max-w-sm text-sm leading-relaxed text-zinc-400">
+                      {milestone.body}
+                    </p>
                   )}
                 </div>
 

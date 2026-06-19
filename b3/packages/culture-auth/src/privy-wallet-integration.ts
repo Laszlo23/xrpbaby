@@ -32,3 +32,8 @@ export const COINBASE_WALLET_CONNECT_OPTIONS: ConnectWalletModalOptions = {
   walletList: ["coinbase_wallet", "base_account"],
   preSelectedWalletId: "coinbase_wallet",
 };
+
+/** Opens Privy connect modal scoped to browser-injected wallets (includes Brave). */
+export const BRAVE_WALLET_CONNECT_OPTIONS: ConnectWalletModalOptions = {
+  walletList: ["detected_ethereum_wallets", "metamask"],
+};

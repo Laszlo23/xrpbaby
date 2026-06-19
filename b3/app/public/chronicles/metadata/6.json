@@ -1,0 +1,29 @@
+{
+  "name": "Culture Chronicles — Friends (Not Frienmds)",
+  "description": "Real friends roast your typos and still mint with you.",
+  "image": "https://app.buildingcultureid.space/chronicles/friends-not-frienmds.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/frienmds.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-06",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 6
+    },
+    {
+      "trait_type": "Tier",
+      "value": "common"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "win"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    },
+    {
+      "trait_type": "EasterEgg",
+      "value": "frienmds"
+    }
+  ]
+}

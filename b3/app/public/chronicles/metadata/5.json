@@ -1,0 +1,29 @@
+{
+  "name": "Culture Chronicles — The Gang Assembles",
+  "description": "Crew > clout. Always.",
+  "image": "https://app.buildingcultureid.space/chronicles/the-gang.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/gang.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-05",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 5
+    },
+    {
+      "trait_type": "Tier",
+      "value": "uncommon"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "win"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "access"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    }
+  ]
+}

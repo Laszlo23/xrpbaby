@@ -11,7 +11,13 @@ export const Route = createFileRoute("/products/campaign-hub")({
       description:
         "Create and support community campaigns — social impact, grants, fundraising, local initiatives, and environmental projects.",
       path: "/products/campaign-hub",
-      keywords: ["Campaign Hub", "community campaigns", "grants", "fundraising", "Building Culture"],
+      keywords: [
+        "Campaign Hub",
+        "community campaigns",
+        "grants",
+        "fundraising",
+        "Building Culture",
+      ],
     }),
   component: CampaignHubProductPage,
 });

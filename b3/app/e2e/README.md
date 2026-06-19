@@ -2,20 +2,20 @@
 
 ## Spec files
 
-| File                           | Scope                                                   |
-| ------------------------------ | ------------------------------------------------------- |
-| `smoke.spec.ts`                | Fast CI gate — routes, SEO, core APIs                   |
-| `landing.spec.ts`              | Story landing, CTAs, waitlist                           |
-| `onboarding.spec.ts`           | `/join` flow and back link                              |
-| `forest.spec.ts`               | Community hub modules and chrome                        |
-| `play.spec.ts`                 | Drops home and bottom nav                               |
-| `signal.spec.ts`               | Culture Pulse page                                      |
-| `shell.spec.ts`                | BottomNav / footer visibility                           |
-| `pass.spec.ts`                 | TLD mint dashboard                                      |
-| `panic-switch-overlay.spec.ts` | Cross-route panic switch retention game                 |
-| `identity-resolve.spec.ts`     | `/n/` gateway, resolve API, profile                     |
-| `compliance-places.spec.ts`    | Eligibility API, `/places`, `/investors` strip          |
-| `og-agentid.spec.ts`           | 0G hackathon proof page + `/0g/agentid/1.json` metadata |
+| File                           | Scope                                                              |
+| ------------------------------ | ------------------------------------------------------------------ |
+| `smoke.spec.ts`                | Fast CI gate — routes, SEO, core APIs                              |
+| `landing.spec.ts`              | Story landing, CTAs, waitlist                                      |
+| `onboarding.spec.ts`           | `/join` flow and back link                                         |
+| `forest.spec.ts`               | Community hub modules and chrome                                   |
+| `play.spec.ts`                 | Drops home and bottom nav                                          |
+| `signal.spec.ts`               | Culture Pulse page                                                 |
+| `shell.spec.ts`                | BottomNav / footer visibility                                      |
+| `pass.spec.ts`                 | TLD mint dashboard                                                 |
+| `panic-switch-overlay.spec.ts` | Cross-route panic switch retention game                            |
+| `identity-resolve.spec.ts`     | `/n/` gateway, resolve API, profile                                |
+| `compliance-places.spec.ts`    | Eligibility API, `/places`, `/investors` strip                     |
+| `og-agentid.spec.ts`           | 0G hackathon proof page + `/0g/agentid/1.json` metadata            |
 | `first-time-user.spec.ts`      | First-time member funnel — landing, welcome, forest, play, profile |
 
 Shared setup: `fixtures/skip-onboarding.ts` (skips Elias modal), `fixtures/api-helpers.ts`, `fixtures/mock-siwe.ts`.

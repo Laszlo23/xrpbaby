@@ -1,8 +1,5 @@
 import type { PrivyClientConfig } from "@privy-io/react-auth";
-import {
-  CULTURE_WALLET_LIST,
-  cultureExternalWallets,
-} from "@bc/culture-auth";
+import { CULTURE_WALLET_LIST, cultureExternalWallets } from "@bc/culture-auth";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { base, bsc } from "@/lib/chains";
 import { privyClientId } from "@/lib/privy-env";
@@ -10,9 +7,10 @@ import { privyClientId } from "@/lib/privy-env";
 /** Privy dashboard: enable Embedded wallets, Smart wallets (Base + BNB Chain), and Export wallet. */
 export function buildPrivyConfig(): PrivyClientConfig {
   return {
-    // Keep Farcaster + wallet in the modal so Mini App and Base App users can
-    // choose the most native flow immediately.
-    loginMethods: ["farcaster", "wallet", "email", "google", "apple"],
+    // Email/social in Privy modal; Farcaster only when login({ loginMethods }) requests it.
+    // Wallet connects via connectWallet() / CultureBaseWalletButtons — not loginMethods "wallet"
+    // (wallet row can break Privy modal in some builds — see packages/culture-auth).
+    loginMethods: ["email", "google", "apple"],
     defaultChain: base,
     supportedChains: [base, bsc],
     appearance: {
@@ -21,7 +19,9 @@ export function buildPrivyConfig(): PrivyClientConfig {
       accentColor: "#C5FF41",
       walletList: [...CULTURE_WALLET_LIST],
     },
-    externalWallets: cultureExternalWallets(BRAND_DISPLAY_NAME),
+    externalWallets: cultureExternalWallets(
+      BRAND_DISPLAY_NAME,
+    ) as PrivyClientConfig["externalWallets"],
     embeddedWallets: {
       ethereum: {
         createOnLogin: "users-without-wallets",

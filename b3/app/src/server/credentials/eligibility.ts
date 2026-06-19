@@ -24,7 +24,10 @@ export type EligibilityContext = {
   socialFollowers?: number;
 };
 
-async function countLedgers(walletId: string, filter?: (slug: string | null) => boolean): Promise<number> {
+async function countLedgers(
+  walletId: string,
+  filter?: (slug: string | null) => boolean,
+): Promise<number> {
   const prisma = getPrisma();
   if (!prisma) return 0;
   const rows = await prisma.pointLedger.findMany({
@@ -118,7 +121,10 @@ export async function buildEligibilityContext(input: {
   }
 }
 
-function evaluateSlug(slug: CredentialSlug, ctx: EligibilityContext): Omit<CredentialEligibility, "earned"> {
+function evaluateSlug(
+  slug: CredentialSlug,
+  ctx: EligibilityContext,
+): Omit<CredentialEligibility, "earned"> {
   switch (slug) {
     case "builder":
       if ((ctx.studioProjectCount ?? 0) >= 1) {
@@ -152,12 +158,30 @@ function evaluateSlug(slug: CredentialSlug, ctx: EligibilityContext): Omit<Crede
       if (humans.length > 0) {
         return { slug, eligible: true, reason: humans[0]?.label ?? "Web3.bio human attestation" };
       }
-      return { slug, eligible: false, reason: "Connect a verified human attestation (Coinbase KYC, Passport, etc.)" };
+      return {
+        slug,
+        eligible: false,
+        reason: "Connect a verified human attestation (Coinbase KYC, Passport, etc.)",
+      };
     }
     case "trusted-agent":
-      return { slug, eligible: false, reason: "Trusted agents are issued by Building Culture after review" };
+      return {
+        slug,
+        eligible: false,
+        reason: "Trusted agents are issued by Building Culture after review",
+      };
     case "verified-project":
-      return { slug, eligible: false, reason: "Verified projects are issued after Grant Proof or BC review" };
+      return {
+        slug,
+        eligible: false,
+        reason: "Verified projects are issued after Grant Proof or BC review",
+      };
+    case "limited-merch-holder":
+      return {
+        slug,
+        eligible: false,
+        reason: "Scan the inside label on your Building Culture tee after delivery",
+      };
     default: {
       const _exhaustive: never = slug;
       return _exhaustive;
@@ -176,6 +200,7 @@ export async function evaluateCredentialEligibility(
     "verified-human",
     "trusted-agent",
     "verified-project",
+    "limited-merch-holder",
   ];
 
   return slugs.map((slug) => {
@@ -187,7 +212,9 @@ export async function evaluateCredentialEligibility(
 export async function loadMemberPointsTotal(walletAddress: string): Promise<number> {
   const prisma = getPrisma();
   if (!prisma) return 0;
-  const wallet = await prisma.wallet.findUnique({ where: { address: walletAddress.toLowerCase() } });
+  const wallet = await prisma.wallet.findUnique({
+    where: { address: walletAddress.toLowerCase() },
+  });
   if (!wallet) return 0;
   return countLedgers(wallet.id);
 }

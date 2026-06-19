@@ -66,5 +66,7 @@ export function CultureNameProfile({ resolved, paramName, enrichment = null }: P
     return <FounderShowcaseProfile resolved={resolved} enrichment={enrichment} />;
   }
 
-  return <EnrichedCultureProfile resolved={resolved} paramName={paramName} enrichment={enrichment} />;
+  return (
+    <EnrichedCultureProfile resolved={resolved} paramName={paramName} enrichment={enrichment} />
+  );
 }

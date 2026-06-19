@@ -18,7 +18,19 @@ const LandingHero = lazy(() =>
 );
 
 function SectionFallback() {
-  return <motion.div className="min-h-[40vh] bg-[#050505]" />;
+  return (
+    <motion.div className="min-h-[40vh] bg-[#050505] px-5 pt-32 sm:px-8">
+      <div className="mx-auto max-w-7xl animate-pulse space-y-6">
+        <div className="h-4 w-32 rounded-full bg-white/10" />
+        <div className="h-16 w-full max-w-3xl rounded-2xl bg-white/10" />
+        <div className="h-6 w-full max-w-xl rounded-full bg-white/10" />
+        <div className="flex gap-3 pt-4">
+          <div className="h-12 w-40 rounded-full bg-[#C5FF41]/20" />
+          <div className="h-12 w-44 rounded-full bg-white/10" />
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export function LandingPage() {

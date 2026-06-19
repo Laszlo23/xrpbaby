@@ -1,8 +1,4 @@
-import {
-  AGENT_OS_CATALOG,
-  AGENT_OS_PROJECT,
-  x402ResearchPrice,
-} from "@/lib/agent-os-catalog";
+import { AGENT_OS_CATALOG, AGENT_OS_PROJECT, x402ResearchPrice } from "@/lib/agent-os-catalog";
 import { x402LimxPrice } from "@/lib/limx-agent-config";
 import { getAgentFleetDashboard } from "@/server/agents/dashboard";
 import { fetchBccMetrics } from "@/server/bcc/metrics";

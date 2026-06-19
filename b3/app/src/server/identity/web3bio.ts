@@ -37,9 +37,7 @@ export function ethereumProfileQuery(address: string): string {
   return `ethereum,${address.toLowerCase()}`;
 }
 
-export async function fetchUniversalProfileRaw(
-  identity: string,
-): Promise<Web3BioRawProfile[]> {
+export async function fetchUniversalProfileRaw(identity: string): Promise<Web3BioRawProfile[]> {
   const encoded = encodeURIComponent(identity);
   try {
     const res = await fetch(`${WEB3BIO_BASE}/profile/${encoded}`, {
@@ -139,9 +137,7 @@ export function buildCultureIdentityGraph(
   fetchedAt = new Date().toISOString(),
 ): CultureIdentityGraph {
   const graph = normalizeWeb3BioProfiles(raw);
-  const wallets = [
-    ...new Set(graph.map((n) => n.address).filter((a): a is string => Boolean(a))),
-  ];
+  const wallets = [...new Set(graph.map((n) => n.address).filter((a): a is string => Boolean(a)))];
   const platformCounts: Record<string, number> = {};
   let totalFollowers = 0;
   let verifiedLinkCount = 0;

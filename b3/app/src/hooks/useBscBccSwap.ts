@@ -10,16 +10,8 @@ import {
 } from "@bc/bcc-kit";
 import { useCallback, useState } from "react";
 import type { Address, Hash } from "viem";
-import {
-  useAccount,
-  useReadContract,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
-import {
-  BSC_BCC_SWAP_CHAIN_ID,
-  getBccBscOftAddress,
-} from "@/lib/bcc-bsc-swap-config";
+import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { BSC_BCC_SWAP_CHAIN_ID, getBccBscOftAddress } from "@/lib/bcc-bsc-swap-config";
 
 export type BscBccSwapPhase = "idle" | "approving" | "swapping" | "success" | "error";
 

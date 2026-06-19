@@ -1,10 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { checkRateLimit, readJsonBody } from "@/server/platform/rate-limit";
-import {
-  fetchFarcasterUsername,
-  verifyNeynarSigner,
-} from "@/server/neynar/client";
+import { fetchFarcasterUsername, verifyNeynarSigner } from "@/server/neynar/client";
 import { linkFarcasterToMember, unlinkFarcasterFromMember } from "@/server/platform/member";
 import { syncMemberSupportScore } from "@/server/social/support-score-sync";
 import { isPrivyConfigured, requirePrivyWalletMatch } from "@/server/wallet/privy-auth";

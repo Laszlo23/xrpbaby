@@ -12,9 +12,7 @@ test.describe("onboarding flow", () => {
     await page.goto("/join");
     await page.getByRole("link", { name: /Back to the story/i }).click();
     await expect(page).toHaveURL(/\/$/);
-    await expect(
-      page.getByRole("heading", { name: /Who are you/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Who are you/i })).toBeVisible();
   });
 
   test("intent selection highlights choice", async ({ page }) => {

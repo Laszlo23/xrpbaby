@@ -1,12 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { formatUnits, parseUnits } from "viem";
-import {
-  useAccount,
-  useReadContract,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { toast } from "sonner";
 import { Loader2, Sprout, TreeDeciduous } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -120,8 +115,7 @@ export function CultureRootsStakingPanel() {
     }
   })();
 
-  const needsApproval =
-    allowance !== undefined && parsedAmount > 0n && allowance < parsedAmount;
+  const needsApproval = allowance !== undefined && parsedAmount > 0n && allowance < parsedAmount;
 
   async function runTx(label: string, fn: () => void) {
     try {
@@ -314,29 +308,17 @@ export function CultureRootsStakingPanel() {
                 disabled={!isConnected || isPending || confirming || parsedAmount === 0n}
                 onClick={approve}
               >
-                {isPending || confirming ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  "Approve"
-                )}
+                {isPending || confirming ? <Loader2 className="h-4 w-4 animate-spin" /> : "Approve"}
               </Button>
             ) : (
               <Button
                 className="rounded-full"
                 disabled={
-                  !isConnected ||
-                  !poolEligible ||
-                  isPending ||
-                  confirming ||
-                  parsedAmount === 0n
+                  !isConnected || !poolEligible || isPending || confirming || parsedAmount === 0n
                 }
                 onClick={stake}
               >
-                {isPending || confirming ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  "Stake"
-                )}
+                {isPending || confirming ? <Loader2 className="h-4 w-4 animate-spin" /> : "Stake"}
               </Button>
             )}
             <Button
@@ -369,7 +351,9 @@ export function CultureRootsStakingPanel() {
         {pendingWithdraw !== undefined && pendingWithdraw > 0n ? (
           <p className="mt-3 text-xs text-amber-200/80">
             Pending unstake: {formatUnits(pendingWithdraw, 18)} BCC
-            {unstakeReady ? " — cooldown complete, tap Complete unstake" : " — 7-day cooldown active"}
+            {unstakeReady
+              ? " — cooldown complete, tap Complete unstake"
+              : " — 7-day cooldown active"}
           </p>
         ) : null}
 
@@ -379,17 +363,9 @@ export function CultureRootsStakingPanel() {
 
         {isConnected ? (
           <div className="mt-4 grid gap-2 text-xs text-zinc-500 sm:grid-cols-3">
-            <span>
-              Wallet BCC:{" "}
-              {bccBalance !== undefined ? formatUnits(bccBalance, 18) : "—"}
-            </span>
-            <span>
-              Staked (pool):{" "}
-              {stakedBal !== undefined ? formatUnits(stakedBal, 18) : "—"}
-            </span>
-            <span>
-              Earned: {earned !== undefined ? formatUnits(earned, 18) : "—"}
-            </span>
+            <span>Wallet BCC: {bccBalance !== undefined ? formatUnits(bccBalance, 18) : "—"}</span>
+            <span>Staked (pool): {stakedBal !== undefined ? formatUnits(stakedBal, 18) : "—"}</span>
+            <span>Earned: {earned !== undefined ? formatUnits(earned, 18) : "—"}</span>
           </div>
         ) : (
           <p className="mt-4 text-sm text-zinc-500">Connect wallet to stake.</p>

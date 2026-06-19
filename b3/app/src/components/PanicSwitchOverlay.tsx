@@ -2,10 +2,24 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { formatUnits } from "viem";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { useAccount } from "wagmi";
+import {
+  useAccount,
+  useChainId,
+  useReadContract,
+  useSwitchChain,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
+import { panicSwitchAttestationAbi } from "@/lib/abis/panic-switch-attestation";
 import { BCC_SYMBOL } from "@/lib/bcc-config";
+import { getDefaultChain } from "@/lib/chains";
 import { capturePanicSwitchEvent } from "@/lib/analytics";
+import {
+  getPanicSwitchAttestationAddress,
+  panicHoldSecondsFromState,
+  utcAttestDayIndex,
+} from "@/lib/panic-switch-onchain";
 import { postClaimPanicSwitchBccReward, postClaimPanicSwitchVoucherNft } from "@/lib/points-fns";
 import {
   clearPanicSwitchState,
@@ -270,6 +284,11 @@ function useTonePlayer() {
 
 export function PanicSwitchOverlay() {
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
+  const wantChain = getDefaultChain();
+  const { switchChainAsync } = useSwitchChain();
+  const attestContract = getPanicSwitchAttestationAddress();
+  const { writeContractAsync, isPending: attestTxPending } = useWriteContract();
   const { signSiwe, signing } = usePointsSiweSign();
   const claimPanicReward = useServerFn(postClaimPanicSwitchBccReward);
   const claimVoucherReward = useServerFn(postClaimPanicSwitchVoucherNft);
@@ -290,6 +309,26 @@ export function PanicSwitchOverlay() {
   const [voucherClaimed, setVoucherClaimed] = useState(false);
   const [voucherTxHash, setVoucherTxHash] = useState<string | null>(null);
   const [voucherTokenId, setVoucherTokenId] = useState<string | null>(null);
+  const [attestHash, setAttestHash] = useState<`0x${string}` | undefined>();
+  const [attestConfirmedHash, setAttestConfirmedHash] = useState<`0x${string}` | undefined>();
+
+  const { isLoading: attestConfirming, isSuccess: attestConfirmed } = useWaitForTransactionReceipt({
+    hash: attestHash,
+  });
+
+  const todayIndex = utcAttestDayIndex();
+
+  const { data: lastAttestDay, refetch: refetchAttestDay } = useReadContract({
+    address: attestContract,
+    abi: panicSwitchAttestationAbi,
+    functionName: "lastAttestDay",
+    args: address ? [address] : undefined,
+    query: { enabled: !!attestContract && !!address },
+  });
+
+  const onChainAttestedToday =
+    attestContract && lastAttestDay !== undefined && lastAttestDay === todayIndex;
+  const siweOnlyPanicMode = !attestContract;
 
   const playTone = useTonePlayer();
   const warningRef = useRef(false);
@@ -416,7 +455,22 @@ export function PanicSwitchOverlay() {
     }
   }, [derived.warningActive, playTone, state.phase]);
 
+  useEffect(() => {
+    if (attestConfirmed && attestHash) {
+      setAttestConfirmedHash(attestHash);
+      void refetchAttestDay();
+      toast.success("On-chain attestation recorded for today.");
+    }
+  }, [attestConfirmed, attestHash, refetchAttestDay]);
+
   const handlePress = useCallback(() => {
+    if (
+      onChainAttestedToday &&
+      (state.phase === "idle" || state.phase === "failed" || state.phase === "completed")
+    ) {
+      toast.message("You already attested on-chain today. One round per UTC day.");
+      return;
+    }
     const now = Date.now();
     setNowMs(now);
     setState((prev) => {
@@ -427,7 +481,61 @@ export function PanicSwitchOverlay() {
       emitEvents(result.events);
       return result.state;
     });
-  }, [config, emitEvents]);
+  }, [config, emitEvents, onChainAttestedToday, state.phase]);
+
+  const attestOnChain = useCallback(async () => {
+    if (!isConnected || !address) {
+      toast.error("Connect your wallet to attest on-chain.");
+      return;
+    }
+    if (!attestContract) {
+      toast.error("Panic attestation contract is not configured yet.");
+      return;
+    }
+    if (onChainAttestedToday || attestConfirmedHash) {
+      toast.message("Already attested on-chain today.");
+      return;
+    }
+    if (state.cyclesCompleted < config.requiredCycles) {
+      toast.error("Complete all active cycles before on-chain attestation.");
+      return;
+    }
+    if (chainId !== wantChain.id) {
+      try {
+        await switchChainAsync({ chainId: wantChain.id });
+      } catch {
+        toast.error(`Switch to ${wantChain.name} to attest.`);
+        return;
+      }
+    }
+    const precision = panicSwitchPrecisionScore(state, config);
+    const holdSeconds = panicHoldSecondsFromState(state.enduranceElapsedVisibleMs);
+    try {
+      const hash = await writeContractAsync({
+        address: attestContract,
+        abi: panicSwitchAttestationAbi,
+        functionName: "attest",
+        args: [BigInt(precision), BigInt(holdSeconds)],
+      });
+      setAttestHash(hash);
+      toast.message("Attestation submitted — waiting for confirmation…");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "On-chain attestation failed.");
+    }
+  }, [
+    address,
+    attestConfirmedHash,
+    attestContract,
+    chainId,
+    config,
+    isConnected,
+    onChainAttestedToday,
+    state,
+    switchChainAsync,
+    wantChain.id,
+    wantChain.name,
+    writeContractAsync,
+  ]);
 
   const clearSession = useCallback(() => {
     clearPanicSwitchState();
@@ -440,7 +548,11 @@ export function PanicSwitchOverlay() {
     setVoucherClaimed(false);
     setVoucherTxHash(null);
     setVoucherTokenId(null);
-  }, []);
+    setAttestHash(undefined);
+    if (!onChainAttestedToday) {
+      setAttestConfirmedHash(undefined);
+    }
+  }, [onChainAttestedToday]);
 
   const claimDailyBccReward = useCallback(async () => {
     if (!isConnected || !address) {
@@ -449,6 +561,10 @@ export function PanicSwitchOverlay() {
     }
     if (!state.sessionId) {
       toast.error("No active session proof found.");
+      return;
+    }
+    if (attestContract && !attestConfirmedHash && !onChainAttestedToday) {
+      toast.error("Attest on-chain first, then claim your BCC reward.");
       return;
     }
     try {
@@ -464,6 +580,8 @@ export function PanicSwitchOverlay() {
           signature: signed.signature,
           sessionId: state.sessionId,
           precisionScore: panicSwitchPrecisionScore(state, config),
+          holdSeconds: panicHoldSecondsFromState(state.enduranceElapsedVisibleMs),
+          txHash: attestConfirmedHash ?? undefined,
         },
       });
       if (!res.ok) {
@@ -498,7 +616,17 @@ export function PanicSwitchOverlay() {
     } finally {
       setClaimingReward(false);
     }
-  }, [address, claimPanicReward, config, isConnected, signSiwe, state]);
+  }, [
+    address,
+    attestConfirmedHash,
+    attestContract,
+    claimPanicReward,
+    config,
+    isConnected,
+    onChainAttestedToday,
+    signSiwe,
+    state,
+  ]);
 
   const claimHiddenVoucher = useCallback(async () => {
     if (!isConnected || !address) {
@@ -599,7 +727,15 @@ export function PanicSwitchOverlay() {
           : "Restart Run";
   const actionDisabled = state.phase === "active" && !derived.warningActive;
   const canClaimReward =
-    (state.phase === "endurance" || state.phase === "completed") && !claimedToday;
+    (state.phase === "endurance" || state.phase === "completed") &&
+    !claimedToday &&
+    (siweOnlyPanicMode || onChainAttestedToday || !!attestConfirmedHash);
+  const canAttestOnChain =
+    !!attestContract &&
+    (state.phase === "endurance" || state.phase === "completed") &&
+    state.cyclesCompleted >= config.requiredCycles &&
+    !onChainAttestedToday &&
+    !attestConfirmedHash;
   const showVoucherSection = state.phase === "endurance" || state.phase === "completed";
   const canClaimVoucher =
     showVoucherSection &&
@@ -836,9 +972,28 @@ export function PanicSwitchOverlay() {
               {state.phase === "endurance" || state.phase === "completed" ? (
                 <div className="mt-2 rounded-xl border border-[#C5FF41]/25 bg-[#C5FF41]/10 p-2">
                   <p className="text-[11px] text-[#edffc0]">
-                    After 10 rounds you can claim a daily {BCC_SYMBOL} reward with wallet
-                    attestation.
+                    {attestContract
+                      ? `One attestation per UTC day on Base. Complete the run, attest on-chain, then claim ${BCC_SYMBOL}.`
+                      : `After 10 rounds you can claim a daily ${BCC_SYMBOL} reward with wallet attestation.`}
                   </p>
+                  {attestContract ? (
+                    <button
+                      type="button"
+                      onClick={() => void attestOnChain()}
+                      disabled={!canAttestOnChain || attestTxPending || attestConfirming}
+                      className={`mt-2 w-full rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wide ${
+                        !canAttestOnChain || attestTxPending || attestConfirming
+                          ? "cursor-not-allowed border border-white/20 bg-black/35 text-white/60"
+                          : "border border-cyan-300/45 bg-black/55 text-cyan-100 hover:bg-black/70"
+                      }`}
+                    >
+                      {attestTxPending || attestConfirming
+                        ? "Attesting on-chain…"
+                        : onChainAttestedToday || attestConfirmedHash
+                          ? "On-chain attestation done"
+                          : "1. Attest on-chain"}
+                    </button>
+                  ) : null}
                   <button
                     type="button"
                     onClick={() => void claimDailyBccReward()}
@@ -854,8 +1009,12 @@ export function PanicSwitchOverlay() {
                       : claimingReward || signing
                         ? "Attesting..."
                         : canClaimReward
-                          ? `Claim daily ${BCC_SYMBOL} reward`
-                          : `Today's ${BCC_SYMBOL} reward claimed`}
+                          ? attestContract
+                            ? `2. Claim daily ${BCC_SYMBOL} reward`
+                            : `Claim daily ${BCC_SYMBOL} reward`
+                          : attestContract && !onChainAttestedToday && !attestConfirmedHash
+                            ? "Attest on-chain first"
+                            : `Today's ${BCC_SYMBOL} reward claimed`}
                   </button>
                 </div>
               ) : null}

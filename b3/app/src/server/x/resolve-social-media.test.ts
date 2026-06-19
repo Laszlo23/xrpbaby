@@ -11,7 +11,9 @@ test("resolveSocialMediaPath accepts valid social webp", () => {
   assert.equal(resolved.ok, true);
   if (resolved.ok) {
     assert.ok(fs.existsSync(resolved.absPath));
-    assert.ok(resolved.absPath.endsWith(path.join("public", "social", "building-culture-hero.webp")));
+    assert.ok(
+      resolved.absPath.endsWith(path.join("public", "social", "building-culture-hero.webp")),
+    );
   }
 });
 

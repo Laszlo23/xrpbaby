@@ -2,6 +2,8 @@ import { Configuration, NeynarAPIClient } from "@neynar/nodejs-sdk";
 import type { Cast } from "@neynar/nodejs-sdk/build/api/models/cast";
 import { SearchCastsModeEnum } from "@neynar/nodejs-sdk/build/api/apis/cast-api";
 import { getServerPublicOrigin } from "@/lib/app-origin";
+import type { ShareActionType } from "@/server/social/culture-value";
+import { resolveFarcasterTagHandle, textMentionsHandle } from "@/server/social/share-tags";
 
 export const FARCASTER_SOCIAL_TASK_SLUGS = [
   "follow-farcaster",
@@ -286,6 +288,82 @@ async function userCastIncludesShare(
   }
 
   return false;
+}
+
+export type FarcasterShareAnalysis = {
+  actionType: ShareActionType;
+  text: string;
+  mentionsOk: boolean;
+  hasAppLink: boolean;
+  hasHashtag: boolean;
+  hasMedia: boolean;
+};
+
+function appLinkNeedlesForCast(): string[] {
+  const needles = new Set<string>();
+  try {
+    const origin = getServerPublicOrigin().replace(/\/$/, "").toLowerCase();
+    needles.add(origin);
+    const host = new URL(origin).hostname.toLowerCase();
+    needles.add(host);
+    if (!host.startsWith("www.")) needles.add(`www.${host}`);
+  } catch {
+    /* ignore */
+  }
+  const explicit = process.env.NEYNAR_SHARE_HOST?.trim();
+  if (explicit)
+    needles.add(
+      explicit
+        .replace(/^https?:\/\//, "")
+        .split("/")[0]!
+        .toLowerCase(),
+    );
+  return [...needles];
+}
+
+function textIncludesNeedle(text: string, needle: string): boolean {
+  return text.toLowerCase().includes(needle.toLowerCase());
+}
+
+function castHasMedia(cast: Cast): boolean {
+  for (const e of cast.embeds ?? []) {
+    if ("url" in e && typeof e.url === "string") {
+      const u = e.url.toLowerCase();
+      if (/\.(png|jpg|jpeg|gif|webp|mp4|mov)/.test(u) || u.includes("imagedelivery")) return true;
+    }
+    if ("cast_id" in e || "castId" in e) return true;
+  }
+  return false;
+}
+
+/** Classify a Farcaster cast for share-story scoring. */
+export function analyzeFarcasterShareCast(cast: Cast): FarcasterShareAnalysis {
+  const text = (cast.text ?? "").trim();
+  const parentHash = (cast as { parent_hash?: string | null }).parent_hash?.trim();
+  const embeds = cast.embeds ?? [];
+  const hasQuoteEmbed = embeds.some(
+    (e) => "cast_id" in e || "castId" in e || (e as { type?: string }).type === "cast_embed",
+  );
+
+  let actionType: ShareActionType = "original";
+  if (parentHash) {
+    if (!text || (text.length < 24 && !hasQuoteEmbed)) {
+      actionType = "recast";
+    } else if (hasQuoteEmbed || text.length >= 24) {
+      actionType = "quote";
+    } else {
+      actionType = "reply";
+    }
+  }
+
+  const fcHandle = resolveFarcasterTagHandle();
+  const mentionsOk = textMentionsHandle(text, fcHandle);
+  const needles = appLinkNeedlesForCast();
+  const hasAppLink = needles.some((n) => textIncludesNeedle(text, n));
+  const hasHashtag = text.toLowerCase().includes("#buildculture");
+  const hasMedia = castHasMedia(cast);
+
+  return { actionType, text, mentionsOk, hasAppLink, hasHashtag, hasMedia };
 }
 
 export async function verifyFarcasterSocialTask(

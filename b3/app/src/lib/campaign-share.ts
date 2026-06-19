@@ -38,9 +38,12 @@ export function buildCampaignUrl(origin: string, ref?: Address): string {
 }
 
 /** Warpcast / Farcaster compose (share as cast intent). */
-export function warpcastComposeUrl(text: string): string {
+export function warpcastComposeUrl(text: string, embeds?: string[]): string {
   const u = new URL("https://warpcast.com/~/compose");
   u.searchParams.set("text", text);
+  for (const e of embeds ?? []) {
+    u.searchParams.append("embeds[]", e);
+  }
   return u.href;
 }
 

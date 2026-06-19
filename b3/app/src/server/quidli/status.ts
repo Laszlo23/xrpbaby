@@ -14,9 +14,8 @@ import { quidliSpendTodayUsd } from "@/server/quidli/policy";
 
 export async function buildQuidliStatus(prisma: PrismaClient | null, origin?: string) {
   const sendsTodayUsd = prisma ? await quidliSpendTodayUsd(prisma) : 0;
-  const recent =
-    prisma ?
-      await prisma.quidliDelivery.findMany({
+  const recent = prisma
+    ? await prisma.quidliDelivery.findMany({
         where: { status: { in: ["completed", "submitted"] } },
         orderBy: { createdAt: "desc" },
         take: 8,

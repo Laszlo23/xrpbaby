@@ -35,13 +35,19 @@ export const CULTURE_LAYERS: CultureLayer[] = [
         id: "people",
         label: "People",
         description: "Meet the builders, founders, and operators behind the culture.",
-        href: "/team",
+        href: "/connect",
       },
       {
         id: "stories",
-        label: "Stories",
-        description: "Real journeys from builders who earned trust onchain.",
-        href: "#stories",
+        label: "Builder Tapes",
+        description: "Real founder audio stories — listen, share, earn Culture Points.",
+        href: "/stories/tapes",
+      },
+      {
+        id: "chronicles",
+        label: "Chronicles",
+        description: "11-chapter meme edition NFT story on Base.",
+        href: "/chronicles",
       },
       {
         id: "projects",
@@ -74,7 +80,8 @@ export const CULTURE_LAYERS: CultureLayer[] = [
       {
         id: "credentials",
         label: "Credentials",
-        description: "Verifiable proof — builder, contributor, human, agent, and project credentials.",
+        description:
+          "Verifiable proof — builder, contributor, human, agent, and project credentials.",
         href: "/credentials",
       },
       {
@@ -109,7 +116,7 @@ export const CULTURE_LAYERS: CultureLayer[] = [
         id: "marketing-agent",
         label: "Marketing Agent",
         description: "Social, campaigns, and onchain marketing powered by Grove.",
-        href: "/agent-os",
+        href: "/agents/inbox",
       },
       {
         id: "grant-agent",
@@ -142,8 +149,9 @@ export const CULTURE_LAYERS: CultureLayer[] = [
       {
         id: "services",
         label: "Services",
-        description: "Paid agent services — research, content, and growth on demand.",
-        href: "/agent-os",
+        description:
+          "Agent-backed deliverables — Farcaster growth, funnels, Replay Guy — pay via x402 USDC.",
+        href: "/marketplace/services",
       },
       {
         id: "creator-economy",
@@ -171,7 +179,7 @@ export const CULTURE_LAYERS: CultureLayer[] = [
         id: "treasury",
         label: "Treasury",
         description: "Treasury dashboard, fee routing, and ecosystem settlement.",
-        href: "/bcc/dashboard",
+        href: "/legacy",
       },
       {
         id: "agent-shares",

@@ -13,18 +13,13 @@ export function initGrowthIntelligenceClient(): void {
   const apiKey = (import.meta.env.VITE_GI_API_KEY as string | undefined)?.trim();
   if (!apiKey) return;
 
-  const appSlug =
-    (import.meta.env.VITE_GI_APP_SLUG as string | undefined)?.trim() || "bc-id";
+  const appSlug = (import.meta.env.VITE_GI_APP_SLUG as string | undefined)?.trim() || "bc-id";
 
   initGrowthIntelligence({
     appSlug,
     apiKey,
     endpoint: "/api/intelligence",
-    maskSelectors: [
-      "[data-gi-mask]",
-      'input[type="password"]',
-      "[data-sensitive]",
-    ],
+    maskSelectors: ["[data-gi-mask]", 'input[type="password"]', "[data-sensitive]"],
     sampleRate: 1,
   });
   started = true;

@@ -40,7 +40,9 @@ export function XrplTestnetIntakePanel() {
         <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-400/90">
           XRPL testnet — demo rail
         </p>
-        <h3 className="mt-2 font-heading text-lg font-semibold text-white">Treasury intake (testnet)</h3>
+        <h3 className="mt-2 font-heading text-lg font-semibold text-white">
+          Treasury intake (testnet)
+        </h3>
         <p className="mt-2 text-sm text-zinc-400">{data.disclaimer}</p>
       </div>
 
@@ -55,7 +57,9 @@ export function XrplTestnetIntakePanel() {
         </div>
         <div className="sm:col-span-2">
           <dt className="text-xs text-zinc-600">Intake address</dt>
-          <dd className="mt-1 break-all font-mono text-xs text-emerald-200/90">{data.intakeAddress}</dd>
+          <dd className="mt-1 break-all font-mono text-xs text-emerald-200/90">
+            {data.intakeAddress}
+          </dd>
         </div>
       </dl>
 

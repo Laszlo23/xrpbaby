@@ -1,0 +1,176 @@
+{
+  "generatedAt": "2026-06-18",
+  "description": "Per-route deployment risk matrix for Building Culture app. Update after each release when e2e baseline or fallbacks change.",
+  "routes": [
+    {
+      "route": "/",
+      "priority": "P0",
+      "e2eCovered": "smoke.spec.ts, landing.spec.ts, trust-funnel.spec.ts",
+      "loadingPattern": "suspense-skeleton",
+      "errorPattern": "router-default",
+      "envDeps": ["VITE_PLATFORM_ORIGIN"],
+      "dopamineHooks": ["hero CTAs", "LiveProofTicker"],
+      "risk": "green"
+    },
+    {
+      "route": "/welcome",
+      "priority": "P0",
+      "e2eCovered": "smoke.spec.ts, first-time-user.spec.ts",
+      "loadingPattern": "static",
+      "errorPattern": "router-default",
+      "envDeps": [],
+      "dopamineHooks": ["3-step tour"],
+      "risk": "green"
+    },
+    {
+      "route": "/join",
+      "priority": "P0",
+      "e2eCovered": "smoke.spec.ts, onboarding.spec.ts, trust-funnel.spec.ts",
+      "loadingPattern": "spinner",
+      "errorPattern": "toast-inline",
+      "envDeps": ["VITE_PRIVY_APP_ID", "DATABASE_URL"],
+      "dopamineHooks": ["SIWE success redirect"],
+      "risk": "amber"
+    },
+    {
+      "route": "/forest",
+      "priority": "P0",
+      "e2eCovered": "smoke.spec.ts, forest.spec.ts, trust-funnel.spec.ts",
+      "loadingPattern": "loadState-machine",
+      "errorPattern": "section-boundary",
+      "envDeps": ["DATABASE_URL"],
+      "dopamineHooks": ["PostJoinPackPrompt", "quest progress ring"],
+      "risk": "green"
+    },
+    {
+      "route": "/play",
+      "priority": "P0",
+      "e2eCovered": "smoke.spec.ts, play.spec.ts, trust-funnel.spec.ts",
+      "loadingPattern": "text-spinner",
+      "errorPattern": "section-boundary",
+      "envDeps": ["DATABASE_URL"],
+      "dopamineHooks": ["spin well toast", "milestone bars"],
+      "risk": "green"
+    },
+    {
+      "route": "/profile",
+      "priority": "P0",
+      "e2eCovered": "smoke.spec.ts, profile-hub.spec.ts, trust-funnel.spec.ts",
+      "loadingPattern": "partial-spinner",
+      "errorPattern": "section-boundary",
+      "envDeps": ["DATABASE_URL", "VITE_PRIVY_APP_ID"],
+      "dopamineHooks": ["XP bar", "quest toasts", "weekly BCC"],
+      "risk": "amber"
+    },
+    {
+      "route": "/pass",
+      "priority": "P0",
+      "e2eCovered": "pass.spec.ts, smoke.spec.ts",
+      "loadingPattern": "spinner",
+      "errorPattern": "toast",
+      "envDeps": ["VITE_IDENTITY_CONTRACT_ADDRESS", "VITE_PRIVY_APP_ID"],
+      "dopamineHooks": ["mint success toast"],
+      "risk": "amber"
+    },
+    {
+      "route": "/credentials",
+      "priority": "P0",
+      "e2eCovered": "flows/credentials.spec.ts, smoke.spec.ts, trust-funnel.spec.ts",
+      "loadingPattern": "async-section",
+      "errorPattern": "section-boundary",
+      "envDeps": ["DATABASE_URL"],
+      "dopamineHooks": ["progress panel", "claim toast"],
+      "risk": "green"
+    },
+    {
+      "route": "/ecosystem",
+      "priority": "P0",
+      "e2eCovered": "smoke.spec.ts, first-time-user.spec.ts",
+      "loadingPattern": "static",
+      "errorPattern": "router-default",
+      "envDeps": [],
+      "dopamineHooks": ["Claim Culture ID CTA"],
+      "risk": "green"
+    },
+    {
+      "route": "/agent-os",
+      "priority": "P1",
+      "e2eCovered": "flows/agent-os.spec.ts, smoke.spec.ts",
+      "loadingPattern": "loader-fallback",
+      "errorPattern": "section-boundary",
+      "envDeps": ["DATABASE_URL"],
+      "dopamineHooks": ["grant/research panels"],
+      "risk": "green"
+    },
+    {
+      "route": "/signal",
+      "priority": "P1",
+      "e2eCovered": "smoke.spec.ts, signal.spec.ts",
+      "loadingPattern": "text",
+      "errorPattern": "inline",
+      "envDeps": ["DATABASE_URL", "NEYNAR_API_KEY"],
+      "dopamineHooks": ["pulse comment"],
+      "risk": "amber"
+    },
+    {
+      "route": "/chronicles",
+      "priority": "P1",
+      "e2eCovered": "chronicles.spec.ts, smoke.spec.ts",
+      "loadingPattern": "text",
+      "errorPattern": "toast",
+      "envDeps": [],
+      "dopamineHooks": ["chapter mint toast"],
+      "risk": "green"
+    },
+    {
+      "route": "/hq",
+      "priority": "P1",
+      "e2eCovered": "fundraise-campaigns.spec.ts, smoke.spec.ts",
+      "loadingPattern": "text",
+      "errorPattern": "inline",
+      "envDeps": [],
+      "dopamineHooks": ["milestone bar"],
+      "risk": "green"
+    },
+    {
+      "route": "/triple-333",
+      "priority": "P1",
+      "e2eCovered": "fundraise-campaigns.spec.ts, smoke.spec.ts",
+      "loadingPattern": "text",
+      "errorPattern": "inline",
+      "envDeps": [],
+      "dopamineHooks": ["campaign progress"],
+      "risk": "green"
+    },
+    {
+      "route": "/marketplace",
+      "priority": "P1",
+      "e2eCovered": "smoke.spec.ts",
+      "loadingPattern": "skeleton",
+      "errorPattern": "inline",
+      "envDeps": ["VITE_MARKETPLACE_NETWORK"],
+      "dopamineHooks": [],
+      "risk": "amber"
+    },
+    {
+      "route": "/id/$name",
+      "priority": "P1",
+      "e2eCovered": "identity-resolve.spec.ts",
+      "loadingPattern": "static",
+      "errorPattern": "graceful-invalid",
+      "envDeps": ["VITE_IDENTITY_CONTRACT_ADDRESS"],
+      "dopamineHooks": ["mint CTA when available"],
+      "risk": "green"
+    },
+    {
+      "route": "/investors",
+      "priority": "P2",
+      "e2eCovered": "flows/investors.spec.ts, smoke.spec.ts",
+      "loadingPattern": "text",
+      "errorPattern": "inline",
+      "envDeps": [],
+      "dopamineHooks": [],
+      "risk": "green"
+    }
+  ]
+}

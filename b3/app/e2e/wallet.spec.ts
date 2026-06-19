@@ -1,4 +1,4 @@
-import { test } from "../fixtures/skip-onboarding";
+import { test } from "./fixtures/skip-onboarding";
 
 const walletE2e = process.env.CI_WALLET_E2E === "1";
 

@@ -6,6 +6,7 @@ const bodySchema = z.object({
   address: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
   message: z.string().min(1),
   signature: z.string().min(1),
+  referralCode: z.string().min(4).optional(),
 });
 
 export const Route = createFileRoute("/api/credentials/identity/sync")({
@@ -30,10 +31,12 @@ export const Route = createFileRoute("/api/credentials/identity/sync")({
           return Response.json({ ok: false, error: auth.error }, { status: auth.status });
         }
 
-        const { syncCultureIdentityFromHandle } = await import("@/server/credentials/identity-sync");
+        const { syncCultureIdentityFromHandle } =
+          await import("@/server/credentials/identity-sync");
         const result = await syncCultureIdentityFromHandle({
           handle: parsed.data.handle,
           evmAddress: auth.address,
+          referralCode: parsed.data.referralCode,
         });
 
         if (!result.ok) {

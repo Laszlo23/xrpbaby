@@ -31,6 +31,12 @@ describe("weekly BCC claim", () => {
     assert.match(key, /^weekly:0xabcd012345678901234567890123456789012345:\d+$/);
   });
 
+  it("applies power multiplier to wei", async () => {
+    const { applyPowerMultiplier } = await import("@/lib/identity/culture-power");
+    const base = 1_000_000_000_000_000_000n;
+    assert.equal(applyPowerMultiplier(base, 12_500), (base * 12_500n) / 10_000n);
+  });
+
   it("payout whitelist blocks non-listed addresses when active", () => {
     const listed = "0x1111111111111111111111111111111111111111";
     const other = "0x2222222222222222222222222222222222222222";

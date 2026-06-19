@@ -24,39 +24,38 @@ export async function runDailyAnalysisForApp(
   const since = new Date(Date.now() - DAY_MS);
   const id = dayId();
 
-  const [sessions, events, rageClicks, pageViews, clicks, lastEvents] =
-    await Promise.all([
-      prisma.growthSession.count({ where: { appId, startedAt: { gte: since } } }),
-      prisma.growthEvent.count({ where: { appId, occurredAt: { gte: since } } }),
-      prisma.growthEvent.count({
-        where: { appId, kind: "rage_click", occurredAt: { gte: since } },
-      }),
-      prisma.growthEvent.groupBy({
-        by: ["pathname"],
-        where: { appId, kind: "page_view", occurredAt: { gte: since } },
-        _count: { id: true },
-        orderBy: { _count: { id: "desc" } },
-        take: 5,
-      }),
-      prisma.growthEvent.groupBy({
-        by: ["selector"],
-        where: {
-          appId,
-          kind: { in: ["click", "rage_click"] },
-          occurredAt: { gte: since },
-          selector: { not: null },
-        },
-        _count: { id: true },
-        orderBy: { _count: { id: "desc" } },
-        take: 5,
-      }),
-      prisma.growthEvent.findMany({
-        where: { appId, occurredAt: { gte: since } },
-        select: { sessionId: true, pathname: true, occurredAt: true },
-        orderBy: { occurredAt: "desc" },
-        take: 5000,
-      }),
-    ]);
+  const [sessions, events, rageClicks, pageViews, clicks, lastEvents] = await Promise.all([
+    prisma.growthSession.count({ where: { appId, startedAt: { gte: since } } }),
+    prisma.growthEvent.count({ where: { appId, occurredAt: { gte: since } } }),
+    prisma.growthEvent.count({
+      where: { appId, kind: "rage_click", occurredAt: { gte: since } },
+    }),
+    prisma.growthEvent.groupBy({
+      by: ["pathname"],
+      where: { appId, kind: "page_view", occurredAt: { gte: since } },
+      _count: { id: true },
+      orderBy: { _count: { id: "desc" } },
+      take: 5,
+    }),
+    prisma.growthEvent.groupBy({
+      by: ["selector"],
+      where: {
+        appId,
+        kind: { in: ["click", "rage_click"] },
+        occurredAt: { gte: since },
+        selector: { not: null },
+      },
+      _count: { id: true },
+      orderBy: { _count: { id: "desc" } },
+      take: 5,
+    }),
+    prisma.growthEvent.findMany({
+      where: { appId, occurredAt: { gte: since } },
+      select: { sessionId: true, pathname: true, occurredAt: true },
+      orderBy: { occurredAt: "desc" },
+      take: 5000,
+    }),
+  ]);
 
   const exitCounts = new Map<string, number>();
   const lastBySession = new Map<string, string>();

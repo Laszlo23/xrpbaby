@@ -134,12 +134,7 @@ function LiquidityPage() {
               <Button variant="secondary" className="rounded-full" asChild>
                 <Link to="/swap">Swap BCC in-app</Link>
               </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="rounded-full"
-                onClick={openGetBcd}
-              >
+              <Button type="button" variant="outline" className="rounded-full" onClick={openGetBcd}>
                 Get BCD
               </Button>
               <Button variant="outline" className="rounded-full" asChild>

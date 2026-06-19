@@ -4,6 +4,7 @@
  */
 import type { ExperienceCategory, HomeDrop } from "@/content/home-drops";
 import { homeDrops } from "@/content/home-drops";
+import { CHRONICLES, CHRONICLE_EDITION_COUNT } from "@/content/culture-chronicles";
 
 export const CULTURE_QUIZ_SESSION_LENGTH = 7;
 
@@ -132,6 +133,32 @@ const STATIC_FAQ: CultureQuizQuestion[] = [
     correctIndex: 1,
     explain:
       "Mission collects treasury narrative, roadmap, and genesis tooling when addresses are configured.",
+  },
+  {
+    id: "chronicle-count",
+    prompt: "How many chapters are in Culture Chronicles: Meme Edition?",
+    choices: [String(CHRONICLE_EDITION_COUNT), "7", "21", "Unlimited editions"],
+    correctIndex: 0,
+    explain: `The set has ${CHRONICLE_EDITION_COUNT} scarce chapters — full set unlocks Chronicle Founder perks.`,
+  },
+  {
+    id: "chronicle-finale",
+    prompt: "Which chapter is the legendary finale of Culture Chronicles?",
+    choices: [
+      CHRONICLES.find((c) => c.editionId === 11)?.title ?? "Vibe Friends",
+      "The Feed Explained",
+      "Park Token",
+      "Genesis Series",
+    ],
+    correctIndex: 0,
+    explain: "Chapter 11 — Vibe Friends — has only 77 mints and completes the founder set.",
+  },
+  {
+    id: "chronicle-easter-egg",
+    prompt: "Which chapter preserves the intentional “frienmds” typo as an on-chain trait?",
+    choices: ["Friends (Not Frienmds)", "The Gang Assembles", "Evolution", "The Standard"],
+    correctIndex: 0,
+    explain: "Chapter 6 leans into the meme — real friends mint together.",
   },
   {
     id: "faq-ticket-receipt",

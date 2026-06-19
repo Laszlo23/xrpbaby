@@ -154,6 +154,10 @@ export async function creditDailyCheckInPoints(
     where: { walletId: wallet.id },
     _sum: { delta: true },
   });
+
+  const { touchMemberPowerAfterMaintenance } = await import("@/server/member/culture-power");
+  await touchMemberPowerAfterMaintenance(prisma, addr);
+
   return {
     ok: true,
     alreadyCompleted: false,

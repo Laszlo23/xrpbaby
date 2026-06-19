@@ -60,7 +60,12 @@ describe("landing-proof-display", () => {
   it("shows real count when at or above per-key floor", () => {
     const proof = mockProof({
       community: { members: 400, waitlist: 500, membersWithWallet: 350, membersWithFarcaster: 0 },
-      game: { raffleTicketsMinted: 10, agentShareTokensMinted: 5, culturePointsNet: 3000, activity24h: 100 },
+      game: {
+        raffleTicketsMinted: 10,
+        agentShareTokensMinted: 5,
+        culturePointsNet: 3000,
+        activity24h: 100,
+      },
     });
     assert.equal(landingProofValue("members", proof, false), "400");
     assert.equal(landingProofValue("activity24h", proof, false), "100");

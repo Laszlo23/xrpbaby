@@ -6,7 +6,10 @@ import type { FounderShowcaseConfig } from "@/lib/profile/founder-showcase";
 
 function NftCard({ nft }: { nft: ShowcaseNftItem }) {
   const body = (
-    <GlassCard hover className="flex h-full w-[200px] shrink-0 flex-col overflow-hidden p-0 sm:w-[220px]">
+    <GlassCard
+      hover
+      className="flex h-full w-[200px] shrink-0 flex-col overflow-hidden p-0 sm:w-[220px]"
+    >
       <div className="relative aspect-square w-full bg-zinc-900">
         {nft.imageUrl ? (
           <img src={nft.imageUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
@@ -66,7 +69,10 @@ export function NFTStrip({
   return (
     <section className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <SectionHeading title="Onchain collectibles" subtitle="Identity NFT and wallet-held assets on Base." />
+        <SectionHeading
+          title="Onchain collectibles"
+          subtitle="Identity NFT and wallet-held assets on Base."
+        />
         {openSeaIdentity ? (
           <a
             href={openSeaIdentity}

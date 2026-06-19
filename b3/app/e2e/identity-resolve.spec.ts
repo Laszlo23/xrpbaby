@@ -30,7 +30,9 @@ test.describe("culture name resolution", () => {
     await expect(page.getByText("Featured Builds")).toBeVisible();
     await expect(page.getByText("Builder Signal")).toBeVisible();
     await expect(page.getByText("Culture Score")).toBeVisible();
-    await expect(page.getByRole("link", { name: /mint your culture layer identity/i })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /mint your culture layer identity/i }),
+    ).toBeVisible();
   });
 
   test("graph demo API returns JSON", async ({ request }) => {
@@ -62,9 +64,7 @@ test.describe("culture name resolution", () => {
   });
 
   test("graph demo returns linked identities for default identity", async ({ request }) => {
-    const res = await request.get(
-      "/api/identity/graph-demo?identity=laszloleonardo.eth",
-    );
+    const res = await request.get("/api/identity/graph-demo?identity=laszloleonardo.eth");
     expect(res.ok()).toBeTruthy();
     const data = (await res.json()) as {
       ok?: boolean;

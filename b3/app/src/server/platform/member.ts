@@ -1,10 +1,10 @@
 import { createRequire } from "node:module";
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 
 const require = createRequire(import.meta.url);
 
 export async function ensureWalletAndMember(
-  prisma: PrismaClient,
+  prisma: PrismaClient | Prisma.TransactionClient,
   address: string,
   opts?: {
     intent?: string;
@@ -140,7 +140,7 @@ export async function unlinkFarcasterFromMember(prisma: PrismaClient, memberId: 
 }
 
 export async function logActivity(
-  prisma: PrismaClient,
+  prisma: PrismaClient | Prisma.TransactionClient,
   input: {
     memberId?: string;
     type: string;

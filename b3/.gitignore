@@ -33,6 +33,7 @@ apps/**/cache/
 **/dist/
 proof-bundles/
 assets/places-masters/
+app/public/character/source/
 reports/cleanup-inventory.txt
 
 # Secret-bearing deploy env (use .env.example templates)

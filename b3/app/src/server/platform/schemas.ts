@@ -13,4 +13,5 @@ export const onboardingCompleteBodySchema = z.object({
   email: z.string().email().optional(),
   message: z.string().min(10),
   signature: z.string().min(10),
+  agent_ref: z.string().max(64).optional(),
 });

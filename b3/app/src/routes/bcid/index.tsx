@@ -8,7 +8,13 @@ export const Route = createFileRoute("/bcid/")({
       description:
         "Portable builder identity with verifiable credentials. Prove work, not followers. Privacy-first reputation.",
       path: "/bcid",
-      keywords: ["BCID", "Building Culture ID", "Web3 identity", "builder credentials", "reputation"],
+      keywords: [
+        "BCID",
+        "Building Culture ID",
+        "Web3 identity",
+        "builder credentials",
+        "reputation",
+      ],
     }),
   component: BcidLandingPage,
 });
@@ -25,7 +31,9 @@ function BcidLandingPage() {
 
       <ul className="mb-10 space-y-3 text-zinc-300">
         <li>✓ Builder, Trust, Contribution, and Verification scores</li>
-        <li>✓ Bridge your existing <code className="text-[#C5FF41]">.culture</code> name</li>
+        <li>
+          ✓ Bridge your existing <code className="text-[#C5FF41]">.culture</code> name
+        </li>
         <li>✓ Privacy-first credentials with selective disclosure</li>
         <li>✓ Agent-ready identity for the AI economy</li>
       </ul>
@@ -36,6 +44,12 @@ function BcidLandingPage() {
           className="rounded-full bg-[#C5FF41] px-6 py-3 font-semibold text-black hover:opacity-90"
         >
           Mint Human BCID
+        </Link>
+        <Link
+          to="/docs/bcid"
+          className="rounded-full border border-zinc-600 px-6 py-3 text-white hover:border-[#C5FF41]"
+        >
+          Protocol docs
         </Link>
         <Link
           to="/bcid/leaderboard"
@@ -49,7 +63,10 @@ function BcidLandingPage() {
         >
           Farcaster Frame
         </a>
-        <Link to="/pass" className="rounded-full border border-zinc-600 px-6 py-3 text-zinc-300 hover:text-white">
+        <Link
+          to="/pass"
+          className="rounded-full border border-zinc-600 px-6 py-3 text-zinc-300 hover:text-white"
+        >
           Culture ID (.culture)
         </Link>
       </div>

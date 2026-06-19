@@ -7,6 +7,7 @@ import {
   buildCredentialProgressItems,
 } from "@/components/credentials/CredentialProgressPanel";
 import type { CredentialCatalogItem } from "@/lib/credentials/credential-catalog-fn";
+import { AsyncSection } from "@/components/AsyncSection";
 
 type MemberPayload = {
   ok?: boolean;
@@ -20,18 +21,32 @@ type MemberPayload = {
   hasHumanAttestation?: boolean;
 };
 
+type LoadState = "idle" | "loading" | "ready" | "error";
+
 export function CredentialsProgressSection({ catalog }: { catalog: CredentialCatalogItem[] }) {
   const { address, isConnected } = useAccount();
   const [data, setData] = useState<MemberPayload | null>(null);
+  const [loadState, setLoadState] = useState<LoadState>("idle");
 
   const load = useCallback(async () => {
     if (!address) {
       setData(null);
+      setLoadState("idle");
       return;
     }
-    const res = await fetch(`/api/credentials/member?address=${encodeURIComponent(address)}`);
-    const json = (await res.json()) as MemberPayload;
-    setData(json);
+    setLoadState("loading");
+    try {
+      const res = await fetch(`/api/credentials/member?address=${encodeURIComponent(address)}`);
+      const json = (await res.json()) as MemberPayload;
+      if (!res.ok || json.ok === false) {
+        setLoadState("error");
+        return;
+      }
+      setData(json);
+      setLoadState("ready");
+    } catch {
+      setLoadState("error");
+    }
   }, [address]);
 
   useEffect(() => {
@@ -63,6 +78,15 @@ export function CredentialsProgressSection({ catalog }: { catalog: CredentialCat
   });
 
   return (
-    <CredentialProgressPanel items={items} hasCultureIdentity={Boolean(data?.hasCultureIdentity)} />
+    <AsyncSection
+      state={loadState === "loading" ? "loading" : loadState === "error" ? "error" : "ready"}
+      errorMessage="Could not load your credential progress. Connect is fine — try again."
+      onRetry={() => void load()}
+    >
+      <CredentialProgressPanel
+        items={items}
+        hasCultureIdentity={Boolean(data?.hasCultureIdentity)}
+      />
+    </AsyncSection>
   );
 }

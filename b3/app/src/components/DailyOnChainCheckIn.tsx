@@ -186,8 +186,8 @@ export function DailyOnChainCheckIn({
         {siweOnlyMode ? (
           <>
             Sign once per UTC day to credit <strong className="text-zinc-300">+20 pts</strong> and a{" "}
-            <strong className="text-zinc-300">+7 signature bonus</strong> on the server ledger —
-            no gas required.
+            <strong className="text-zinc-300">+7 signature bonus</strong> on the server ledger — no
+            gas required.
           </>
         ) : (
           <>
@@ -238,7 +238,11 @@ export function DailyOnChainCheckIn({
               {confirming || txPending ? "Confirming tx…" : claiming ? "Recording…" : "Working…"}
             </span>
           ) : onChainDoneToday ? (
-            ledgerDoneToday ? "Checked in today" : "Sign to credit points"
+            ledgerDoneToday ? (
+              "Checked in today"
+            ) : (
+              "Sign to credit points"
+            )
           ) : chainId !== wantChain.id ? (
             `Switch to ${wantChain.name} & check in`
           ) : (

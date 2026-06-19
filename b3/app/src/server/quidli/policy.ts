@@ -69,9 +69,7 @@ export async function quidliSpendTodayUsd(prisma: PrismaClient): Promise<number>
   return rows.reduce((sum, r) => sum + estimateAmountUsd(r.amountWei), 0);
 }
 
-export type PolicyCheckResult =
-  | { ok: true }
-  | { ok: false; reason: string };
+export type PolicyCheckResult = { ok: true } | { ok: false; reason: string };
 
 export async function checkQuidliSendPolicy(
   prisma: PrismaClient,

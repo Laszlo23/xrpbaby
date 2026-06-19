@@ -49,8 +49,7 @@ export function resolveBccTreasuryRpcUrl(chainId: number): string | undefined {
 
 export function resolveBccTreasuryPrivateKey(): string | undefined {
   const e = env();
-  const key =
-    e.BCC_TREASURY_PRIVATE_KEY?.trim() || e.PANIC_SWITCH_BCC_REWARD_PRIVATE_KEY?.trim();
+  const key = e.BCC_TREASURY_PRIVATE_KEY?.trim() || e.PANIC_SWITCH_BCC_REWARD_PRIVATE_KEY?.trim();
   if (!key || !/^0x[a-fA-F0-9]{64}$/.test(key)) return undefined;
   return key;
 }

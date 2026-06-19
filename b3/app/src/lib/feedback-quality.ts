@@ -49,7 +49,11 @@ function normalizeText(s: string): string {
 }
 
 function tokenSet(s: string): Set<string> {
-  return new Set(normalizeText(s).split(/\W+/).filter((t) => t.length > 2));
+  return new Set(
+    normalizeText(s)
+      .split(/\W+/)
+      .filter((t) => t.length > 2),
+  );
 }
 
 function jaccardSimilarity(a: string, b: string): number {
@@ -90,7 +94,9 @@ export function scoreFeedbackQuality(
       score: 0,
       passed: false,
       rejectReason: "tried_what_too_short",
-      coachingTips: ["Describe what you tried in at least 40 characters — e.g. which page and button."],
+      coachingTips: [
+        "Describe what you tried in at least 40 characters — e.g. which page and button.",
+      ],
     };
   }
   if (problem.length < 60) {
@@ -119,7 +125,9 @@ export function scoreFeedbackQuality(
         score: 0,
         passed: false,
         rejectReason: "duplicate_submission",
-        coachingTips: ["You already submitted similar feedback recently. Add new detail or wait for review."],
+        coachingTips: [
+          "You already submitted similar feedback recently. Add new detail or wait for review.",
+        ],
       };
     }
   }

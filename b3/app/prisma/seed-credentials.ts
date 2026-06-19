@@ -15,6 +15,7 @@ const XRPL_MAPPINGS: Record<string, object> = {
   "verified-human": { credentialType: "VerifiedIdentity", subject: "CultureIdentity" },
   "trusted-agent": { credentialType: "Agent", controller: "AgentIdentity.wallet" },
   "verified-project": { credentialType: "Organization", issuer: "building-culture" },
+  "limited-merch-holder": { credentialType: "Participation", subject: "MerchOrder" },
 };
 
 async function main() {

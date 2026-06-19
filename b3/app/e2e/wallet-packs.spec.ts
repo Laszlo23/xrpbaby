@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures/skip-onboarding";
 
 test.describe("wallet and packs", () => {
   test("wallet page loads", async ({ page }) => {

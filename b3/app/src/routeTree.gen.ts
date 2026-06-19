@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
+import { Route as Triple333RouteImport } from './routes/triple-333'
 import { Route as TradingAgentRouteImport } from './routes/trading-agent'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as SwapRouteImport } from './routes/swap'
@@ -31,6 +32,7 @@ import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
+import { Route as HqRouteImport } from './routes/hq'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as GrantProofRouteImport } from './routes/grant-proof'
 import { Route as GenesisDistrictRouteImport } from './routes/genesis-district'
@@ -57,11 +59,14 @@ import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as PlacesIndexRouteImport } from './routes/places/index'
 import { Route as PassIndexRouteImport } from './routes/pass/index'
 import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
+import { Route as LegacyIndexRouteImport } from './routes/legacy/index'
 import { Route as ForestIndexRouteImport } from './routes/forest/index'
 import { Route as ExplorerIndexRouteImport } from './routes/explorer.index'
 import { Route as EarthIndexRouteImport } from './routes/earth/index'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as CredentialsIndexRouteImport } from './routes/credentials/index'
+import { Route as ConnectIndexRouteImport } from './routes/connect/index'
+import { Route as ChroniclesIndexRouteImport } from './routes/chronicles/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BcidIndexRouteImport } from './routes/bcid/index'
 import { Route as BccIndexRouteImport } from './routes/bcc/index'
@@ -75,6 +80,8 @@ import { Route as ProductsCultureIdRouteImport } from './routes/products/culture
 import { Route as ProductsCampaignHubRouteImport } from './routes/products/campaign-hub'
 import { Route as ProductsAiAgentsRouteImport } from './routes/products/ai-agents'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
+import { Route as OpsRevenueRouteImport } from './routes/ops/revenue'
+import { Route as OpsOutreachRouteImport } from './routes/ops/outreach'
 import { Route as OpsAttributionRouteImport } from './routes/ops/attribution'
 import { Route as NNameRouteImport } from './routes/n/$name'
 import { Route as MarketplaceSellRouteImport } from './routes/marketplace.sell'
@@ -83,14 +90,21 @@ import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
 import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
+import { Route as LegacyAnalyticsRouteImport } from './routes/legacy/analytics'
 import { Route as InvestorsWorkshopRouteImport } from './routes/investors.workshop'
 import { Route as IdNameRouteImport } from './routes/id/$name'
 import { Route as ForestQuestsRouteImport } from './routes/forest/quests'
+import { Route as ForestGroveRouteImport } from './routes/forest/grove'
 import { Route as DropsArtRouteImport } from './routes/drops/art'
 import { Route as DropsSlugRouteImport } from './routes/drops.$slug'
+import { Route as DocsRfcRouteImport } from './routes/docs.rfc'
+import { Route as DocsInteropRouteImport } from './routes/docs.interop'
+import { Route as DocsBcidRouteImport } from './routes/docs.bcid'
 import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
 import { Route as CredentialsLeaderboardRouteImport } from './routes/credentials/leaderboard'
+import { Route as ChroniclesChapterIdRouteImport } from './routes/chronicles/$chapterId'
 import { Route as BridgeBccRouteImport } from './routes/bridge/bcc'
+import { Route as BrandQuestsCreateRouteImport } from './routes/brand-quests/create'
 import { Route as BlogFeedDotxmlRouteImport } from './routes/blog/feed[.]xml'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BcidMintRouteImport } from './routes/bcid/mint'
@@ -99,11 +113,22 @@ import { Route as BccFairLaunchRouteImport } from './routes/bcc/fair-launch'
 import { Route as BccDashboardRouteImport } from './routes/bcc/dashboard'
 import { Route as AuthLogoutRouteImport } from './routes/auth/logout'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AgentsInboxRouteImport } from './routes/agents/inbox'
+import { Route as AgentFleetServicesRouteImport } from './routes/agent-fleet/services'
 import { Route as R0gAgentidRouteImport } from './routes/0g.agentid'
 import { Route as DotwellKnownFarcasterDotjsonRouteImport } from './routes/[.]well-known/farcaster[.]json'
 import { Route as DotwellKnownAgentDotjsonRouteImport } from './routes/[.]well-known/agent[.]json'
+import { Route as StoriesTapesIndexRouteImport } from './routes/stories/tapes/index'
+import { Route as MarketplaceServicesIndexRouteImport } from './routes/marketplace/services/index'
+import { Route as MarketplaceMerchIndexRouteImport } from './routes/marketplace/merch/index'
+import { Route as StoriesTapesSlugRouteImport } from './routes/stories/tapes/$slug'
+import { Route as MerchClaimCodeRouteImport } from './routes/merch/claim/$code'
+import { Route as MarketplaceServicesSlugRouteImport } from './routes/marketplace/services/$slug'
+import { Route as MarketplaceMerchOpsRouteImport } from './routes/marketplace/merch/ops'
+import { Route as MarketplaceMerchSlugRouteImport } from './routes/marketplace/merch/$slug'
 import { Route as IdNameReputationRouteImport } from './routes/id/$name/reputation'
 import { Route as IdNameCredentialsRouteImport } from './routes/id/$name/credentials'
+import { Route as IdNameCardRouteImport } from './routes/id/$name/card'
 import { Route as ExplorerTxHashRouteImport } from './routes/explorer.tx.$hash'
 import { Route as ExplorerAddressAddressRouteImport } from './routes/explorer.address.$address'
 import { Route as ApiX402PremiumRouteImport } from './routes/api/x402/premium'
@@ -142,9 +167,16 @@ import { Route as ApiPlatformOnboardingCompleteRouteImport } from './routes/api/
 import { Route as ApiPlatformFunnelBaselineRouteImport } from './routes/api/platform/funnel-baseline'
 import { Route as ApiPlatformAttributionDashboardRouteImport } from './routes/api/platform/attribution-dashboard'
 import { Route as ApiPlatformAnalyticsRouteImport } from './routes/api/platform/analytics'
+import { Route as ApiOpsRevenueRouteImport } from './routes/api/ops/revenue'
+import { Route as ApiOpsIdentityLadderSyncRouteImport } from './routes/api/ops/identity-ladder-sync'
+import { Route as ApiMerchClaimRouteImport } from './routes/api/merch/claim'
+import { Route as ApiMemoryTimelineRouteImport } from './routes/api/memory/timeline'
+import { Route as ApiMemoryRecordRouteImport } from './routes/api/memory/record'
 import { Route as ApiMemberMeRouteImport } from './routes/api/member/me'
 import { Route as ApiMemberLeaderboardRouteImport } from './routes/api/member/leaderboard'
+import { Route as ApiMemberGroveTreeRouteImport } from './routes/api/member/grove-tree'
 import { Route as ApiMemberCultureScoreRouteImport } from './routes/api/member/culture-score'
+import { Route as ApiMemberCulturePowerRouteImport } from './routes/api/member/culture-power'
 import { Route as ApiMarketingXPostRouteImport } from './routes/api/marketing/x-post'
 import { Route as ApiMarketXrpQuoteRouteImport } from './routes/api/market/xrp-quote'
 import { Route as ApiMarketSampleMintRouteImport } from './routes/api/market/sample-mint'
@@ -184,10 +216,15 @@ import { Route as ApiCredentialsLeaderboardRouteImport } from './routes/api/cred
 import { Route as ApiCredentialsClaimRouteImport } from './routes/api/credentials/claim'
 import { Route as ApiCredentialsCatalogRouteImport } from './routes/api/credentials/catalog'
 import { Route as ApiComplianceEligibilityRouteImport } from './routes/api/compliance/eligibility'
+import { Route as ApiCampaignTriple333ProgressRouteImport } from './routes/api/campaign/triple-333-progress'
+import { Route as ApiCampaignHqProgressRouteImport } from './routes/api/campaign/hq-progress'
+import { Route as ApiBrandQuestsEligibilityRouteImport } from './routes/api/brand-quests/eligibility'
+import { Route as ApiBrandQuestsCreateRouteImport } from './routes/api/brand-quests/create'
 import { Route as ApiBcidSyncRouteImport } from './routes/api/bcid/sync'
 import { Route as ApiBcidScoresRouteImport } from './routes/api/bcid/scores'
 import { Route as ApiBcidResolveRouteImport } from './routes/api/bcid/resolve'
 import { Route as ApiBcidLeaderboardRouteImport } from './routes/api/bcid/leaderboard'
+import { Route as ApiBcidEasSchemasRouteImport } from './routes/api/bcid/eas-schemas'
 import { Route as ApiBcidCatalogRouteImport } from './routes/api/bcid/catalog'
 import { Route as ApiBcidByCultureRouteImport } from './routes/api/bcid/by-culture'
 import { Route as ApiBccMetricsRouteImport } from './routes/api/bcc/metrics'
@@ -195,6 +232,7 @@ import { Route as ApiAirdropClaimRouteImport } from './routes/api/airdrop/claim'
 import { Route as ApiAgentsStatusRouteImport } from './routes/api/agents/status'
 import { Route as ApiAgentsResearchRouteImport } from './routes/api/agents/research'
 import { Route as ApiAgentsLimxRouteImport } from './routes/api/agents/limx'
+import { Route as ApiAgentsInboxRouteImport } from './routes/api/agents/inbox'
 import { Route as ApiAgentsGrantRouteImport } from './routes/api/agents/grant'
 import { Route as ApiAgentsAccessRouteImport } from './routes/api/agents/access'
 import { Route as ApiAgentOsOverviewRouteImport } from './routes/api/agent-os/overview'
@@ -202,6 +240,7 @@ import { Route as ApiActivityLogRouteImport } from './routes/api/activity/log'
 import { Route as R0gAgentid1DotjsonRouteImport } from './routes/0g/agentid/1[.]json'
 import { Route as ApiPointsWeeklyClaimIndexRouteImport } from './routes/api/points/weekly-claim/index'
 import { Route as ApiPointsRedeemIndexRouteImport } from './routes/api/points/redeem/index'
+import { Route as ApiOpsOutreachIndexRouteImport } from './routes/api/ops/outreach/index'
 import { Route as PlacesApiReocPropertyIdRouteImport } from './routes/places/api/reoc/$propertyId'
 import { Route as ApiWalletPacksCheckoutRouteImport } from './routes/api/wallet/packs/checkout'
 import { Route as ApiTgWalletTonConnectedRouteImport } from './routes/api/tg/wallet/ton-connected'
@@ -217,6 +256,18 @@ import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/puls
 import { Route as ApiPointsWeeklyClaimQuoteRouteImport } from './routes/api/points/weekly-claim/quote'
 import { Route as ApiPointsRedeemStatsRouteImport } from './routes/api/points/redeem/stats'
 import { Route as ApiPointsRedeemQuoteRouteImport } from './routes/api/points/redeem/quote'
+import { Route as ApiOpsOutreachSendRouteImport } from './routes/api/ops/outreach/send'
+import { Route as ApiOpsOutreachDraftRouteImport } from './routes/api/ops/outreach/draft'
+import { Route as ApiMemberCulturePowerRefreshRouteImport } from './routes/api/member/culture-power/refresh'
+import { Route as ApiMarketplaceServicesPayRouteImport } from './routes/api/marketplace/services/pay'
+import { Route as ApiMarketplaceServicesDashboardRouteImport } from './routes/api/marketplace/services/dashboard'
+import { Route as ApiMarketplaceServicesCheckoutRouteImport } from './routes/api/marketplace/services/checkout'
+import { Route as ApiMarketplaceServicesCatalogRouteImport } from './routes/api/marketplace/services/catalog'
+import { Route as ApiMarketplaceMerchPayRouteImport } from './routes/api/marketplace/merch/pay'
+import { Route as ApiMarketplaceMerchOrdersRouteImport } from './routes/api/marketplace/merch/orders'
+import { Route as ApiMarketplaceMerchDashboardRouteImport } from './routes/api/marketplace/merch/dashboard'
+import { Route as ApiMarketplaceMerchCheckoutRouteImport } from './routes/api/marketplace/merch/checkout'
+import { Route as ApiMarketplaceMerchCatalogRouteImport } from './routes/api/marketplace/merch/catalog'
 import { Route as ApiMarketingSocialCampaignTickRouteImport } from './routes/api/marketing/social-campaign/tick'
 import { Route as ApiMarketingQuidliStatusRouteImport } from './routes/api/marketing/quidli/status'
 import { Route as ApiMarketingQuidliSendRouteImport } from './routes/api/marketing/quidli/send'
@@ -227,6 +278,9 @@ import { Route as ApiMarketingGroveFarcasterPostRouteImport } from './routes/api
 import { Route as ApiMarketBccSolanaRouteRouteImport } from './routes/api/market/bcc/solana-route'
 import { Route as ApiMarketBccBnbRouteRouteImport } from './routes/api/market/bcc/bnb-route'
 import { Route as ApiInvestorsWorkshopSessionRouteImport } from './routes/api/investors/workshop/session'
+import { Route as ApiIdentityReferralValidateRouteImport } from './routes/api/identity/referral/validate'
+import { Route as ApiIdentityReferralShareRouteImport } from './routes/api/identity/referral/share'
+import { Route as ApiIdentityReferralCodesRouteImport } from './routes/api/identity/referral/codes'
 import { Route as ApiExplorerTxHashRouteImport } from './routes/api/explorer/tx.$hash'
 import { Route as ApiExplorerAddressAddressRouteImport } from './routes/api/explorer/address.$address'
 import { Route as ApiCredentialsXrplLinkRouteImport } from './routes/api/credentials/xrpl/link'
@@ -237,11 +291,19 @@ import { Route as ApiBcidReferralCodeRouteImport } from './routes/api/bcid/refer
 import { Route as ApiBcidFarcasterFrameRouteImport } from './routes/api/bcid/farcaster/frame'
 import { Route as ApiBcidBridgeCultureRouteImport } from './routes/api/bcid/bridge/culture'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
+import { Route as ApiMarketplaceServicesOrderIdRouteImport } from './routes/api/marketplace/services/order/$id'
+import { Route as ApiMarketplaceMerchOrderIdRouteImport } from './routes/api/marketplace/merch/order/$id'
 import { Route as ApiExplorerTxHashExplainRouteImport } from './routes/api/explorer/tx.$hash.explain'
+import { Route as ApiMarketplaceServicesMilestoneIdApproveRouteImport } from './routes/api/marketplace/services/milestone/$id/approve'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
   path: '/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Triple333Route = Triple333RouteImport.update({
+  id: '/triple-333',
+  path: '/triple-333',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TradingAgentRoute = TradingAgentRouteImport.update({
@@ -347,6 +409,11 @@ const InvestorsRoute = InvestorsRouteImport.update({
 const IntelligenceRoute = IntelligenceRouteImport.update({
   id: '/intelligence',
   path: '/intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HqRoute = HqRouteImport.update({
+  id: '/hq',
+  path: '/hq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuideRoute = GuideRouteImport.update({
@@ -479,6 +546,11 @@ const MarketplaceIndexRoute = MarketplaceIndexRouteImport.update({
   path: '/',
   getParentRoute: () => MarketplaceRoute,
 } as any)
+const LegacyIndexRoute = LegacyIndexRouteImport.update({
+  id: '/legacy/',
+  path: '/legacy/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForestIndexRoute = ForestIndexRouteImport.update({
   id: '/forest/',
   path: '/forest/',
@@ -502,6 +574,16 @@ const DocsIndexRoute = DocsIndexRouteImport.update({
 const CredentialsIndexRoute = CredentialsIndexRouteImport.update({
   id: '/credentials/',
   path: '/credentials/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectIndexRoute = ConnectIndexRouteImport.update({
+  id: '/connect/',
+  path: '/connect/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChroniclesIndexRoute = ChroniclesIndexRouteImport.update({
+  id: '/chronicles/',
+  path: '/chronicles/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -569,6 +651,16 @@ const PSlugRoute = PSlugRouteImport.update({
   path: '/p/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpsRevenueRoute = OpsRevenueRouteImport.update({
+  id: '/ops/revenue',
+  path: '/ops/revenue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpsOutreachRoute = OpsOutreachRouteImport.update({
+  id: '/ops/outreach',
+  path: '/ops/outreach',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OpsAttributionRoute = OpsAttributionRouteImport.update({
   id: '/ops/attribution',
   path: '/ops/attribution',
@@ -609,6 +701,11 @@ const LegalCookiesRoute = LegalCookiesRouteImport.update({
   path: '/cookies',
   getParentRoute: () => LegalRoute,
 } as any)
+const LegacyAnalyticsRoute = LegacyAnalyticsRouteImport.update({
+  id: '/legacy/analytics',
+  path: '/legacy/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InvestorsWorkshopRoute = InvestorsWorkshopRouteImport.update({
   id: '/workshop',
   path: '/workshop',
@@ -624,6 +721,11 @@ const ForestQuestsRoute = ForestQuestsRouteImport.update({
   path: '/forest/quests',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForestGroveRoute = ForestGroveRouteImport.update({
+  id: '/forest/grove',
+  path: '/forest/grove',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DropsArtRoute = DropsArtRouteImport.update({
   id: '/drops/art',
   path: '/drops/art',
@@ -632,6 +734,21 @@ const DropsArtRoute = DropsArtRouteImport.update({
 const DropsSlugRoute = DropsSlugRouteImport.update({
   id: '/drops/$slug',
   path: '/drops/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRfcRoute = DocsRfcRouteImport.update({
+  id: '/docs/rfc',
+  path: '/docs/rfc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsInteropRoute = DocsInteropRouteImport.update({
+  id: '/docs/interop',
+  path: '/docs/interop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsBcidRoute = DocsBcidRouteImport.update({
+  id: '/docs/bcid',
+  path: '/docs/bcid',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocsSlugRoute = DocsSlugRouteImport.update({
@@ -644,9 +761,19 @@ const CredentialsLeaderboardRoute = CredentialsLeaderboardRouteImport.update({
   path: '/credentials/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChroniclesChapterIdRoute = ChroniclesChapterIdRouteImport.update({
+  id: '/chronicles/$chapterId',
+  path: '/chronicles/$chapterId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BridgeBccRoute = BridgeBccRouteImport.update({
   id: '/bridge/bcc',
   path: '/bridge/bcc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandQuestsCreateRoute = BrandQuestsCreateRouteImport.update({
+  id: '/brand-quests/create',
+  path: '/brand-quests/create',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogFeedDotxmlRoute = BlogFeedDotxmlRouteImport.update({
@@ -689,6 +816,16 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgentsInboxRoute = AgentsInboxRouteImport.update({
+  id: '/agents/inbox',
+  path: '/agents/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentFleetServicesRoute = AgentFleetServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AgentFleetRoute,
+} as any)
 const R0gAgentidRoute = R0gAgentidRouteImport.update({
   id: '/0g/agentid',
   path: '/0g/agentid',
@@ -706,6 +843,47 @@ const DotwellKnownAgentDotjsonRoute =
     path: '/.well-known/agent.json',
     getParentRoute: () => rootRouteImport,
   } as any)
+const StoriesTapesIndexRoute = StoriesTapesIndexRouteImport.update({
+  id: '/stories/tapes/',
+  path: '/stories/tapes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceServicesIndexRoute =
+  MarketplaceServicesIndexRouteImport.update({
+    id: '/services/',
+    path: '/services/',
+    getParentRoute: () => MarketplaceRoute,
+  } as any)
+const MarketplaceMerchIndexRoute = MarketplaceMerchIndexRouteImport.update({
+  id: '/merch/',
+  path: '/merch/',
+  getParentRoute: () => MarketplaceRoute,
+} as any)
+const StoriesTapesSlugRoute = StoriesTapesSlugRouteImport.update({
+  id: '/stories/tapes/$slug',
+  path: '/stories/tapes/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MerchClaimCodeRoute = MerchClaimCodeRouteImport.update({
+  id: '/merch/claim/$code',
+  path: '/merch/claim/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceServicesSlugRoute = MarketplaceServicesSlugRouteImport.update({
+  id: '/services/$slug',
+  path: '/services/$slug',
+  getParentRoute: () => MarketplaceRoute,
+} as any)
+const MarketplaceMerchOpsRoute = MarketplaceMerchOpsRouteImport.update({
+  id: '/merch/ops',
+  path: '/merch/ops',
+  getParentRoute: () => MarketplaceRoute,
+} as any)
+const MarketplaceMerchSlugRoute = MarketplaceMerchSlugRouteImport.update({
+  id: '/merch/$slug',
+  path: '/merch/$slug',
+  getParentRoute: () => MarketplaceRoute,
+} as any)
 const IdNameReputationRoute = IdNameReputationRouteImport.update({
   id: '/reputation',
   path: '/reputation',
@@ -714,6 +892,11 @@ const IdNameReputationRoute = IdNameReputationRouteImport.update({
 const IdNameCredentialsRoute = IdNameCredentialsRouteImport.update({
   id: '/credentials',
   path: '/credentials',
+  getParentRoute: () => IdNameRoute,
+} as any)
+const IdNameCardRoute = IdNameCardRouteImport.update({
+  id: '/card',
+  path: '/card',
   getParentRoute: () => IdNameRoute,
 } as any)
 const ExplorerTxHashRoute = ExplorerTxHashRouteImport.update({
@@ -911,6 +1094,32 @@ const ApiPlatformAnalyticsRoute = ApiPlatformAnalyticsRouteImport.update({
   path: '/api/platform/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiOpsRevenueRoute = ApiOpsRevenueRouteImport.update({
+  id: '/api/ops/revenue',
+  path: '/api/ops/revenue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOpsIdentityLadderSyncRoute =
+  ApiOpsIdentityLadderSyncRouteImport.update({
+    id: '/api/ops/identity-ladder-sync',
+    path: '/api/ops/identity-ladder-sync',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMerchClaimRoute = ApiMerchClaimRouteImport.update({
+  id: '/api/merch/claim',
+  path: '/api/merch/claim',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMemoryTimelineRoute = ApiMemoryTimelineRouteImport.update({
+  id: '/api/memory/timeline',
+  path: '/api/memory/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMemoryRecordRoute = ApiMemoryRecordRouteImport.update({
+  id: '/api/memory/record',
+  path: '/api/memory/record',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiMemberMeRoute = ApiMemberMeRouteImport.update({
   id: '/api/member/me',
   path: '/api/member/me',
@@ -921,9 +1130,19 @@ const ApiMemberLeaderboardRoute = ApiMemberLeaderboardRouteImport.update({
   path: '/api/member/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMemberGroveTreeRoute = ApiMemberGroveTreeRouteImport.update({
+  id: '/api/member/grove-tree',
+  path: '/api/member/grove-tree',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiMemberCultureScoreRoute = ApiMemberCultureScoreRouteImport.update({
   id: '/api/member/culture-score',
   path: '/api/member/culture-score',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMemberCulturePowerRoute = ApiMemberCulturePowerRouteImport.update({
+  id: '/api/member/culture-power',
+  path: '/api/member/culture-power',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiMarketingXPostRoute = ApiMarketingXPostRouteImport.update({
@@ -1125,6 +1344,28 @@ const ApiComplianceEligibilityRoute =
     path: '/api/compliance/eligibility',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCampaignTriple333ProgressRoute =
+  ApiCampaignTriple333ProgressRouteImport.update({
+    id: '/api/campaign/triple-333-progress',
+    path: '/api/campaign/triple-333-progress',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCampaignHqProgressRoute = ApiCampaignHqProgressRouteImport.update({
+  id: '/api/campaign/hq-progress',
+  path: '/api/campaign/hq-progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBrandQuestsEligibilityRoute =
+  ApiBrandQuestsEligibilityRouteImport.update({
+    id: '/api/brand-quests/eligibility',
+    path: '/api/brand-quests/eligibility',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBrandQuestsCreateRoute = ApiBrandQuestsCreateRouteImport.update({
+  id: '/api/brand-quests/create',
+  path: '/api/brand-quests/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBcidSyncRoute = ApiBcidSyncRouteImport.update({
   id: '/api/bcid/sync',
   path: '/api/bcid/sync',
@@ -1143,6 +1384,11 @@ const ApiBcidResolveRoute = ApiBcidResolveRouteImport.update({
 const ApiBcidLeaderboardRoute = ApiBcidLeaderboardRouteImport.update({
   id: '/api/bcid/leaderboard',
   path: '/api/bcid/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBcidEasSchemasRoute = ApiBcidEasSchemasRouteImport.update({
+  id: '/api/bcid/eas-schemas',
+  path: '/api/bcid/eas-schemas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiBcidCatalogRoute = ApiBcidCatalogRouteImport.update({
@@ -1180,6 +1426,11 @@ const ApiAgentsLimxRoute = ApiAgentsLimxRouteImport.update({
   path: '/api/agents/limx',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAgentsInboxRoute = ApiAgentsInboxRouteImport.update({
+  id: '/api/agents/inbox',
+  path: '/api/agents/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAgentsGrantRoute = ApiAgentsGrantRouteImport.update({
   id: '/api/agents/grant',
   path: '/api/agents/grant',
@@ -1214,6 +1465,11 @@ const ApiPointsWeeklyClaimIndexRoute =
 const ApiPointsRedeemIndexRoute = ApiPointsRedeemIndexRouteImport.update({
   id: '/api/points/redeem/',
   path: '/api/points/redeem/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOpsOutreachIndexRoute = ApiOpsOutreachIndexRouteImport.update({
+  id: '/api/ops/outreach/',
+  path: '/api/ops/outreach/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlacesApiReocPropertyIdRoute = PlacesApiReocPropertyIdRouteImport.update({
@@ -1295,6 +1551,75 @@ const ApiPointsRedeemQuoteRoute = ApiPointsRedeemQuoteRouteImport.update({
   path: '/api/points/redeem/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiOpsOutreachSendRoute = ApiOpsOutreachSendRouteImport.update({
+  id: '/api/ops/outreach/send',
+  path: '/api/ops/outreach/send',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOpsOutreachDraftRoute = ApiOpsOutreachDraftRouteImport.update({
+  id: '/api/ops/outreach/draft',
+  path: '/api/ops/outreach/draft',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMemberCulturePowerRefreshRoute =
+  ApiMemberCulturePowerRefreshRouteImport.update({
+    id: '/refresh',
+    path: '/refresh',
+    getParentRoute: () => ApiMemberCulturePowerRoute,
+  } as any)
+const ApiMarketplaceServicesPayRoute =
+  ApiMarketplaceServicesPayRouteImport.update({
+    id: '/api/marketplace/services/pay',
+    path: '/api/marketplace/services/pay',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceServicesDashboardRoute =
+  ApiMarketplaceServicesDashboardRouteImport.update({
+    id: '/api/marketplace/services/dashboard',
+    path: '/api/marketplace/services/dashboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceServicesCheckoutRoute =
+  ApiMarketplaceServicesCheckoutRouteImport.update({
+    id: '/api/marketplace/services/checkout',
+    path: '/api/marketplace/services/checkout',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceServicesCatalogRoute =
+  ApiMarketplaceServicesCatalogRouteImport.update({
+    id: '/api/marketplace/services/catalog',
+    path: '/api/marketplace/services/catalog',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceMerchPayRoute = ApiMarketplaceMerchPayRouteImport.update({
+  id: '/api/marketplace/merch/pay',
+  path: '/api/marketplace/merch/pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMarketplaceMerchOrdersRoute =
+  ApiMarketplaceMerchOrdersRouteImport.update({
+    id: '/api/marketplace/merch/orders',
+    path: '/api/marketplace/merch/orders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceMerchDashboardRoute =
+  ApiMarketplaceMerchDashboardRouteImport.update({
+    id: '/api/marketplace/merch/dashboard',
+    path: '/api/marketplace/merch/dashboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceMerchCheckoutRoute =
+  ApiMarketplaceMerchCheckoutRouteImport.update({
+    id: '/api/marketplace/merch/checkout',
+    path: '/api/marketplace/merch/checkout',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceMerchCatalogRoute =
+  ApiMarketplaceMerchCatalogRouteImport.update({
+    id: '/api/marketplace/merch/catalog',
+    path: '/api/marketplace/merch/catalog',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiMarketingSocialCampaignTickRoute =
   ApiMarketingSocialCampaignTickRouteImport.update({
     id: '/api/marketing/social-campaign/tick',
@@ -1350,6 +1675,24 @@ const ApiInvestorsWorkshopSessionRoute =
     path: '/api/investors/workshop/session',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiIdentityReferralValidateRoute =
+  ApiIdentityReferralValidateRouteImport.update({
+    id: '/api/identity/referral/validate',
+    path: '/api/identity/referral/validate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiIdentityReferralShareRoute =
+  ApiIdentityReferralShareRouteImport.update({
+    id: '/api/identity/referral/share',
+    path: '/api/identity/referral/share',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiIdentityReferralCodesRoute =
+  ApiIdentityReferralCodesRouteImport.update({
+    id: '/api/identity/referral/codes',
+    path: '/api/identity/referral/codes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiExplorerTxHashRoute = ApiExplorerTxHashRouteImport.update({
   id: '/api/explorer/tx/$hash',
   path: '/api/explorer/tx/$hash',
@@ -1403,18 +1746,36 @@ const ApiPulseFeedIdCommentsRoute = ApiPulseFeedIdCommentsRouteImport.update({
   path: '/$id/comments',
   getParentRoute: () => ApiPulseFeedRoute,
 } as any)
+const ApiMarketplaceServicesOrderIdRoute =
+  ApiMarketplaceServicesOrderIdRouteImport.update({
+    id: '/api/marketplace/services/order/$id',
+    path: '/api/marketplace/services/order/$id',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiMarketplaceMerchOrderIdRoute =
+  ApiMarketplaceMerchOrderIdRouteImport.update({
+    id: '/api/marketplace/merch/order/$id',
+    path: '/api/marketplace/merch/order/$id',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiExplorerTxHashExplainRoute =
   ApiExplorerTxHashExplainRouteImport.update({
     id: '/explain',
     path: '/explain',
     getParentRoute: () => ApiExplorerTxHashRoute,
   } as any)
+const ApiMarketplaceServicesMilestoneIdApproveRoute =
+  ApiMarketplaceServicesMilestoneIdApproveRouteImport.update({
+    id: '/api/marketplace/services/milestone/$id/approve',
+    path: '/api/marketplace/services/milestone/$id/approve',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
-  '/agent-fleet': typeof AgentFleetRoute
+  '/agent-fleet': typeof AgentFleetRouteWithChildren
   '/agent-os': typeof AgentOsRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
@@ -1428,6 +1789,7 @@ export interface FileRoutesByFullPath {
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
+  '/hq': typeof HqRoute
   '/intelligence': typeof IntelligenceRoute
   '/investors': typeof InvestorsRouteWithChildren
   '/join': typeof JoinRoute
@@ -1449,10 +1811,13 @@ export interface FileRoutesByFullPath {
   '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
+  '/triple-333': typeof Triple333Route
   '/voice': typeof VoiceRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
+  '/agent-fleet/services': typeof AgentFleetServicesRoute
+  '/agents/inbox': typeof AgentsInboxRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/bcc/dashboard': typeof BccDashboardRoute
@@ -1461,14 +1826,21 @@ export interface FileRoutesByFullPath {
   '/bcid/mint': typeof BcidMintRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
+  '/brand-quests/create': typeof BrandQuestsCreateRoute
   '/bridge/bcc': typeof BridgeBccRoute
+  '/chronicles/$chapterId': typeof ChroniclesChapterIdRoute
   '/credentials/leaderboard': typeof CredentialsLeaderboardRoute
   '/docs/$slug': typeof DocsSlugRoute
+  '/docs/bcid': typeof DocsBcidRoute
+  '/docs/interop': typeof DocsInteropRoute
+  '/docs/rfc': typeof DocsRfcRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
+  '/forest/grove': typeof ForestGroveRoute
   '/forest/quests': typeof ForestQuestsRoute
   '/id/$name': typeof IdNameRouteWithChildren
   '/investors/workshop': typeof InvestorsWorkshopRoute
+  '/legacy/analytics': typeof LegacyAnalyticsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -1477,6 +1849,8 @@ export interface FileRoutesByFullPath {
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/n/$name': typeof NNameRoute
   '/ops/attribution': typeof OpsAttributionRoute
+  '/ops/outreach': typeof OpsOutreachRoute
+  '/ops/revenue': typeof OpsRevenueRoute
   '/p/$slug': typeof PSlugRoute
   '/products/ai-agents': typeof ProductsAiAgentsRoute
   '/products/campaign-hub': typeof ProductsCampaignHubRoute
@@ -1490,11 +1864,14 @@ export interface FileRoutesByFullPath {
   '/bcc/': typeof BccIndexRoute
   '/bcid/': typeof BcidIndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/chronicles/': typeof ChroniclesIndexRoute
+  '/connect/': typeof ConnectIndexRoute
   '/credentials/': typeof CredentialsIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
   '/explorer/': typeof ExplorerIndexRoute
   '/forest/': typeof ForestIndexRoute
+  '/legacy/': typeof LegacyIndexRoute
   '/marketplace/': typeof MarketplaceIndexRoute
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
@@ -1509,6 +1886,7 @@ export interface FileRoutesByFullPath {
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
   '/api/agents/access': typeof ApiAgentsAccessRoute
   '/api/agents/grant': typeof ApiAgentsGrantRoute
+  '/api/agents/inbox': typeof ApiAgentsInboxRoute
   '/api/agents/limx': typeof ApiAgentsLimxRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
@@ -1516,10 +1894,15 @@ export interface FileRoutesByFullPath {
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/bcid/by-culture': typeof ApiBcidByCultureRoute
   '/api/bcid/catalog': typeof ApiBcidCatalogRoute
+  '/api/bcid/eas-schemas': typeof ApiBcidEasSchemasRoute
   '/api/bcid/leaderboard': typeof ApiBcidLeaderboardRoute
   '/api/bcid/resolve': typeof ApiBcidResolveRoute
   '/api/bcid/scores': typeof ApiBcidScoresRoute
   '/api/bcid/sync': typeof ApiBcidSyncRoute
+  '/api/brand-quests/create': typeof ApiBrandQuestsCreateRoute
+  '/api/brand-quests/eligibility': typeof ApiBrandQuestsEligibilityRoute
+  '/api/campaign/hq-progress': typeof ApiCampaignHqProgressRoute
+  '/api/campaign/triple-333-progress': typeof ApiCampaignTriple333ProgressRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
@@ -1559,9 +1942,16 @@ export interface FileRoutesByFullPath {
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
   '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
+  '/api/member/culture-power': typeof ApiMemberCulturePowerRouteWithChildren
   '/api/member/culture-score': typeof ApiMemberCultureScoreRoute
+  '/api/member/grove-tree': typeof ApiMemberGroveTreeRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
+  '/api/memory/record': typeof ApiMemoryRecordRoute
+  '/api/memory/timeline': typeof ApiMemoryTimelineRoute
+  '/api/merch/claim': typeof ApiMerchClaimRoute
+  '/api/ops/identity-ladder-sync': typeof ApiOpsIdentityLadderSyncRoute
+  '/api/ops/revenue': typeof ApiOpsRevenueRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
   '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
@@ -1600,8 +1990,17 @@ export interface FileRoutesByFullPath {
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/id/$name/card': typeof IdNameCardRoute
   '/id/$name/credentials': typeof IdNameCredentialsRoute
   '/id/$name/reputation': typeof IdNameReputationRoute
+  '/marketplace/merch/$slug': typeof MarketplaceMerchSlugRoute
+  '/marketplace/merch/ops': typeof MarketplaceMerchOpsRoute
+  '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
+  '/merch/claim/$code': typeof MerchClaimCodeRoute
+  '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
+  '/marketplace/merch/': typeof MarketplaceMerchIndexRoute
+  '/marketplace/services/': typeof MarketplaceServicesIndexRoute
+  '/stories/tapes/': typeof StoriesTapesIndexRoute
   '/api/bcid/bridge/culture': typeof ApiBcidBridgeCultureRoute
   '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
   '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
@@ -1611,6 +2010,9 @@ export interface FileRoutesByFullPath {
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
   '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
   '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
+  '/api/identity/referral/codes': typeof ApiIdentityReferralCodesRoute
+  '/api/identity/referral/share': typeof ApiIdentityReferralShareRoute
+  '/api/identity/referral/validate': typeof ApiIdentityReferralValidateRoute
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
@@ -1621,6 +2023,18 @@ export interface FileRoutesByFullPath {
   '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
   '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
   '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
+  '/api/marketplace/merch/catalog': typeof ApiMarketplaceMerchCatalogRoute
+  '/api/marketplace/merch/checkout': typeof ApiMarketplaceMerchCheckoutRoute
+  '/api/marketplace/merch/dashboard': typeof ApiMarketplaceMerchDashboardRoute
+  '/api/marketplace/merch/orders': typeof ApiMarketplaceMerchOrdersRoute
+  '/api/marketplace/merch/pay': typeof ApiMarketplaceMerchPayRoute
+  '/api/marketplace/services/catalog': typeof ApiMarketplaceServicesCatalogRoute
+  '/api/marketplace/services/checkout': typeof ApiMarketplaceServicesCheckoutRoute
+  '/api/marketplace/services/dashboard': typeof ApiMarketplaceServicesDashboardRoute
+  '/api/marketplace/services/pay': typeof ApiMarketplaceServicesPayRoute
+  '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
+  '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
+  '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
@@ -1636,16 +2050,20 @@ export interface FileRoutesByFullPath {
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
+  '/api/ops/outreach/': typeof ApiOpsOutreachIndexRoute
   '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
   '/api/points/weekly-claim/': typeof ApiPointsWeeklyClaimIndexRoute
   '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
+  '/api/marketplace/merch/order/$id': typeof ApiMarketplaceMerchOrderIdRoute
+  '/api/marketplace/services/order/$id': typeof ApiMarketplaceServicesOrderIdRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
+  '/api/marketplace/services/milestone/$id/approve': typeof ApiMarketplaceServicesMilestoneIdApproveRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
-  '/agent-fleet': typeof AgentFleetRoute
+  '/agent-fleet': typeof AgentFleetRouteWithChildren
   '/agent-os': typeof AgentOsRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
@@ -1658,6 +2076,7 @@ export interface FileRoutesByTo {
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
+  '/hq': typeof HqRoute
   '/intelligence': typeof IntelligenceRoute
   '/investors': typeof InvestorsRouteWithChildren
   '/join': typeof JoinRoute
@@ -1678,10 +2097,13 @@ export interface FileRoutesByTo {
   '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
+  '/triple-333': typeof Triple333Route
   '/voice': typeof VoiceRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
+  '/agent-fleet/services': typeof AgentFleetServicesRoute
+  '/agents/inbox': typeof AgentsInboxRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/bcc/dashboard': typeof BccDashboardRoute
@@ -1690,14 +2112,21 @@ export interface FileRoutesByTo {
   '/bcid/mint': typeof BcidMintRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
+  '/brand-quests/create': typeof BrandQuestsCreateRoute
   '/bridge/bcc': typeof BridgeBccRoute
+  '/chronicles/$chapterId': typeof ChroniclesChapterIdRoute
   '/credentials/leaderboard': typeof CredentialsLeaderboardRoute
   '/docs/$slug': typeof DocsSlugRoute
+  '/docs/bcid': typeof DocsBcidRoute
+  '/docs/interop': typeof DocsInteropRoute
+  '/docs/rfc': typeof DocsRfcRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
+  '/forest/grove': typeof ForestGroveRoute
   '/forest/quests': typeof ForestQuestsRoute
   '/id/$name': typeof IdNameRouteWithChildren
   '/investors/workshop': typeof InvestorsWorkshopRoute
+  '/legacy/analytics': typeof LegacyAnalyticsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -1706,6 +2135,8 @@ export interface FileRoutesByTo {
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/n/$name': typeof NNameRoute
   '/ops/attribution': typeof OpsAttributionRoute
+  '/ops/outreach': typeof OpsOutreachRoute
+  '/ops/revenue': typeof OpsRevenueRoute
   '/p/$slug': typeof PSlugRoute
   '/products/ai-agents': typeof ProductsAiAgentsRoute
   '/products/campaign-hub': typeof ProductsCampaignHubRoute
@@ -1719,11 +2150,14 @@ export interface FileRoutesByTo {
   '/bcc': typeof BccIndexRoute
   '/bcid': typeof BcidIndexRoute
   '/blog': typeof BlogIndexRoute
+  '/chronicles': typeof ChroniclesIndexRoute
+  '/connect': typeof ConnectIndexRoute
   '/credentials': typeof CredentialsIndexRoute
   '/docs': typeof DocsIndexRoute
   '/earth': typeof EarthIndexRoute
   '/explorer': typeof ExplorerIndexRoute
   '/forest': typeof ForestIndexRoute
+  '/legacy': typeof LegacyIndexRoute
   '/marketplace': typeof MarketplaceIndexRoute
   '/pass': typeof PassIndexRoute
   '/places': typeof PlacesIndexRoute
@@ -1738,6 +2172,7 @@ export interface FileRoutesByTo {
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
   '/api/agents/access': typeof ApiAgentsAccessRoute
   '/api/agents/grant': typeof ApiAgentsGrantRoute
+  '/api/agents/inbox': typeof ApiAgentsInboxRoute
   '/api/agents/limx': typeof ApiAgentsLimxRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
@@ -1745,10 +2180,15 @@ export interface FileRoutesByTo {
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/bcid/by-culture': typeof ApiBcidByCultureRoute
   '/api/bcid/catalog': typeof ApiBcidCatalogRoute
+  '/api/bcid/eas-schemas': typeof ApiBcidEasSchemasRoute
   '/api/bcid/leaderboard': typeof ApiBcidLeaderboardRoute
   '/api/bcid/resolve': typeof ApiBcidResolveRoute
   '/api/bcid/scores': typeof ApiBcidScoresRoute
   '/api/bcid/sync': typeof ApiBcidSyncRoute
+  '/api/brand-quests/create': typeof ApiBrandQuestsCreateRoute
+  '/api/brand-quests/eligibility': typeof ApiBrandQuestsEligibilityRoute
+  '/api/campaign/hq-progress': typeof ApiCampaignHqProgressRoute
+  '/api/campaign/triple-333-progress': typeof ApiCampaignTriple333ProgressRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
@@ -1788,9 +2228,16 @@ export interface FileRoutesByTo {
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
   '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
+  '/api/member/culture-power': typeof ApiMemberCulturePowerRouteWithChildren
   '/api/member/culture-score': typeof ApiMemberCultureScoreRoute
+  '/api/member/grove-tree': typeof ApiMemberGroveTreeRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
+  '/api/memory/record': typeof ApiMemoryRecordRoute
+  '/api/memory/timeline': typeof ApiMemoryTimelineRoute
+  '/api/merch/claim': typeof ApiMerchClaimRoute
+  '/api/ops/identity-ladder-sync': typeof ApiOpsIdentityLadderSyncRoute
+  '/api/ops/revenue': typeof ApiOpsRevenueRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
   '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
@@ -1829,8 +2276,17 @@ export interface FileRoutesByTo {
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/id/$name/card': typeof IdNameCardRoute
   '/id/$name/credentials': typeof IdNameCredentialsRoute
   '/id/$name/reputation': typeof IdNameReputationRoute
+  '/marketplace/merch/$slug': typeof MarketplaceMerchSlugRoute
+  '/marketplace/merch/ops': typeof MarketplaceMerchOpsRoute
+  '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
+  '/merch/claim/$code': typeof MerchClaimCodeRoute
+  '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
+  '/marketplace/merch': typeof MarketplaceMerchIndexRoute
+  '/marketplace/services': typeof MarketplaceServicesIndexRoute
+  '/stories/tapes': typeof StoriesTapesIndexRoute
   '/api/bcid/bridge/culture': typeof ApiBcidBridgeCultureRoute
   '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
   '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
@@ -1840,6 +2296,9 @@ export interface FileRoutesByTo {
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
   '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
   '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
+  '/api/identity/referral/codes': typeof ApiIdentityReferralCodesRoute
+  '/api/identity/referral/share': typeof ApiIdentityReferralShareRoute
+  '/api/identity/referral/validate': typeof ApiIdentityReferralValidateRoute
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
@@ -1850,6 +2309,18 @@ export interface FileRoutesByTo {
   '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
   '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
   '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
+  '/api/marketplace/merch/catalog': typeof ApiMarketplaceMerchCatalogRoute
+  '/api/marketplace/merch/checkout': typeof ApiMarketplaceMerchCheckoutRoute
+  '/api/marketplace/merch/dashboard': typeof ApiMarketplaceMerchDashboardRoute
+  '/api/marketplace/merch/orders': typeof ApiMarketplaceMerchOrdersRoute
+  '/api/marketplace/merch/pay': typeof ApiMarketplaceMerchPayRoute
+  '/api/marketplace/services/catalog': typeof ApiMarketplaceServicesCatalogRoute
+  '/api/marketplace/services/checkout': typeof ApiMarketplaceServicesCheckoutRoute
+  '/api/marketplace/services/dashboard': typeof ApiMarketplaceServicesDashboardRoute
+  '/api/marketplace/services/pay': typeof ApiMarketplaceServicesPayRoute
+  '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
+  '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
+  '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
@@ -1865,17 +2336,21 @@ export interface FileRoutesByTo {
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
+  '/api/ops/outreach': typeof ApiOpsOutreachIndexRoute
   '/api/points/redeem': typeof ApiPointsRedeemIndexRoute
   '/api/points/weekly-claim': typeof ApiPointsWeeklyClaimIndexRoute
   '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
+  '/api/marketplace/merch/order/$id': typeof ApiMarketplaceMerchOrderIdRoute
+  '/api/marketplace/services/order/$id': typeof ApiMarketplaceServicesOrderIdRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
+  '/api/marketplace/services/milestone/$id/approve': typeof ApiMarketplaceServicesMilestoneIdApproveRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
-  '/agent-fleet': typeof AgentFleetRoute
+  '/agent-fleet': typeof AgentFleetRouteWithChildren
   '/agent-os': typeof AgentOsRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
@@ -1889,6 +2364,7 @@ export interface FileRoutesById {
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
+  '/hq': typeof HqRoute
   '/intelligence': typeof IntelligenceRoute
   '/investors': typeof InvestorsRouteWithChildren
   '/join': typeof JoinRoute
@@ -1910,10 +2386,13 @@ export interface FileRoutesById {
   '/swap': typeof SwapRoute
   '/team': typeof TeamRoute
   '/trading-agent': typeof TradingAgentRoute
+  '/triple-333': typeof Triple333Route
   '/voice': typeof VoiceRoute
   '/.well-known/agent.json': typeof DotwellKnownAgentDotjsonRoute
   '/.well-known/farcaster.json': typeof DotwellKnownFarcasterDotjsonRoute
   '/0g/agentid': typeof R0gAgentidRouteWithChildren
+  '/agent-fleet/services': typeof AgentFleetServicesRoute
+  '/agents/inbox': typeof AgentsInboxRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
   '/bcc/dashboard': typeof BccDashboardRoute
@@ -1922,14 +2401,21 @@ export interface FileRoutesById {
   '/bcid/mint': typeof BcidMintRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/feed.xml': typeof BlogFeedDotxmlRoute
+  '/brand-quests/create': typeof BrandQuestsCreateRoute
   '/bridge/bcc': typeof BridgeBccRoute
+  '/chronicles/$chapterId': typeof ChroniclesChapterIdRoute
   '/credentials/leaderboard': typeof CredentialsLeaderboardRoute
   '/docs/$slug': typeof DocsSlugRoute
+  '/docs/bcid': typeof DocsBcidRoute
+  '/docs/interop': typeof DocsInteropRoute
+  '/docs/rfc': typeof DocsRfcRoute
   '/drops/$slug': typeof DropsSlugRoute
   '/drops/art': typeof DropsArtRoute
+  '/forest/grove': typeof ForestGroveRoute
   '/forest/quests': typeof ForestQuestsRoute
   '/id/$name': typeof IdNameRouteWithChildren
   '/investors/workshop': typeof InvestorsWorkshopRoute
+  '/legacy/analytics': typeof LegacyAnalyticsRoute
   '/legal/cookies': typeof LegalCookiesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
@@ -1938,6 +2424,8 @@ export interface FileRoutesById {
   '/marketplace/sell': typeof MarketplaceSellRoute
   '/n/$name': typeof NNameRoute
   '/ops/attribution': typeof OpsAttributionRoute
+  '/ops/outreach': typeof OpsOutreachRoute
+  '/ops/revenue': typeof OpsRevenueRoute
   '/p/$slug': typeof PSlugRoute
   '/products/ai-agents': typeof ProductsAiAgentsRoute
   '/products/campaign-hub': typeof ProductsCampaignHubRoute
@@ -1951,11 +2439,14 @@ export interface FileRoutesById {
   '/bcc/': typeof BccIndexRoute
   '/bcid/': typeof BcidIndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/chronicles/': typeof ChroniclesIndexRoute
+  '/connect/': typeof ConnectIndexRoute
   '/credentials/': typeof CredentialsIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/earth/': typeof EarthIndexRoute
   '/explorer/': typeof ExplorerIndexRoute
   '/forest/': typeof ForestIndexRoute
+  '/legacy/': typeof LegacyIndexRoute
   '/marketplace/': typeof MarketplaceIndexRoute
   '/pass/': typeof PassIndexRoute
   '/places/': typeof PlacesIndexRoute
@@ -1970,6 +2461,7 @@ export interface FileRoutesById {
   '/api/agent-os/overview': typeof ApiAgentOsOverviewRoute
   '/api/agents/access': typeof ApiAgentsAccessRoute
   '/api/agents/grant': typeof ApiAgentsGrantRoute
+  '/api/agents/inbox': typeof ApiAgentsInboxRoute
   '/api/agents/limx': typeof ApiAgentsLimxRoute
   '/api/agents/research': typeof ApiAgentsResearchRoute
   '/api/agents/status': typeof ApiAgentsStatusRoute
@@ -1977,10 +2469,15 @@ export interface FileRoutesById {
   '/api/bcc/metrics': typeof ApiBccMetricsRoute
   '/api/bcid/by-culture': typeof ApiBcidByCultureRoute
   '/api/bcid/catalog': typeof ApiBcidCatalogRoute
+  '/api/bcid/eas-schemas': typeof ApiBcidEasSchemasRoute
   '/api/bcid/leaderboard': typeof ApiBcidLeaderboardRoute
   '/api/bcid/resolve': typeof ApiBcidResolveRoute
   '/api/bcid/scores': typeof ApiBcidScoresRoute
   '/api/bcid/sync': typeof ApiBcidSyncRoute
+  '/api/brand-quests/create': typeof ApiBrandQuestsCreateRoute
+  '/api/brand-quests/eligibility': typeof ApiBrandQuestsEligibilityRoute
+  '/api/campaign/hq-progress': typeof ApiCampaignHqProgressRoute
+  '/api/campaign/triple-333-progress': typeof ApiCampaignTriple333ProgressRoute
   '/api/compliance/eligibility': typeof ApiComplianceEligibilityRoute
   '/api/credentials/catalog': typeof ApiCredentialsCatalogRoute
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
@@ -2020,9 +2517,16 @@ export interface FileRoutesById {
   '/api/market/sample-mint': typeof ApiMarketSampleMintRoute
   '/api/market/xrp-quote': typeof ApiMarketXrpQuoteRoute
   '/api/marketing/x-post': typeof ApiMarketingXPostRoute
+  '/api/member/culture-power': typeof ApiMemberCulturePowerRouteWithChildren
   '/api/member/culture-score': typeof ApiMemberCultureScoreRoute
+  '/api/member/grove-tree': typeof ApiMemberGroveTreeRoute
   '/api/member/leaderboard': typeof ApiMemberLeaderboardRoute
   '/api/member/me': typeof ApiMemberMeRoute
+  '/api/memory/record': typeof ApiMemoryRecordRoute
+  '/api/memory/timeline': typeof ApiMemoryTimelineRoute
+  '/api/merch/claim': typeof ApiMerchClaimRoute
+  '/api/ops/identity-ladder-sync': typeof ApiOpsIdentityLadderSyncRoute
+  '/api/ops/revenue': typeof ApiOpsRevenueRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
   '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
@@ -2061,8 +2565,17 @@ export interface FileRoutesById {
   '/api/x402/premium': typeof ApiX402PremiumRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
+  '/id/$name/card': typeof IdNameCardRoute
   '/id/$name/credentials': typeof IdNameCredentialsRoute
   '/id/$name/reputation': typeof IdNameReputationRoute
+  '/marketplace/merch/$slug': typeof MarketplaceMerchSlugRoute
+  '/marketplace/merch/ops': typeof MarketplaceMerchOpsRoute
+  '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
+  '/merch/claim/$code': typeof MerchClaimCodeRoute
+  '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
+  '/marketplace/merch/': typeof MarketplaceMerchIndexRoute
+  '/marketplace/services/': typeof MarketplaceServicesIndexRoute
+  '/stories/tapes/': typeof StoriesTapesIndexRoute
   '/api/bcid/bridge/culture': typeof ApiBcidBridgeCultureRoute
   '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
   '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
@@ -2072,6 +2585,9 @@ export interface FileRoutesById {
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
   '/api/explorer/address/$address': typeof ApiExplorerAddressAddressRoute
   '/api/explorer/tx/$hash': typeof ApiExplorerTxHashRouteWithChildren
+  '/api/identity/referral/codes': typeof ApiIdentityReferralCodesRoute
+  '/api/identity/referral/share': typeof ApiIdentityReferralShareRoute
+  '/api/identity/referral/validate': typeof ApiIdentityReferralValidateRoute
   '/api/investors/workshop/session': typeof ApiInvestorsWorkshopSessionRoute
   '/api/market/bcc/bnb-route': typeof ApiMarketBccBnbRouteRoute
   '/api/market/bcc/solana-route': typeof ApiMarketBccSolanaRouteRoute
@@ -2082,6 +2598,18 @@ export interface FileRoutesById {
   '/api/marketing/quidli/send': typeof ApiMarketingQuidliSendRoute
   '/api/marketing/quidli/status': typeof ApiMarketingQuidliStatusRoute
   '/api/marketing/social-campaign/tick': typeof ApiMarketingSocialCampaignTickRoute
+  '/api/marketplace/merch/catalog': typeof ApiMarketplaceMerchCatalogRoute
+  '/api/marketplace/merch/checkout': typeof ApiMarketplaceMerchCheckoutRoute
+  '/api/marketplace/merch/dashboard': typeof ApiMarketplaceMerchDashboardRoute
+  '/api/marketplace/merch/orders': typeof ApiMarketplaceMerchOrdersRoute
+  '/api/marketplace/merch/pay': typeof ApiMarketplaceMerchPayRoute
+  '/api/marketplace/services/catalog': typeof ApiMarketplaceServicesCatalogRoute
+  '/api/marketplace/services/checkout': typeof ApiMarketplaceServicesCheckoutRoute
+  '/api/marketplace/services/dashboard': typeof ApiMarketplaceServicesDashboardRoute
+  '/api/marketplace/services/pay': typeof ApiMarketplaceServicesPayRoute
+  '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
+  '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
+  '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
@@ -2097,10 +2625,14 @@ export interface FileRoutesById {
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
+  '/api/ops/outreach/': typeof ApiOpsOutreachIndexRoute
   '/api/points/redeem/': typeof ApiPointsRedeemIndexRoute
   '/api/points/weekly-claim/': typeof ApiPointsWeeklyClaimIndexRoute
   '/api/explorer/tx/$hash/explain': typeof ApiExplorerTxHashExplainRoute
+  '/api/marketplace/merch/order/$id': typeof ApiMarketplaceMerchOrderIdRoute
+  '/api/marketplace/services/order/$id': typeof ApiMarketplaceServicesOrderIdRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
+  '/api/marketplace/services/milestone/$id/approve': typeof ApiMarketplaceServicesMilestoneIdApproveRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -2122,6 +2654,7 @@ export interface FileRouteTypes {
     | '/genesis-district'
     | '/grant-proof'
     | '/guide'
+    | '/hq'
     | '/intelligence'
     | '/investors'
     | '/join'
@@ -2143,10 +2676,13 @@ export interface FileRouteTypes {
     | '/swap'
     | '/team'
     | '/trading-agent'
+    | '/triple-333'
     | '/voice'
     | '/.well-known/agent.json'
     | '/.well-known/farcaster.json'
     | '/0g/agentid'
+    | '/agent-fleet/services'
+    | '/agents/inbox'
     | '/auth/login'
     | '/auth/logout'
     | '/bcc/dashboard'
@@ -2155,14 +2691,21 @@ export interface FileRouteTypes {
     | '/bcid/mint'
     | '/blog/$slug'
     | '/blog/feed.xml'
+    | '/brand-quests/create'
     | '/bridge/bcc'
+    | '/chronicles/$chapterId'
     | '/credentials/leaderboard'
     | '/docs/$slug'
+    | '/docs/bcid'
+    | '/docs/interop'
+    | '/docs/rfc'
     | '/drops/$slug'
     | '/drops/art'
+    | '/forest/grove'
     | '/forest/quests'
     | '/id/$name'
     | '/investors/workshop'
+    | '/legacy/analytics'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
@@ -2171,6 +2714,8 @@ export interface FileRouteTypes {
     | '/marketplace/sell'
     | '/n/$name'
     | '/ops/attribution'
+    | '/ops/outreach'
+    | '/ops/revenue'
     | '/p/$slug'
     | '/products/ai-agents'
     | '/products/campaign-hub'
@@ -2184,11 +2729,14 @@ export interface FileRouteTypes {
     | '/bcc/'
     | '/bcid/'
     | '/blog/'
+    | '/chronicles/'
+    | '/connect/'
     | '/credentials/'
     | '/docs/'
     | '/earth/'
     | '/explorer/'
     | '/forest/'
+    | '/legacy/'
     | '/marketplace/'
     | '/pass/'
     | '/places/'
@@ -2203,6 +2751,7 @@ export interface FileRouteTypes {
     | '/api/agent-os/overview'
     | '/api/agents/access'
     | '/api/agents/grant'
+    | '/api/agents/inbox'
     | '/api/agents/limx'
     | '/api/agents/research'
     | '/api/agents/status'
@@ -2210,10 +2759,15 @@ export interface FileRouteTypes {
     | '/api/bcc/metrics'
     | '/api/bcid/by-culture'
     | '/api/bcid/catalog'
+    | '/api/bcid/eas-schemas'
     | '/api/bcid/leaderboard'
     | '/api/bcid/resolve'
     | '/api/bcid/scores'
     | '/api/bcid/sync'
+    | '/api/brand-quests/create'
+    | '/api/brand-quests/eligibility'
+    | '/api/campaign/hq-progress'
+    | '/api/campaign/triple-333-progress'
     | '/api/compliance/eligibility'
     | '/api/credentials/catalog'
     | '/api/credentials/claim'
@@ -2253,9 +2807,16 @@ export interface FileRouteTypes {
     | '/api/market/sample-mint'
     | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
+    | '/api/member/culture-power'
     | '/api/member/culture-score'
+    | '/api/member/grove-tree'
     | '/api/member/leaderboard'
     | '/api/member/me'
+    | '/api/memory/record'
+    | '/api/memory/timeline'
+    | '/api/merch/claim'
+    | '/api/ops/identity-ladder-sync'
+    | '/api/ops/revenue'
     | '/api/platform/analytics'
     | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
@@ -2294,8 +2855,17 @@ export interface FileRouteTypes {
     | '/api/x402/premium'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
+    | '/id/$name/card'
     | '/id/$name/credentials'
     | '/id/$name/reputation'
+    | '/marketplace/merch/$slug'
+    | '/marketplace/merch/ops'
+    | '/marketplace/services/$slug'
+    | '/merch/claim/$code'
+    | '/stories/tapes/$slug'
+    | '/marketplace/merch/'
+    | '/marketplace/services/'
+    | '/stories/tapes/'
     | '/api/bcid/bridge/culture'
     | '/api/bcid/farcaster/frame'
     | '/api/bcid/referral/$code'
@@ -2305,6 +2875,9 @@ export interface FileRouteTypes {
     | '/api/credentials/xrpl/link'
     | '/api/explorer/address/$address'
     | '/api/explorer/tx/$hash'
+    | '/api/identity/referral/codes'
+    | '/api/identity/referral/share'
+    | '/api/identity/referral/validate'
     | '/api/investors/workshop/session'
     | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
@@ -2315,6 +2888,18 @@ export interface FileRouteTypes {
     | '/api/marketing/quidli/send'
     | '/api/marketing/quidli/status'
     | '/api/marketing/social-campaign/tick'
+    | '/api/marketplace/merch/catalog'
+    | '/api/marketplace/merch/checkout'
+    | '/api/marketplace/merch/dashboard'
+    | '/api/marketplace/merch/orders'
+    | '/api/marketplace/merch/pay'
+    | '/api/marketplace/services/catalog'
+    | '/api/marketplace/services/checkout'
+    | '/api/marketplace/services/dashboard'
+    | '/api/marketplace/services/pay'
+    | '/api/member/culture-power/refresh'
+    | '/api/ops/outreach/draft'
+    | '/api/ops/outreach/send'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/points/weekly-claim/quote'
@@ -2330,10 +2915,14 @@ export interface FileRouteTypes {
     | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
+    | '/api/ops/outreach/'
     | '/api/points/redeem/'
     | '/api/points/weekly-claim/'
     | '/api/explorer/tx/$hash/explain'
+    | '/api/marketplace/merch/order/$id'
+    | '/api/marketplace/services/order/$id'
     | '/api/pulse/feed/$id/comments'
+    | '/api/marketplace/services/milestone/$id/approve'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -2352,6 +2941,7 @@ export interface FileRouteTypes {
     | '/genesis-district'
     | '/grant-proof'
     | '/guide'
+    | '/hq'
     | '/intelligence'
     | '/investors'
     | '/join'
@@ -2372,10 +2962,13 @@ export interface FileRouteTypes {
     | '/swap'
     | '/team'
     | '/trading-agent'
+    | '/triple-333'
     | '/voice'
     | '/.well-known/agent.json'
     | '/.well-known/farcaster.json'
     | '/0g/agentid'
+    | '/agent-fleet/services'
+    | '/agents/inbox'
     | '/auth/login'
     | '/auth/logout'
     | '/bcc/dashboard'
@@ -2384,14 +2977,21 @@ export interface FileRouteTypes {
     | '/bcid/mint'
     | '/blog/$slug'
     | '/blog/feed.xml'
+    | '/brand-quests/create'
     | '/bridge/bcc'
+    | '/chronicles/$chapterId'
     | '/credentials/leaderboard'
     | '/docs/$slug'
+    | '/docs/bcid'
+    | '/docs/interop'
+    | '/docs/rfc'
     | '/drops/$slug'
     | '/drops/art'
+    | '/forest/grove'
     | '/forest/quests'
     | '/id/$name'
     | '/investors/workshop'
+    | '/legacy/analytics'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
@@ -2400,6 +3000,8 @@ export interface FileRouteTypes {
     | '/marketplace/sell'
     | '/n/$name'
     | '/ops/attribution'
+    | '/ops/outreach'
+    | '/ops/revenue'
     | '/p/$slug'
     | '/products/ai-agents'
     | '/products/campaign-hub'
@@ -2413,11 +3015,14 @@ export interface FileRouteTypes {
     | '/bcc'
     | '/bcid'
     | '/blog'
+    | '/chronicles'
+    | '/connect'
     | '/credentials'
     | '/docs'
     | '/earth'
     | '/explorer'
     | '/forest'
+    | '/legacy'
     | '/marketplace'
     | '/pass'
     | '/places'
@@ -2432,6 +3037,7 @@ export interface FileRouteTypes {
     | '/api/agent-os/overview'
     | '/api/agents/access'
     | '/api/agents/grant'
+    | '/api/agents/inbox'
     | '/api/agents/limx'
     | '/api/agents/research'
     | '/api/agents/status'
@@ -2439,10 +3045,15 @@ export interface FileRouteTypes {
     | '/api/bcc/metrics'
     | '/api/bcid/by-culture'
     | '/api/bcid/catalog'
+    | '/api/bcid/eas-schemas'
     | '/api/bcid/leaderboard'
     | '/api/bcid/resolve'
     | '/api/bcid/scores'
     | '/api/bcid/sync'
+    | '/api/brand-quests/create'
+    | '/api/brand-quests/eligibility'
+    | '/api/campaign/hq-progress'
+    | '/api/campaign/triple-333-progress'
     | '/api/compliance/eligibility'
     | '/api/credentials/catalog'
     | '/api/credentials/claim'
@@ -2482,9 +3093,16 @@ export interface FileRouteTypes {
     | '/api/market/sample-mint'
     | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
+    | '/api/member/culture-power'
     | '/api/member/culture-score'
+    | '/api/member/grove-tree'
     | '/api/member/leaderboard'
     | '/api/member/me'
+    | '/api/memory/record'
+    | '/api/memory/timeline'
+    | '/api/merch/claim'
+    | '/api/ops/identity-ladder-sync'
+    | '/api/ops/revenue'
     | '/api/platform/analytics'
     | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
@@ -2523,8 +3141,17 @@ export interface FileRouteTypes {
     | '/api/x402/premium'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
+    | '/id/$name/card'
     | '/id/$name/credentials'
     | '/id/$name/reputation'
+    | '/marketplace/merch/$slug'
+    | '/marketplace/merch/ops'
+    | '/marketplace/services/$slug'
+    | '/merch/claim/$code'
+    | '/stories/tapes/$slug'
+    | '/marketplace/merch'
+    | '/marketplace/services'
+    | '/stories/tapes'
     | '/api/bcid/bridge/culture'
     | '/api/bcid/farcaster/frame'
     | '/api/bcid/referral/$code'
@@ -2534,6 +3161,9 @@ export interface FileRouteTypes {
     | '/api/credentials/xrpl/link'
     | '/api/explorer/address/$address'
     | '/api/explorer/tx/$hash'
+    | '/api/identity/referral/codes'
+    | '/api/identity/referral/share'
+    | '/api/identity/referral/validate'
     | '/api/investors/workshop/session'
     | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
@@ -2544,6 +3174,18 @@ export interface FileRouteTypes {
     | '/api/marketing/quidli/send'
     | '/api/marketing/quidli/status'
     | '/api/marketing/social-campaign/tick'
+    | '/api/marketplace/merch/catalog'
+    | '/api/marketplace/merch/checkout'
+    | '/api/marketplace/merch/dashboard'
+    | '/api/marketplace/merch/orders'
+    | '/api/marketplace/merch/pay'
+    | '/api/marketplace/services/catalog'
+    | '/api/marketplace/services/checkout'
+    | '/api/marketplace/services/dashboard'
+    | '/api/marketplace/services/pay'
+    | '/api/member/culture-power/refresh'
+    | '/api/ops/outreach/draft'
+    | '/api/ops/outreach/send'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/points/weekly-claim/quote'
@@ -2559,10 +3201,14 @@ export interface FileRouteTypes {
     | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
+    | '/api/ops/outreach'
     | '/api/points/redeem'
     | '/api/points/weekly-claim'
     | '/api/explorer/tx/$hash/explain'
+    | '/api/marketplace/merch/order/$id'
+    | '/api/marketplace/services/order/$id'
     | '/api/pulse/feed/$id/comments'
+    | '/api/marketplace/services/milestone/$id/approve'
   id:
     | '__root__'
     | '/'
@@ -2582,6 +3228,7 @@ export interface FileRouteTypes {
     | '/genesis-district'
     | '/grant-proof'
     | '/guide'
+    | '/hq'
     | '/intelligence'
     | '/investors'
     | '/join'
@@ -2603,10 +3250,13 @@ export interface FileRouteTypes {
     | '/swap'
     | '/team'
     | '/trading-agent'
+    | '/triple-333'
     | '/voice'
     | '/.well-known/agent.json'
     | '/.well-known/farcaster.json'
     | '/0g/agentid'
+    | '/agent-fleet/services'
+    | '/agents/inbox'
     | '/auth/login'
     | '/auth/logout'
     | '/bcc/dashboard'
@@ -2615,14 +3265,21 @@ export interface FileRouteTypes {
     | '/bcid/mint'
     | '/blog/$slug'
     | '/blog/feed.xml'
+    | '/brand-quests/create'
     | '/bridge/bcc'
+    | '/chronicles/$chapterId'
     | '/credentials/leaderboard'
     | '/docs/$slug'
+    | '/docs/bcid'
+    | '/docs/interop'
+    | '/docs/rfc'
     | '/drops/$slug'
     | '/drops/art'
+    | '/forest/grove'
     | '/forest/quests'
     | '/id/$name'
     | '/investors/workshop'
+    | '/legacy/analytics'
     | '/legal/cookies'
     | '/legal/imprint'
     | '/legal/privacy'
@@ -2631,6 +3288,8 @@ export interface FileRouteTypes {
     | '/marketplace/sell'
     | '/n/$name'
     | '/ops/attribution'
+    | '/ops/outreach'
+    | '/ops/revenue'
     | '/p/$slug'
     | '/products/ai-agents'
     | '/products/campaign-hub'
@@ -2644,11 +3303,14 @@ export interface FileRouteTypes {
     | '/bcc/'
     | '/bcid/'
     | '/blog/'
+    | '/chronicles/'
+    | '/connect/'
     | '/credentials/'
     | '/docs/'
     | '/earth/'
     | '/explorer/'
     | '/forest/'
+    | '/legacy/'
     | '/marketplace/'
     | '/pass/'
     | '/places/'
@@ -2663,6 +3325,7 @@ export interface FileRouteTypes {
     | '/api/agent-os/overview'
     | '/api/agents/access'
     | '/api/agents/grant'
+    | '/api/agents/inbox'
     | '/api/agents/limx'
     | '/api/agents/research'
     | '/api/agents/status'
@@ -2670,10 +3333,15 @@ export interface FileRouteTypes {
     | '/api/bcc/metrics'
     | '/api/bcid/by-culture'
     | '/api/bcid/catalog'
+    | '/api/bcid/eas-schemas'
     | '/api/bcid/leaderboard'
     | '/api/bcid/resolve'
     | '/api/bcid/scores'
     | '/api/bcid/sync'
+    | '/api/brand-quests/create'
+    | '/api/brand-quests/eligibility'
+    | '/api/campaign/hq-progress'
+    | '/api/campaign/triple-333-progress'
     | '/api/compliance/eligibility'
     | '/api/credentials/catalog'
     | '/api/credentials/claim'
@@ -2713,9 +3381,16 @@ export interface FileRouteTypes {
     | '/api/market/sample-mint'
     | '/api/market/xrp-quote'
     | '/api/marketing/x-post'
+    | '/api/member/culture-power'
     | '/api/member/culture-score'
+    | '/api/member/grove-tree'
     | '/api/member/leaderboard'
     | '/api/member/me'
+    | '/api/memory/record'
+    | '/api/memory/timeline'
+    | '/api/merch/claim'
+    | '/api/ops/identity-ladder-sync'
+    | '/api/ops/revenue'
     | '/api/platform/analytics'
     | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
@@ -2754,8 +3429,17 @@ export interface FileRouteTypes {
     | '/api/x402/premium'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
+    | '/id/$name/card'
     | '/id/$name/credentials'
     | '/id/$name/reputation'
+    | '/marketplace/merch/$slug'
+    | '/marketplace/merch/ops'
+    | '/marketplace/services/$slug'
+    | '/merch/claim/$code'
+    | '/stories/tapes/$slug'
+    | '/marketplace/merch/'
+    | '/marketplace/services/'
+    | '/stories/tapes/'
     | '/api/bcid/bridge/culture'
     | '/api/bcid/farcaster/frame'
     | '/api/bcid/referral/$code'
@@ -2765,6 +3449,9 @@ export interface FileRouteTypes {
     | '/api/credentials/xrpl/link'
     | '/api/explorer/address/$address'
     | '/api/explorer/tx/$hash'
+    | '/api/identity/referral/codes'
+    | '/api/identity/referral/share'
+    | '/api/identity/referral/validate'
     | '/api/investors/workshop/session'
     | '/api/market/bcc/bnb-route'
     | '/api/market/bcc/solana-route'
@@ -2775,6 +3462,18 @@ export interface FileRouteTypes {
     | '/api/marketing/quidli/send'
     | '/api/marketing/quidli/status'
     | '/api/marketing/social-campaign/tick'
+    | '/api/marketplace/merch/catalog'
+    | '/api/marketplace/merch/checkout'
+    | '/api/marketplace/merch/dashboard'
+    | '/api/marketplace/merch/orders'
+    | '/api/marketplace/merch/pay'
+    | '/api/marketplace/services/catalog'
+    | '/api/marketplace/services/checkout'
+    | '/api/marketplace/services/dashboard'
+    | '/api/marketplace/services/pay'
+    | '/api/member/culture-power/refresh'
+    | '/api/ops/outreach/draft'
+    | '/api/ops/outreach/send'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/points/weekly-claim/quote'
@@ -2790,17 +3489,21 @@ export interface FileRouteTypes {
     | '/api/tg/wallet/ton-connected'
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
+    | '/api/ops/outreach/'
     | '/api/points/redeem/'
     | '/api/points/weekly-claim/'
     | '/api/explorer/tx/$hash/explain'
+    | '/api/marketplace/merch/order/$id'
+    | '/api/marketplace/services/order/$id'
     | '/api/pulse/feed/$id/comments'
+    | '/api/marketplace/services/milestone/$id/approve'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
-  AgentFleetRoute: typeof AgentFleetRoute
+  AgentFleetRoute: typeof AgentFleetRouteWithChildren
   AgentOsRoute: typeof AgentOsRoute
   CampaignRoute: typeof CampaignRoute
   ChatbaseRoute: typeof ChatbaseRoute
@@ -2814,6 +3517,7 @@ export interface RootRouteChildren {
   GenesisDistrictRoute: typeof GenesisDistrictRoute
   GrantProofRoute: typeof GrantProofRoute
   GuideRoute: typeof GuideRoute
+  HqRoute: typeof HqRoute
   IntelligenceRoute: typeof IntelligenceRoute
   InvestorsRoute: typeof InvestorsRouteWithChildren
   JoinRoute: typeof JoinRoute
@@ -2835,10 +3539,12 @@ export interface RootRouteChildren {
   SwapRoute: typeof SwapRoute
   TeamRoute: typeof TeamRoute
   TradingAgentRoute: typeof TradingAgentRoute
+  Triple333Route: typeof Triple333Route
   VoiceRoute: typeof VoiceRoute
   DotwellKnownAgentDotjsonRoute: typeof DotwellKnownAgentDotjsonRoute
   DotwellKnownFarcasterDotjsonRoute: typeof DotwellKnownFarcasterDotjsonRoute
   R0gAgentidRoute: typeof R0gAgentidRouteWithChildren
+  AgentsInboxRoute: typeof AgentsInboxRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthLogoutRoute: typeof AuthLogoutRoute
   BccDashboardRoute: typeof BccDashboardRoute
@@ -2847,15 +3553,24 @@ export interface RootRouteChildren {
   BcidMintRoute: typeof BcidMintRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogFeedDotxmlRoute: typeof BlogFeedDotxmlRoute
+  BrandQuestsCreateRoute: typeof BrandQuestsCreateRoute
   BridgeBccRoute: typeof BridgeBccRoute
+  ChroniclesChapterIdRoute: typeof ChroniclesChapterIdRoute
   CredentialsLeaderboardRoute: typeof CredentialsLeaderboardRoute
   DocsSlugRoute: typeof DocsSlugRoute
+  DocsBcidRoute: typeof DocsBcidRoute
+  DocsInteropRoute: typeof DocsInteropRoute
+  DocsRfcRoute: typeof DocsRfcRoute
   DropsSlugRoute: typeof DropsSlugRoute
   DropsArtRoute: typeof DropsArtRoute
+  ForestGroveRoute: typeof ForestGroveRoute
   ForestQuestsRoute: typeof ForestQuestsRoute
   IdNameRoute: typeof IdNameRouteWithChildren
+  LegacyAnalyticsRoute: typeof LegacyAnalyticsRoute
   NNameRoute: typeof NNameRoute
   OpsAttributionRoute: typeof OpsAttributionRoute
+  OpsOutreachRoute: typeof OpsOutreachRoute
+  OpsRevenueRoute: typeof OpsRevenueRoute
   PSlugRoute: typeof PSlugRoute
   ProductsAiAgentsRoute: typeof ProductsAiAgentsRoute
   ProductsCampaignHubRoute: typeof ProductsCampaignHubRoute
@@ -2869,10 +3584,13 @@ export interface RootRouteChildren {
   BccIndexRoute: typeof BccIndexRoute
   BcidIndexRoute: typeof BcidIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  ChroniclesIndexRoute: typeof ChroniclesIndexRoute
+  ConnectIndexRoute: typeof ConnectIndexRoute
   CredentialsIndexRoute: typeof CredentialsIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
   EarthIndexRoute: typeof EarthIndexRoute
   ForestIndexRoute: typeof ForestIndexRoute
+  LegacyIndexRoute: typeof LegacyIndexRoute
   PassIndexRoute: typeof PassIndexRoute
   PlacesIndexRoute: typeof PlacesIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
@@ -2885,6 +3603,7 @@ export interface RootRouteChildren {
   ApiAgentOsOverviewRoute: typeof ApiAgentOsOverviewRoute
   ApiAgentsAccessRoute: typeof ApiAgentsAccessRoute
   ApiAgentsGrantRoute: typeof ApiAgentsGrantRoute
+  ApiAgentsInboxRoute: typeof ApiAgentsInboxRoute
   ApiAgentsLimxRoute: typeof ApiAgentsLimxRoute
   ApiAgentsResearchRoute: typeof ApiAgentsResearchRoute
   ApiAgentsStatusRoute: typeof ApiAgentsStatusRoute
@@ -2892,10 +3611,15 @@ export interface RootRouteChildren {
   ApiBccMetricsRoute: typeof ApiBccMetricsRoute
   ApiBcidByCultureRoute: typeof ApiBcidByCultureRoute
   ApiBcidCatalogRoute: typeof ApiBcidCatalogRoute
+  ApiBcidEasSchemasRoute: typeof ApiBcidEasSchemasRoute
   ApiBcidLeaderboardRoute: typeof ApiBcidLeaderboardRoute
   ApiBcidResolveRoute: typeof ApiBcidResolveRoute
   ApiBcidScoresRoute: typeof ApiBcidScoresRoute
   ApiBcidSyncRoute: typeof ApiBcidSyncRoute
+  ApiBrandQuestsCreateRoute: typeof ApiBrandQuestsCreateRoute
+  ApiBrandQuestsEligibilityRoute: typeof ApiBrandQuestsEligibilityRoute
+  ApiCampaignHqProgressRoute: typeof ApiCampaignHqProgressRoute
+  ApiCampaignTriple333ProgressRoute: typeof ApiCampaignTriple333ProgressRoute
   ApiComplianceEligibilityRoute: typeof ApiComplianceEligibilityRoute
   ApiCredentialsCatalogRoute: typeof ApiCredentialsCatalogRoute
   ApiCredentialsClaimRoute: typeof ApiCredentialsClaimRoute
@@ -2935,9 +3659,16 @@ export interface RootRouteChildren {
   ApiMarketSampleMintRoute: typeof ApiMarketSampleMintRoute
   ApiMarketXrpQuoteRoute: typeof ApiMarketXrpQuoteRoute
   ApiMarketingXPostRoute: typeof ApiMarketingXPostRoute
+  ApiMemberCulturePowerRoute: typeof ApiMemberCulturePowerRouteWithChildren
   ApiMemberCultureScoreRoute: typeof ApiMemberCultureScoreRoute
+  ApiMemberGroveTreeRoute: typeof ApiMemberGroveTreeRoute
   ApiMemberLeaderboardRoute: typeof ApiMemberLeaderboardRoute
   ApiMemberMeRoute: typeof ApiMemberMeRoute
+  ApiMemoryRecordRoute: typeof ApiMemoryRecordRoute
+  ApiMemoryTimelineRoute: typeof ApiMemoryTimelineRoute
+  ApiMerchClaimRoute: typeof ApiMerchClaimRoute
+  ApiOpsIdentityLadderSyncRoute: typeof ApiOpsIdentityLadderSyncRoute
+  ApiOpsRevenueRoute: typeof ApiOpsRevenueRoute
   ApiPlatformAnalyticsRoute: typeof ApiPlatformAnalyticsRoute
   ApiPlatformAttributionDashboardRoute: typeof ApiPlatformAttributionDashboardRoute
   ApiPlatformFunnelBaselineRoute: typeof ApiPlatformFunnelBaselineRoute
@@ -2974,6 +3705,9 @@ export interface RootRouteChildren {
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
+  MerchClaimCodeRoute: typeof MerchClaimCodeRoute
+  StoriesTapesSlugRoute: typeof StoriesTapesSlugRoute
+  StoriesTapesIndexRoute: typeof StoriesTapesIndexRoute
   ApiBcidBridgeCultureRoute: typeof ApiBcidBridgeCultureRoute
   ApiBcidFarcasterFrameRoute: typeof ApiBcidFarcasterFrameRoute
   ApiBcidReferralCodeRoute: typeof ApiBcidReferralCodeRoute
@@ -2983,6 +3717,9 @@ export interface RootRouteChildren {
   ApiCredentialsXrplLinkRoute: typeof ApiCredentialsXrplLinkRoute
   ApiExplorerAddressAddressRoute: typeof ApiExplorerAddressAddressRoute
   ApiExplorerTxHashRoute: typeof ApiExplorerTxHashRouteWithChildren
+  ApiIdentityReferralCodesRoute: typeof ApiIdentityReferralCodesRoute
+  ApiIdentityReferralShareRoute: typeof ApiIdentityReferralShareRoute
+  ApiIdentityReferralValidateRoute: typeof ApiIdentityReferralValidateRoute
   ApiInvestorsWorkshopSessionRoute: typeof ApiInvestorsWorkshopSessionRoute
   ApiMarketingGroveFarcasterPostRoute: typeof ApiMarketingGroveFarcasterPostRoute
   ApiMarketingGroveTickRoute: typeof ApiMarketingGroveTickRoute
@@ -2991,6 +3728,17 @@ export interface RootRouteChildren {
   ApiMarketingQuidliSendRoute: typeof ApiMarketingQuidliSendRoute
   ApiMarketingQuidliStatusRoute: typeof ApiMarketingQuidliStatusRoute
   ApiMarketingSocialCampaignTickRoute: typeof ApiMarketingSocialCampaignTickRoute
+  ApiMarketplaceMerchCatalogRoute: typeof ApiMarketplaceMerchCatalogRoute
+  ApiMarketplaceMerchCheckoutRoute: typeof ApiMarketplaceMerchCheckoutRoute
+  ApiMarketplaceMerchDashboardRoute: typeof ApiMarketplaceMerchDashboardRoute
+  ApiMarketplaceMerchOrdersRoute: typeof ApiMarketplaceMerchOrdersRoute
+  ApiMarketplaceMerchPayRoute: typeof ApiMarketplaceMerchPayRoute
+  ApiMarketplaceServicesCatalogRoute: typeof ApiMarketplaceServicesCatalogRoute
+  ApiMarketplaceServicesCheckoutRoute: typeof ApiMarketplaceServicesCheckoutRoute
+  ApiMarketplaceServicesDashboardRoute: typeof ApiMarketplaceServicesDashboardRoute
+  ApiMarketplaceServicesPayRoute: typeof ApiMarketplaceServicesPayRoute
+  ApiOpsOutreachDraftRoute: typeof ApiOpsOutreachDraftRoute
+  ApiOpsOutreachSendRoute: typeof ApiOpsOutreachSendRoute
   ApiPointsRedeemQuoteRoute: typeof ApiPointsRedeemQuoteRoute
   ApiPointsRedeemStatsRoute: typeof ApiPointsRedeemStatsRoute
   ApiPointsWeeklyClaimQuoteRoute: typeof ApiPointsWeeklyClaimQuoteRoute
@@ -3004,8 +3752,12 @@ export interface RootRouteChildren {
   ApiTgWalletTonConnectedRoute: typeof ApiTgWalletTonConnectedRoute
   ApiWalletPacksCheckoutRoute: typeof ApiWalletPacksCheckoutRoute
   PlacesApiReocPropertyIdRoute: typeof PlacesApiReocPropertyIdRoute
+  ApiOpsOutreachIndexRoute: typeof ApiOpsOutreachIndexRoute
   ApiPointsRedeemIndexRoute: typeof ApiPointsRedeemIndexRoute
   ApiPointsWeeklyClaimIndexRoute: typeof ApiPointsWeeklyClaimIndexRoute
+  ApiMarketplaceMerchOrderIdRoute: typeof ApiMarketplaceMerchOrderIdRoute
+  ApiMarketplaceServicesOrderIdRoute: typeof ApiMarketplaceServicesOrderIdRoute
+  ApiMarketplaceServicesMilestoneIdApproveRoute: typeof ApiMarketplaceServicesMilestoneIdApproveRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -3015,6 +3767,13 @@ declare module '@tanstack/react-router' {
       path: '/voice'
       fullPath: '/voice'
       preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/triple-333': {
+      id: '/triple-333'
+      path: '/triple-333'
+      fullPath: '/triple-333'
+      preLoaderRoute: typeof Triple333RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/trading-agent': {
@@ -3162,6 +3921,13 @@ declare module '@tanstack/react-router' {
       path: '/intelligence'
       fullPath: '/intelligence'
       preLoaderRoute: typeof IntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hq': {
+      id: '/hq'
+      path: '/hq'
+      fullPath: '/hq'
+      preLoaderRoute: typeof HqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guide': {
@@ -3346,6 +4112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketplaceIndexRouteImport
       parentRoute: typeof MarketplaceRoute
     }
+    '/legacy/': {
+      id: '/legacy/'
+      path: '/legacy'
+      fullPath: '/legacy/'
+      preLoaderRoute: typeof LegacyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forest/': {
       id: '/forest/'
       path: '/forest'
@@ -3379,6 +4152,20 @@ declare module '@tanstack/react-router' {
       path: '/credentials'
       fullPath: '/credentials/'
       preLoaderRoute: typeof CredentialsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect/': {
+      id: '/connect/'
+      path: '/connect'
+      fullPath: '/connect/'
+      preLoaderRoute: typeof ConnectIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chronicles/': {
+      id: '/chronicles/'
+      path: '/chronicles'
+      fullPath: '/chronicles/'
+      preLoaderRoute: typeof ChroniclesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -3472,6 +4259,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ops/revenue': {
+      id: '/ops/revenue'
+      path: '/ops/revenue'
+      fullPath: '/ops/revenue'
+      preLoaderRoute: typeof OpsRevenueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ops/outreach': {
+      id: '/ops/outreach'
+      path: '/ops/outreach'
+      fullPath: '/ops/outreach'
+      preLoaderRoute: typeof OpsOutreachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ops/attribution': {
       id: '/ops/attribution'
       path: '/ops/attribution'
@@ -3528,6 +4329,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalCookiesRouteImport
       parentRoute: typeof LegalRoute
     }
+    '/legacy/analytics': {
+      id: '/legacy/analytics'
+      path: '/legacy/analytics'
+      fullPath: '/legacy/analytics'
+      preLoaderRoute: typeof LegacyAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/investors/workshop': {
       id: '/investors/workshop'
       path: '/workshop'
@@ -3549,6 +4357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForestQuestsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forest/grove': {
+      id: '/forest/grove'
+      path: '/forest/grove'
+      fullPath: '/forest/grove'
+      preLoaderRoute: typeof ForestGroveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/drops/art': {
       id: '/drops/art'
       path: '/drops/art'
@@ -3561,6 +4376,27 @@ declare module '@tanstack/react-router' {
       path: '/drops/$slug'
       fullPath: '/drops/$slug'
       preLoaderRoute: typeof DropsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/rfc': {
+      id: '/docs/rfc'
+      path: '/docs/rfc'
+      fullPath: '/docs/rfc'
+      preLoaderRoute: typeof DocsRfcRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/interop': {
+      id: '/docs/interop'
+      path: '/docs/interop'
+      fullPath: '/docs/interop'
+      preLoaderRoute: typeof DocsInteropRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/bcid': {
+      id: '/docs/bcid'
+      path: '/docs/bcid'
+      fullPath: '/docs/bcid'
+      preLoaderRoute: typeof DocsBcidRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs/$slug': {
@@ -3577,11 +4413,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CredentialsLeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chronicles/$chapterId': {
+      id: '/chronicles/$chapterId'
+      path: '/chronicles/$chapterId'
+      fullPath: '/chronicles/$chapterId'
+      preLoaderRoute: typeof ChroniclesChapterIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bridge/bcc': {
       id: '/bridge/bcc'
       path: '/bridge/bcc'
       fullPath: '/bridge/bcc'
       preLoaderRoute: typeof BridgeBccRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brand-quests/create': {
+      id: '/brand-quests/create'
+      path: '/brand-quests/create'
+      fullPath: '/brand-quests/create'
+      preLoaderRoute: typeof BrandQuestsCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/feed.xml': {
@@ -3640,6 +4490,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agents/inbox': {
+      id: '/agents/inbox'
+      path: '/agents/inbox'
+      fullPath: '/agents/inbox'
+      preLoaderRoute: typeof AgentsInboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agent-fleet/services': {
+      id: '/agent-fleet/services'
+      path: '/services'
+      fullPath: '/agent-fleet/services'
+      preLoaderRoute: typeof AgentFleetServicesRouteImport
+      parentRoute: typeof AgentFleetRoute
+    }
     '/0g/agentid': {
       id: '/0g/agentid'
       path: '/0g/agentid'
@@ -3661,6 +4525,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotwellKnownAgentDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/tapes/': {
+      id: '/stories/tapes/'
+      path: '/stories/tapes'
+      fullPath: '/stories/tapes/'
+      preLoaderRoute: typeof StoriesTapesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace/services/': {
+      id: '/marketplace/services/'
+      path: '/services'
+      fullPath: '/marketplace/services/'
+      preLoaderRoute: typeof MarketplaceServicesIndexRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
+    '/marketplace/merch/': {
+      id: '/marketplace/merch/'
+      path: '/merch'
+      fullPath: '/marketplace/merch/'
+      preLoaderRoute: typeof MarketplaceMerchIndexRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
+    '/stories/tapes/$slug': {
+      id: '/stories/tapes/$slug'
+      path: '/stories/tapes/$slug'
+      fullPath: '/stories/tapes/$slug'
+      preLoaderRoute: typeof StoriesTapesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/merch/claim/$code': {
+      id: '/merch/claim/$code'
+      path: '/merch/claim/$code'
+      fullPath: '/merch/claim/$code'
+      preLoaderRoute: typeof MerchClaimCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace/services/$slug': {
+      id: '/marketplace/services/$slug'
+      path: '/services/$slug'
+      fullPath: '/marketplace/services/$slug'
+      preLoaderRoute: typeof MarketplaceServicesSlugRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
+    '/marketplace/merch/ops': {
+      id: '/marketplace/merch/ops'
+      path: '/merch/ops'
+      fullPath: '/marketplace/merch/ops'
+      preLoaderRoute: typeof MarketplaceMerchOpsRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
+    '/marketplace/merch/$slug': {
+      id: '/marketplace/merch/$slug'
+      path: '/merch/$slug'
+      fullPath: '/marketplace/merch/$slug'
+      preLoaderRoute: typeof MarketplaceMerchSlugRouteImport
+      parentRoute: typeof MarketplaceRoute
+    }
     '/id/$name/reputation': {
       id: '/id/$name/reputation'
       path: '/reputation'
@@ -3673,6 +4593,13 @@ declare module '@tanstack/react-router' {
       path: '/credentials'
       fullPath: '/id/$name/credentials'
       preLoaderRoute: typeof IdNameCredentialsRouteImport
+      parentRoute: typeof IdNameRoute
+    }
+    '/id/$name/card': {
+      id: '/id/$name/card'
+      path: '/card'
+      fullPath: '/id/$name/card'
+      preLoaderRoute: typeof IdNameCardRouteImport
       parentRoute: typeof IdNameRoute
     }
     '/explorer/tx/$hash': {
@@ -3941,6 +4868,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPlatformAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ops/revenue': {
+      id: '/api/ops/revenue'
+      path: '/api/ops/revenue'
+      fullPath: '/api/ops/revenue'
+      preLoaderRoute: typeof ApiOpsRevenueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ops/identity-ladder-sync': {
+      id: '/api/ops/identity-ladder-sync'
+      path: '/api/ops/identity-ladder-sync'
+      fullPath: '/api/ops/identity-ladder-sync'
+      preLoaderRoute: typeof ApiOpsIdentityLadderSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/merch/claim': {
+      id: '/api/merch/claim'
+      path: '/api/merch/claim'
+      fullPath: '/api/merch/claim'
+      preLoaderRoute: typeof ApiMerchClaimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/memory/timeline': {
+      id: '/api/memory/timeline'
+      path: '/api/memory/timeline'
+      fullPath: '/api/memory/timeline'
+      preLoaderRoute: typeof ApiMemoryTimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/memory/record': {
+      id: '/api/memory/record'
+      path: '/api/memory/record'
+      fullPath: '/api/memory/record'
+      preLoaderRoute: typeof ApiMemoryRecordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/member/me': {
       id: '/api/member/me'
       path: '/api/member/me'
@@ -3955,11 +4917,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMemberLeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/member/grove-tree': {
+      id: '/api/member/grove-tree'
+      path: '/api/member/grove-tree'
+      fullPath: '/api/member/grove-tree'
+      preLoaderRoute: typeof ApiMemberGroveTreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/member/culture-score': {
       id: '/api/member/culture-score'
       path: '/api/member/culture-score'
       fullPath: '/api/member/culture-score'
       preLoaderRoute: typeof ApiMemberCultureScoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/member/culture-power': {
+      id: '/api/member/culture-power'
+      path: '/api/member/culture-power'
+      fullPath: '/api/member/culture-power'
+      preLoaderRoute: typeof ApiMemberCulturePowerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/marketing/x-post': {
@@ -4235,6 +5211,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiComplianceEligibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/campaign/triple-333-progress': {
+      id: '/api/campaign/triple-333-progress'
+      path: '/api/campaign/triple-333-progress'
+      fullPath: '/api/campaign/triple-333-progress'
+      preLoaderRoute: typeof ApiCampaignTriple333ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/campaign/hq-progress': {
+      id: '/api/campaign/hq-progress'
+      path: '/api/campaign/hq-progress'
+      fullPath: '/api/campaign/hq-progress'
+      preLoaderRoute: typeof ApiCampaignHqProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/brand-quests/eligibility': {
+      id: '/api/brand-quests/eligibility'
+      path: '/api/brand-quests/eligibility'
+      fullPath: '/api/brand-quests/eligibility'
+      preLoaderRoute: typeof ApiBrandQuestsEligibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/brand-quests/create': {
+      id: '/api/brand-quests/create'
+      path: '/api/brand-quests/create'
+      fullPath: '/api/brand-quests/create'
+      preLoaderRoute: typeof ApiBrandQuestsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/bcid/sync': {
       id: '/api/bcid/sync'
       path: '/api/bcid/sync'
@@ -4261,6 +5265,13 @@ declare module '@tanstack/react-router' {
       path: '/api/bcid/leaderboard'
       fullPath: '/api/bcid/leaderboard'
       preLoaderRoute: typeof ApiBcidLeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bcid/eas-schemas': {
+      id: '/api/bcid/eas-schemas'
+      path: '/api/bcid/eas-schemas'
+      fullPath: '/api/bcid/eas-schemas'
+      preLoaderRoute: typeof ApiBcidEasSchemasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/bcid/catalog': {
@@ -4312,6 +5323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAgentsLimxRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/agents/inbox': {
+      id: '/api/agents/inbox'
+      path: '/api/agents/inbox'
+      fullPath: '/api/agents/inbox'
+      preLoaderRoute: typeof ApiAgentsInboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/agents/grant': {
       id: '/api/agents/grant'
       path: '/api/agents/grant'
@@ -4359,6 +5377,13 @@ declare module '@tanstack/react-router' {
       path: '/api/points/redeem'
       fullPath: '/api/points/redeem/'
       preLoaderRoute: typeof ApiPointsRedeemIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ops/outreach/': {
+      id: '/api/ops/outreach/'
+      path: '/api/ops/outreach'
+      fullPath: '/api/ops/outreach/'
+      preLoaderRoute: typeof ApiOpsOutreachIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/places/api/reoc/$propertyId': {
@@ -4466,6 +5491,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPointsRedeemQuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ops/outreach/send': {
+      id: '/api/ops/outreach/send'
+      path: '/api/ops/outreach/send'
+      fullPath: '/api/ops/outreach/send'
+      preLoaderRoute: typeof ApiOpsOutreachSendRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ops/outreach/draft': {
+      id: '/api/ops/outreach/draft'
+      path: '/api/ops/outreach/draft'
+      fullPath: '/api/ops/outreach/draft'
+      preLoaderRoute: typeof ApiOpsOutreachDraftRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/member/culture-power/refresh': {
+      id: '/api/member/culture-power/refresh'
+      path: '/refresh'
+      fullPath: '/api/member/culture-power/refresh'
+      preLoaderRoute: typeof ApiMemberCulturePowerRefreshRouteImport
+      parentRoute: typeof ApiMemberCulturePowerRoute
+    }
+    '/api/marketplace/services/pay': {
+      id: '/api/marketplace/services/pay'
+      path: '/api/marketplace/services/pay'
+      fullPath: '/api/marketplace/services/pay'
+      preLoaderRoute: typeof ApiMarketplaceServicesPayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/services/dashboard': {
+      id: '/api/marketplace/services/dashboard'
+      path: '/api/marketplace/services/dashboard'
+      fullPath: '/api/marketplace/services/dashboard'
+      preLoaderRoute: typeof ApiMarketplaceServicesDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/services/checkout': {
+      id: '/api/marketplace/services/checkout'
+      path: '/api/marketplace/services/checkout'
+      fullPath: '/api/marketplace/services/checkout'
+      preLoaderRoute: typeof ApiMarketplaceServicesCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/services/catalog': {
+      id: '/api/marketplace/services/catalog'
+      path: '/api/marketplace/services/catalog'
+      fullPath: '/api/marketplace/services/catalog'
+      preLoaderRoute: typeof ApiMarketplaceServicesCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/merch/pay': {
+      id: '/api/marketplace/merch/pay'
+      path: '/api/marketplace/merch/pay'
+      fullPath: '/api/marketplace/merch/pay'
+      preLoaderRoute: typeof ApiMarketplaceMerchPayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/merch/orders': {
+      id: '/api/marketplace/merch/orders'
+      path: '/api/marketplace/merch/orders'
+      fullPath: '/api/marketplace/merch/orders'
+      preLoaderRoute: typeof ApiMarketplaceMerchOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/merch/dashboard': {
+      id: '/api/marketplace/merch/dashboard'
+      path: '/api/marketplace/merch/dashboard'
+      fullPath: '/api/marketplace/merch/dashboard'
+      preLoaderRoute: typeof ApiMarketplaceMerchDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/merch/checkout': {
+      id: '/api/marketplace/merch/checkout'
+      path: '/api/marketplace/merch/checkout'
+      fullPath: '/api/marketplace/merch/checkout'
+      preLoaderRoute: typeof ApiMarketplaceMerchCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/merch/catalog': {
+      id: '/api/marketplace/merch/catalog'
+      path: '/api/marketplace/merch/catalog'
+      fullPath: '/api/marketplace/merch/catalog'
+      preLoaderRoute: typeof ApiMarketplaceMerchCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/marketing/social-campaign/tick': {
       id: '/api/marketing/social-campaign/tick'
       path: '/api/marketing/social-campaign/tick'
@@ -4534,6 +5643,27 @@ declare module '@tanstack/react-router' {
       path: '/api/investors/workshop/session'
       fullPath: '/api/investors/workshop/session'
       preLoaderRoute: typeof ApiInvestorsWorkshopSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/referral/validate': {
+      id: '/api/identity/referral/validate'
+      path: '/api/identity/referral/validate'
+      fullPath: '/api/identity/referral/validate'
+      preLoaderRoute: typeof ApiIdentityReferralValidateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/referral/share': {
+      id: '/api/identity/referral/share'
+      path: '/api/identity/referral/share'
+      fullPath: '/api/identity/referral/share'
+      preLoaderRoute: typeof ApiIdentityReferralShareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/referral/codes': {
+      id: '/api/identity/referral/codes'
+      path: '/api/identity/referral/codes'
+      fullPath: '/api/identity/referral/codes'
+      preLoaderRoute: typeof ApiIdentityReferralCodesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/explorer/tx/$hash': {
@@ -4606,6 +5736,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPulseFeedIdCommentsRouteImport
       parentRoute: typeof ApiPulseFeedRoute
     }
+    '/api/marketplace/services/order/$id': {
+      id: '/api/marketplace/services/order/$id'
+      path: '/api/marketplace/services/order/$id'
+      fullPath: '/api/marketplace/services/order/$id'
+      preLoaderRoute: typeof ApiMarketplaceServicesOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/marketplace/merch/order/$id': {
+      id: '/api/marketplace/merch/order/$id'
+      path: '/api/marketplace/merch/order/$id'
+      fullPath: '/api/marketplace/merch/order/$id'
+      preLoaderRoute: typeof ApiMarketplaceMerchOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/explorer/tx/$hash/explain': {
       id: '/api/explorer/tx/$hash/explain'
       path: '/explain'
@@ -4613,8 +5757,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiExplorerTxHashExplainRouteImport
       parentRoute: typeof ApiExplorerTxHashRoute
     }
+    '/api/marketplace/services/milestone/$id/approve': {
+      id: '/api/marketplace/services/milestone/$id/approve'
+      path: '/api/marketplace/services/milestone/$id/approve'
+      fullPath: '/api/marketplace/services/milestone/$id/approve'
+      preLoaderRoute: typeof ApiMarketplaceServicesMilestoneIdApproveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
+
+interface AgentFleetRouteChildren {
+  AgentFleetServicesRoute: typeof AgentFleetServicesRoute
+}
+
+const AgentFleetRouteChildren: AgentFleetRouteChildren = {
+  AgentFleetServicesRoute: AgentFleetServicesRoute,
+}
+
+const AgentFleetRouteWithChildren = AgentFleetRoute._addFileChildren(
+  AgentFleetRouteChildren,
+)
 
 interface ExplorerRouteChildren {
   ExplorerIndexRoute: typeof ExplorerIndexRoute
@@ -4664,12 +5827,22 @@ interface MarketplaceRouteChildren {
   MarketplaceListingIdRoute: typeof MarketplaceListingIdRoute
   MarketplaceSellRoute: typeof MarketplaceSellRoute
   MarketplaceIndexRoute: typeof MarketplaceIndexRoute
+  MarketplaceMerchSlugRoute: typeof MarketplaceMerchSlugRoute
+  MarketplaceMerchOpsRoute: typeof MarketplaceMerchOpsRoute
+  MarketplaceServicesSlugRoute: typeof MarketplaceServicesSlugRoute
+  MarketplaceMerchIndexRoute: typeof MarketplaceMerchIndexRoute
+  MarketplaceServicesIndexRoute: typeof MarketplaceServicesIndexRoute
 }
 
 const MarketplaceRouteChildren: MarketplaceRouteChildren = {
   MarketplaceListingIdRoute: MarketplaceListingIdRoute,
   MarketplaceSellRoute: MarketplaceSellRoute,
   MarketplaceIndexRoute: MarketplaceIndexRoute,
+  MarketplaceMerchSlugRoute: MarketplaceMerchSlugRoute,
+  MarketplaceMerchOpsRoute: MarketplaceMerchOpsRoute,
+  MarketplaceServicesSlugRoute: MarketplaceServicesSlugRoute,
+  MarketplaceMerchIndexRoute: MarketplaceMerchIndexRoute,
+  MarketplaceServicesIndexRoute: MarketplaceServicesIndexRoute,
 }
 
 const MarketplaceRouteWithChildren = MarketplaceRoute._addFileChildren(
@@ -4689,11 +5862,13 @@ const R0gAgentidRouteWithChildren = R0gAgentidRoute._addFileChildren(
 )
 
 interface IdNameRouteChildren {
+  IdNameCardRoute: typeof IdNameCardRoute
   IdNameCredentialsRoute: typeof IdNameCredentialsRoute
   IdNameReputationRoute: typeof IdNameReputationRoute
 }
 
 const IdNameRouteChildren: IdNameRouteChildren = {
+  IdNameCardRoute: IdNameCardRoute,
   IdNameCredentialsRoute: IdNameCredentialsRoute,
   IdNameReputationRoute: IdNameReputationRoute,
 }
@@ -4714,6 +5889,19 @@ const ApiMarketBccRouteChildren: ApiMarketBccRouteChildren = {
 const ApiMarketBccRouteWithChildren = ApiMarketBccRoute._addFileChildren(
   ApiMarketBccRouteChildren,
 )
+
+interface ApiMemberCulturePowerRouteChildren {
+  ApiMemberCulturePowerRefreshRoute: typeof ApiMemberCulturePowerRefreshRoute
+}
+
+const ApiMemberCulturePowerRouteChildren: ApiMemberCulturePowerRouteChildren = {
+  ApiMemberCulturePowerRefreshRoute: ApiMemberCulturePowerRefreshRoute,
+}
+
+const ApiMemberCulturePowerRouteWithChildren =
+  ApiMemberCulturePowerRoute._addFileChildren(
+    ApiMemberCulturePowerRouteChildren,
+  )
 
 interface ApiPulseFeedRouteChildren {
   ApiPulseFeedIdCommentsRoute: typeof ApiPulseFeedIdCommentsRoute
@@ -4766,7 +5954,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
-  AgentFleetRoute: AgentFleetRoute,
+  AgentFleetRoute: AgentFleetRouteWithChildren,
   AgentOsRoute: AgentOsRoute,
   CampaignRoute: CampaignRoute,
   ChatbaseRoute: ChatbaseRoute,
@@ -4780,6 +5968,7 @@ const rootRouteChildren: RootRouteChildren = {
   GenesisDistrictRoute: GenesisDistrictRoute,
   GrantProofRoute: GrantProofRoute,
   GuideRoute: GuideRoute,
+  HqRoute: HqRoute,
   IntelligenceRoute: IntelligenceRoute,
   InvestorsRoute: InvestorsRouteWithChildren,
   JoinRoute: JoinRoute,
@@ -4801,10 +5990,12 @@ const rootRouteChildren: RootRouteChildren = {
   SwapRoute: SwapRoute,
   TeamRoute: TeamRoute,
   TradingAgentRoute: TradingAgentRoute,
+  Triple333Route: Triple333Route,
   VoiceRoute: VoiceRoute,
   DotwellKnownAgentDotjsonRoute: DotwellKnownAgentDotjsonRoute,
   DotwellKnownFarcasterDotjsonRoute: DotwellKnownFarcasterDotjsonRoute,
   R0gAgentidRoute: R0gAgentidRouteWithChildren,
+  AgentsInboxRoute: AgentsInboxRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthLogoutRoute: AuthLogoutRoute,
   BccDashboardRoute: BccDashboardRoute,
@@ -4813,15 +6004,24 @@ const rootRouteChildren: RootRouteChildren = {
   BcidMintRoute: BcidMintRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogFeedDotxmlRoute: BlogFeedDotxmlRoute,
+  BrandQuestsCreateRoute: BrandQuestsCreateRoute,
   BridgeBccRoute: BridgeBccRoute,
+  ChroniclesChapterIdRoute: ChroniclesChapterIdRoute,
   CredentialsLeaderboardRoute: CredentialsLeaderboardRoute,
   DocsSlugRoute: DocsSlugRoute,
+  DocsBcidRoute: DocsBcidRoute,
+  DocsInteropRoute: DocsInteropRoute,
+  DocsRfcRoute: DocsRfcRoute,
   DropsSlugRoute: DropsSlugRoute,
   DropsArtRoute: DropsArtRoute,
+  ForestGroveRoute: ForestGroveRoute,
   ForestQuestsRoute: ForestQuestsRoute,
   IdNameRoute: IdNameRouteWithChildren,
+  LegacyAnalyticsRoute: LegacyAnalyticsRoute,
   NNameRoute: NNameRoute,
   OpsAttributionRoute: OpsAttributionRoute,
+  OpsOutreachRoute: OpsOutreachRoute,
+  OpsRevenueRoute: OpsRevenueRoute,
   PSlugRoute: PSlugRoute,
   ProductsAiAgentsRoute: ProductsAiAgentsRoute,
   ProductsCampaignHubRoute: ProductsCampaignHubRoute,
@@ -4835,10 +6035,13 @@ const rootRouteChildren: RootRouteChildren = {
   BccIndexRoute: BccIndexRoute,
   BcidIndexRoute: BcidIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
+  ChroniclesIndexRoute: ChroniclesIndexRoute,
+  ConnectIndexRoute: ConnectIndexRoute,
   CredentialsIndexRoute: CredentialsIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
   EarthIndexRoute: EarthIndexRoute,
   ForestIndexRoute: ForestIndexRoute,
+  LegacyIndexRoute: LegacyIndexRoute,
   PassIndexRoute: PassIndexRoute,
   PlacesIndexRoute: PlacesIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
@@ -4851,6 +6054,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAgentOsOverviewRoute: ApiAgentOsOverviewRoute,
   ApiAgentsAccessRoute: ApiAgentsAccessRoute,
   ApiAgentsGrantRoute: ApiAgentsGrantRoute,
+  ApiAgentsInboxRoute: ApiAgentsInboxRoute,
   ApiAgentsLimxRoute: ApiAgentsLimxRoute,
   ApiAgentsResearchRoute: ApiAgentsResearchRoute,
   ApiAgentsStatusRoute: ApiAgentsStatusRoute,
@@ -4858,10 +6062,15 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBccMetricsRoute: ApiBccMetricsRoute,
   ApiBcidByCultureRoute: ApiBcidByCultureRoute,
   ApiBcidCatalogRoute: ApiBcidCatalogRoute,
+  ApiBcidEasSchemasRoute: ApiBcidEasSchemasRoute,
   ApiBcidLeaderboardRoute: ApiBcidLeaderboardRoute,
   ApiBcidResolveRoute: ApiBcidResolveRoute,
   ApiBcidScoresRoute: ApiBcidScoresRoute,
   ApiBcidSyncRoute: ApiBcidSyncRoute,
+  ApiBrandQuestsCreateRoute: ApiBrandQuestsCreateRoute,
+  ApiBrandQuestsEligibilityRoute: ApiBrandQuestsEligibilityRoute,
+  ApiCampaignHqProgressRoute: ApiCampaignHqProgressRoute,
+  ApiCampaignTriple333ProgressRoute: ApiCampaignTriple333ProgressRoute,
   ApiComplianceEligibilityRoute: ApiComplianceEligibilityRoute,
   ApiCredentialsCatalogRoute: ApiCredentialsCatalogRoute,
   ApiCredentialsClaimRoute: ApiCredentialsClaimRoute,
@@ -4901,9 +6110,16 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMarketSampleMintRoute: ApiMarketSampleMintRoute,
   ApiMarketXrpQuoteRoute: ApiMarketXrpQuoteRoute,
   ApiMarketingXPostRoute: ApiMarketingXPostRoute,
+  ApiMemberCulturePowerRoute: ApiMemberCulturePowerRouteWithChildren,
   ApiMemberCultureScoreRoute: ApiMemberCultureScoreRoute,
+  ApiMemberGroveTreeRoute: ApiMemberGroveTreeRoute,
   ApiMemberLeaderboardRoute: ApiMemberLeaderboardRoute,
   ApiMemberMeRoute: ApiMemberMeRoute,
+  ApiMemoryRecordRoute: ApiMemoryRecordRoute,
+  ApiMemoryTimelineRoute: ApiMemoryTimelineRoute,
+  ApiMerchClaimRoute: ApiMerchClaimRoute,
+  ApiOpsIdentityLadderSyncRoute: ApiOpsIdentityLadderSyncRoute,
+  ApiOpsRevenueRoute: ApiOpsRevenueRoute,
   ApiPlatformAnalyticsRoute: ApiPlatformAnalyticsRoute,
   ApiPlatformAttributionDashboardRoute: ApiPlatformAttributionDashboardRoute,
   ApiPlatformFunnelBaselineRoute: ApiPlatformFunnelBaselineRoute,
@@ -4940,6 +6156,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
+  MerchClaimCodeRoute: MerchClaimCodeRoute,
+  StoriesTapesSlugRoute: StoriesTapesSlugRoute,
+  StoriesTapesIndexRoute: StoriesTapesIndexRoute,
   ApiBcidBridgeCultureRoute: ApiBcidBridgeCultureRoute,
   ApiBcidFarcasterFrameRoute: ApiBcidFarcasterFrameRoute,
   ApiBcidReferralCodeRoute: ApiBcidReferralCodeRoute,
@@ -4949,6 +6168,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiCredentialsXrplLinkRoute: ApiCredentialsXrplLinkRoute,
   ApiExplorerAddressAddressRoute: ApiExplorerAddressAddressRoute,
   ApiExplorerTxHashRoute: ApiExplorerTxHashRouteWithChildren,
+  ApiIdentityReferralCodesRoute: ApiIdentityReferralCodesRoute,
+  ApiIdentityReferralShareRoute: ApiIdentityReferralShareRoute,
+  ApiIdentityReferralValidateRoute: ApiIdentityReferralValidateRoute,
   ApiInvestorsWorkshopSessionRoute: ApiInvestorsWorkshopSessionRoute,
   ApiMarketingGroveFarcasterPostRoute: ApiMarketingGroveFarcasterPostRoute,
   ApiMarketingGroveTickRoute: ApiMarketingGroveTickRoute,
@@ -4958,6 +6180,17 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMarketingQuidliSendRoute: ApiMarketingQuidliSendRoute,
   ApiMarketingQuidliStatusRoute: ApiMarketingQuidliStatusRoute,
   ApiMarketingSocialCampaignTickRoute: ApiMarketingSocialCampaignTickRoute,
+  ApiMarketplaceMerchCatalogRoute: ApiMarketplaceMerchCatalogRoute,
+  ApiMarketplaceMerchCheckoutRoute: ApiMarketplaceMerchCheckoutRoute,
+  ApiMarketplaceMerchDashboardRoute: ApiMarketplaceMerchDashboardRoute,
+  ApiMarketplaceMerchOrdersRoute: ApiMarketplaceMerchOrdersRoute,
+  ApiMarketplaceMerchPayRoute: ApiMarketplaceMerchPayRoute,
+  ApiMarketplaceServicesCatalogRoute: ApiMarketplaceServicesCatalogRoute,
+  ApiMarketplaceServicesCheckoutRoute: ApiMarketplaceServicesCheckoutRoute,
+  ApiMarketplaceServicesDashboardRoute: ApiMarketplaceServicesDashboardRoute,
+  ApiMarketplaceServicesPayRoute: ApiMarketplaceServicesPayRoute,
+  ApiOpsOutreachDraftRoute: ApiOpsOutreachDraftRoute,
+  ApiOpsOutreachSendRoute: ApiOpsOutreachSendRoute,
   ApiPointsRedeemQuoteRoute: ApiPointsRedeemQuoteRoute,
   ApiPointsRedeemStatsRoute: ApiPointsRedeemStatsRoute,
   ApiPointsWeeklyClaimQuoteRoute: ApiPointsWeeklyClaimQuoteRoute,
@@ -4971,8 +6204,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTgWalletTonConnectedRoute: ApiTgWalletTonConnectedRoute,
   ApiWalletPacksCheckoutRoute: ApiWalletPacksCheckoutRoute,
   PlacesApiReocPropertyIdRoute: PlacesApiReocPropertyIdRoute,
+  ApiOpsOutreachIndexRoute: ApiOpsOutreachIndexRoute,
   ApiPointsRedeemIndexRoute: ApiPointsRedeemIndexRoute,
   ApiPointsWeeklyClaimIndexRoute: ApiPointsWeeklyClaimIndexRoute,
+  ApiMarketplaceMerchOrderIdRoute: ApiMarketplaceMerchOrderIdRoute,
+  ApiMarketplaceServicesOrderIdRoute: ApiMarketplaceServicesOrderIdRoute,
+  ApiMarketplaceServicesMilestoneIdApproveRoute:
+    ApiMarketplaceServicesMilestoneIdApproveRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -58,10 +58,7 @@ function PrimaryStep({
         </FlowLink>
       </motion.div>
       {index < LANDING_FLOW_PRIMARY.length - 1 ? (
-        <div
-          className="flex h-8 items-center justify-center lg:h-auto lg:w-8 lg:px-1"
-          aria-hidden
-        >
+        <div className="flex h-8 items-center justify-center lg:h-auto lg:w-8 lg:px-1" aria-hidden>
           <ChevronRight
             size={18}
             className={`rotate-90 text-zinc-600 lg:rotate-0 ${reduceMotion ? "" : "motion-safe:animate-pulse"}`}

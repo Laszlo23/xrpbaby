@@ -62,6 +62,10 @@ function AgentFleetPage() {
               Mint agent shares
             </Link>
           </Button>
+          <Button variant="outline" className="rounded-full" asChild>
+            <Link to="/agent-fleet/services">Service orders</Link>
+            <Link to="/marketplace/merch/ops">Merch batches</Link>
+          </Button>
           <Button variant="ghost" className="rounded-full text-zinc-300" asChild>
             <a href="/.well-known/agent.json" target="_blank" rel="noreferrer noopener">
               agent.json ↗

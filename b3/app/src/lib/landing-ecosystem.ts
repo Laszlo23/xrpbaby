@@ -28,7 +28,7 @@ export type LandingEcosystemApp = {
 
 /** Four pillar products — trust layer positioning (synced from landing-copy). */
 export const PILLAR_PRODUCTS: PillarProduct[] = LANDING_PILLARS.map((p) => ({
-  id: p.id,
+  id: p.id as PillarProductId,
   name: p.name,
   tagline: p.tagline,
   features: p.features,
@@ -84,7 +84,8 @@ export const ECOSYSTEM_CORE_APPS: LandingEcosystemApp[] = [
   {
     id: "bc-play",
     name: "Campaign Hub",
-    description: "Fair drops, grants, and community campaigns — unlock after Culture ID + credentials.",
+    description:
+      "Fair drops, grants, and community campaigns — unlock after Culture ID + credentials.",
     tag: "Access",
     status: "live",
     layer: "access",
@@ -190,8 +191,7 @@ export const ECOSYSTEM_SATELLITES: LandingEcosystemApp[] = [
   {
     id: "bc-places",
     name: "Places",
-    description:
-      "Community-funded real estate — compliance-gated investor journeys and RWA rails.",
+    description: "Community-funded real estate — compliance-gated investor journeys and RWA rails.",
     tag: "Invest",
     status: "beta",
     layer: "living",
@@ -521,7 +521,8 @@ export const COMMUNITY_MODULES: LandingEcosystemApp[] = [
   {
     id: "culture-atlas",
     name: "Culture Atlas",
-    description: "Explore living cultural editions — musicians, storytellers, and curators welcome.",
+    description:
+      "Explore living cultural editions — musicians, storytellers, and curators welcome.",
     tag: "Archive",
     status: "live",
     layer: "art",
@@ -530,7 +531,8 @@ export const COMMUNITY_MODULES: LandingEcosystemApp[] = [
   {
     id: "creators",
     name: "Creators",
-    description: "Apply as an artist, musician, or storyteller to contribute to the cultural archive.",
+    description:
+      "Apply as an artist, musician, or storyteller to contribute to the cultural archive.",
     tag: "Open call",
     status: "live",
     layer: "art",

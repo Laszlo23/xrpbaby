@@ -14,7 +14,10 @@ export type SpaceIdReverseResult =
   | { ok: false; error: string; address?: string };
 
 function parseBnbName(fullName: string): { label: string; tld: string } | null {
-  const clean = fullName.toLowerCase().trim().replace(/\.bnb$/i, "");
+  const clean = fullName
+    .toLowerCase()
+    .trim()
+    .replace(/\.bnb$/i, "");
   const parts = clean.split(".");
   if (parts.length === 1 && parts[0]) {
     return { label: parts[0].replace(/[^a-z0-9-]/g, ""), tld: "bnb" };

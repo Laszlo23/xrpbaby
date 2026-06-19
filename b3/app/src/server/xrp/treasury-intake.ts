@@ -105,21 +105,25 @@ async function fetchRecentIntakePayments(
 
     const payments: XrplIntakePayment[] = [];
     for (const row of response.result.transactions ?? []) {
-      const tx = row.tx as {
-        TransactionType?: string;
-        Account?: string;
-        Destination?: string;
-        Amount?: string;
-      };
+      const tx = row.tx as
+        | {
+            TransactionType?: string;
+            Account?: string;
+            Destination?: string;
+            Amount?: string;
+            ledger_index?: number;
+          }
+        | undefined;
       const hash = row.hash ?? "";
-      if (tx.TransactionType !== "Payment") continue;
+      if (!tx || tx.TransactionType !== "Payment") continue;
       if (tx.Destination !== intakeAddress) continue;
       if (typeof tx.Amount !== "string") continue;
       payments.push({
         hash,
         amountXrp: `${dropsToXrp(tx.Amount)} XRP`,
         from: tx.Account ?? "—",
-        ledgerIndex: row.tx.ledger_index ?? 0,
+        ledgerIndex:
+          tx.ledger_index ?? (typeof row.ledger_index === "number" ? row.ledger_index : 0),
         explorerUrl: hash ? xrplExplorerTxUrl(hash) : "",
       });
       if (payments.length >= limit) break;

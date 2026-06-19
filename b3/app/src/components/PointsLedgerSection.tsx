@@ -451,9 +451,7 @@ export function PointsLedgerSection() {
           </div>
         </div>
 
-        <div
-          className="flex flex-col gap-5 rounded-3xl border border-[rgb(212_175_55/0.25)] bg-gradient-to-br from-[rgb(212_175_55/0.06)] to-black/40 p-5 md:flex-row md:items-center md:justify-between md:p-7"
-        >
+        <div className="flex flex-col gap-5 rounded-3xl border border-[rgb(212_175_55/0.25)] bg-gradient-to-br from-[rgb(212_175_55/0.06)] to-black/40 p-5 md:flex-row md:items-center md:justify-between md:p-7">
           <div className="min-w-0 flex-1 space-y-1">
             <p className="flex flex-wrap items-center gap-2 text-lg font-semibold text-white md:text-xl">
               <MessageSquareQuote className="h-5 w-5 text-gold-400" aria-hidden />
@@ -487,7 +485,7 @@ export function PointsLedgerSection() {
           <SupporterLeaderboard />
         </div>
 
-        <div className="space-y-5">
+        <div id="social-tasks" className="space-y-5 scroll-mt-24">
           <div>
             <h3 className="font-heading text-lg font-semibold text-white md:text-xl">
               Farcaster · grow the round
@@ -499,7 +497,13 @@ export function PointsLedgerSection() {
               , finish in Warpcast, then{" "}
               <strong className="text-zinc-300">Verify &amp; claim</strong>. Your wallet must appear
               as a <strong className="text-zinc-300">verified address</strong> on your Farcaster
-              profile so we can match you fairly.
+              profile so we can match you fairly.{" "}
+              <Link
+                to="/forest/quests#social"
+                className="text-[#00E5FF] underline underline-offset-2"
+              >
+                Full social quests hub →
+              </Link>
             </p>
           </div>
 

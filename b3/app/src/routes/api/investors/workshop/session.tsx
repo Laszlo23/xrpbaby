@@ -4,9 +4,8 @@ export const Route = createFileRoute("/api/investors/workshop/session")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        const { investorWorkshopEnabled, verifyWorkshopToken } = await import(
-          "@/server/investors/workshop-auth"
-        );
+        const { investorWorkshopEnabled, verifyWorkshopToken } =
+          await import("@/server/investors/workshop-auth");
         if (!investorWorkshopEnabled()) {
           return json({ ok: false, enabled: false, error: "workshop_not_configured" }, 503);
         }
@@ -15,11 +14,8 @@ export const Route = createFileRoute("/api/investors/workshop/session")({
         return json({ ok: authorized, enabled: true, authorized });
       },
       POST: async ({ request }) => {
-        const {
-          investorWorkshopEnabled,
-          issueWorkshopToken,
-          verifyWorkshopPassword,
-        } = await import("@/server/investors/workshop-auth");
+        const { investorWorkshopEnabled, issueWorkshopToken, verifyWorkshopPassword } =
+          await import("@/server/investors/workshop-auth");
 
         if (!investorWorkshopEnabled()) {
           return json({ ok: false, enabled: false, error: "workshop_not_configured" }, 503);

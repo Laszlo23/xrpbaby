@@ -22,10 +22,7 @@ export function useCultureSiweSession() {
       if (!address) {
         throw new Error("wallet_not_connected");
       }
-      if (
-        session &&
-        session.address.toLowerCase() === address.toLowerCase()
-      ) {
+      if (session && session.address.toLowerCase() === address.toLowerCase()) {
         return session;
       }
       const { prepared } = await buildPlatformSiweMessage(address, chainId, statement);

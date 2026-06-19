@@ -3,8 +3,8 @@ import { describe, it } from "node:test";
 import { CULTURE_PACKS, getPackBySlug } from "./packs.ts";
 
 describe("packs", () => {
-  it("defines seven tiers", () => {
-    assert.equal(CULTURE_PACKS.length, 7);
+  it("defines pack catalog tiers", () => {
+    assert.equal(CULTURE_PACKS.length, 11);
   });
 
   it("assigns bonus points above base rate for larger packs", () => {

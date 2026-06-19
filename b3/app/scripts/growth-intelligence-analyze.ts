@@ -5,7 +5,10 @@
  */
 import { PrismaClient } from "@prisma/client";
 
-import { runDailyAnalysisAll, runDailyAnalysisForApp } from "../src/server/growth-intelligence/analyze-job";
+import {
+  runDailyAnalysisAll,
+  runDailyAnalysisForApp,
+} from "../src/server/growth-intelligence/analyze-job";
 import { ensureGrowthApps } from "../src/server/growth-intelligence/seed";
 
 const prisma = new PrismaClient();

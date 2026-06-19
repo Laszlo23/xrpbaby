@@ -5,9 +5,7 @@ const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 
 export type CachedGraphPayload = CultureIdentityGraph;
 
-export async function readIdentityGraphCache(
-  owner: string,
-): Promise<CachedGraphPayload | null> {
+export async function readIdentityGraphCache(owner: string): Promise<CachedGraphPayload | null> {
   const prisma = getPrisma();
   if (!prisma) return null;
 

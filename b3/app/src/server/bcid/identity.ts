@@ -139,8 +139,7 @@ export async function recomputeBcidScores(bcidIdentityId: string) {
 
   const humanVerified = identity.credentials.some((c) => c.slug === "bcid-verified-human");
 
-  const culturePoints =
-    identity.member?.wallet?.ledgers.reduce((s, l) => s + l.delta, 0) ?? 0;
+  const culturePoints = identity.member?.wallet?.ledgers.reduce((s, l) => s + l.delta, 0) ?? 0;
   const studioCount = identity.member?.studioProjects?.length ?? 0;
 
   const scores = computeBcidReputation({
@@ -200,7 +199,10 @@ export async function bridgeCultureToBcid(input: {
     include: { userCredentials: { include: { credential: true }, where: { status: "active" } } },
   });
 
-  if (cultureIdentity && cultureIdentity.ownerAddress.toLowerCase() !== input.ownerAddress.toLowerCase()) {
+  if (
+    cultureIdentity &&
+    cultureIdentity.ownerAddress.toLowerCase() !== input.ownerAddress.toLowerCase()
+  ) {
     return { ok: false as const, error: "not_culture_owner" };
   }
 

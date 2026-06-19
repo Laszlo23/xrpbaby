@@ -13,11 +13,7 @@ import { resolveX402ResourceUrl } from "@/lib/x402-resource-url";
 import { getX402SettlementChain } from "@/lib/x402-network";
 import { getPrisma } from "@/server/db/prisma";
 import { runInference } from "@/server/llm/inference";
-import {
-  getX402Facilitator,
-  handleX402Options,
-  x402CorsHeadersFor,
-} from "@/server/x402-settle";
+import { getX402Facilitator, handleX402Options, x402CorsHeadersFor } from "@/server/x402-settle";
 import { settlePayment } from "thirdweb/x402";
 
 const MAX_QUERY_LEN = 2000;
@@ -56,7 +52,9 @@ async function logLimxAction(input: {
   }
 }
 
-async function runLimxBrief(query: string): Promise<
+async function runLimxBrief(
+  query: string,
+): Promise<
   | { ok: true; brief: string; source: "openai" | "0g" }
   | { ok: false; error: string; source?: string }
 > {
@@ -114,7 +112,8 @@ export async function handleLimxX402Get(request: Request): Promise<Response> {
   const cors = x402CorsHeadersFor(request);
 
   try {
-    const paymentData = request.headers.get("payment-signature") ?? request.headers.get("x-payment");
+    const paymentData =
+      request.headers.get("payment-signature") ?? request.headers.get("x-payment");
     const resourceUrl = resolveX402ResourceUrl(request);
 
     const result = await settlePayment({

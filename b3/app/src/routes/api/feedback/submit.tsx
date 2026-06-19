@@ -38,10 +38,7 @@ export const Route = createFileRoute("/api/feedback/submit")({
         if (!parsed.success) return json({ ok: false, error: "invalid_body" }, 400);
 
         const isTma = (request.headers.get("authorization") ?? "").toLowerCase().startsWith("tma ");
-        if (
-          !isTma &&
-          (!parsed.data.address || !parsed.data.message || !parsed.data.signature)
-        ) {
+        if (!isTma && (!parsed.data.address || !parsed.data.message || !parsed.data.signature)) {
           return json({ ok: false, error: "siwe_required" }, 401);
         }
         const auth = await resolveFeedbackAuth(

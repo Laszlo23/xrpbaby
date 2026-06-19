@@ -28,7 +28,10 @@ function RootsPage() {
         <CultureRootsStakingPanel />
 
         <div className="rounded-xl border border-white/[0.06] px-4 py-3 text-sm text-zinc-500">
-          <span>Places stakes native ETH separately — BCC roots live here.</span>
+          <span>
+            Places stakes native ETH separately — BCC roots live here. Staking raises your Culture
+            Power multiplier on weekly BCC claims when Power is enabled.
+          </span>
           <div className="mt-2 flex flex-wrap gap-2">
             <Button variant="link" className="h-auto p-0 text-neon" asChild>
               <Link to="/liquidity">LP staking (Aerodrome)</Link>

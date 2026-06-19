@@ -14,9 +14,7 @@ const pointsPerBccWei = BigInt(process.env.POINTS_PER_BCC_WEI?.trim() || "0");
 const minPoints = Number(process.env.SNAPSHOT_MIN_POINTS ?? "1");
 
 function leafHash(walletAddress, amountWei) {
-  return createHash("sha256")
-    .update(`${walletAddress.toLowerCase()}:${amountWei}`)
-    .digest("hex");
+  return createHash("sha256").update(`${walletAddress.toLowerCase()}:${amountWei}`).digest("hex");
 }
 
 function buildMerkleRoot(leaves) {
@@ -27,9 +25,7 @@ function buildMerkleRoot(leaves) {
     for (let i = 0; i < layer.length; i += 2) {
       const left = layer[i];
       const right = layer[i + 1] ?? left;
-      const pair = Buffer.concat(
-        [left, right].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)),
-      );
+      const pair = Buffer.concat([left, right].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
       next.push(createHash("sha256").update(pair).digest());
     }
     layer = next;
@@ -91,7 +87,9 @@ async function main() {
     data: { merkleRoot: merkleRoot ?? undefined },
   });
 
-  console.log(JSON.stringify({ campaignSlug, allocations: allocations.length, merkleRoot }, null, 2));
+  console.log(
+    JSON.stringify({ campaignSlug, allocations: allocations.length, merkleRoot }, null, 2),
+  );
 }
 
 main()

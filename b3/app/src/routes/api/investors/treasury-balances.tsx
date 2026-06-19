@@ -5,9 +5,8 @@ export const Route = createFileRoute("/api/investors/treasury-balances")({
     handlers: {
       GET: async () => {
         try {
-          const { getInvestorTreasuryBalances } = await import(
-            "@/server/investors/treasury-balances"
-          );
+          const { getInvestorTreasuryBalances } =
+            await import("@/server/investors/treasury-balances");
           const data = await getInvestorTreasuryBalances();
           return json(data);
         } catch (e) {

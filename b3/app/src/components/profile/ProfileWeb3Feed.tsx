@@ -5,10 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { ExternalLink } from "lucide-react";
 
 import { GlassCard, SectionHeading, StatusBadge } from "@/components/profile/profile-ui";
-import type {
-  ActivityCategory,
-  ShowcaseActivityItem,
-} from "@/lib/profile/showcase-types";
+import type { ActivityCategory, ShowcaseActivityItem } from "@/lib/profile/showcase-types";
 import { cn } from "@/lib/utils";
 
 const FEED_TAB_ORDER: ActivityCategory[] = ["social", "onchain", "product", "community"];
@@ -48,7 +45,9 @@ function ActivityCard({ item }: { item: ShowcaseActivityItem }) {
     <>
       <div className="flex items-start justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">{item.title}</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+            {item.title}
+          </p>
           <StatusBadge
             label={isOnchain ? "Tx" : isCurated ? "Milestone" : "Cast"}
             tone={isOnchain ? "exploring" : isCurated ? "beta" : "default"}
@@ -58,7 +57,8 @@ function ActivityCard({ item }: { item: ShowcaseActivityItem }) {
       </div>
       <p className="mt-2 text-sm leading-relaxed text-zinc-300">{item.excerpt}</p>
       <p className="mt-2 font-mono text-[10px] text-zinc-600">
-        {item.authorHandle !== "onchain" ? `@${item.authorHandle}` : "Base"} · {formatDate(item.publishedAt)}
+        {item.authorHandle !== "onchain" ? `@${item.authorHandle}` : "Base"} ·{" "}
+        {formatDate(item.publishedAt)}
       </p>
     </>
   );
@@ -97,7 +97,10 @@ export function ProfileWeb3Feed({
   if (totalCount === 0 && !farcasterUsername) {
     return (
       <section className="space-y-4">
-        <SectionHeading title="Web3 feed" subtitle="Casts and onchain activity appear when linked." />
+        <SectionHeading
+          title="Web3 feed"
+          subtitle="Casts and onchain activity appear when linked."
+        />
         <GlassCard hover={false} className="py-10 text-center text-sm text-zinc-500">
           Link Farcaster or ENS to this wallet to populate your feed.
         </GlassCard>

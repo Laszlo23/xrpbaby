@@ -1,18 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures/skip-onboarding";
 
 test.describe("smoke", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("bc_elias_onboarding_v1", "done");
-    });
-  });
-
   test("home loads landing story", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("body")).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: /Who are you/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Who are you/i })).toBeVisible();
   });
 
   test("play drops home loads", async ({ page }) => {
@@ -81,7 +73,9 @@ test.describe("smoke", () => {
 
   test("404 page shows under development copy", async ({ page }) => {
     await page.goto("/this-route-does-not-exist-bc-smoke");
-    await expect(page.getByRole("heading", { name: /Still building something culture-worthy/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /Still building something culture-worthy/i }),
+    ).toBeVisible();
     await expect(page.getByText(/Under development/i)).toBeVisible();
   });
 
@@ -165,6 +159,46 @@ test.describe("smoke", () => {
     await page.goto("/forest");
     await expect(page.locator("body")).toBeVisible();
     await expect(page.getByRole("heading", { name: /Built by people/i })).toBeVisible();
+  });
+
+  test("ecosystem directory loads", async ({ page }) => {
+    await page.goto("/ecosystem");
+    await expect(page.getByRole("heading", { name: /Building Culture ecosystem/i })).toBeVisible();
+  });
+
+  test("credentials center loads", async ({ page }) => {
+    await page.goto("/credentials");
+    await expect(page.getByRole("heading", { name: /Verifiable proof/i })).toBeVisible();
+  });
+
+  test("agent os loads", async ({ page }) => {
+    await page.goto("/agent-os");
+    await expect(page.getByRole("heading", { name: /Agent OS/i })).toBeVisible();
+  });
+
+  test("culture pass loads", async ({ page }) => {
+    await page.goto("/pass");
+    await expect(page.locator("body")).toBeVisible();
+  });
+
+  test("hq fundraise loads", async ({ page }) => {
+    await page.goto("/hq");
+    await expect(page.locator("body")).toBeVisible();
+  });
+
+  test("triple 333 campaign loads", async ({ page }) => {
+    await page.goto("/triple-333");
+    await expect(page.locator("body")).toBeVisible();
+  });
+
+  test("investors page loads", async ({ page }) => {
+    await page.goto("/investors");
+    await expect(page.locator("body")).toBeVisible();
+  });
+
+  test("chronicles index loads", async ({ page }) => {
+    await page.goto("/chronicles");
+    await expect(page.locator("body")).toBeVisible();
   });
 
   test("culture pulse signal loads", async ({ page }) => {
@@ -256,6 +290,27 @@ test.describe("smoke", () => {
     const json = (await res.json()) as { kind?: string; metadata?: { name?: string } };
     expect(json.kind).toBe("culture_layer_identity");
     expect(json.metadata?.name).toBeTruthy();
+  });
+
+  test("credentials catalog API", async ({ request }) => {
+    const res = await request.get("/api/credentials/catalog");
+    expect([200, 503]).toContain(res.status());
+  });
+
+  test("agent os overview API", async ({ request }) => {
+    const res = await request.get("/api/agent-os/overview");
+    expect([200, 503]).toContain(res.status());
+  });
+
+  test("member me rejects unauthenticated shape", async ({ request }) => {
+    const res = await request.get(
+      "/api/member/me?address=0x0000000000000000000000000000000000000001",
+    );
+    expect([200, 401, 503]).toContain(res.status());
+    if (res.status() === 200) {
+      const body = (await res.json()) as { ok?: boolean };
+      expect(typeof body.ok).toBe("boolean");
+    }
   });
 
   test("agent.json monetization card", async ({ request }) => {

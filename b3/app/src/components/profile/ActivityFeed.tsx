@@ -5,10 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { ExternalLink } from "lucide-react";
 
 import { GlassCard, SectionHeading, StatusBadge } from "@/components/profile/profile-ui";
-import type {
-  ActivityCategory,
-  ShowcaseActivityItem,
-} from "@/lib/profile/showcase-types";
+import type { ActivityCategory, ShowcaseActivityItem } from "@/lib/profile/showcase-types";
 import type { FounderShowcaseConfig } from "@/lib/profile/founder-showcase";
 import { cn } from "@/lib/utils";
 
@@ -91,10 +88,7 @@ export function ActivityFeed({
   return (
     <section className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <SectionHeading
-          title="Activity"
-          subtitle="Platform milestones + live Farcaster signal."
-        />
+        <SectionHeading title="Activity" subtitle="Platform milestones + live Farcaster signal." />
         <div className="flex flex-wrap gap-2 text-xs">
           <a
             href={config.warpcastPersonalUrl}

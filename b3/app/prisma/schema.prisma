@@ -57,6 +57,47 @@ model Member {
   cultureIdentity CultureIdentity?
   userCredentials UserCredential[]
   bcidIdentity    BcidIdentity?
+  groveLinksSent     CultureGroveLink[] @relation("GroveInviter")
+  groveLinkReceived  CultureGroveLink?  @relation("GroveInvitee")
+  groveTwinBloomClaim GroveTwinBloomNftClaim?
+  powerState          MemberPowerState?
+  powerProofs         MemberPowerProof[]
+}
+
+/// Viral grove tree — who invited whom (deduped per invitee).
+model CultureGroveLink {
+  id              String   @id @default(cuid())
+  inviterMemberId String
+  inviteeMemberId String   @unique
+  agentRef        String?
+  dnaHue          Int      @default(160)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  inviter Member @relation("GroveInviter", fields: [inviterMemberId], references: [id], onDelete: Cascade)
+  invitee Member @relation("GroveInvitee", fields: [inviteeMemberId], references: [id], onDelete: Cascade)
+
+  @@index([inviterMemberId, createdAt(sort: Desc)])
+}
+
+/// Server-minted Twin Bloom audio NFT (2 direct grove invites).
+model GroveTwinBloomNftClaim {
+  id              String    @id @default(cuid())
+  memberId        String    @unique
+  member          Member    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  walletId        String    @unique
+  wallet          Wallet    @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  claimDigest     String    @unique
+  status          String    @default("pending")
+  chainId         Int?
+  contractAddress String?
+  txHash          String?
+  tokenId         String?
+  createdAt       DateTime  @default(now())
+  mintedAt        DateTime?
+
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
 }
 
 /// Linked social identity (Farcaster-verified X/TikTok/GitHub or direct Farcaster link).
@@ -85,6 +126,7 @@ model Wallet {
   ledgers        PointLedger[]
   airdropAllocs  AirdropAllocation[]
   panicVoucherClaims PanicVoucherClaim[]
+  groveTwinBloomClaim GroveTwinBloomNftClaim?
   pointRedemptions PointRedemption[]
   quidliDeliveries QuidliDelivery[]
 }
@@ -993,4 +1035,257 @@ model BcidWaitlistInvite {
   bcidDid      String?
   createdAt    DateTime  @default(now())
   expiresAt    DateTime
+}
+
+// --- Outreach CRM (human-approved agent drafts) ---
+
+model OutreachTarget {
+  id            String   @id @default(cuid())
+  name          String
+  segment       String
+  channel       String   @default("email")
+  contactEmail  String?
+  contactUrl    String?
+  status        String   @default("prospect")
+  notes         String?
+  grantProofUrl String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  touches       OutreachTouch[]
+
+  @@index([segment])
+  @@index([status])
+}
+
+model OutreachTouch {
+  id               String         @id @default(cuid())
+  targetId         String
+  target           OutreachTarget @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  channel          String         @default("email")
+  status           String         @default("draft")
+  emailSubject     String?
+  emailBody        String?        @db.Text
+  forumPost        String?        @db.Text
+  followUpVariants Json?
+  grantProofUrl    String?
+  sentAt           DateTime?
+  sentBy           String?
+  resendId         String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  @@index([targetId])
+  @@index([status])
+}
+
+/// Member agent inbox — email-like threads (draft → review → act).
+model AgentInboxThread {
+  id           String             @id @default(cuid())
+  memberId     String?
+  walletAddress String            @db.VarChar(42)
+  subject      String
+  agentKind    String             @default("research")
+  status       String             @default("draft")
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  messages     AgentInboxMessage[]
+
+  @@index([walletAddress])
+  @@index([status])
+}
+
+model AgentInboxMessage {
+  id        String           @id @default(cuid())
+  threadId  String
+  thread    AgentInboxThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  role      String           @default("user")
+  body      String           @db.Text
+  draftJson Json?
+  createdAt DateTime         @default(now())
+
+  @@index([threadId])
+}
+
+/// Whale brand storytelling quests (7M+ BCC creators).
+model BrandStoryQuest {
+  id              String   @id @default(cuid())
+  creatorWallet   String   @db.VarChar(42)
+  title           String
+  storyMarkdown   String   @db.Text
+  rewardPoints    Int      @default(100)
+  ticketPackSlug  String?
+  status          String   @default("active")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  participants    BrandStoryQuestParticipant[]
+
+  @@index([creatorWallet])
+  @@index([status])
+}
+
+model BrandStoryQuestParticipant {
+  id        String          @id @default(cuid())
+  questId   String
+  quest     BrandStoryQuest @relation(fields: [questId], references: [id], onDelete: Cascade)
+  wallet    String          @db.VarChar(42)
+  completed Boolean         @default(false)
+  createdAt DateTime        @default(now())
+
+  @@unique([questId, wallet])
+  @@index([wallet])
+}
+
+/// Unified culture memory timeline for legacy dashboard.
+model CultureMemoryEvent {
+  id        String   @id @default(cuid())
+  memberId  String?
+  wallet    String?  @db.VarChar(42)
+  type      String
+  payload   Json     @default("{}")
+  agentRef  String?
+  questId   String?
+  txHash    String?
+  createdAt DateTime @default(now())
+
+  @@index([memberId, createdAt(sort: Desc)])
+  @@index([wallet, createdAt(sort: Desc)])
+  @@index([type])
+}
+
+/// Marketplace service orders — x402 USDC kickoff + milestone fulfillment.
+model ServiceOrder {
+  id         String             @id @default(cuid())
+  slug       String
+  wallet     String             @db.VarChar(42)
+  status     String             @default("pending_payment")
+  brief      Json               @default("{}")
+  x402TxHash String?
+  amountUsdc String
+  threadId   String?
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  milestones ServiceMilestone[]
+
+  @@index([wallet])
+  @@index([slug])
+  @@index([status])
+}
+
+model ServiceMilestone {
+  id          String       @id @default(cuid())
+  orderId     String
+  order       ServiceOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  index       Int
+  title       String
+  status      String       @default("pending")
+  agentTaskId String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([orderId, index])
+  @@index([orderId])
+  @@index([status])
+}
+
+/// Culture ID referral codes — launch + per-minter 7-code batches.
+model IdentityReferralCode {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  ownerWallet String    @db.VarChar(42)
+  batchIndex  Int       @default(0)
+  status      String    @default("active")
+  consumedBy  String?   @db.VarChar(42)
+  consumedAt  DateTime?
+  mintHandle  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([ownerWallet])
+  @@index([status])
+}
+
+model IdentityReferralRedemption {
+  id         String   @id @default(cuid())
+  wallet     String   @unique @db.VarChar(42)
+  code       String
+  codeId     String?
+  mintHandle String
+  tokenId    Int?
+  createdAt  DateTime @default(now())
+
+  @@index([code])
+}
+
+/// Culture Power — maintenance-driven farming quotient for BCC weekly claims.
+model MemberPowerState {
+  id              String    @id @default(cuid())
+  memberId        String    @unique
+  powerScore      Int       @default(400)
+  peakScore7d     Int       @default(400)
+  streakDays      Int       @default(0)
+  lastMaintenance DateTime?
+  lastComputedAt  DateTime  @default(now())
+  metadata        Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+}
+
+model MemberPowerProof {
+  id         String    @id @default(cuid())
+  memberId   String
+  kind       String
+  proofRef   String
+  amountWei  String?
+  expiresAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId, kind])
+}
+
+/// Culture merch drops — limited-edition tees with ladder pricing.
+model MerchDrop {
+  slug                String       @id
+  title               String
+  imageUrl            String
+  editionCap          Int          @default(77)
+  soldCount           Int          @default(0)
+  productionTargetUsd Decimal      @db.Decimal(10, 2)
+  status              String       @default("open")
+  fundedAt            DateTime?
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  orders              MerchOrder[]
+
+  @@index([status])
+}
+
+model MerchOrder {
+  id              String    @id @default(cuid())
+  dropSlug        String
+  drop            MerchDrop @relation(fields: [dropSlug], references: [slug], onDelete: Cascade)
+  unitNumber      Int
+  size            String
+  wallet          String    @db.VarChar(42)
+  priceUsd        Decimal   @db.Decimal(10, 2)
+  paymentRail     String
+  stripeSessionId String?
+  x402TxHash      String?
+  claimCode       String    @unique
+  shipping        Json
+  revenueSplit    Json?
+  status          String    @default("pending_payment")
+  reservedUntil   DateTime?
+  claimedAt       DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([dropSlug, unitNumber])
+  @@index([wallet])
+  @@index([dropSlug, status])
+  @@index([claimCode])
+  @@index([status, reservedUntil])
 }

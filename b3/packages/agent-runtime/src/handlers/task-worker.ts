@@ -128,6 +128,112 @@ export async function processAgentTask(
     return { ok: true, data: { note: "handled_by_ceo_tick" } };
   }
 
+  if (task.type === "fulfill_service_order") {
+    const orderId = typeof payload.orderId === "string" ? payload.orderId : null;
+    const slug = typeof payload.slug === "string" ? payload.slug : null;
+    if (!orderId || !slug) {
+      return { ok: false, error: "missing_order_payload" };
+    }
+
+    const subTasks: string[] = [];
+    if (slug === "svc-farcaster-777") {
+      subTasks.push("grove_tick", "social_burst");
+    } else if (slug === "svc-funnel-full") {
+      subTasks.push("deploy_app", "smoke_verify", "seo_publish");
+    } else if (slug === "svc-replay-guy") {
+      subTasks.push("social_burst");
+    }
+
+    const { insertAgentTask } = await import("../agent-db.js");
+    for (const subType of subTasks) {
+      await insertAgentTask(databaseUrl, {
+        type: subType,
+        payload: { orderId, slug, parentTaskId: task.id },
+        priority: 4,
+        createdBy: ceoAgentId,
+        assignedAgentId: ceoAgentId,
+      });
+    }
+
+    return {
+      ok: true,
+      data: { orderId, slug, queued: subTasks },
+    };
+  }
+
+  if (task.type === "fulfill_merch_batch") {
+    const dropSlug = typeof payload.dropSlug === "string" ? payload.dropSlug : null;
+    if (!dropSlug) return { ok: false, error: "missing_drop_slug" };
+
+    const podWebhook = process.env.MERCH_POD_WEBHOOK_URL?.trim();
+    if (podWebhook) {
+      try {
+        await fetch(podWebhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            dropSlug,
+            title: payload.title,
+            imageUrl: payload.imageUrl,
+            sizeBreakdown: payload.sizeBreakdown,
+            csv: payload.csv,
+            orderCount: payload.orderCount,
+          }),
+        });
+      } catch (e) {
+        return { ok: false, error: `pod_webhook_failed: ${e instanceof Error ? e.message : "unknown"}` };
+      }
+    }
+
+    return {
+      ok: true,
+      data: {
+        dropSlug,
+        orderCount: payload.orderCount,
+        podWebhookSent: Boolean(podWebhook),
+        note: podWebhook ? "POD webhook notified" : "Manual POD handoff — CSV in task payload",
+      },
+    };
+  }
+
+  if (task.type === "service_milestone_review") {
+    const orderId = typeof payload.orderId === "string" ? payload.orderId : null;
+    const milestoneId = typeof payload.milestoneId === "string" ? payload.milestoneId : null;
+    if (!orderId) return { ok: false, error: "missing_order_id" };
+
+    const { insertAgentTask } = await import("../agent-db.js");
+    await insertAgentTask(databaseUrl, {
+      type: "smoke_verify",
+      payload: { orderId, milestoneId, review: true },
+      priority: 4,
+      createdBy: ceoAgentId,
+    });
+
+    return { ok: true, data: { orderId, milestoneId, queued: ["smoke_verify"] } };
+  }
+
+  if (task.type === "sync_identity_mint_price") {
+    const base = process.env.PUBLIC_APP_ORIGIN?.replace(/\/$/, "").trim();
+    if (base) {
+      try {
+        const res = await fetch(`${base}/api/ops/identity-ladder-sync`);
+        const data = (await res.json()) as Record<string, unknown>;
+        return { ok: res.ok, data };
+      } catch (e) {
+        return {
+          ok: false,
+          error: e instanceof Error ? e.message : "ladder_sync_probe_failed",
+        };
+      }
+    }
+    return {
+      ok: true,
+      data: {
+        note: "Run scripts/sync-identity-mint-ladder.mjs with DRY_RUN=0 to update on-chain mintPrice",
+      },
+    };
+  }
+
   const toolId = TASK_TOOL_MAP[task.type];
   if (toolId) {
     const agents = await loadAgentsFile();

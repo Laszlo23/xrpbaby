@@ -130,7 +130,9 @@ function LimxPanelInner({ limxPrice }: LimxPanelProps) {
             `Get opportunity brief (${limxPrice} USDC)`
           )}
         </Button>
-        <p className="text-xs text-zinc-500">Research only — outbound outreach stays human-approved.</p>
+        <p className="text-xs text-zinc-500">
+          Research only — outbound outreach stays human-approved.
+        </p>
       </div>
 
       {lastError ? (

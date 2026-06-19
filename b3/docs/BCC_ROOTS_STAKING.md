@@ -17,6 +17,8 @@
 
 Registry: [`contracts/deployments/bcc-8453.json`](../contracts/deployments/bcc-8453.json).
 
+**Culture Power:** When `CULTURE_POWER_ENABLED=1`, Roots stake tier feeds the unified weekly BCC multiplier (see [`CULTURE_POWER.md`](./CULTURE_POWER.md)) instead of a separate staking-only boost.
+
 ## Unlock budget (confirm before countdown goes live)
 
 Fill this table after counsel + treasury sign-off. **Do not publish emission numbers until confirmed.**

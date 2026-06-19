@@ -51,6 +51,7 @@ const ROUTE_PATHS = [
   "/voice",
   "/investors",
   "/tg",
+  "/marketplace/merch",
 ] as const;
 
 async function fetchStatus(origin: string, path: string, timeoutMs = 20_000): Promise<number> {
@@ -323,6 +324,21 @@ export async function buildGrantVerificationPayload(
     detail: quidliBccOk
       ? "BCC on Base + caps configured"
       : "set QUIDLI_REWARD_* env and fund Quidli treasury",
+  });
+
+  const merchCatalog = await fetchJson(base, "/api/marketplace/merch/catalog");
+  const merchDrops =
+    merchCatalog &&
+    typeof merchCatalog === "object" &&
+    Array.isArray((merchCatalog as { drops?: unknown[] }).drops)
+      ? (merchCatalog as { drops: unknown[] }).drops
+      : [];
+  checks.push({
+    id: "merch_catalog_api",
+    label: "Culture merch catalog API (4 drops)",
+    status: merchDrops.length === 4 ? "pass" : "fail",
+    url: `${base}/api/marketplace/merch/catalog`,
+    detail: `${merchDrops.length} drops`,
   });
 
   const hardChecks = checks.filter((c) => c.status !== "warn");

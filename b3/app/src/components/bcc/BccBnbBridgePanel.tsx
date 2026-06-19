@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  BCC_SYMBOL,
-  buildJumperBnbToBccUrl,
-  type BccBnbBuyRoute,
-} from "@bc/bcc-kit";
+import { BCC_SYMBOL, buildJumperBnbToBccUrl, type BccBnbBuyRoute } from "@bc/bcc-kit";
 
 type BnbRouteResponse = {
   ok?: boolean;

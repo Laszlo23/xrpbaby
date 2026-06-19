@@ -1,10 +1,12 @@
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 
 import { logActivity } from "@/server/platform/member";
 
+type PrismaDb = PrismaClient | Prisma.TransactionClient;
+
 /** Log task completion for quest UI and analytics. */
 export async function logTaskCompletionActivity(
-  prisma: PrismaClient,
+  prisma: PrismaDb,
   input: {
     memberId?: string;
     taskSlug: string;

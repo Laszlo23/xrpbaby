@@ -35,7 +35,9 @@ export function AgentOsCard({ agent }: { agent: AgentOsAgent }) {
         ) : null}
         <p>
           <span className="text-zinc-600">Approval: </span>
-          {agent.approvalNeeded ? "Human approval for outbound actions" : "Research-only (no outbound)"}
+          {agent.approvalNeeded
+            ? "Human approval for outbound actions"
+            : "Research-only (no outbound)"}
         </p>
         {agent.ctaRoute && agent.ctaLabel ? (
           <Link
@@ -45,11 +47,17 @@ export function AgentOsCard({ agent }: { agent: AgentOsAgent }) {
             {agent.ctaLabel} →
           </Link>
         ) : agent.id === "research_agent" ? (
-          <a href="#research-agent" className="inline-flex text-sm font-semibold text-emerald-300 hover:text-white">
+          <a
+            href="#research-agent"
+            className="inline-flex text-sm font-semibold text-emerald-300 hover:text-white"
+          >
             Try below →
           </a>
         ) : agent.id === "limx_revenue_agent" ? (
-          <a href="#limx-agent" className="inline-flex text-sm font-semibold text-violet-300 hover:text-white">
+          <a
+            href="#limx-agent"
+            className="inline-flex text-sm font-semibold text-violet-300 hover:text-white"
+          >
             Try below →
           </a>
         ) : null}

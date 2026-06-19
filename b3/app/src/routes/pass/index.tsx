@@ -1,12 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useAccount } from "wagmi";
 import { DomainCard3D } from "@/components/identity/DomainCard3D";
 import { CulturePassBccClaimPanel } from "@/components/bcc/CulturePassBccClaimPanel";
+import { IdentityReferralCodesPanel } from "@/components/identity/IdentityReferralCodesPanel";
 import { PassTrustSettingsWithHint } from "@/components/credentials/CredentialsXrplLinkSection";
 import { IdentityParticles } from "@/components/identity/Particles";
 import { SearchMint } from "@/components/identity/SearchMint";
+import { OwnedIdentityCard } from "@/components/identity/OwnedIdentityCard";
 import { NetworkSelector } from "@/components/wallet/NetworkSelector";
 import { ModuleShell } from "@/components/ModuleShell";
+import { useWalletCultureIdentity } from "@/hooks/useWalletCultureIdentity";
 import { identityMintPriceTagline } from "@/lib/identity/mint-price";
 import { cultureGatewayPath } from "@/lib/identity/urls";
 import { pageHead } from "@/lib/seo";
@@ -17,6 +21,8 @@ export const Route = createFileRoute("/pass/")({
     name: typeof search.name === "string" ? search.name : undefined,
     tld: typeof search.tld === "string" ? search.tld : undefined,
     network: search.network === "bsc" || search.network === "base" ? search.network : undefined,
+    manage: typeof search.manage === "string" ? search.manage : undefined,
+    ref: typeof search.ref === "string" ? search.ref : undefined,
   }),
   head: () =>
     pageHead({
@@ -47,8 +53,19 @@ function PassPage() {
 function PassMintDashboard() {
   const [previewName, setPreviewName] = useState("yourname");
   const [previewTld, setPreviewTld] = useState("culture");
-
+  const { manage } = Route.useSearch();
+  const { isConnected } = useAccount();
+  const { isVerified, isLoading } = useWalletCultureIdentity();
   const badges = useMemo(() => ["founding eligible", "multichain", "transferable"], []);
+
+  if (isConnected && isVerified && manage !== "1" && !isLoading) {
+    return (
+      <div className="relative px-2">
+        <OwnedIdentityCard />
+        <IdentityReferralCodesPanel />
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -118,6 +135,8 @@ function PassMintDashboard() {
       </div>
 
       <CulturePassBccClaimPanel />
+
+      <IdentityReferralCodesPanel />
 
       <div className="mt-12">
         <p className="mono-label mb-4">TRUST LAYER</p>

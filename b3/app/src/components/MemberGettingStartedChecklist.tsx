@@ -3,6 +3,7 @@ import { Check, Circle, Sparkles } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
+import { getCoachScene } from "@/lib/character/culture-coach";
 import { identityMintPriceShort } from "@/lib/identity/mint-price";
 import {
   checklistCompleteCount,
@@ -18,6 +19,7 @@ const STEPS: Array<{
   detail: string;
   href: string;
   cta: string;
+  coachSceneId: string;
 }> = [
   {
     id: "identity",
@@ -25,6 +27,7 @@ const STEPS: Array<{
     detail: `Mint on Base — ${identityMintPriceShort}. Your onchain handle for the community.`,
     href: "/pass",
     cta: "Open pass",
+    coachSceneId: "historical-vs",
   },
   {
     id: "first-quest",
@@ -32,6 +35,7 @@ const STEPS: Array<{
     detail: "Earn Culture Points on your profile — server-backed, wallet-linked rewards.",
     href: "/profile",
     cta: "Go to profile",
+    coachSceneId: "farm-vs-build",
   },
   {
     id: "first-drop",
@@ -39,6 +43,15 @@ const STEPS: Array<{
     detail: "Fair raffle tickets for real stays, art, and culture — the Play loop.",
     href: "/play",
     cta: "Open Play",
+    coachSceneId: "park-token",
+  },
+  {
+    id: "grove",
+    title: "Plant your Culture DNA grove",
+    detail: "Invite 2 friends — they invite 2 more. Twin Bloom unlocks +100 Culture Points.",
+    href: "/forest/grove",
+    cta: "Open grove",
+    coachSceneId: "vibe-friends",
   },
 ];
 
@@ -78,7 +91,7 @@ export function MemberGettingStartedChecklist({ highlight = false }: Props) {
         <div>
           <p className="mono-label !text-[#C5FF41]">GETTING STARTED</p>
           <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
-            Your first 3 steps
+            Your first {STEPS.length} steps
           </h2>
           <p className="mt-2 max-w-xl text-sm text-zinc-400">
             {highlight
@@ -97,6 +110,7 @@ export function MemberGettingStartedChecklist({ highlight = false }: Props) {
       <ol className="mt-8 space-y-4">
         {STEPS.map((step, idx) => {
           const complete = steps[step.id];
+          const coach = getCoachScene(step.coachSceneId);
           return (
             <li
               key={step.id}
@@ -114,12 +128,27 @@ export function MemberGettingStartedChecklist({ highlight = false }: Props) {
                     <Circle className="h-5 w-5 text-zinc-600" aria-hidden />
                   )}
                 </span>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="font-medium text-white">
                     <span className="mr-2 font-mono text-xs text-zinc-500">{idx + 1}.</span>
                     {step.title}
                   </p>
                   <p className="mt-1 text-sm text-zinc-400">{step.detail}</p>
+                  {coach ? (
+                    <div className="mt-3 flex items-center gap-2 rounded-lg border border-white/[0.06] bg-black/20 px-3 py-2">
+                      <img
+                        src={coach.thumbSrc}
+                        alt=""
+                        width={40}
+                        height={40}
+                        loading="lazy"
+                        className="h-10 w-10 shrink-0 rounded-lg border border-white/10 object-cover"
+                      />
+                      <p className="text-xs italic text-zinc-400">
+                        &ldquo;{complete && coach.quoteWin ? coach.quoteWin : coach.quote}&rdquo;
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
               </div>
               <div className="flex shrink-0 flex-wrap gap-2">

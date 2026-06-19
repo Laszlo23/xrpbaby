@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { startTransition, useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { usePrivy } from "@privy-io/react-auth";
+import { useCultureLogin } from "@/hooks/useCultureLogin";
 import {
   useAccount,
   useConnect,
@@ -21,7 +22,19 @@ import { usePrivyWalletAddress } from "@/lib/privy-wallet";
 import {
   formatIdentityMintPrice,
   formatIdentityMintPriceNativeOnly,
+  formatIdentityMintLadderUrgency,
 } from "@/lib/identity/mint-price";
+import {
+  culturePointsForMint,
+  ladderSummary,
+  usdPriceForTotalMinted,
+} from "@/lib/identity/mint-ladder";
+import { handlePolicyUserMessage, validateHandleForPromoMint } from "@/lib/identity/handle-policy";
+import {
+  getStoredReferralCode,
+  persistReferralCodeFromUrl,
+} from "@/lib/identity/identity-referral-storage";
+import { referralErrorMessage } from "@/lib/identity/referral-messages";
 import { getIdentityNetwork } from "@/lib/identity/networks";
 import { cultureGatewayPath } from "@/lib/identity/urls";
 import { cultureLayerIdentityAbi } from "@/lib/identity/identityAbi";
@@ -34,11 +47,20 @@ import {
 import { BCC_SYMBOL } from "@bc/bcc-kit";
 import { saveIdentityForWallet } from "@/lib/identity/identityStorage";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
+import { pickInjectedConnector } from "@/lib/wallet-connectors";
+import { formatWalletWriteError } from "@/lib/wallet-write-errors";
+import {
+  walletCultureIdentityQueryKey,
+  useWalletCultureIdentity,
+} from "@/hooks/useWalletCultureIdentity";
+import { OwnedIdentityCard } from "@/components/identity/OwnedIdentityCard";
 import { IDENTITY_TLD_OPTIONS, tldLabelToId } from "@/lib/identity/tlds";
 
 type PassSearch = {
   name?: string;
   tld?: string;
+  manage?: string;
+  ref?: string;
 };
 
 function hasBrowserWallet(): boolean {
@@ -46,7 +68,8 @@ function hasBrowserWallet(): boolean {
 }
 
 function SearchMintPrivyLogin({ onError }: { onError: (msg: string) => void }) {
-  const { login, ready } = usePrivy();
+  const { ready } = usePrivy();
+  const { openPreferredLogin, primaryLoginLabel } = useCultureLogin();
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -60,12 +83,12 @@ function SearchMintPrivyLogin({ onError }: { onError: (msg: string) => void }) {
       onClick={() => {
         onError("");
         startTransition(() => {
-          void login();
+          openPreferredLogin();
         });
       }}
       className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
     >
-      Sign in for wallet →
+      {primaryLoginLabel} →
     </button>
   );
 }
@@ -75,6 +98,8 @@ export function SearchMint({ id }: { id?: string }) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const search = useSearch({ strict: false }) as PassSearch;
+  const { isVerified: hasOwnedIdentity } = useWalletCultureIdentity();
+  const allowExtraMint = search.manage === "1";
   const { activeNetworkId, identity } = useCultureNetwork();
   const activeNet = getIdentityNetwork(activeNetworkId);
   const {
@@ -100,6 +125,10 @@ export function SearchMint({ id }: { id?: string }) {
   const [name, setName] = useState("yourname");
   const [tld, setTld] = useState(".culture");
   const [debouncedHandle, setDebouncedHandle] = useState("yourname");
+  const [referralCode, setReferralCode] = useState("");
+  const [referralValid, setReferralValid] = useState<boolean | null>(null);
+  const [referralError, setReferralError] = useState<string | null>(null);
+  const [referralChecking, setReferralChecking] = useState(false);
   const [mintError, setMintError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -110,7 +139,10 @@ export function SearchMint({ id }: { id?: string }) {
     ) {
       setTld(search.tld);
     }
-  }, [search.name, search.tld]);
+    persistReferralCodeFromUrl(search.ref);
+    const stored = getStoredReferralCode();
+    if (stored) setReferralCode(stored);
+  }, [search.name, search.tld, search.ref]);
 
   const clean =
     name
@@ -122,10 +154,70 @@ export function SearchMint({ id }: { id?: string }) {
   const fullIdentityDisplay = `${clean}${tld}`;
   const tldId = tldLabelToId(tld);
 
+  const handlePolicy = useMemo(() => validateHandleForPromoMint(clean), [clean]);
+
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedHandle(clean), 400);
     return () => clearTimeout(timer);
   }, [clean]);
+
+  const validateReferral = useCallback(async () => {
+    const code = referralCode.trim().toUpperCase();
+    if (!code || code.length < 4) {
+      setReferralValid(null);
+      setReferralError(null);
+      return false;
+    }
+    if (!handlePolicy.ok) {
+      setReferralValid(false);
+      setReferralError(handlePolicyUserMessage(handlePolicy.error));
+      return false;
+    }
+    if (!address) {
+      setReferralValid(null);
+      return false;
+    }
+
+    setReferralChecking(true);
+    setReferralError(null);
+    try {
+      const params = new URLSearchParams({
+        code,
+        wallet: address,
+        handle: clean,
+      });
+      const res = await fetch(`/api/identity/referral/validate?${params}`);
+      const data = (await res.json()) as { ok?: boolean; error?: string };
+      if (data.ok) {
+        setReferralValid(true);
+        setReferralError(null);
+        return true;
+      }
+      setReferralValid(false);
+      setReferralError(referralErrorMessage(data.error ?? "code_invalid"));
+      return false;
+    } catch {
+      setReferralValid(false);
+      setReferralError("Could not validate referral code.");
+      return false;
+    } finally {
+      setReferralChecking(false);
+    }
+  }, [address, clean, handlePolicy, referralCode]);
+
+  useEffect(() => {
+    if (!address || referralCode.trim().length < 4 || !handlePolicy.ok) {
+      setReferralValid(null);
+      if (referralCode.trim().length >= 4 && !handlePolicy.ok) {
+        setReferralError(handlePolicyUserMessage(handlePolicy.error));
+      }
+      return;
+    }
+    const timer = setTimeout(() => {
+      void validateReferral();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [address, clean, handlePolicy, referralCode, validateReferral]);
 
   const canCheckAvailability =
     isIdentityContractConfigured &&
@@ -140,6 +232,20 @@ export function SearchMint({ id }: { id?: string }) {
     chainId: identityChainId,
     query: { enabled: Boolean(mintContractAddress) && isIdentityContractConfigured },
   });
+
+  const { data: totalMintedRaw } = useReadContract({
+    address: contractAddress,
+    abi: cultureLayerIdentityAbi,
+    functionName: "totalMinted",
+    chainId: identityChainId,
+    query: { enabled: Boolean(contractAddress) && isIdentityContractConfigured },
+  });
+
+  const totalMinted = totalMintedRaw !== undefined ? Number(totalMintedRaw) : undefined;
+  const ladder = totalMinted !== undefined ? ladderSummary(totalMinted) : undefined;
+  const tierUsd = totalMinted !== undefined ? usdPriceForTotalMinted(totalMinted) : undefined;
+  const mintPointsPreview =
+    totalMinted !== undefined ? culturePointsForMint(totalMinted) : undefined;
 
   const {
     data: isAvailable,
@@ -158,6 +264,7 @@ export function SearchMint({ id }: { id?: string }) {
     writeContract,
     data: txHash,
     isPending: isWritePending,
+    error: writeErr,
     reset: resetWrite,
   } = useWriteContract();
 
@@ -173,7 +280,13 @@ export function SearchMint({ id }: { id?: string }) {
       return { label: "contract not configured", className: "text-zinc-500" };
     }
     if (clean.length < 3 || clean === "yourname") {
-      return { label: "enter at least 3 characters", className: "text-zinc-500" };
+      return { label: "enter at least 4 characters for promo mint", className: "text-zinc-500" };
+    }
+    if (!handlePolicy.ok) {
+      return {
+        label: handlePolicyUserMessage(handlePolicy.error),
+        className: handlePolicy.error === "reserved_team" ? "text-amber-400" : "text-zinc-500",
+      };
     }
     if (isCheckingAvailability) {
       return { label: "checking…", className: "text-zinc-500" };
@@ -185,23 +298,30 @@ export function SearchMint({ id }: { id?: string }) {
       return { label: "available", className: "text-[#C5FF41]" };
     }
     return { label: "taken", className: "text-red-400" };
-  }, [availabilityError, clean, isAvailable, isCheckingAvailability, isIdentityContractConfigured]);
+  }, [
+    availabilityError,
+    clean,
+    handlePolicy,
+    isAvailable,
+    isCheckingAvailability,
+    isIdentityContractConfigured,
+  ]);
 
   useEffect(() => {
     if (!isConfirmed || !address) return;
 
     async function afterMint() {
       saveIdentityForWallet(address!, fullIdentity);
-      void queryClient.invalidateQueries({ queryKey: ["walletIdentities", address] });
+      void queryClient.invalidateQueries({ queryKey: walletCultureIdentityQueryKey(address) });
 
       try {
         const { prepared } = await buildPlatformSiweMessage(
-          address!,
+          address! as `0x${string}`,
           identityChainId,
           `Sync Culture ID ${fullIdentity} after mint.`,
         );
         const signature = await signMessageAsync({ message: prepared });
-        await fetch("/api/credentials/identity/sync", {
+        const syncRes = await fetch("/api/credentials/identity/sync", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -209,8 +329,18 @@ export function SearchMint({ id }: { id?: string }) {
             address,
             message: prepared,
             signature,
+            referralCode: referralCode.trim().toUpperCase() || undefined,
           }),
         });
+        if (syncRes.ok) {
+          const syncData = (await syncRes.json()) as {
+            pointsGranted?: number;
+            pointsAlreadyCredited?: boolean;
+          };
+          if (syncData.pointsGranted && syncData.pointsGranted > 0) {
+            toast.message(`+${syncData.pointsGranted} Culture Points for minting`);
+          }
+        }
       } catch {
         // Non-blocking — profile enrichment also upserts identity
       }
@@ -245,6 +375,7 @@ export function SearchMint({ id }: { id?: string }) {
     isConfirmed,
     navigate,
     queryClient,
+    referralCode,
     resetWrite,
     router,
     signMessageAsync,
@@ -258,8 +389,20 @@ export function SearchMint({ id }: { id?: string }) {
       return;
     }
 
-    if (clean.length < 3) {
-      setMintError("Name must be at least 3 characters.");
+    if (!handlePolicy.ok) {
+      setMintError(handlePolicyUserMessage(handlePolicy.error));
+      return;
+    }
+
+    const code = referralCode.trim().toUpperCase();
+    if (!code || code.length < 4) {
+      setMintError("Enter a referral code to mint (e.g. BUILD77).");
+      return;
+    }
+
+    const referralOk = referralValid === true ? true : await validateReferral();
+    if (!referralOk) {
+      setMintError(referralError ?? "Referral code is invalid for this wallet.");
       return;
     }
 
@@ -278,7 +421,7 @@ export function SearchMint({ id }: { id?: string }) {
         window.open("https://metamask.io/download/", "_blank", "noopener,noreferrer");
         return;
       }
-      const connector = connectors[0];
+      const connector = pickInjectedConnector(connectors);
       if (!connector) {
         setMintError("No wallet connector available.");
         return;
@@ -382,10 +525,21 @@ export function SearchMint({ id }: { id?: string }) {
 
   const mintDisabled =
     !isIdentityContractConfigured ||
-    clean.length < 3 ||
+    !handlePolicy.ok ||
+    referralCode.trim().length < 4 ||
+    referralValid === false ||
+    referralChecking ||
     isMinting ||
     isAvailable === false ||
     (canCheckAvailability && isCheckingAvailability);
+
+  if (hasOwnedIdentity && !allowExtraMint) {
+    return (
+      <motion.div id={id} className="relative w-full max-w-3xl">
+        <OwnedIdentityCard />
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div id={id} className="relative w-full max-w-3xl">
@@ -453,6 +607,47 @@ export function SearchMint({ id }: { id?: string }) {
       </motion.div>
 
       <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: 0.5 }}
+        className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4"
+      >
+        <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+          Referral code (required)
+        </label>
+        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <input
+            data-testid="referral-code-input"
+            value={referralCode}
+            onChange={(e) => {
+              setReferralCode(e.target.value.toUpperCase());
+              setReferralValid(null);
+            }}
+            onBlur={() => void validateReferral()}
+            placeholder="BUILD77"
+            disabled={isMinting}
+            className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 font-mono text-sm uppercase tracking-wider text-white outline-none placeholder:text-zinc-600 disabled:opacity-60"
+          />
+          {referralChecking ? (
+            <span className="font-mono text-xs text-zinc-500">validating…</span>
+          ) : referralValid === true ? (
+            <span className="font-mono text-xs text-[#C5FF41]">code valid · +25 CP</span>
+          ) : referralValid === false ? (
+            <span className="font-mono text-xs text-red-400">{referralError}</span>
+          ) : (
+            <span className="font-mono text-xs text-zinc-500">
+              4+ letter names · one mint per wallet
+            </span>
+          )}
+        </div>
+        {referralValid === true ? (
+          <p className="mt-2 text-xs text-zinc-500">
+            Referrer earns locked BCC when you mint — claim opens when treasury funds the pool.
+          </p>
+        ) : null}
+      </motion.div>
+
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.6 }}
@@ -465,6 +660,14 @@ export function SearchMint({ id }: { id?: string }) {
             {fullIdentityDisplay}
           </span>
           <span className={statusLine.className}>{statusLine.label}</span>
+          {ladder && tierUsd !== undefined ? (
+            <>
+              <span className="text-zinc-600">·</span>
+              <span className="rounded-full border border-[var(--base-blue)]/30 bg-[var(--base-blue)]/10 px-3 py-1 text-[var(--base-blue)]">
+                {formatIdentityMintLadderUrgency(totalMinted!)}
+              </span>
+            </>
+          ) : null}
           {isIdentityContractConfigured && (
             <>
               <span className="text-zinc-600">·</span>
@@ -474,10 +677,18 @@ export function SearchMint({ id }: { id?: string }) {
                   : formatIdentityMintPrice(mintPriceWei, {
                       networkId: activeNetworkId,
                       symbol: nativeSymbol,
+                      totalMinted,
+                      tierUsd,
                     })}
               </span>
             </>
           )}
+          {mintPointsPreview ? (
+            <>
+              <span className="text-zinc-600">·</span>
+              <span className="text-emerald-400/90">+{mintPointsPreview} CP on mint</span>
+            </>
+          ) : null}
         </div>
         {bccEnabled ? (
           <button
@@ -494,10 +705,14 @@ export function SearchMint({ id }: { id?: string }) {
               : `Pay with ${BCC_SYMBOL} (${BCC_DISCOUNT_LABEL})`}
           </button>
         ) : null}
-        {(mintError || connectError) && (
+        {(mintError || writeErr || connectError) && (
           <p className="max-w-md text-center font-mono text-[11px] text-red-400">
             {mintError ??
-              (connectError instanceof Error ? connectError.message : "Could not connect wallet.")}
+              (writeErr
+                ? formatWalletWriteError(writeErr)
+                : connectError
+                  ? formatWalletWriteError(connectError)
+                  : null)}
           </p>
         )}
       </motion.div>
@@ -535,7 +750,9 @@ export function SearchMint({ id }: { id?: string }) {
           </a>
         </div>
         {bnbCheck.available === true ? (
-          <p className="mt-2 text-xs text-[#F0B90B]">{bnbCheck.name} looks available on Space ID.</p>
+          <p className="mt-2 text-xs text-[#F0B90B]">
+            {bnbCheck.name} looks available on Space ID.
+          </p>
         ) : bnbCheck.available === false ? (
           <p className="mt-2 text-xs text-zinc-400">{bnbCheck.name} is already registered.</p>
         ) : null}

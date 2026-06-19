@@ -30,7 +30,7 @@ check() {
   fi
 }
 
-for path in / /forest /join /creators /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid /grant-proof /voice /plan /ops/attribution /agent-os; do
+for path in / /forest /join /creators /welcome /signal /roadmap /docs /drops/art /elias /0g/agentid /grant-proof /voice /plan /ops/attribution /agent-os /ecosystem /credentials /pass /hq /triple-333 /investors /chronicles; do
   check "$path"
 done
 
@@ -109,7 +109,9 @@ else
   fail=1
 fi
 
-if curl -s "${BASE}/id/laszlo.culture" | grep -qi "Building Culture Metrics"; then
+if curl -s "${BASE}/id/laszlo.culture" | grep -qiE "Building Culture Metrics|Turning identity into proof|bc:founder-showcase|bc:founder-tagline|bc:founder-metrics"; then
+  echo "OK  /id/laszlo.culture shows founder showcase v2 (SSR meta or body)"
+elif curl -s "${BASE}/id/laszlo.culture" | grep -qi "Building Culture Metrics"; then
   echo "OK  /id/laszlo.culture shows founder showcase metrics"
 elif curl -s "${BASE}/id/laszlo.culture" | grep -qi "Turning identity into proof"; then
   echo "OK  /id/laszlo.culture shows founder manifesto copy"
@@ -136,6 +138,22 @@ if [[ "$overview_code" =~ ^2 ]]; then
   echo "OK  GET /api/agent-os/overview → $overview_code"
 else
   echo "FAIL GET /api/agent-os/overview → $overview_code"
+  fail=1
+fi
+
+catalog_code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE}/api/credentials/catalog")
+if [[ "$catalog_code" =~ ^2 ]]; then
+  echo "OK  GET /api/credentials/catalog → $catalog_code"
+else
+  echo "FAIL GET /api/credentials/catalog → $catalog_code"
+  fail=1
+fi
+
+member_code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE}/api/member/me?address=0x0000000000000000000000000000000000000001")
+if [[ "$member_code" =~ ^(200|401|503)$ ]]; then
+  echo "OK  GET /api/member/me (guest) → $member_code"
+else
+  echo "FAIL GET /api/member/me (guest) → $member_code (expected 200, 401, or 503)"
   fail=1
 fi
 

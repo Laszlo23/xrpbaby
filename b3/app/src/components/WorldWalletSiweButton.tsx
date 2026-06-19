@@ -3,6 +3,10 @@ import { MiniKit } from "@worldcoin/minikit-js";
 import { useMiniKit } from "@worldcoin/minikit-js/minikit-provider";
 import { toast } from "sonner";
 
+const worldMiniAppId =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_WORLD_MINI_APP_ID?.trim()) ||
+  undefined;
+
 function extractWalletAuthPayload(result: unknown): {
   address: string;
   message: string;
@@ -31,6 +35,11 @@ function extractWalletAuthPayload(result: unknown): {
 
 /** Optional SIWE verification against our server (session wiring can be added later). */
 export function WorldWalletSiweButton() {
+  if (!worldMiniAppId) return null;
+  return <WorldWalletSiweButtonInner />;
+}
+
+function WorldWalletSiweButtonInner() {
   const { isInstalled } = useMiniKit();
   const [busy, setBusy] = useState(false);
 

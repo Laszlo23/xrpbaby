@@ -3,7 +3,11 @@ import { z } from "zod";
 import Stripe from "stripe";
 import { getPackBySlug } from "@/lib/packs";
 import { checkRateLimit, readJsonBody } from "@/server/platform/rate-limit";
-import { verifyPrivyAccessToken, isPrivyConfigured, requirePrivyWalletMatch } from "@/server/wallet/privy-auth";
+import {
+  verifyPrivyAccessToken,
+  isPrivyConfigured,
+  requirePrivyWalletMatch,
+} from "@/server/wallet/privy-auth";
 
 const bodySchema = z.object({
   packSlug: z.string().min(1),

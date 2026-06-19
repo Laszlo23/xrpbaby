@@ -2,8 +2,7 @@ import type { PrismaClient } from "@prisma/client";
 
 export function socialCampaignAdminSecret(): string | undefined {
   return (
-    process.env.SOCIAL_CAMPAIGN_ADMIN_SECRET?.trim() ||
-    process.env.X_MARKETING_ADMIN_SECRET?.trim()
+    process.env.SOCIAL_CAMPAIGN_ADMIN_SECRET?.trim() || process.env.X_MARKETING_ADMIN_SECRET?.trim()
   );
 }
 

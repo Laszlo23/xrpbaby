@@ -2,12 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { BSC_USDC, BSC_USDT, erc20Abi } from "@bc/bcc-kit";
 import { formatUnits, parseUnits } from "viem";
-import {
-  useAccount,
-  useReadContract,
-  useSwitchChain,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, useReadContract, useSwitchChain, useWriteContract } from "wagmi";
 import { ModuleShell } from "@/components/ModuleShell";
 import { WalletControls } from "@/components/WalletControls";
 import { Button } from "@/components/ui/button";
@@ -173,7 +168,7 @@ function FairLaunchPanel({
         abi: fairLaunchSaleAbi,
         functionName: "buy",
         args: [roundId, amountWei, 0n, []],
-        value: payment === "bnb" ? amountWei * (round?.[4] ?? 1n) / 10n ** 18n : 0n,
+        value: payment === "bnb" ? (amountWei * (round?.[4] ?? 1n)) / 10n ** 18n : 0n,
         chainId: BSC_BCC_SWAP_CHAIN_ID,
       });
 

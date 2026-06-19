@@ -8,6 +8,7 @@ const BCC_TOKEN_BASE = "0xb890a5289f789f1346032ccc1847939e855fab07";
 const BSC_CHAIN_ID = 56;
 
 type DexPair = {
+  chainId?: string | number;
   dexId?: string;
   pairAddress?: string;
   priceUsd?: string;

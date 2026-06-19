@@ -7,10 +7,7 @@ export function quidliApiKey(): string | undefined {
 }
 
 export function quidliApiBase(): string {
-  return (
-    process.env.QUIDLI_API_BASE?.trim().replace(/\/$/, "") ||
-    "https://connect.quid.li/api"
-  );
+  return process.env.QUIDLI_API_BASE?.trim().replace(/\/$/, "") || "https://connect.quid.li/api";
 }
 
 export function quidliSendPath(): string {
@@ -18,9 +15,7 @@ export function quidliSendPath(): string {
 }
 
 export function quidliRewardTokenAddress(): string {
-  return (
-    process.env.QUIDLI_REWARD_TOKEN_ADDRESS?.trim().toLowerCase() || BCC_BASE
-  );
+  return process.env.QUIDLI_REWARD_TOKEN_ADDRESS?.trim().toLowerCase() || BCC_BASE;
 }
 
 export function quidliRewardChainId(): number {
@@ -30,10 +25,7 @@ export function quidliRewardChainId(): number {
 
 /** Default drop size in wei (1 BCC with 18 decimals). */
 export function quidliDefaultAmountWei(): string {
-  return (
-    process.env.QUIDLI_DEFAULT_AMOUNT_WEI?.trim() ||
-    "1000000000000000000"
-  );
+  return process.env.QUIDLI_DEFAULT_AMOUNT_WEI?.trim() || "1000000000000000000";
 }
 
 export function quidliDailySendCapUsd(): number {

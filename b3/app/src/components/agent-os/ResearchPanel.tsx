@@ -99,7 +99,9 @@ function ResearchPanelInner({ researchPrice }: ResearchPanelProps) {
             `Ask (${researchPrice} USDC)`
           )}
         </Button>
-        <p className="text-xs text-zinc-500">Connect wallet on Base. Human approval not required.</p>
+        <p className="text-xs text-zinc-500">
+          Connect wallet on Base. Human approval not required.
+        </p>
       </div>
 
       {lastError ? (
@@ -130,8 +132,7 @@ export function ResearchPanel(props: ResearchPanelProps) {
         <h2 className="font-heading text-xl font-semibold text-white">Research Agent — live</h2>
         <p className="text-sm text-zinc-400">
           Paid research via x402 requires wallet configuration (
-          <span className="font-mono">VITE_THIRDWEB_CLIENT_ID</span>). API still works for agents
-          at{" "}
+          <span className="font-mono">VITE_THIRDWEB_CLIENT_ID</span>). API still works for agents at{" "}
           <span className="font-mono text-zinc-300">GET /api/agents/research?q=...</span>
         </p>
       </section>

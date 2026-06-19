@@ -37,8 +37,7 @@ export const Route = createFileRoute("/api/member/culture-score")({
           return json({ ok: true, score: null });
         }
 
-        const culturePoints =
-          member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
+        const culturePoints = member.wallet?.ledgers.reduce((sum, row) => sum + row.delta, 0) ?? 0;
 
         const { buildMemberProfileBridge } = await import("@/server/identity/member-score-bridge");
         const { computeWalletCultureScore } = await import("@/lib/identity/culture-score");

@@ -36,7 +36,9 @@ function SocialChip({ node }: { node: IdentityGraphNode }) {
       </div>
       <div className="min-w-0">
         <p className="truncate text-sm font-medium text-white">{node.displayName}</p>
-        <p className="truncate font-mono text-[10px] text-zinc-500">{platformLabel(node.platform)}</p>
+        <p className="truncate font-mono text-[10px] text-zinc-500">
+          {platformLabel(node.platform)}
+        </p>
       </div>
       {node.followerCount != null && node.followerCount > 0 ? (
         <span className="ml-auto font-mono text-[10px] text-zinc-600">

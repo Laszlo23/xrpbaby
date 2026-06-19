@@ -121,7 +121,9 @@ function BccDashboardPage() {
       </div>
 
       {error ? (
-        <p className="mt-6 text-sm text-red-400">{error instanceof Error ? error.message : "Error"}</p>
+        <p className="mt-6 text-sm text-red-400">
+          {error instanceof Error ? error.message : "Error"}
+        </p>
       ) : null}
 
       <section className="mt-12 rounded-2xl border border-white/10 bg-black/40 p-6">
@@ -181,21 +183,15 @@ function BccDashboardPage() {
       </div>
 
       {data?.updatedAt ? (
-        <p className="mt-4 text-xs text-zinc-500">Updated {new Date(data.updatedAt).toLocaleString()}</p>
+        <p className="mt-4 text-xs text-zinc-500">
+          Updated {new Date(data.updatedAt).toLocaleString()}
+        </p>
       ) : null}
     </ModuleShell>
   );
 }
 
-function MetricCard({
-  label,
-  value,
-  hint,
-}: {
-  label: string;
-  value: string;
-  hint: string;
-}) {
+function MetricCard({ label, value, hint }: { label: string; value: string; hint: string }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
       <p className="text-[11px] font-medium uppercase tracking-wide text-zinc-500">{label}</p>

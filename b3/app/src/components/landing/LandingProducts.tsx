@@ -80,7 +80,10 @@ export function LandingProducts() {
                 <Link
                   to={product.productPageHref}
                   onClick={() =>
-                    void trackLandingEvent("pillar_click", "products", { id: product.id, cta: "learn" })
+                    void trackLandingEvent("pillar_click", "products", {
+                      id: product.id,
+                      cta: "learn",
+                    })
                   }
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-[#00E5FF]/60"
                 >
@@ -90,7 +93,10 @@ export function LandingProducts() {
                 <Link
                   to={product.primaryActionHref}
                   onClick={() =>
-                    void trackLandingEvent("pillar_click", "products", { id: product.id, cta: "primary" })
+                    void trackLandingEvent("pillar_click", "products", {
+                      id: product.id,
+                      cta: "primary",
+                    })
                   }
                   className="inline-flex items-center gap-2 rounded-full bg-[#C5FF41] px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-white"
                 >

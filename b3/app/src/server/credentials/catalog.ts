@@ -2,6 +2,7 @@ import {
   CREDENTIAL_CATALOG,
   getStaticCredentialCatalog,
   type CredentialCatalogItem,
+  type CredentialSlug,
 } from "@/lib/credentials/credential-catalog";
 import { getPrisma } from "@/server/db/prisma";
 
@@ -24,10 +25,10 @@ export async function getCredentialCatalog(): Promise<CredentialCatalogItem[]> {
         const earnRules = row.earnRules as { summary?: string } | null;
         const unlocks = Array.isArray(row.unlocks) ? (row.unlocks as string[]) : [];
         return {
-          slug: row.slug,
+          slug: row.slug as CredentialSlug,
           name: row.name,
           description: row.description,
-          category: row.category,
+          category: (staticEntry?.category ?? row.category) as CredentialCatalogItem["category"],
           purpose: staticEntry?.purpose ?? row.description,
           unlocks: unlocks.length > 0 ? unlocks : (staticEntry?.unlocks ?? []),
           earnSummary: earnRules?.summary ?? staticEntry?.earnSummary ?? "",

@@ -40,14 +40,13 @@ export const Route = createFileRoute("/api/feedback/wall")({
           title: r.publicTitle ?? "Product improvement",
           pointsGranted: r.pointsGranted,
           reviewedAt: r.reviewedAt?.toISOString() ?? null,
-          contributor:
-            r.member.farcasterUsername
-              ? `@${r.member.farcasterUsername}`
-              : r.member.displayName
-                ? r.member.displayName
-                : r.member.walletAddress
-                  ? `${r.member.walletAddress.slice(0, 6)}…${r.member.walletAddress.slice(-4)}`
-                  : "Builder",
+          contributor: r.member.farcasterUsername
+            ? `@${r.member.farcasterUsername}`
+            : r.member.displayName
+              ? r.member.displayName
+              : r.member.walletAddress
+                ? `${r.member.walletAddress.slice(0, 6)}…${r.member.walletAddress.slice(-4)}`
+                : "Builder",
         }));
 
         return json({ ok: true, items });

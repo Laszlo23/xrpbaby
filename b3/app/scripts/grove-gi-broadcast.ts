@@ -12,9 +12,19 @@ loadAppEnv();
 
 import { buildGroveBrief } from "../src/server/marketing/grove/brief";
 import { generateGroveCopyForPillar, voiceCheck } from "../src/server/marketing/grove/copy";
-import { postGroveFarcasterCast, groveFarcasterConfigured } from "../src/server/marketing/grove/farcaster-post";
-import { groveXConfigured, getGroveTwitterClient, groveUsesOfficialXFallback } from "../src/server/marketing/grove/x-client";
-import { postGroveTelegramMessage, groveTelegramConfigured } from "../src/server/marketing/grove/telegram-post";
+import {
+  postGroveFarcasterCast,
+  groveFarcasterConfigured,
+} from "../src/server/marketing/grove/farcaster-post";
+import {
+  groveXConfigured,
+  getGroveTwitterClient,
+  groveUsesOfficialXFallback,
+} from "../src/server/marketing/grove/x-client";
+import {
+  postGroveTelegramMessage,
+  groveTelegramConfigured,
+} from "../src/server/marketing/grove/telegram-post";
 import { postMarketingTweet } from "../src/server/x/post-marketing-tweet";
 
 const dryRun = process.argv.includes("--dry-run");
@@ -50,7 +60,9 @@ async function main() {
   if (groveXConfigured()) {
     const client = getGroveTwitterClient();
     const xText = trimForX(groveUsesOfficialXFallback() ? `[Grove 🌲] ${copy.x}` : copy.x);
-    const xRes = client ? await postMarketingTweet(client, xText) : { ok: false, error: "no_client" };
+    const xRes = client
+      ? await postMarketingTweet(client, xText)
+      : { ok: false, error: "no_client" };
     results.x = xRes;
   } else {
     results.x = { skipped: "not_configured" };

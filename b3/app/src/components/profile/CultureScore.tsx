@@ -18,8 +18,7 @@ export function CultureScore({
   dimensions,
   title = "Culture Reputation",
 }: CultureScoreProps) {
-  const rankLabel =
-    rank.rank != null ? `Rank #${rank.rank} · ${rank.label}` : rank.label;
+  const rankLabel = rank.rank != null ? `Rank #${rank.rank} · ${rank.label}` : rank.label;
 
   return (
     <section className="space-y-5">

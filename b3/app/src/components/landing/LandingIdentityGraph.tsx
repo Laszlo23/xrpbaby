@@ -39,8 +39,8 @@ export function LandingIdentityGraph() {
           See the graph <span className="bc-text-cyan-gradient">connect.</span>
         </h3>
         <p className="mt-4 text-sm text-zinc-400 sm:text-base">
-          One wallet, many identities — ENS, Farcaster, Lens, Linea, and more unified in the
-          Culture Layer.
+          One wallet, many identities — ENS, Farcaster, Lens, Linea, and more unified in the Culture
+          Layer.
         </p>
       </div>
 
@@ -58,8 +58,8 @@ export function LandingIdentityGraph() {
           />
         ) : (
           <div className="rounded-2xl border border-dashed border-white/15 p-12 text-center text-sm text-zinc-500">
-            Identity graph preview is temporarily unavailable. Check your connection or try again
-            in a moment.
+            Identity graph preview is temporarily unavailable. Check your connection or try again in
+            a moment.
           </div>
         )}
 

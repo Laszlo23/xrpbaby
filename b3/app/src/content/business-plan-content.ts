@@ -1,9 +1,4 @@
-export type PlanSectionId =
-  | "overview"
-  | "market"
-  | "product"
-  | "economics"
-  | "competition";
+export type PlanSectionId = "overview" | "market" | "product" | "economics" | "competition";
 
 export type PlanStat = { label: string; value: string; detail?: string };
 
@@ -41,15 +36,23 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           },
           {
             type: "paragraph",
-            text: "Twelve interconnected applications form one ecosystem: Building Culture App (asset management OS), Building Culture Home (discovery), Building Culture ID (.culture domains on Base, ~$1.11 per claim), Building Culture Art (cultural collectibles), BUILDCHAIN (onboarding, compliance, credentialing), Building Culture Coin ($BCC earned via XP for tickets and governance), and WohnAI (AI agent for Vienna/Austria).",
+            text: "Twelve interconnected applications form one ecosystem: Building Culture App (asset management OS), Building Culture Home (discovery), Building Culture ID (.culture domains on Base, $0.07–$7.77 ladder), Building Culture Art (cultural collectibles), BUILDCHAIN (onboarding, compliance, credentialing), Building Culture Coin ($BCC earned via XP for tickets and governance), and WohnAI (AI agent for Vienna/Austria).",
           },
           {
             type: "stats",
             items: [
-              { label: "Total addressable market", value: "$400B+", detail: "Europe + North America" },
+              {
+                label: "Total addressable market",
+                value: "$400B+",
+                detail: "Europe + North America",
+              },
               { label: "Development segment", value: "$180B", detail: "Annual RE development" },
               { label: "Property management", value: "$125B", detail: "Annual market" },
-              { label: "Community ownership", value: "$95B", detail: "Emerging cultural investment" },
+              {
+                label: "Community ownership",
+                value: "$95B",
+                detail: "Emerging cultural investment",
+              },
             ],
           },
         ],
@@ -65,10 +68,18 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           {
             type: "stats",
             items: [
-              { label: "Year 1 revenue", value: "$2.8M", detail: "Domains, volume, token allocations" },
+              {
+                label: "Year 1 revenue",
+                value: "$2.8M",
+                detail: "Domains, volume, token allocations",
+              },
               { label: "Year 2 revenue", value: "$12.4M", detail: "EU + NA pilots" },
               { label: "Year 3 revenue", value: "$34.7M", detail: "Full ecosystem" },
-              { label: "Seed ask", value: "$3.2M", detail: "12-product rollout, EU compliance, WohnAI, expansion" },
+              {
+                label: "Seed ask",
+                value: "$3.2M",
+                detail: "12-product rollout, EU compliance, WohnAI, expansion",
+              },
             ],
           },
           {
@@ -92,9 +103,21 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           {
             type: "stats",
             items: [
-              { label: "North star — portfolio", value: "RWA $", detail: "BUILDCHAIN stewardship, quarterly appraisals" },
-              { label: "North star — retention", value: "MAU + XP", detail: "Positive XP + ≥1 tx per quarter" },
-              { label: "Survival phase", value: "0–24 mo", detail: "PMF in heritage + suburban multifamily; 10k participants" },
+              {
+                label: "North star — portfolio",
+                value: "RWA $",
+                detail: "BUILDCHAIN stewardship, quarterly appraisals",
+              },
+              {
+                label: "North star — retention",
+                value: "MAU + XP",
+                detail: "Positive XP + ≥1 tx per quarter",
+              },
+              {
+                label: "Survival phase",
+                value: "0–24 mo",
+                detail: "PMF in heritage + suburban multifamily; 10k participants",
+              },
               { label: "Scale phase", value: "24–60 mo", detail: "5+ EU markets + North America" },
             ],
           },
@@ -124,7 +147,11 @@ export const PLAN_SECTIONS: PlanChapter[] = [
             items: [
               { label: "Primary EU segment", value: "2.8M", detail: "Ages 18–35 in core cities" },
               { label: "Secondary EU", value: "1.2M", detail: "Krakow, Bucharest, Sofia, Athens" },
-              { label: "Crypto-active subset", value: "340k", detail: "Already in on-chain communities" },
+              {
+                label: "Crypto-active subset",
+                value: "340k",
+                detail: "Already in on-chain communities",
+              },
               { label: "North America", value: "18M+", detail: "Rustbelt + rural, ages 18–40" },
             ],
           },
@@ -165,9 +192,21 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           {
             type: "stats",
             items: [
-              { label: "Young Europeans blocked", value: "42%", detail: "ECB 2023 — stable employment, no mortgage" },
-              { label: "Empty units (3 cities)", value: "180k+", detail: "Vienna, Berlin, Amsterdam speculative hold" },
-              { label: "Wealth delay", value: "10–15 yr", detail: "Missed 3–5% annual appreciation" },
+              {
+                label: "Young Europeans blocked",
+                value: "42%",
+                detail: "ECB 2023 — stable employment, no mortgage",
+              },
+              {
+                label: "Empty units (3 cities)",
+                value: "180k+",
+                detail: "Vienna, Berlin, Amsterdam speculative hold",
+              },
+              {
+                label: "Wealth delay",
+                value: "10–15 yr",
+                detail: "Missed 3–5% annual appreciation",
+              },
               { label: "City tax erosion", value: "$8–15M/yr", detail: "Per secondary city" },
             ],
           },
@@ -180,10 +219,22 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           {
             type: "stats",
             items: [
-              { label: "Pilot: would invest <$1k", value: "64%", detail: "Vienna/Austria participants" },
-              { label: "Abandoned RE due to complexity", value: "91%", detail: "Prior to Building Culture" },
+              {
+                label: "Pilot: would invest <$1k",
+                value: "64%",
+                detail: "Vienna/Austria participants",
+              },
+              {
+                label: "Abandoned RE due to complexity",
+                value: "91%",
+                detail: "Prior to Building Culture",
+              },
               { label: "Unmobilized EU rent", value: "$800B", detail: "Annual" },
-              { label: "Addressable vacant rent", value: "$12–18B", detail: "European vacant properties" },
+              {
+                label: "Addressable vacant rent",
+                value: "$12–18B",
+                detail: "European vacant properties",
+              },
             ],
           },
           {
@@ -203,9 +254,21 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           {
             type: "stats",
             items: [
-              { label: ".culture domains minted", value: "8,400+", detail: "~$1.11 native token per registration" },
-              { label: "Engagement vs SaaS", value: "3.2×", detail: "Fair draw + IF/THEN participation" },
-              { label: "Vacant properties (research)", value: "34,000+", detail: "Vienna + EU metros" },
+              {
+                label: ".culture domains minted",
+                value: "11+ live",
+                detail: "$0.07–$7.77 ladder on Base (on-chain totalMinted)",
+              },
+              {
+                label: "Engagement vs SaaS",
+                value: "3.2×",
+                detail: "Fair draw + IF/THEN participation",
+              },
+              {
+                label: "Vacant properties (research)",
+                value: "34,000+",
+                detail: "Vienna + EU metros",
+              },
               { label: "Dormant asset value", value: "$18B", detail: "Three metropolitan areas" },
             ],
           },
@@ -249,7 +312,7 @@ export const PLAN_SECTIONS: PlanChapter[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "A 12-product ecosystem on Base transforms empty and underutilized properties into community-owned assets. Building Culture Home surfaces dormant real estate without credit requirements. Building Culture ID anchors a .culture domain (~$1.11) as verifiable identity and BUILDCHAIN entry. Users earn XP through voting, reviews, and governance; $BCC (ERC20 on Base) rewards engagement depth, not capital invested.",
+            text: "A 12-product ecosystem on Base transforms empty and underutilized properties into community-owned assets. Building Culture Home surfaces dormant real estate without credit requirements. Building Culture ID anchors a .culture domain ($0.07 entry tier on a 77-mint ladder) as verifiable identity and BUILDCHAIN entry. Users earn XP through voting, reviews, and governance; $BCC (ERC20 on Base) rewards engagement depth, not capital invested.",
           },
           {
             type: "bullets",
@@ -277,7 +340,7 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           },
           {
             type: "paragraph",
-            text: "Live on Base in Vienna/Austria with 8,400+ domain registrations. Microservices architecture; Base L2 chosen for sub-cent tx costs, fast finality, ERC20/721 compatibility. Coinbase Wallet for onboarding; Austrian cadastral integrations for DACH title verification. Event-driven: wallet connects, inquiries, fair draws, and XP accrue as immutable Base records.",
+            text: "Live on Base in Vienna/Austria with on-chain Culture ID mints growing via the 77-mint price ladder. Microservices architecture; Base L2 chosen for sub-cent tx costs, fast finality, ERC20/721 compatibility. Coinbase Wallet for onboarding; Austrian cadastral integrations for DACH title verification. Event-driven: wallet connects, inquiries, fair draws, and XP accrue as immutable Base records.",
           },
         ],
       },
@@ -332,10 +395,26 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           {
             type: "stats",
             items: [
-              { label: "Culture ID entry", value: "$1.11", detail: "Native token per .culture claim" },
-              { label: "Semi-pro", value: "$99/mo", detail: "Up to 10 properties + quarterly reporting" },
-              { label: "Professional", value: "$299/mo", detail: "Unlimited + dashboards + governance" },
-              { label: "Institutional", value: "$999/mo", detail: "API + white-label for developers" },
+              {
+                label: "Culture ID entry",
+                value: "$0.07",
+                detail: "Tier 0 on 77-mint ladder (plus gas)",
+              },
+              {
+                label: "Semi-pro",
+                value: "$99/mo",
+                detail: "Up to 10 properties + quarterly reporting",
+              },
+              {
+                label: "Professional",
+                value: "$299/mo",
+                detail: "Unlimited + dashboards + governance",
+              },
+              {
+                label: "Institutional",
+                value: "$999/mo",
+                detail: "API + white-label for developers",
+              },
             ],
           },
           {
@@ -440,10 +519,22 @@ export const PLAN_SECTIONS: PlanChapter[] = [
           {
             type: "stats",
             items: [
-              { label: "Competitor catch-up cost", value: "$80–150M", detail: "Capital to match execution" },
-              { label: "Catch-up timeline", value: "24–36 mo", detail: "Without guaranteed adoption" },
+              {
+                label: "Competitor catch-up cost",
+                value: "$80–150M",
+                detail: "Capital to match execution",
+              },
+              {
+                label: "Catch-up timeline",
+                value: "24–36 mo",
+                detail: "Without guaranteed adoption",
+              },
               { label: "Properties required", value: "500+", detail: "To match capability" },
-              { label: "Market penetration goal", value: "40%+", detail: "Properties per geography via BUILDCHAIN" },
+              {
+                label: "Market penetration goal",
+                value: "40%+",
+                detail: "Properties per geography via BUILDCHAIN",
+              },
             ],
           },
           {
@@ -485,7 +576,7 @@ export const PLAN_HERO_STATS = [
   { label: "Addressable market (scenario)", value: "$400B+", detail: "EU + NA TAM thesis" },
   { label: "Seed round (ask)", value: "$3.2M", detail: "Use-of-funds narrative" },
   { label: "Year 3 revenue (model)", value: "$34.7M", detail: "Spreadsheet projection" },
-  { label: "Culture IDs (on-chain)", value: "8,400+", detail: "Verifiable via /grant-proof" },
+  { label: "Culture IDs (on-chain)", value: "11+", detail: "Base mainnet totalMinted" },
   { label: "Properties (vision)", value: "500+", detail: "Long-horizon stewardship goal" },
   { label: "Platform TVL (target)", value: "$2B+", detail: "5–10 year horizon" },
 ] as const;

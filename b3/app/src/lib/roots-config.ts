@@ -9,7 +9,8 @@ export const ROOTS_POOLS = [
     lockDays: 30,
     weightBps: 10_000,
     weightLabel: "1.0×",
-    description: "Open to anyone with BCC. Plant roots and share the treasury participation stream.",
+    description:
+      "Open to anyone with BCC. Plant roots and share the treasury participation stream.",
     minPoints: 0,
     tiers: [] as string[],
   },

@@ -28,6 +28,19 @@ export const Route = createFileRoute("/api/webhooks/stripe")({
           return new Response("invalid signature", { status: 400 });
         }
 
+        if (event.type === "checkout.session.expired") {
+          const session = event.data.object as Stripe.Checkout.Session;
+          if (session.metadata?.type === "merch" && session.id) {
+            const { cancelMerchOrderByStripeSession } =
+              await import("@/server/marketplace/merch-orders");
+            await cancelMerchOrderByStripeSession(session.id);
+          }
+          return new Response(JSON.stringify({ received: true, expired: true }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+
         if (event.type !== "checkout.session.completed") {
           return new Response(JSON.stringify({ received: true }), {
             status: 200,
@@ -41,6 +54,43 @@ export const Route = createFileRoute("/api/webhooks/stripe")({
             status: 200,
             headers: { "Content-Type": "application/json" },
           });
+        }
+
+        if (session.metadata?.type === "merch") {
+          const orderId = session.metadata.orderId;
+          if (!orderId || !session.id) {
+            return new Response("missing merch metadata", { status: 400 });
+          }
+
+          const { verifyMerchStripeSession, markMerchOrderPaid } =
+            await import("@/server/marketplace/merch-orders");
+
+          const verified = await verifyMerchStripeSession({
+            orderId,
+            stripeSessionId: session.id,
+            amountTotalCents: session.amount_total,
+            metadataWallet: session.metadata.wallet,
+          });
+
+          if (!verified.ok) {
+            return new Response(`merch verification failed: ${verified.error}`, { status: 400 });
+          }
+
+          const paid = await markMerchOrderPaid({
+            orderId,
+            paymentRail: "stripe",
+            stripeSessionId: session.id,
+          });
+
+          return new Response(
+            JSON.stringify({
+              received: true,
+              type: "merch",
+              alreadyPaid: paid.ok ? false : paid.error === "already_paid",
+              orderId,
+            }),
+            { status: 200, headers: { "Content-Type": "application/json" } },
+          );
         }
 
         const packSlug = session.metadata?.packSlug;

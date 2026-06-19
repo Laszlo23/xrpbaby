@@ -47,7 +47,11 @@ function Hero() {
   return (
     <section ref={ref} className="relative h-[100svh] overflow-hidden">
       <motion.div style={{ scale, y }} className="absolute inset-0">
-        <img src={heroImage} alt={artworks[0].title} className="h-full w-full object-cover opacity-50" />
+        <img
+          src={heroImage}
+          alt={artworks[0].title}
+          className="h-full w-full object-cover opacity-50"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background" />
         <div className="absolute inset-0 aurora-bg opacity-70" />
       </motion.div>
@@ -563,7 +567,11 @@ function FinalCTA() {
       className="relative h-[90svh] overflow-hidden flex items-center justify-center"
     >
       <motion.div style={{ y }} className="absolute inset-0">
-        <img src={stormImage} alt={artworks[1].title} className="h-full w-full object-cover opacity-40" />
+        <img
+          src={stormImage}
+          alt={artworks[1].title}
+          className="h-full w-full object-cover opacity-40"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background" />
       </motion.div>
       <Particles count={40} />

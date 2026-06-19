@@ -1,0 +1,33 @@
+{
+  "name": "Culture Chronicles — Vibe Friends",
+  "description": "Cartoon capital is cute. Culture capital is forever.",
+  "image": "https://app.buildingcultureid.space/chronicles/vibe-friends.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/veefriends.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-11",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 11
+    },
+    {
+      "trait_type": "Tier",
+      "value": "legendary"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "win"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "reputation"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "access"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    }
+  ]
+}

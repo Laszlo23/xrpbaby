@@ -11,6 +11,7 @@ import { useCultureNameOwnership } from "@/components/identity/useCultureNameOwn
 import { CultureScore } from "@/components/profile/CultureScore";
 import { NFTStrip } from "@/components/profile/NFTStrip";
 import { ProfileFooterCTA } from "@/components/profile/ProfileFooterCTA";
+import { ProfileShareBar } from "@/components/identity/ProfileShareBar";
 import { ProfileGamificationBar } from "@/components/profile/ProfileGamificationBar";
 import { ProfileSocialStrip } from "@/components/profile/ProfileSocialStrip";
 import { ProfileWeb3Feed } from "@/components/profile/ProfileWeb3Feed";
@@ -146,7 +147,7 @@ export function EnrichedCultureProfile({ resolved, paramName, enrichment }: Prop
       />
       <div className="relative mx-auto max-w-5xl px-4 py-8 md:px-6 md:py-12">
         <Link to="/forest" className="text-sm text-zinc-500 hover:text-white">
-          ← Forest
+          ← Back to dashboard
         </Link>
 
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
@@ -190,7 +191,30 @@ export function EnrichedCultureProfile({ resolved, paramName, enrichment }: Prop
                 </span>
               ) : null}
             </div>
-            {bio ? <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-400">{bio}</p> : null}
+            {bio ? (
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-400">{bio}</p>
+            ) : null}
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <ProfileShareBar
+                shareUrl={profileUrl}
+                title={`${displayName} on Building Culture`}
+                text={`Check out ${displayName}'s culture profile`}
+              />
+              <Link
+                to="/id/$name/card"
+                params={{ name: displayName }}
+                className="text-xs text-zinc-500 underline hover:text-[#00E5FF]"
+              >
+                Share card →
+              </Link>
+            </div>
+            {enrichment?.member ? (
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+                {enrichment.member.completedQuestCount ?? 0} stories ·{" "}
+                {enrichment.member.culturePoints ?? 0} Culture Points ·{" "}
+                {enrichment.member.supporterTier}
+              </p>
+            ) : null}
             {enrichment?.followerCount != null ? (
               <p className="mt-2 font-mono text-xs text-zinc-500">
                 {enrichment.followerCount.toLocaleString()} social followers
@@ -316,9 +340,9 @@ export function EnrichedCultureProfile({ resolved, paramName, enrichment }: Prop
 
           <div className="max-w-xl space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-sm">
             <p className="text-zinc-400">
-              This is your <strong className="text-white">culture namespace</strong> on Base — not an
-              ICANN domain, but a real onchain name that resolves in {BRAND_DISPLAY_NAME} and share
-              links.
+              This is your <strong className="text-white">culture namespace</strong> on Base — not
+              an ICANN domain, but a real onchain name that resolves in {BRAND_DISPLAY_NAME} and
+              share links.
             </p>
             {resolved.owner ? (
               <p className="font-mono text-zinc-300">Owner: {shortAddress(resolved.owner)}</p>
@@ -338,8 +362,8 @@ export function EnrichedCultureProfile({ resolved, paramName, enrichment }: Prop
             ) : null}
             {enrichment?.member ? (
               <p className="text-zinc-400">
-                Platform member · {enrichment.member.culturePoints.toLocaleString()} Culture Points ·{" "}
-                {enrichment.member.supporterTier} tier
+                Platform member · {enrichment.member.culturePoints.toLocaleString()} Culture Points
+                · {enrichment.member.supporterTier} tier
               </p>
             ) : null}
             {resolved.mintedAt ? (
@@ -389,9 +413,11 @@ export function EnrichedCultureProfile({ resolved, paramName, enrichment }: Prop
                 Identity contract
               </a>
             ) : null}
-            <Link to="/pass" className="text-[#00E5FF] hover:underline">
-              Claim another name
-            </Link>
+            {resolved.isFounding && ownership.isOwner ? (
+              <Link to="/pass" search={{ manage: "1" }} className="text-zinc-500 hover:text-white">
+                Advanced: claim another name
+              </Link>
+            ) : null}
           </footer>
         </div>
       </div>

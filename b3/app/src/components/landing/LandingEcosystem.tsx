@@ -27,8 +27,8 @@ export function LandingEcosystem() {
           </div>
           <div className="lg:col-span-5">
             <p className="text-base text-zinc-400 sm:text-lg">
-              Satellite apps extend the core — art, AI, places, games, and impact tools. One culture,
-              many surfaces.
+              Satellite apps extend the core — art, AI, places, games, and impact tools. One
+              culture, many surfaces.
             </p>
           </div>
         </div>

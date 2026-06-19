@@ -57,8 +57,7 @@ export const Route = createFileRoute("/api/marketing/quidli/send")({
           handle,
           amountWei: typeof body.amountWei === "string" ? body.amountWei : undefined,
           memo: typeof body.memo === "string" ? body.memo : undefined,
-          idempotencyKey:
-            typeof body.idempotencyKey === "string" ? body.idempotencyKey : undefined,
+          idempotencyKey: typeof body.idempotencyKey === "string" ? body.idempotencyKey : undefined,
           taskSlug: typeof body.taskSlug === "string" ? body.taskSlug : undefined,
           campaign: typeof body.campaign === "string" ? body.campaign : undefined,
           walletId: typeof body.walletId === "string" ? body.walletId : undefined,

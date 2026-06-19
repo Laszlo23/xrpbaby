@@ -1,10 +1,6 @@
 import type { PrismaClient } from "@prisma/client";
 
-import {
-  currentWeekBucket,
-  FEEDBACK_AREAS,
-  type FeedbackArea,
-} from "@/server/feedback/constants";
+import { currentWeekBucket, FEEDBACK_AREAS, type FeedbackArea } from "@/server/feedback/constants";
 import { grantFeedbackPoints } from "@/server/feedback/grant-reward";
 import { scoreFeedbackQuality } from "@/server/feedback/quality-score";
 import { notifyFeedbackWebhook } from "@/server/feedback/webhook";

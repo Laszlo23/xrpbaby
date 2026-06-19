@@ -58,11 +58,34 @@ function ProductsIndexPage() {
               <p className="mt-2 text-zinc-400">{product.tagline}</p>
               <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#C5FF41]">
                 Learn more
-                <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
               </span>
             </Link>
           ))}
         </div>
+
+        <Link
+          to="/marketplace/services"
+          className="group mt-8 flex flex-col rounded-3xl border border-emerald-500/25 bg-emerald-950/20 p-7 transition hover:border-emerald-500/40"
+        >
+          <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-400/80">
+            Build services
+          </p>
+          <h2 className="mt-3 font-display text-2xl font-bold text-white">
+            Agent-backed deliverables
+          </h2>
+          <p className="mt-2 max-w-xl text-zinc-400">
+            Farcaster growth, full UI/UX funnels, and Replay Guy — pay kickoff in USDC via x402 on
+            Base.
+          </p>
+          <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-300 group-hover:text-emerald-200">
+            Browse services
+            <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </Link>
 
         <div className="mt-12 text-center">
           <Link

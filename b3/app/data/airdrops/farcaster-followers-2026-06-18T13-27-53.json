@@ -1,0 +1,17 @@
+{
+  "campaignId": "2026-06-18",
+  "username": "0xleonardo",
+  "targetFid": 873944,
+  "scoreMin": 0.55,
+  "amountBcc": "7.77",
+  "stats": {
+    "total": 0,
+    "noScore": 0,
+    "lowScore": 0,
+    "noWallet": 0,
+    "duplicateWallet": 0,
+    "eligible": 0
+  },
+  "eligible": [],
+  "generatedAt": "2026-06-18T13:28:05.873Z"
+}

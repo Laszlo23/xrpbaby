@@ -4,9 +4,7 @@ import { postWaitlist } from "./fixtures/api-helpers";
 test.describe("landing flow", () => {
   test("hero and primary CTAs visible", async ({ page }) => {
     await page.goto("/");
-    await expect(
-      page.getByRole("heading", { name: /Who are you/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Who are you/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Join free/i }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: /See what we build/i }).first()).toBeVisible();
   });
@@ -59,9 +57,7 @@ test.describe("landing flow", () => {
 
   test("culture layer explorer shows sub-items and navigates", async ({ page }) => {
     await page.goto("/");
-    await expect(
-      page.getByRole("heading", { name: /Who are you/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Who are you/i })).toBeVisible();
 
     const cultureSection = page.locator("#culture");
     await cultureSection.scrollIntoViewIfNeeded();

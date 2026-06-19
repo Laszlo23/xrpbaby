@@ -30,7 +30,11 @@ export type QuidliSendOutcome =
   | { ok: true; deliveryId: string; status: string; quidliRef: string | null; reused?: boolean }
   | { ok: false; error: string; detail?: string };
 
-function buildIdempotencyKey(params: QuidliSendRequest, platform: QuidliPlatform, handle: string): string {
+function buildIdempotencyKey(
+  params: QuidliSendRequest,
+  platform: QuidliPlatform,
+  handle: string,
+): string {
   if (params.idempotencyKey?.trim()) return params.idempotencyKey.trim();
   const slug = params.taskSlug?.trim() || params.campaign?.trim() || "send";
   return `${slug}:${platform}:${handle.toLowerCase()}`;
@@ -89,9 +93,10 @@ export async function executeQuidliSend(
       },
     }));
 
-  const memoParts = [params.memo?.trim(), params.taskSlug ? `task:${params.taskSlug}` : null].filter(
-    Boolean,
-  );
+  const memoParts = [
+    params.memo?.trim(),
+    params.taskSlug ? `task:${params.taskSlug}` : null,
+  ].filter(Boolean);
   const apiResult = await quidliSendToSocial({
     platform,
     handle,

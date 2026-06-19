@@ -7,6 +7,8 @@ import { BcdEconomyBanner } from "@/components/BcdEconomyBanner";
 import { CommunityPulse } from "@/components/CommunityPulse";
 import { HomeRwaDropsSection } from "@/components/HomeRwaDropsSection";
 import { HomeLivePulse } from "@/components/HomeLivePulse";
+import { SectionErrorBoundary } from "@/components/SectionErrorBoundary";
+import { SpinningWellPanel } from "@/components/play/SpinningWellPanel";
 
 export const Route = createFileRoute("/play")({
   head: () =>
@@ -36,14 +38,27 @@ function PlayPage() {
         {plainLabels.play.tagline}
       </div>
       <HeroSection />
-      <HomeRwaDropsSection />
-      <HomeLivePulse />
-      <BcdEconomyBanner />
-      <CommunityPulse />
+      <SectionErrorBoundary label="Culture Spinning Well">
+        <SpinningWellPanel />
+      </SectionErrorBoundary>
+      <SectionErrorBoundary label="RWA drops">
+        <HomeRwaDropsSection />
+      </SectionErrorBoundary>
+      <SectionErrorBoundary label="Live pulse">
+        <HomeLivePulse />
+      </SectionErrorBoundary>
+      <SectionErrorBoundary label="Economy banner">
+        <BcdEconomyBanner />
+      </SectionErrorBoundary>
+      <SectionErrorBoundary label="Community pulse">
+        <CommunityPulse />
+      </SectionErrorBoundary>
       <section className="border-b border-white/[0.06] bg-[#070707]/80 px-4 py-6 md:px-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-zinc-400">
-            <span className="font-medium text-zinc-200">Access unlocks after you build reputation.</span>{" "}
+            <span className="font-medium text-zinc-200">
+              Access unlocks after you build reputation.
+            </span>{" "}
             Claim your Culture ID and earn credentials first.
           </p>
           <div className="flex flex-wrap gap-3">

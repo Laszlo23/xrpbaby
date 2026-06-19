@@ -1,12 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Headphones } from "lucide-react";
 import {
   BUILDER_PROFILE,
   CHRONICLE_MILESTONES,
   PARAGRAPH_ESSAYS,
   shortWallet,
 } from "@/content/builder-chronicle";
+import { builderTapesForStoryYear } from "@/content/builder-tapes";
 import { EssayCard } from "@/components/story/EssayCard";
 import { Button } from "@/components/ui/button";
 import { trackLandingEvent } from "@/lib/landing-api";
@@ -37,30 +38,68 @@ export function BuilderChronicle() {
         </a>
       </section>
 
+      <section className="rounded-2xl border border-[#C5FF41]/20 bg-[#C5FF41]/5 p-6 md:p-8">
+        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#C5FF41]">
+          Builder Tapes
+        </p>
+        <h2 className="mt-2 font-heading text-xl font-semibold text-white md:text-2xl">
+          Hear the real story
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-zinc-400">
+          Five audio episodes from Laszlo — dial-up whispers to onchain culture. Listen, share, earn
+          Culture Points.
+        </p>
+        <Link
+          to="/stories/tapes"
+          className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#C5FF41]/40 bg-black/40 px-5 py-2.5 text-sm font-medium text-[#C5FF41] transition hover:bg-[#C5FF41]/10"
+        >
+          <Headphones className="h-4 w-4" aria-hidden />
+          Open Builder Tapes
+        </Link>
+      </section>
+
       <section>
         <h2 className="font-heading text-2xl font-semibold text-white md:text-3xl">Timeline</h2>
         <p className="mt-2 max-w-2xl text-sm text-zinc-500">
           Decades of building — from IT in 1996 to a culture economy on Base.
         </p>
         <ol className="relative mt-10 space-y-0 border-l border-white/10 pl-8 md:pl-10">
-          {CHRONICLE_MILESTONES.map((m, i) => (
-            <motion.li
-              key={m.year}
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="relative pb-10 last:pb-0"
-            >
-              <span
-                className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-neon md:-left-[calc(2.5rem+5px)]"
-                aria-hidden
-              />
-              <p className="font-mono text-sm text-neon/90">{m.year}</p>
-              <p className="mt-1 font-heading text-lg font-semibold text-white">{m.title}</p>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">{m.body}</p>
-            </motion.li>
-          ))}
+          {CHRONICLE_MILESTONES.map((m, i) => {
+            const tapes = builderTapesForStoryYear(m.year);
+            return (
+              <motion.li
+                key={m.year}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="relative pb-10 last:pb-0"
+              >
+                <span
+                  className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-neon md:-left-[calc(2.5rem+5px)]"
+                  aria-hidden
+                />
+                <p className="font-mono text-sm text-neon/90">{m.year}</p>
+                <p className="mt-1 font-heading text-lg font-semibold text-white">{m.title}</p>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">{m.body}</p>
+                {tapes.length > 0 ? (
+                  <div className="mt-3 flex flex-wrap gap-3">
+                    {tapes.map((tape) => (
+                      <Link
+                        key={tape.slug}
+                        to="/stories/tapes/$slug"
+                        params={{ slug: tape.slug }}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-[#00E5FF] hover:underline"
+                      >
+                        <Headphones className="h-3.5 w-3.5" aria-hidden />
+                        Listen · {tape.title}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </motion.li>
+            );
+          })}
         </ol>
       </section>
 

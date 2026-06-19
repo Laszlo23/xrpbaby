@@ -176,9 +176,7 @@ export function InvestorLiveTraction() {
     },
     {
       signal: "Verified social links (all platforms)",
-      value: fmtInt(
-        Object.values(social?.verifiedLinkedAccounts ?? {}).reduce((a, b) => a + b, 0),
-      ),
+      value: fmtInt(Object.values(social?.verifiedLinkedAccounts ?? {}).reduce((a, b) => a + b, 0)),
       note: "SocialAccount.verified=true",
     },
     {

@@ -1,8 +1,4 @@
-import {
-  motion as fmMotion,
-  type HTMLMotionProps,
-  type SVGMotionProps,
-} from "framer-motion";
+import { motion as fmMotion, type HTMLMotionProps, type SVGMotionProps } from "framer-motion";
 import {
   createContext,
   createElement,
@@ -33,23 +29,20 @@ function useLandingMotionHydrated() {
   return useContext(LandingMotionHydratedContext);
 }
 
-type MotionProps = HTMLMotionProps<"div"> & Record<string, unknown>;
-
 function wrapMotionComponent(Tag: keyof typeof fmMotion) {
-  const MotionComponent = fmMotion[Tag] as ComponentType<MotionProps>;
-  const Wrapped = forwardRef<HTMLElement, MotionProps>(function LandingMotionComponent(
-    { initial, animate, whileInView, ...props },
-    ref,
-  ) {
-    const hydrated = useLandingMotionHydrated();
-    return createElement(MotionComponent, {
-      ...props,
-      ref,
-      initial: hydrated ? initial : false,
-      animate: hydrated ? animate : undefined,
-      whileInView: hydrated ? whileInView : undefined,
-    });
-  });
+  const MotionComponent = fmMotion[Tag] as ComponentType<HTMLMotionProps<"div">>;
+  const Wrapped = forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(
+    function LandingMotionComponent({ initial, animate, whileInView, ...props }, ref) {
+      const hydrated = useLandingMotionHydrated();
+      return createElement(MotionComponent, {
+        ...props,
+        ref,
+        initial: hydrated ? initial : false,
+        animate: hydrated ? animate : undefined,
+        whileInView: hydrated ? whileInView : undefined,
+      });
+    },
+  );
   Wrapped.displayName = `LandingMotion.${String(Tag)}`;
   return Wrapped;
 }

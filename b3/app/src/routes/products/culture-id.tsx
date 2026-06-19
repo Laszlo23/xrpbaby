@@ -29,9 +29,11 @@ function CultureIdProductPage() {
           travels with you across campaigns, grants, and community modules.
         </p>
         <p>
-          Mint for {identityMintPriceShort}. Pay with BCC for an 11.11% discount when the v2 pay
-          rail is configured.
+          Mint on the 77-mint ladder ({identityMintPriceShort}) — early minters pay about $0.07 in
+          ETH plus gas. Price rises every 77 mints up to ~$7.77. Earn up to 84 Culture Points when
+          you mint.
         </p>
+        <p>Pay with BCC for an 11.11% discount when the v2 pay rail is configured.</p>
       </div>
     </ProductPageLayout>
   );

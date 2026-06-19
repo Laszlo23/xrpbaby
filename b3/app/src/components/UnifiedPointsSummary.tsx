@@ -50,8 +50,9 @@ export function UnifiedPointsSummary({ localXp }: Props) {
         <div>
           <h2 className="font-heading text-lg font-bold text-foreground">Your progression</h2>
           <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-            Connect a wallet to load <strong className="text-zinc-300">Culture Points</strong> (server
-            quests) and sync your <strong className="text-zinc-300">activity rank</strong> (browser XP).
+            Connect a wallet to load <strong className="text-zinc-300">Culture Points</strong>{" "}
+            (server quests) and sync your <strong className="text-zinc-300">activity rank</strong>{" "}
+            (browser XP).
           </p>
         </div>
         <RedemptionGateProgress compact />

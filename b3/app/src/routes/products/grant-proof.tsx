@@ -28,7 +28,9 @@ function GrantProofProductPage() {
           Grant Proof runs live HTTP checks against production routes, on-chain contracts, and
           documented APIs — then packages results as downloadable JSON for reviewers.
         </p>
-        <p>Contributions, agent milestones, identity contracts, and market health — all in one place.</p>
+        <p>
+          Contributions, agent milestones, identity contracts, and market health — all in one place.
+        </p>
         <Link
           to="/grant-proof"
           className="inline-flex items-center gap-2 rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"

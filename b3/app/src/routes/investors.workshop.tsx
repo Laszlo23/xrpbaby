@@ -7,7 +7,8 @@ export const Route = createFileRoute("/investors/workshop")({
   head: () =>
     pageHead({
       title: "Investor workshop (private)",
-      description: "Password-gated scenario sandbox for advisor conversations — not a public offering.",
+      description:
+        "Password-gated scenario sandbox for advisor conversations — not a public offering.",
       path: "/investors/workshop",
       noIndex: true,
     }),

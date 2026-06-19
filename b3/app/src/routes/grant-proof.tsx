@@ -164,7 +164,9 @@ function GrantProofPage() {
                     >
                       <div className="flex items-start justify-between gap-2">
                         <span className="font-medium">{check.label}</span>
-                        <span className="shrink-0 uppercase text-xs opacity-80">{check.status}</span>
+                        <span className="shrink-0 uppercase text-xs opacity-80">
+                          {check.status}
+                        </span>
                       </div>
                       {check.detail && <p className="mt-1 text-xs opacity-80">{check.detail}</p>}
                     </li>

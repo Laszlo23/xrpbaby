@@ -2,7 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { ReputationTimeline } from "@/components/reputation/ReputationTimeline";
 import { CultureScore } from "@/components/profile/CultureScore";
-import { fetchCultureIdentityTimelineFn } from "@/lib/credentials/identity-fn";
+import {
+  fetchCultureIdentityTimelineFn,
+  type ReputationTimelineEvent,
+} from "@/lib/credentials/identity-fn";
 import { fetchCultureNameResolution } from "@/lib/identity/resolve-fn";
 import { fetchShowcaseEnrichmentFn } from "@/lib/profile/showcase-enrichment-fn";
 import { pageHead } from "@/lib/seo";
@@ -51,7 +54,11 @@ function ProfileReputationPage() {
     <div className="bc-surface relative min-h-dvh pb-24 text-white">
       <div className="relative mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
         <div className="flex flex-wrap gap-3 text-sm">
-          <Link to={`/id/${name}` as "/id/$name"} params={{ name }} className="text-zinc-500 hover:text-white">
+          <Link
+            to={`/id/${name}` as "/id/$name"}
+            params={{ name }}
+            className="text-zinc-500 hover:text-white"
+          >
             ← {resolved.fullName}
           </Link>
           <span className="text-zinc-700">·</span>
@@ -83,7 +90,7 @@ function ProfileReputationPage() {
           <h2 className="font-heading text-lg font-semibold text-white">Reputation timeline</h2>
           <div className="mt-4">
             <ReputationTimeline
-              events={timeline.map((e) => ({
+              events={timeline.map((e: ReputationTimelineEvent) => ({
                 id: e.id,
                 type: e.type,
                 weight: e.weight,

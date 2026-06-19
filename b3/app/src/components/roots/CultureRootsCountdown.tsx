@@ -38,7 +38,12 @@ export function CultureRootsCountdown({ compact = false }: Props) {
           </>
         ) : (
           <>
-            Target unlock ~{unlockAt.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+            Target unlock ~
+            {unlockAt.toLocaleDateString(undefined, {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
             . The treasury shares growth with builders who stake — not a guaranteed return.{" "}
             <Link to="/roots" className="text-[#C5FF41] underline underline-offset-2">
               Learn more

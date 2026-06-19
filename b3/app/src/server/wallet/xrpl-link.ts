@@ -6,10 +6,7 @@ import { findCultureIdentityByHandle } from "@/server/credentials/identity";
 import { getPrisma } from "@/server/db/prisma";
 import { recordReputationEvent } from "@/server/reputation/events";
 import { requireCultureIdentityOwner } from "@/server/wallet/xrpl-auth";
-import {
-  verifyXrplLinkTxBlob,
-  verifyXrplMessageSignature,
-} from "@/server/wallet/xrpl-signature";
+import { verifyXrplLinkTxBlob, verifyXrplMessageSignature } from "@/server/wallet/xrpl-signature";
 import type { SiweAuthInput } from "@/server/platform/siwe";
 
 export type XrplLinkChallenge = {

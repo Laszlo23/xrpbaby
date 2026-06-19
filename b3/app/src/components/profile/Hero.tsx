@@ -119,9 +119,7 @@ export function ProfileHero({
               </a>
             ) : null}
             {mintDate ? <span>Minted {mintDate}</span> : null}
-            {followerCount != null ? (
-              <span>{followerCount.toLocaleString()} followers</span>
-            ) : null}
+            {followerCount != null ? <span>{followerCount.toLocaleString()} followers</span> : null}
           </div>
 
           <div className="flex flex-wrap gap-2 pt-1">

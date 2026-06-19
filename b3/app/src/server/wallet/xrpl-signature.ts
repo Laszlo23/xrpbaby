@@ -12,9 +12,7 @@ function memoNonceFromTx(tx: Record<string, unknown>): string | null {
     const memo = (entry as { Memo?: { MemoType?: string; MemoData?: string } }).Memo;
     if (!memo?.MemoData) continue;
     try {
-      const type = memo.MemoType
-        ? Buffer.from(memo.MemoType, "hex").toString("utf8")
-        : "";
+      const type = memo.MemoType ? Buffer.from(memo.MemoType, "hex").toString("utf8") : "";
       if (type && type !== XRPL_LINK_MEMO_TYPE) continue;
       return Buffer.from(memo.MemoData, "hex").toString("utf8");
     } catch {

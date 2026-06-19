@@ -43,8 +43,7 @@ const origin = String(
     "https://app.buildingcultureid.space",
 ).replace(/\/$/, "");
 
-const secret =
-  env.GROVE_MARKETING_ADMIN_SECRET?.trim() || env.X_MARKETING_ADMIN_SECRET?.trim();
+const secret = env.GROVE_MARKETING_ADMIN_SECRET?.trim() || env.X_MARKETING_ADMIN_SECRET?.trim();
 if (!secret) {
   console.error("Missing GROVE_MARKETING_ADMIN_SECRET");
   process.exit(1);

@@ -7,8 +7,10 @@ import {
   Scripts,
   useLocation,
 } from "@tanstack/react-router";
+import { useAccount } from "wagmi";
 import { BottomNav } from "@/components/BottomNav";
 import { AppFooter } from "@/components/AppFooter";
+import { LoggedInShell } from "@/components/layout/LoggedInShell";
 import { Web3Provider } from "@/components/Web3Provider";
 import { NetworkGuard } from "@/components/NetworkGuard";
 import { Toaster } from "@/components/ui/sonner";
@@ -26,7 +28,14 @@ import { FarcasterMiniAppReady } from "@/components/FarcasterMiniAppReady";
 import { TelegramMiniAppReady } from "@/components/TelegramMiniAppReady";
 import { JsonLd } from "@/components/JsonLd";
 import { BuilderVoicePrompt } from "@/components/BuilderVoicePrompt";
-import { buildWebsiteJsonLd, getDefaultOgImageUrl, pageHead, rootFontPreconnectLinks, rootIconLinks, rootTechnicalMeta } from "@/lib/seo";
+import {
+  buildWebsiteJsonLd,
+  getDefaultOgImageUrl,
+  pageHead,
+  rootFontPreconnectLinks,
+  rootIconLinks,
+  rootTechnicalMeta,
+} from "@/lib/seo";
 import { NotFoundPage } from "@/components/NotFoundPage";
 import { registerPwaServiceWorker } from "@/lib/pwa";
 
@@ -65,13 +74,22 @@ export const Route = createRootRoute({
       });
       return {
         meta: [...baseMeta, ...nf.meta],
-        links: [{ rel: "stylesheet", href: appCss }, ...rootFontPreconnectLinks(), ...rootIconLinks(), ...nf.links],
+        links: [
+          { rel: "stylesheet", href: appCss },
+          ...rootFontPreconnectLinks(),
+          ...rootIconLinks(),
+          ...nf.links,
+        ],
       };
     }
 
     return {
       meta: baseMeta,
-      links: [{ rel: "stylesheet", href: appCss }, ...rootFontPreconnectLinks(), ...rootIconLinks()],
+      links: [
+        { rel: "stylesheet", href: appCss },
+        ...rootFontPreconnectLinks(),
+        ...rootIconLinks(),
+      ],
     };
   },
   shellComponent: RootShell,
@@ -92,6 +110,19 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
+}
+
+function useShowLoggedInShell(): boolean {
+  const { pathname } = useLocation();
+  const { isConnected } = useAccount();
+  if (!isConnected) return false;
+  if (pathname === "/") return false;
+  if (pathname.startsWith("/join")) return false;
+  if (pathname.startsWith("/welcome")) return false;
+  if (pathname.startsWith("/tg")) return false;
+  if (pathname.startsWith("/intelligence")) return false;
+  if (pathname.startsWith("/id")) return false;
+  return true;
 }
 
 function useHideBottomNav(): boolean {
@@ -132,32 +163,43 @@ function RootComponent() {
 
   return (
     <Web3Provider>
-      <BcdEconomyProvider>
-        <AiCoachProvider>
-          <NetworkGuard />
-          <AnalyticsRouteTracker />
-          <FarcasterMiniAppReady />
-          {minimalChrome ? <TelegramMiniAppReady /> : null}
-          <div className="relative min-h-dvh w-full max-w-[100vw] overflow-x-hidden">
-            <Outlet />
-            {!minimalChrome ? <AppChrome /> : null}
-          </div>
-          {!minimalChrome ? (
-            <>
-              <GetBcdModal />
-              <BuyBccButton />
-              <EliasOnboarding />
-              <EliasOrb />
-              <PanicSwitchOverlay />
-              <AiPulseCoach />
-            </>
-          ) : null}
-          {!minimalChrome && !pathname.startsWith("/voice") ? (
-            <BuilderVoicePrompt pathname={pathname} />
-          ) : null}
-          <Toaster richColors position="top-center" />
-        </AiCoachProvider>
-      </BcdEconomyProvider>
+      <RootAppContent minimalChrome={minimalChrome} pathname={pathname} />
     </Web3Provider>
+  );
+}
+
+function RootAppContent({ minimalChrome, pathname }: { minimalChrome: boolean; pathname: string }) {
+  const showLoggedInShell = useShowLoggedInShell();
+
+  return (
+    <BcdEconomyProvider>
+      <AiCoachProvider>
+        <NetworkGuard />
+        <AnalyticsRouteTracker />
+        <FarcasterMiniAppReady />
+        {minimalChrome ? <TelegramMiniAppReady /> : null}
+        <div className="relative min-h-dvh w-full max-w-[100vw] overflow-x-hidden">
+          {showLoggedInShell ? <LoggedInShell /> : null}
+          <div className={showLoggedInShell ? "pt-[7.5rem] sm:pt-[8.5rem]" : undefined}>
+            <Outlet />
+          </div>
+          {!minimalChrome ? <AppChrome /> : null}
+        </div>
+        {!minimalChrome ? (
+          <>
+            <GetBcdModal />
+            <BuyBccButton />
+            <EliasOnboarding />
+            <EliasOrb />
+            <PanicSwitchOverlay />
+            <AiPulseCoach />
+          </>
+        ) : null}
+        {!minimalChrome && !pathname.startsWith("/voice") ? (
+          <BuilderVoicePrompt pathname={pathname} />
+        ) : null}
+        <Toaster richColors position="top-center" />
+      </AiCoachProvider>
+    </BcdEconomyProvider>
   );
 }

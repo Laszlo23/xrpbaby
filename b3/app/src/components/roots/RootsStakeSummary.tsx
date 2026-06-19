@@ -43,8 +43,7 @@ export function RootsStakeSummary() {
     query: { enabled: Boolean(enabled && stakingAddress && address) },
   });
 
-  const total =
-    (pool0.data ?? 0n) + (pool1.data ?? 0n) + (pool2.data ?? 0n);
+  const total = (pool0.data ?? 0n) + (pool1.data ?? 0n) + (pool2.data ?? 0n);
 
   return (
     <div className="rounded-2xl border border-emerald-500/15 bg-emerald-500/5 p-4">

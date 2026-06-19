@@ -1,19 +1,15 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export function SectionHeading({
-  title,
-  subtitle,
-}: {
-  title: string;
-  subtitle?: string;
-}) {
+export function SectionHeading({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
     <div className="space-y-2">
       <h2 className="font-heading text-xl font-semibold tracking-tight text-white md:text-2xl">
         {title}
       </h2>
-      {subtitle ? <p className="max-w-2xl text-sm leading-relaxed text-zinc-400">{subtitle}</p> : null}
+      {subtitle ? (
+        <p className="max-w-2xl text-sm leading-relaxed text-zinc-400">{subtitle}</p>
+      ) : null}
     </div>
   );
 }
@@ -57,7 +53,8 @@ export function GlassCard({
     <div
       className={cn(
         "rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md",
-        hover && "transition duration-200 hover:-translate-y-0.5 hover:border-[#00E5FF]/25 hover:bg-white/[0.06]",
+        hover &&
+          "transition duration-200 hover:-translate-y-0.5 hover:border-[#00E5FF]/25 hover:bg-white/[0.06]",
         className,
       )}
     >

@@ -29,10 +29,7 @@ function pickString(obj: Record<string, unknown>, ...keys: string[]): string | n
   return null;
 }
 
-function pickNestedString(
-  obj: Record<string, unknown>,
-  path: string[],
-): string | null {
+function pickNestedString(obj: Record<string, unknown>, path: string[]): string | null {
   let cur: unknown = obj;
   for (const key of path) {
     const rec = asRecord(cur);
@@ -42,7 +39,10 @@ function pickNestedString(
   return typeof cur === "string" && cur.trim() ? cur.trim() : null;
 }
 
-function inferStatus(eventType: string, payload: Record<string, unknown>): ParsedQuidliWebhook["status"] {
+function inferStatus(
+  eventType: string,
+  payload: Record<string, unknown>,
+): ParsedQuidliWebhook["status"] {
   const t = eventType.toLowerCase();
   const statusField = pickString(payload, "status", "delivery_status", "state")?.toLowerCase();
   if (t.includes("failed") || statusField === "failed" || statusField === "error") return "failed";
@@ -96,7 +96,8 @@ export function parseQuidliWebhook(payload: unknown): ParsedQuidliWebhook | null
     pickNestedString(data, ["token", "address"]) ||
     pickString(root, "token_address", "tokenAddress");
 
-  const chainRaw = pickString(data, "chain_id", "chainId") || pickString(root, "chain_id", "chainId");
+  const chainRaw =
+    pickString(data, "chain_id", "chainId") || pickString(root, "chain_id", "chainId");
   const chainId = chainRaw ? Number(chainRaw) : null;
 
   const quidliRef =

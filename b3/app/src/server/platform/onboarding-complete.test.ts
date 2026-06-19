@@ -33,6 +33,16 @@ describe("onboardingCompleteBodySchema", () => {
     assert.equal(parsed.success, false);
   });
 
+  it("accepts optional agent_ref", () => {
+    const parsed = onboardingCompleteBodySchema.safeParse({
+      address: "0x0000000000000000000000000000000000000001",
+      message: "sign-in-with-ethereum message",
+      signature: "0x" + "ab".repeat(65),
+      agent_ref: "abcd1234",
+    });
+    assert.equal(parsed.success, true);
+  });
+
   it("rejects short signature", () => {
     const parsed = onboardingCompleteBodySchema.safeParse({
       address: "0x0000000000000000000000000000000000000001",

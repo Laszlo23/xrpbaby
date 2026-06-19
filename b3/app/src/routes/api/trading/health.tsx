@@ -10,7 +10,7 @@ export const Route = createFileRoute("/api/trading/health")({
         } catch (e) {
           const message = e instanceof Error ? e.message : "trading_health_unavailable";
           return new Response(JSON.stringify({ ok: false, reachable: false, error: message }), {
-            status: 503,
+            status: 200,
             headers: { "Content-Type": "application/json" },
           });
         }

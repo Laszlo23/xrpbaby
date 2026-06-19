@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 import type { Address } from "viem";
 import { redemptionPolicy, getServerRedemptionReadiness } from "@/lib/redemption-policy";
 import { buildBccLiquidityMarket } from "@/server/liquidity/bcc-pools";
@@ -35,7 +35,10 @@ export async function getRedeemReadiness() {
   };
 }
 
-export async function getPointsBalance(prisma: PrismaClient, walletId: string): Promise<number> {
+export async function getPointsBalance(
+  prisma: PrismaClient | Prisma.TransactionClient,
+  walletId: string,
+): Promise<number> {
   const agg = await prisma.pointLedger.aggregate({
     where: { walletId },
     _sum: { delta: true },

@@ -27,6 +27,8 @@ export type MarketOffer = {
     trading_quote_bcc: string;
     trading_arbitrage_scan: string;
     marketplace_ui: string;
+    marketplace_services_ui: string;
+    services_catalog: string;
     identity_pass_ui: string;
   };
 };
@@ -55,6 +57,8 @@ export function buildMarketOffer(): MarketOffer {
       trading_quote_bcc: `${base}/api/trading/quote-bcc?eth_amount=0.01`,
       trading_arbitrage_scan: `${base}/api/trading/arbitrage-scan?sol_amount=1&eth_amount=0.01`,
       marketplace_ui: `${base}/marketplace`,
+      marketplace_services_ui: `${base}/marketplace/services`,
+      services_catalog: `${base}/api/marketplace/services/catalog`,
       identity_pass_ui: `${base}/pass`,
     },
   };

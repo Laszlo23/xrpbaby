@@ -246,6 +246,26 @@ export const TASK_ROUTE_HINTS: Record<
     backups: [9],
     notes: "Slack brief from AgentOutcome store.",
   },
+  fulfill_service_order: {
+    primary: 0,
+    backups: [10, 11],
+    notes: "CEO routes marketplace service orders; Finance tracks margin; Client Success owns inbox.",
+  },
+  fulfill_merch_batch: {
+    primary: 0,
+    backups: [10, 11],
+    notes: "CEO exports POD CSV when a merch edition sells out — production pool funded.",
+  },
+  service_milestone_review: {
+    primary: 0,
+    backups: [9],
+    notes: "QA smoke + red team checklist before milestone sign-off.",
+  },
+  sync_identity_mint_price: {
+    primary: 10,
+    backups: [0],
+    notes: "x402-monetizer / Finance — sync CultureLayerIdentity mintPrice to 77-mint USD ladder.",
+  },
 };
 
 export function suggestAgentForTask(taskKey: string): FleetAgent | undefined {

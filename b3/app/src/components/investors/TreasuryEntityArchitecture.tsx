@@ -20,9 +20,9 @@ export function TreasuryEntityArchitecture({ embedded = false }: { embedded?: bo
             Treasury & entity architecture (discussion outline)
           </h2>
           <p className="text-sm text-zinc-500">
-            High-level institutional framing for diligence conversations only. Jurisdictions, labels,
-            and flows must be confirmed with qualified tax and securities counsel before any paid
-            marketing, onboarding, or capital movement.
+            High-level institutional framing for diligence conversations only. Jurisdictions,
+            labels, and flows must be confirmed with qualified tax and securities counsel before any
+            paid marketing, onboarding, or capital movement.
           </p>
         </div>
       ) : (

@@ -93,7 +93,10 @@ function WelcomePage() {
           >
             Full ecosystem guide
           </Link>
-          <Link to="/" className="text-sm text-zinc-500 underline underline-offset-2 hover:text-zinc-300">
+          <Link
+            to="/"
+            className="text-sm text-zinc-500 underline underline-offset-2 hover:text-zinc-300"
+          >
             Back to story
           </Link>
         </div>

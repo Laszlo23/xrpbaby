@@ -37,6 +37,35 @@ function DocsIndexPage() {
       subtitle="Articles in the `docs` category — fetched server-side with an API token (not public anonymous CMS reads)."
     >
       <div className="mb-10 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.06] p-4 text-sm text-zinc-300">
+        <p className="font-medium text-zinc-100">BCID protocol (static)</p>
+        <ul className="mt-2 list-inside list-disc space-y-1 text-zinc-400">
+          <li>
+            <Link
+              to="/docs/bcid"
+              className="text-emerald-300 underline underline-offset-2 hover:text-white"
+            >
+              BCID overview
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/docs/interop"
+              className="text-emerald-300 underline underline-offset-2 hover:text-white"
+            >
+              Interoperability
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/docs/rfc"
+              className="text-emerald-300 underline underline-offset-2 hover:text-white"
+            >
+              Specification RFC
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className="mb-10 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.06] p-4 text-sm text-zinc-300">
         <p className="font-medium text-zinc-100">Looking for the ecosystem overview?</p>
         <p className="mt-2 text-zinc-400">
           The{" "}

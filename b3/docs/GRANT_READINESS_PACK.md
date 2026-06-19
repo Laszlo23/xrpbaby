@@ -22,6 +22,12 @@ npm run grant:verify
 
 # Bundle JSON + markdown report for grant applications
 npm run grant:proof
+
+# Cash sprint prep — verify revenue + grant lanes
+npm run cash-sprint:prep
+
+# Outreach send queue export
+npm run outreach:queue
 ```
 
 Outputs (gitignored):
@@ -51,6 +57,10 @@ Outputs (gitignored):
 | Places / RWA grants | [apps/places/docs/grants.md](../apps/places/docs/grants.md) |
 | Angels / monetization proof | [INVESTOR_PROOF_PLAYBOOK.md](INVESTOR_PROOF_PLAYBOOK.md) |
 | Chainlink RWA compliance | [CHAINLINK_RWA_COMPLIANCE.md](CHAINLINK_RWA_COMPLIANCE.md) |
+| BCID protocol + DAO pilots | [protocol/BCID_LITE_PAPER.md](protocol/BCID_LITE_PAPER.md) · [/docs/bcid](https://app.buildingcultureid.space/docs/bcid) |
+| DAO partnership brief | [protocol/DAO_PARTNERSHIP_BRIEF.md](protocol/DAO_PARTNERSHIP_BRIEF.md) |
+| **72h cash sprint (operator)** | [CASH_SPRINT_OPERATOR.md](CASH_SPRINT_OPERATOR.md) |
+| Stripe packs activation | [STRIPE_PACKS_ACTIVATION.md](STRIPE_PACKS_ACTIVATION.md) |
 | Contract bytecode snapshot | [CONTRACTS_AUDIT.md](CONTRACTS_AUDIT.md) |
 
 ---

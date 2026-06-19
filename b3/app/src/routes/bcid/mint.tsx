@@ -43,8 +43,12 @@ function BcidMintPage() {
       ) : null}
 
       <ol className="mb-8 list-decimal space-y-2 pl-5 text-zinc-400">
-        <li>Deploy <code className="text-zinc-200">BcidRegistry</code> on Base Sepolia (see docs)</li>
-        <li>Call <code className="text-zinc-200">mint(handle)</code> with ETH</li>
+        <li>
+          Deploy <code className="text-zinc-200">BcidRegistry</code> on Base Sepolia (see docs)
+        </li>
+        <li>
+          Call <code className="text-zinc-200">mint(handle)</code> with ETH
+        </li>
         <li>
           Sync via <code className="text-zinc-200">POST /api/bcid/sync</code> (SIWE)
         </li>
@@ -54,10 +58,7 @@ function BcidMintPage() {
         </li>
       </ol>
 
-      <a
-        href="/bcid"
-        className="text-sm text-[#C5FF41] hover:underline"
-      >
+      <a href="/bcid" className="text-sm text-[#C5FF41] hover:underline">
         ← Back to BCID overview
       </a>
     </main>

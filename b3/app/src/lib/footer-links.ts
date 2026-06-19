@@ -117,6 +117,8 @@ export const footerCompanyLinks: { to: string; label: string; icon: LucideIcon }
   { to: "/story", label: "Builder chronicle", icon: BookOpen },
   { to: "/liquidity", label: "BCC liquidity", icon: PieChart },
   { to: "/investors", label: "Investors", icon: PieChart },
+  { to: "/hq", label: "Culture HQ 77777", icon: Building2 },
+  { to: "/triple-333", label: "Triple 333 raffle", icon: Trophy },
   { to: "/roadmap", label: "Roadmap", icon: MapPin },
   { to: "/faq", label: "FAQ", icon: HelpCircle },
   { to: "/blog", label: "Blog", icon: BookOpen },

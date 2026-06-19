@@ -73,9 +73,7 @@ export function PointsRedeemSection({ compact = false }: { compact?: boolean }) 
       return;
     }
     const t = window.setTimeout(() => {
-      void fetch(
-        `/api/points/redeem/quote?address=${encodeURIComponent(address)}&points=${pts}`,
-      )
+      void fetch(`/api/points/redeem/quote?address=${encodeURIComponent(address)}&points=${pts}`)
         .then((r) => r.json())
         .then((q) => {
           if (q.ok) setQuoteBccWei(q.bccWei);
@@ -123,16 +121,12 @@ export function PointsRedeemSection({ compact = false }: { compact?: boolean }) 
 
   if (!isConnected || !address) {
     return (
-      <p className="text-sm text-zinc-400">
-        Connect your wallet to redeem Culture Points for BCC.
-      </p>
+      <p className="text-sm text-zinc-400">Connect your wallet to redeem Culture Points for BCC.</p>
     );
   }
 
   const bccDisplay =
-    quoteBccWei && quoteBccWei !== "0"
-      ? formatUnits(BigInt(quoteBccWei), 18)
-      : null;
+    quoteBccWei && quoteBccWei !== "0" ? formatUnits(BigInt(quoteBccWei), 18) : null;
 
   return (
     <div className={compact ? "space-y-3" : "space-y-4"}>
@@ -145,9 +139,7 @@ export function PointsRedeemSection({ compact = false }: { compact?: boolean }) 
 
       {!pointsRedeemEnabled && <RedemptionGateProgress compact />}
 
-      {pointsRedeemEnabled && readiness && !readiness.ready && (
-        <RedemptionGateProgress compact />
-      )}
+      {pointsRedeemEnabled && readiness && !readiness.ready && <RedemptionGateProgress compact />}
 
       {pointsRedeemEnabled && readiness?.ready && (
         <div className="space-y-3 rounded-xl border border-[#C5FF41]/20 bg-[#C5FF41]/5 p-4">
@@ -181,11 +173,7 @@ export function PointsRedeemSection({ compact = false }: { compact?: boolean }) 
               )}
             </Button>
           </div>
-          {bccDisplay && (
-            <p className="font-mono text-xs text-zinc-400">
-              ≈ {bccDisplay} BCC
-            </p>
-          )}
+          {bccDisplay && <p className="font-mono text-xs text-zinc-400">≈ {bccDisplay} BCC</p>}
           <p className="font-mono text-[10px] text-zinc-600">
             Max {readiness.maxRedeemPointsPerDay.toLocaleString()} points per 24h. Pack purchases
             include a separate BCC bonus track.

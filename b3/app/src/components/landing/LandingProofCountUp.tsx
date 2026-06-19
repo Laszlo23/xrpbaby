@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import {
-  landingProofDisplay,
-  type LandingProofDisplay,
-} from "@/lib/landing-proof-display";
+import { landingProofDisplay, type LandingProofDisplay } from "@/lib/landing-proof-display";
 import type { ProofSignalKey } from "@/lib/proof-signals";
 import type { PublicProofStats } from "@/server/public/proof";
 

@@ -2,7 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import { crossmarkInstalled, crossmarkSignIn, crossmarkSignLinkProof } from "@/lib/crossmark-client";
+import {
+  crossmarkInstalled,
+  crossmarkSignIn,
+  crossmarkSignLinkProof,
+} from "@/lib/crossmark-client";
 import { isValidXrplAddress } from "@/lib/credentials/xrpl-address";
 import { useCultureSiweSession } from "@/hooks/useCultureSiweSession";
 
@@ -138,7 +142,11 @@ export function XrplWalletConnect({ handle, onLinked }: XrplWalletConnectProps) 
     }
   }, [step, session, xrplAddress, nonce, prepareSignStep]);
 
-  async function submitLink(proof: { txBlob?: string; xrplSignature?: string; publicKey?: string }) {
+  async function submitLink(proof: {
+    txBlob?: string;
+    xrplSignature?: string;
+    publicKey?: string;
+  }) {
     if (!session || !nonce || !isValidXrplAddress(xrplAddress)) return;
     setPending(true);
     setStatus(null);
@@ -164,7 +172,9 @@ export function XrplWalletConnect({ handle, onLinked }: XrplWalletConnectProps) 
         return;
       }
       setStep("done");
-      setStatus(data.verified ? "XRPL wallet verified and linked." : "XRPL wallet linked (unverified).");
+      setStatus(
+        data.verified ? "XRPL wallet verified and linked." : "XRPL wallet linked (unverified).",
+      );
       onLinked?.();
     } catch {
       setStatus("Link request failed.");
@@ -197,9 +207,13 @@ export function XrplWalletConnect({ handle, onLinked }: XrplWalletConnectProps) 
       {step === "evm" ? (
         <div className="space-y-3">
           {!address ? (
-            <p className="text-xs text-amber-200/90">Connect your EVM wallet (Culture ID owner) first.</p>
+            <p className="text-xs text-amber-200/90">
+              Connect your EVM wallet (Culture ID owner) first.
+            </p>
           ) : (
-            <p className="font-mono text-xs text-zinc-400">EVM: {address.slice(0, 6)}…{address.slice(-4)}</p>
+            <p className="font-mono text-xs text-zinc-400">
+              EVM: {address.slice(0, 6)}…{address.slice(-4)}
+            </p>
           )}
           <button
             type="button"
@@ -319,7 +333,9 @@ export function XrplWalletConnect({ handle, onLinked }: XrplWalletConnectProps) 
       ) : null}
 
       {step === "done" ? (
-        <p className="text-sm text-emerald-200/90">Linked. Refresh credentials to see your XRPL wallet.</p>
+        <p className="text-sm text-emerald-200/90">
+          Linked. Refresh credentials to see your XRPL wallet.
+        </p>
       ) : null}
 
       {status ? <p className="text-xs text-zinc-400">{status}</p> : null}

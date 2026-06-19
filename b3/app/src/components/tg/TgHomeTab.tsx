@@ -82,8 +82,8 @@ export function TgHomeTab({
       <div className="rounded-2xl border border-[#00E5FF]/25 bg-[#00E5FF]/5 p-4">
         <p className="text-sm font-medium text-white">Earn on web too</p>
         <p className="mt-1 text-xs text-zinc-400">
-          Link your wallet on the main app for Culture Points, SIWE quests, and a unified leaderboard
-          path with Telegram XP.
+          Link your wallet on the main app for Culture Points, SIWE quests, and a unified
+          leaderboard path with Telegram XP.
         </p>
         <a
           href={`https://app.buildingcultureid.space/join?agent_ref=${encodeURIComponent(agentRef)}&utm_source=telegram&utm_medium=miniapp&utm_campaign=web_bridge`}

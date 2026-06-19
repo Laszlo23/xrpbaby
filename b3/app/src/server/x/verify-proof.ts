@@ -1,4 +1,7 @@
 import { extractTweetIdFromUrl } from "@/lib/twitter-intents";
+import { getServerPublicOrigin } from "@/lib/app-origin";
+import type { ShareActionType } from "@/server/social/culture-value";
+import { resolveXTagHandles, textMentionsAllHandles } from "@/server/social/share-tags";
 import type { TwitterApi } from "twitter-api-v2";
 
 export type XProofTaskSlug = "x-reply-official" | "x-retweet-official" | "x-quote-official";
@@ -56,6 +59,82 @@ export async function verifyXProofTweet(
 
     const ok = tweetSatisfiesXProofTask(taskSlug, targetTweetId, data.referenced_tweets);
     return ok ? { ok: true } : { ok: false, error: "x_verify_failed" };
+  } catch {
+    return { ok: false, error: "x_verify_failed" };
+  }
+}
+
+export type XShareTweetFields = {
+  text?: string;
+  referenced_tweets?: { id: string; type: string }[];
+  attachments?: { media_keys?: string[] };
+  entities?: { urls?: { expanded_url?: string }[] };
+};
+
+export type XShareAnalysis = {
+  actionType: ShareActionType;
+  text: string;
+  mentionsOk: boolean;
+  hasAppLink: boolean;
+  hasHashtag: boolean;
+  hasMedia: boolean;
+};
+
+function xAppLinkNeedles(): string[] {
+  const needles = new Set<string>();
+  try {
+    const origin = getServerPublicOrigin().replace(/\/$/, "").toLowerCase();
+    needles.add(origin);
+    needles.add(new URL(origin).hostname.toLowerCase());
+  } catch {
+    /* ignore */
+  }
+  return [...needles];
+}
+
+export function classifyXShareAction(
+  refs: { id: string; type: string }[] | undefined,
+): ShareActionType {
+  const list = refs ?? [];
+  if (list.some((r) => r.type === "retweeted")) return "repost";
+  if (list.some((r) => r.type === "quoted")) return "quote";
+  if (list.some((r) => r.type === "replied_to")) return "reply";
+  return "original";
+}
+
+/** Classify an X tweet for share-story scoring. */
+export function analyzeXShareTweet(data: XShareTweetFields): XShareAnalysis {
+  const text = (data.text ?? "").trim();
+  const actionType = classifyXShareAction(data.referenced_tweets);
+  const xHandles = resolveXTagHandles();
+  const mentionsOk = textMentionsAllHandles(text, xHandles);
+  const needles = xAppLinkNeedles();
+  const expanded = (data.entities?.urls ?? []).map((u) => u.expanded_url ?? "").join(" ");
+  const haystack = `${text} ${expanded}`.toLowerCase();
+  const hasAppLink = needles.some((n) => haystack.includes(n.toLowerCase()));
+  const hasHashtag = text.toLowerCase().includes("#buildculture");
+  const hasMedia = (data.attachments?.media_keys?.length ?? 0) > 0;
+
+  return { actionType, text, mentionsOk, hasAppLink, hasHashtag, hasMedia };
+}
+
+export async function fetchXShareTweetFields(
+  client: TwitterApi,
+  proofUrl: string,
+): Promise<
+  | { ok: true; data: XShareTweetFields }
+  | { ok: false; error: "x_verify_failed" | "x_proof_tweet_not_found" }
+> {
+  const proofId = extractTweetIdFromUrl(proofUrl);
+  if (!proofId) return { ok: false, error: "x_verify_failed" };
+
+  try {
+    const res = await client.v2.singleTweet(proofId, {
+      "tweet.fields": ["referenced_tweets", "attachments", "entities"],
+    });
+    const data = res.data as XShareTweetFields | undefined;
+    if (!data) return { ok: false, error: "x_proof_tweet_not_found" };
+    return { ok: true, data };
   } catch {
     return { ok: false, error: "x_verify_failed" };
   }

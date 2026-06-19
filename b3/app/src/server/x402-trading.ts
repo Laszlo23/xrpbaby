@@ -39,7 +39,7 @@ export async function handleTradingHealthGet(request: Request): Promise<Response
         error: r.error,
         offer: buildTradingAgentOffer(),
       },
-      { status: 503, headers: x402CorsHeadersFor(request) },
+      { status: 200, headers: x402CorsHeadersFor(request) },
     );
   }
   return Response.json(

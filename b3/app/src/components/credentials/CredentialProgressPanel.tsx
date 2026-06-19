@@ -36,6 +36,12 @@ const THRESHOLDS: Record<
     ctaHref: "/pass",
     ctaLabel: "Link attestation",
   },
+  "limited-merch-holder": {
+    target: 1,
+    unit: "limited tee claim",
+    ctaHref: "/merch/claim",
+    ctaLabel: "Claim merch",
+  },
 };
 
 export function buildCredentialProgressItems(input: {
@@ -60,10 +66,7 @@ export function buildCredentialProgressItems(input: {
         if (studio >= 1 || builds >= 3) {
           progress = 100;
         } else {
-          progress = Math.max(
-            Math.round((studio / 1) * 100),
-            Math.round((builds / 3) * 100),
-          );
+          progress = Math.max(Math.round((studio / 1) * 100), Math.round((builds / 3) * 100));
         }
         current = studio >= 1 ? 1 : builds;
       } else if (item.slug === "contributor") {
@@ -77,6 +80,9 @@ export function buildCredentialProgressItems(input: {
         progress = Math.min(100, Math.round((current / meta.target) * 100));
       } else if (item.slug === "verified-human") {
         current = input.hasHumanAttestation ? 1 : 0;
+        progress = current * 100;
+      } else if (item.slug === "limited-merch-holder") {
+        current = row?.earned ? 1 : 0;
         progress = current * 100;
       }
       return {
@@ -110,7 +116,10 @@ export function CredentialProgressPanel({
       {!hasCultureIdentity ? (
         <p className="mt-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100/90">
           Mint your Culture ID first — credentials attach to your `.culture` name.{" "}
-          <Link to="/pass" className="font-semibold text-[#C5FF41] underline-offset-2 hover:underline">
+          <Link
+            to="/pass"
+            className="font-semibold text-[#C5FF41] underline-offset-2 hover:underline"
+          >
             Claim pass →
           </Link>
         </p>

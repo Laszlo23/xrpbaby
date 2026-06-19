@@ -1,8 +1,7 @@
 /** Weekly Culture Points → BCC claim (7-day cooldown, staking boost). */
 
 export const weeklyClaimEnabled =
-  (typeof import.meta !== "undefined" &&
-    import.meta.env?.VITE_WEEKLY_CLAIM_ENABLED === "1") ||
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_WEEKLY_CLAIM_ENABLED === "1") ||
   false;
 
 export const WEEKLY_CLAIM_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;
@@ -20,10 +19,7 @@ export function formatBoostLabel(poolId: number): string {
 }
 
 export function isWeeklyClaimEnabledServer(): boolean {
-  return (
-    process.env.VITE_WEEKLY_CLAIM_ENABLED === "1" ||
-    process.env.WEEKLY_CLAIM_ENABLED === "1"
-  );
+  return process.env.VITE_WEEKLY_CLAIM_ENABLED === "1" || process.env.WEEKLY_CLAIM_ENABLED === "1";
 }
 
 export function resolveWeeklyCooldownMs(): number {

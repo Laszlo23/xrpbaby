@@ -47,10 +47,14 @@ function MarketplaceLayout() {
     : null;
 
   const sellActive = pathname.startsWith("/marketplace/sell");
+  const servicesActive = pathname.startsWith("/marketplace/services");
+  const merchActive = pathname.startsWith("/marketplace/merch");
   const h = locationHash ?? "";
   const ticketsHashActive = h === "marketplace-tickets" || h === "#marketplace-tickets";
   const exploreActive =
     !sellActive &&
+    !servicesActive &&
+    !merchActive &&
     !ticketsHashActive &&
     (pathname === "/marketplace" ||
       pathname === "/marketplace/" ||
@@ -93,6 +97,8 @@ function MarketplaceLayout() {
 
           <nav className="mt-8 flex flex-wrap items-center gap-2 border-t border-white/[0.06] pt-6">
             <NavPill to="/marketplace" label="Explore" active={exploreActive} />
+            <NavPill to="/marketplace/merch" label="Merch" active={merchActive} />
+            <NavPill to="/marketplace/services" label="Services" active={servicesActive} />
             <NavPill
               to="/marketplace"
               hash="marketplace-tickets"

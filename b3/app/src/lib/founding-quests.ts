@@ -11,6 +11,8 @@ export type FoundingQuest = {
   claimRoute?: string;
   /** Inline claim on quest hub (SIWE task slug). */
   inlineClaim?: boolean;
+  /** Culture Coach scene id — see lib/character/culture-coach.ts */
+  coachSceneId?: string;
 };
 
 export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
@@ -22,6 +24,7 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     wired: true,
     claimRoute: "/profile",
     inlineClaim: true,
+    coachSceneId: "historical-vs",
   },
   {
     slug: "join-forest",
@@ -30,6 +33,71 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     culturePoints: 50,
     wired: true,
     claimRoute: "/join",
+    coachSceneId: "historical-vs",
+  },
+  {
+    slug: "mint-culture-id",
+    title: "Mint your .culture ID",
+    description:
+      "Claim your onchain name on Base — ladder from $0.07, earn Culture Points on mint.",
+    culturePoints: 84,
+    wired: true,
+    claimRoute: "/pass",
+    coachSceneId: "park-token",
+  },
+  {
+    slug: "identity-referral-mint",
+    title: "Mint with a referral",
+    description: "Use a valid referral code when minting your 4+ letter Culture ID.",
+    culturePoints: 25,
+    wired: true,
+    claimRoute: "/pass",
+    coachSceneId: "vibe-friends",
+  },
+  {
+    slug: "identity-referral-share",
+    title: "Share your referral code",
+    description: "Copy and share one of your 7 Culture ID referral links.",
+    culturePoints: 15,
+    wired: true,
+    claimRoute: "/pass",
+    coachSceneId: "meme-edition",
+  },
+  {
+    slug: "identity-referral-batch-complete",
+    title: "Referral batch complete",
+    description: "All 7 codes in your batch were used — earn the batch bonus.",
+    culturePoints: 77,
+    wired: true,
+    claimRoute: "/pass",
+    coachSceneId: "vibe-friends",
+  },
+  {
+    slug: "power-daily-maintenance",
+    title: "Maintain your reactor",
+    description: "Check in, spin the Well, or complete a quest — keep Culture Power hot.",
+    culturePoints: 5,
+    wired: true,
+    claimRoute: "/profile",
+    coachSceneId: "reactor-hot",
+  },
+  {
+    slug: "power-streak-7",
+    title: "7-day reactor streak",
+    description: "Maintain Culture Power for seven days straight.",
+    culturePoints: 35,
+    wired: true,
+    claimRoute: "/profile",
+    coachSceneId: "reactor-hot",
+  },
+  {
+    slug: "power-reactor-max",
+    title: "Max reactor output",
+    description: "Hit 900+ Culture Power — your hashrate is legendary.",
+    culturePoints: 50,
+    wired: true,
+    claimRoute: "/profile",
+    coachSceneId: "reactor-hot",
   },
   {
     slug: "visit-marketplace",
@@ -39,6 +107,25 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     wired: true,
     claimRoute: "/profile",
     inlineClaim: true,
+    coachSceneId: "park-token",
+  },
+  {
+    slug: "merch-holder-claim",
+    title: "Claim your merch credential",
+    description: "Buy a limited tee and scan the inside label QR after delivery.",
+    culturePoints: 15,
+    wired: true,
+    claimRoute: "/marketplace/merch",
+    coachSceneId: "park-token",
+  },
+  {
+    slug: "merch-edition-complete",
+    title: "Merch edition funded",
+    description: "Your tee design hit 77 paid units — batch production is funded.",
+    culturePoints: 7,
+    wired: true,
+    claimRoute: "/marketplace/merch",
+    coachSceneId: "park-token",
   },
   {
     slug: "visit-liquidity-hub",
@@ -47,6 +134,7 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     culturePoints: 40,
     wired: true,
     claimRoute: "/liquidity",
+    coachSceneId: "early-legend",
   },
   {
     slug: "bcc-roots-stake",
@@ -55,6 +143,7 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     culturePoints: 50,
     wired: true,
     claimRoute: "/roots",
+    coachSceneId: "early-legend",
   },
   {
     slug: "studio-first-app",
@@ -63,6 +152,7 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     culturePoints: 50,
     wired: true,
     claimRoute: "/studio",
+    coachSceneId: "farm-vs-build",
   },
   {
     slug: "daily-studio-build",
@@ -71,6 +161,7 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     culturePoints: 25,
     wired: true,
     claimRoute: "/studio",
+    coachSceneId: "farm-vs-build",
   },
   {
     slug: "daily-checkin-onchain",
@@ -80,6 +171,7 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     wired: true,
     claimRoute: "/profile",
     inlineClaim: true,
+    coachSceneId: "relate-daily",
   },
   {
     slug: "daily-visit-ecosystem",
@@ -87,20 +179,26 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     description: "Open any lane in the forest today.",
     culturePoints: 200,
     wired: false,
+    coachSceneId: "park-token",
   },
   {
     slug: "daily-invite-friend",
     title: "Invite a friend",
-    description: "Share the forest with one new builder.",
+    description: "Share your Culture DNA grove link — Twin Bloom at 2 friends.",
     culturePoints: 200,
-    wired: false,
+    wired: true,
+    claimRoute: "/forest/grove",
+    coachSceneId: "vibe-friends",
   },
   {
     slug: "daily-share-post",
     title: "Share the story",
-    description: "Post about Building Culture on X or Farcaster.",
+    description:
+      "Post about Building Culture on X or Farcaster — earn variable Culture Value daily.",
     culturePoints: 200,
-    wired: false,
+    wired: true,
+    claimRoute: "/forest/quests#social",
+    coachSceneId: "meme-edition",
   },
   {
     slug: "daily-ask-mayor",
@@ -108,6 +206,54 @@ export const FOUNDING_DAILY_QUESTS: FoundingQuest[] = [
     description: "Ask the AI Mayor for guidance (founding mini app).",
     culturePoints: 200,
     wired: false,
+    coachSceneId: "culture-manifesto",
+  },
+  {
+    slug: "chronicle-mint-edition-1",
+    title: "Mint Culture Chronicles Ch.1",
+    description: "Own The Feed Explained on Base — then claim Culture Points.",
+    culturePoints: 50,
+    wired: true,
+    claimRoute: "/chronicles/ch-01",
+    inlineClaim: true,
+    coachSceneId: "pop-culture",
+  },
+  {
+    slug: "chronicle-founder-complete",
+    title: "Complete the Chronicle",
+    description: "Own all 11 chapters — Chronicle Founder bonus.",
+    culturePoints: 500,
+    wired: true,
+    claimRoute: "/chronicles",
+    inlineClaim: true,
+    coachSceneId: "vibe-friends",
+  },
+  {
+    slug: "chronicle-share-chapter",
+    title: "Share your chapter",
+    description: "Post a chapter link on Farcaster — spread the story.",
+    culturePoints: 25,
+    wired: true,
+    claimRoute: "/chronicles/ch-01",
+    coachSceneId: "meme-edition",
+  },
+  {
+    slug: "builder-tape-first-listen",
+    title: "Hear a Builder Tape",
+    description: "Listen to a real founder story — 80% unlocks Culture Points.",
+    culturePoints: 20,
+    wired: true,
+    claimRoute: "/stories/tapes",
+    coachSceneId: "historical-vs",
+  },
+  {
+    slug: "builder-tapes-complete-all",
+    title: "Complete all 5 tapes",
+    description: "Finish every Builder Tape episode for a bonus and Founder Voice badge.",
+    culturePoints: 50,
+    wired: true,
+    claimRoute: "/stories/tapes",
+    coachSceneId: "vibe-friends",
   },
 ];
 

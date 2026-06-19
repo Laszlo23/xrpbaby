@@ -45,7 +45,10 @@ const LINKS = [
 
 export function BccTokenHomePanel() {
   return (
-    <section id="token-home" className="scroll-mt-24 rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 via-black/40 to-black/80 p-6 md:p-10">
+    <section
+      id="token-home"
+      className="scroll-mt-24 rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 via-black/40 to-black/80 p-6 md:p-10"
+    >
       <p className="mono-label text-amber-200/80">TOKEN HOME</p>
       <h2 className="mt-2 font-heading text-2xl font-semibold text-white md:text-3xl">
         {BCD_SYMBOL} — one place for the economy

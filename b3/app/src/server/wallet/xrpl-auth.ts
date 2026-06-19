@@ -22,8 +22,9 @@ export async function requireCultureIdentityOwner(
 
   const evm = auth.address.toLowerCase();
   const owner = identity.ownerAddress.toLowerCase();
-  const primaryEvm = identity.linkedWallets.find((w) => w.chain === "evm" && w.isPrimary)?.address
-    ?.toLowerCase();
+  const primaryEvm = identity.linkedWallets
+    .find((w) => w.chain === "evm" && w.isPrimary)
+    ?.address?.toLowerCase();
 
   const allowed = evm === owner || (primaryEvm != null && evm === primaryEvm);
   if (!allowed) {

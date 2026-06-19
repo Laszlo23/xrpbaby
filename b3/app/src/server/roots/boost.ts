@@ -103,8 +103,7 @@ export async function resolveRootsBoost(
 
   const holdsGenesisPass = await walletHoldsAnyGenesisPass(address as Address);
 
-  const builderGroveEligible =
-    culturePoints >= 500 || holdsGenesisPass || builderVoiceGold;
+  const builderGroveEligible = culturePoints >= 500 || holdsGenesisPass || builderVoiceGold;
   const elderEligible = supporterTier === "founding" || supporterTier === "elder";
 
   const eligiblePools: RootsPoolId[] = [0];

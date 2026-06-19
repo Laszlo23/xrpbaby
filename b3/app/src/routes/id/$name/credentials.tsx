@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { ProfileCredentialsPanel } from "@/components/credentials/ProfileCredentialsPanel";
+import { ProfileMerchOrdersPanel } from "@/components/marketplace/ProfileMerchOrdersPanel";
 import { fetchCredentialCatalogFn } from "@/lib/credentials/credential-catalog-fn";
 import { fetchCultureNameResolution } from "@/lib/identity/resolve-fn";
 import { fetchShowcaseEnrichmentFn } from "@/lib/profile/showcase-enrichment-fn";
@@ -43,7 +44,8 @@ function ProfileCredentialsPage() {
       <div className="relative mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
         <h1 className="font-display text-3xl font-bold">{resolved.fullName}</h1>
         <p className="mt-2 text-sm text-zinc-400">Credentials & access unlocks</p>
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col gap-8">
+          {resolved.owner ? <ProfileMerchOrdersPanel walletAddress={resolved.owner} /> : null}
           <ProfileCredentialsPanel
             resolved={resolved}
             catalog={catalog}

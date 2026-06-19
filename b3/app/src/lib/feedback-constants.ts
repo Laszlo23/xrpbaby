@@ -17,12 +17,7 @@ export const FEEDBACK_REWARDS = {
   gold: { slug: "builder-voice-gold", points: 75 },
 } as const;
 
-export type FeedbackStatus =
-  | "rejected"
-  | "pending_review"
-  | "useful"
-  | "gold"
-  | "implemented";
+export type FeedbackStatus = "rejected" | "pending_review" | "useful" | "gold" | "implemented";
 
 export function currentWeekBucket(date = new Date()): string {
   const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));

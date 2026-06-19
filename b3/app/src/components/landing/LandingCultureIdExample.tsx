@@ -2,10 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "@/components/landing/motion";
 import { ArrowUpRight } from "lucide-react";
 
-import {
-  FOUNDER_SHOWCASE_NAME,
-  LASZLO_SHOWCASE,
-} from "@/lib/profile/founder-showcase";
+import { FOUNDER_SHOWCASE_NAME, LASZLO_SHOWCASE } from "@/lib/profile/founder-showcase";
 
 const EXAMPLE_CREDENTIALS = ["Builder", "Community Leader", "Trusted Agent"] as const;
 

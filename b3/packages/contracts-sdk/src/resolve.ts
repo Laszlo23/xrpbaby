@@ -64,6 +64,14 @@ export function resolveDailyCheckInAddress(_chainId: number, env: EnvLike): Addr
   return parseAddr(env.VITE_DAILY_CHECKIN_ADDRESS) ?? parseAddr(env.DAILY_CHECKIN_CONTRACT_ADDRESS);
 }
 
+/** PanicSwitchAttestation — env only until listed in deployments JSON. */
+export function resolvePanicSwitchAttestationAddress(_chainId: number, env: EnvLike): Address | undefined {
+  return (
+    parseAddr(env.VITE_PANIC_SWITCH_ATTESTATION_ADDRESS) ??
+    parseAddr(env.PANIC_SWITCH_ATTESTATION_ADDRESS)
+  );
+}
+
 export function resolveGenesisVaultPassPhase0Address(chainId: number, env: EnvLike): Address | undefined {
   return (
     parseAddr(env.VITE_GENESIS_VAULT_PASS_PHASE0) ??
@@ -106,4 +114,19 @@ export function resolveMarketplaceContractAddress(chainId: number, env: EnvLike)
 
 export function resolvePitNftContractAddress(_chainId: number, env: EnvLike): Address | undefined {
   return parseAddr(env.VITE_PIT_NFT_CONTRACT_ADDRESS) ?? parseAddr(env.VITE_BASE_PRIMARY_CONTRACT_ADDRESS);
+}
+
+export function resolveCultureChroniclesAddress(chainId: number, env: EnvLike): Address | undefined {
+  return (
+    parseAddr(env.VITE_CULTURE_CHRONICLES_ADDRESS) ??
+    getDeploymentAddress("CultureChronicles1155" as DeploymentContractName, chainId)
+  );
+}
+
+/** CultureSpinningWell — env only until listed in deployments JSON. */
+export function resolveCultureSpinningWellAddress(_chainId: number, env: EnvLike): Address | undefined {
+  return (
+    parseAddr(env.VITE_CULTURE_SPINNING_WELL_ADDRESS) ??
+    parseAddr(env.CULTURE_SPINNING_WELL_CONTRACT_ADDRESS)
+  );
 }

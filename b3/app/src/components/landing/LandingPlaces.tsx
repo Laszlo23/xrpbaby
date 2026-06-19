@@ -58,7 +58,9 @@ export function LandingPlaces() {
               {PLACES_LANE.investorHeadline} <br />
               <span className="bc-text-cyan-gradient">{PLACES_LANE.investorAccent}</span>
             </motion.h2>
-            <p className="mt-6 max-w-xl text-base text-zinc-400 sm:text-lg">{PLACES_LANE.subhead}</p>
+            <p className="mt-6 max-w-xl text-base text-zinc-400 sm:text-lg">
+              {PLACES_LANE.subhead}
+            </p>
             <p className="mt-4 max-w-xl text-sm text-zinc-500">{PLACES_LANE.investorSubhead}</p>
 
             <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">

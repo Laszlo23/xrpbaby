@@ -36,12 +36,14 @@ function transportFor(chain: Chain) {
 
 export const wagmiConfig = createConfig({
   chains,
-  multiInjectedProviderDiscovery: false,
+  multiInjectedProviderDiscovery: true,
   connectors: [
     worldApp({ name: "World App" }),
     baseAccount({ appName: BRAND_DISPLAY_NAME }),
+    injected({ target: "braveWallet" }),
     metaMask(),
     coinbaseWallet({ appName: BRAND_DISPLAY_NAME }),
+    injected({ target: "metaMask" }),
     injected({ shimDisconnect: true }),
     ...(walletConnectProjectId ? [walletConnect({ projectId: walletConnectProjectId })] : []),
   ],

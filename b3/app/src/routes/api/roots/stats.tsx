@@ -8,7 +8,8 @@ export const Route = createFileRoute("/api/roots/stats")({
   server: {
     handlers: {
       GET: async () => {
-        const staking = process.env.VITE_BCC_ROOTS_STAKING_ADDRESS?.trim() ||
+        const staking =
+          process.env.VITE_BCC_ROOTS_STAKING_ADDRESS?.trim() ||
           process.env.BCC_ROOTS_STAKING_ADDRESS?.trim();
         if (!staking || !/^0x[a-fA-F0-9]{40}$/.test(staking)) {
           return json({

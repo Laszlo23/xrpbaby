@@ -13,9 +13,7 @@ import { getPulseMetrics } from "@/server/pulse/metrics";
 import { buildBccLiquidityMarket } from "@/server/liquidity/bcc-pools";
 import { fetchMarketListings } from "@/server/market/thirdweb";
 import { getBccTokenAddress } from "@/server/market/env";
-import {
-  groveFarcasterConfigured,
-} from "@/server/marketing/grove/farcaster-post";
+import { groveFarcasterConfigured } from "@/server/marketing/grove/farcaster-post";
 import { groveTelegramConfigured } from "@/server/marketing/grove/telegram-post";
 import { groveXConfigured } from "@/server/marketing/grove/x-client";
 

@@ -26,6 +26,10 @@ const CEO_TASK_TYPES = [
   "seo_publish",
   "executive_review",
   "weekly_learnings",
+  "fulfill_service_order",
+  "fulfill_merch_batch",
+  "service_milestone_review",
+  "sync_identity_mint_price",
 ] as const;
 
 function utcHour(): number {
@@ -74,6 +78,11 @@ async function planTasksRuleBased(
 
   if (snapshot.ledgerRows24h < 3) {
     planned.push("git_sync");
+  }
+
+  if (hour % 6 === 0) {
+    const pending = await countPendingTasksByType(databaseUrl, "sync_identity_mint_price");
+    if (pending === 0) planned.push("sync_identity_mint_price");
   }
 
   return [...new Set(planned)];

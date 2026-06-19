@@ -16,9 +16,7 @@ export function parseIngestAuth(request: Request): {
   const auth = request.headers.get("authorization");
   const apiKey = auth?.startsWith("Bearer ") ? auth.slice(7).trim() : null;
   const appSlug =
-    request.headers.get("x-gi-app")?.trim() ||
-    request.headers.get("x-growth-app")?.trim() ||
-    null;
+    request.headers.get("x-gi-app")?.trim() || request.headers.get("x-growth-app")?.trim() || null;
   return { appSlug, apiKey };
 }
 

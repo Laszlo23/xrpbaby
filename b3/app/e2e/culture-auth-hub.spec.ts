@@ -1,9 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures/skip-onboarding";
 
 test.describe("culture auth hub", () => {
-  test("login route loads and shows signing-in copy", async ({ page }) => {
+  test("login route loads and shows sign-in chooser", async ({ page }) => {
     await page.goto("/auth/login?returnUrl=https://buildingcultureid.space/");
-    await expect(page.getByText(/signing in to your culture wallet/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /^sign in$/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /continue with email/i })).toBeVisible();
   });
 
   test("logout route loads", async ({ page }) => {
@@ -32,7 +33,13 @@ test.describe("culture auth hub", () => {
   test("pass page shows wallet CTA", async ({ page }) => {
     await page.goto("/pass");
     await expect(
-      page.getByRole("button", { name: /sign in for wallet|connect wallet/i }),
+      page.getByRole("button", { name: /continue with email|sign in for wallet/i }),
     ).toBeVisible();
+  });
+
+  test("forest hub loads guest dashboard CTA", async ({ page }) => {
+    await page.goto("/forest");
+    await expect(page.getByRole("link", { name: /create your pass/i })).toBeVisible();
+    await expect(page.getByText(/daily check-in|tasks|leaderboard/i).first()).toBeVisible();
   });
 });

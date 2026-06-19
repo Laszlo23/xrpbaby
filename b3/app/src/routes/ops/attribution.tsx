@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 
 import { ModuleShell } from "@/components/ModuleShell";
@@ -69,9 +69,16 @@ function OpsAttributionPage() {
       <div className="mx-auto max-w-5xl space-y-6 px-4 pb-16 pt-6">
         <p className="text-sm text-zinc-400">
           Data from <code className="text-zinc-300">ActivityEvent</code> via{" "}
-          <code className="text-zinc-300">/api/platform/analytics</code>. Set{" "}
-          <code className="text-zinc-300">OPS_DASHBOARD_SECRET</code> in production to restrict
-          access.
+          <code className="text-zinc-300">/api/platform/analytics</code>. Related:{" "}
+          <Link to="/ops/revenue" className="text-emerald-400 underline">
+            revenue lanes
+          </Link>
+          ,{" "}
+          <Link to="/ops/outreach" className="text-emerald-400 underline">
+            outreach
+          </Link>
+          . Set <code className="text-zinc-300">OPS_DASHBOARD_SECRET</code> in production to
+          restrict access.
         </p>
 
         <form
@@ -122,7 +129,9 @@ function OpsAttributionPage() {
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {Object.entries(w7.funnel).map(([event, count]) => (
                 <div key={event} className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-3">
-                  <p className="font-mono text-xs text-zinc-500">{event.replace("analytics:", "")}</p>
+                  <p className="font-mono text-xs text-zinc-500">
+                    {event.replace("analytics:", "")}
+                  </p>
                   <p className="text-2xl font-semibold text-zinc-100">{count}</p>
                 </div>
               ))}
@@ -156,9 +165,7 @@ function OpsAttributionPage() {
                     <tr key={row.agentRef} className="border-t border-zinc-800">
                       <td className="px-3 py-2 font-mono text-zinc-200">{row.agentRef}</td>
                       <td className="px-3 py-2">{row.joins}</td>
-                      <td className="px-3 py-2">
-                        {row.funnel["analytics:mint_confirmed"] ?? 0}
-                      </td>
+                      <td className="px-3 py-2">{row.funnel["analytics:mint_confirmed"] ?? 0}</td>
                       <td className="px-3 py-2">{pct(row.rates.viewToConfirm)}</td>
                     </tr>
                   ))}

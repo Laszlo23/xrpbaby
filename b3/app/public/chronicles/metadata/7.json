@@ -1,0 +1,25 @@
+{
+  "name": "Culture Chronicles — Relate Daily",
+  "description": "Small steps today. Big legacy tomorrow.",
+  "image": "https://app.buildingcultureid.space/chronicles/relate-daily.webp",
+  "image_fallback": "https://0xlaszlo.4everbucket.com/buildingculture/relate.png",
+  "external_url": "https://app.buildingcultureid.space/chronicles/ch-07",
+  "attributes": [
+    {
+      "trait_type": "Chapter",
+      "value": 7
+    },
+    {
+      "trait_type": "Tier",
+      "value": "common"
+    },
+    {
+      "trait_type": "Mood",
+      "value": "guilt"
+    },
+    {
+      "trait_type": "Pillar",
+      "value": "impact"
+    }
+  ]
+}
