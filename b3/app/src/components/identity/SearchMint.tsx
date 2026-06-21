@@ -3,9 +3,8 @@
 import { useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { startTransition, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { usePrivy } from "@privy-io/react-auth";
 import { useCultureLogin } from "@/hooks/useCultureLogin";
 import {
   useAccount,
@@ -70,32 +69,6 @@ function hasBrowserWallet(): boolean {
   return typeof window !== "undefined" && Boolean(window.ethereum);
 }
 
-function SearchMintPrivyLogin({ onError }: { onError: (msg: string) => void }) {
-  const { ready } = usePrivy();
-  const { openPreferredLogin, primaryLoginLabel } = useCultureLogin();
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  return (
-    <button
-      type="button"
-      disabled={!ready || !hydrated}
-      onClick={() => {
-        onError("");
-        startTransition(() => {
-          openPreferredLogin();
-        });
-      }}
-      className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
-    >
-      {primaryLoginLabel} →
-    </button>
-  );
-}
-
 export function SearchMint({ id }: { id?: string }) {
   const navigate = useNavigate();
   const router = useRouter();
@@ -133,6 +106,13 @@ export function SearchMint({ id }: { id?: string }) {
   const [referralError, setReferralError] = useState<string | null>(null);
   const [referralChecking, setReferralChecking] = useState(false);
   const [teamMintWallet, setTeamMintWallet] = useState(false);
+  const [mintError, setMintError] = useState<string | null>(null);
+  const [bnbCheck, setBnbCheck] = useState<{
+    loading: boolean;
+    available: boolean | null;
+    name: string;
+  }>({ loading: false, available: null, name: "" });
+  const { ready: privyReady, openWalletLogin } = useCultureLogin();
 
   useEffect(() => {
     if (activeNetworkId !== "base") setPayWithBcc(false);
@@ -148,7 +128,13 @@ export function SearchMint({ id }: { id?: string }) {
     }
     persistReferralCodeFromUrl(search.ref);
     const stored = getStoredReferralCode();
-    if (stored) setReferralCode(stored);
+    if (stored) {
+      setReferralCode(stored);
+    } else if (search.ref?.trim()) {
+      setReferralCode(search.ref.trim().toUpperCase());
+    } else {
+      setReferralCode("BUILD77");
+    }
   }, [search.name, search.tld, search.ref]);
 
   const clean =
@@ -454,7 +440,11 @@ export function SearchMint({ id }: { id?: string }) {
 
     if (!isConnected || !address) {
       if (privyEnabled) {
-        setMintError(`Sign in to create your ${activeNet.chainLabel} smart wallet, then mint.`);
+        if (!privyReady) {
+          setMintError("Wallet login is loading — try again in a moment.");
+          return;
+        }
+        openWalletLogin();
         return;
       }
       if (!hasBrowserWallet()) {
@@ -542,12 +532,6 @@ export function SearchMint({ id }: { id?: string }) {
     );
   }
 
-  const [bnbCheck, setBnbCheck] = useState<{
-    loading: boolean;
-    available: boolean | null;
-    name: string;
-  }>({ loading: false, available: null, name: "" });
-
   const checkBnbName = useCallback(async () => {
     if (clean.length < 3) return;
     setBnbCheck({ loading: true, available: null, name: `${clean}.bnb` });
@@ -564,15 +548,42 @@ export function SearchMint({ id }: { id?: string }) {
     }
   }, [clean]);
 
-  const mintDisabled =
-    !isIdentityContractConfigured ||
-    !handlePolicy.ok ||
-    referralCode.trim().length < 4 ||
-    referralValid === false ||
-    referralChecking ||
-    isMinting ||
-    isAvailable === false ||
-    (canCheckAvailability && isCheckingAvailability);
+  const mintDisabled = useMemo(() => {
+    if (!isIdentityContractConfigured || !handlePolicy.ok || isMinting) {
+      return true;
+    }
+    if (!isConnected) {
+      return referralCode.trim().length < 4;
+    }
+    return (
+      referralCode.trim().length < 4 ||
+      referralValid === false ||
+      referralChecking ||
+      isAvailable === false ||
+      (canCheckAvailability && isCheckingAvailability)
+    );
+  }, [
+    canCheckAvailability,
+    handlePolicy.ok,
+    isAvailable,
+    isCheckingAvailability,
+    isConnected,
+    isIdentityContractConfigured,
+    isMinting,
+    referralChecking,
+    referralCode,
+    referralValid,
+  ]);
+
+  const mintButtonLabel = useMemo(() => {
+    if (isConnecting) return "Connecting…";
+    if (!isConnected) {
+      return privyEnabled ? "Sign in for wallet →" : "Connect wallet →";
+    }
+    if (wrongChain) return "Switch network →";
+    if (isMinting) return "Minting…";
+    return "Mint identity →";
+  }, [isConnected, isConnecting, isMinting, privyEnabled, wrongChain]);
 
   if (hasOwnedIdentity && !allowExtraMint) {
     return (
@@ -622,28 +633,14 @@ export function SearchMint({ id }: { id?: string }) {
               ))}
             </select>
           </div>
-          {privyEnabled && !isConnected ? (
-            <SearchMintPrivyLogin onError={setMintError} />
-          ) : (
-            <button
-              type="button"
-              onClick={() => void handleMint()}
-              disabled={mintDisabled}
-              className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <span className="relative z-10">
-                {isConnecting
-                  ? "Connecting…"
-                  : !isConnected
-                    ? "Connect wallet →"
-                    : wrongChain
-                      ? "Switch network →"
-                      : isMinting
-                        ? "Minting…"
-                        : "Mint identity →"}
-              </span>
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => void handleMint()}
+            disabled={mintDisabled}
+            className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <span className="relative z-10">{mintButtonLabel}</span>
+          </button>
         </div>
       </motion.div>
 

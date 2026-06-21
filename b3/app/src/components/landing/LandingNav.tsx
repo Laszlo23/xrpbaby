@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useAccount } from "wagmi";
+import { HeaderConnectButton } from "@/components/HeaderConnectButton";
 import { WalletIdentityBar } from "@/components/identity/WalletIdentityBar";
 import { AnimatePresence, motion } from "@/components/landing/motion";
 import {
@@ -125,7 +126,9 @@ export function LandingNav({ compact = false }: LandingNavProps) {
               <div className="hidden sm:block">
                 <WalletIdentityBar />
               </div>
-            ) : null}
+            ) : (
+              <HeaderConnectButton />
+            )}
             {isConnected ? (
               <Link
                 to="/forest"
@@ -136,7 +139,7 @@ export function LandingNav({ compact = false }: LandingNavProps) {
             ) : (
               <Link
                 to="/join"
-                className="hidden items-center gap-1.5 rounded-full bg-[#C5FF41] px-4 py-2 text-[13px] font-semibold text-black transition-colors hover:bg-white sm:inline-flex"
+                className="hidden items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-[13px] font-semibold text-white transition hover:border-[#C5FF41]/40 sm:inline-flex"
               >
                 <UserPlus size={15} strokeWidth={2.25} aria-hidden />
                 Join
@@ -189,10 +192,15 @@ export function LandingNav({ compact = false }: LandingNavProps) {
                     </a>
                   );
                 })}
+                {!isConnected ? (
+                  <div className="mt-2 sm:hidden">
+                    <HeaderConnectButton className="w-full justify-center" />
+                  </div>
+                ) : null}
                 <Link
                   to={isConnected ? "/forest" : "/join"}
                   onClick={() => setOpen(false)}
-                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#C5FF41] px-4 py-2.5 text-[13px] font-semibold text-black"
+                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-[13px] font-semibold text-white"
                 >
                   <UserPlus size={16} strokeWidth={2.25} aria-hidden />
                   {isConnected ? "Open dashboard" : "Join Building Culture"}

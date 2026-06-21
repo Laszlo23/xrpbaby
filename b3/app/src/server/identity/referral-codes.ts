@@ -252,12 +252,12 @@ export async function consumeReferralOnSync(
 ): Promise<ReferralConsumeResult> {
   await ensureDefaultTasks(prisma);
 
+  const wallet = normalizeWallet(input.wallet);
   const handlePart = input.mintHandle.split(".")[0] ?? input.mintHandle;
   if (handlePart.length < PROMO_MIN_LEN && !isIdentityTeamWallet(wallet)) {
     return { ok: false, error: "handle_too_short" };
   }
 
-  const wallet = normalizeWallet(input.wallet);
   const existingRedemption = await prisma.identityReferralRedemption.findUnique({
     where: { wallet },
   });

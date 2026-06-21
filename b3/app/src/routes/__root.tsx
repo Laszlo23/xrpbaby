@@ -10,6 +10,7 @@ import {
 import { useAccount } from "wagmi";
 import { BottomNav } from "@/components/BottomNav";
 import { AppFooter } from "@/components/AppFooter";
+import { AppTopConnect } from "@/components/layout/AppTopConnect";
 import { LoggedInShell } from "@/components/layout/LoggedInShell";
 import { Web3Provider } from "@/components/Web3Provider";
 import { NetworkGuard } from "@/components/NetworkGuard";
@@ -179,6 +180,7 @@ function RootAppContent({ minimalChrome, pathname }: { minimalChrome: boolean; p
         <FarcasterMiniAppReady />
         {minimalChrome ? <TelegramMiniAppReady /> : null}
         <div className="relative min-h-dvh w-full max-w-[100vw] overflow-x-hidden">
+          <AppTopConnect />
           {showLoggedInShell ? <LoggedInShell /> : null}
           <div className={showLoggedInShell ? "pt-[7.5rem] sm:pt-[8.5rem]" : undefined}>
             <Outlet />

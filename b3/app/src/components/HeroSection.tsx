@@ -36,7 +36,6 @@ import heroBg from "@/assets/hero-bg.jpg";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { EliasIntentModal } from "@/components/EliasIntentModal";
 import { HeroVaultCtas } from "@/components/HeroVaultCtas";
-import { WalletControls } from "@/components/WalletControls";
 import { useTypewriter } from "@/hooks/use-typewriter";
 import { cn } from "@/lib/utils";
 
@@ -418,10 +417,6 @@ export function HeroSection() {
           aria-hidden
         />
 
-        <div className="absolute right-4 top-4 z-30 hidden md:block">
-          <WalletControls className="justify-end" />
-        </div>
-
         <div
           className="relative z-[2] overflow-hidden"
           ref={emblaRef}
@@ -473,10 +468,6 @@ export function HeroSection() {
                   <div className="pointer-events-none absolute inset-0 z-[1] ring-1 ring-inset ring-white/[0.04]" />
 
                   <div className="relative z-10 mx-auto flex min-h-full w-full max-w-6xl flex-col justify-start px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-6 sm:px-6 sm:pb-[calc(7rem+env(safe-area-inset-bottom))] sm:pt-8 md:px-10 md:pb-[calc(7.5rem+env(safe-area-inset-bottom))] md:pt-7 lg:pt-6">
-                    <div className="mb-4 flex justify-center md:hidden">
-                      <WalletControls className="justify-center" />
-                    </div>
-
                     <div
                       className="flex flex-col gap-3 md:gap-4 lg:flex-row lg:items-center lg:gap-8 xl:gap-12 will-change-transform"
                       style={{
