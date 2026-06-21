@@ -8,6 +8,21 @@ export type HandlePolicyResult =
   | { ok: true; tier: HandlePolicyTier }
   | { ok: false; error: "reserved_team" | "handle_too_short" | "invalid_handle" };
 
+function readTeamWalletAllowlist(): Set<string> {
+  const raw = process.env.IDENTITY_TEAM_WALLETS;
+  const list = (raw ?? "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter((s) => /^0x[a-f0-9]{40}$/.test(s));
+  return new Set(list);
+}
+
+/** Wallets allowed to mint 1–3 letter reserved handles (team / founder). */
+export function isIdentityTeamWallet(wallet?: string | null): boolean {
+  if (!wallet) return false;
+  return readTeamWalletAllowlist().has(wallet.trim().toLowerCase());
+}
+
 export function premiumHandleTier(handleLength: number): HandlePolicyTier {
   const len = Math.floor(handleLength);
   if (len <= RESERVED_MAX_LEN) return "reserved";
@@ -15,7 +30,10 @@ export function premiumHandleTier(handleLength: number): HandlePolicyTier {
   return "standard";
 }
 
-export function validateHandleForPromoMint(handle: string): HandlePolicyResult {
+export function validateHandleForPromoMint(
+  handle: string,
+  options?: { teamWallet?: boolean },
+): HandlePolicyResult {
   const clean = handle
     .trim()
     .toLowerCase()
@@ -24,6 +42,10 @@ export function validateHandleForPromoMint(handle: string): HandlePolicyResult {
     return { ok: false, error: "invalid_handle" };
   }
   const tier = premiumHandleTier(clean.length);
+  if (options?.teamWallet === true) {
+    if (clean.length >= 1) return { ok: true, tier };
+    return { ok: false, error: "invalid_handle" };
+  }
   if (tier === "reserved") {
     return { ok: false, error: "reserved_team" };
   }
@@ -31,6 +53,14 @@ export function validateHandleForPromoMint(handle: string): HandlePolicyResult {
     return { ok: false, error: "handle_too_short" };
   }
   return { ok: true, tier: "promo" };
+}
+
+/** Server-side validation with wallet allowlist from env. */
+export function validateHandleForPromoMintWallet(
+  handle: string,
+  wallet?: string | null,
+): HandlePolicyResult {
+  return validateHandleForPromoMint(handle, { teamWallet: isIdentityTeamWallet(wallet) });
 }
 
 export function handlePolicyUserMessage(

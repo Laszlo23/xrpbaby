@@ -23,6 +23,12 @@ describe("handle-policy", () => {
     if (r.ok) assert.equal(r.tier, "promo");
   });
 
+  it("team bypass allows 1-char handles", () => {
+    const r = validateHandleForPromoMint("a", { teamWallet: true });
+    assert.equal(r.ok, true);
+    if (r.ok) assert.equal(r.tier, "reserved");
+  });
+
   it("promo min length constant", () => {
     assert.equal(PROMO_MIN_LEN, 4);
     assert.equal(RESERVED_MAX_LEN, 3);

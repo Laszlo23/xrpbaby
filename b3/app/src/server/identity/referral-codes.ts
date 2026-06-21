@@ -2,7 +2,11 @@ import { randomBytes } from "node:crypto";
 
 import type { PrismaClient } from "@prisma/client";
 
-import { PROMO_MIN_LEN, validateHandleForPromoMint } from "@/lib/identity/handle-policy";
+import {
+  isIdentityTeamWallet,
+  PROMO_MIN_LEN,
+  validateHandleForPromoMintWallet,
+} from "@/lib/identity/handle-policy";
 import { ensureWalletAndMember } from "@/server/platform/member";
 import { recordCultureMemoryEvent } from "@/server/memory/timeline";
 import { ensureDefaultTasks } from "@/server/points/tasks";
@@ -85,7 +89,10 @@ export async function validateReferralForMint(
 ): Promise<ReferralValidateResult> {
   await ensureLaunchReferralCode(prisma);
 
-  const policy = validateHandleForPromoMint(input.handle.split(".")[0] ?? input.handle);
+  const policy = validateHandleForPromoMintWallet(
+    input.handle.split(".")[0] ?? input.handle,
+    input.wallet,
+  );
   if (!policy.ok) {
     return { ok: false, error: policy.error };
   }
@@ -246,7 +253,7 @@ export async function consumeReferralOnSync(
   await ensureDefaultTasks(prisma);
 
   const handlePart = input.mintHandle.split(".")[0] ?? input.mintHandle;
-  if (handlePart.length < PROMO_MIN_LEN) {
+  if (handlePart.length < PROMO_MIN_LEN && !isIdentityTeamWallet(wallet)) {
     return { ok: false, error: "handle_too_short" };
   }
 

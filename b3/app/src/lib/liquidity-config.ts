@@ -1,5 +1,12 @@
 import { BCC_ADDRESS, BCC_UNISWAP_URL } from "@bc/bcc-kit";
 import { BCC_AERODROME, aerodromeGaugeUrl, isAerodromeLiquidityEnabled } from "@/lib/aerodrome-bcc";
+import {
+  BCC_BALANCER,
+  balancerGaugeUrl,
+  balancerPoolUrl,
+  balancerSwapUrl,
+  isBalancerLiquidityEnabled,
+} from "@/lib/balancer-bcc";
 
 const BCC = BCC_ADDRESS;
 
@@ -17,6 +24,9 @@ export type LiquidityDexLinks = {
   aerodromeDeposit: string | null;
   aerodromeGauge: string | null;
   aerodromeSwap: string | null;
+  balancerDeposit: string | null;
+  balancerGauge: string | null;
+  balancerSwap: string | null;
 };
 
 /** Aerodrome pool LP token (set after operator creates BCC/WETH pool). */
@@ -38,8 +48,34 @@ export function getBccAerodromeLpTokenAddress(): `0x${string}` | undefined {
   return raw as `0x${string}`;
 }
 
+export function getBccBalancerPoolAddress(): `0x${string}` | undefined {
+  const raw = env("VITE_BCC_BALANCER_POOL");
+  if (!raw || !/^0x[a-fA-F0-9]{40}$/.test(raw)) return undefined;
+  return raw as `0x${string}`;
+}
+
+export function getBccBalancerBptAddress(): `0x${string}` | undefined {
+  const raw = env("VITE_BCC_BALANCER_BPT");
+  if (!raw || !/^0x[a-fA-F0-9]{40}$/.test(raw)) return undefined;
+  return raw as `0x${string}`;
+}
+
+export function getBccBalancerGaugeAddress(): `0x${string}` | undefined {
+  const raw = env("VITE_BCC_BALANCER_GAUGE");
+  if (!raw || !/^0x[a-fA-F0-9]{40}$/.test(raw)) return undefined;
+  return raw as `0x${string}`;
+}
+
 function aerodromeEnabled(): boolean {
   return isAerodromeLiquidityEnabled(
+    typeof import.meta !== "undefined"
+      ? (import.meta.env as Record<string, string | undefined>)
+      : {},
+  );
+}
+
+function balancerEnabled(): boolean {
+  return isBalancerLiquidityEnabled(
     typeof import.meta !== "undefined"
       ? (import.meta.env as Record<string, string | undefined>)
       : {},
@@ -50,6 +86,9 @@ export function buildLiquidityDexLinks(): LiquidityDexLinks {
   const pool = getBccAerodromePoolAddress();
   const gauge = getBccAerodromeGaugeAddress();
   const enabled = aerodromeEnabled();
+  const balPool = getBccBalancerPoolAddress();
+  const balGauge = getBccBalancerGaugeAddress();
+  const balEnabled = balancerEnabled();
   return {
     uniswapSwap: env("VITE_BCC_UNISWAP_URL") ?? BCC_UNISWAP_URL,
     uniswapPool: env("VITE_BCC_UNISWAP_POOL")?.trim()
@@ -64,6 +103,15 @@ export function buildLiquidityDexLinks(): LiquidityDexLinks {
           ? BCC_AERODROME.depositUrl
           : null,
     aerodromeSwap: enabled || pool ? BCC_AERODROME.swapUrl : null,
+    balancerDeposit: balEnabled || balPool ? (balPool ? balancerPoolUrl(balPool) : BCC_BALANCER.createPoolUrl) : null,
+    balancerGauge: balGauge
+      ? balancerGaugeUrl(balGauge)
+      : balPool
+        ? balancerGaugeUrl(balPool)
+        : balEnabled
+          ? BCC_BALANCER.explorePoolsUrl
+          : null,
+    balancerSwap: balEnabled || balPool ? balancerSwapUrl() : null,
   };
 }
 
@@ -87,6 +135,11 @@ export const LIQUIDITY_LESSON_STEPS = [
     id: "aerodrome-secondary",
     title: "Aerodrome — secondary pool & gauges",
     body: "Aerodrome on Base can host a BCC/WETH pool. Deposit LP, then stake in a gauge to earn AERO emissions when the pool is incentivized — protocol participation, not a guaranteed return.",
+  },
+  {
+    id: "balancer-dao",
+    title: "Balancer — DAO treasury pool",
+    body: "The protocol Safe can own a Balancer BCC/WETH pool. LPs stake BPT in a gauge for DAO-funded incentives. Balancer BPT counts for Culture Power the same as Aerodrome LP.",
   },
   {
     id: "bcc-utility",

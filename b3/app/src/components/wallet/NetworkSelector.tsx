@@ -17,9 +17,10 @@ export function NetworkSelector({ className = "" }: { className?: string }) {
     }
     setActiveNetworkId(id);
     try {
-      await switchToActiveChain();
+      await switchToActiveChain(id);
+      toast.success(`Switched to ${net.chainLabel}`);
     } catch {
-      toast.message(`Selected ${net.chainLabel}. Switch network in your wallet to mint.`);
+      toast.message(`Selected ${net.chainLabel}. Confirm the network switch in your wallet, then mint.`);
     }
   }
 

@@ -167,6 +167,35 @@ function BccDashboardPage() {
         </Link>
       </section>
 
+      <section className="mt-8">
+        <style>{`
+          #dexscreener-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 125%;
+          }
+          @media (min-width: 1400px) {
+            #dexscreener-embed {
+              padding-bottom: 65%;
+            }
+          }
+          #dexscreener-embed iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border: 0;
+          }
+        `}</style>
+        <div id="dexscreener-embed">
+          <iframe
+            title="BCC on DexScreener"
+            src="https://dexscreener.com/base/0xbb1a4e26d908a8fdddcea5d634faaa47eb8959b78384af66fea0bf45732143fb?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"
+          />
+        </div>
+      </section>
+
       <div className="mt-8 flex flex-wrap gap-3 text-sm">
         <Link to="/bridge/bcc" className="text-[#C5FF41] hover:underline">
           Bridge BCC ↔ wBCC

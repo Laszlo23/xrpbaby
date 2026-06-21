@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { MarketingShell } from "@/components/MarketingShell";
 import { AerodromeGaugeCard } from "@/components/liquidity/AerodromeGaugeCard";
+import { BalancerGaugeCard } from "@/components/liquidity/BalancerGaugeCard";
 import { DexDeepLinks } from "@/components/liquidity/DexDeepLinks";
 import {
   LiquidityLearnTrack,
@@ -38,6 +39,14 @@ type BccMarketResponse = {
     gaugeUrl: string | null;
     routing: string;
   };
+  balancer: {
+    enabled: boolean;
+    poolConfigured: boolean;
+    poolLive: boolean;
+    depositUrl: string | null;
+    gaugeUrl: string | null;
+    ownerSafe: string;
+  };
   redemption: {
     percentToGate: number | null;
     minPoolTvlUsd: number;
@@ -52,9 +61,9 @@ export const Route = createFileRoute("/liquidity")({
     pageHead({
       title: `Learn liquidity — ${BRAND_DISPLAY_NAME}`,
       description:
-        "Learn how BCC liquidity works on Base — Uniswap primary, Aerodrome secondary, Culture Points for education, gauge staking for protocol rewards.",
+        "Learn how BCC liquidity works on Base — Uniswap primary, Aerodrome and Balancer secondary, Culture Points for education, gauge staking for protocol rewards.",
       path: "/liquidity",
-      keywords: ["BCC", "liquidity", "Aerodrome", "Uniswap", "Base", "Culture Points"],
+      keywords: ["BCC", "liquidity", "Aerodrome", "Balancer", "Uniswap", "Base", "Culture Points", "DAO"],
     }),
   component: LiquidityPage,
 });
@@ -109,7 +118,7 @@ function LiquidityPage() {
     <MarketingShell
       eyebrow="BCC · Base"
       title="Learn BCC liquidity"
-      subtitle="Understand pools on Base, add liquidity on Uniswap or Aerodrome, and earn Culture Points for learning — plus protocol rewards when gauges are live."
+      subtitle="Understand pools on Base, add liquidity on Uniswap, Aerodrome, or Balancer, and earn Culture Points for learning — plus protocol rewards when gauges are live."
     >
       <div className="mx-auto max-w-4xl space-y-10 px-4 pb-16 pt-4">
         <div className="grid gap-6 lg:grid-cols-2">
@@ -160,6 +169,16 @@ function LiquidityPage() {
               routing: "uniswap_fallback",
             }
           }
+          balancer={
+            data?.balancer ?? {
+              enabled: false,
+              poolConfigured: false,
+              poolLive: false,
+              depositUrl: null,
+              gaugeUrl: null,
+              ownerSafe: "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c",
+            }
+          }
         />
 
         <AerodromeGaugeCard
@@ -171,11 +190,20 @@ function LiquidityPage() {
           quoteBccUrl={data?.quoteBccUrl}
         />
 
+        <BalancerGaugeCard
+          gaugeUrl={data?.balancer.gaugeUrl ?? null}
+          depositUrl={data?.balancer.depositUrl ?? null}
+          poolConfigured={data?.balancer.poolConfigured ?? false}
+          poolLive={data?.balancer.poolLive ?? false}
+          enabled={data?.balancer.enabled ?? false}
+          ownerSafe={data?.balancer.ownerSafe}
+        />
+
         <div className="rounded-2xl border border-white/10 bg-black/30 p-6 space-y-4">
           <h3 className="font-heading text-lg font-semibold text-white">Culture Points quests</h3>
           <p className="text-sm text-zinc-400">
             Connect wallet, complete lessons, then sign once per quest. LP proof awards points when
-            you hold Aerodrome LP tokens (if pool is configured).
+            you hold Aerodrome LP or Balancer BPT (if configured).
           </p>
           <div className="flex flex-wrap gap-3">
             <Button

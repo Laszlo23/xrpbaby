@@ -29,7 +29,10 @@ import {
   ladderSummary,
   usdPriceForTotalMinted,
 } from "@/lib/identity/mint-ladder";
-import { handlePolicyUserMessage, validateHandleForPromoMint } from "@/lib/identity/handle-policy";
+import {
+  handlePolicyUserMessage,
+  validateHandleForPromoMint,
+} from "@/lib/identity/handle-policy";
 import {
   getStoredReferralCode,
   persistReferralCodeFromUrl,
@@ -129,7 +132,11 @@ export function SearchMint({ id }: { id?: string }) {
   const [referralValid, setReferralValid] = useState<boolean | null>(null);
   const [referralError, setReferralError] = useState<string | null>(null);
   const [referralChecking, setReferralChecking] = useState(false);
-  const [mintError, setMintError] = useState<string | null>(null);
+  const [teamMintWallet, setTeamMintWallet] = useState(false);
+
+  useEffect(() => {
+    if (activeNetworkId !== "base") setPayWithBcc(false);
+  }, [activeNetworkId]);
 
   useEffect(() => {
     if (search.name) setName(search.name);
@@ -154,7 +161,10 @@ export function SearchMint({ id }: { id?: string }) {
   const fullIdentityDisplay = `${clean}${tld}`;
   const tldId = tldLabelToId(tld);
 
-  const handlePolicy = useMemo(() => validateHandleForPromoMint(clean), [clean]);
+  const handlePolicy = useMemo(
+    () => validateHandleForPromoMint(clean, { teamWallet: teamMintWallet }),
+    [clean, teamMintWallet],
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedHandle(clean), 400);
@@ -187,7 +197,12 @@ export function SearchMint({ id }: { id?: string }) {
         handle: clean,
       });
       const res = await fetch(`/api/identity/referral/validate?${params}`);
-      const data = (await res.json()) as { ok?: boolean; error?: string };
+      const data = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        teamMintWallet?: boolean;
+      };
+      setTeamMintWallet(Boolean(data.teamMintWallet));
       if (data.ok) {
         setReferralValid(true);
         setReferralError(null);
@@ -206,6 +221,24 @@ export function SearchMint({ id }: { id?: string }) {
   }, [address, clean, handlePolicy, referralCode]);
 
   useEffect(() => {
+    if (!address) {
+      setTeamMintWallet(false);
+      return;
+    }
+    const params = new URLSearchParams({
+      code: referralCode.trim().toUpperCase() || "BUILD77",
+      wallet: address,
+      handle: clean.length >= 4 ? clean : "team",
+    });
+    void fetch(`/api/identity/referral/validate?${params}`)
+      .then((res) => res.json())
+      .then((data: { teamMintWallet?: boolean }) => {
+        setTeamMintWallet(Boolean(data.teamMintWallet));
+      })
+      .catch(() => setTeamMintWallet(false));
+  }, [address, clean, referralCode]);
+
+  useEffect(() => {
     if (!address || referralCode.trim().length < 4 || !handlePolicy.ok) {
       setReferralValid(null);
       if (referralCode.trim().length >= 4 && !handlePolicy.ok) {
@@ -219,9 +252,10 @@ export function SearchMint({ id }: { id?: string }) {
     return () => clearTimeout(timer);
   }, [address, clean, handlePolicy, referralCode, validateReferral]);
 
+  const minHandleLen = teamMintWallet ? 1 : 3;
   const canCheckAvailability =
     isIdentityContractConfigured &&
-    debouncedHandle.length >= 3 &&
+    debouncedHandle.length >= minHandleLen &&
     debouncedHandle !== "yourname" &&
     tldId !== null;
 
@@ -279,8 +313,13 @@ export function SearchMint({ id }: { id?: string }) {
     if (!isIdentityContractConfigured) {
       return { label: "contract not configured", className: "text-zinc-500" };
     }
-    if (clean.length < 3 || clean === "yourname") {
-      return { label: "enter at least 4 characters for promo mint", className: "text-zinc-500" };
+    if (clean === "yourname" || clean.length < minHandleLen) {
+      return {
+        label: teamMintWallet
+          ? "enter your handle (1+ characters)"
+          : "enter at least 4 characters for promo mint",
+        className: "text-zinc-500",
+      };
     }
     if (!handlePolicy.ok) {
       return {
@@ -305,6 +344,8 @@ export function SearchMint({ id }: { id?: string }) {
     isAvailable,
     isCheckingAvailability,
     isIdentityContractConfigured,
+    minHandleLen,
+    teamMintWallet,
   ]);
 
   useEffect(() => {
@@ -435,8 +476,8 @@ export function SearchMint({ id }: { id?: string }) {
         await switchChainAsync({ chainId: identityChainId });
       } catch {
         setMintError(`Switch to ${identityChainLabel} to mint your identity.`);
+        return;
       }
-      return;
     }
 
     if (isAvailable === false) {

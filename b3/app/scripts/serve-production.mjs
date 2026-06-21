@@ -57,8 +57,20 @@ function mimeForFile(filePath) {
       return "font/woff";
     case ".mp4":
       return "video/mp4";
+    case ".mp3":
+      return "audio/mpeg";
+    case ".m4a":
+      return "audio/mp4";
+    case ".ogg":
+      return "audio/ogg";
+    case ".wav":
+      return "audio/wav";
     case ".webmanifest":
       return "application/manifest+json";
+    case ".pdf":
+      return "application/pdf";
+    case ".html":
+      return "text/html; charset=utf-8";
     default:
       return "application/octet-stream";
   }
@@ -92,10 +104,41 @@ async function tryServeClientStatic(req, res, urlPathname) {
   }
   if (!st.isFile()) return false;
 
-  res.statusCode = 200;
+  const rangeHeader = req.headers.range;
+  let start = 0;
+  let end = st.size - 1;
+  let statusCode = 200;
+
+  if (rangeHeader) {
+    const match = /^bytes=(\d*)-(\d*)$/.exec(rangeHeader);
+    if (match) {
+      const parsedStart = match[1] ? Number.parseInt(match[1], 10) : 0;
+      const parsedEnd = match[2] ? Number.parseInt(match[2], 10) : st.size - 1;
+      if (
+        Number.isFinite(parsedStart) &&
+        Number.isFinite(parsedEnd) &&
+        parsedStart <= parsedEnd &&
+        parsedStart < st.size
+      ) {
+        start = parsedStart;
+        end = Math.min(parsedEnd, st.size - 1);
+        statusCode = 206;
+      }
+    }
+  }
+
+  const chunkSize = end - start + 1;
+
+  res.statusCode = statusCode;
   applyStaticSecurityHeaders(res);
   res.setHeader("Content-Type", mimeForFile(filePath));
-  res.setHeader("Content-Length", String(st.size));
+  res.setHeader("Accept-Ranges", "bytes");
+  if (statusCode === 206) {
+    res.setHeader("Content-Range", `bytes ${start}-${end}/${st.size}`);
+    res.setHeader("Content-Length", String(chunkSize));
+  } else {
+    res.setHeader("Content-Length", String(st.size));
+  }
   if (urlPathname.startsWith("/assets/") || urlPathname.startsWith("/landing/")) {
     res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
   } else {
@@ -107,7 +150,7 @@ async function tryServeClientStatic(req, res, urlPathname) {
     return true;
   }
 
-  await pipeline(fs.createReadStream(filePath), res);
+  await pipeline(fs.createReadStream(filePath, { start, end }), res);
   return true;
 }
 

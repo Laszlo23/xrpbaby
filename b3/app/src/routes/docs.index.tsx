@@ -63,6 +63,14 @@ function DocsIndexPage() {
               Specification RFC
             </Link>
           </li>
+          <li>
+            <a
+              href="/docs/building-culture-whitepaper.pdf"
+              className="text-emerald-300 underline underline-offset-2 hover:text-white"
+            >
+              Ecosystem whitepaper (PDF)
+            </a>
+          </li>
         </ul>
       </div>
       <div className="mb-10 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.06] p-4 text-sm text-zinc-300">

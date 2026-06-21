@@ -19,7 +19,7 @@ effectiveMultiplierBps = clamp(
 |-------|--------|
 | **Activation** | Daily check-in, Well spin, or quest completion (decays −5%/UTC day idle) |
 | **Stake** | Culture Roots pool tier (reuses `STAKING_BOOST_BPS`: 1.0× / 1.15× / 1.25×) |
-| **LP** | Aerodrome BCC LP proof — tiers by position size |
+| **LP** | Aerodrome BCC LP or Balancer BPT proof — tiers by position size (max balance wins) |
 | **Burn** | Rolling 30d `MemberPowerProof` rows (`bcc_burn` kind) |
 | **Streak** | +2% per consecutive maintenance day, cap 7 days |
 

@@ -1,6 +1,13 @@
 import { BCC_UNISWAP_URL } from "@bc/bcc-kit";
 
 import { BCC_AERODROME, aerodromeGaugeUrl, isAerodromeLiquidityEnabled } from "@/lib/aerodrome-bcc";
+import {
+  BCC_BALANCER,
+  balancerGaugeUrl,
+  balancerPoolUrl,
+  balancerSwapUrl,
+  isBalancerLiquidityEnabled,
+} from "@/lib/balancer-bcc";
 import { redemptionPolicy } from "@/lib/redemption-policy";
 import { getBccTokenAddress } from "@/server/market/env";
 
@@ -19,7 +26,7 @@ type DexPair = {
 };
 
 export type BccPoolSnapshot = {
-  dex: "uniswap" | "aerodrome" | "pancakeswap" | "other";
+  dex: "uniswap" | "aerodrome" | "balancer" | "pancakeswap" | "other";
   chainId: number;
   pairAddress: string | null;
   liquidityUsd: number | null;
@@ -50,6 +57,19 @@ export type BccAerodromeConfig = {
   routing: "aerodrome" | "uniswap_fallback";
 };
 
+export type BccBalancerConfig = {
+  enabled: boolean;
+  poolConfigured: boolean;
+  poolLive: boolean;
+  poolAddress: string | null;
+  bptAddress: string | null;
+  gaugeAddress: string | null;
+  depositUrl: string | null;
+  gaugeUrl: string | null;
+  swapUrl: string | null;
+  ownerSafe: string;
+};
+
 export type BccLiquidityMarket = {
   symbol: string;
   chainId: number;
@@ -62,6 +82,7 @@ export type BccLiquidityMarket = {
   baseLiquidityUsd: number | null;
   bscLiquidityUsd: number | null;
   aerodrome: BccAerodromeConfig;
+  balancer: BccBalancerConfig;
   pancakeswap: BccPancakeConfig;
   redemption: {
     enabled: boolean;
@@ -94,10 +115,23 @@ function aerodromeLpFromEnv(): string | null {
   return envServer("VITE_BCC_AERODROME_LP_TOKEN") || envServer("BCC_AERODROME_LP_TOKEN") || null;
 }
 
+function balancerPoolFromEnv(): string | null {
+  return envServer("VITE_BCC_BALANCER_POOL") || envServer("BCC_BALANCER_POOL") || null;
+}
+
+function balancerBptFromEnv(): string | null {
+  return envServer("VITE_BCC_BALANCER_BPT") || envServer("BCC_BALANCER_BPT") || null;
+}
+
+function balancerGaugeFromEnv(): string | null {
+  return envServer("VITE_BCC_BALANCER_GAUGE") || envServer("BCC_BALANCER_GAUGE") || null;
+}
+
 function classifyDex(dexId: string | undefined): BccPoolSnapshot["dex"] {
   const d = (dexId ?? "").toLowerCase();
   if (d.includes("uniswap")) return "uniswap";
   if (d.includes("aerodrome") || d === "aero") return "aerodrome";
+  if (d.includes("balancer")) return "balancer";
   if (d.includes("pancake")) return "pancakeswap";
   return "other";
 }
@@ -150,6 +184,10 @@ function aerodromeEnabledServer(): boolean {
   return isAerodromeLiquidityEnabled(process.env as Record<string, string | undefined>);
 }
 
+function balancerEnabledServer(): boolean {
+  return isBalancerLiquidityEnabled(process.env as Record<string, string | undefined>);
+}
+
 export function buildAerodromeUrls(
   pool: string | null,
   gauge: string | null,
@@ -172,6 +210,63 @@ export function buildAerodromeUrls(
         : null;
   const swapUrl = enabled || pool ? BCC_AERODROME.swapUrl : null;
   return { depositUrl, gaugeUrl, swapUrl };
+}
+
+export function buildBalancerUrls(
+  pool: string | null,
+  gauge: string | null,
+  enabled: boolean,
+): {
+  depositUrl: string | null;
+  gaugeUrl: string | null;
+  swapUrl: string | null;
+} {
+  if (!enabled && !pool && !gauge) {
+    return { depositUrl: null, gaugeUrl: null, swapUrl: null };
+  }
+  const depositUrl = pool ? balancerPoolUrl(pool) : BCC_BALANCER.createPoolUrl;
+  const gaugeUrl = gauge
+    ? balancerGaugeUrl(gauge)
+    : pool
+      ? balancerGaugeUrl(pool)
+      : enabled
+        ? BCC_BALANCER.explorePoolsUrl
+        : null;
+  const swapUrl = enabled || pool ? balancerSwapUrl() : null;
+  return { depositUrl, gaugeUrl, swapUrl };
+}
+
+function buildMarketNote(opts: {
+  pancakeLive: boolean;
+  aerodromePoolLive: boolean;
+  balancerPoolLive: boolean;
+  aerodromeEnabled: boolean;
+  balancerEnabled: boolean;
+  bscOft: string | null;
+}): string {
+  const venues: string[] = ["Uniswap primary on Base"];
+  if (opts.aerodromePoolLive || opts.aerodromeEnabled) venues.push("Aerodrome secondary");
+  if (opts.balancerPoolLive || opts.balancerEnabled) venues.push("Balancer DAO treasury pool");
+  if (opts.pancakeLive) venues.push("BSC PancakeSwap via OFT");
+  if (opts.pancakeLive) {
+    return `BCC liquidity: ${venues.join("; ")}.`;
+  }
+  if (opts.balancerPoolLive) {
+    return "BCC on Uniswap (primary), Aerodrome, and Balancer on Base — DAO Safe owns Balancer pool policy.";
+  }
+  if (opts.aerodromePoolLive) {
+    return "BCC is routable on Aerodrome; Uniswap remains primary on Base.";
+  }
+  if (opts.balancerEnabled) {
+    return "Balancer BCC/WETH enabled — create or seed via Balancer UI (Safe owner); Uniswap is live today.";
+  }
+  if (opts.bscOft) {
+    return "BSC OFT configured — seed PancakeSwap BCC/WBNB pool via npm run pancakeswap:seed.";
+  }
+  if (opts.aerodromeEnabled) {
+    return "Aerodrome BCC/WETH enabled — create or seed the pool via deposit link; Uniswap is live today.";
+  }
+  return "BCC primary liquidity is on Uniswap. Enable Aerodrome or Balancer env after operator deploy.";
 }
 
 export async function buildBccLiquidityMarket(opts?: {
@@ -197,6 +292,15 @@ export async function buildBccLiquidityMarket(opts?: {
     aerodromeGauge,
     enabled,
   );
+
+  const balancerPool = balancerPoolFromEnv();
+  const balancerBpt = balancerBptFromEnv();
+  const balancerGauge = balancerGaugeFromEnv();
+  const dexBalancerPair = pools.find((p) => p.dex === "balancer" && p.pairAddress);
+  const resolvedBalancerPool = balancerPool ?? dexBalancerPair?.pairAddress ?? null;
+  const resolvedBalancerBpt = balancerBpt ?? resolvedBalancerPool;
+  const balancerEnabled = balancerEnabledServer();
+  const balancerUrls = buildBalancerUrls(resolvedBalancerPool, balancerGauge, balancerEnabled);
 
   const baseLiquidityUsd = basePools.reduce((s, p) => s + (p.liquidityUsd ?? 0), 0) || null;
   const bscLiquidityUsd = bscPools.reduce((s, p) => s + (p.liquidityUsd ?? 0), 0) || null;
@@ -226,6 +330,7 @@ export async function buildBccLiquidityMarket(opts?: {
     combined != null && minTvl > 0 ? Math.min(100, Math.round((tvl / minTvl) * 100)) : null;
 
   const poolLive = pools.some((p) => p.dex === "aerodrome" && (p.liquidityUsd ?? 0) > 0);
+  const balancerPoolLive = pools.some((p) => p.dex === "balancer" && (p.liquidityUsd ?? 0) > 0);
   const hasAerodromeRouting = Boolean(resolvedPool) || poolLive;
 
   return {
@@ -251,6 +356,18 @@ export async function buildBccLiquidityMarket(opts?: {
       swapUrl,
       routing: hasAerodromeRouting ? "aerodrome" : "uniswap_fallback",
     },
+    balancer: {
+      enabled: balancerEnabled,
+      poolConfigured: Boolean(resolvedBalancerPool),
+      poolLive: balancerPoolLive,
+      poolAddress: resolvedBalancerPool,
+      bptAddress: resolvedBalancerBpt,
+      gaugeAddress: balancerGauge,
+      depositUrl: balancerUrls.depositUrl,
+      gaugeUrl: balancerUrls.gaugeUrl,
+      swapUrl: balancerUrls.swapUrl,
+      ownerSafe: BCC_BALANCER.protocolSafe,
+    },
     pancakeswap: {
       enabled: Boolean(bscOft),
       poolConfigured: Boolean(resolvedPancakePool),
@@ -271,14 +388,13 @@ export async function buildBccLiquidityMarket(opts?: {
     },
     tradingAgentReachable: opts?.tradingAgentReachable,
     quoteBccUrl: opts?.quoteBccUrl,
-    note: pancakeLive
-      ? "BCC liquidity on Base (Uniswap/Aerodrome) and BSC (PancakeSwap) — same token via OFT bridge."
-      : poolLive
-        ? "BCC is routable on Aerodrome; Uniswap remains primary on Base."
-        : bscOft
-          ? "BSC OFT configured — seed PancakeSwap BCC/WBNB pool via npm run pancakeswap:seed."
-          : enabled
-            ? "Aerodrome BCC/WETH enabled — create or seed the pool via deposit link; Uniswap is live today."
-            : "BCC primary liquidity is on Uniswap. Set VITE_BCC_AERODROME_ENABLED=1 or VITE_BCC_AERODROME_POOL after deploy.",
+    note: buildMarketNote({
+      pancakeLive,
+      aerodromePoolLive: poolLive,
+      balancerPoolLive,
+      aerodromeEnabled: enabled,
+      balancerEnabled,
+      bscOft,
+    }),
   };
 }

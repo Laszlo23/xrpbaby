@@ -11,6 +11,7 @@ import { useSwitchChain } from "wagmi";
 import { getIdentityConfigForNetwork } from "@/lib/identity/config";
 import {
   DEFAULT_IDENTITY_NETWORK_ID,
+  getIdentityNetwork,
   isIdentityNetworkId,
   type IdentityNetworkId,
 } from "@/lib/identity/networks";
@@ -21,7 +22,8 @@ type CultureNetworkContextValue = {
   activeNetworkId: IdentityNetworkId;
   setActiveNetworkId: (id: IdentityNetworkId) => void;
   identity: ReturnType<typeof getIdentityConfigForNetwork>;
-  switchToActiveChain: () => Promise<void>;
+  /** Pass `networkId` when switching immediately after `setActiveNetworkId` (avoids stale chain). */
+  switchToActiveChain: (networkId?: IdentityNetworkId) => Promise<void>;
 };
 
 const CultureNetworkContext = createContext<CultureNetworkContextValue | null>(null);
@@ -54,10 +56,14 @@ export function CultureNetworkProvider({ children }: { children: ReactNode }) {
 
   const identity = useMemo(() => getIdentityConfigForNetwork(activeNetworkId), [activeNetworkId]);
 
-  const switchToActiveChain = useCallback(async () => {
-    if (!switchChainAsync) return;
-    await switchChainAsync({ chainId: identity.identityChainId });
-  }, [switchChainAsync, identity.identityChainId]);
+  const switchToActiveChain = useCallback(
+    async (networkId?: IdentityNetworkId) => {
+      if (!switchChainAsync) return;
+      const chainId = getIdentityNetwork(networkId ?? activeNetworkId).chainId;
+      await switchChainAsync({ chainId });
+    },
+    [switchChainAsync, activeNetworkId],
+  );
 
   const value = useMemo(
     () => ({

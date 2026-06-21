@@ -24,19 +24,22 @@ export const Route = createFileRoute("/api/identity/referral/validate")({
         }
 
         const { validateReferralForMint } = await import("@/server/identity/referral-codes");
+        const { isIdentityTeamWallet } = await import("@/lib/identity/handle-policy");
         const { usdPriceForTotalMinted } = await import("@/lib/identity/mint-ladder");
 
         const result = await validateReferralForMint(prisma, { wallet, code, handle });
+        const teamMintWallet = isIdentityTeamWallet(wallet);
         if (!result.ok) {
           const status =
             result.error === "reserved_team" || result.error === "handle_too_short" ? 400 : 403;
-          return Response.json(result, { status });
+          return Response.json({ ...result, teamMintWallet }, { status });
         }
 
         return Response.json({
           ok: true,
           code: result.code,
           isLaunchCode: result.isLaunchCode,
+          teamMintWallet,
           tierUsd: usdPriceForTotalMinted(0),
           referralMintPoints: 25,
         });

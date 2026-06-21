@@ -211,6 +211,7 @@ import { Route as ApiFeedbackMineRouteImport } from './routes/api/feedback/mine'
 import { Route as ApiExplorerLookupRouteImport } from './routes/api/explorer/lookup'
 import { Route as ApiExplorerFeedRouteImport } from './routes/api/explorer/feed'
 import { Route as ApiEliasInboundRouteImport } from './routes/api/elias/inbound'
+import { Route as ApiDaoVotingWeightRouteImport } from './routes/api/dao/voting-weight'
 import { Route as ApiCredentialsMemberRouteImport } from './routes/api/credentials/member'
 import { Route as ApiCredentialsLeaderboardRouteImport } from './routes/api/credentials/leaderboard'
 import { Route as ApiCredentialsClaimRouteImport } from './routes/api/credentials/claim'
@@ -259,6 +260,7 @@ import { Route as ApiPointsRedeemQuoteRouteImport } from './routes/api/points/re
 import { Route as ApiOpsOutreachSendRouteImport } from './routes/api/ops/outreach/send'
 import { Route as ApiOpsOutreachDraftRouteImport } from './routes/api/ops/outreach/draft'
 import { Route as ApiMemberCulturePowerRefreshRouteImport } from './routes/api/member/culture-power/refresh'
+import { Route as ApiMediaBuilderTapesFileRouteImport } from './routes/api/media/builder-tapes/$file'
 import { Route as ApiMarketplaceServicesPayRouteImport } from './routes/api/marketplace/services/pay'
 import { Route as ApiMarketplaceServicesDashboardRouteImport } from './routes/api/marketplace/services/dashboard'
 import { Route as ApiMarketplaceServicesCheckoutRouteImport } from './routes/api/marketplace/services/checkout'
@@ -1317,6 +1319,11 @@ const ApiEliasInboundRoute = ApiEliasInboundRouteImport.update({
   path: '/api/elias/inbound',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDaoVotingWeightRoute = ApiDaoVotingWeightRouteImport.update({
+  id: '/api/dao/voting-weight',
+  path: '/api/dao/voting-weight',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiCredentialsMemberRoute = ApiCredentialsMemberRouteImport.update({
   id: '/api/credentials/member',
   path: '/api/credentials/member',
@@ -1566,6 +1573,12 @@ const ApiMemberCulturePowerRefreshRoute =
     id: '/refresh',
     path: '/refresh',
     getParentRoute: () => ApiMemberCulturePowerRoute,
+  } as any)
+const ApiMediaBuilderTapesFileRoute =
+  ApiMediaBuilderTapesFileRouteImport.update({
+    id: '/api/media/builder-tapes/$file',
+    path: '/api/media/builder-tapes/$file',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ApiMarketplaceServicesPayRoute =
   ApiMarketplaceServicesPayRouteImport.update({
@@ -1908,6 +1921,7 @@ export interface FileRoutesByFullPath {
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
   '/api/credentials/leaderboard': typeof ApiCredentialsLeaderboardRoute
   '/api/credentials/member': typeof ApiCredentialsMemberRoute
+  '/api/dao/voting-weight': typeof ApiDaoVotingWeightRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/explorer/feed': typeof ApiExplorerFeedRoute
   '/api/explorer/lookup': typeof ApiExplorerLookupRoute
@@ -2032,6 +2046,7 @@ export interface FileRoutesByFullPath {
   '/api/marketplace/services/checkout': typeof ApiMarketplaceServicesCheckoutRoute
   '/api/marketplace/services/dashboard': typeof ApiMarketplaceServicesDashboardRoute
   '/api/marketplace/services/pay': typeof ApiMarketplaceServicesPayRoute
+  '/api/media/builder-tapes/$file': typeof ApiMediaBuilderTapesFileRoute
   '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
   '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
   '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
@@ -2194,6 +2209,7 @@ export interface FileRoutesByTo {
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
   '/api/credentials/leaderboard': typeof ApiCredentialsLeaderboardRoute
   '/api/credentials/member': typeof ApiCredentialsMemberRoute
+  '/api/dao/voting-weight': typeof ApiDaoVotingWeightRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/explorer/feed': typeof ApiExplorerFeedRoute
   '/api/explorer/lookup': typeof ApiExplorerLookupRoute
@@ -2318,6 +2334,7 @@ export interface FileRoutesByTo {
   '/api/marketplace/services/checkout': typeof ApiMarketplaceServicesCheckoutRoute
   '/api/marketplace/services/dashboard': typeof ApiMarketplaceServicesDashboardRoute
   '/api/marketplace/services/pay': typeof ApiMarketplaceServicesPayRoute
+  '/api/media/builder-tapes/$file': typeof ApiMediaBuilderTapesFileRoute
   '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
   '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
   '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
@@ -2483,6 +2500,7 @@ export interface FileRoutesById {
   '/api/credentials/claim': typeof ApiCredentialsClaimRoute
   '/api/credentials/leaderboard': typeof ApiCredentialsLeaderboardRoute
   '/api/credentials/member': typeof ApiCredentialsMemberRoute
+  '/api/dao/voting-weight': typeof ApiDaoVotingWeightRoute
   '/api/elias/inbound': typeof ApiEliasInboundRoute
   '/api/explorer/feed': typeof ApiExplorerFeedRoute
   '/api/explorer/lookup': typeof ApiExplorerLookupRoute
@@ -2607,6 +2625,7 @@ export interface FileRoutesById {
   '/api/marketplace/services/checkout': typeof ApiMarketplaceServicesCheckoutRoute
   '/api/marketplace/services/dashboard': typeof ApiMarketplaceServicesDashboardRoute
   '/api/marketplace/services/pay': typeof ApiMarketplaceServicesPayRoute
+  '/api/media/builder-tapes/$file': typeof ApiMediaBuilderTapesFileRoute
   '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
   '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
   '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
@@ -2773,6 +2792,7 @@ export interface FileRouteTypes {
     | '/api/credentials/claim'
     | '/api/credentials/leaderboard'
     | '/api/credentials/member'
+    | '/api/dao/voting-weight'
     | '/api/elias/inbound'
     | '/api/explorer/feed'
     | '/api/explorer/lookup'
@@ -2897,6 +2917,7 @@ export interface FileRouteTypes {
     | '/api/marketplace/services/checkout'
     | '/api/marketplace/services/dashboard'
     | '/api/marketplace/services/pay'
+    | '/api/media/builder-tapes/$file'
     | '/api/member/culture-power/refresh'
     | '/api/ops/outreach/draft'
     | '/api/ops/outreach/send'
@@ -3059,6 +3080,7 @@ export interface FileRouteTypes {
     | '/api/credentials/claim'
     | '/api/credentials/leaderboard'
     | '/api/credentials/member'
+    | '/api/dao/voting-weight'
     | '/api/elias/inbound'
     | '/api/explorer/feed'
     | '/api/explorer/lookup'
@@ -3183,6 +3205,7 @@ export interface FileRouteTypes {
     | '/api/marketplace/services/checkout'
     | '/api/marketplace/services/dashboard'
     | '/api/marketplace/services/pay'
+    | '/api/media/builder-tapes/$file'
     | '/api/member/culture-power/refresh'
     | '/api/ops/outreach/draft'
     | '/api/ops/outreach/send'
@@ -3347,6 +3370,7 @@ export interface FileRouteTypes {
     | '/api/credentials/claim'
     | '/api/credentials/leaderboard'
     | '/api/credentials/member'
+    | '/api/dao/voting-weight'
     | '/api/elias/inbound'
     | '/api/explorer/feed'
     | '/api/explorer/lookup'
@@ -3471,6 +3495,7 @@ export interface FileRouteTypes {
     | '/api/marketplace/services/checkout'
     | '/api/marketplace/services/dashboard'
     | '/api/marketplace/services/pay'
+    | '/api/media/builder-tapes/$file'
     | '/api/member/culture-power/refresh'
     | '/api/ops/outreach/draft'
     | '/api/ops/outreach/send'
@@ -3625,6 +3650,7 @@ export interface RootRouteChildren {
   ApiCredentialsClaimRoute: typeof ApiCredentialsClaimRoute
   ApiCredentialsLeaderboardRoute: typeof ApiCredentialsLeaderboardRoute
   ApiCredentialsMemberRoute: typeof ApiCredentialsMemberRoute
+  ApiDaoVotingWeightRoute: typeof ApiDaoVotingWeightRoute
   ApiEliasInboundRoute: typeof ApiEliasInboundRoute
   ApiExplorerFeedRoute: typeof ApiExplorerFeedRoute
   ApiExplorerLookupRoute: typeof ApiExplorerLookupRoute
@@ -3737,6 +3763,7 @@ export interface RootRouteChildren {
   ApiMarketplaceServicesCheckoutRoute: typeof ApiMarketplaceServicesCheckoutRoute
   ApiMarketplaceServicesDashboardRoute: typeof ApiMarketplaceServicesDashboardRoute
   ApiMarketplaceServicesPayRoute: typeof ApiMarketplaceServicesPayRoute
+  ApiMediaBuilderTapesFileRoute: typeof ApiMediaBuilderTapesFileRoute
   ApiOpsOutreachDraftRoute: typeof ApiOpsOutreachDraftRoute
   ApiOpsOutreachSendRoute: typeof ApiOpsOutreachSendRoute
   ApiPointsRedeemQuoteRoute: typeof ApiPointsRedeemQuoteRoute
@@ -5176,6 +5203,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiEliasInboundRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/dao/voting-weight': {
+      id: '/api/dao/voting-weight'
+      path: '/api/dao/voting-weight'
+      fullPath: '/api/dao/voting-weight'
+      preLoaderRoute: typeof ApiDaoVotingWeightRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/credentials/member': {
       id: '/api/credentials/member'
       path: '/api/credentials/member'
@@ -5511,6 +5545,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/member/culture-power/refresh'
       preLoaderRoute: typeof ApiMemberCulturePowerRefreshRouteImport
       parentRoute: typeof ApiMemberCulturePowerRoute
+    }
+    '/api/media/builder-tapes/$file': {
+      id: '/api/media/builder-tapes/$file'
+      path: '/api/media/builder-tapes/$file'
+      fullPath: '/api/media/builder-tapes/$file'
+      preLoaderRoute: typeof ApiMediaBuilderTapesFileRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/marketplace/services/pay': {
       id: '/api/marketplace/services/pay'
@@ -6076,6 +6117,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiCredentialsClaimRoute: ApiCredentialsClaimRoute,
   ApiCredentialsLeaderboardRoute: ApiCredentialsLeaderboardRoute,
   ApiCredentialsMemberRoute: ApiCredentialsMemberRoute,
+  ApiDaoVotingWeightRoute: ApiDaoVotingWeightRoute,
   ApiEliasInboundRoute: ApiEliasInboundRoute,
   ApiExplorerFeedRoute: ApiExplorerFeedRoute,
   ApiExplorerLookupRoute: ApiExplorerLookupRoute,
@@ -6189,6 +6231,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMarketplaceServicesCheckoutRoute: ApiMarketplaceServicesCheckoutRoute,
   ApiMarketplaceServicesDashboardRoute: ApiMarketplaceServicesDashboardRoute,
   ApiMarketplaceServicesPayRoute: ApiMarketplaceServicesPayRoute,
+  ApiMediaBuilderTapesFileRoute: ApiMediaBuilderTapesFileRoute,
   ApiOpsOutreachDraftRoute: ApiOpsOutreachDraftRoute,
   ApiOpsOutreachSendRoute: ApiOpsOutreachSendRoute,
   ApiPointsRedeemQuoteRoute: ApiPointsRedeemQuoteRoute,

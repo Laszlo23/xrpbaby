@@ -13,13 +13,31 @@ type AerodromeMeta = {
   routing: string;
 };
 
-export function DexDeepLinks({ aerodrome }: { aerodrome: AerodromeMeta }) {
+type BalancerMeta = {
+  enabled?: boolean;
+  poolConfigured: boolean;
+  poolLive?: boolean;
+  depositUrl: string | null;
+  gaugeUrl: string | null;
+  swapUrl?: string | null;
+  ownerSafe?: string;
+};
+
+export function DexDeepLinks({
+  aerodrome,
+  balancer,
+}: {
+  aerodrome: AerodromeMeta;
+  balancer?: BalancerMeta;
+}) {
   const links = buildLiquidityDexLinks();
   const aeroDeposit = aerodrome.depositUrl ?? links.aerodromeDeposit;
   const aeroGauge = aerodrome.gaugeUrl ?? links.aerodromeGauge;
+  const balDeposit = balancer?.depositUrl ?? links.balancerDeposit;
+  const balGauge = balancer?.gaugeUrl ?? links.balancerGauge;
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-4 lg:grid-cols-3">
       <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">Primary</p>
         <h3 className="mt-2 font-heading text-lg font-semibold text-white">Uniswap V3</h3>
@@ -70,6 +88,39 @@ export function DexDeepLinks({ aerodrome }: { aerodrome: AerodromeMeta }) {
             <Button variant="outline" className="rounded-full" asChild>
               <a href={aeroGauge} target="_blank" rel="noopener noreferrer">
                 Stake LP (gauge)
+              </a>
+            </Button>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">DAO</p>
+        <h3 className="mt-2 font-heading text-lg font-semibold text-white">Balancer</h3>
+        <p className="mt-2 text-sm text-zinc-400">
+          {balancer?.poolLive
+            ? "Safe-owned BCC/WETH on Balancer — stake BPT in a gauge for DAO incentive epochs."
+            : balancer?.enabled || balancer?.poolConfigured
+              ? "Balancer configured — Safe creates or seeds the DAO pool on Base."
+              : "Enable Balancer in deploy env for DAO treasury liquidity links."}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {balDeposit ? (
+            <Button variant="secondary" className="rounded-full" asChild>
+              <a href={balDeposit} target="_blank" rel="noopener noreferrer">
+                {balancer?.poolLive ? "Balancer pool" : "Create on Balancer"}
+                <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+              </a>
+            </Button>
+          ) : (
+            <Button variant="outline" className="rounded-full" disabled>
+              Pool not configured yet
+            </Button>
+          )}
+          {balGauge ? (
+            <Button variant="outline" className="rounded-full" asChild>
+              <a href={balGauge} target="_blank" rel="noopener noreferrer">
+                Stake BPT (gauge)
               </a>
             </Button>
           ) : null}

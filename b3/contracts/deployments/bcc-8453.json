@@ -14,6 +14,15 @@
     "depositUrl": "https://aerodrome.finance/deposit?token0=0xb890a5289f789f1346032ccc1847939e855fab07&token1=0x4200000000000000000000000000000000000006&chain=base",
     "note": "No Aerodrome listing yet (2026-06) — run npm run aerodrome:resolve after treasury seeds pool"
   },
+  "balancer": {
+    "enabled": true,
+    "pool": "",
+    "bpt": "",
+    "gauge": "",
+    "ownerSafe": "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c",
+    "createPoolUrl": "https://app.balancer.fi/#/base/pools/create",
+    "note": "No Balancer listing yet — run npm run balancer:pool-checklist then balancer:resolve -- --write"
+  },
   "contracts": {
     "BccRootsStaking": "0x42355c509743a92ebd6f2f7259d4f677eca18b4d",
     "BccTwapOracle": "",

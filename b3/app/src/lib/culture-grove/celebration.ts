@@ -1,7 +1,6 @@
 import confetti from "canvas-confetti";
 
-import { ipfsToHttp } from "@/lib/ipfs-gateway";
-import { TWIN_BLOOM_AUDIO_CID } from "@/lib/culture-grove/types";
+import { builderTapeAudioUrl } from "@/content/builder-tapes";
 
 const CELEBRATED_KEY = "grove-twin-bloom-celebrated";
 const MUTE_KEY = "grove-twin-bloom-audio-muted";
@@ -39,9 +38,7 @@ export function setTwinBloomAudioMuted(muted: boolean): void {
 }
 
 export function twinBloomAudioUrl(): string {
-  return (
-    ipfsToHttp(`ipfs://${TWIN_BLOOM_AUDIO_CID}`) ?? `https://ipfs.io/ipfs/${TWIN_BLOOM_AUDIO_CID}`
-  );
+  return builderTapeAudioUrl("Screen-Glow Hope.mp3");
 }
 
 export function fireTwinBloomConfetti(): void {

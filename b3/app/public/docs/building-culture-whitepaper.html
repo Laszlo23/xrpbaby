@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Culture Whitepaper v1.0-draft</title>
+  <style>
+    @page { size: A4; margin: 20mm 18mm 22mm 18mm; }
+    * { box-sizing: border-box; }
+    html { font-size: 10.5pt; }
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+      color: #1a1a1a;
+      margin: 0;
+      background: #fff;
+    }
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 40px;
+      page-break-after: always;
+      background: linear-gradient(160deg, #0f1419 0%, #1a2332 45%, #0d1117 100%);
+      color: #f5f5f0;
+    }
+    .cover .label {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8b9cb3;
+      margin-bottom: 24px;
+    }
+    .cover h1 {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.12;
+      margin: 0 0 16px;
+    }
+    .cover .subtitle {
+      font-size: 1.1rem;
+      color: #c8d0dc;
+      max-width: 30em;
+      margin-bottom: 40px;
+    }
+    .cover .meta {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.82rem;
+      color: #8b9cb3;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 20px;
+    }
+    .cover .meta p { margin: 5px 0; }
+    .cover a { color: #7eb8ff; text-decoration: none; }
+    main { padding: 0 36px 40px; max-width: 210mm; margin: 0 auto; }
+    h1, h2, h3 {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #0f1419;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 1.55rem; margin-top: 2rem; border-bottom: 2px solid #0f1419; padding-bottom: 6px; }
+    h2 { font-size: 1.15rem; margin-top: 1.5rem; color: #1a2332; }
+    h3 { font-size: 0.98rem; margin-top: 1.1rem; color: #2d3748; }
+    p { margin: 0.65em 0; text-align: justify; }
+    .abstract {
+      background: #f7f8fa;
+      border-left: 4px solid #1a2332;
+      padding: 14px 18px;
+      margin: 18px 0;
+      font-style: italic;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.86rem;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #1a2332;
+      color: #fff;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 600;
+    }
+    tr:nth-child(even) td { background: #f9fafb; }
+    pre {
+      font-family: "SF Mono", Consolas, monospace;
+      font-size: 0.78rem;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      padding: 10px 12px;
+      overflow-x: auto;
+      page-break-inside: avoid;
+    }
+    .toc { page-break-after: always; padding-top: 16px; }
+    .toc ol { line-height: 1.7; }
+    .disclaimer {
+      margin-top: 36px;
+      padding: 14px;
+      border: 1px solid #d1d5db;
+      background: #fefce8;
+      font-size: 0.88rem;
+      page-break-inside: avoid;
+    }
+    .page-break { page-break-before: always; }
+    ul, ol { margin: 0.4em 0; padding-left: 1.3em; }
+    li { margin: 0.3em 0; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .cover { min-height: auto; height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="label">Technical Whitepaper · v1.0-draft · June 2026</div>
+  <h1>Building Culture</h1>
+  <p class="subtitle">A proof-first on-chain culture ecosystem — identity, reputation, utility economics, agent accountability, and RWA infrastructure on Base.</p>
+  <div class="meta">
+    <p><strong>Canonical entrypoint:</strong> app.buildingcultureid.space</p>
+    <p><strong>Live verification:</strong> app.buildingcultureid.space/grant-proof</p>
+    <p><strong>Contact:</strong> hello@buildingcultureid.space</p>
+  </div>
+</section>
+
+<main>
+  <section class="toc">
+    <h1>Contents</h1>
+    <ol>
+      <li>Abstract</li>
+      <li>Introduction</li>
+      <li>Problem Statement</li>
+      <li>Solution Overview</li>
+      <li>Architecture</li>
+      <li>BCC Token Economics</li>
+      <li>Security &amp; Privacy</li>
+      <li>Ecosystem Orbit</li>
+      <li>Competitive Positioning</li>
+      <li>Roadmap</li>
+      <li>KPI Framework</li>
+      <li>Risks &amp; Limitations</li>
+      <li>Verification &amp; Contact</li>
+      <li>Conclusion</li>
+    </ol>
+  </section>
+
+  <h1>Abstract</h1>
+  <div class="abstract">
+    Building Culture is a proof-first on-chain culture ecosystem on Base. It connects community participation, portable identity, utility token economics, AI agent accountability, and real-world asset (RWA) infrastructure into one inspectable stack. The platform ships culture receipts on-chain: verified identity (.culture names and BCID), reputation and credentials, BCC utility settlement, fractional property shares (Places REOC), provably fair experience drops, and agent identity on 0G.
+  </div>
+  <p>Every major claim is verifiable in minutes via automated production checks — not narrative alone. This document describes the problem, architecture, token model, compliance posture, agent economy, roadmap, and risks. It is technical protocol material — not legal, tax, or investment advice.</p>
+
+  <h1>1. Introduction</h1>
+  <h2>1.1 The Gap</h2>
+  <p>Web3 culture and real-estate participation today suffer from four structural failures:</p>
+  <ol>
+    <li><strong>No portable professional identity</strong> — Credentials live in silos. DAOs cannot cheaply verify shipped work versus social farming.</li>
+    <li><strong>High sybil cost</strong> — Human-proof layers exist but are not integrated with builder reputation.</li>
+    <li><strong>Undefined agent accountability</strong> — AI agents operate wallets without standard binding to human owners or revenue attribution.</li>
+    <li><strong>Opaque RWA settlement</strong> — Fractional participation lacks inspectable settlement and compliance hooks.</li>
+  </ol>
+  <h2>1.2 North Star</h2>
+  <p>Build a proof-first on-chain culture ecosystem where community actions, identity, and utility are measurable, attributable, and compounding across products.</p>
+  <h2>1.3 Design Principles</h2>
+  <table>
+    <tr><th>Principle</th><th>Implementation</th></tr>
+    <tr><td>Proof-first</td><td>Automated /grant-proof verifier; on-chain addresses in ADDRESSES.md</td></tr>
+    <tr><td>Clear product boundaries</td><td>Play ≠ Places shares ≠ NFT marketplace</td></tr>
+    <tr><td>Non-speculative utility</td><td>BCC = community credits and product access, not yield promises</td></tr>
+    <tr><td>Interoperability</td><td>BCID complements ENS, EAS, World ID, ERC-8004</td></tr>
+    <tr><td>Honest compliance claims</td><td>Chainlink modules shipped; certification only with partner + audit evidence</td></tr>
+  </table>
+
+  <h1 class="page-break">2. Problem Statement</h1>
+  <h2>2.1 Builder Identity Is Not Portable</h2>
+  <p>Professional credentials are platform-bound. Web3 grants cannot verify that an applicant has shipped work. Follower counts are poor proxies for contribution.</p>
+  <h2>2.2 Sybil Resistance Without Reputation Integration</h2>
+  <p>World ID proves humanity but not professional contribution. EAS provides schemas without a canonical identity namespace.</p>
+  <h2>2.3 Agent Economy Lacks Ownership Graphs</h2>
+  <p>AI agents need discoverable identity (ERC-8004), delegated wallets with spend caps, verifiable task history, and revenue attribution.</p>
+  <h2>2.4 RWA Needs Compliance-Native Infrastructure</h2>
+  <p>Tokenized real estate requires permissioned transfers, NAV-priced subscription/redemption, reserve-backed mint caps, and KYC-to-onchain hooks.</p>
+
+  <h1>3. Solution Overview</h1>
+  <pre>
+app.buildingcultureid.space
+  /join  /forest  /pass  /play  /marketplace  /places  /investors
+        │
+   Culture ID (.culture) ── BCID v1 ── BCC ── Places REOC ── Agent OS
+        │
+   Trust Layer: Credentials → Reputation → Access → Agents → Economy
+  </pre>
+  <h2>3.1 Product Boundaries</h2>
+  <table>
+    <tr><th>Surface</th><th>What It Is</th><th>What It Is NOT</th></tr>
+    <tr><td>/play</td><td>Experience drops &amp; raffle tickets (VRF)</td><td>Property share securities</td></tr>
+    <tr><td>/marketplace</td><td>ERC-721 secondary NFT market</td><td>Fractional real estate</td></tr>
+    <tr><td>/places</td><td>REOC property share tokens, compliance-gated</td><td>Generic NFT trading</td></tr>
+    <tr><td>/pass</td><td>.culture identity mint on Base</td><td>BCID soulbound identity (parallel)</td></tr>
+    <tr><td>Culture Pulse</td><td>Social digest anchor</td><td>Asset Proof of Reserve</td></tr>
+  </table>
+
+  <h1 class="page-break">4. Architecture</h1>
+  <h2>4.1 Trust Layer (Live Production)</h2>
+  <p><strong>Culture ID → Credentials → Reputation → Access → Agents → Economy</strong></p>
+  <table>
+    <tr><th>Layer</th><th>Description</th></tr>
+    <tr><td>Culture ID</td><td>Transferable .culture ERC-721 namespace on Base</td></tr>
+    <tr><td>Credentials</td><td>Builder, Contributor, Community Leader, Verified Human, Trusted Agent, Verified Project</td></tr>
+    <tr><td>Reputation</td><td>Culture Reputation score — credentials and contributions over vanity metrics</td></tr>
+    <tr><td>Access</td><td>Gated surfaces based on credential + reputation rules</td></tr>
+    <tr><td>Agents</td><td>Grove marketing agent, Agent OS, ERC-8004 registry, 0G AgentId</td></tr>
+    <tr><td>Economy</td><td>BCC settlement, x402 payments, marketplace fees</td></tr>
+  </table>
+  <p><strong>Base</strong> is the live execution layer. <strong>BCC</strong> is the chain-agnostic economic layer. <strong>XRPL</strong> is an optional trust/payment rail (testnet intake on /investors; mainnet deferred).</p>
+
+  <h2>4.2 BCID v1 (Parallel Identity Standard)</h2>
+  <p>Building Culture Identity (BCID) is a soulbound, portable decentralized identifier complementing the live .culture trust layer.</p>
+  <table>
+    <tr><th>Type</th><th>DID Namespace</th><th>Target</th></tr>
+    <tr><td>Human</td><td>did:bcid:human:{uuid}</td><td>v1 (live)</td></tr>
+    <tr><td>Company</td><td>did:bcid:company:{uuid}</td><td>Month 4</td></tr>
+    <tr><td>Asset</td><td>did:bcid:asset:{uuid}</td><td>Month 5</td></tr>
+    <tr><td>Agent</td><td>did:bcid:agent:{uuid}</td><td>Month 3–4</td></tr>
+  </table>
+  <p><strong>Four reputation scores:</strong> Builder, Trust, Contribution, Verification. No follower weight. Recovery via 2-of-3 guardians with 72-hour timelock. Interoperates with ENS, EAS, World ID, ERC-8004, and .culture bridge.</p>
+
+  <h2>4.3 Places: Real Estate on Base (REOC)</h2>
+  <table>
+    <tr><th>Module</th><th>Function</th></tr>
+    <tr><td>PropertyRegistry</td><td>Property IDs, document root anchors</td></tr>
+    <tr><td>ComplianceRegistry + ChainlinkAceAdapter</td><td>KYC-gated transfers</td></tr>
+    <tr><td>RestrictedPropertyShareToken</td><td>uRWA surface (canSend/canReceive/canTransfer)</td></tr>
+    <tr><td>PropertyShareDTA</td><td>NAV-priced subscribe + redeem queue</td></tr>
+    <tr><td>PropertyReserveFeed</td><td>Mint caps vs attested backing</td></tr>
+    <tr><td>RaffleTicketCampaignVrf</td><td>Provably fair raffle winner selection</td></tr>
+  </table>
+  <p><em>Do not claim "Chainlink ACE certified" until partner sandbox + audit evidence is published. PoR attests declared backing — not legal land registry title.</em></p>
+
+  <h2>4.4 Agent Infrastructure</h2>
+  <p><strong>0G AgentId (live):</strong> ERC-721 on 0G Chain mainnet — contract 0x0451b1d37058ad57df22d7185aabc6b0a36fc41e — proof at /0g/agentid.</p>
+  <p>Agent BCID mint: 1 BCC → agent economy fund. x402 revenue split: 95% agent wallet / 5% treasury.</p>
+
+  <h1 class="page-break">5. BCC Token Economics</h1>
+  <table>
+    <tr><th>Constant</th><th>Value</th></tr>
+    <tr><td>Token</td><td>0xb890a5289f789f1346032ccc1847939e855fab07</td></tr>
+    <tr><td>Chain</td><td>Base 8453</td></tr>
+    <tr><td>Discount</td><td>11.11% on priced features (pay 8889/10000 of list price)</td></tr>
+  </table>
+  <h2>5.1 Utility Rails</h2>
+  <table>
+    <tr><th>Surface</th><th>Contract</th></tr>
+    <tr><td>Identity /pass</td><td>CultureLayerIdentityV2 — mintWithBcc</td></tr>
+    <tr><td>Art tickets</td><td>BuildingCultureHubV2 — mintTicketsWithBcc</td></tr>
+    <tr><td>Places shares</td><td>PrimaryShareSaleBcc — buyWholeSharesWithBcc</td></tr>
+  </table>
+  <p>Oracle: BccTwapOracle (Uniswap V3 TWAP + Chainlink ETH/USD). Stripe Culture Packs settle USD → BccSettlement queue → treasury BCC credit.</p>
+  <h2>5.2 BCID Fee Model</h2>
+  <table>
+    <tr><th>Action</th><th>Price</th></tr>
+    <tr><td>Human BCID mint</td><td>~$1.11 USD equiv (ETH or BCC with 11.11% discount)</td></tr>
+    <tr><td>Onchain credential issue</td><td>0.1 BCC + gas</td></tr>
+    <tr><td>Agent BCID mint</td><td>1 BCC</td></tr>
+    <tr><td>Bridge .culture → BCID</td><td>Free</td></tr>
+  </table>
+  <h2>5.3 BCID Mint Revenue Split</h2>
+  <table>
+    <tr><th>Destination</th><th>%</th><th>Purpose</th></tr>
+    <tr><td>Treasury (Safe)</td><td>70%</td><td>Ecosystem ops, grants</td></tr>
+    <tr><td>Burn</td><td>20%</td><td>BCC deflation</td></tr>
+    <tr><td>Validator pool</td><td>10%</td><td>Credential issuers + bridge validators</td></tr>
+  </table>
+  <p>Treasury Safe (Base): 0xCe03F6E734cC48393Ce41b257E998c68b521EB5c</p>
+
+  <h1 class="page-break">6. Security &amp; Privacy</h1>
+  <table>
+    <tr><th>Zone</th><th>Contents</th><th>Exposure</th></tr>
+    <tr><td>On-chain</td><td>Token ID, owner, credential token IDs</td><td>Public</td></tr>
+    <tr><td>Postgres</td><td>Events, scores, linked accounts</td><td>App-trusted</td></tr>
+    <tr><td>Encrypted storage</td><td>PII, KYB docs</td><td>User-key encrypted</td></tr>
+    <tr><td>ZK proofs</td><td>Claim statements only</td><td>Zero-knowledge (Month 6+)</td></tr>
+  </table>
+  <p><strong>Treasury policy:</strong> No single EOA for protocol funds — Safe 2-of-3 multisig. Kill-switch: AGENTS_PAUSED=1. ownerMint disabled on BCC without multisig approval.</p>
+
+  <h1>7. Ecosystem Orbit</h1>
+  <table>
+    <tr><th>Product</th><th>URL</th><th>Role</th></tr>
+    <tr><td>Unified app</td><td>app.buildingcultureid.space</td><td>Canonical front door</td></tr>
+    <tr><td>Places</td><td>places.buildingcultureid.space</td><td>REOC property investment</td></tr>
+    <tr><td>BCDAI</td><td>bcdai.buildingcultureid.space</td><td>AI trading terminal</td></tr>
+    <tr><td>Ankommen AI</td><td>ankommen.buildingcultureid.space</td><td>Social impact (Austria beta)</td></tr>
+    <tr><td>KinderStimme</td><td>forkids.buildingcultureid.space</td><td>Child protection (Austria beta)</td></tr>
+  </table>
+
+  <h1>8. Competitive Positioning</h1>
+  <p><strong>BCID unique value proposition:</strong></p>
+  <ol>
+    <li>Four BCID types — Human, Company, Asset, Agent</li>
+    <li>Verifiable reputation without social vanity</li>
+    <li>Privacy by default — encrypted credentials + ZK selective disclosure</li>
+    <li>Recovery architecture — guardian timelock</li>
+    <li>Agent ownership — Agent BCID with wallet, reputation, revenue</li>
+    <li>Parallel to live .culture — no breaking migration</li>
+  </ol>
+
+  <h1 class="page-break">9. Roadmap</h1>
+  <h2>9.1 Completed</h2>
+  <table>
+    <tr><th>Deliverable</th><th>Status</th></tr>
+    <tr><td>Open source + grant readiness pack</td><td>Met</td></tr>
+    <tr><td>Base mainnet deployment + ADDRESSES sync</td><td>Met</td></tr>
+    <tr><td>/grant-proof verifier</td><td>Met</td></tr>
+    <tr><td>0G AgentId on mainnet</td><td>Met</td></tr>
+  </table>
+  <h2>9.2 Active Roadmap</h2>
+  <table>
+    <tr><th>Milestone</th><th>Target</th></tr>
+    <tr><td>100 Human BCIDs on Base mainnet</td><td>Month 3</td></tr>
+    <tr><td>3 DAO pilot integrations</td><td>Month 3</td></tr>
+    <tr><td>Company + Agent BCID + marketplace</td><td>Month 4</td></tr>
+    <tr><td>ZK selective disclosure</td><td>Month 6</td></tr>
+    <tr><td>External audit (Places + DTA + ACE adapter)</td><td>Roadmap</td></tr>
+  </table>
+
+  <h1>10. KPI Framework</h1>
+  <table>
+    <tr><th>KPI</th><th>Definition</th><th>Cadence</th></tr>
+    <tr><td>WAU (ecosystem)</td><td>Weekly active wallets/members</td><td>Weekly</td></tr>
+    <tr><td>Agent-attributed joins</td><td>agent_ref=* visits reaching join success</td><td>Weekly</td></tr>
+    <tr><td>Join → pass conversion</td><td>Joiners that mint identity pass</td><td>Weekly</td></tr>
+    <tr><td>BCC utility usage</td><td>Count/value of BCC discount transactions</td><td>Weekly</td></tr>
+    <tr><td>Reliability score</td><td>Production smoke pass rate</td><td>Weekly</td></tr>
+  </table>
+
+  <h1 class="page-break">11. Risks &amp; Limitations</h1>
+  <h2>11.1 Technical Risks</h2>
+  <p>Smart contract vulnerabilities (external audit required), oracle manipulation (Chainlink + TWAP), agent wallet compromise (spend caps, session key expiry).</p>
+  <h2>11.2 Regulatory Risks</h2>
+  <p>Property share tokens may be securities in relevant jurisdictions. This whitepaper is not a securities disclosure or offer.</p>
+  <h2>11.3 Operational Honesty</h2>
+  <table>
+    <tr><th>Item</th><th>Status</th></tr>
+    <tr><td>Base mainnet contracts</td><td>Pass when contracts:audit OK</td></tr>
+    <tr><td>0G AgentId</td><td>Pass with ChainScan link</td></tr>
+    <tr><td>Chainlink ACE certification</td><td>Not claimed until partner + audit</td></tr>
+    <tr><td>ECON_LIVE=0</td><td>Full economics gated</td></tr>
+  </table>
+
+  <h1>12. Verification &amp; Contact</h1>
+  <ol>
+    <li>Live grant proof — app.buildingcultureid.space/grant-proof</li>
+    <li>0G AgentId proof — app.buildingcultureid.space/0g/agentid</li>
+    <li>On-chain index — ADDRESSES.md / ADDRESSES.json</li>
+    <li>Operator: npm run grant:proof</li>
+  </ol>
+  <table>
+    <tr><th>Channel</th><th>Address</th></tr>
+    <tr><td>General</td><td>hello@buildingcultureid.space</td></tr>
+    <tr><td>Feedback</td><td>app.buildingcultureid.space/voice</td></tr>
+    <tr><td>Grant submissions</td><td>laszlo.bihary@gmail.com</td></tr>
+  </table>
+
+  <h1>13. Conclusion</h1>
+  <p>Building Culture unifies culture participation, portable identity, utility economics, agent accountability, and RWA compliance infrastructure into one inspectable stack on Base. The live .culture trust layer serves production users today; BCID v1 extends with soulbound identity and verifiable credentials without breaking migration. BCC provides non-speculative utility across identity, art, and property surfaces.</p>
+  <p>The ecosystem invites protocol operators, DAO tooling teams, property partners, and identity researchers to verify shipped work at /grant-proof, pilot BCID integration, and contribute feedback via /voice.</p>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> Technical summary for reviewers — not a securities disclosure, offer, or investment recommendation. Token and protocol parameters may change; verify live state at app.buildingcultureid.space/grant-proof.
+  </div>
+</main>
+</body>
+</html>

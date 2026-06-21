@@ -5,8 +5,10 @@ import { Headphones, Pause, Play } from "lucide-react";
 
 import type { BuilderTape } from "@/content/builder-tapes";
 import { BUILDER_TAPE_LISTEN_THRESHOLD } from "@/content/builder-tapes";
-import { useBuilderTapeProgress } from "@/hooks/useBuilderTapeProgress";
+import { readLocalTapeProgress, useBuilderTapeProgress } from "@/hooks/useBuilderTapeProgress";
 import { cn } from "@/lib/utils";
+
+const PROGRESS_SAVE_MS = 2500;
 
 type BuilderTapePlayerProps = {
   tape: BuilderTape;
@@ -32,6 +34,7 @@ export function BuilderTapePlayer({
 }: BuilderTapePlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const thresholdFired = useRef(false);
+  const lastPersistAt = useRef(0);
   const { progress, persist, listenRatio } = useBuilderTapeProgress(tape.slug);
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
@@ -50,12 +53,15 @@ export function BuilderTapePlayer({
 
   useEffect(() => {
     thresholdFired.current = false;
-    const saved = progress?.currentTime ?? 0;
+    lastPersistAt.current = 0;
+    const saved = readLocalTapeProgress(tape.slug)?.currentTime ?? 0;
     setCurrentTime(saved);
-    if (audioRef.current && saved > 0) {
-      audioRef.current.currentTime = saved;
+
+    const audio = audioRef.current;
+    if (audio && saved > 0) {
+      audio.currentTime = saved;
     }
-  }, [tape.slug, progress?.currentTime]);
+  }, [tape.slug]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -65,7 +71,14 @@ export function BuilderTapePlayer({
       const t = audio.currentTime;
       const d = audio.duration || duration;
       setCurrentTime(t);
-      if (d > 0) persist(t, d);
+
+      if (d > 0) {
+        const now = Date.now();
+        if (now - lastPersistAt.current >= PROGRESS_SAVE_MS) {
+          lastPersistAt.current = now;
+          persist(t, d);
+        }
+      }
 
       if (
         !thresholdFired.current &&
@@ -84,9 +97,17 @@ export function BuilderTapePlayer({
       }
     };
 
-    const onEnded = () => setPlaying(false);
+    const onEnded = () => {
+      setPlaying(false);
+      const d = audio.duration || duration;
+      if (d > 0) persist(audio.currentTime, d);
+    };
     const onPlay = () => setPlaying(true);
-    const onPause = () => setPlaying(false);
+    const onPause = () => {
+      setPlaying(false);
+      const d = audio.duration || duration;
+      if (d > 0) persist(audio.currentTime, d);
+    };
 
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("loadedmetadata", onLoaded);

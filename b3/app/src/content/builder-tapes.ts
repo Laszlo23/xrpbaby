@@ -1,6 +1,9 @@
 import { BUILDER_PROFILE, BUILDER_WALLET } from "@/content/builder-chronicle";
 
-const BUCKET = "https://0xlaszlo.4everbucket.com/buildingculture";
+/** Canonical playback URL — same-origin proxy with audio/mpeg + Range support. */
+export function builderTapeAudioUrl(filename: string): string {
+  return `/api/media/builder-tapes/${encodeURIComponent(filename)}`;
+}
 
 export const BUILDER_TAPES_SERIES_ID = "laszlo-founder";
 export const BUILDER_TAPES_COMPLETE_ALL_SLUG = "builder-tapes-complete-all";
@@ -42,7 +45,7 @@ export const BUILDER_TAPES: BuilderTape[] = [
     kicker: "Episode 1 · Origin",
     oneLiner: "Modems, curiosity, and the first time the web felt like a secret door.",
     theme: "90s internet",
-    audioUrl: `${BUCKET}/Dial-Up%20Whispers.mp3`,
+    audioUrl: builderTapeAudioUrl("Dial-Up Whispers.mp3"),
     durationEstimate: 180,
     coachSceneId: "historical-vs",
     shareText:
@@ -57,7 +60,7 @@ export const BUILDER_TAPES: BuilderTape[] = [
     kicker: "Episode 2 · Screens",
     oneLiner: "When the monitor was the campfire — optimism in the glow of building.",
     theme: "Optimism / screens",
-    audioUrl: `${BUCKET}/Screen-Glow%20Hope.mp3`,
+    audioUrl: builderTapeAudioUrl("Screen-Glow Hope.mp3"),
     durationEstimate: 180,
     coachSceneId: "farm-vs-build",
     shareText:
@@ -72,7 +75,7 @@ export const BUILDER_TAPES: BuilderTape[] = [
     kicker: "Episode 3 · Discovery",
     oneLiner: "The moment proof-of-work clicked — and everything after it.",
     theme: "Origin / discovery",
-    audioUrl: `${BUCKET}/Bitcoin%20Whitepaper.mp3`,
+    audioUrl: builderTapeAudioUrl("Bitcoin Whitepaper.mp3"),
     durationEstimate: 210,
     coachSceneId: "early-legend",
     shareText: "Bitcoin whitepaper — founder tape on Building Culture. Real life, not myth.",
@@ -86,7 +89,7 @@ export const BUILDER_TAPES: BuilderTape[] = [
     kicker: "Episode 4 · Long game",
     oneLiner: "Why culture compounds when you build for decades, not quarters.",
     theme: "Long-term building",
-    audioUrl: `${BUCKET}/Cathedral%20Builders.mp3`,
+    audioUrl: builderTapeAudioUrl("Cathedral Builders.mp3"),
     durationEstimate: 210,
     coachSceneId: "reputation-upgrade",
     shareText:
@@ -101,7 +104,7 @@ export const BUILDER_TAPES: BuilderTape[] = [
     kicker: "Episode 5 · Legacy",
     oneLiner: "What we leave behind when identity and proof travel onchain.",
     theme: "Legacy / inheritance",
-    audioUrl: `${BUCKET}/Builders%20Inherit.mp3`,
+    audioUrl: builderTapeAudioUrl("Builders Inherit.mp3"),
     durationEstimate: 210,
     coachSceneId: "vibe-friends",
     shareText: "Builders inherit — the last tape in the series. Real stories, onchain culture.",
