@@ -6,18 +6,18 @@ import { motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useCultureLogin } from "@/hooks/useCultureLogin";
+import { useLinkedWalletAddress } from "@/hooks/useLinkedWalletAddress";
 import {
   useAccount,
   useConnect,
   useReadContract,
-  useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
   useSignMessage,
+  useConfig,
 } from "wagmi";
 import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import { privyEnabled } from "@/lib/privy-env";
-import { usePrivyWalletAddress } from "@/lib/privy-wallet";
 import {
   formatIdentityMintPrice,
   formatIdentityMintPriceNativeOnly,
@@ -36,6 +36,7 @@ import {
   getStoredReferralCode,
   persistReferralCodeFromUrl,
 } from "@/lib/identity/identity-referral-storage";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 import { referralErrorMessage } from "@/lib/identity/referral-messages";
 import { getIdentityNetwork } from "@/lib/identity/networks";
 import { cultureGatewayPath } from "@/lib/identity/urls";
@@ -47,16 +48,22 @@ import {
   getIdentityV2ContractAddress,
 } from "@/lib/bcc-config";
 import { BCC_SYMBOL } from "@bc/bcc-kit";
-import { saveIdentityForWallet } from "@/lib/identity/identityStorage";
+import { saveIdentityForWallet, setActiveIdentity } from "@/lib/identity/identityStorage";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
 import { pickInjectedConnector } from "@/lib/wallet-connectors";
 import { formatWalletWriteError } from "@/lib/wallet-write-errors";
 import {
-  walletCultureIdentityQueryKey,
   useWalletCultureIdentity,
+  walletCultureIdentityQueryKey,
 } from "@/hooks/useWalletCultureIdentity";
+import { walletCultureIdentitiesQueryKey } from "@/hooks/useWalletCultureIdentities";
 import { OwnedIdentityCard } from "@/components/identity/OwnedIdentityCard";
+import { WalletIdentitiesPanel } from "@/components/identity/WalletIdentitiesPanel";
+import { MintFlowGuide } from "@/components/identity/MintFlowGuide";
+import { BaseMainnetMintBanner } from "@/components/identity/BaseMainnetMintBanner";
+import { JoinConnectPanel } from "@/components/join/JoinConnectPanel";
 import { IDENTITY_TLD_OPTIONS, tldLabelToId } from "@/lib/identity/tlds";
+import { ensureFarcasterConnector } from "@/lib/farcaster-miniapp";
 
 type PassSearch = {
   name?: string;
@@ -69,14 +76,14 @@ function hasBrowserWallet(): boolean {
   return typeof window !== "undefined" && Boolean(window.ethereum);
 }
 
-export function SearchMint({ id }: { id?: string }) {
+export function SearchMint({ id, hideGuide = false }: { id?: string; hideGuide?: boolean }) {
   const navigate = useNavigate();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const wagmiConfig = useConfig();
   const search = useSearch({ strict: false }) as PassSearch;
   const { isVerified: hasOwnedIdentity } = useWalletCultureIdentity();
-  const allowExtraMint = search.manage === "1";
-  const { activeNetworkId, identity } = useCultureNetwork();
+  const { activeNetworkId, identity, switchToActiveChain } = useCultureNetwork();
   const activeNet = getIdentityNetwork(activeNetworkId);
   const {
     identityChainId,
@@ -90,12 +97,18 @@ export function SearchMint({ id }: { id?: string }) {
   const bccEnabled = activeNetworkId === "base" && Boolean(identityV2Address);
   const [payWithBcc, setPayWithBcc] = useState(false);
   const mintContractAddress = payWithBcc && identityV2Address ? identityV2Address : contractAddress;
-  const privyAddress = usePrivyWalletAddress();
+  const {
+    ready: privyReady,
+    openPreferredLogin,
+    authSurface,
+  } = useCultureLogin();
+  const inFarcasterMiniApp = authSurface.kind === "farcaster";
+  const linkedAddress = useLinkedWalletAddress();
   const { address: wagmiAddress, isConnected: wagmiConnected, chainId } = useAccount();
-  const address = privyEnabled ? (privyAddress ?? wagmiAddress) : wagmiAddress;
-  const isConnected = privyEnabled ? Boolean(privyAddress ?? wagmiAddress) : wagmiConnected;
-  const { connect, connectors, isPending: isConnecting, error: connectError } = useConnect();
-  const { switchChainAsync } = useSwitchChain();
+  const address = inFarcasterMiniApp ? wagmiAddress : linkedAddress;
+  const isConnected = inFarcasterMiniApp ? wagmiConnected : Boolean(linkedAddress);
+  const { connect, connectAsync, connectors, isPending: isConnecting, error: connectError } =
+    useConnect();
   const { signMessageAsync } = useSignMessage();
 
   const [name, setName] = useState("yourname");
@@ -106,13 +119,14 @@ export function SearchMint({ id }: { id?: string }) {
   const [referralError, setReferralError] = useState<string | null>(null);
   const [referralChecking, setReferralChecking] = useState(false);
   const [teamMintWallet, setTeamMintWallet] = useState(false);
+  const [isSwitchingChain, setIsSwitchingChain] = useState(false);
+  const allowExtraMint = search.manage === "1" || teamMintWallet;
   const [mintError, setMintError] = useState<string | null>(null);
   const [bnbCheck, setBnbCheck] = useState<{
     loading: boolean;
     available: boolean | null;
     name: string;
   }>({ loading: false, available: null, name: "" });
-  const { ready: privyReady, openWalletLogin } = useCultureLogin();
 
   useEffect(() => {
     if (activeNetworkId !== "base") setPayWithBcc(false);
@@ -133,7 +147,7 @@ export function SearchMint({ id }: { id?: string }) {
     } else if (search.ref?.trim()) {
       setReferralCode(search.ref.trim().toUpperCase());
     } else {
-      setReferralCode("BUILD77");
+      setReferralCode(IDENTITY_LAUNCH_REFERRAL_CODE);
     }
   }, [search.name, search.tld, search.ref]);
 
@@ -211,20 +225,20 @@ export function SearchMint({ id }: { id?: string }) {
       setTeamMintWallet(false);
       return;
     }
-    const params = new URLSearchParams({
-      code: referralCode.trim().toUpperCase() || "BUILD77",
-      wallet: address,
-      handle: clean.length >= 4 ? clean : "team",
-    });
-    void fetch(`/api/identity/referral/validate?${params}`)
+    void fetch(`/api/identity/team-wallet?address=${encodeURIComponent(address)}`)
       .then((res) => res.json())
       .then((data: { teamMintWallet?: boolean }) => {
         setTeamMintWallet(Boolean(data.teamMintWallet));
       })
       .catch(() => setTeamMintWallet(false));
-  }, [address, clean, referralCode]);
+  }, [address]);
 
   useEffect(() => {
+    if (teamMintWallet) {
+      setReferralValid(null);
+      setReferralError(null);
+      return;
+    }
     if (!address || referralCode.trim().length < 4 || !handlePolicy.ok) {
       setReferralValid(null);
       if (referralCode.trim().length >= 4 && !handlePolicy.ok) {
@@ -236,7 +250,7 @@ export function SearchMint({ id }: { id?: string }) {
       void validateReferral();
     }, 500);
     return () => clearTimeout(timer);
-  }, [address, clean, handlePolicy, referralCode, validateReferral]);
+  }, [address, clean, handlePolicy, referralCode, teamMintWallet, validateReferral]);
 
   const minHandleLen = teamMintWallet ? 1 : 3;
   const canCheckAvailability =
@@ -292,18 +306,40 @@ export function SearchMint({ id }: { id?: string }) {
     hash: txHash,
   });
 
-  const isMinting = isWritePending || isConfirming || isConnecting;
-  const wrongChain = isConnected && chainId !== identityChainId;
+  const isMinting = isWritePending || isConfirming || isConnecting || isSwitchingChain;
+  const wrongChain =
+    isConnected && typeof chainId === "number" && chainId !== identityChainId;
+
+  useEffect(() => {
+    if (!isConnected || !wrongChain || isWritePending || isConfirming || isConnecting) return;
+    setIsSwitchingChain(true);
+    void switchToActiveChain()
+      .catch(() => {
+        /* user can confirm manually via mint button */
+      })
+      .finally(() => {
+        setIsSwitchingChain(false);
+      });
+  }, [
+    activeNetworkId,
+    identityChainId,
+    isConnected,
+    isConfirming,
+    isConnecting,
+    isWritePending,
+    switchToActiveChain,
+    wrongChain,
+  ]);
 
   const statusLine = useMemo(() => {
     if (!isIdentityContractConfigured) {
-      return { label: "contract not configured", className: "text-zinc-500" };
+      return { label: "Minting is not configured yet", className: "text-zinc-500" };
     }
     if (clean === "yourname" || clean.length < minHandleLen) {
       return {
         label: teamMintWallet
-          ? "enter your handle (1+ characters)"
-          : "enter at least 4 characters for promo mint",
+          ? "Enter your handle (1+ letters)"
+          : "Use at least 4 letters in your name",
         className: "text-zinc-500",
       };
     }
@@ -314,15 +350,15 @@ export function SearchMint({ id }: { id?: string }) {
       };
     }
     if (isCheckingAvailability) {
-      return { label: "checking…", className: "text-zinc-500" };
+      return { label: "Checking availability…", className: "text-zinc-500" };
     }
     if (availabilityError || isAvailable === undefined) {
-      return { label: "unable to check", className: "text-zinc-500" };
+      return { label: "Unable to check availability", className: "text-zinc-500" };
     }
     if (isAvailable) {
-      return { label: "available", className: "text-[#C5FF41]" };
+      return { label: "Available to mint", className: "text-[#C5FF41]" };
     }
-    return { label: "taken", className: "text-red-400" };
+    return { label: "Name is taken", className: "text-red-400" };
   }, [
     availabilityError,
     clean,
@@ -339,7 +375,9 @@ export function SearchMint({ id }: { id?: string }) {
 
     async function afterMint() {
       saveIdentityForWallet(address!, fullIdentity);
+      setActiveIdentity(address!, fullIdentity);
       void queryClient.invalidateQueries({ queryKey: walletCultureIdentityQueryKey(address) });
+      void queryClient.invalidateQueries({ queryKey: walletCultureIdentitiesQueryKey(address) });
 
       try {
         const { prepared } = await buildPlatformSiweMessage(
@@ -422,15 +460,17 @@ export function SearchMint({ id }: { id?: string }) {
     }
 
     const code = referralCode.trim().toUpperCase();
-    if (!code || code.length < 4) {
-      setMintError("Enter a referral code to mint (e.g. BUILD77).");
-      return;
-    }
+    if (!teamMintWallet) {
+      if (!code || code.length < 4) {
+        setMintError(`Enter an invite code to mint (e.g. ${IDENTITY_LAUNCH_REFERRAL_CODE}).`);
+        return;
+      }
 
-    const referralOk = referralValid === true ? true : await validateReferral();
-    if (!referralOk) {
-      setMintError(referralError ?? "Referral code is invalid for this wallet.");
-      return;
+      const referralOk = referralValid === true ? true : await validateReferral();
+      if (!referralOk) {
+        setMintError(referralError ?? "Referral code is invalid for this wallet.");
+        return;
+      }
     }
 
     if (tldId === null) {
@@ -439,12 +479,23 @@ export function SearchMint({ id }: { id?: string }) {
     }
 
     if (!isConnected || !address) {
+      if (inFarcasterMiniApp) {
+        try {
+          const connector =
+            connectors.find((c) => c.id === "farcaster" || c.type === "farcasterMiniApp") ??
+            ensureFarcasterConnector(wagmiConfig);
+          await connectAsync({ connector, chainId: identityChainId });
+        } catch {
+          setMintError("Could not connect your Farcaster wallet — try again.");
+        }
+        return;
+      }
       if (privyEnabled) {
         if (!privyReady) {
           setMintError("Wallet login is loading — try again in a moment.");
           return;
         }
-        openWalletLogin();
+        openPreferredLogin();
         return;
       }
       if (!hasBrowserWallet()) {
@@ -462,11 +513,14 @@ export function SearchMint({ id }: { id?: string }) {
     }
 
     if (wrongChain) {
+      setIsSwitchingChain(true);
       try {
-        await switchChainAsync({ chainId: identityChainId });
+        await switchToActiveChain();
       } catch {
-        setMintError(`Switch to ${identityChainLabel} to mint your identity.`);
+        setMintError(`Switch to ${identityChainLabel} in your wallet, then try again.`);
         return;
+      } finally {
+        setIsSwitchingChain(false);
       }
     }
 
@@ -552,6 +606,11 @@ export function SearchMint({ id }: { id?: string }) {
     if (!isIdentityContractConfigured || !handlePolicy.ok || isMinting) {
       return true;
     }
+    if (teamMintWallet) {
+      return (
+        isAvailable === false || (canCheckAvailability && isCheckingAvailability)
+      );
+    }
     if (!isConnected) {
       return referralCode.trim().length < 4;
     }
@@ -573,28 +632,54 @@ export function SearchMint({ id }: { id?: string }) {
     referralChecking,
     referralCode,
     referralValid,
+    teamMintWallet,
   ]);
 
   const mintButtonLabel = useMemo(() => {
     if (isConnecting) return "Connecting…";
     if (!isConnected) {
+      if (inFarcasterMiniApp) return "Connect Farcaster wallet →";
       return privyEnabled ? "Sign in for wallet →" : "Connect wallet →";
     }
-    if (wrongChain) return "Switch network →";
+    if (isSwitchingChain) return "Switching network…";
+    if (wrongChain) return `Switch to ${identityChainLabel} →`;
     if (isMinting) return "Minting…";
     return "Mint identity →";
-  }, [isConnected, isConnecting, isMinting, privyEnabled, wrongChain]);
+  }, [
+    identityChainLabel,
+    isConnected,
+    isConnecting,
+    isMinting,
+    isSwitchingChain,
+    inFarcasterMiniApp,
+    privyEnabled,
+    wrongChain,
+  ]);
+
+  async function copyInviteCode() {
+    const code = referralCode.trim() || IDENTITY_LAUNCH_REFERRAL_CODE;
+    try {
+      await navigator.clipboard.writeText(code);
+      toast.success("Invite code copied");
+    } catch {
+      toast.error("Could not copy — select and copy manually");
+    }
+  }
 
   if (hasOwnedIdentity && !allowExtraMint) {
     return (
-      <motion.div id={id} className="relative w-full max-w-3xl">
-        <OwnedIdentityCard />
+      <motion.div id={id} className="relative w-full max-w-3xl space-y-4">
+        <WalletIdentitiesPanel showMintAnother />
+        <OwnedIdentityCard allowExtraMint />
       </motion.div>
     );
   }
 
   return (
-    <motion.div id={id} className="relative w-full max-w-3xl">
+    <motion.div id={id} className="relative w-full max-w-3xl space-y-4 pb-24 sm:pb-0">
+      {hasOwnedIdentity && allowExtraMint ? (
+        <WalletIdentitiesPanel showMintAnother={false} compact />
+      ) : null}
       {!isIdentityContractConfigured && import.meta.env.DEV && (
         <p className="mb-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-center font-mono text-[11px] text-amber-200">
           Set VITE_IDENTITY_CONTRACT_ADDRESS (Base) or VITE_IDENTITY_BSC_CONTRACT_ADDRESS (BNB
@@ -602,42 +687,59 @@ export function SearchMint({ id }: { id?: string }) {
         </p>
       )}
 
+      {!hideGuide ? <MintFlowGuide mintsLeftInTier={ladder?.mintsLeftInTier} /> : null}
+
+      {!isConnected ? (
+        <div className="space-y-3">
+          <p className="text-center text-sm text-zinc-400">
+            Connect with email, Farcaster, or a wallet on Base to mint your name.
+          </p>
+          <JoinConnectPanel />
+        </div>
+      ) : null}
+
+      <BaseMainnetMintBanner
+        wrongChain={wrongChain}
+        isSwitchingChain={isSwitchingChain}
+        onSwitch={() => {
+          void switchToActiveChain("base");
+        }}
+      />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-2 backdrop-blur-md"
+        className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-3 backdrop-blur-md sm:p-2"
       >
-        <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
-          <div className="flex flex-1 items-center gap-3 px-5 py-4">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
-              claim
-            </span>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="yourname"
-              disabled={isMinting}
-              className="w-full bg-transparent font-display text-2xl font-medium tracking-tight text-white outline-none placeholder:text-zinc-600 disabled:opacity-60 sm:text-3xl"
-            />
-            <select
-              value={tld}
-              onChange={(e) => setTld(e.target.value)}
-              disabled={isMinting}
-              className="cursor-pointer rounded-lg border border-white/15 bg-black/40 px-3 py-2 font-mono text-sm text-[#C5FF41] outline-none disabled:opacity-60"
-            >
-              {IDENTITY_TLD_OPTIONS.map((opt) => (
-                <option key={opt} value={opt} className="bg-black">
-                  {opt}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="flex flex-col gap-3">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="yourname"
+            disabled={isMinting}
+            aria-label="Culture name handle"
+            className="min-h-11 w-full rounded-xl border border-white/10 bg-black/30 px-4 font-display text-2xl font-medium tracking-tight text-white outline-none placeholder:text-zinc-600 disabled:opacity-60 sm:bg-transparent sm:text-3xl sm:border-0"
+          />
+          <select
+            value={tld}
+            onChange={(e) => setTld(e.target.value)}
+            disabled={isMinting}
+            aria-label="Top-level domain"
+            className="min-h-11 w-full cursor-pointer rounded-xl border border-white/15 bg-black/40 px-4 py-3 font-mono text-sm text-[#C5FF41] outline-none disabled:opacity-60 sm:w-auto sm:min-w-[8rem]"
+          >
+            {IDENTITY_TLD_OPTIONS.map((opt) => (
+              <option key={opt} value={opt} className="bg-black">
+                {opt}
+              </option>
+            ))}
+          </select>
           <button
             type="button"
             onClick={() => void handleMint()}
             disabled={mintDisabled}
-            className="relative overflow-hidden rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            data-testid="mint-primary-button"
+            className="hidden min-h-11 w-full rounded-2xl bg-[#C5FF41] px-6 py-4 font-display text-sm font-semibold text-black transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:inline-flex sm:items-center sm:justify-center"
           >
             <span className="relative z-10">{mintButtonLabel}</span>
           </button>
@@ -648,91 +750,112 @@ export function SearchMint({ id }: { id?: string }) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5 }}
-        className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4"
+        className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4"
       >
-        <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-          Referral code (required)
-        </label>
-        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <input
-            data-testid="referral-code-input"
-            value={referralCode}
-            onChange={(e) => {
-              setReferralCode(e.target.value.toUpperCase());
-              setReferralValid(null);
-            }}
-            onBlur={() => void validateReferral()}
-            placeholder="BUILD77"
-            disabled={isMinting}
-            className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 font-mono text-sm uppercase tracking-wider text-white outline-none placeholder:text-zinc-600 disabled:opacity-60"
-          />
-          {referralChecking ? (
-            <span className="font-mono text-xs text-zinc-500">validating…</span>
-          ) : referralValid === true ? (
-            <span className="font-mono text-xs text-[#C5FF41]">code valid · +25 CP</span>
-          ) : referralValid === false ? (
-            <span className="font-mono text-xs text-red-400">{referralError}</span>
-          ) : (
-            <span className="font-mono text-xs text-zinc-500">
-              4+ letter names · one mint per wallet
-            </span>
-          )}
-        </div>
-        {referralValid === true ? (
-          <p className="mt-2 text-xs text-zinc-500">
-            Referrer earns locked BCC when you mint — claim opens when treasury funds the pool.
-          </p>
-        ) : null}
+        {teamMintWallet ? (
+          <>
+            <p className="text-xs font-medium uppercase tracking-wider text-[var(--vault-gold)]">
+              Team mint wallet
+            </p>
+            <p className="mt-2 text-sm text-zinc-400">
+              Reserved 1–3 letter handles — no public invite code. Personal invite codes are shared
+              directly by the team.
+            </p>
+          </>
+        ) : (
+          <>
+            <label
+              htmlFor="referral-code-input"
+              className="block text-xs font-medium uppercase tracking-wider text-zinc-500"
+            >
+              Invite code (required)
+            </label>
+            <p className="mt-1 text-sm text-zinc-500">
+              Founding members use{" "}
+              <strong className="text-[#C5FF41]">{IDENTITY_LAUNCH_REFERRAL_CODE}</strong>. One mint
+              per wallet.
+            </p>
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
+              <input
+                id="referral-code-input"
+                data-testid="referral-code-input"
+                value={referralCode}
+                onChange={(e) => {
+                  setReferralCode(e.target.value.toUpperCase());
+                  setReferralValid(null);
+                }}
+                onBlur={() => void validateReferral()}
+                placeholder={IDENTITY_LAUNCH_REFERRAL_CODE}
+                disabled={isMinting}
+                className="min-h-11 w-full flex-1 rounded-xl border border-white/15 bg-black/40 px-4 py-3 font-mono text-sm uppercase tracking-wider text-white outline-none placeholder:text-zinc-600 disabled:opacity-60"
+              />
+              <button
+                type="button"
+                onClick={() => void copyInviteCode()}
+                data-testid="copy-invite-code"
+                className="min-h-11 shrink-0 rounded-xl border border-white/15 px-4 py-3 text-sm font-medium text-zinc-300 hover:border-[#C5FF41]/40 hover:text-white"
+              >
+                Copy
+              </button>
+            </div>
+            <div className="mt-2 text-sm">
+              {referralChecking ? (
+                <span className="text-zinc-500">Checking invite code…</span>
+              ) : referralValid === true ? (
+                <span className="text-[#C5FF41]">
+                  Code accepted — you&apos;re in the founding tier (+25 CP)
+                </span>
+              ) : referralValid === false ? (
+                <span className="text-red-400">{referralError}</span>
+              ) : (
+                <span className="text-zinc-500">
+                  Names need 4+ letters. One mint per wallet.
+                </span>
+              )}
+            </div>
+            {referralValid === true ? (
+              <p className="mt-2 text-xs text-zinc-500">
+                Referrer earns locked BCC when you mint — claim opens when treasury funds the pool.
+              </p>
+            ) : null}
+          </>
+        )}
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.6 }}
-        className="mt-6 flex flex-col items-center gap-2"
+        className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm"
       >
-        <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-xs">
-          <span className="text-zinc-500">live preview</span>
-          <span className="text-zinc-600">·</span>
-          <span className="rounded-full border border-[#C5FF41]/30 bg-[#C5FF41]/10 px-3 py-1 text-[#C5FF41]">
-            {fullIdentityDisplay}
-          </span>
-          <span className={statusLine.className}>{statusLine.label}</span>
-          {ladder && tierUsd !== undefined ? (
-            <>
-              <span className="text-zinc-600">·</span>
-              <span className="rounded-full border border-[var(--base-blue)]/30 bg-[var(--base-blue)]/10 px-3 py-1 text-[var(--base-blue)]">
-                {formatIdentityMintLadderUrgency(totalMinted!)}
+        <p className="font-medium text-zinc-300">{fullIdentityDisplay}</p>
+        <p className={`mt-1 ${statusLine.className}`}>{statusLine.label}</p>
+        {isIdentityContractConfigured ? (
+          <p className="mt-2 text-zinc-400">
+            {payWithBcc
+              ? `${formatIdentityMintPriceNativeOnly(mintPriceWei, { networkId: "base", symbol: BCC_SYMBOL })} (${BCC_DISCOUNT_LABEL})`
+              : formatIdentityMintPrice(mintPriceWei, {
+                  networkId: activeNetworkId,
+                  symbol: nativeSymbol,
+                  totalMinted,
+                  tierUsd,
+                })}
+            {ladder && tierUsd !== undefined && totalMinted !== undefined ? (
+              <span className="text-[var(--base-blue)]">
+                {" "}
+                · {formatIdentityMintLadderUrgency(totalMinted)}
               </span>
-            </>
-          ) : null}
-          {isIdentityContractConfigured && (
-            <>
-              <span className="text-zinc-600">·</span>
-              <span className="text-zinc-400">
-                {payWithBcc
-                  ? `${formatIdentityMintPriceNativeOnly(mintPriceWei, { networkId: "base", symbol: BCC_SYMBOL })} (${BCC_DISCOUNT_LABEL})`
-                  : formatIdentityMintPrice(mintPriceWei, {
-                      networkId: activeNetworkId,
-                      symbol: nativeSymbol,
-                      totalMinted,
-                      tierUsd,
-                    })}
-              </span>
-            </>
-          )}
-          {mintPointsPreview ? (
-            <>
-              <span className="text-zinc-600">·</span>
-              <span className="text-emerald-400/90">+{mintPointsPreview} CP on mint</span>
-            </>
-          ) : null}
-        </div>
+            ) : null}
+            {mintPointsPreview ? (
+              <span className="text-emerald-400/90"> · +{mintPointsPreview} CP on mint</span>
+            ) : null}
+          </p>
+        ) : null}
         {bccEnabled ? (
           <button
             type="button"
             onClick={() => setPayWithBcc((v) => !v)}
-            className={`rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-wider ${
+            className={`mt-3 min-h-11 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wider ${
               payWithBcc
                 ? "border-[#C5FF41]/50 bg-[#C5FF41]/15 text-[#C5FF41]"
                 : "border-white/15 text-zinc-400 hover:text-white"
@@ -744,7 +867,7 @@ export function SearchMint({ id }: { id?: string }) {
           </button>
         ) : null}
         {(mintError || writeErr || connectError) && (
-          <p className="max-w-md text-center font-mono text-[11px] text-red-400">
+          <p className="mt-3 text-sm text-red-400">
             {mintError ??
               (writeErr
                 ? formatWalletWriteError(writeErr)
@@ -759,42 +882,99 @@ export function SearchMint({ id }: { id?: string }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
-        className="mt-8 rounded-2xl border border-[#F0B90B]/20 bg-[#F0B90B]/5 p-4 text-center"
+        className="rounded-2xl border border-white/10 bg-white/[0.02] p-4"
       >
-        <p className="font-mono text-[10px] uppercase tracking-wider text-[#F0B90B]">
-          BNB identity layer
-        </p>
-        <p className="mt-2 text-xs text-zinc-400">
-          Culture Layer <span className="text-[#C5FF41]">.{tld.replace(".", "")}</span> on Base +
-          optional <span className="text-[#F0B90B]">.bnb</span> via Space ID — linked to the same
-          wallet on your profile.
-        </p>
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-          <button
-            type="button"
-            disabled={clean.length < 3 || bnbCheck.loading}
-            onClick={() => void checkBnbName()}
-            className="rounded-full border border-[#F0B90B]/40 px-4 py-2 text-xs font-semibold text-[#F0B90B] hover:bg-[#F0B90B]/10 disabled:opacity-40"
-          >
-            {bnbCheck.loading ? "Checking…" : `Check ${clean || "name"}.bnb`}
-          </button>
-          <a
-            href="https://space.id/tld/1"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="rounded-full bg-[#F0B90B] px-4 py-2 text-xs font-semibold text-black hover:opacity-90"
-          >
-            Register .bnb on Space ID →
-          </a>
-        </div>
-        {bnbCheck.available === true ? (
-          <p className="mt-2 text-xs text-[#F0B90B]">
-            {bnbCheck.name} looks available on Space ID.
+        <details className="text-left">
+          <summary className="cursor-pointer text-sm font-medium text-zinc-400 hover:text-zinc-200">
+            Common questions
+          </summary>
+          <div className="mt-3 space-y-3 text-sm text-zinc-500">
+            <div>
+              <p className="font-medium text-zinc-300">Why Base?</p>
+              <p className="mt-1">
+                Culture IDs mint on Base Mainnet. You pay a small amount of ETH — not BNB — and get a
+                transferable profile.
+              </p>
+            </div>
+            <div>
+              <p className="font-medium text-zinc-300">What is {IDENTITY_LAUNCH_REFERRAL_CODE}?</p>
+              <p className="mt-1">
+                The founding invite code. Enter it to mint at the lowest tier — about $0.07 for the
+                first 77 minters.
+              </p>
+            </div>
+            <div>
+              <p className="font-medium text-zinc-300">Can I mint 3-letter names?</p>
+              <p className="mt-1">
+                No — 1–3 letter names are reserved for the team. Use 4+ letters for public minting.
+              </p>
+            </div>
+          </div>
+        </details>
+        <details className="mt-3 text-left">
+          <summary className="cursor-pointer text-sm font-medium text-zinc-400 hover:text-zinc-200">
+            Optional — also register .bnb on BNB Chain
+          </summary>
+          <p className="mt-3 text-sm text-zinc-500">
+            Your Culture ID mints on Base. Separately, you can check{" "}
+            <span className="text-[#F0B90B]">.bnb</span> availability via Space ID and link it on your
+            profile.
           </p>
-        ) : bnbCheck.available === false ? (
-          <p className="mt-2 text-xs text-zinc-400">{bnbCheck.name} is already registered.</p>
-        ) : null}
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              disabled={clean.length < 3 || bnbCheck.loading}
+              onClick={() => void checkBnbName()}
+              className="min-h-11 rounded-full border border-[#F0B90B]/30 px-4 py-2 text-sm font-semibold text-[#F0B90B] hover:bg-[#F0B90B]/10 disabled:opacity-40"
+            >
+              {bnbCheck.loading ? "Checking…" : `Check ${clean || "name"}.bnb`}
+            </button>
+            <a
+              href="https://space.id/tld/1"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex min-h-11 items-center rounded-full border border-white/15 px-4 py-2 text-sm text-zinc-400 hover:text-white"
+            >
+              Space ID →
+            </a>
+          </div>
+          {bnbCheck.available === true ? (
+            <p className="mt-2 text-sm text-[#F0B90B]">
+              {bnbCheck.name} looks available on Space ID.
+            </p>
+          ) : bnbCheck.available === false ? (
+            <p className="mt-2 text-sm text-zinc-500">{bnbCheck.name} is already registered.</p>
+          ) : null}
+        </details>
       </motion.div>
+
+      <div
+        className="fixed inset-x-0 bottom-[calc(6.25rem+env(safe-area-inset-bottom,0px))] z-40 border-t border-white/10 bg-black/95 px-4 py-3 backdrop-blur sm:hidden"
+        data-testid="mint-sticky-bar"
+      >
+        <button
+          type="button"
+          onClick={() => void handleMint()}
+          disabled={mintDisabled}
+          className="flex min-h-11 w-full items-center justify-center rounded-2xl bg-[#C5FF41] px-6 py-3 font-display text-sm font-semibold text-black disabled:opacity-50"
+        >
+          {mintButtonLabel}
+          {isConnected &&
+          isIdentityContractConfigured &&
+          mintPriceWei !== undefined &&
+          !wrongChain ? (
+            <span className="ml-2 font-normal opacity-80">
+              ·{" "}
+              {formatIdentityMintPrice(mintPriceWei, {
+                networkId: activeNetworkId,
+                symbol: nativeSymbol,
+                totalMinted,
+                tierUsd,
+              })}
+            </span>
+          ) : null}
+        </button>
+      </div>
     </motion.div>
   );
 }
