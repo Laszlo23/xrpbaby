@@ -2,6 +2,10 @@ import type { PrivyClientConfig } from "@privy-io/react-auth";
 import type { Chain } from "viem/chains";
 import { base, bsc } from "./chains.js";
 import {
+  CULTURE_PRIVY_LOGIN_METHODS,
+  culturePrivyLoginMethodsAndOrder,
+} from "./privy-login-methods.js";
+import {
   CULTURE_WALLET_LIST,
   DEFAULT_CULTURE_APP_NAME,
   cultureExternalWallets,
@@ -22,8 +26,8 @@ export type BuildPrivyConfigOptions = {
 export function buildPrivyConfig(options: BuildPrivyConfigOptions = {}): PrivyClientConfig {
   const chains = options.supportedChains ?? ([base, bsc] as const);
   return {
-    // Wallet via connectWallet / app UI — not Privy modal "wallet" row (invalid React child in some builds).
-    loginMethods: ["email", "google", "apple"],
+    loginMethods: [...CULTURE_PRIVY_LOGIN_METHODS],
+    loginMethodsAndOrder: culturePrivyLoginMethodsAndOrder(),
     defaultChain: chains[0]!,
     supportedChains: [...chains],
     appearance: {

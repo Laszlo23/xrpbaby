@@ -1,40 +1,24 @@
 import type { AuthSurfaceKind } from "@/lib/auth-surface-env";
+import {
+  culturePrimaryLoginLabel,
+  culturePrivyLoginMethods,
+  CULTURE_PRIVY_LOGIN_METHODS,
+  type CultureLoginPreference,
+} from "@bc/culture-auth";
 
-/** Privy login method keys — wallet uses connectWallet(), not loginMethods. */
-export type CultureLoginMethod = "email" | "google" | "apple" | "farcaster";
+export type { CultureLoginPreference };
+export { CULTURE_PRIVY_LOGIN_METHODS };
 
-const EMAIL_FIRST: CultureLoginMethod[] = ["email", "google", "apple"];
-const FARCASTER_FIRST: CultureLoginMethod[] = ["farcaster", "email", "google", "apple"];
-
-export type CultureLoginPreference = "default" | "email" | "farcaster";
-
-/**
- * Surface-aware Privy loginMethods. Never includes "wallet" — use connectWallet() instead
- * (Privy wallet tab can break in some builds; see packages/culture-auth privy-config).
- */
+/** Surface-aware Privy loginMethods — Farcaster + wallets included in every surface. */
 export function loginMethodsForSurface(
   kind: AuthSurfaceKind,
   preference: CultureLoginPreference = "default",
-): CultureLoginMethod[] {
-  if (preference === "farcaster" || (preference === "default" && kind === "farcaster")) {
-    return FARCASTER_FIRST;
-  }
-  return EMAIL_FIRST;
+) {
+  return culturePrivyLoginMethods(kind, preference);
 }
 
 export function primaryLoginLabel(kind: AuthSurfaceKind): string {
-  switch (kind) {
-    case "farcaster":
-      return "Continue with Farcaster";
-    case "baseapp":
-      return "Continue with email";
-    case "browser":
-      return "Continue with email";
-    default: {
-      const _exhaustive: never = kind;
-      return _exhaustive;
-    }
-  }
+  return culturePrimaryLoginLabel(kind);
 }
 
 export function shouldAutoOpenLoginModal(kind: AuthSurfaceKind): boolean {
