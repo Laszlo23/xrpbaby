@@ -21,6 +21,14 @@ if [[ -f "$SSH_KEY" ]]; then
   SSH_OPTS=( -i "$SSH_KEY" "${SSH_OPTS[@]}" )
 fi
 
+LOCAL_LOCK="${TMPDIR:-/tmp}/buildingculture-deploy-${HOST//[^a-zA-Z0-9]/_}.lockdir"
+if ! mkdir "$LOCAL_LOCK" 2>/dev/null; then
+  echo "error: another deploy to $HOST is already running (lock: $LOCAL_LOCK)"
+  exit 1
+fi
+cleanup_local_lock() { rmdir "$LOCAL_LOCK" 2>/dev/null || true; }
+trap cleanup_local_lock EXIT
+
 if [[ "$USE_COMPOSE" == "1" ]]; then
   echo "==> Checking $HOST:${REMOTE_DIR}/app/.env for POSTGRES_PASSWORD (compose stack)"
   if ! ssh "${SSH_OPTS[@]}" "$HOST" "test -f '${REMOTE_DIR}/app/.env' && grep -qE '^POSTGRES_PASSWORD=.+' '${REMOTE_DIR}/app/.env'"; then
@@ -52,9 +60,19 @@ rsync -avz --delete \
 echo "==> Remote: build image + start"
 ssh "${SSH_OPTS[@]}" "$HOST" bash -s -- "$REMOTE_DIR" "$IMAGE" "$APP_PORT" "$CONTAINER_NAME" "${USE_COMPOSE}" "${DOCKER_BUILD_ARGS:-}" <<'REMOTE'
 set -euo pipefail
+REMOTE_LOCK="/tmp/buildingculture-deploy.lock"
+exec 8>"$REMOTE_LOCK"
+if ! flock -n 8; then
+  echo "error: remote deploy lock busy ($REMOTE_LOCK)" >&2
+  echo "If a previous build crashed: rm -f $REMOTE_LOCK && pkill -f docker-build.sh" >&2
+  exit 1
+fi
 cd "$1"
 IMAGE_NAME="$2"
 APP_PORT="${3:-3010}"
+if [[ -f app/.env ]] && grep -qE '^APP_PORT=' app/.env; then
+  APP_PORT="$(grep -E '^APP_PORT=' app/.env | tail -1 | cut -d= -f2- | tr -d ' \r')"
+fi
 CNAME="${4:-buildingculture-web}"
 USE_COMPOSE="${5:-1}"
 DOCKER_BUILD_ARGS="${6:-}"
