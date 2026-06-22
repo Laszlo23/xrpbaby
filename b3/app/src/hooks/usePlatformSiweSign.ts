@@ -1,13 +1,13 @@
-import { useWallets } from "@privy-io/react-auth";
-import { useCallback, useState } from "react";
-import { createWalletClient, custom, type Address } from "viem";
+import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { useCallback, useRef, useState } from "react";
+import type { Address } from "viem";
 import { useAccount, useChainId, useSignMessage } from "wagmi";
 
 import { useLinkedWalletAddress } from "@/hooks/useLinkedWalletAddress";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { base } from "@/lib/chains";
-import { detectFarcasterMiniApp } from "@/lib/farcaster-miniapp";
 import { buildPlatformSiweMessage } from "@/lib/platform-siwe";
+import { signPlatformSiweMessage } from "@/lib/platform-siwe-sign";
 import { privyEnabled } from "@/lib/privy-env";
 
 export type PlatformSiweResult = {
@@ -16,19 +16,6 @@ export type PlatformSiweResult = {
   address: string;
 };
 
-async function signViaFarcasterProvider(
-  message: string,
-  address: Address,
-): Promise<string> {
-  const sdk = (await import("@farcaster/miniapp-sdk")).default;
-  const client = createWalletClient({
-    account: address,
-    chain: base,
-    transport: custom(sdk.wallet.ethProvider),
-  });
-  return client.signMessage({ message });
-}
-
 /** SIWE for platform onboarding and other server-gated flows. */
 export function usePlatformSiweSign() {
   const linkedAddress = useLinkedWalletAddress();
@@ -36,6 +23,9 @@ export function usePlatformSiweSign() {
   const chainId = useChainId();
   const { signMessageAsync, isPending: wagmiSigning } = useSignMessage();
   const { wallets } = useWallets();
+  const walletsRef = useRef(wallets);
+  walletsRef.current = wallets;
+  const { authenticated, signMessage: privySignMessage } = usePrivy();
   const [signing, setSigning] = useState(false);
 
   const resolveAddress = useCallback((): Address | undefined => {
@@ -64,41 +54,31 @@ export function usePlatformSiweSign() {
           defaultStatement,
         );
 
-        let signature: string;
+        const { signature, address: signedAddress } = await signPlatformSiweMessage({
+          prepared,
+          address,
+          wallets,
+          getWallets: () => walletsRef.current,
+          wagmiAddress: wagmiAddress as Address | undefined,
+          privyAuthenticated: privyEnabled && authenticated,
+          privySignMessage: privyEnabled ? privySignMessage : undefined,
+          signMessageAsync,
+        });
 
-        if (privyEnabled) {
-          const privyWallet = wallets.find(
-            (w) => w.address?.toLowerCase() === address.toLowerCase(),
-          );
-          if (privyWallet) {
-            signature = await privyWallet.sign(prepared);
-          } else if (wagmiAddress?.toLowerCase() === address.toLowerCase()) {
-            signature = await signMessageAsync({ message: prepared, account: address });
-          } else if (await detectFarcasterMiniApp()) {
-            signature = await signViaFarcasterProvider(prepared, address);
-          } else {
-            const fallback = wallets.find((w) => w.address);
-            if (!fallback?.address) throw new Error("wallet_not_ready");
-            const { prepared: fallbackPrepared } = await buildPlatformSiweMessage(
-              fallback.address as Address,
-              effectiveChainId,
-              defaultStatement,
-            );
-            signature = await fallback.sign(fallbackPrepared);
-            return { prepared: fallbackPrepared, signature, address: fallback.address };
-          }
-        } else if (await detectFarcasterMiniApp()) {
-          signature = await signViaFarcasterProvider(prepared, address);
-        } else {
-          signature = await signMessageAsync({ message: prepared, account: address });
-        }
-
-        return { prepared, signature, address };
+        return { prepared, signature, address: signedAddress };
       } finally {
         setSigning(false);
       }
     },
-    [resolveAddress, resolveChainId, wallets, wagmiAddress, signMessageAsync],
+    [
+      resolveAddress,
+      resolveChainId,
+      wallets,
+      wagmiAddress,
+      authenticated,
+      privySignMessage,
+      signMessageAsync,
+    ],
   );
 
   return {

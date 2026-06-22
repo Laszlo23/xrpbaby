@@ -18,8 +18,9 @@ export function ConnectFarcasterButton({
   onLinked,
   label = "Connect Farcaster",
 }: ConnectFarcasterButtonProps) {
-  const { authenticated, getAccessToken } = usePrivy();
-  const { address } = useAccount();
+  const { authenticated, getAccessToken, user } = usePrivy();
+  const { address: wagmiAddress } = useAccount();
+  const walletAddress = wagmiAddress ?? user?.wallet?.address;
   const origin = syncApiOrigin ?? readPlatformOrigin();
   const neynarClientId = resolveCultureAuthEnv().neynarClientId;
 
@@ -31,7 +32,7 @@ export function ConnectFarcasterButton({
     );
   }
 
-  if (!authenticated || !address) {
+  if (!authenticated || !walletAddress) {
     return (
       <p className={`text-xs text-zinc-500 ${className}`}>Connect your wallet first.</p>
     );
@@ -46,7 +47,7 @@ export function ConnectFarcasterButton({
             const token = await getAccessToken();
             if (!token) return;
             const result = await linkMemberFarcaster({
-              walletAddress: address,
+              walletAddress: walletAddress,
               fid: user.fid,
               signerUuid: user.signer_uuid,
               accessToken: token,

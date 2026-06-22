@@ -146,8 +146,12 @@ function JoinPage() {
         },
       });
       navigate({ to: "/forest", search: { welcome: "1" } });
-    } catch {
-      setError(plainLabels.join.errors.signInFailed);
+    } catch (err) {
+      const code =
+        err instanceof Error && err.message === "wallet_not_ready"
+          ? plainLabels.join.errors.walletLoading
+          : plainLabels.join.errors.signInFailed;
+      setError(code);
     } finally {
       setBusy(false);
     }
