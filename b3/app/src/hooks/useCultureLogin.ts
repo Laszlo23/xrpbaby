@@ -2,30 +2,36 @@ import { usePrivy } from "@privy-io/react-auth";
 import { useCallback, useEffect, useState } from "react";
 
 import { BRAVE_WALLET_CONNECT_OPTIONS } from "@bc/culture-auth";
-import { detectAuthSurfaceEnv, type AuthSurfaceEnv } from "@/lib/auth-surface-env";
+import {
+  detectAuthSurfaceEnv,
+  type AuthSurfaceEnv,
+} from "@/lib/auth-surface-env";
 import {
   loginMethodsForSurface,
   primaryLoginLabel,
   type CultureLoginPreference,
 } from "@/lib/culture-login";
 
+const DEFAULT_SURFACE: AuthSurfaceEnv = { kind: "browser", label: "Browser" };
+
 /** Shared Privy login helpers — email-first in browser, Farcaster-first in Mini App. */
 export function useCultureLogin() {
   const { ready, authenticated, login, connectWallet } = usePrivy();
-  const [authSurface, setAuthSurface] = useState<AuthSurfaceEnv>({
-    kind: "browser",
-    label: "Browser",
-  });
-  const [surfaceReady, setSurfaceReady] = useState(false);
+  const [authSurface, setAuthSurface] = useState<AuthSurfaceEnv>(DEFAULT_SURFACE);
+  const [surfaceReady, setSurfaceReady] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    void detectAuthSurfaceEnv().then((env) => {
-      if (!cancelled) {
-        setAuthSurface(env);
-        setSurfaceReady(true);
-      }
-    });
+    void detectAuthSurfaceEnv()
+      .then((env) => {
+        if (!cancelled) setAuthSurface(env);
+      })
+      .catch(() => {
+        if (!cancelled) setAuthSurface(DEFAULT_SURFACE);
+      })
+      .finally(() => {
+        if (!cancelled) setSurfaceReady(true);
+      });
     return () => {
       cancelled = true;
     };
@@ -33,7 +39,13 @@ export function useCultureLogin() {
 
   const openLogin = useCallback(
     (preference: CultureLoginPreference = "default") => {
-      login({ loginMethods: loginMethodsForSurface(authSurface.kind, preference) });
+      if (preference === "default") {
+        login();
+        return;
+      }
+      login({
+        loginMethods: loginMethodsForSurface(authSurface.kind, preference),
+      });
     },
     [login, authSurface.kind],
   );

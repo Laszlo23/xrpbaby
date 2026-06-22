@@ -112,8 +112,8 @@ function PrivyWalletButtons({
   compactInBaseApp,
   onConnectStart,
 }: CultureBaseWalletButtonsProps) {
-  const { connectWallet, ready } = usePrivy();
-  const disabled = busy || !ready;
+  const { connectWallet } = usePrivy();
+  const disabled = Boolean(busy);
 
   if (compactInBaseApp) {
     return (

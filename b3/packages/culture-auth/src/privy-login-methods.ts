@@ -5,17 +5,21 @@ import { CULTURE_WALLET_LIST } from "./privy-wallet-integration.js";
 export type CultureAuthSurface = "browser" | "baseapp" | "farcaster";
 export type CultureLoginPreference = "default" | "email" | "farcaster";
 
-/** Privy login modal methods — includes Farcaster + external wallets. */
+type PrivySocialLoginMethod = Exclude<
+  NonNullable<PrivyClientConfig["loginMethods"]>[number],
+  "wallet"
+>;
+
+/** Social + Farcaster login keys — wallets are configured via loginMethodsAndOrder. */
 export const CULTURE_PRIVY_LOGIN_METHODS = [
   "farcaster",
   "email",
   "google",
   "apple",
-  "wallet",
-] as const satisfies ReadonlyArray<NonNullable<PrivyClientConfig["loginMethods"]>[number]>;
+] as const satisfies ReadonlyArray<PrivySocialLoginMethod>;
 
-const EMAIL_FIRST = ["email", "google", "apple", "farcaster", "wallet"] as const;
-const FARCASTER_FIRST = ["farcaster", "email", "google", "apple", "wallet"] as const;
+const EMAIL_FIRST = ["email", "google", "apple", "farcaster"] as const;
+const FARCASTER_FIRST = ["farcaster", "email", "google", "apple"] as const;
 
 /** Surface-aware loginMethods passed to Privy `login()`. */
 export function culturePrivyLoginMethods(

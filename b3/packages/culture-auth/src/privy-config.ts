@@ -3,7 +3,6 @@ import type { Chain } from "viem/chains";
 import { base, bsc } from "./chains.js";
 import {
   CULTURE_PRIVY_LOGIN_METHODS,
-  culturePrivyLoginMethodsAndOrder,
 } from "./privy-login-methods.js";
 import {
   CULTURE_WALLET_LIST,
@@ -27,7 +26,6 @@ export function buildPrivyConfig(options: BuildPrivyConfigOptions = {}): PrivyCl
   const chains = options.supportedChains ?? ([base, bsc] as const);
   return {
     loginMethods: [...CULTURE_PRIVY_LOGIN_METHODS],
-    loginMethodsAndOrder: culturePrivyLoginMethodsAndOrder(),
     defaultChain: chains[0]!,
     supportedChains: [...chains],
     appearance: {

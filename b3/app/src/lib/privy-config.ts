@@ -3,7 +3,6 @@ import {
   CULTURE_PRIVY_LOGIN_METHODS,
   CULTURE_WALLET_LIST,
   cultureExternalWallets,
-  culturePrivyLoginMethodsAndOrder,
 } from "@bc/culture-auth";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { base, bsc } from "@/lib/chains";
@@ -13,7 +12,6 @@ import { privyClientId } from "@/lib/privy-env";
 export function buildPrivyConfig(): PrivyClientConfig {
   return {
     loginMethods: [...CULTURE_PRIVY_LOGIN_METHODS],
-    loginMethodsAndOrder: culturePrivyLoginMethodsAndOrder(),
     defaultChain: base,
     supportedChains: [base, bsc],
     appearance: {

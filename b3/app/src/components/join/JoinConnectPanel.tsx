@@ -32,9 +32,7 @@ function connectorLabel(c: Connector): string {
 
 export function JoinConnectPanel() {
   const {
-    ready,
     authSurface,
-    surfaceReady,
     primaryLoginLabel,
     openEmailLogin,
     openFarcasterLogin,
@@ -53,14 +51,6 @@ export function JoinConnectPanel() {
   }, [authPending, isPending, isConnecting]);
 
   if (privyEnabled) {
-    if (!ready || !surfaceReady) {
-      return (
-        <div className="rounded-2xl border border-white/10 bg-zinc-950/80 p-6 text-center">
-          <p className="text-sm text-zinc-400">{plainLabels.join.loadingWallet}</p>
-        </div>
-      );
-    }
-
     const inFarcaster = authSurface.kind === "farcaster";
 
     return (
