@@ -14,8 +14,8 @@
 | Field     | Value                                                                 |
 |-----------|-----------------------------------------------------------------------|
 | Network   | Base (chainId 8453)                                                   |
-| Address   | `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c`                          |
-| App URL   | https://app.safe.global/home?safe=base:0xCe03F6E734cC48393Ce41b257E998c68b521EB5c |
+| Address   | `0x0D106D512Ac28cc29E625b22C6628989013c4C6B`                          |
+| App URL   | https://app.safe.global/home?safe=base:0x0D106D512Ac28cc29E625b22C6628989013c4C6B |
 | Role      | Protocol treasury / future contract owner                             |
 | Threshold | Verified in Safe UI (signers and threshold); do not duplicate here.  |
 
@@ -37,7 +37,7 @@ When `ceo-orchestrator-0` runs with deployer/ops keys configured:
 | Deploy spend / day | `AGENT_DAILY_DEPLOY_CAP_USD=50` | App + infra deploy tasks |
 | Contract deploys / week | `AGENT_WEEKLY_CONTRACT_DEPLOY_CAP=1` | `forge script --broadcast` |
 
-**Never autonomous:** treasury Safe (`0xCe03…`) — no private key in agent env.
+**Never autonomous:** treasury Safe (`0x0D10…`) — no private key in agent env.
 
 **Emergency:** `AGENTS_PAUSED=1` stops all ticks including wallet signing.
 

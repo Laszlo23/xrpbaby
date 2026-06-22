@@ -56,7 +56,7 @@ function credentialSchema(uint256 tokenId) external view returns (bytes32);
 
 ### Roles
 - `ISSUER_ROLE` — Building Culture issuer + approved EAS bridges
-- `DEFAULT_ADMIN_ROLE` — Safe multisig (`0xCe03F6E734cC48393Ce41b257E998c68b521EB5c`)
+- `DEFAULT_ADMIN_ROLE` — Safe multisig (`0x0D106D512Ac28cc29E625b22C6628989013c4C6B`)
 
 ### Schema IDs
 

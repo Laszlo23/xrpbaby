@@ -61,7 +61,7 @@
         "ChainlinkPriceOracle": "0xCCBe9d1Dc1472095E557f2622A2a6235BDe446Fc",
         "ChainlinkAceAdapter": "0x6BC4E810a5999Ba76bCcCdcc74D10CcFA0d9a72d",
         "SimpleLendingPool": "0x0000000000000000000000000000000000000000",
-        "GovernanceSafe": "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c"
+        "GovernanceSafe": "0x0D106D512Ac28cc29E625b22C6628989013c4C6B"
       },
       "placesTokens": {
         "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",

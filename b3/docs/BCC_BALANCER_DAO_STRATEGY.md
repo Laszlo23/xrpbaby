@@ -6,7 +6,7 @@
 
 Building Culture is transitioning toward **DAO-style community governance** while keeping **$BCC as a utility token** (Culture Points redemption, discounts, Roots rewards). **Balancer on Base** is the third liquidity leg and optional **on-chain vote-escrow surface**—not a replacement for Uniswap primary depth or Aerodrome secondary gauges.
 
-Canonical treasury: Safe `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` ([`TREASURY_POLICY.md`](./TREASURY_POLICY.md)).
+Canonical treasury: Safe `0x0D106D512Ac28cc29E625b22C6628989013c4C6B` ([`TREASURY_POLICY.md`](./TREASURY_POLICY.md)).
 
 ## Venue comparison (Base)
 

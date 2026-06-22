@@ -3,7 +3,7 @@
  * Operator checklist: Safe-owned Balancer BCC/WETH pool on Base.
  * Usage: npm run balancer:pool-checklist
  */
-const SAFE = "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c";
+const SAFE = "0x0D106D512Ac28cc29E625b22C6628989013c4C6B";
 const BCC = "0xb890a5289f789f1346032ccc1847939e855fab07";
 const WETH = "0x4200000000000000000000000000000000000006";
 

@@ -10,7 +10,7 @@ This runbook defines how to fund on-chain agent activity on **Base (8453)** whil
 
 ## Canonical addresses
 
-- **Treasury Safe (Base 8453)**: `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` (source of truth: `docs/TREASURY_POLICY.md`)
+- **Treasury Safe (Base 8453)**: `0x0D106D512Ac28cc29E625b22C6628989013c4C6B` (source of truth: `docs/TREASURY_POLICY.md`)
 - **HotOps wallet (Base 8453)**: create a dedicated wallet for agent operations; keep balance capped.
 
 ## Funding model

@@ -19,7 +19,7 @@
     "pool": "",
     "bpt": "",
     "gauge": "",
-    "ownerSafe": "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c",
+    "ownerSafe": "0x0D106D512Ac28cc29E625b22C6628989013c4C6B",
     "createPoolUrl": "https://app.balancer.fi/#/base/pools/create",
     "note": "No Balancer listing yet — run npm run balancer:pool-checklist then balancer:resolve -- --write"
   },

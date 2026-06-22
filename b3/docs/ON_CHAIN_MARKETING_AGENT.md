@@ -48,7 +48,7 @@ Pulled from public sources while production app APIs returned 500 (ops should fi
 | BCC token | `0xb890a5289f789f1346032ccc1847939e855fab07` |
 | CulturePulseAnchor | `0x503f8ad17c0fcdd84fbdbf7f51b41b39b02ebbae` |
 | AgentShareCampaign | `0x130e320a386b1ff0228492ddd65c380131ba86e9` |
-| Protocol treasury (Safe) | `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` |
+| Protocol treasury (Safe) | `0x0D106D512Ac28cc29E625b22C6628989013c4C6B` |
 
 ### Canonical links (attribution base)
 

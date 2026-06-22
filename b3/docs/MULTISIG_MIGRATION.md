@@ -4,7 +4,7 @@
 
 ## Preconditions
 
-- Canonical Safe address: see `TREASURY_POLICY.md` (“Canonical Safe (multisig)”). On Base: `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c`.
+- Canonical Safe address: see `TREASURY_POLICY.md` (“Canonical Safe (multisig)”). On Base: `0x0D106D512Ac28cc29E625b22C6628989013c4C6B`.
 - Safe deployed with 3 signers; 2-of-3 threshold.
 - Hardware wallets / cold signers configured; no shared seed phrases.
 - New deploy addresses documented in `contracts/deployments/8453.json` after any redeploy.

@@ -45,6 +45,7 @@ From [`contracts/deployments/8453.json`](../contracts/deployments/8453.json) and
 | RaffleTicketCampaign | `0xb1a88bf677400c23430b643a07229af832130ad8` | Raffle tickets (blockhash entropy; use VRF variant for production) |
 | AgentShareCampaign | `0x130e320a386b1ff0228492ddd65c380131ba86e9` | Agent share campaign |
 | CulturePulseAnchor | `0x503f8ad17c0fcdd84fbdbf7f51b41b39b02ebbae` | Daily culture digest anchor (not asset PoR) |
+| ServiceDealEscrow | `0xb0a44Fc3f52EB3B575b113Ef7Ef8D778a55B5Dfb` | USDC partner/marketing escrow — AI ruling + council veto — [`SERVICE_DEAL_SCHEMA.md`](./protocol/SERVICE_DEAL_SCHEMA.md) |
 
 ### Genesis Vault Pass (ERC-721 tiers)
 
@@ -171,7 +172,7 @@ Site: https://places.buildingcultureid.space
 | PrimaryShareSaleERC20_Property1 | `0xE37446E10a28eB2B188B02C6c8dF5d8e3b3d3b32` | Fixed-price primary sale (property 1) |
 | SimpleLendingPool | `0x0000000000000000000000000000000000000000` | **Not deployed** on mainnet |
 
-**Governance / treasury Safe (Places web env):** `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c`
+**Governance / treasury Safe (Places web env):** `0x0D106D512Ac28cc29E625b22C6628989013c4C6B`
 
 **Chainlink-aligned modules (deploy when ready):** `ChainlinkPriceOracle`, `PropertyReserveFeed`, `PropertyShareDTA`, `ChainlinkAceAdapter` — see [DeployChainlinkModules.s.sol](../apps/places/script/DeployChainlinkModules.s.sol). CCIP pilot config: [ccip-pilot.json](../apps/places/deployments/ccip-pilot.json) (empty until partner setup).
 

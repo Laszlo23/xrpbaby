@@ -14,7 +14,19 @@
     "GenesisVaultPassPhase2": "0x01B971794c4C5C265bc0326dE329e1f4c937C765",
     "CulturePassBccRewards": "0xAAE3Eb068026cab39A841c2628F983C559AD6C10",
     "PanicSwitchAttestation": "0x3f60465e70042b52e3fe95fec8e80680b6830b6a",
-    "CultureChronicles1155": "0x667a11c6e05e37652e57a962059310384e71258a"
+    "CultureChronicles1155": "0x667a11c6e05e37652e57a962059310384e71258a",
+    "ServiceDealEscrow": "0xb0a44Fc3f52EB3B575b113Ef7Ef8D778a55B5Dfb"
+  },
+  "serviceDealEscrow": {
+    "address": "0xb0a44Fc3f52EB3B575b113Ef7Ef8D778a55B5Dfb",
+    "usdc": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "adminSafe": "0x0D106D512Ac28cc29E625b22C6628989013c4C6B",
+    "councilSafe": "0x0D106D512Ac28cc29E625b22C6628989013c4C6B",
+    "aiOracle": "0x477beD9204a958aED0F8D2B0e0C68d7ba3b4B7d3",
+    "vetoWindowSeconds": 259200,
+    "deliverGraceSeconds": 86400,
+    "deployedAt": "2026-06-21",
+    "deployTx": "see broadcast/DeployServiceDealEscrow.s.sol/8453/run-latest.json"
   },
   "note": "Curated from broadcast/DeployAll.s.sol/8453/run-latest.json. CulturePulseAnchor deployed 2026-05-23. GenesisVaultPass tiers deployed 2026-06-08 (DeployGenesisVaultPassAll). Optional: DailyCheckIn, BCDFixedPriceSale — env only. BCC v2 bundle: bcc-8453.json."
 }

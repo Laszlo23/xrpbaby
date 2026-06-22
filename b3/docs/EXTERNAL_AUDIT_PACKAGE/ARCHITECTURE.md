@@ -16,7 +16,7 @@ flowchart TB
 
 ## Addresses
 
-- Treasury Safe: `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` (see `app/src/lib/treasury-revenue-rules.ts`)
+- Treasury Safe: `0x0D106D512Ac28cc29E625b22C6628989013c4C6B` (see `app/src/lib/treasury-revenue-rules.ts`)
 - Revenue split (manual until `BccFeeRouter`): 40% treasury / 30% buyback / 20% builders / 10% burn
 
 ## Key env vars

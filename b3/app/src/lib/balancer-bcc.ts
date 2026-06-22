@@ -9,7 +9,7 @@ export const BCC_BALANCER = {
   createPoolUrl: "https://app.balancer.fi/#/base/pools/create",
   explorePoolsUrl: "https://app.balancer.fi/#/base/pools",
   docsUrl: "https://docs.balancer.fi/",
-  protocolSafe: "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c" as const,
+  protocolSafe: "0x0D106D512Ac28cc29E625b22C6628989013c4C6B" as const,
 } as const;
 
 export function balancerPoolUrl(poolAddress: string): string {

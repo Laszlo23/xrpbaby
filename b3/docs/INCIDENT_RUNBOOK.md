@@ -12,7 +12,7 @@
 
 1. Check `AgentActionLog` in Postgres (recent rows visible on `/agent-fleet`).
 2. Disable cron / worker running `@bc/agent-runtime`.
-3. Verify Safe signers and pending transactions on Base — Safe `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` (chainId 8453); see `TREASURY_POLICY.md`.
+3. Verify Safe signers and pending transactions on Base — Safe `0x0D106D512Ac28cc29E625b22C6628989013c4C6B` (chainId 8453); see `TREASURY_POLICY.md`.
 
 ## 3. Strapi / API abuse
 

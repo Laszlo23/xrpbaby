@@ -51,7 +51,7 @@ Canonical human index: [ADDRESSES.md](./ADDRESSES.md). Machine JSON: [ADDRESSES.
 
 ## Places (`apps/places/deployments/base-mainnet.json`)
 
-All entries match `app` compliance + [ADDRESSES.md](./ADDRESSES.md). Treasury Safe: `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c`.
+All entries match `app` compliance + [ADDRESSES.md](./ADDRESSES.md). Treasury Safe: `0x0D106D512Ac28cc29E625b22C6628989013c4C6B`.
 
 `apps/places/web/.env.local` also carries **0G Galileo testnet** addresses (`NEXT_PUBLIC_REGISTRY=0xc774…`) for legacy QA; production Base vars under `NEXT_PUBLIC_BASE_*` are correct.
 

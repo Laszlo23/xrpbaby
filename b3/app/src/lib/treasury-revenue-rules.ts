@@ -34,4 +34,4 @@ export const TREASURY_REVENUE_RULES: TreasuryRevenueBucket[] = [
   },
 ];
 
-export const TREASURY_SAFE_ADDRESS = "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c" as const;
+export const TREASURY_SAFE_ADDRESS = "0x0D106D512Ac28cc29E625b22C6628989013c4C6B" as const;

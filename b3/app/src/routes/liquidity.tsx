@@ -63,7 +63,16 @@ export const Route = createFileRoute("/liquidity")({
       description:
         "Learn how BCC liquidity works on Base — Uniswap primary, Aerodrome and Balancer secondary, Culture Points for education, gauge staking for protocol rewards.",
       path: "/liquidity",
-      keywords: ["BCC", "liquidity", "Aerodrome", "Balancer", "Uniswap", "Base", "Culture Points", "DAO"],
+      keywords: [
+        "BCC",
+        "liquidity",
+        "Aerodrome",
+        "Balancer",
+        "Uniswap",
+        "Base",
+        "Culture Points",
+        "DAO",
+      ],
     }),
   component: LiquidityPage,
 });
@@ -176,7 +185,7 @@ function LiquidityPage() {
               poolLive: false,
               depositUrl: null,
               gaugeUrl: null,
-              ownerSafe: "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c",
+              ownerSafe: "0x0D106D512Ac28cc29E625b22C6628989013c4C6B",
             }
           }
         />

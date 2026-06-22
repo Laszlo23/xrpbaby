@@ -10,11 +10,11 @@ Fleet definitions live in `ops/agents.json`; runtime ledger in Postgres `AgentAc
 
 **Elias Concierge (`elias-concierge-1`)** — guest-facing BUILDCHAIN route `/elias`; policy: no partner email without in-app approval; major actions logged (`elias.plan_*`). Inbound partner packages: `POST /api/elias/inbound` (optional header `x-elias-inbound-secret`).
 
-*Registration is manual. Future automation must propose registration transactions through the canonical Safe (`0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` on Base, see `TREASURY_POLICY.md`) and require an owner-threshold confirmation; no hot-EOA signing.*
+*Registration is manual. Future automation must propose registration transactions through the canonical Safe (`0x0D106D512Ac28cc29E625b22C6628989013c4C6B` on Base, see `TREASURY_POLICY.md`) and require an owner-threshold confirmation; no hot-EOA signing.*
 
 ## Suggested “CEO Agent” registry entry (safe default)
 
 - **Intent**: registry/profile entry only (discoverability + policy), not a hot wallet with treasury authority.
-- **Handler**: use the canonical Safe on Base: `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c`.
+- **Handler**: use the canonical Safe on Base: `0x0D106D512Ac28cc29E625b22C6628989013c4C6B`.
 - **Status URL**: `GET /api/agents/status` (public JSON snapshot).
 - **Policy summary**: no unilateral control of protocol funds; any onchain action must be proposed/approved via Safe; ops wallets are limited-float; `AGENTS_PAUSED` kill-switch available.

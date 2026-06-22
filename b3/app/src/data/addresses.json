@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-19",
+  "updated": "2026-06-21",
   "deployer": "0x2CCf1076A9DCA4d656A156d6036Cc2066c596AF5",
   "networks": {
     "8453": {
@@ -38,7 +38,13 @@
         "ComplianceRegistry": "0xa655c0B0037699433F0692356a3A142956103B7a",
         "PurchaseEscrow": "0xCB3b78bA96AA64b7327c9d95c8DEab10678c85Ad",
         "PropertyShareProof": "0x9D81A95188939C1f708f9E43921C490f4Ef4e064",
-        "GovernanceSafe": "0xCe03F6E734cC48393Ce41b257E998c68b521EB5c"
+        "GovernanceSafe": "0x0D106D512Ac28cc29E625b22C6628989013c4C6B"
+      },
+      "partnerEscrow": {
+        "ServiceDealEscrow": "0xb0a44Fc3f52EB3B575b113Ef7Ef8D778a55B5Dfb",
+        "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "adminSafe": "0x0D106D512Ac28cc29E625b22C6628989013c4C6B",
+        "aiOracle": "0x477beD9204a958aED0F8D2B0e0C68d7ba3b4B7d3"
       },
       "art": {
         "BuildingCultureTicket": "0x2f10aAF159aeCf78d76a610b87210BF81775b62F",

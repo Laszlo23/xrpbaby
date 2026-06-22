@@ -37,7 +37,7 @@ Restart `npm run dev`. After that, connected wallets show real on-chain status: 
 
 | Role | Address / env | Fund with | Purpose |
 |------|----------------|-----------|---------|
-| **Protocol treasury (canonical)** | `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` | ETH on Base + operational BCC | Multisig Safe — reserves, BCC settlement buys, governance. See [TREASURY_POLICY.md](./TREASURY_POLICY.md). |
+| **Protocol treasury (canonical)** | `0x0D106D512Ac28cc29E625b22C6628989013c4C6B` | ETH on Base + operational BCC | Multisig Safe — reserves, BCC settlement buys, governance. See [TREASURY_POLICY.md](./TREASURY_POLICY.md). |
 | **BCC settlement ops** | Same treasury (or hot ops wallet you control) | **BCC + ETH** | After Stripe culture-pack sales, treasury buys BCC and marks `BccSettlement` rows credited ([BCC_TOKEN.md](./BCC_TOKEN.md)). |
 | **x402 revenue** | `X402_SERVER_WALLET_ADDRESS` / `X402_PAY_TO` | — (receives USDC/ETH) | Trading agent + premium feed payments. **Limx briefs** settle to `LIMX_AGENT_WALLET_ADDRESS` (`0xf424…584b`) via `GET /api/agents/limx`. |
 | **Agent distributor** | `AGENT_AGS_DISTRIBUTOR_PRIVATE_KEY` | ETH | Only when `ECON_LIVE=1` — automated agent ticks. |

@@ -12,7 +12,7 @@
 | **Mainnet deploy** | `0x42355c509743a92EBD6F2F7259D4f677Eca18b4d` — [tx `0xd82b…2c10`](https://basescan.org/tx/0xd82bd7e3941ade8125cc5e9ec9e0667c897fe751184a4317a01910fb96cd2c10) (2026-06-10) |
 | Sepolia (testnet) | `0x5b73C5498c1E3b4dbA84de0F1833c4a029d90519` |
 | BCC token (Base) | `0xb890a5289f789f1346032ccc1847939e855fab07` |
-| Protocol Safe | `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c` |
+| Protocol Safe | `0x0D106D512Ac28cc29E625b22C6628989013c4C6B` |
 | Treasury seed wallet (Aerodrome ops) | `0x502ce9…` — see [`BCC_AERODROME_LIQUIDITY.md`](./BCC_AERODROME_LIQUIDITY.md) |
 
 Registry: [`contracts/deployments/bcc-8453.json`](../contracts/deployments/bcc-8453.json).
@@ -75,7 +75,7 @@ forge script script/DeployBccRootsStaking.s.sol \
 
 # Base mainnet (unlock window)
 BCC_TOKEN_ADDRESS=0xb890a5289f789f1346032ccc1847939e855fab07 \
-ADMIN_ADDRESS=0xCe03F6E734cC48393Ce41b257E998c68b521EB5c \
+ADMIN_ADDRESS=0x0D106D512Ac28cc29E625b22C6628989013c4C6B \
 PRIVATE_KEY=0x... \
 forge script script/DeployBccRootsStaking.s.sol \
   --rpc-url $BASE_RPC --broadcast --chain-id 8453

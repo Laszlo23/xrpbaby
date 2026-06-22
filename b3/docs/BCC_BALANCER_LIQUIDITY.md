@@ -4,7 +4,7 @@ BCC primary liquidity remains **Uniswap V3 on Base**. This runbook covers the **
 
 ## Prerequisites
 
-- Protocol Safe on Base: `0xCe03F6E734cC48393Ce41b257E998c68b521EB5c`
+- Protocol Safe on Base: `0x0D106D512Ac28cc29E625b22C6628989013c4C6B`
 - Counsel-approved BCC + WETH seed budget (not Culture Roots reward wallet)
 - Balancer app access on Base: https://app.balancer.fi/#/base/pools
 - Strategy context: [`BCC_BALANCER_DAO_STRATEGY.md`](./BCC_BALANCER_DAO_STRATEGY.md)
