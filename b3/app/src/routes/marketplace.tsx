@@ -106,6 +106,11 @@ function MarketplaceLayout() {
               active={ticketsHashActive && !sellActive}
             />
             <NavPill to="/marketplace/sell" label="Sell an NFT" active={sellActive} />
+            <NavPill
+              to="/how-we-partner"
+              label="Partner escrow"
+              active={pathname.startsWith("/how-we-partner")}
+            />
           </nav>
         </div>
       </div>

@@ -33,6 +33,7 @@ import { Route as JoinRouteImport } from './routes/join'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
 import { Route as HqRouteImport } from './routes/hq'
+import { Route as HowWePartnerRouteImport } from './routes/how-we-partner'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as GrantProofRouteImport } from './routes/grant-proof'
 import { Route as GenesisDistrictRouteImport } from './routes/genesis-district'
@@ -45,6 +46,7 @@ import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as ChatbaseRouteImport } from './routes/chatbase'
 import { Route as CampaignRouteImport } from './routes/campaign'
+import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AgentOsRouteImport } from './routes/agent-os'
 import { Route as AgentFleetRouteImport } from './routes/agent-fleet'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -79,6 +81,7 @@ import { Route as ProductsGrantProofRouteImport } from './routes/products/grant-
 import { Route as ProductsCultureIdRouteImport } from './routes/products/culture-id'
 import { Route as ProductsCampaignHubRouteImport } from './routes/products/campaign-hub'
 import { Route as ProductsAiAgentsRouteImport } from './routes/products/ai-agents'
+import { Route as PartnerDealsRouteImport } from './routes/partner/deals'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as OpsRevenueRouteImport } from './routes/ops/revenue'
 import { Route as OpsOutreachRouteImport } from './routes/ops/outreach'
@@ -121,6 +124,8 @@ import { Route as DotwellKnownAgentDotjsonRouteImport } from './routes/[.]well-k
 import { Route as StoriesTapesIndexRouteImport } from './routes/stories/tapes/index'
 import { Route as MarketplaceServicesIndexRouteImport } from './routes/marketplace/services/index'
 import { Route as MarketplaceMerchIndexRouteImport } from './routes/marketplace/merch/index'
+import { Route as DaoPartnerDealsIndexRouteImport } from './routes/dao/partner-deals/index'
+import { Route as ApiPartnerDealsIndexRouteImport } from './routes/api/partner-deals/index'
 import { Route as StoriesTapesSlugRouteImport } from './routes/stories/tapes/$slug'
 import { Route as MerchClaimCodeRouteImport } from './routes/merch/claim/$code'
 import { Route as MarketplaceServicesSlugRouteImport } from './routes/marketplace/services/$slug'
@@ -131,6 +136,8 @@ import { Route as IdNameCredentialsRouteImport } from './routes/id/$name/credent
 import { Route as IdNameCardRouteImport } from './routes/id/$name/card'
 import { Route as ExplorerTxHashRouteImport } from './routes/explorer.tx.$hash'
 import { Route as ExplorerAddressAddressRouteImport } from './routes/explorer.address.$address'
+import { Route as DaoPartnerDealsNewRouteImport } from './routes/dao/partner-deals/new'
+import { Route as DaoPartnerDealsIdRouteImport } from './routes/dao/partner-deals/$id'
 import { Route as ApiX402PremiumRouteImport } from './routes/api/x402/premium'
 import { Route as ApiWorldWalletVerifyRouteImport } from './routes/api/world/wallet-verify'
 import { Route as ApiWorldWalletNonceRouteImport } from './routes/api/world/wallet-nonce'
@@ -167,6 +174,8 @@ import { Route as ApiPlatformOnboardingCompleteRouteImport } from './routes/api/
 import { Route as ApiPlatformFunnelBaselineRouteImport } from './routes/api/platform/funnel-baseline'
 import { Route as ApiPlatformAttributionDashboardRouteImport } from './routes/api/platform/attribution-dashboard'
 import { Route as ApiPlatformAnalyticsRouteImport } from './routes/api/platform/analytics'
+import { Route as ApiPartnerDealsSettleTickRouteImport } from './routes/api/partner-deals/settle-tick'
+import { Route as ApiPartnerDealsIdRouteImport } from './routes/api/partner-deals/$id'
 import { Route as ApiOpsRevenueRouteImport } from './routes/api/ops/revenue'
 import { Route as ApiOpsIdentityLadderSyncRouteImport } from './routes/api/ops/identity-ladder-sync'
 import { Route as ApiMerchClaimRouteImport } from './routes/api/merch/claim'
@@ -196,12 +205,14 @@ import { Route as ApiIntelligenceHeatmapRouteImport } from './routes/api/intelli
 import { Route as ApiIntelligenceFunnelsRouteImport } from './routes/api/intelligence/funnels'
 import { Route as ApiIntelligenceAppsRouteImport } from './routes/api/intelligence/apps'
 import { Route as ApiIdentityVerifyNameRouteImport } from './routes/api/identity/verify-name'
+import { Route as ApiIdentityTeamWalletRouteImport } from './routes/api/identity/team-wallet'
 import { Route as ApiIdentityResolveBnbRouteImport } from './routes/api/identity/resolve-bnb'
 import { Route as ApiIdentityResolveRouteImport } from './routes/api/identity/resolve'
 import { Route as ApiIdentityGraphDemoRouteImport } from './routes/api/identity/graph-demo'
 import { Route as ApiIdentityGraphRouteImport } from './routes/api/identity/graph'
 import { Route as ApiIdentityEnrichRouteImport } from './routes/api/identity/enrich'
 import { Route as ApiIdentityCheckBnbRouteImport } from './routes/api/identity/check-bnb'
+import { Route as ApiIdentityByWalletRouteImport } from './routes/api/identity/by-wallet'
 import { Route as ApiGrantVerificationRouteImport } from './routes/api/grant/verification'
 import { Route as ApiFeedbackWallRouteImport } from './routes/api/feedback/wall'
 import { Route as ApiFeedbackSubmitRouteImport } from './routes/api/feedback/submit'
@@ -244,6 +255,8 @@ import { Route as ApiPointsRedeemIndexRouteImport } from './routes/api/points/re
 import { Route as ApiOpsOutreachIndexRouteImport } from './routes/api/ops/outreach/index'
 import { Route as PlacesApiReocPropertyIdRouteImport } from './routes/places/api/reoc/$propertyId'
 import { Route as ApiWalletPacksCheckoutRouteImport } from './routes/api/wallet/packs/checkout'
+import { Route as ApiTradingXtManifestRouteImport } from './routes/api/trading/xt/manifest'
+import { Route as ApiTradingXtHealthRouteImport } from './routes/api/trading/xt/health'
 import { Route as ApiTgWalletTonConnectedRouteImport } from './routes/api/tg/wallet/ton-connected'
 import { Route as ApiTgTasksCompleteRouteImport } from './routes/api/tg/tasks/complete'
 import { Route as ApiTgQuestsClaimRouteImport } from './routes/api/tg/quests/claim'
@@ -257,6 +270,9 @@ import { Route as ApiPulseAttestationLatestRouteImport } from './routes/api/puls
 import { Route as ApiPointsWeeklyClaimQuoteRouteImport } from './routes/api/points/weekly-claim/quote'
 import { Route as ApiPointsRedeemStatsRouteImport } from './routes/api/points/redeem/stats'
 import { Route as ApiPointsRedeemQuoteRouteImport } from './routes/api/points/redeem/quote'
+import { Route as ApiPartnerDealsIdOverrideRouteImport } from './routes/api/partner-deals/$id/override'
+import { Route as ApiPartnerDealsIdEvidenceRouteImport } from './routes/api/partner-deals/$id/evidence'
+import { Route as ApiPartnerDealsIdEvaluateRouteImport } from './routes/api/partner-deals/$id/evaluate'
 import { Route as ApiOpsOutreachSendRouteImport } from './routes/api/ops/outreach/send'
 import { Route as ApiOpsOutreachDraftRouteImport } from './routes/api/ops/outreach/draft'
 import { Route as ApiMemberCulturePowerRefreshRouteImport } from './routes/api/member/culture-power/refresh'
@@ -288,14 +304,40 @@ import { Route as ApiExplorerAddressAddressRouteImport } from './routes/api/expl
 import { Route as ApiCredentialsXrplLinkRouteImport } from './routes/api/credentials/xrpl/link'
 import { Route as ApiCredentialsXrplChallengeRouteImport } from './routes/api/credentials/xrpl/challenge'
 import { Route as ApiCredentialsIdentitySyncRouteImport } from './routes/api/credentials/identity/sync'
+import { Route as ApiBillingStripeSubscribeRouteImport } from './routes/api/billing/stripe/subscribe'
+import { Route as ApiBillingStripeManifestRouteImport } from './routes/api/billing/stripe/manifest'
+import { Route as ApiBillingStripeHealthRouteImport } from './routes/api/billing/stripe/health'
+import { Route as ApiBillingStripeCheckoutRouteImport } from './routes/api/billing/stripe/checkout'
 import { Route as ApiBcidWaitlistConvertRouteImport } from './routes/api/bcid/waitlist/convert'
 import { Route as ApiBcidReferralCodeRouteImport } from './routes/api/bcid/referral/$code'
 import { Route as ApiBcidFarcasterFrameRouteImport } from './routes/api/bcid/farcaster/frame'
 import { Route as ApiBcidBridgeCultureRouteImport } from './routes/api/bcid/bridge/culture'
+import { Route as ApiTradingXtSpotWithdrawRouteImport } from './routes/api/trading/xt/spot/withdraw'
+import { Route as ApiTradingXtSpotTransferRouteImport } from './routes/api/trading/xt/spot/transfer'
+import { Route as ApiTradingXtSpotTicker24hRouteImport } from './routes/api/trading/xt/spot/ticker-24h'
+import { Route as ApiTradingXtSpotTickerRouteImport } from './routes/api/trading/xt/spot/ticker'
+import { Route as ApiTradingXtSpotSymbolRouteImport } from './routes/api/trading/xt/spot/symbol'
+import { Route as ApiTradingXtSpotOrdersRouteImport } from './routes/api/trading/xt/spot/orders'
+import { Route as ApiTradingXtSpotOrderRouteImport } from './routes/api/trading/xt/spot/order'
+import { Route as ApiTradingXtSpotKlinesRouteImport } from './routes/api/trading/xt/spot/klines'
+import { Route as ApiTradingXtSpotHistoryRouteImport } from './routes/api/trading/xt/spot/history'
+import { Route as ApiTradingXtSpotDepthRouteImport } from './routes/api/trading/xt/spot/depth'
+import { Route as ApiTradingXtSpotBalanceRouteImport } from './routes/api/trading/xt/spot/balance'
+import { Route as ApiTradingXtFuturesTickerRouteImport } from './routes/api/trading/xt/futures/ticker'
+import { Route as ApiTradingXtFuturesPositionsRouteImport } from './routes/api/trading/xt/futures/positions'
+import { Route as ApiTradingXtFuturesOrdersRouteImport } from './routes/api/trading/xt/futures/orders'
+import { Route as ApiTradingXtFuturesOpenRouteImport } from './routes/api/trading/xt/futures/open'
+import { Route as ApiTradingXtFuturesKlinesRouteImport } from './routes/api/trading/xt/futures/klines'
+import { Route as ApiTradingXtFuturesHistoryRouteImport } from './routes/api/trading/xt/futures/history'
+import { Route as ApiTradingXtFuturesFundingRateRouteImport } from './routes/api/trading/xt/futures/funding-rate'
+import { Route as ApiTradingXtFuturesDepthRouteImport } from './routes/api/trading/xt/futures/depth'
+import { Route as ApiTradingXtFuturesAccountRouteImport } from './routes/api/trading/xt/futures/account'
 import { Route as ApiPulseFeedIdCommentsRouteImport } from './routes/api/pulse/feed/$id/comments'
 import { Route as ApiMarketplaceServicesOrderIdRouteImport } from './routes/api/marketplace/services/order/$id'
 import { Route as ApiMarketplaceMerchOrderIdRouteImport } from './routes/api/marketplace/merch/order/$id'
 import { Route as ApiExplorerTxHashExplainRouteImport } from './routes/api/explorer/tx.$hash.explain'
+import { Route as ApiTradingXtSpotOrderOrderIdRouteImport } from './routes/api/trading/xt/spot/order.$orderId'
+import { Route as ApiTradingXtFuturesOrderOrderIdRouteImport } from './routes/api/trading/xt/futures/order.$orderId'
 import { Route as ApiMarketplaceServicesMilestoneIdApproveRouteImport } from './routes/api/marketplace/services/milestone/$id/approve'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -418,6 +460,11 @@ const HqRoute = HqRouteImport.update({
   path: '/hq',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HowWePartnerRoute = HowWePartnerRouteImport.update({
+  id: '/how-we-partner',
+  path: '/how-we-partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuideRoute = GuideRouteImport.update({
   id: '/guide',
   path: '/guide',
@@ -476,6 +523,11 @@ const ChatbaseRoute = ChatbaseRouteImport.update({
 const CampaignRoute = CampaignRouteImport.update({
   id: '/campaign',
   path: '/campaign',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillingRoute = BillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgentOsRoute = AgentOsRouteImport.update({
@@ -646,6 +698,11 @@ const ProductsCampaignHubRoute = ProductsCampaignHubRouteImport.update({
 const ProductsAiAgentsRoute = ProductsAiAgentsRouteImport.update({
   id: '/products/ai-agents',
   path: '/products/ai-agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerDealsRoute = PartnerDealsRouteImport.update({
+  id: '/partner/deals',
+  path: '/partner/deals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PSlugRoute = PSlugRouteImport.update({
@@ -861,6 +918,16 @@ const MarketplaceMerchIndexRoute = MarketplaceMerchIndexRouteImport.update({
   path: '/merch/',
   getParentRoute: () => MarketplaceRoute,
 } as any)
+const DaoPartnerDealsIndexRoute = DaoPartnerDealsIndexRouteImport.update({
+  id: '/dao/partner-deals/',
+  path: '/dao/partner-deals/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPartnerDealsIndexRoute = ApiPartnerDealsIndexRouteImport.update({
+  id: '/api/partner-deals/',
+  path: '/api/partner-deals/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StoriesTapesSlugRoute = StoriesTapesSlugRouteImport.update({
   id: '/stories/tapes/$slug',
   path: '/stories/tapes/$slug',
@@ -910,6 +977,16 @@ const ExplorerAddressAddressRoute = ExplorerAddressAddressRouteImport.update({
   id: '/address/$address',
   path: '/address/$address',
   getParentRoute: () => ExplorerRoute,
+} as any)
+const DaoPartnerDealsNewRoute = DaoPartnerDealsNewRouteImport.update({
+  id: '/dao/partner-deals/new',
+  path: '/dao/partner-deals/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DaoPartnerDealsIdRoute = DaoPartnerDealsIdRouteImport.update({
+  id: '/dao/partner-deals/$id',
+  path: '/dao/partner-deals/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiX402PremiumRoute = ApiX402PremiumRouteImport.update({
   id: '/api/x402/premium',
@@ -1096,6 +1173,17 @@ const ApiPlatformAnalyticsRoute = ApiPlatformAnalyticsRouteImport.update({
   path: '/api/platform/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPartnerDealsSettleTickRoute =
+  ApiPartnerDealsSettleTickRouteImport.update({
+    id: '/api/partner-deals/settle-tick',
+    path: '/api/partner-deals/settle-tick',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPartnerDealsIdRoute = ApiPartnerDealsIdRouteImport.update({
+  id: '/api/partner-deals/$id',
+  path: '/api/partner-deals/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiOpsRevenueRoute = ApiOpsRevenueRouteImport.update({
   id: '/api/ops/revenue',
   path: '/api/ops/revenue',
@@ -1244,6 +1332,11 @@ const ApiIdentityVerifyNameRoute = ApiIdentityVerifyNameRouteImport.update({
   path: '/api/identity/verify-name',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiIdentityTeamWalletRoute = ApiIdentityTeamWalletRouteImport.update({
+  id: '/api/identity/team-wallet',
+  path: '/api/identity/team-wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiIdentityResolveBnbRoute = ApiIdentityResolveBnbRouteImport.update({
   id: '/api/identity/resolve-bnb',
   path: '/api/identity/resolve-bnb',
@@ -1272,6 +1365,11 @@ const ApiIdentityEnrichRoute = ApiIdentityEnrichRouteImport.update({
 const ApiIdentityCheckBnbRoute = ApiIdentityCheckBnbRouteImport.update({
   id: '/api/identity/check-bnb',
   path: '/api/identity/check-bnb',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIdentityByWalletRoute = ApiIdentityByWalletRouteImport.update({
+  id: '/api/identity/by-wallet',
+  path: '/api/identity/by-wallet',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGrantVerificationRoute = ApiGrantVerificationRouteImport.update({
@@ -1489,6 +1587,16 @@ const ApiWalletPacksCheckoutRoute = ApiWalletPacksCheckoutRouteImport.update({
   path: '/api/wallet/packs/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTradingXtManifestRoute = ApiTradingXtManifestRouteImport.update({
+  id: '/api/trading/xt/manifest',
+  path: '/api/trading/xt/manifest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtHealthRoute = ApiTradingXtHealthRouteImport.update({
+  id: '/api/trading/xt/health',
+  path: '/api/trading/xt/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiTgWalletTonConnectedRoute = ApiTgWalletTonConnectedRouteImport.update({
   id: '/api/tg/wallet/ton-connected',
   path: '/api/tg/wallet/ton-connected',
@@ -1558,6 +1666,24 @@ const ApiPointsRedeemQuoteRoute = ApiPointsRedeemQuoteRouteImport.update({
   path: '/api/points/redeem/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPartnerDealsIdOverrideRoute =
+  ApiPartnerDealsIdOverrideRouteImport.update({
+    id: '/override',
+    path: '/override',
+    getParentRoute: () => ApiPartnerDealsIdRoute,
+  } as any)
+const ApiPartnerDealsIdEvidenceRoute =
+  ApiPartnerDealsIdEvidenceRouteImport.update({
+    id: '/evidence',
+    path: '/evidence',
+    getParentRoute: () => ApiPartnerDealsIdRoute,
+  } as any)
+const ApiPartnerDealsIdEvaluateRoute =
+  ApiPartnerDealsIdEvaluateRouteImport.update({
+    id: '/evaluate',
+    path: '/evaluate',
+    getParentRoute: () => ApiPartnerDealsIdRoute,
+  } as any)
 const ApiOpsOutreachSendRoute = ApiOpsOutreachSendRouteImport.update({
   id: '/api/ops/outreach/send',
   path: '/api/ops/outreach/send',
@@ -1734,6 +1860,29 @@ const ApiCredentialsIdentitySyncRoute =
     path: '/api/credentials/identity/sync',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBillingStripeSubscribeRoute =
+  ApiBillingStripeSubscribeRouteImport.update({
+    id: '/api/billing/stripe/subscribe',
+    path: '/api/billing/stripe/subscribe',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingStripeManifestRoute =
+  ApiBillingStripeManifestRouteImport.update({
+    id: '/api/billing/stripe/manifest',
+    path: '/api/billing/stripe/manifest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingStripeHealthRoute = ApiBillingStripeHealthRouteImport.update({
+  id: '/api/billing/stripe/health',
+  path: '/api/billing/stripe/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBillingStripeCheckoutRoute =
+  ApiBillingStripeCheckoutRouteImport.update({
+    id: '/api/billing/stripe/checkout',
+    path: '/api/billing/stripe/checkout',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiBcidWaitlistConvertRoute = ApiBcidWaitlistConvertRouteImport.update({
   id: '/api/bcid/waitlist/convert',
   path: '/api/bcid/waitlist/convert',
@@ -1754,6 +1903,117 @@ const ApiBcidBridgeCultureRoute = ApiBcidBridgeCultureRouteImport.update({
   path: '/api/bcid/bridge/culture',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTradingXtSpotWithdrawRoute =
+  ApiTradingXtSpotWithdrawRouteImport.update({
+    id: '/api/trading/xt/spot/withdraw',
+    path: '/api/trading/xt/spot/withdraw',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtSpotTransferRoute =
+  ApiTradingXtSpotTransferRouteImport.update({
+    id: '/api/trading/xt/spot/transfer',
+    path: '/api/trading/xt/spot/transfer',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtSpotTicker24hRoute =
+  ApiTradingXtSpotTicker24hRouteImport.update({
+    id: '/api/trading/xt/spot/ticker-24h',
+    path: '/api/trading/xt/spot/ticker-24h',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtSpotTickerRoute = ApiTradingXtSpotTickerRouteImport.update({
+  id: '/api/trading/xt/spot/ticker',
+  path: '/api/trading/xt/spot/ticker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtSpotSymbolRoute = ApiTradingXtSpotSymbolRouteImport.update({
+  id: '/api/trading/xt/spot/symbol',
+  path: '/api/trading/xt/spot/symbol',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtSpotOrdersRoute = ApiTradingXtSpotOrdersRouteImport.update({
+  id: '/api/trading/xt/spot/orders',
+  path: '/api/trading/xt/spot/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtSpotOrderRoute = ApiTradingXtSpotOrderRouteImport.update({
+  id: '/api/trading/xt/spot/order',
+  path: '/api/trading/xt/spot/order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtSpotKlinesRoute = ApiTradingXtSpotKlinesRouteImport.update({
+  id: '/api/trading/xt/spot/klines',
+  path: '/api/trading/xt/spot/klines',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtSpotHistoryRoute = ApiTradingXtSpotHistoryRouteImport.update({
+  id: '/api/trading/xt/spot/history',
+  path: '/api/trading/xt/spot/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtSpotDepthRoute = ApiTradingXtSpotDepthRouteImport.update({
+  id: '/api/trading/xt/spot/depth',
+  path: '/api/trading/xt/spot/depth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtSpotBalanceRoute = ApiTradingXtSpotBalanceRouteImport.update({
+  id: '/api/trading/xt/spot/balance',
+  path: '/api/trading/xt/spot/balance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtFuturesTickerRoute =
+  ApiTradingXtFuturesTickerRouteImport.update({
+    id: '/api/trading/xt/futures/ticker',
+    path: '/api/trading/xt/futures/ticker',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtFuturesPositionsRoute =
+  ApiTradingXtFuturesPositionsRouteImport.update({
+    id: '/api/trading/xt/futures/positions',
+    path: '/api/trading/xt/futures/positions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtFuturesOrdersRoute =
+  ApiTradingXtFuturesOrdersRouteImport.update({
+    id: '/api/trading/xt/futures/orders',
+    path: '/api/trading/xt/futures/orders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtFuturesOpenRoute = ApiTradingXtFuturesOpenRouteImport.update({
+  id: '/api/trading/xt/futures/open',
+  path: '/api/trading/xt/futures/open',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTradingXtFuturesKlinesRoute =
+  ApiTradingXtFuturesKlinesRouteImport.update({
+    id: '/api/trading/xt/futures/klines',
+    path: '/api/trading/xt/futures/klines',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtFuturesHistoryRoute =
+  ApiTradingXtFuturesHistoryRouteImport.update({
+    id: '/api/trading/xt/futures/history',
+    path: '/api/trading/xt/futures/history',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtFuturesFundingRateRoute =
+  ApiTradingXtFuturesFundingRateRouteImport.update({
+    id: '/api/trading/xt/futures/funding-rate',
+    path: '/api/trading/xt/futures/funding-rate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtFuturesDepthRoute =
+  ApiTradingXtFuturesDepthRouteImport.update({
+    id: '/api/trading/xt/futures/depth',
+    path: '/api/trading/xt/futures/depth',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiTradingXtFuturesAccountRoute =
+  ApiTradingXtFuturesAccountRouteImport.update({
+    id: '/api/trading/xt/futures/account',
+    path: '/api/trading/xt/futures/account',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPulseFeedIdCommentsRoute = ApiPulseFeedIdCommentsRouteImport.update({
   id: '/$id/comments',
   path: '/$id/comments',
@@ -1777,6 +2037,18 @@ const ApiExplorerTxHashExplainRoute =
     path: '/explain',
     getParentRoute: () => ApiExplorerTxHashRoute,
   } as any)
+const ApiTradingXtSpotOrderOrderIdRoute =
+  ApiTradingXtSpotOrderOrderIdRouteImport.update({
+    id: '/$orderId',
+    path: '/$orderId',
+    getParentRoute: () => ApiTradingXtSpotOrderRoute,
+  } as any)
+const ApiTradingXtFuturesOrderOrderIdRoute =
+  ApiTradingXtFuturesOrderOrderIdRouteImport.update({
+    id: '/api/trading/xt/futures/order/$orderId',
+    path: '/api/trading/xt/futures/order/$orderId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiMarketplaceServicesMilestoneIdApproveRoute =
   ApiMarketplaceServicesMilestoneIdApproveRouteImport.update({
     id: '/api/marketplace/services/milestone/$id/approve',
@@ -1790,6 +2062,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/agent-fleet': typeof AgentFleetRouteWithChildren
   '/agent-os': typeof AgentOsRoute
+  '/billing': typeof BillingRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
@@ -1802,6 +2075,7 @@ export interface FileRoutesByFullPath {
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
+  '/how-we-partner': typeof HowWePartnerRoute
   '/hq': typeof HqRoute
   '/intelligence': typeof IntelligenceRoute
   '/investors': typeof InvestorsRouteWithChildren
@@ -1865,6 +2139,7 @@ export interface FileRoutesByFullPath {
   '/ops/outreach': typeof OpsOutreachRoute
   '/ops/revenue': typeof OpsRevenueRoute
   '/p/$slug': typeof PSlugRoute
+  '/partner/deals': typeof PartnerDealsRoute
   '/products/ai-agents': typeof ProductsAiAgentsRoute
   '/products/campaign-hub': typeof ProductsCampaignHubRoute
   '/products/culture-id': typeof ProductsCultureIdRoute
@@ -1931,12 +2206,14 @@ export interface FileRoutesByFullPath {
   '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
+  '/api/identity/by-wallet': typeof ApiIdentityByWalletRoute
   '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
   '/api/identity/enrich': typeof ApiIdentityEnrichRoute
   '/api/identity/graph': typeof ApiIdentityGraphRoute
   '/api/identity/graph-demo': typeof ApiIdentityGraphDemoRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
+  '/api/identity/team-wallet': typeof ApiIdentityTeamWalletRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
   '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
@@ -1966,6 +2243,8 @@ export interface FileRoutesByFullPath {
   '/api/merch/claim': typeof ApiMerchClaimRoute
   '/api/ops/identity-ladder-sync': typeof ApiOpsIdentityLadderSyncRoute
   '/api/ops/revenue': typeof ApiOpsRevenueRoute
+  '/api/partner-deals/$id': typeof ApiPartnerDealsIdRouteWithChildren
+  '/api/partner-deals/settle-tick': typeof ApiPartnerDealsSettleTickRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
   '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
@@ -2002,6 +2281,8 @@ export interface FileRoutesByFullPath {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/dao/partner-deals/$id': typeof DaoPartnerDealsIdRoute
+  '/dao/partner-deals/new': typeof DaoPartnerDealsNewRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
   '/id/$name/card': typeof IdNameCardRoute
@@ -2012,6 +2293,8 @@ export interface FileRoutesByFullPath {
   '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
   '/merch/claim/$code': typeof MerchClaimCodeRoute
   '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
+  '/api/partner-deals/': typeof ApiPartnerDealsIndexRoute
+  '/dao/partner-deals/': typeof DaoPartnerDealsIndexRoute
   '/marketplace/merch/': typeof MarketplaceMerchIndexRoute
   '/marketplace/services/': typeof MarketplaceServicesIndexRoute
   '/stories/tapes/': typeof StoriesTapesIndexRoute
@@ -2019,6 +2302,10 @@ export interface FileRoutesByFullPath {
   '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
   '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
   '/api/bcid/waitlist/convert': typeof ApiBcidWaitlistConvertRoute
+  '/api/billing/stripe/checkout': typeof ApiBillingStripeCheckoutRoute
+  '/api/billing/stripe/health': typeof ApiBillingStripeHealthRoute
+  '/api/billing/stripe/manifest': typeof ApiBillingStripeManifestRoute
+  '/api/billing/stripe/subscribe': typeof ApiBillingStripeSubscribeRoute
   '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
   '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
@@ -2050,6 +2337,9 @@ export interface FileRoutesByFullPath {
   '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
   '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
   '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
+  '/api/partner-deals/$id/evaluate': typeof ApiPartnerDealsIdEvaluateRoute
+  '/api/partner-deals/$id/evidence': typeof ApiPartnerDealsIdEvidenceRoute
+  '/api/partner-deals/$id/override': typeof ApiPartnerDealsIdOverrideRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
@@ -2063,6 +2353,8 @@ export interface FileRoutesByFullPath {
   '/api/tg/quests/claim': typeof ApiTgQuestsClaimRoute
   '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
+  '/api/trading/xt/health': typeof ApiTradingXtHealthRoute
+  '/api/trading/xt/manifest': typeof ApiTradingXtManifestRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/ops/outreach/': typeof ApiOpsOutreachIndexRoute
@@ -2072,7 +2364,29 @@ export interface FileRoutesByFullPath {
   '/api/marketplace/merch/order/$id': typeof ApiMarketplaceMerchOrderIdRoute
   '/api/marketplace/services/order/$id': typeof ApiMarketplaceServicesOrderIdRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
+  '/api/trading/xt/futures/account': typeof ApiTradingXtFuturesAccountRoute
+  '/api/trading/xt/futures/depth': typeof ApiTradingXtFuturesDepthRoute
+  '/api/trading/xt/futures/funding-rate': typeof ApiTradingXtFuturesFundingRateRoute
+  '/api/trading/xt/futures/history': typeof ApiTradingXtFuturesHistoryRoute
+  '/api/trading/xt/futures/klines': typeof ApiTradingXtFuturesKlinesRoute
+  '/api/trading/xt/futures/open': typeof ApiTradingXtFuturesOpenRoute
+  '/api/trading/xt/futures/orders': typeof ApiTradingXtFuturesOrdersRoute
+  '/api/trading/xt/futures/positions': typeof ApiTradingXtFuturesPositionsRoute
+  '/api/trading/xt/futures/ticker': typeof ApiTradingXtFuturesTickerRoute
+  '/api/trading/xt/spot/balance': typeof ApiTradingXtSpotBalanceRoute
+  '/api/trading/xt/spot/depth': typeof ApiTradingXtSpotDepthRoute
+  '/api/trading/xt/spot/history': typeof ApiTradingXtSpotHistoryRoute
+  '/api/trading/xt/spot/klines': typeof ApiTradingXtSpotKlinesRoute
+  '/api/trading/xt/spot/order': typeof ApiTradingXtSpotOrderRouteWithChildren
+  '/api/trading/xt/spot/orders': typeof ApiTradingXtSpotOrdersRoute
+  '/api/trading/xt/spot/symbol': typeof ApiTradingXtSpotSymbolRoute
+  '/api/trading/xt/spot/ticker': typeof ApiTradingXtSpotTickerRoute
+  '/api/trading/xt/spot/ticker-24h': typeof ApiTradingXtSpotTicker24hRoute
+  '/api/trading/xt/spot/transfer': typeof ApiTradingXtSpotTransferRoute
+  '/api/trading/xt/spot/withdraw': typeof ApiTradingXtSpotWithdrawRoute
   '/api/marketplace/services/milestone/$id/approve': typeof ApiMarketplaceServicesMilestoneIdApproveRoute
+  '/api/trading/xt/futures/order/$orderId': typeof ApiTradingXtFuturesOrderOrderIdRoute
+  '/api/trading/xt/spot/order/$orderId': typeof ApiTradingXtSpotOrderOrderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -2080,6 +2394,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/agent-fleet': typeof AgentFleetRouteWithChildren
   '/agent-os': typeof AgentOsRoute
+  '/billing': typeof BillingRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
@@ -2091,6 +2406,7 @@ export interface FileRoutesByTo {
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
+  '/how-we-partner': typeof HowWePartnerRoute
   '/hq': typeof HqRoute
   '/intelligence': typeof IntelligenceRoute
   '/investors': typeof InvestorsRouteWithChildren
@@ -2153,6 +2469,7 @@ export interface FileRoutesByTo {
   '/ops/outreach': typeof OpsOutreachRoute
   '/ops/revenue': typeof OpsRevenueRoute
   '/p/$slug': typeof PSlugRoute
+  '/partner/deals': typeof PartnerDealsRoute
   '/products/ai-agents': typeof ProductsAiAgentsRoute
   '/products/campaign-hub': typeof ProductsCampaignHubRoute
   '/products/culture-id': typeof ProductsCultureIdRoute
@@ -2219,12 +2536,14 @@ export interface FileRoutesByTo {
   '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
+  '/api/identity/by-wallet': typeof ApiIdentityByWalletRoute
   '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
   '/api/identity/enrich': typeof ApiIdentityEnrichRoute
   '/api/identity/graph': typeof ApiIdentityGraphRoute
   '/api/identity/graph-demo': typeof ApiIdentityGraphDemoRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
+  '/api/identity/team-wallet': typeof ApiIdentityTeamWalletRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
   '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
@@ -2254,6 +2573,8 @@ export interface FileRoutesByTo {
   '/api/merch/claim': typeof ApiMerchClaimRoute
   '/api/ops/identity-ladder-sync': typeof ApiOpsIdentityLadderSyncRoute
   '/api/ops/revenue': typeof ApiOpsRevenueRoute
+  '/api/partner-deals/$id': typeof ApiPartnerDealsIdRouteWithChildren
+  '/api/partner-deals/settle-tick': typeof ApiPartnerDealsSettleTickRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
   '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
@@ -2290,6 +2611,8 @@ export interface FileRoutesByTo {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/dao/partner-deals/$id': typeof DaoPartnerDealsIdRoute
+  '/dao/partner-deals/new': typeof DaoPartnerDealsNewRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
   '/id/$name/card': typeof IdNameCardRoute
@@ -2300,6 +2623,8 @@ export interface FileRoutesByTo {
   '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
   '/merch/claim/$code': typeof MerchClaimCodeRoute
   '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
+  '/api/partner-deals': typeof ApiPartnerDealsIndexRoute
+  '/dao/partner-deals': typeof DaoPartnerDealsIndexRoute
   '/marketplace/merch': typeof MarketplaceMerchIndexRoute
   '/marketplace/services': typeof MarketplaceServicesIndexRoute
   '/stories/tapes': typeof StoriesTapesIndexRoute
@@ -2307,6 +2632,10 @@ export interface FileRoutesByTo {
   '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
   '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
   '/api/bcid/waitlist/convert': typeof ApiBcidWaitlistConvertRoute
+  '/api/billing/stripe/checkout': typeof ApiBillingStripeCheckoutRoute
+  '/api/billing/stripe/health': typeof ApiBillingStripeHealthRoute
+  '/api/billing/stripe/manifest': typeof ApiBillingStripeManifestRoute
+  '/api/billing/stripe/subscribe': typeof ApiBillingStripeSubscribeRoute
   '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
   '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
@@ -2338,6 +2667,9 @@ export interface FileRoutesByTo {
   '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
   '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
   '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
+  '/api/partner-deals/$id/evaluate': typeof ApiPartnerDealsIdEvaluateRoute
+  '/api/partner-deals/$id/evidence': typeof ApiPartnerDealsIdEvidenceRoute
+  '/api/partner-deals/$id/override': typeof ApiPartnerDealsIdOverrideRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
@@ -2351,6 +2683,8 @@ export interface FileRoutesByTo {
   '/api/tg/quests/claim': typeof ApiTgQuestsClaimRoute
   '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
+  '/api/trading/xt/health': typeof ApiTradingXtHealthRoute
+  '/api/trading/xt/manifest': typeof ApiTradingXtManifestRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/ops/outreach': typeof ApiOpsOutreachIndexRoute
@@ -2360,7 +2694,29 @@ export interface FileRoutesByTo {
   '/api/marketplace/merch/order/$id': typeof ApiMarketplaceMerchOrderIdRoute
   '/api/marketplace/services/order/$id': typeof ApiMarketplaceServicesOrderIdRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
+  '/api/trading/xt/futures/account': typeof ApiTradingXtFuturesAccountRoute
+  '/api/trading/xt/futures/depth': typeof ApiTradingXtFuturesDepthRoute
+  '/api/trading/xt/futures/funding-rate': typeof ApiTradingXtFuturesFundingRateRoute
+  '/api/trading/xt/futures/history': typeof ApiTradingXtFuturesHistoryRoute
+  '/api/trading/xt/futures/klines': typeof ApiTradingXtFuturesKlinesRoute
+  '/api/trading/xt/futures/open': typeof ApiTradingXtFuturesOpenRoute
+  '/api/trading/xt/futures/orders': typeof ApiTradingXtFuturesOrdersRoute
+  '/api/trading/xt/futures/positions': typeof ApiTradingXtFuturesPositionsRoute
+  '/api/trading/xt/futures/ticker': typeof ApiTradingXtFuturesTickerRoute
+  '/api/trading/xt/spot/balance': typeof ApiTradingXtSpotBalanceRoute
+  '/api/trading/xt/spot/depth': typeof ApiTradingXtSpotDepthRoute
+  '/api/trading/xt/spot/history': typeof ApiTradingXtSpotHistoryRoute
+  '/api/trading/xt/spot/klines': typeof ApiTradingXtSpotKlinesRoute
+  '/api/trading/xt/spot/order': typeof ApiTradingXtSpotOrderRouteWithChildren
+  '/api/trading/xt/spot/orders': typeof ApiTradingXtSpotOrdersRoute
+  '/api/trading/xt/spot/symbol': typeof ApiTradingXtSpotSymbolRoute
+  '/api/trading/xt/spot/ticker': typeof ApiTradingXtSpotTickerRoute
+  '/api/trading/xt/spot/ticker-24h': typeof ApiTradingXtSpotTicker24hRoute
+  '/api/trading/xt/spot/transfer': typeof ApiTradingXtSpotTransferRoute
+  '/api/trading/xt/spot/withdraw': typeof ApiTradingXtSpotWithdrawRoute
   '/api/marketplace/services/milestone/$id/approve': typeof ApiMarketplaceServicesMilestoneIdApproveRoute
+  '/api/trading/xt/futures/order/$orderId': typeof ApiTradingXtFuturesOrderOrderIdRoute
+  '/api/trading/xt/spot/order/$orderId': typeof ApiTradingXtSpotOrderOrderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -2369,6 +2725,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/agent-fleet': typeof AgentFleetRouteWithChildren
   '/agent-os': typeof AgentOsRoute
+  '/billing': typeof BillingRoute
   '/campaign': typeof CampaignRoute
   '/chatbase': typeof ChatbaseRoute
   '/collections': typeof CollectionsRoute
@@ -2381,6 +2738,7 @@ export interface FileRoutesById {
   '/genesis-district': typeof GenesisDistrictRoute
   '/grant-proof': typeof GrantProofRoute
   '/guide': typeof GuideRoute
+  '/how-we-partner': typeof HowWePartnerRoute
   '/hq': typeof HqRoute
   '/intelligence': typeof IntelligenceRoute
   '/investors': typeof InvestorsRouteWithChildren
@@ -2444,6 +2802,7 @@ export interface FileRoutesById {
   '/ops/outreach': typeof OpsOutreachRoute
   '/ops/revenue': typeof OpsRevenueRoute
   '/p/$slug': typeof PSlugRoute
+  '/partner/deals': typeof PartnerDealsRoute
   '/products/ai-agents': typeof ProductsAiAgentsRoute
   '/products/campaign-hub': typeof ProductsCampaignHubRoute
   '/products/culture-id': typeof ProductsCultureIdRoute
@@ -2510,12 +2869,14 @@ export interface FileRoutesById {
   '/api/feedback/submit': typeof ApiFeedbackSubmitRoute
   '/api/feedback/wall': typeof ApiFeedbackWallRoute
   '/api/grant/verification': typeof ApiGrantVerificationRoute
+  '/api/identity/by-wallet': typeof ApiIdentityByWalletRoute
   '/api/identity/check-bnb': typeof ApiIdentityCheckBnbRoute
   '/api/identity/enrich': typeof ApiIdentityEnrichRoute
   '/api/identity/graph': typeof ApiIdentityGraphRoute
   '/api/identity/graph-demo': typeof ApiIdentityGraphDemoRoute
   '/api/identity/resolve': typeof ApiIdentityResolveRoute
   '/api/identity/resolve-bnb': typeof ApiIdentityResolveBnbRoute
+  '/api/identity/team-wallet': typeof ApiIdentityTeamWalletRoute
   '/api/identity/verify-name': typeof ApiIdentityVerifyNameRoute
   '/api/intelligence/apps': typeof ApiIntelligenceAppsRoute
   '/api/intelligence/funnels': typeof ApiIntelligenceFunnelsRoute
@@ -2545,6 +2906,8 @@ export interface FileRoutesById {
   '/api/merch/claim': typeof ApiMerchClaimRoute
   '/api/ops/identity-ladder-sync': typeof ApiOpsIdentityLadderSyncRoute
   '/api/ops/revenue': typeof ApiOpsRevenueRoute
+  '/api/partner-deals/$id': typeof ApiPartnerDealsIdRouteWithChildren
+  '/api/partner-deals/settle-tick': typeof ApiPartnerDealsSettleTickRoute
   '/api/platform/analytics': typeof ApiPlatformAnalyticsRoute
   '/api/platform/attribution-dashboard': typeof ApiPlatformAttributionDashboardRoute
   '/api/platform/funnel-baseline': typeof ApiPlatformFunnelBaselineRoute
@@ -2581,6 +2944,8 @@ export interface FileRoutesById {
   '/api/world/wallet-nonce': typeof ApiWorldWalletNonceRoute
   '/api/world/wallet-verify': typeof ApiWorldWalletVerifyRoute
   '/api/x402/premium': typeof ApiX402PremiumRoute
+  '/dao/partner-deals/$id': typeof DaoPartnerDealsIdRoute
+  '/dao/partner-deals/new': typeof DaoPartnerDealsNewRoute
   '/explorer/address/$address': typeof ExplorerAddressAddressRoute
   '/explorer/tx/$hash': typeof ExplorerTxHashRoute
   '/id/$name/card': typeof IdNameCardRoute
@@ -2591,6 +2956,8 @@ export interface FileRoutesById {
   '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
   '/merch/claim/$code': typeof MerchClaimCodeRoute
   '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
+  '/api/partner-deals/': typeof ApiPartnerDealsIndexRoute
+  '/dao/partner-deals/': typeof DaoPartnerDealsIndexRoute
   '/marketplace/merch/': typeof MarketplaceMerchIndexRoute
   '/marketplace/services/': typeof MarketplaceServicesIndexRoute
   '/stories/tapes/': typeof StoriesTapesIndexRoute
@@ -2598,6 +2965,10 @@ export interface FileRoutesById {
   '/api/bcid/farcaster/frame': typeof ApiBcidFarcasterFrameRoute
   '/api/bcid/referral/$code': typeof ApiBcidReferralCodeRoute
   '/api/bcid/waitlist/convert': typeof ApiBcidWaitlistConvertRoute
+  '/api/billing/stripe/checkout': typeof ApiBillingStripeCheckoutRoute
+  '/api/billing/stripe/health': typeof ApiBillingStripeHealthRoute
+  '/api/billing/stripe/manifest': typeof ApiBillingStripeManifestRoute
+  '/api/billing/stripe/subscribe': typeof ApiBillingStripeSubscribeRoute
   '/api/credentials/identity/sync': typeof ApiCredentialsIdentitySyncRoute
   '/api/credentials/xrpl/challenge': typeof ApiCredentialsXrplChallengeRoute
   '/api/credentials/xrpl/link': typeof ApiCredentialsXrplLinkRoute
@@ -2629,6 +3000,9 @@ export interface FileRoutesById {
   '/api/member/culture-power/refresh': typeof ApiMemberCulturePowerRefreshRoute
   '/api/ops/outreach/draft': typeof ApiOpsOutreachDraftRoute
   '/api/ops/outreach/send': typeof ApiOpsOutreachSendRoute
+  '/api/partner-deals/$id/evaluate': typeof ApiPartnerDealsIdEvaluateRoute
+  '/api/partner-deals/$id/evidence': typeof ApiPartnerDealsIdEvidenceRoute
+  '/api/partner-deals/$id/override': typeof ApiPartnerDealsIdOverrideRoute
   '/api/points/redeem/quote': typeof ApiPointsRedeemQuoteRoute
   '/api/points/redeem/stats': typeof ApiPointsRedeemStatsRoute
   '/api/points/weekly-claim/quote': typeof ApiPointsWeeklyClaimQuoteRoute
@@ -2642,6 +3016,8 @@ export interface FileRoutesById {
   '/api/tg/quests/claim': typeof ApiTgQuestsClaimRoute
   '/api/tg/tasks/complete': typeof ApiTgTasksCompleteRoute
   '/api/tg/wallet/ton-connected': typeof ApiTgWalletTonConnectedRoute
+  '/api/trading/xt/health': typeof ApiTradingXtHealthRoute
+  '/api/trading/xt/manifest': typeof ApiTradingXtManifestRoute
   '/api/wallet/packs/checkout': typeof ApiWalletPacksCheckoutRoute
   '/places/api/reoc/$propertyId': typeof PlacesApiReocPropertyIdRoute
   '/api/ops/outreach/': typeof ApiOpsOutreachIndexRoute
@@ -2651,7 +3027,29 @@ export interface FileRoutesById {
   '/api/marketplace/merch/order/$id': typeof ApiMarketplaceMerchOrderIdRoute
   '/api/marketplace/services/order/$id': typeof ApiMarketplaceServicesOrderIdRoute
   '/api/pulse/feed/$id/comments': typeof ApiPulseFeedIdCommentsRoute
+  '/api/trading/xt/futures/account': typeof ApiTradingXtFuturesAccountRoute
+  '/api/trading/xt/futures/depth': typeof ApiTradingXtFuturesDepthRoute
+  '/api/trading/xt/futures/funding-rate': typeof ApiTradingXtFuturesFundingRateRoute
+  '/api/trading/xt/futures/history': typeof ApiTradingXtFuturesHistoryRoute
+  '/api/trading/xt/futures/klines': typeof ApiTradingXtFuturesKlinesRoute
+  '/api/trading/xt/futures/open': typeof ApiTradingXtFuturesOpenRoute
+  '/api/trading/xt/futures/orders': typeof ApiTradingXtFuturesOrdersRoute
+  '/api/trading/xt/futures/positions': typeof ApiTradingXtFuturesPositionsRoute
+  '/api/trading/xt/futures/ticker': typeof ApiTradingXtFuturesTickerRoute
+  '/api/trading/xt/spot/balance': typeof ApiTradingXtSpotBalanceRoute
+  '/api/trading/xt/spot/depth': typeof ApiTradingXtSpotDepthRoute
+  '/api/trading/xt/spot/history': typeof ApiTradingXtSpotHistoryRoute
+  '/api/trading/xt/spot/klines': typeof ApiTradingXtSpotKlinesRoute
+  '/api/trading/xt/spot/order': typeof ApiTradingXtSpotOrderRouteWithChildren
+  '/api/trading/xt/spot/orders': typeof ApiTradingXtSpotOrdersRoute
+  '/api/trading/xt/spot/symbol': typeof ApiTradingXtSpotSymbolRoute
+  '/api/trading/xt/spot/ticker': typeof ApiTradingXtSpotTickerRoute
+  '/api/trading/xt/spot/ticker-24h': typeof ApiTradingXtSpotTicker24hRoute
+  '/api/trading/xt/spot/transfer': typeof ApiTradingXtSpotTransferRoute
+  '/api/trading/xt/spot/withdraw': typeof ApiTradingXtSpotWithdrawRoute
   '/api/marketplace/services/milestone/$id/approve': typeof ApiMarketplaceServicesMilestoneIdApproveRoute
+  '/api/trading/xt/futures/order/$orderId': typeof ApiTradingXtFuturesOrderOrderIdRoute
+  '/api/trading/xt/spot/order/$orderId': typeof ApiTradingXtSpotOrderOrderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -2661,6 +3059,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/agent-fleet'
     | '/agent-os'
+    | '/billing'
     | '/campaign'
     | '/chatbase'
     | '/collections'
@@ -2673,6 +3072,7 @@ export interface FileRouteTypes {
     | '/genesis-district'
     | '/grant-proof'
     | '/guide'
+    | '/how-we-partner'
     | '/hq'
     | '/intelligence'
     | '/investors'
@@ -2736,6 +3136,7 @@ export interface FileRouteTypes {
     | '/ops/outreach'
     | '/ops/revenue'
     | '/p/$slug'
+    | '/partner/deals'
     | '/products/ai-agents'
     | '/products/campaign-hub'
     | '/products/culture-id'
@@ -2802,12 +3203,14 @@ export interface FileRouteTypes {
     | '/api/feedback/submit'
     | '/api/feedback/wall'
     | '/api/grant/verification'
+    | '/api/identity/by-wallet'
     | '/api/identity/check-bnb'
     | '/api/identity/enrich'
     | '/api/identity/graph'
     | '/api/identity/graph-demo'
     | '/api/identity/resolve'
     | '/api/identity/resolve-bnb'
+    | '/api/identity/team-wallet'
     | '/api/identity/verify-name'
     | '/api/intelligence/apps'
     | '/api/intelligence/funnels'
@@ -2837,6 +3240,8 @@ export interface FileRouteTypes {
     | '/api/merch/claim'
     | '/api/ops/identity-ladder-sync'
     | '/api/ops/revenue'
+    | '/api/partner-deals/$id'
+    | '/api/partner-deals/settle-tick'
     | '/api/platform/analytics'
     | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
@@ -2873,6 +3278,8 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/dao/partner-deals/$id'
+    | '/dao/partner-deals/new'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
     | '/id/$name/card'
@@ -2883,6 +3290,8 @@ export interface FileRouteTypes {
     | '/marketplace/services/$slug'
     | '/merch/claim/$code'
     | '/stories/tapes/$slug'
+    | '/api/partner-deals/'
+    | '/dao/partner-deals/'
     | '/marketplace/merch/'
     | '/marketplace/services/'
     | '/stories/tapes/'
@@ -2890,6 +3299,10 @@ export interface FileRouteTypes {
     | '/api/bcid/farcaster/frame'
     | '/api/bcid/referral/$code'
     | '/api/bcid/waitlist/convert'
+    | '/api/billing/stripe/checkout'
+    | '/api/billing/stripe/health'
+    | '/api/billing/stripe/manifest'
+    | '/api/billing/stripe/subscribe'
     | '/api/credentials/identity/sync'
     | '/api/credentials/xrpl/challenge'
     | '/api/credentials/xrpl/link'
@@ -2921,6 +3334,9 @@ export interface FileRouteTypes {
     | '/api/member/culture-power/refresh'
     | '/api/ops/outreach/draft'
     | '/api/ops/outreach/send'
+    | '/api/partner-deals/$id/evaluate'
+    | '/api/partner-deals/$id/evidence'
+    | '/api/partner-deals/$id/override'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/points/weekly-claim/quote'
@@ -2934,6 +3350,8 @@ export interface FileRouteTypes {
     | '/api/tg/quests/claim'
     | '/api/tg/tasks/complete'
     | '/api/tg/wallet/ton-connected'
+    | '/api/trading/xt/health'
+    | '/api/trading/xt/manifest'
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/ops/outreach/'
@@ -2943,7 +3361,29 @@ export interface FileRouteTypes {
     | '/api/marketplace/merch/order/$id'
     | '/api/marketplace/services/order/$id'
     | '/api/pulse/feed/$id/comments'
+    | '/api/trading/xt/futures/account'
+    | '/api/trading/xt/futures/depth'
+    | '/api/trading/xt/futures/funding-rate'
+    | '/api/trading/xt/futures/history'
+    | '/api/trading/xt/futures/klines'
+    | '/api/trading/xt/futures/open'
+    | '/api/trading/xt/futures/orders'
+    | '/api/trading/xt/futures/positions'
+    | '/api/trading/xt/futures/ticker'
+    | '/api/trading/xt/spot/balance'
+    | '/api/trading/xt/spot/depth'
+    | '/api/trading/xt/spot/history'
+    | '/api/trading/xt/spot/klines'
+    | '/api/trading/xt/spot/order'
+    | '/api/trading/xt/spot/orders'
+    | '/api/trading/xt/spot/symbol'
+    | '/api/trading/xt/spot/ticker'
+    | '/api/trading/xt/spot/ticker-24h'
+    | '/api/trading/xt/spot/transfer'
+    | '/api/trading/xt/spot/withdraw'
     | '/api/marketplace/services/milestone/$id/approve'
+    | '/api/trading/xt/futures/order/$orderId'
+    | '/api/trading/xt/spot/order/$orderId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -2951,6 +3391,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/agent-fleet'
     | '/agent-os'
+    | '/billing'
     | '/campaign'
     | '/chatbase'
     | '/collections'
@@ -2962,6 +3403,7 @@ export interface FileRouteTypes {
     | '/genesis-district'
     | '/grant-proof'
     | '/guide'
+    | '/how-we-partner'
     | '/hq'
     | '/intelligence'
     | '/investors'
@@ -3024,6 +3466,7 @@ export interface FileRouteTypes {
     | '/ops/outreach'
     | '/ops/revenue'
     | '/p/$slug'
+    | '/partner/deals'
     | '/products/ai-agents'
     | '/products/campaign-hub'
     | '/products/culture-id'
@@ -3090,12 +3533,14 @@ export interface FileRouteTypes {
     | '/api/feedback/submit'
     | '/api/feedback/wall'
     | '/api/grant/verification'
+    | '/api/identity/by-wallet'
     | '/api/identity/check-bnb'
     | '/api/identity/enrich'
     | '/api/identity/graph'
     | '/api/identity/graph-demo'
     | '/api/identity/resolve'
     | '/api/identity/resolve-bnb'
+    | '/api/identity/team-wallet'
     | '/api/identity/verify-name'
     | '/api/intelligence/apps'
     | '/api/intelligence/funnels'
@@ -3125,6 +3570,8 @@ export interface FileRouteTypes {
     | '/api/merch/claim'
     | '/api/ops/identity-ladder-sync'
     | '/api/ops/revenue'
+    | '/api/partner-deals/$id'
+    | '/api/partner-deals/settle-tick'
     | '/api/platform/analytics'
     | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
@@ -3161,6 +3608,8 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/dao/partner-deals/$id'
+    | '/dao/partner-deals/new'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
     | '/id/$name/card'
@@ -3171,6 +3620,8 @@ export interface FileRouteTypes {
     | '/marketplace/services/$slug'
     | '/merch/claim/$code'
     | '/stories/tapes/$slug'
+    | '/api/partner-deals'
+    | '/dao/partner-deals'
     | '/marketplace/merch'
     | '/marketplace/services'
     | '/stories/tapes'
@@ -3178,6 +3629,10 @@ export interface FileRouteTypes {
     | '/api/bcid/farcaster/frame'
     | '/api/bcid/referral/$code'
     | '/api/bcid/waitlist/convert'
+    | '/api/billing/stripe/checkout'
+    | '/api/billing/stripe/health'
+    | '/api/billing/stripe/manifest'
+    | '/api/billing/stripe/subscribe'
     | '/api/credentials/identity/sync'
     | '/api/credentials/xrpl/challenge'
     | '/api/credentials/xrpl/link'
@@ -3209,6 +3664,9 @@ export interface FileRouteTypes {
     | '/api/member/culture-power/refresh'
     | '/api/ops/outreach/draft'
     | '/api/ops/outreach/send'
+    | '/api/partner-deals/$id/evaluate'
+    | '/api/partner-deals/$id/evidence'
+    | '/api/partner-deals/$id/override'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/points/weekly-claim/quote'
@@ -3222,6 +3680,8 @@ export interface FileRouteTypes {
     | '/api/tg/quests/claim'
     | '/api/tg/tasks/complete'
     | '/api/tg/wallet/ton-connected'
+    | '/api/trading/xt/health'
+    | '/api/trading/xt/manifest'
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/ops/outreach'
@@ -3231,7 +3691,29 @@ export interface FileRouteTypes {
     | '/api/marketplace/merch/order/$id'
     | '/api/marketplace/services/order/$id'
     | '/api/pulse/feed/$id/comments'
+    | '/api/trading/xt/futures/account'
+    | '/api/trading/xt/futures/depth'
+    | '/api/trading/xt/futures/funding-rate'
+    | '/api/trading/xt/futures/history'
+    | '/api/trading/xt/futures/klines'
+    | '/api/trading/xt/futures/open'
+    | '/api/trading/xt/futures/orders'
+    | '/api/trading/xt/futures/positions'
+    | '/api/trading/xt/futures/ticker'
+    | '/api/trading/xt/spot/balance'
+    | '/api/trading/xt/spot/depth'
+    | '/api/trading/xt/spot/history'
+    | '/api/trading/xt/spot/klines'
+    | '/api/trading/xt/spot/order'
+    | '/api/trading/xt/spot/orders'
+    | '/api/trading/xt/spot/symbol'
+    | '/api/trading/xt/spot/ticker'
+    | '/api/trading/xt/spot/ticker-24h'
+    | '/api/trading/xt/spot/transfer'
+    | '/api/trading/xt/spot/withdraw'
     | '/api/marketplace/services/milestone/$id/approve'
+    | '/api/trading/xt/futures/order/$orderId'
+    | '/api/trading/xt/spot/order/$orderId'
   id:
     | '__root__'
     | '/'
@@ -3239,6 +3721,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/agent-fleet'
     | '/agent-os'
+    | '/billing'
     | '/campaign'
     | '/chatbase'
     | '/collections'
@@ -3251,6 +3734,7 @@ export interface FileRouteTypes {
     | '/genesis-district'
     | '/grant-proof'
     | '/guide'
+    | '/how-we-partner'
     | '/hq'
     | '/intelligence'
     | '/investors'
@@ -3314,6 +3798,7 @@ export interface FileRouteTypes {
     | '/ops/outreach'
     | '/ops/revenue'
     | '/p/$slug'
+    | '/partner/deals'
     | '/products/ai-agents'
     | '/products/campaign-hub'
     | '/products/culture-id'
@@ -3380,12 +3865,14 @@ export interface FileRouteTypes {
     | '/api/feedback/submit'
     | '/api/feedback/wall'
     | '/api/grant/verification'
+    | '/api/identity/by-wallet'
     | '/api/identity/check-bnb'
     | '/api/identity/enrich'
     | '/api/identity/graph'
     | '/api/identity/graph-demo'
     | '/api/identity/resolve'
     | '/api/identity/resolve-bnb'
+    | '/api/identity/team-wallet'
     | '/api/identity/verify-name'
     | '/api/intelligence/apps'
     | '/api/intelligence/funnels'
@@ -3415,6 +3902,8 @@ export interface FileRouteTypes {
     | '/api/merch/claim'
     | '/api/ops/identity-ladder-sync'
     | '/api/ops/revenue'
+    | '/api/partner-deals/$id'
+    | '/api/partner-deals/settle-tick'
     | '/api/platform/analytics'
     | '/api/platform/attribution-dashboard'
     | '/api/platform/funnel-baseline'
@@ -3451,6 +3940,8 @@ export interface FileRouteTypes {
     | '/api/world/wallet-nonce'
     | '/api/world/wallet-verify'
     | '/api/x402/premium'
+    | '/dao/partner-deals/$id'
+    | '/dao/partner-deals/new'
     | '/explorer/address/$address'
     | '/explorer/tx/$hash'
     | '/id/$name/card'
@@ -3461,6 +3952,8 @@ export interface FileRouteTypes {
     | '/marketplace/services/$slug'
     | '/merch/claim/$code'
     | '/stories/tapes/$slug'
+    | '/api/partner-deals/'
+    | '/dao/partner-deals/'
     | '/marketplace/merch/'
     | '/marketplace/services/'
     | '/stories/tapes/'
@@ -3468,6 +3961,10 @@ export interface FileRouteTypes {
     | '/api/bcid/farcaster/frame'
     | '/api/bcid/referral/$code'
     | '/api/bcid/waitlist/convert'
+    | '/api/billing/stripe/checkout'
+    | '/api/billing/stripe/health'
+    | '/api/billing/stripe/manifest'
+    | '/api/billing/stripe/subscribe'
     | '/api/credentials/identity/sync'
     | '/api/credentials/xrpl/challenge'
     | '/api/credentials/xrpl/link'
@@ -3499,6 +3996,9 @@ export interface FileRouteTypes {
     | '/api/member/culture-power/refresh'
     | '/api/ops/outreach/draft'
     | '/api/ops/outreach/send'
+    | '/api/partner-deals/$id/evaluate'
+    | '/api/partner-deals/$id/evidence'
+    | '/api/partner-deals/$id/override'
     | '/api/points/redeem/quote'
     | '/api/points/redeem/stats'
     | '/api/points/weekly-claim/quote'
@@ -3512,6 +4012,8 @@ export interface FileRouteTypes {
     | '/api/tg/quests/claim'
     | '/api/tg/tasks/complete'
     | '/api/tg/wallet/ton-connected'
+    | '/api/trading/xt/health'
+    | '/api/trading/xt/manifest'
     | '/api/wallet/packs/checkout'
     | '/places/api/reoc/$propertyId'
     | '/api/ops/outreach/'
@@ -3521,7 +4023,29 @@ export interface FileRouteTypes {
     | '/api/marketplace/merch/order/$id'
     | '/api/marketplace/services/order/$id'
     | '/api/pulse/feed/$id/comments'
+    | '/api/trading/xt/futures/account'
+    | '/api/trading/xt/futures/depth'
+    | '/api/trading/xt/futures/funding-rate'
+    | '/api/trading/xt/futures/history'
+    | '/api/trading/xt/futures/klines'
+    | '/api/trading/xt/futures/open'
+    | '/api/trading/xt/futures/orders'
+    | '/api/trading/xt/futures/positions'
+    | '/api/trading/xt/futures/ticker'
+    | '/api/trading/xt/spot/balance'
+    | '/api/trading/xt/spot/depth'
+    | '/api/trading/xt/spot/history'
+    | '/api/trading/xt/spot/klines'
+    | '/api/trading/xt/spot/order'
+    | '/api/trading/xt/spot/orders'
+    | '/api/trading/xt/spot/symbol'
+    | '/api/trading/xt/spot/ticker'
+    | '/api/trading/xt/spot/ticker-24h'
+    | '/api/trading/xt/spot/transfer'
+    | '/api/trading/xt/spot/withdraw'
     | '/api/marketplace/services/milestone/$id/approve'
+    | '/api/trading/xt/futures/order/$orderId'
+    | '/api/trading/xt/spot/order/$orderId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -3530,6 +4054,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AgentFleetRoute: typeof AgentFleetRouteWithChildren
   AgentOsRoute: typeof AgentOsRoute
+  BillingRoute: typeof BillingRoute
   CampaignRoute: typeof CampaignRoute
   ChatbaseRoute: typeof ChatbaseRoute
   CollectionsRoute: typeof CollectionsRoute
@@ -3542,6 +4067,7 @@ export interface RootRouteChildren {
   GenesisDistrictRoute: typeof GenesisDistrictRoute
   GrantProofRoute: typeof GrantProofRoute
   GuideRoute: typeof GuideRoute
+  HowWePartnerRoute: typeof HowWePartnerRoute
   HqRoute: typeof HqRoute
   IntelligenceRoute: typeof IntelligenceRoute
   InvestorsRoute: typeof InvestorsRouteWithChildren
@@ -3597,6 +4123,7 @@ export interface RootRouteChildren {
   OpsOutreachRoute: typeof OpsOutreachRoute
   OpsRevenueRoute: typeof OpsRevenueRoute
   PSlugRoute: typeof PSlugRoute
+  PartnerDealsRoute: typeof PartnerDealsRoute
   ProductsAiAgentsRoute: typeof ProductsAiAgentsRoute
   ProductsCampaignHubRoute: typeof ProductsCampaignHubRoute
   ProductsCultureIdRoute: typeof ProductsCultureIdRoute
@@ -3660,12 +4187,14 @@ export interface RootRouteChildren {
   ApiFeedbackSubmitRoute: typeof ApiFeedbackSubmitRoute
   ApiFeedbackWallRoute: typeof ApiFeedbackWallRoute
   ApiGrantVerificationRoute: typeof ApiGrantVerificationRoute
+  ApiIdentityByWalletRoute: typeof ApiIdentityByWalletRoute
   ApiIdentityCheckBnbRoute: typeof ApiIdentityCheckBnbRoute
   ApiIdentityEnrichRoute: typeof ApiIdentityEnrichRoute
   ApiIdentityGraphRoute: typeof ApiIdentityGraphRoute
   ApiIdentityGraphDemoRoute: typeof ApiIdentityGraphDemoRoute
   ApiIdentityResolveRoute: typeof ApiIdentityResolveRoute
   ApiIdentityResolveBnbRoute: typeof ApiIdentityResolveBnbRoute
+  ApiIdentityTeamWalletRoute: typeof ApiIdentityTeamWalletRoute
   ApiIdentityVerifyNameRoute: typeof ApiIdentityVerifyNameRoute
   ApiIntelligenceAppsRoute: typeof ApiIntelligenceAppsRoute
   ApiIntelligenceFunnelsRoute: typeof ApiIntelligenceFunnelsRoute
@@ -3695,6 +4224,8 @@ export interface RootRouteChildren {
   ApiMerchClaimRoute: typeof ApiMerchClaimRoute
   ApiOpsIdentityLadderSyncRoute: typeof ApiOpsIdentityLadderSyncRoute
   ApiOpsRevenueRoute: typeof ApiOpsRevenueRoute
+  ApiPartnerDealsIdRoute: typeof ApiPartnerDealsIdRouteWithChildren
+  ApiPartnerDealsSettleTickRoute: typeof ApiPartnerDealsSettleTickRoute
   ApiPlatformAnalyticsRoute: typeof ApiPlatformAnalyticsRoute
   ApiPlatformAttributionDashboardRoute: typeof ApiPlatformAttributionDashboardRoute
   ApiPlatformFunnelBaselineRoute: typeof ApiPlatformFunnelBaselineRoute
@@ -3731,13 +4262,21 @@ export interface RootRouteChildren {
   ApiWorldWalletNonceRoute: typeof ApiWorldWalletNonceRoute
   ApiWorldWalletVerifyRoute: typeof ApiWorldWalletVerifyRoute
   ApiX402PremiumRoute: typeof ApiX402PremiumRoute
+  DaoPartnerDealsIdRoute: typeof DaoPartnerDealsIdRoute
+  DaoPartnerDealsNewRoute: typeof DaoPartnerDealsNewRoute
   MerchClaimCodeRoute: typeof MerchClaimCodeRoute
   StoriesTapesSlugRoute: typeof StoriesTapesSlugRoute
+  ApiPartnerDealsIndexRoute: typeof ApiPartnerDealsIndexRoute
+  DaoPartnerDealsIndexRoute: typeof DaoPartnerDealsIndexRoute
   StoriesTapesIndexRoute: typeof StoriesTapesIndexRoute
   ApiBcidBridgeCultureRoute: typeof ApiBcidBridgeCultureRoute
   ApiBcidFarcasterFrameRoute: typeof ApiBcidFarcasterFrameRoute
   ApiBcidReferralCodeRoute: typeof ApiBcidReferralCodeRoute
   ApiBcidWaitlistConvertRoute: typeof ApiBcidWaitlistConvertRoute
+  ApiBillingStripeCheckoutRoute: typeof ApiBillingStripeCheckoutRoute
+  ApiBillingStripeHealthRoute: typeof ApiBillingStripeHealthRoute
+  ApiBillingStripeManifestRoute: typeof ApiBillingStripeManifestRoute
+  ApiBillingStripeSubscribeRoute: typeof ApiBillingStripeSubscribeRoute
   ApiCredentialsIdentitySyncRoute: typeof ApiCredentialsIdentitySyncRoute
   ApiCredentialsXrplChallengeRoute: typeof ApiCredentialsXrplChallengeRoute
   ApiCredentialsXrplLinkRoute: typeof ApiCredentialsXrplLinkRoute
@@ -3777,6 +4316,8 @@ export interface RootRouteChildren {
   ApiTgLearnCompleteRoute: typeof ApiTgLearnCompleteRoute
   ApiTgLearnModulesRoute: typeof ApiTgLearnModulesRoute
   ApiTgWalletTonConnectedRoute: typeof ApiTgWalletTonConnectedRoute
+  ApiTradingXtHealthRoute: typeof ApiTradingXtHealthRoute
+  ApiTradingXtManifestRoute: typeof ApiTradingXtManifestRoute
   ApiWalletPacksCheckoutRoute: typeof ApiWalletPacksCheckoutRoute
   PlacesApiReocPropertyIdRoute: typeof PlacesApiReocPropertyIdRoute
   ApiOpsOutreachIndexRoute: typeof ApiOpsOutreachIndexRoute
@@ -3784,7 +4325,28 @@ export interface RootRouteChildren {
   ApiPointsWeeklyClaimIndexRoute: typeof ApiPointsWeeklyClaimIndexRoute
   ApiMarketplaceMerchOrderIdRoute: typeof ApiMarketplaceMerchOrderIdRoute
   ApiMarketplaceServicesOrderIdRoute: typeof ApiMarketplaceServicesOrderIdRoute
+  ApiTradingXtFuturesAccountRoute: typeof ApiTradingXtFuturesAccountRoute
+  ApiTradingXtFuturesDepthRoute: typeof ApiTradingXtFuturesDepthRoute
+  ApiTradingXtFuturesFundingRateRoute: typeof ApiTradingXtFuturesFundingRateRoute
+  ApiTradingXtFuturesHistoryRoute: typeof ApiTradingXtFuturesHistoryRoute
+  ApiTradingXtFuturesKlinesRoute: typeof ApiTradingXtFuturesKlinesRoute
+  ApiTradingXtFuturesOpenRoute: typeof ApiTradingXtFuturesOpenRoute
+  ApiTradingXtFuturesOrdersRoute: typeof ApiTradingXtFuturesOrdersRoute
+  ApiTradingXtFuturesPositionsRoute: typeof ApiTradingXtFuturesPositionsRoute
+  ApiTradingXtFuturesTickerRoute: typeof ApiTradingXtFuturesTickerRoute
+  ApiTradingXtSpotBalanceRoute: typeof ApiTradingXtSpotBalanceRoute
+  ApiTradingXtSpotDepthRoute: typeof ApiTradingXtSpotDepthRoute
+  ApiTradingXtSpotHistoryRoute: typeof ApiTradingXtSpotHistoryRoute
+  ApiTradingXtSpotKlinesRoute: typeof ApiTradingXtSpotKlinesRoute
+  ApiTradingXtSpotOrderRoute: typeof ApiTradingXtSpotOrderRouteWithChildren
+  ApiTradingXtSpotOrdersRoute: typeof ApiTradingXtSpotOrdersRoute
+  ApiTradingXtSpotSymbolRoute: typeof ApiTradingXtSpotSymbolRoute
+  ApiTradingXtSpotTickerRoute: typeof ApiTradingXtSpotTickerRoute
+  ApiTradingXtSpotTicker24hRoute: typeof ApiTradingXtSpotTicker24hRoute
+  ApiTradingXtSpotTransferRoute: typeof ApiTradingXtSpotTransferRoute
+  ApiTradingXtSpotWithdrawRoute: typeof ApiTradingXtSpotWithdrawRoute
   ApiMarketplaceServicesMilestoneIdApproveRoute: typeof ApiMarketplaceServicesMilestoneIdApproveRoute
+  ApiTradingXtFuturesOrderOrderIdRoute: typeof ApiTradingXtFuturesOrderOrderIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -3957,6 +4519,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HqRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/how-we-partner': {
+      id: '/how-we-partner'
+      path: '/how-we-partner'
+      fullPath: '/how-we-partner'
+      preLoaderRoute: typeof HowWePartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guide': {
       id: '/guide'
       path: '/guide'
@@ -4039,6 +4608,13 @@ declare module '@tanstack/react-router' {
       path: '/campaign'
       fullPath: '/campaign'
       preLoaderRoute: typeof CampaignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/billing': {
+      id: '/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BillingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agent-os': {
@@ -4277,6 +4853,13 @@ declare module '@tanstack/react-router' {
       path: '/products/ai-agents'
       fullPath: '/products/ai-agents'
       preLoaderRoute: typeof ProductsAiAgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner/deals': {
+      id: '/partner/deals'
+      path: '/partner/deals'
+      fullPath: '/partner/deals'
+      preLoaderRoute: typeof PartnerDealsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/p/$slug': {
@@ -4573,6 +5156,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketplaceMerchIndexRouteImport
       parentRoute: typeof MarketplaceRoute
     }
+    '/dao/partner-deals/': {
+      id: '/dao/partner-deals/'
+      path: '/dao/partner-deals'
+      fullPath: '/dao/partner-deals/'
+      preLoaderRoute: typeof DaoPartnerDealsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/partner-deals/': {
+      id: '/api/partner-deals/'
+      path: '/api/partner-deals'
+      fullPath: '/api/partner-deals/'
+      preLoaderRoute: typeof ApiPartnerDealsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/stories/tapes/$slug': {
       id: '/stories/tapes/$slug'
       path: '/stories/tapes/$slug'
@@ -4642,6 +5239,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/explorer/address/$address'
       preLoaderRoute: typeof ExplorerAddressAddressRouteImport
       parentRoute: typeof ExplorerRoute
+    }
+    '/dao/partner-deals/new': {
+      id: '/dao/partner-deals/new'
+      path: '/dao/partner-deals/new'
+      fullPath: '/dao/partner-deals/new'
+      preLoaderRoute: typeof DaoPartnerDealsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dao/partner-deals/$id': {
+      id: '/dao/partner-deals/$id'
+      path: '/dao/partner-deals/$id'
+      fullPath: '/dao/partner-deals/$id'
+      preLoaderRoute: typeof DaoPartnerDealsIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/x402/premium': {
       id: '/api/x402/premium'
@@ -4895,6 +5506,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPlatformAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/partner-deals/settle-tick': {
+      id: '/api/partner-deals/settle-tick'
+      path: '/api/partner-deals/settle-tick'
+      fullPath: '/api/partner-deals/settle-tick'
+      preLoaderRoute: typeof ApiPartnerDealsSettleTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/partner-deals/$id': {
+      id: '/api/partner-deals/$id'
+      path: '/api/partner-deals/$id'
+      fullPath: '/api/partner-deals/$id'
+      preLoaderRoute: typeof ApiPartnerDealsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/ops/revenue': {
       id: '/api/ops/revenue'
       path: '/api/ops/revenue'
@@ -5098,6 +5723,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIdentityVerifyNameRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/identity/team-wallet': {
+      id: '/api/identity/team-wallet'
+      path: '/api/identity/team-wallet'
+      fullPath: '/api/identity/team-wallet'
+      preLoaderRoute: typeof ApiIdentityTeamWalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/identity/resolve-bnb': {
       id: '/api/identity/resolve-bnb'
       path: '/api/identity/resolve-bnb'
@@ -5138,6 +5770,13 @@ declare module '@tanstack/react-router' {
       path: '/api/identity/check-bnb'
       fullPath: '/api/identity/check-bnb'
       preLoaderRoute: typeof ApiIdentityCheckBnbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/identity/by-wallet': {
+      id: '/api/identity/by-wallet'
+      path: '/api/identity/by-wallet'
+      fullPath: '/api/identity/by-wallet'
+      preLoaderRoute: typeof ApiIdentityByWalletRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/grant/verification': {
@@ -5434,6 +6073,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWalletPacksCheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/trading/xt/manifest': {
+      id: '/api/trading/xt/manifest'
+      path: '/api/trading/xt/manifest'
+      fullPath: '/api/trading/xt/manifest'
+      preLoaderRoute: typeof ApiTradingXtManifestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/health': {
+      id: '/api/trading/xt/health'
+      path: '/api/trading/xt/health'
+      fullPath: '/api/trading/xt/health'
+      preLoaderRoute: typeof ApiTradingXtHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tg/wallet/ton-connected': {
       id: '/api/tg/wallet/ton-connected'
       path: '/api/tg/wallet/ton-connected'
@@ -5524,6 +6177,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/points/redeem/quote'
       preLoaderRoute: typeof ApiPointsRedeemQuoteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/partner-deals/$id/override': {
+      id: '/api/partner-deals/$id/override'
+      path: '/override'
+      fullPath: '/api/partner-deals/$id/override'
+      preLoaderRoute: typeof ApiPartnerDealsIdOverrideRouteImport
+      parentRoute: typeof ApiPartnerDealsIdRoute
+    }
+    '/api/partner-deals/$id/evidence': {
+      id: '/api/partner-deals/$id/evidence'
+      path: '/evidence'
+      fullPath: '/api/partner-deals/$id/evidence'
+      preLoaderRoute: typeof ApiPartnerDealsIdEvidenceRouteImport
+      parentRoute: typeof ApiPartnerDealsIdRoute
+    }
+    '/api/partner-deals/$id/evaluate': {
+      id: '/api/partner-deals/$id/evaluate'
+      path: '/evaluate'
+      fullPath: '/api/partner-deals/$id/evaluate'
+      preLoaderRoute: typeof ApiPartnerDealsIdEvaluateRouteImport
+      parentRoute: typeof ApiPartnerDealsIdRoute
     }
     '/api/ops/outreach/send': {
       id: '/api/ops/outreach/send'
@@ -5742,6 +6416,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCredentialsIdentitySyncRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/billing/stripe/subscribe': {
+      id: '/api/billing/stripe/subscribe'
+      path: '/api/billing/stripe/subscribe'
+      fullPath: '/api/billing/stripe/subscribe'
+      preLoaderRoute: typeof ApiBillingStripeSubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/stripe/manifest': {
+      id: '/api/billing/stripe/manifest'
+      path: '/api/billing/stripe/manifest'
+      fullPath: '/api/billing/stripe/manifest'
+      preLoaderRoute: typeof ApiBillingStripeManifestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/stripe/health': {
+      id: '/api/billing/stripe/health'
+      path: '/api/billing/stripe/health'
+      fullPath: '/api/billing/stripe/health'
+      preLoaderRoute: typeof ApiBillingStripeHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/stripe/checkout': {
+      id: '/api/billing/stripe/checkout'
+      path: '/api/billing/stripe/checkout'
+      fullPath: '/api/billing/stripe/checkout'
+      preLoaderRoute: typeof ApiBillingStripeCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/bcid/waitlist/convert': {
       id: '/api/bcid/waitlist/convert'
       path: '/api/bcid/waitlist/convert'
@@ -5768,6 +6470,146 @@ declare module '@tanstack/react-router' {
       path: '/api/bcid/bridge/culture'
       fullPath: '/api/bcid/bridge/culture'
       preLoaderRoute: typeof ApiBcidBridgeCultureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/withdraw': {
+      id: '/api/trading/xt/spot/withdraw'
+      path: '/api/trading/xt/spot/withdraw'
+      fullPath: '/api/trading/xt/spot/withdraw'
+      preLoaderRoute: typeof ApiTradingXtSpotWithdrawRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/transfer': {
+      id: '/api/trading/xt/spot/transfer'
+      path: '/api/trading/xt/spot/transfer'
+      fullPath: '/api/trading/xt/spot/transfer'
+      preLoaderRoute: typeof ApiTradingXtSpotTransferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/ticker-24h': {
+      id: '/api/trading/xt/spot/ticker-24h'
+      path: '/api/trading/xt/spot/ticker-24h'
+      fullPath: '/api/trading/xt/spot/ticker-24h'
+      preLoaderRoute: typeof ApiTradingXtSpotTicker24hRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/ticker': {
+      id: '/api/trading/xt/spot/ticker'
+      path: '/api/trading/xt/spot/ticker'
+      fullPath: '/api/trading/xt/spot/ticker'
+      preLoaderRoute: typeof ApiTradingXtSpotTickerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/symbol': {
+      id: '/api/trading/xt/spot/symbol'
+      path: '/api/trading/xt/spot/symbol'
+      fullPath: '/api/trading/xt/spot/symbol'
+      preLoaderRoute: typeof ApiTradingXtSpotSymbolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/orders': {
+      id: '/api/trading/xt/spot/orders'
+      path: '/api/trading/xt/spot/orders'
+      fullPath: '/api/trading/xt/spot/orders'
+      preLoaderRoute: typeof ApiTradingXtSpotOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/order': {
+      id: '/api/trading/xt/spot/order'
+      path: '/api/trading/xt/spot/order'
+      fullPath: '/api/trading/xt/spot/order'
+      preLoaderRoute: typeof ApiTradingXtSpotOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/klines': {
+      id: '/api/trading/xt/spot/klines'
+      path: '/api/trading/xt/spot/klines'
+      fullPath: '/api/trading/xt/spot/klines'
+      preLoaderRoute: typeof ApiTradingXtSpotKlinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/history': {
+      id: '/api/trading/xt/spot/history'
+      path: '/api/trading/xt/spot/history'
+      fullPath: '/api/trading/xt/spot/history'
+      preLoaderRoute: typeof ApiTradingXtSpotHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/depth': {
+      id: '/api/trading/xt/spot/depth'
+      path: '/api/trading/xt/spot/depth'
+      fullPath: '/api/trading/xt/spot/depth'
+      preLoaderRoute: typeof ApiTradingXtSpotDepthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/spot/balance': {
+      id: '/api/trading/xt/spot/balance'
+      path: '/api/trading/xt/spot/balance'
+      fullPath: '/api/trading/xt/spot/balance'
+      preLoaderRoute: typeof ApiTradingXtSpotBalanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/ticker': {
+      id: '/api/trading/xt/futures/ticker'
+      path: '/api/trading/xt/futures/ticker'
+      fullPath: '/api/trading/xt/futures/ticker'
+      preLoaderRoute: typeof ApiTradingXtFuturesTickerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/positions': {
+      id: '/api/trading/xt/futures/positions'
+      path: '/api/trading/xt/futures/positions'
+      fullPath: '/api/trading/xt/futures/positions'
+      preLoaderRoute: typeof ApiTradingXtFuturesPositionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/orders': {
+      id: '/api/trading/xt/futures/orders'
+      path: '/api/trading/xt/futures/orders'
+      fullPath: '/api/trading/xt/futures/orders'
+      preLoaderRoute: typeof ApiTradingXtFuturesOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/open': {
+      id: '/api/trading/xt/futures/open'
+      path: '/api/trading/xt/futures/open'
+      fullPath: '/api/trading/xt/futures/open'
+      preLoaderRoute: typeof ApiTradingXtFuturesOpenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/klines': {
+      id: '/api/trading/xt/futures/klines'
+      path: '/api/trading/xt/futures/klines'
+      fullPath: '/api/trading/xt/futures/klines'
+      preLoaderRoute: typeof ApiTradingXtFuturesKlinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/history': {
+      id: '/api/trading/xt/futures/history'
+      path: '/api/trading/xt/futures/history'
+      fullPath: '/api/trading/xt/futures/history'
+      preLoaderRoute: typeof ApiTradingXtFuturesHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/funding-rate': {
+      id: '/api/trading/xt/futures/funding-rate'
+      path: '/api/trading/xt/futures/funding-rate'
+      fullPath: '/api/trading/xt/futures/funding-rate'
+      preLoaderRoute: typeof ApiTradingXtFuturesFundingRateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/depth': {
+      id: '/api/trading/xt/futures/depth'
+      path: '/api/trading/xt/futures/depth'
+      fullPath: '/api/trading/xt/futures/depth'
+      preLoaderRoute: typeof ApiTradingXtFuturesDepthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trading/xt/futures/account': {
+      id: '/api/trading/xt/futures/account'
+      path: '/api/trading/xt/futures/account'
+      fullPath: '/api/trading/xt/futures/account'
+      preLoaderRoute: typeof ApiTradingXtFuturesAccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/pulse/feed/$id/comments': {
@@ -5797,6 +6639,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/explorer/tx/$hash/explain'
       preLoaderRoute: typeof ApiExplorerTxHashExplainRouteImport
       parentRoute: typeof ApiExplorerTxHashRoute
+    }
+    '/api/trading/xt/spot/order/$orderId': {
+      id: '/api/trading/xt/spot/order/$orderId'
+      path: '/$orderId'
+      fullPath: '/api/trading/xt/spot/order/$orderId'
+      preLoaderRoute: typeof ApiTradingXtSpotOrderOrderIdRouteImport
+      parentRoute: typeof ApiTradingXtSpotOrderRoute
+    }
+    '/api/trading/xt/futures/order/$orderId': {
+      id: '/api/trading/xt/futures/order/$orderId'
+      path: '/api/trading/xt/futures/order/$orderId'
+      fullPath: '/api/trading/xt/futures/order/$orderId'
+      preLoaderRoute: typeof ApiTradingXtFuturesOrderOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/marketplace/services/milestone/$id/approve': {
       id: '/api/marketplace/services/milestone/$id/approve'
@@ -5944,6 +6800,21 @@ const ApiMemberCulturePowerRouteWithChildren =
     ApiMemberCulturePowerRouteChildren,
   )
 
+interface ApiPartnerDealsIdRouteChildren {
+  ApiPartnerDealsIdEvaluateRoute: typeof ApiPartnerDealsIdEvaluateRoute
+  ApiPartnerDealsIdEvidenceRoute: typeof ApiPartnerDealsIdEvidenceRoute
+  ApiPartnerDealsIdOverrideRoute: typeof ApiPartnerDealsIdOverrideRoute
+}
+
+const ApiPartnerDealsIdRouteChildren: ApiPartnerDealsIdRouteChildren = {
+  ApiPartnerDealsIdEvaluateRoute: ApiPartnerDealsIdEvaluateRoute,
+  ApiPartnerDealsIdEvidenceRoute: ApiPartnerDealsIdEvidenceRoute,
+  ApiPartnerDealsIdOverrideRoute: ApiPartnerDealsIdOverrideRoute,
+}
+
+const ApiPartnerDealsIdRouteWithChildren =
+  ApiPartnerDealsIdRoute._addFileChildren(ApiPartnerDealsIdRouteChildren)
+
 interface ApiPulseFeedRouteChildren {
   ApiPulseFeedIdCommentsRoute: typeof ApiPulseFeedIdCommentsRoute
 }
@@ -5991,12 +6862,26 @@ const ApiExplorerTxHashRouteChildren: ApiExplorerTxHashRouteChildren = {
 const ApiExplorerTxHashRouteWithChildren =
   ApiExplorerTxHashRoute._addFileChildren(ApiExplorerTxHashRouteChildren)
 
+interface ApiTradingXtSpotOrderRouteChildren {
+  ApiTradingXtSpotOrderOrderIdRoute: typeof ApiTradingXtSpotOrderOrderIdRoute
+}
+
+const ApiTradingXtSpotOrderRouteChildren: ApiTradingXtSpotOrderRouteChildren = {
+  ApiTradingXtSpotOrderOrderIdRoute: ApiTradingXtSpotOrderOrderIdRoute,
+}
+
+const ApiTradingXtSpotOrderRouteWithChildren =
+  ApiTradingXtSpotOrderRoute._addFileChildren(
+    ApiTradingXtSpotOrderRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   AgentFleetRoute: AgentFleetRouteWithChildren,
   AgentOsRoute: AgentOsRoute,
+  BillingRoute: BillingRoute,
   CampaignRoute: CampaignRoute,
   ChatbaseRoute: ChatbaseRoute,
   CollectionsRoute: CollectionsRoute,
@@ -6009,6 +6894,7 @@ const rootRouteChildren: RootRouteChildren = {
   GenesisDistrictRoute: GenesisDistrictRoute,
   GrantProofRoute: GrantProofRoute,
   GuideRoute: GuideRoute,
+  HowWePartnerRoute: HowWePartnerRoute,
   HqRoute: HqRoute,
   IntelligenceRoute: IntelligenceRoute,
   InvestorsRoute: InvestorsRouteWithChildren,
@@ -6064,6 +6950,7 @@ const rootRouteChildren: RootRouteChildren = {
   OpsOutreachRoute: OpsOutreachRoute,
   OpsRevenueRoute: OpsRevenueRoute,
   PSlugRoute: PSlugRoute,
+  PartnerDealsRoute: PartnerDealsRoute,
   ProductsAiAgentsRoute: ProductsAiAgentsRoute,
   ProductsCampaignHubRoute: ProductsCampaignHubRoute,
   ProductsCultureIdRoute: ProductsCultureIdRoute,
@@ -6127,12 +7014,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFeedbackSubmitRoute: ApiFeedbackSubmitRoute,
   ApiFeedbackWallRoute: ApiFeedbackWallRoute,
   ApiGrantVerificationRoute: ApiGrantVerificationRoute,
+  ApiIdentityByWalletRoute: ApiIdentityByWalletRoute,
   ApiIdentityCheckBnbRoute: ApiIdentityCheckBnbRoute,
   ApiIdentityEnrichRoute: ApiIdentityEnrichRoute,
   ApiIdentityGraphRoute: ApiIdentityGraphRoute,
   ApiIdentityGraphDemoRoute: ApiIdentityGraphDemoRoute,
   ApiIdentityResolveRoute: ApiIdentityResolveRoute,
   ApiIdentityResolveBnbRoute: ApiIdentityResolveBnbRoute,
+  ApiIdentityTeamWalletRoute: ApiIdentityTeamWalletRoute,
   ApiIdentityVerifyNameRoute: ApiIdentityVerifyNameRoute,
   ApiIntelligenceAppsRoute: ApiIntelligenceAppsRoute,
   ApiIntelligenceFunnelsRoute: ApiIntelligenceFunnelsRoute,
@@ -6162,6 +7051,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMerchClaimRoute: ApiMerchClaimRoute,
   ApiOpsIdentityLadderSyncRoute: ApiOpsIdentityLadderSyncRoute,
   ApiOpsRevenueRoute: ApiOpsRevenueRoute,
+  ApiPartnerDealsIdRoute: ApiPartnerDealsIdRouteWithChildren,
+  ApiPartnerDealsSettleTickRoute: ApiPartnerDealsSettleTickRoute,
   ApiPlatformAnalyticsRoute: ApiPlatformAnalyticsRoute,
   ApiPlatformAttributionDashboardRoute: ApiPlatformAttributionDashboardRoute,
   ApiPlatformFunnelBaselineRoute: ApiPlatformFunnelBaselineRoute,
@@ -6198,13 +7089,21 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorldWalletNonceRoute: ApiWorldWalletNonceRoute,
   ApiWorldWalletVerifyRoute: ApiWorldWalletVerifyRoute,
   ApiX402PremiumRoute: ApiX402PremiumRoute,
+  DaoPartnerDealsIdRoute: DaoPartnerDealsIdRoute,
+  DaoPartnerDealsNewRoute: DaoPartnerDealsNewRoute,
   MerchClaimCodeRoute: MerchClaimCodeRoute,
   StoriesTapesSlugRoute: StoriesTapesSlugRoute,
+  ApiPartnerDealsIndexRoute: ApiPartnerDealsIndexRoute,
+  DaoPartnerDealsIndexRoute: DaoPartnerDealsIndexRoute,
   StoriesTapesIndexRoute: StoriesTapesIndexRoute,
   ApiBcidBridgeCultureRoute: ApiBcidBridgeCultureRoute,
   ApiBcidFarcasterFrameRoute: ApiBcidFarcasterFrameRoute,
   ApiBcidReferralCodeRoute: ApiBcidReferralCodeRoute,
   ApiBcidWaitlistConvertRoute: ApiBcidWaitlistConvertRoute,
+  ApiBillingStripeCheckoutRoute: ApiBillingStripeCheckoutRoute,
+  ApiBillingStripeHealthRoute: ApiBillingStripeHealthRoute,
+  ApiBillingStripeManifestRoute: ApiBillingStripeManifestRoute,
+  ApiBillingStripeSubscribeRoute: ApiBillingStripeSubscribeRoute,
   ApiCredentialsIdentitySyncRoute: ApiCredentialsIdentitySyncRoute,
   ApiCredentialsXrplChallengeRoute: ApiCredentialsXrplChallengeRoute,
   ApiCredentialsXrplLinkRoute: ApiCredentialsXrplLinkRoute,
@@ -6245,6 +7144,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTgLearnCompleteRoute: ApiTgLearnCompleteRoute,
   ApiTgLearnModulesRoute: ApiTgLearnModulesRoute,
   ApiTgWalletTonConnectedRoute: ApiTgWalletTonConnectedRoute,
+  ApiTradingXtHealthRoute: ApiTradingXtHealthRoute,
+  ApiTradingXtManifestRoute: ApiTradingXtManifestRoute,
   ApiWalletPacksCheckoutRoute: ApiWalletPacksCheckoutRoute,
   PlacesApiReocPropertyIdRoute: PlacesApiReocPropertyIdRoute,
   ApiOpsOutreachIndexRoute: ApiOpsOutreachIndexRoute,
@@ -6252,8 +7153,29 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPointsWeeklyClaimIndexRoute: ApiPointsWeeklyClaimIndexRoute,
   ApiMarketplaceMerchOrderIdRoute: ApiMarketplaceMerchOrderIdRoute,
   ApiMarketplaceServicesOrderIdRoute: ApiMarketplaceServicesOrderIdRoute,
+  ApiTradingXtFuturesAccountRoute: ApiTradingXtFuturesAccountRoute,
+  ApiTradingXtFuturesDepthRoute: ApiTradingXtFuturesDepthRoute,
+  ApiTradingXtFuturesFundingRateRoute: ApiTradingXtFuturesFundingRateRoute,
+  ApiTradingXtFuturesHistoryRoute: ApiTradingXtFuturesHistoryRoute,
+  ApiTradingXtFuturesKlinesRoute: ApiTradingXtFuturesKlinesRoute,
+  ApiTradingXtFuturesOpenRoute: ApiTradingXtFuturesOpenRoute,
+  ApiTradingXtFuturesOrdersRoute: ApiTradingXtFuturesOrdersRoute,
+  ApiTradingXtFuturesPositionsRoute: ApiTradingXtFuturesPositionsRoute,
+  ApiTradingXtFuturesTickerRoute: ApiTradingXtFuturesTickerRoute,
+  ApiTradingXtSpotBalanceRoute: ApiTradingXtSpotBalanceRoute,
+  ApiTradingXtSpotDepthRoute: ApiTradingXtSpotDepthRoute,
+  ApiTradingXtSpotHistoryRoute: ApiTradingXtSpotHistoryRoute,
+  ApiTradingXtSpotKlinesRoute: ApiTradingXtSpotKlinesRoute,
+  ApiTradingXtSpotOrderRoute: ApiTradingXtSpotOrderRouteWithChildren,
+  ApiTradingXtSpotOrdersRoute: ApiTradingXtSpotOrdersRoute,
+  ApiTradingXtSpotSymbolRoute: ApiTradingXtSpotSymbolRoute,
+  ApiTradingXtSpotTickerRoute: ApiTradingXtSpotTickerRoute,
+  ApiTradingXtSpotTicker24hRoute: ApiTradingXtSpotTicker24hRoute,
+  ApiTradingXtSpotTransferRoute: ApiTradingXtSpotTransferRoute,
+  ApiTradingXtSpotWithdrawRoute: ApiTradingXtSpotWithdrawRoute,
   ApiMarketplaceServicesMilestoneIdApproveRoute:
     ApiMarketplaceServicesMilestoneIdApproveRoute,
+  ApiTradingXtFuturesOrderOrderIdRoute: ApiTradingXtFuturesOrderOrderIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

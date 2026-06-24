@@ -7,6 +7,7 @@ import { LandingNav } from "@/components/landing/LandingNav";
 import { ChatPanel } from "@/components/studio/ChatPanel";
 import { FileTree } from "@/components/studio/FileTree";
 import { PreviewFrame } from "@/components/studio/PreviewFrame";
+import { useShowLoggedInShell } from "@/hooks/useShowLoggedInShell";
 import { useStudioAuthPayload } from "@/hooks/useStudioAuth";
 import {
   postStudioExport,
@@ -29,6 +30,7 @@ export const Route = createFileRoute("/studio/$projectId")({
 
 function StudioWorkspacePage() {
   const { projectId } = Route.useParams();
+  const showLoggedInShell = useShowLoggedInShell();
   const { authPayload } = useStudioAuthPayload();
   const queryClient = useQueryClient();
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
@@ -95,12 +97,16 @@ function StudioWorkspacePage() {
   });
 
   if (projectQuery.isLoading) {
-    return <div className="bc-surface min-h-screen pt-28 text-center text-zinc-400">Loading…</div>;
+    return (
+      <div className={`bc-surface min-h-screen text-center text-zinc-400 ${showLoggedInShell ? "pt-4" : "pt-28"}`}>
+        Loading…
+      </div>
+    );
   }
 
   if (!project) {
     return (
-      <div className="bc-surface min-h-screen pt-28 text-center">
+      <div className={`bc-surface min-h-screen text-center ${showLoggedInShell ? "pt-4" : "pt-28"}`}>
         <p className="text-zinc-400">Project not found or access denied.</p>
         <Link to="/studio" className="mt-4 inline-block text-[#00E5FF]">
           ← Back to studio
@@ -111,8 +117,8 @@ function StudioWorkspacePage() {
 
   return (
     <div className="bc-surface flex h-screen flex-col">
-      <LandingNav compact />
-      <header className="mt-16 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-2">
+      {!showLoggedInShell ? <LandingNav compact /> : null}
+      <header className={`flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-2 ${showLoggedInShell ? "mt-0" : "mt-16"}`}>
         <div>
           <Link to="/studio" className="text-xs text-zinc-500 hover:text-zinc-300">
             ← Studio

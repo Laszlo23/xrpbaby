@@ -132,16 +132,25 @@ model Wallet {
 }
 
 model PointLedger {
-  id        String   @id @default(cuid())
-  walletId  String
-  wallet    Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
-  delta     Int
-  reason    String
-  taskSlug  String?
-  metadata  Json?
-  createdAt DateTime @default(now())
+  id           String                  @id @default(cuid())
+  walletId     String
+  wallet       Wallet                  @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  delta        Int
+  reason       String
+  taskSlug     String?
+  metadata     Json?
+  createdAt    DateTime                @default(now())
+  idempotency  PointLedgerIdempotency?
 
   @@index([walletId])
+}
+
+/// Prevents duplicate Culture Points grants for the same payment or claim event.
+model PointLedgerIdempotency {
+  idempotencyKey String      @unique
+  ledgerId       String      @unique
+  ledger         PointLedger @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
+  createdAt      DateTime    @default(now())
 }
 
 /// Points → BCC redemption audit trail (treasury transfer).
@@ -1154,21 +1163,23 @@ model CultureMemoryEvent {
 
 /// Marketplace service orders — x402 USDC kickoff + milestone fulfillment.
 model ServiceOrder {
-  id         String             @id @default(cuid())
-  slug       String
-  wallet     String             @db.VarChar(42)
-  status     String             @default("pending_payment")
-  brief      Json               @default("{}")
-  x402TxHash String?
-  amountUsdc String
-  threadId   String?
-  createdAt  DateTime           @default(now())
-  updatedAt  DateTime           @updatedAt
-  milestones ServiceMilestone[]
+  id              String             @id @default(cuid())
+  slug            String
+  wallet          String             @db.VarChar(42)
+  status          String             @default("pending_payment")
+  brief           Json               @default("{}")
+  x402TxHash      String?
+  stripeSessionId String?
+  amountUsdc      String
+  threadId        String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  milestones      ServiceMilestone[]
 
   @@index([wallet])
   @@index([slug])
   @@index([status])
+  @@index([stripeSessionId])
 }
 
 model ServiceMilestone {
@@ -1185,6 +1196,66 @@ model ServiceMilestone {
   @@unique([orderId, index])
   @@index([orderId])
   @@index([status])
+}
+
+/// Partner service deals — on-chain USDC escrow with AI + council ruling.
+model PartnerDeal {
+  id              String               @id @default(cuid())
+  onChainDealId   String?
+  metadataUri     String?
+  metadataHash    String               @db.VarChar(66)
+  title           String
+  payerWallet     String               @db.VarChar(42)
+  providerWallet  String               @db.VarChar(42)
+  amountUsdc      String
+  deliverBy       DateTime
+  status          String               @default("draft")
+  metadata        Json                 @default("{}")
+  fundTxHash      String?
+  evidenceTxHash  String?
+  settleTxHash    String?
+  chainId         Int                  @default(8453)
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  evidence        PartnerDealEvidence[]
+  rulings         PartnerDealRuling[]
+
+  @@index([payerWallet])
+  @@index([providerWallet])
+  @@index([status])
+  @@index([onChainDealId])
+}
+
+model PartnerDealEvidence {
+  id           String      @id @default(cuid())
+  dealId       String
+  deal         PartnerDeal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  submittedBy  String      @db.VarChar(42)
+  evidenceUri  String?
+  evidenceHash String      @db.VarChar(66)
+  payload      Json        @default("{}")
+  txHash       String?
+  createdAt    DateTime    @default(now())
+
+  @@index([dealId])
+}
+
+model PartnerDealRuling {
+  id              String      @id @default(cuid())
+  dealId          String
+  deal            PartnerDeal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  payoutBps       Int
+  rulingUri       String?
+  rulingHash      String      @db.VarChar(66)
+  aiConfidence    Float?
+  councilOverride Boolean     @default(false)
+  reasoning       Json        @default("{}")
+  proposeTxHash   String?
+  overrideTxHash  String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([dealId])
 }
 
 /// Culture ID referral codes — launch + per-minter 7-code batches.
@@ -1288,4 +1359,40 @@ model MerchOrder {
   @@index([dropSlug, status])
   @@index([claimCode])
   @@index([status, reservedUntil])
+}
+
+/// Single-use Stripe Checkout entitlement for one paid API call (alongside x402).
+model StripeApiPurchase {
+  id              String    @id @default(cuid())
+  sku             String
+  wallet          String    @db.VarChar(42)
+  amountUsdCents  Int
+  stripeSessionId String    @unique
+  status          String    @default("pending_payment")
+  returnPath      String?
+  consumedAt      DateTime?
+  expiresAt       DateTime?
+  createdAt       DateTime  @default(now())
+
+  @@index([wallet, sku, status])
+  @@index([status])
+}
+
+/// Stripe recurring membership (Culture Monthly €7).
+model StripeMemberSubscription {
+  id                   String    @id @default(cuid())
+  memberId             String?
+  wallet               String    @db.VarChar(42)
+  stripeCustomerId     String?
+  stripeSubscriptionId String    @unique
+  stripePriceId        String
+  productId            String
+  status               String    @default("active")
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@index([wallet, status])
+  @@index([memberId])
+  @@index([status])
 }

@@ -1,10 +1,14 @@
-import Stripe from "stripe";
 import { z } from "zod";
 
 import { getMerchDrop, isMerchSize, MERCH_SIZES } from "@/content/marketplace-merch";
 import { resolveMerchCheckoutPrice } from "@/lib/marketplace/merch-bcc-discount";
 import { resolveX402ResourceUrl } from "@/lib/x402-resource-url";
 import { getX402SettlementChain } from "@/lib/x402-network";
+import {
+  getStripeClient,
+  isStripeConfigured,
+  platformOrigin,
+} from "@/server/billing/stripe-config";
 import {
   getMerchCatalogLive,
   getMerchOrderForBuyer,
@@ -44,14 +48,6 @@ const checkoutSchema = z.object({
   paymentRail: z.enum(["stripe", "x402"]),
   shipping: shippingSchema,
 });
-
-function platformOrigin(): string {
-  return (
-    process.env.VITE_PLATFORM_ORIGIN?.trim() ||
-    process.env.PLATFORM_ORIGIN?.trim() ||
-    "http://localhost:5173"
-  ).replace(/\/$/, "");
-}
 
 export function handleMerchCheckoutOptions(request: Request): Response {
   return handleX402Options(request);
@@ -164,15 +160,14 @@ export async function handleMerchCheckoutPost(request: Request): Promise<Respons
   const { order, priceUsd, dropTitle } = reserved;
 
   if (parsed.data.paymentRail === "stripe") {
-    const stripeKey = process.env.STRIPE_SECRET_KEY?.trim();
-    if (!stripeKey) {
+    if (!isStripeConfigured()) {
       return Response.json(
         { ok: false, error: "stripe_not_configured" },
         { status: 503, headers: cors },
       );
     }
 
-    const stripe = new Stripe(stripeKey);
+    const stripe = getStripeClient();
     const origin = platformOrigin();
     const shipping = parsed.data.shipping;
 

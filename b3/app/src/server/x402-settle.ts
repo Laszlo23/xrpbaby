@@ -38,9 +38,9 @@ export function getX402Facilitator() {
 }
 
 export const x402CorsMethodsAndHeaders: Record<string, string> = {
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
   "Access-Control-Allow-Headers":
-    "Content-Type, x-payment, payment-signature, X-Payment, Payment-Signature, X-Trading-Internal-Secret",
+    "Content-Type, x-payment, payment-signature, X-Payment, Payment-Signature, X-Trading-Internal-Secret, x-stripe-purchase-id, X-Stripe-Purchase-Id",
   "Access-Control-Expose-Headers": "*",
 };
 
@@ -123,6 +123,7 @@ export type X402GetSettleOptions = {
   price: string;
   description: string;
   mimeType?: string;
+  payTo?: `0x${string}`;
 };
 
 export async function settleX402Get(
@@ -140,7 +141,48 @@ export async function settleX402Get(
     network: getX402SettlementChain(),
     price: opts.price,
     facilitator: getX402Facilitator(),
-    payTo: optionalX402PayTo(),
+    payTo: opts.payTo ?? optionalX402PayTo(),
+    routeConfig: {
+      description: opts.description,
+      mimeType: opts.mimeType ?? "application/json",
+    },
+  });
+
+  const cors = x402CorsHeadersFor(request);
+
+  if (result.status === 200) {
+    const body = await buildBody();
+    return Response.json(body, {
+      headers: { ...cors, ...result.responseHeaders },
+    });
+  }
+
+  return new Response(JSON.stringify(result.responseBody), {
+    status: result.status,
+    headers: {
+      "Content-Type": "application/json",
+      ...result.responseHeaders,
+      ...cors,
+    },
+  });
+}
+
+export async function settleX402Post(
+  request: Request,
+  opts: X402GetSettleOptions,
+  buildBody: () => object | Promise<object>,
+): Promise<Response> {
+  const paymentData = request.headers.get("payment-signature") ?? request.headers.get("x-payment");
+  const resourceUrl = resolveX402ResourceUrl(request);
+
+  const result = await settlePayment({
+    resourceUrl,
+    method: "POST",
+    paymentData,
+    network: getX402SettlementChain(),
+    price: opts.price,
+    facilitator: getX402Facilitator(),
+    payTo: opts.payTo ?? optionalX402PayTo(),
     routeConfig: {
       description: opts.description,
       mimeType: opts.mimeType ?? "application/json",

@@ -17,9 +17,15 @@ function readTeamWalletAllowlist(): Set<string> {
   return new Set(list);
 }
 
+function isIdentityTeamDevOpen(): boolean {
+  const v = process.env.IDENTITY_TEAM_REFERRAL_DEV_OPEN?.trim().toLowerCase();
+  return v === "1" || v === "true" || v === "yes";
+}
+
 /** Wallets allowed to mint 1–3 letter reserved handles (team / founder). */
 export function isIdentityTeamWallet(wallet?: string | null): boolean {
   if (!wallet) return false;
+  if (isIdentityTeamDevOpen()) return true;
   return readTeamWalletAllowlist().has(wallet.trim().toLowerCase());
 }
 
@@ -68,9 +74,9 @@ export function handlePolicyUserMessage(
 ): string {
   switch (error) {
     case "reserved_team":
-      return "1–3 letter names are reserved for team / DAO. Choose 4+ characters.";
+      return "This name is reserved for team handles — use 4+ letters.";
     case "handle_too_short":
-      return "Promo mint requires at least 4 characters in your handle.";
+      return "Use at least 4 letters in your name.";
     case "invalid_handle":
       return "Enter a valid handle (letters and numbers only).";
     default: {

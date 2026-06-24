@@ -6,6 +6,7 @@ import { Loader2, Plus, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { LandingNav } from "@/components/landing/LandingNav";
+import { useShowLoggedInShell } from "@/hooks/useShowLoggedInShell";
 import { useStudioAuthPayload } from "@/hooks/useStudioAuth";
 import { formatStudioError } from "@/lib/studio-errors";
 import { postStudioCreateProject, postStudioListProjects } from "@/lib/studio-fns";
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/studio/")({
 });
 
 function StudioIndexPage() {
+  const showLoggedInShell = useShowLoggedInShell();
   const { address, authenticated, authPayload } = useStudioAuthPayload();
   const [name, setName] = useState("");
   const [createError, setCreateError] = useState<string | null>(null);
@@ -71,8 +73,8 @@ function StudioIndexPage() {
 
   return (
     <div className="bc-surface min-h-screen">
-      <LandingNav compact />
-      <main className="mx-auto max-w-5xl px-5 pt-28 pb-16 sm:px-8">
+      {!showLoggedInShell ? <LandingNav compact /> : null}
+      <main className={`mx-auto max-w-5xl px-5 pb-16 sm:px-8 ${showLoggedInShell ? "pt-4" : "pt-28"}`}>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="mono-label">BC STUDIO</p>

@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import Stripe from "stripe";
 import { getPackBySlug } from "@/lib/packs";
+import {
+  getStripeClient,
+  isStripeConfigured,
+  platformOrigin,
+} from "@/server/billing/stripe-config";
 import { checkRateLimit, readJsonBody } from "@/server/platform/rate-limit";
 import {
   verifyPrivyAccessToken,
@@ -15,14 +19,6 @@ const bodySchema = z.object({
   network: z.enum(["base", "bsc"]).optional(),
 });
 
-function platformOrigin(): string {
-  return (
-    process.env.VITE_PLATFORM_ORIGIN?.trim() ||
-    process.env.PLATFORM_ORIGIN?.trim() ||
-    "http://localhost:5173"
-  ).replace(/\/$/, "");
-}
-
 export const Route = createFileRoute("/api/wallet/packs/checkout")({
   server: {
     handlers: {
@@ -32,8 +28,7 @@ export const Route = createFileRoute("/api/wallet/packs/checkout")({
           return json({ ok: false, error: "rate_limited" }, 429);
         }
 
-        const stripeKey = process.env.STRIPE_SECRET_KEY?.trim();
-        if (!stripeKey) {
+        if (!isStripeConfigured()) {
           return json({ ok: false, error: "stripe_not_configured" }, 503);
         }
 
@@ -78,7 +73,7 @@ export const Route = createFileRoute("/api/wallet/packs/checkout")({
         });
 
         const origin = platformOrigin();
-        const stripe = new Stripe(stripeKey);
+        const stripe = getStripeClient();
 
         const session = await stripe.checkout.sessions.create({
           mode: "payment",

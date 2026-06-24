@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Fingerprint } from "lucide-react";
 import { useWalletCultureIdentity } from "@/hooks/useWalletCultureIdentity";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 
 type Props = {
   className?: string;
@@ -40,6 +41,7 @@ export function CultureIdentityChip({ className = "", size = "sm" }: Props) {
   return (
     <Link
       to="/pass"
+      search={{ ref: IDENTITY_LAUNCH_REFERRAL_CODE }}
       className={`${base} border-white/15 bg-black/30 text-zinc-400 hover:border-[#C5FF41]/40 hover:text-[#C5FF41] ${className}`}
     >
       <Fingerprint className="h-3.5 w-3.5 shrink-0 opacity-70" aria-hidden />

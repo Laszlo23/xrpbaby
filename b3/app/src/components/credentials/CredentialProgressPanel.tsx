@@ -39,8 +39,8 @@ const THRESHOLDS: Record<
   "limited-merch-holder": {
     target: 1,
     unit: "limited tee claim",
-    ctaHref: "/merch/claim",
-    ctaLabel: "Claim merch",
+    ctaHref: "/marketplace/merch",
+    ctaLabel: "Shop limited merch",
   },
 };
 

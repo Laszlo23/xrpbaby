@@ -55,7 +55,7 @@ function OpsRevenuePage() {
       <div className="mx-auto max-w-5xl space-y-6 px-4 pb-16 pt-6">
         <p className="text-sm text-zinc-400">
           Read-only counters from <code className="text-zinc-300">/api/ops/revenue</code>. See repo{" "}
-          <code className="text-zinc-300">docs/STRIPE_PACKS_ACTIVATION.md</code> and{" "}
+          <code className="text-zinc-300">docs/STRIPE_PAYMENTS.md</code> and{" "}
           <code className="text-zinc-300">deploy/.env</code> for activation. Also{" "}
           <Link to="/ops/attribution" className="text-emerald-400 underline">
             attribution

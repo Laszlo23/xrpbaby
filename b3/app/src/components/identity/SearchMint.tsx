@@ -28,10 +28,7 @@ import {
   ladderSummary,
   usdPriceForTotalMinted,
 } from "@/lib/identity/mint-ladder";
-import {
-  handlePolicyUserMessage,
-  validateHandleForPromoMint,
-} from "@/lib/identity/handle-policy";
+import { handlePolicyUserMessage, validateHandleForPromoMint } from "@/lib/identity/handle-policy";
 import {
   getStoredReferralCode,
   persistReferralCodeFromUrl,
@@ -97,18 +94,19 @@ export function SearchMint({ id, hideGuide = false }: { id?: string; hideGuide?:
   const bccEnabled = activeNetworkId === "base" && Boolean(identityV2Address);
   const [payWithBcc, setPayWithBcc] = useState(false);
   const mintContractAddress = payWithBcc && identityV2Address ? identityV2Address : contractAddress;
-  const {
-    ready: privyReady,
-    openPreferredLogin,
-    authSurface,
-  } = useCultureLogin();
+  const { ready: privyReady, openPreferredLogin, authSurface } = useCultureLogin();
   const inFarcasterMiniApp = authSurface.kind === "farcaster";
   const linkedAddress = useLinkedWalletAddress();
   const { address: wagmiAddress, isConnected: wagmiConnected, chainId } = useAccount();
   const address = inFarcasterMiniApp ? wagmiAddress : linkedAddress;
   const isConnected = inFarcasterMiniApp ? wagmiConnected : Boolean(linkedAddress);
-  const { connect, connectAsync, connectors, isPending: isConnecting, error: connectError } =
-    useConnect();
+  const {
+    connect,
+    connectAsync,
+    connectors,
+    isPending: isConnecting,
+    error: connectError,
+  } = useConnect();
   const { signMessageAsync } = useSignMessage();
 
   const [name, setName] = useState("yourname");
@@ -307,8 +305,7 @@ export function SearchMint({ id, hideGuide = false }: { id?: string; hideGuide?:
   });
 
   const isMinting = isWritePending || isConfirming || isConnecting || isSwitchingChain;
-  const wrongChain =
-    isConnected && typeof chainId === "number" && chainId !== identityChainId;
+  const wrongChain = isConnected && typeof chainId === "number" && chainId !== identityChainId;
 
   useEffect(() => {
     if (!isConnected || !wrongChain || isWritePending || isConfirming || isConnecting) return;
@@ -607,9 +604,7 @@ export function SearchMint({ id, hideGuide = false }: { id?: string; hideGuide?:
       return true;
     }
     if (teamMintWallet) {
-      return (
-        isAvailable === false || (canCheckAvailability && isCheckingAvailability)
-      );
+      return isAvailable === false || (canCheckAvailability && isCheckingAvailability);
     }
     if (!isConnected) {
       return referralCode.trim().length < 4;
@@ -808,9 +803,7 @@ export function SearchMint({ id, hideGuide = false }: { id?: string; hideGuide?:
               ) : referralValid === false ? (
                 <span className="text-red-400">{referralError}</span>
               ) : (
-                <span className="text-zinc-500">
-                  Names need 4+ letters. One mint per wallet.
-                </span>
+                <span className="text-zinc-500">Names need 4+ letters. One mint per wallet.</span>
               )}
             </div>
             {referralValid === true ? (
@@ -892,8 +885,8 @@ export function SearchMint({ id, hideGuide = false }: { id?: string; hideGuide?:
             <div>
               <p className="font-medium text-zinc-300">Why Base?</p>
               <p className="mt-1">
-                Culture IDs mint on Base Mainnet. You pay a small amount of ETH — not BNB — and get a
-                transferable profile.
+                Culture IDs mint on Base Mainnet. You pay a small amount of ETH — not BNB — and get
+                a transferable profile.
               </p>
             </div>
             <div>
@@ -917,8 +910,8 @@ export function SearchMint({ id, hideGuide = false }: { id?: string; hideGuide?:
           </summary>
           <p className="mt-3 text-sm text-zinc-500">
             Your Culture ID mints on Base. Separately, you can check{" "}
-            <span className="text-[#F0B90B]">.bnb</span> availability via Space ID and link it on your
-            profile.
+            <span className="text-[#F0B90B]">.bnb</span> availability via Space ID and link it on
+            your profile.
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <button

@@ -17,8 +17,8 @@ test.describe("culture name resolution", () => {
   test("profile page loads for available name", async ({ page }) => {
     await page.goto("/id/availablezzz999.culture");
     await expect(page.getByRole("heading", { name: /availablezzz999\.culture/i })).toBeVisible();
-    await expect(page.locator("p.mono-label", { hasText: "AVAILABLE" })).toBeVisible();
-    await expect(page.getByRole("link", { name: /mint this name/i })).toBeVisible();
+    await expect(page.locator("p.mono-label", { hasText: "Available to mint" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Mint .* on Base/i })).toBeVisible();
   });
 
   test("founder showcase for laszlo.culture", async ({ page }) => {

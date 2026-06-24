@@ -36,6 +36,6 @@ describe("handle-policy", () => {
 
   it("user messages for policy errors", () => {
     assert.match(handlePolicyUserMessage("reserved_team"), /reserved/i);
-    assert.match(handlePolicyUserMessage("handle_too_short"), /4 characters/i);
+    assert.match(handlePolicyUserMessage("handle_too_short"), /4 letters/i);
   });
 });

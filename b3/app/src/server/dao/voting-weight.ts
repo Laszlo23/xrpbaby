@@ -95,8 +95,7 @@ export async function computeDaoVotingWeight(address: string): Promise<DaoVoting
 
   const lp = await walletHasBccLpProof(wallet);
   const lpBalanceWei = lp.balance ?? null;
-  const lpTier =
-    lp.ok && lpBalanceWei ? lpTierFromBalanceWei(BigInt(lpBalanceWei)) : 0;
+  const lpTier = lp.ok && lpBalanceWei ? lpTierFromBalanceWei(BigInt(lpBalanceWei)) : 0;
   const lpFactor = lpFactorFromTier(lpTier);
 
   const voteWeight = Number((rootsWeight * powerFactor * lpFactor).toFixed(4));

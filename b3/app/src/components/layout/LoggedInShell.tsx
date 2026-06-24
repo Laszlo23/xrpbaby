@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { LayoutDashboard, Layers, User } from "lucide-react";
 
-import { WalletIdentityBar } from "@/components/identity/WalletIdentityBar";
+import { WalletAccountMenu } from "@/components/wallet/WalletAccountMenu";
 import { LayerRail } from "@/components/layout/LayerRail";
 import { LANDING_MEDIA } from "@/lib/landing-media";
 import { useWalletCultureIdentity } from "@/hooks/useWalletCultureIdentity";
@@ -46,7 +46,7 @@ export function LoggedInShell({ showLayerRail = true }: LoggedInShellProps) {
         </nav>
 
         <div className="min-w-0 shrink">
-          <WalletIdentityBar />
+          <WalletAccountMenu showIdentityBar />
         </div>
       </div>
       {showLayerRail ? (

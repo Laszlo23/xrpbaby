@@ -7,6 +7,7 @@ import {
 } from "@/lib/agent-attribution";
 import { initGrowthIntelligenceClient } from "@/lib/growth-intelligence-client";
 import { warnMissingClientEnv } from "@/lib/env-health";
+import { captureGooglePageView } from "@/lib/google-analytics";
 import { trackLandingEvent } from "@/lib/landing-api";
 import { storeRaffleReferrerFromUrl } from "@/lib/raffle-referral";
 
@@ -24,6 +25,7 @@ export function AnalyticsRouteTracker() {
   useEffect(() => {
     storeRaffleReferrerFromUrl(searchStr);
     captureLandingView(pathname, searchStr);
+    captureGooglePageView(pathname, searchStr);
     const fromUrl = mergeMarketingAttributionFromUrl(searchStr);
     const persisted = getPersistedMarketingAttribution();
     void trackLandingEvent("landing_view", pathname, {

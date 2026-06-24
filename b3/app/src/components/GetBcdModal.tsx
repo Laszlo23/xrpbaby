@@ -71,7 +71,7 @@ function formatUnixTs(sec: bigint): string {
 export function GetBcdModal() {
   const { address, isConnected } = useAccount();
   const walletChainId = useChainId();
-  const { getBcdOpen, closeGetBcd } = useBcdEconomy();
+  const { getBcdOpen, getBcdMode, closeGetBcd } = useBcdEconomy();
   const { switchChain, isPending: switching } = useSwitchChain();
 
   const sale = getBcdSaleAddress();
@@ -388,15 +388,18 @@ export function GetBcdModal() {
 
   const txBusy = approveW.isPending || buyW.isPending || approveBusy || buyBusy || switching;
 
+  const isPresaleMode = getBcdMode === "presale";
+  const modalTitle = isPresaleMode ? `Buy in presale round (${BCD_SYMBOL})` : `Get ${BCD_SYMBOL}`;
+  const modalDescription = isPresaleMode
+    ? "Smart-contract checkout on Base — fixed price, round caps, and optional allowlist enforced on-chain."
+    : "Building Culture Coin is your on-app currency for drops—stack it, then mint tickets when campaigns go live.";
+
   return (
     <Dialog open={getBcdOpen} onOpenChange={(o) => !o && closeGetBcd()}>
       <DialogContent className="glass border-white/[0.08] sm:max-w-md sm:rounded-3xl">
         <DialogHeader>
-          <DialogTitle className="font-heading text-xl">Get {BCD_SYMBOL}</DialogTitle>
-          <DialogDescription className="text-zinc-500">
-            Building Culture Coin is your on-app currency for drops—stack it, then mint tickets when
-            campaigns go live.
-          </DialogDescription>
+          <DialogTitle className="font-heading text-xl">{modalTitle}</DialogTitle>
+          <DialogDescription className="text-zinc-500">{modalDescription}</DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-2">
           {saleEnabled && round ? (
@@ -541,6 +544,8 @@ export function GetBcdModal() {
                       </>
                     ) : wrongChain ? (
                       `Switch to ${bcdChain?.name ?? `chain ${bcdChainId}`}`
+                    ) : isPresaleMode ? (
+                      `Buy in presale (smart contract)`
                     ) : (
                       `Buy ${BCD_SYMBOL}`
                     )}

@@ -104,7 +104,7 @@ export function ForestTaskCard({ task, done, claiming, claimDisabled, onClaimInl
               <Link
                 to={path}
                 {...(hash ? { hash } : {})}
-                className="block w-full rounded-full bg-[#C5FF41] py-2 text-center text-xs font-semibold text-black hover:bg-white"
+                className="block min-h-11 w-full rounded-full bg-[#C5FF41] py-3 text-center text-sm font-semibold text-black hover:bg-white"
               >
                 Go
               </Link>

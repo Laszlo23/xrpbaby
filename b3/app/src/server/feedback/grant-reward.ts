@@ -1,6 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
 
 import { FEEDBACK_REWARDS } from "@/server/feedback/constants";
+import { creditPointsIdempotent } from "@/server/points/credit-idempotent";
 import { logActivity } from "@/server/platform/member";
 
 type FeedbackTier = "submit" | "useful" | "gold";
@@ -15,34 +16,30 @@ export async function grantFeedbackPoints(
   },
 ): Promise<{ granted: number; alreadyGranted: boolean }> {
   const reward = FEEDBACK_REWARDS[input.tier];
-  const idempotencyReason = `feedback_${input.tier}:${input.feedbackId}`;
-
   const reasonKey = `feedback_reward:${input.tier}:${input.feedbackId}`;
-  const existing = await prisma.pointLedger.findFirst({
-    where: { walletId: input.walletId, reason: reasonKey },
+
+  const credit = await creditPointsIdempotent(prisma, {
+    walletId: input.walletId,
+    delta: reward.points,
+    reason: reasonKey,
+    taskSlug: reward.slug,
+    idempotencyKey: `feedback:${input.tier}:${input.feedbackId}`,
+    metadata: { feedbackId: input.feedbackId, tier: input.tier },
   });
-  if (existing) {
-    return { granted: 0, alreadyGranted: true };
+
+  if (credit.credited) {
+    await logActivity(prisma, {
+      memberId: input.memberId,
+      type: "feedback:rewarded",
+      sourceModule: "app",
+      payload: { feedbackId: input.feedbackId, tier: input.tier, points: reward.points },
+    });
   }
 
-  await prisma.pointLedger.create({
-    data: {
-      walletId: input.walletId,
-      delta: reward.points,
-      reason: reasonKey,
-      taskSlug: reward.slug,
-      metadata: { feedbackId: input.feedbackId, tier: input.tier },
-    },
-  });
-
-  await logActivity(prisma, {
-    memberId: input.memberId,
-    type: "feedback:rewarded",
-    sourceModule: "app",
-    payload: { feedbackId: input.feedbackId, tier: input.tier, points: reward.points },
-  });
-
-  return { granted: reward.points, alreadyGranted: false };
+  return {
+    granted: credit.credited ? credit.pointsGranted : 0,
+    alreadyGranted: credit.alreadyCredited,
+  };
 }
 
 export async function grantBuilderVoiceBadge(

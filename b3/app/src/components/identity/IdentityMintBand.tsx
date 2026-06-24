@@ -4,11 +4,11 @@ import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import {
   formatIdentityMintPrice,
   formatIdentityMintLadderUrgency,
-  identityMintPriceShort,
-  IDENTITY_MINT_LADDER_RANGE_LABEL,
 } from "@/lib/identity/mint-price";
 import { culturePointsForMint, usdPriceForTotalMinted } from "@/lib/identity/mint-ladder";
 import { cultureLayerIdentityAbi } from "@/lib/identity/identityAbi";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
+import { IDENTITY_MINT_BASE_USD, IDENTITY_MINT_TIER_SIZE } from "@/lib/identity/mint-ladder";
 import { IDENTITY_TLD_OPTIONS } from "@/lib/identity/tlds";
 
 export function IdentityMintBand() {
@@ -40,17 +40,19 @@ export function IdentityMintBand() {
   });
 
   return (
-    <section className="mt-12 overflow-hidden rounded-3xl border border-[#C5FF41]/35 bg-gradient-to-br from-[#C5FF41]/10 via-transparent to-[#00E5FF]/10 p-6 sm:p-8">
-      <p className="mono-label !text-[#C5FF41]">CULTURE LAYER · 77-MINT LADDER</p>
+    <section className="overflow-hidden rounded-3xl border border-[#C5FF41]/35 bg-gradient-to-br from-[#C5FF41]/10 via-transparent to-[#00E5FF]/10 p-6 sm:p-8">
+      <p className="mono-label !text-[#C5FF41]">Culture ID · Base Mainnet</p>
       <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
         Claim your .culture name
       </h2>
       <p className="mt-2 max-w-xl text-sm text-zinc-400">
-        Mint a transferable identity NFT on {identity.identityChainLabel} — {identityMintPriceShort}
-        . Live: <span className="font-mono text-zinc-200">{priceLabel}</span>
+        Mint on <strong className="text-white">Base Mainnet</strong> with invite code{" "}
+        <strong className="text-[#C5FF41]">{IDENTITY_LAUNCH_REFERRAL_CODE}</strong> — about $
+        {IDENTITY_MINT_BASE_USD.toFixed(2)} for the first {IDENTITY_MINT_TIER_SIZE} minters. Live:{" "}
+        <span className="font-mono text-zinc-200">{priceLabel}</span>
       </p>
       {totalMinted !== undefined ? (
-        <p className="mt-2 font-mono text-[11px] text-[var(--base-blue)]">
+        <p className="mt-2 font-mono text-xs text-[var(--base-blue)]">
           {formatIdentityMintLadderUrgency(totalMinted)}
           {cpPreview ? ` · +${cpPreview} Culture Points on mint` : null}
         </p>
@@ -67,10 +69,10 @@ export function IdentityMintBand() {
       </div>
       <Link
         to="/pass"
-        search={{ name: "yourname", tld: ".culture" }}
-        className="mt-6 inline-flex items-center rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
+        search={{ name: "yourname", tld: ".culture", ref: IDENTITY_LAUNCH_REFERRAL_CODE }}
+        className="mt-6 inline-flex min-h-11 items-center rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
       >
-        Claim from {IDENTITY_MINT_LADDER_RANGE_LABEL} →
+        Claim .culture name →
       </Link>
     </section>
   );

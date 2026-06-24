@@ -27,9 +27,7 @@ function lpTokenAddresses(): Address[] {
   return out;
 }
 
-function lpSourceForToken(
-  token: Address,
-): "aerodrome" | "balancer" | "mixed" | undefined {
+function lpSourceForToken(token: Address): "aerodrome" | "balancer" | "mixed" | undefined {
   const lower = token.toLowerCase();
   const aerodromeTokens = new Set(
     [
@@ -102,7 +100,12 @@ export async function walletHasBccLpProof(wallet: Address): Promise<{
     const source = maxToken ? lpSourceForToken(maxToken) : undefined;
 
     if (maxBalance < MIN_LP_WEI) {
-      return { ok: false, error: "insufficient_lp_balance", balance: maxBalance.toString(), source };
+      return {
+        ok: false,
+        error: "insufficient_lp_balance",
+        balance: maxBalance.toString(),
+        source,
+      };
     }
     return { ok: true, balance: maxBalance.toString(), source };
   } catch (e) {

@@ -2,6 +2,11 @@ import { getMarketplaceService, serviceKickoffX402Price } from "@/content/market
 import { resolveX402ResourceUrl } from "@/lib/x402-resource-url";
 import { getX402SettlementChain } from "@/lib/x402-network";
 import {
+  getStripeClient,
+  isStripeConfigured,
+  platformOrigin,
+} from "@/server/billing/stripe-config";
+import {
   createPendingServiceOrder,
   fulfillServiceOrderAfterPayment,
   getServiceOrderForBuyer,
@@ -24,6 +29,7 @@ const checkoutSchema = z.object({
   slug: z.string().min(1),
   walletAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
   brief: z.record(z.string(), z.string()),
+  paymentRail: z.enum(["stripe", "x402"]).optional().default("x402"),
 });
 
 export function handleServiceCheckoutOptions(request: Request): Response {
@@ -32,12 +38,6 @@ export function handleServiceCheckoutOptions(request: Request): Response {
 
 export async function handleServiceCheckoutPost(request: Request): Promise<Response> {
   const cors = x402CorsHeadersFor(request);
-  if (!isX402Configured()) {
-    return Response.json(
-      { ok: false, error: "x402_not_configured", detail: x402ConfigurationError() },
-      { status: 503, headers: cors },
-    );
-  }
 
   const body = await request.json().catch(() => null);
   const parsed = checkoutSchema.safeParse(body);
@@ -69,6 +69,79 @@ export async function handleServiceCheckoutPost(request: Request): Promise<Respo
     return Response.json({ ok: false, error: created.error }, { status: 503, headers: cors });
   }
 
+  if (parsed.data.paymentRail === "stripe") {
+    if (!isStripeConfigured()) {
+      return Response.json(
+        { ok: false, error: "stripe_not_configured" },
+        { status: 503, headers: cors },
+      );
+    }
+
+    const stripe = getStripeClient();
+    const origin = platformOrigin();
+    const orderId = created.orderId;
+    const amountCents = Math.round(sku.kickoffUsdc * 100);
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: "usd",
+            unit_amount: amountCents,
+            product_data: {
+              name: sku.title,
+              description: `${sku.title} — marketplace service kickoff`,
+            },
+          },
+        },
+      ],
+      metadata: {
+        type: "service_order",
+        orderId,
+        slug: sku.slug,
+        wallet: parsed.data.walletAddress.toLowerCase(),
+      },
+      success_url: `${origin}/marketplace/services/${sku.slug}?checkout=success&order=${orderId}`,
+      cancel_url: `${origin}/marketplace/services/${sku.slug}?checkout=cancel`,
+    });
+
+    if (!session.url || !session.id) {
+      return Response.json({ ok: false, error: "no_checkout_url" }, { status: 500, headers: cors });
+    }
+
+    const { getPrisma } = await import("@/server/db/prisma");
+    const prisma = getPrisma();
+    if (prisma) {
+      await prisma.serviceOrder.update({
+        where: { id: orderId },
+        data: { stripeSessionId: session.id },
+      });
+    }
+
+    return Response.json(
+      {
+        ok: true,
+        orderId,
+        price: created.price,
+        kickoffUsdc: created.kickoffUsdc,
+        paymentRail: "stripe",
+        url: session.url,
+        sessionId: session.id,
+        sku: { slug: sku.slug, title: sku.title },
+      },
+      { headers: cors },
+    );
+  }
+
+  if (!isX402Configured()) {
+    return Response.json(
+      { ok: false, error: "x402_not_configured", detail: x402ConfigurationError() },
+      { status: 503, headers: cors },
+    );
+  }
+
   const payPath = `/api/marketplace/services/pay?orderId=${encodeURIComponent(created.orderId)}`;
 
   return Response.json(
@@ -77,6 +150,7 @@ export async function handleServiceCheckoutPost(request: Request): Promise<Respo
       orderId: created.orderId,
       price: created.price,
       kickoffUsdc: created.kickoffUsdc,
+      paymentRail: "x402",
       payPath,
       payUrl: payPath,
       sku: { slug: sku.slug, title: sku.title },
@@ -143,7 +217,7 @@ export async function handleServicePayGet(request: Request): Promise<Response> {
   });
 
   if (result.status === 200) {
-    const paid = await markServiceOrderPaid(orderId);
+    const paid = await markServiceOrderPaid(orderId, { x402TxHash: undefined });
     if (!paid.ok && paid.error !== "already_paid") {
       return Response.json({ ok: false, error: paid.error }, { status: 500, headers: cors });
     }
@@ -197,6 +271,7 @@ export async function handleServiceOrderGet(request: Request, orderId: string): 
         status: order.status,
         amountUsdc: order.amountUsdc,
         x402TxHash: order.x402TxHash,
+        stripeSessionId: order.stripeSessionId,
         threadId: order.threadId,
         createdAt: order.createdAt.toISOString(),
         milestones: order.milestones.map((m) => ({

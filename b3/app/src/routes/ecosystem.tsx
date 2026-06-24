@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { LandingNav } from "@/components/landing/LandingNav";
 import { ModuleBentoGrid } from "@/components/landing/ModuleBentoGrid";
+import { useShowLoggedInShell } from "@/hooks/useShowLoggedInShell";
 import {
   ECOSYSTEM_CATEGORIES,
   ECOSYSTEM_SATELLITES,
@@ -37,6 +38,7 @@ export const Route = createFileRoute("/ecosystem")({
 });
 
 function EcosystemPage() {
+  const showLoggedInShell = useShowLoggedInShell();
   const allApps = [
     ...new Map(
       [
@@ -50,9 +52,11 @@ function EcosystemPage() {
 
   return (
     <div className="bc-surface min-h-screen antialiased">
-      <LandingNav compact />
+      {!showLoggedInShell ? <LandingNav compact /> : null}
       <main>
-        <section className="relative overflow-hidden bg-black pt-28 pb-16 sm:pt-36">
+        <section
+          className={`relative overflow-hidden bg-black pb-16 ${showLoggedInShell ? "pt-8 sm:pt-10" : "pt-28 sm:pt-36"}`}
+        >
           <div className="absolute inset-0 bc-grid opacity-30" />
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
             <p className="mono-label">ECOSYSTEM DIRECTORY</p>

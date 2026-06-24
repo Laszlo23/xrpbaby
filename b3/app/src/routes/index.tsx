@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { pageHead } from "@/lib/seo";
 import { LANDING_NORTH_STAR } from "@/lib/landing-copy";
 import { LandingPage } from "@/components/landing/LandingPage";
+import { pageHead, TALENTAPP_PROJECT_VERIFICATION } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -17,6 +17,12 @@ export const Route = createFileRoute("/")({
         "AI agents",
         "grant proof",
         "community ownership",
+      ],
+      extraMeta: [
+        {
+          name: "talentapp:project_verification",
+          content: TALENTAPP_PROJECT_VERIFICATION,
+        },
       ],
     }),
   component: Index,

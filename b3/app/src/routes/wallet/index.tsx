@@ -8,6 +8,7 @@ import { getIdentityNetwork } from "@/lib/identity/networks";
 import { ModuleShell } from "@/components/ModuleShell";
 import { WalletControls } from "@/components/WalletControls";
 import { WalletExportSection } from "@/components/wallet/WalletExportSection";
+import { WalletPaymentsGrid } from "@/components/wallet/WalletPaymentsGrid";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/wallet/")({
@@ -36,7 +37,7 @@ function WalletPage() {
       title="Your culture wallet"
       subtitle="Smart wallet on Base and BNB Chain — sign in, buy packs, mint your .culture name, export keys when you need self-custody."
     >
-      <div className="mx-auto max-w-lg space-y-8">
+      <div className="mx-auto max-w-3xl space-y-8">
         <div className="flex justify-center">
           <NetworkSelector />
         </div>
@@ -75,27 +76,20 @@ function WalletPage() {
 
         {privyEnabled && address && <WalletExportSection address={address} />}
 
-        <section className="grid gap-3 sm:grid-cols-2">
-          <Link
-            to="/wallet/packs"
-            className="rounded-2xl border border-[#C5FF41]/25 bg-[#C5FF41]/10 p-5 transition hover:border-[#C5FF41]/50"
-          >
-            <p className="font-display text-lg font-semibold text-white">Culture packs</p>
-            <p className="mt-1 text-sm text-zinc-400">Buy points with card — $0.70 to $7,777,777</p>
-          </Link>
-          <Link
-            to="/pass"
-            search={{ network: activeNetworkId }}
-            className="rounded-2xl border border-[#00E5FF]/25 bg-[#00E5FF]/10 p-5 transition hover:border-[#00E5FF]/50"
-          >
-            <p className="font-display text-lg font-semibold text-white">Mint .culture ID</p>
-            <p className="mt-1 text-sm text-zinc-400">
-              {identity.isIdentityContractConfigured
-                ? `Mint on ${activeNet.chainLabel}`
-                : `${activeNet.chainLabel} contract pending`}
-            </p>
-          </Link>
-        </section>
+        <WalletPaymentsGrid />
+
+        <Link
+          to="/pass"
+          search={{ network: activeNetworkId }}
+          className="block rounded-2xl border border-[#00E5FF]/25 bg-[#00E5FF]/10 p-5 transition hover:border-[#00E5FF]/50"
+        >
+          <p className="font-display text-lg font-semibold text-white">Mint .culture ID</p>
+          <p className="mt-1 text-sm text-zinc-400">
+            {identity.isIdentityContractConfigured
+              ? `Mint on ${activeNet.chainLabel}`
+              : `${activeNet.chainLabel} contract pending`}
+          </p>
+        </Link>
 
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
           <p className="mono-label text-zinc-500">Redeem for BCC</p>

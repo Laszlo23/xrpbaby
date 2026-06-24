@@ -102,7 +102,7 @@ export const CREDENTIAL_CATALOG: CredentialCatalogEntry[] = [
       "Edition serial on profile",
       "Culture Points on claim",
     ],
-    earnSummary: "Buy a limited tee and scan the inside label at /merch/claim.",
+    earnSummary: "Buy a limited tee on /marketplace/merch and scan the inside label to claim.",
     icon: "shirt",
     accent: "#D4AF37",
   },

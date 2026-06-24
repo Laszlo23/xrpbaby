@@ -1,5 +1,5 @@
 import { usePrivy } from "@privy-io/react-auth";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useAccount } from "wagmi";
 import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
@@ -7,8 +7,10 @@ import {
   CULTURE_PACKS,
   formatCulturePoints,
   formatPackUsd,
+  getPackBySlug,
   type PackDefinition,
 } from "@/lib/packs";
+import { stripeErrorMessage } from "@/lib/billing/stripe-errors";
 
 async function startCheckout(
   pack: PackDefinition,
@@ -30,7 +32,7 @@ async function startCheckout(
   });
   const data = (await res.json()) as { ok?: boolean; url?: string; error?: string };
   if (!res.ok || !data.ok || !data.url) {
-    throw new Error(data.error ?? "checkout_failed");
+    throw new Error(stripeErrorMessage(data.error));
   }
   window.location.href = data.url;
 }
@@ -38,43 +40,61 @@ async function startCheckout(
 function PackGrid({
   busySlug,
   onBuy,
+  highlightSlug,
 }: {
   busySlug: string | null;
   onBuy: (pack: PackDefinition) => void;
+  highlightSlug?: string;
 }) {
+  const highlightRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!highlightSlug || !getPackBySlug(highlightSlug)) return;
+    highlightRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [highlightSlug]);
+
   return (
     <div className="grid gap-4 sm:grid-cols-2">
-      {CULTURE_PACKS.map((pack) => (
-        <article
-          key={pack.slug}
-          className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5"
-        >
-          <p className="font-display text-xl font-semibold text-white">{pack.label}</p>
-          <p className="mt-1 font-mono text-2xl text-[#C5FF41]">{formatPackUsd(pack.usd)}</p>
-          <p className="mt-2 text-sm text-zinc-400">
-            +{formatCulturePoints(pack.culturePoints)} Culture Points
-          </p>
-          {pack.grantsSupporterBadge && (
-            <p className="mt-1 text-xs text-amber-200/80">Includes supporter badge</p>
-          )}
-          {pack.grantsIdentityMintCredit && (
-            <p className="mt-1 text-xs text-[#00E5FF]/80">Includes identity mint credit</p>
-          )}
-          <button
-            type="button"
-            disabled={busySlug !== null}
-            onClick={() => onBuy(pack)}
-            className="mt-4 rounded-xl bg-[#C5FF41] px-4 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-black transition hover:opacity-90 disabled:opacity-50"
+      {CULTURE_PACKS.map((pack) => {
+        const highlighted = highlightSlug === pack.slug;
+        return (
+          <article
+            key={pack.slug}
+            ref={highlighted ? highlightRef : undefined}
+            id={highlighted ? `pack-${pack.slug}` : undefined}
+            className={`flex flex-col rounded-2xl border p-5 transition ${
+              highlighted
+                ? "border-[#C5FF41]/60 bg-[#C5FF41]/10 ring-2 ring-[#C5FF41]/30"
+                : "border-white/10 bg-white/[0.03]"
+            }`}
           >
-            {busySlug === pack.slug ? "Redirecting…" : "Buy with card"}
-          </button>
-        </article>
-      ))}
+            <p className="font-display text-xl font-semibold text-white">{pack.label}</p>
+            <p className="mt-1 font-mono text-2xl text-[#C5FF41]">{formatPackUsd(pack.usd)}</p>
+            <p className="mt-2 text-sm text-zinc-400">
+              +{formatCulturePoints(pack.culturePoints)} Culture Points
+            </p>
+            {pack.grantsSupporterBadge && (
+              <p className="mt-1 text-xs text-amber-200/80">Includes supporter badge</p>
+            )}
+            {pack.grantsIdentityMintCredit && (
+              <p className="mt-1 text-xs text-[#00E5FF]/80">Includes identity mint credit</p>
+            )}
+            <button
+              type="button"
+              disabled={busySlug !== null}
+              onClick={() => onBuy(pack)}
+              className="mt-4 rounded-xl bg-[#C5FF41] px-4 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-black transition hover:opacity-90 disabled:opacity-50"
+            >
+              {busySlug === pack.slug ? "Redirecting…" : "Buy with card"}
+            </button>
+          </article>
+        );
+      })}
     </div>
   );
 }
 
-export function PackCheckoutActionsPrivy() {
+export function PackCheckoutActionsPrivy({ highlightSlug }: { highlightSlug?: string }) {
   const { authenticated, getAccessToken } = usePrivy();
   const { address, isConnected } = useAccount();
   const { activeNetworkId } = useCultureNetwork();
@@ -96,10 +116,12 @@ export function PackCheckoutActionsPrivy() {
     }
   }
 
-  return <PackGrid busySlug={busySlug} onBuy={(p) => void buyPack(p)} />;
+  return (
+    <PackGrid busySlug={busySlug} onBuy={(p) => void buyPack(p)} highlightSlug={highlightSlug} />
+  );
 }
 
-export function PackCheckoutActionsLegacy() {
+export function PackCheckoutActionsLegacy({ highlightSlug }: { highlightSlug?: string }) {
   const { address, isConnected } = useAccount();
   const { activeNetworkId } = useCultureNetwork();
   const [busySlug, setBusySlug] = useState<string | null>(null);
@@ -119,5 +141,7 @@ export function PackCheckoutActionsLegacy() {
     }
   }
 
-  return <PackGrid busySlug={busySlug} onBuy={(p) => void buyPack(p)} />;
+  return (
+    <PackGrid busySlug={busySlug} onBuy={(p) => void buyPack(p)} highlightSlug={highlightSlug} />
+  );
 }

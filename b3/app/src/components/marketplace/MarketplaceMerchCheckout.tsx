@@ -262,6 +262,10 @@ function MarketplaceMerchCheckoutInner({ drop, quote, soldOut }: MarketplaceMerc
         </Button>
       </div>
 
+      <p className="text-xs text-zinc-500">
+        Card = Stripe hosted checkout · USDC = x402 on Base (on-chain settlement).
+      </p>
+
       {lastError ? (
         <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100/90">
           {lastError}

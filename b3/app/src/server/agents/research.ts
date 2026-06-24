@@ -7,17 +7,13 @@ import {
   researchBrandGuard,
   x402ResearchPrice,
 } from "@/lib/agent-os-catalog";
+import { paidOrInternalOrStripe } from "@/server/billing/paid-access";
 import { getPrisma } from "@/server/db/prisma";
 import { runInference } from "@/server/llm/inference";
-import {
-  handleX402Options,
-  isX402Configured,
-  settleX402Get,
-  x402ConfigurationError,
-  x402CorsHeadersFor,
-} from "@/server/x402-settle";
+import { handleX402Options, x402CorsHeadersFor } from "@/server/x402-settle";
 
 const RESEARCH_AGENT_ID = "research_agent";
+const RESEARCH_SKU = "buildchain_research_brief_v1";
 
 const MAX_QUERY_LEN = 2000;
 
@@ -112,52 +108,34 @@ export async function handleResearchX402Get(request: Request): Promise<Response>
   }
 
   const price = x402ResearchPrice();
-  const cors = x402CorsHeadersFor(request);
 
-  if (!isX402Configured()) {
-    return Response.json(
-      {
-        error: "payment_required",
-        detail: x402ConfigurationError(),
-        price,
-        agent: "research",
-      },
-      { status: 402, headers: cors },
-    );
-  }
-
-  try {
-    return await settleX402Get(
-      request,
-      {
-        price,
-        description: "Building Culture Research Agent — structured Web3/AI/ecosystem brief (JSON)",
-        mimeType: "application/json",
-      },
-      async () => {
-        const outcome = await runResearchBrief(q);
-        if (!outcome.ok) {
-          return {
-            ok: false as const,
-            agent: "research" as const,
-            query: q,
-            error: outcome.error,
-            source: outcome.source ?? null,
-            generatedAt: new Date().toISOString(),
-          };
-        }
+  return paidOrInternalOrStripe(
+    request,
+    {
+      sku: RESEARCH_SKU,
+      price,
+      description: "Building Culture Research Agent — structured Web3/AI/ecosystem brief (JSON)",
+    },
+    async () => {
+      const outcome = await runResearchBrief(q);
+      if (!outcome.ok) {
         return {
-          ok: true as const,
+          ok: false as const,
           agent: "research" as const,
           query: q,
-          brief: outcome.brief,
-          source: outcome.source,
+          error: outcome.error,
+          source: outcome.source ?? null,
           generatedAt: new Date().toISOString(),
         };
-      },
-    );
-  } catch (e) {
-    const message = e instanceof Error ? e.message : "x402 configuration or settlement failed";
-    return Response.json({ error: message }, { status: 503, headers: cors });
-  }
+      }
+      return {
+        ok: true as const,
+        agent: "research" as const,
+        query: q,
+        brief: outcome.brief,
+        source: outcome.source,
+        generatedAt: new Date().toISOString(),
+      };
+    },
+  );
 }

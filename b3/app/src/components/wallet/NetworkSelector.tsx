@@ -1,12 +1,14 @@
 import { useCultureNetwork } from "@/contexts/CultureNetworkContext";
 import type { IdentityNetworkId } from "@/lib/identity/networks";
 import { getIdentityNetwork } from "@/lib/identity/networks";
+import { useRouterState } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 const OPTIONS: IdentityNetworkId[] = ["base", "bsc"];
 
 export function NetworkSelector({ className = "" }: { className?: string }) {
   const { activeNetworkId, setActiveNetworkId, switchToActiveChain } = useCultureNetwork();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   async function select(id: IdentityNetworkId) {
     if (id === activeNetworkId) return;
@@ -16,11 +18,19 @@ export function NetworkSelector({ className = "" }: { className?: string }) {
       return;
     }
     setActiveNetworkId(id);
+    if (pathname.startsWith("/pass") || pathname.startsWith("/wallet")) {
+      const params = new URLSearchParams(window.location.search);
+      params.set("network", id);
+      const next = `${pathname}?${params.toString()}`;
+      window.history.replaceState(window.history.state, "", next);
+    }
     try {
       await switchToActiveChain(id);
       toast.success(`Switched to ${net.chainLabel}`);
     } catch {
-      toast.message(`Selected ${net.chainLabel}. Confirm the network switch in your wallet, then mint.`);
+      toast.message(
+        `Selected ${net.chainLabel}. Confirm the network switch in your wallet, then mint.`,
+      );
     }
   }
 

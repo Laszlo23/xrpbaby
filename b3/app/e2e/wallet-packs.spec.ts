@@ -20,6 +20,22 @@ test.describe("wallet and packs", () => {
     await expect(signIn.or(connect)).toBeVisible();
   });
 
+  test("wallet hub shows Pay & earn tiles", async ({ page }) => {
+    await page.goto("/wallet");
+    await expect(page.getByText("Pay & earn")).toBeVisible();
+    await expect(page.getByRole("link", { name: /Culture packs/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Presale \(on-chain\)/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /API billing/i })).toBeVisible();
+  });
+
+  test("pack deep link highlights pack card", async ({ page }) => {
+    await page.goto("/wallet/packs?pack=pack_7");
+    await expect(page.getByRole("heading", { name: /culture packs/i })).toBeVisible();
+    const cultureCard = page.locator("#pack-pack_7");
+    await expect(cultureCard).toBeVisible();
+    await expect(cultureCard).toHaveClass(/ring-2/);
+  });
+
   test("pass page shows Base / BNB network selector", async ({ page }) => {
     await page.goto("/pass");
     await expect(page.getByRole("group", { name: /identity network/i })).toBeVisible();

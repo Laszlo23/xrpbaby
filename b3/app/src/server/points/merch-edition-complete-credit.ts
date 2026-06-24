@@ -2,6 +2,7 @@ import type { PrismaClient } from "@prisma/client";
 
 import { ensureDefaultTasks } from "@/server/points/tasks";
 import { ensureWalletAndMember } from "@/server/platform/member";
+import { creditPointsIdempotent } from "@/server/points/credit-idempotent";
 
 export const MERCH_EDITION_COMPLETE_TASK_SLUG = "merch-edition-complete";
 
@@ -22,31 +23,28 @@ export async function creditMerchEditionCompleteForDrop(prisma: PrismaClient, dr
   let credited = 0;
 
   for (const order of orders) {
-    const { wallet, member } = await ensureWalletAndMember(prisma, order.wallet);
-    const existing = await prisma.pointLedger.findFirst({
-      where: {
-        walletId: wallet.id,
-        taskSlug: MERCH_EDITION_COMPLETE_TASK_SLUG,
-        metadata: { path: ["orderId"], equals: order.id },
-      },
-    });
-    if (existing) continue;
+    const result = await prisma.$transaction(async (tx) => {
+      const { wallet, member } = await ensureWalletAndMember(tx, order.wallet);
 
-    await prisma.pointLedger.create({
-      data: {
+      return creditPointsIdempotent(tx, {
         walletId: wallet.id,
         delta: task.points,
         reason: "task_completion",
         taskSlug: MERCH_EDITION_COMPLETE_TASK_SLUG,
+        idempotencyKey: `merch-edition:${order.id}`,
         metadata: { orderId: order.id, dropSlug },
-      },
+      }).then(async (credit) => {
+        if (credit.credited) {
+          await logTaskCompletionActivity(tx, {
+            memberId: member?.id,
+            taskSlug: MERCH_EDITION_COMPLETE_TASK_SLUG,
+          });
+        }
+        return credit;
+      });
     });
 
-    await logTaskCompletionActivity(prisma, {
-      memberId: member?.id,
-      taskSlug: MERCH_EDITION_COMPLETE_TASK_SLUG,
-    });
-    credited++;
+    if (result.credited) credited++;
   }
 
   return { credited };

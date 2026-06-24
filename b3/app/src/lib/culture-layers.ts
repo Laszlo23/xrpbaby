@@ -154,6 +154,13 @@ export const CULTURE_LAYERS: CultureLayer[] = [
         href: "/marketplace/services",
       },
       {
+        id: "partner-escrow",
+        label: "Partner escrow",
+        description:
+          "USDC locked on Base — hashed terms, AI payout, council veto. How we pay Telegram, marketing, and BD partners.",
+        href: "/how-we-partner",
+      },
+      {
         id: "creator-economy",
         label: "Creator Economy",
         description: "Culture Atlas, art drops, and creator monetization rails.",
@@ -169,6 +176,19 @@ export const CULTURE_LAYERS: CultureLayer[] = [
     color: "#839788",
     icon: Coins,
     subItems: [
+      {
+        id: "wallet-hub",
+        label: "Wallet & payments",
+        description:
+          "Culture packs, subscriptions, presale, marketplace, and API billing in one hub.",
+        href: "/wallet",
+      },
+      {
+        id: "onchain-presale",
+        label: "On-chain presale",
+        description: "Fixed-price BCC sale round on Base — smart-contract checkout.",
+        href: "/presale",
+      },
       {
         id: "bcc-token",
         label: "BCC Token",
@@ -186,6 +206,12 @@ export const CULTURE_LAYERS: CultureLayer[] = [
         label: "Agent Shares",
         description: "Onchain agent share NFTs with treasury and liquidity splits.",
         href: "/campaign",
+      },
+      {
+        id: "partner-escrow",
+        label: "Partner escrow",
+        description: "Trust-minimized USDC deals for marketing and channel partners.",
+        href: "/how-we-partner",
       },
     ],
   },

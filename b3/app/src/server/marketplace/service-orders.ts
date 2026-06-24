@@ -59,7 +59,10 @@ export async function getServiceOrderForBuyer(orderId: string, wallet?: string) 
   return order;
 }
 
-export async function markServiceOrderPaid(orderId: string, x402TxHash?: string) {
+export async function markServiceOrderPaid(
+  orderId: string,
+  opts?: string | { x402TxHash?: string; stripeSessionId?: string; paymentRail?: string },
+) {
   const prisma = getPrisma();
   if (!prisma) return { ok: false as const, error: "database_unavailable" };
 
@@ -69,15 +72,65 @@ export async function markServiceOrderPaid(orderId: string, x402TxHash?: string)
     return { ok: false as const, error: "already_paid", order };
   }
 
+  const x402TxHash = typeof opts === "string" ? opts : opts?.x402TxHash;
+  const stripeSessionId = typeof opts === "object" ? opts?.stripeSessionId : undefined;
+
   const updated = await prisma.serviceOrder.update({
     where: { id: orderId },
     data: {
       status: "intake",
       x402TxHash: x402TxHash ?? null,
+      stripeSessionId: stripeSessionId ?? order.stripeSessionId,
     },
   });
 
   return { ok: true as const, order: updated };
+}
+
+export async function cancelServiceOrderByStripeSession(stripeSessionId: string) {
+  const prisma = getPrisma();
+  if (!prisma) return { ok: false as const, error: "database_unavailable" };
+
+  const order = await prisma.serviceOrder.findFirst({
+    where: { stripeSessionId, status: "pending_payment" },
+  });
+  if (!order) return { ok: true as const, skipped: true };
+
+  await prisma.serviceOrder.update({
+    where: { id: order.id },
+    data: { status: "cancelled" },
+  });
+
+  return { ok: true as const, skipped: false, orderId: order.id };
+}
+
+export async function verifyServiceStripeSession(input: {
+  orderId: string;
+  stripeSessionId: string;
+  amountTotalCents: number | null;
+  metadataWallet?: string;
+}) {
+  const prisma = getPrisma();
+  if (!prisma) return { ok: false as const, error: "database_unavailable" };
+
+  const order = await prisma.serviceOrder.findUnique({ where: { id: input.orderId } });
+  if (!order) return { ok: false as const, error: "order_not_found" };
+
+  const sku = getMarketplaceService(order.slug);
+  if (order.stripeSessionId !== input.stripeSessionId) {
+    return { ok: false as const, error: "session_mismatch" };
+  }
+  if (input.metadataWallet && order.wallet !== input.metadataWallet.toLowerCase()) {
+    return { ok: false as const, error: "wallet_mismatch" };
+  }
+  if (sku && input.amountTotalCents != null) {
+    const expectedCents = Math.round(sku.kickoffUsdc * 100);
+    if (input.amountTotalCents !== expectedCents) {
+      return { ok: false as const, error: "amount_mismatch" };
+    }
+  }
+
+  return { ok: true as const, order, sku };
 }
 
 function inboxAgentKindForSku(sku: MarketplaceServiceSku): string {

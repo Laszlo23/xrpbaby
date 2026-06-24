@@ -1,0 +1,354 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: baseline-capture.spec.ts >> baseline route capture >> loads /agent-os without browser errors
+- Location: e2e/baseline-capture.spec.ts:26:5
+
+# Error details
+
+```
+Error: Unexpected browser errors:
+[console.error] Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+---
+[pageerror] Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
+SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
+    at <anonymous>:4:7
+    at <anonymous>:5:7
+---
+[console.error] Failed to load resource: the server responded with a status of 403 ()
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 8
+
+- Array []
++ Array [
++   "[console.error] Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
++   "[pageerror] Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
++ SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
++     at <anonymous>:4:7
++     at <anonymous>:5:7",
++   "[console.error] Failed to load resource: the server responded with a status of 403 ()",
++ ]
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic "Connect wallet":
+      - button "Connect" [ref=e4]:
+        - img [ref=e5]
+        - text: Connect
+    - generic [ref=e8]:
+      - banner [ref=e9]:
+        - generic [ref=e10]:
+          - paragraph [ref=e11]: Agent OS
+          - generic [ref=e12]: Building Culture Agent OS
+          - paragraph [ref=e13]: Pay with USDC on Base. Agents run 24/7 with human approval on outbound actions.
+          - generic [ref=e14]:
+            - link "agent.json ↗" [ref=e15] [cursor=pointer]:
+              - /url: /.well-known/agent.json
+            - link "Trading agent (x402)" [ref=e16] [cursor=pointer]:
+              - /url: /trading-agent
+      - article [ref=e18]:
+        - generic [ref=e19]:
+          - complementary [ref=e20]:
+            - generic [ref=e21]:
+              - img [ref=e22]
+              - generic [ref=e24]:
+                - paragraph [ref=e25]: Human-approved operations
+                - paragraph [ref=e26]: No autonomous treasury moves. Revenue, partnerships, grants, and outbound messages stay human-approved. Research and read-only APIs are the first live surfaces.
+          - generic [ref=e27]:
+            - generic [ref=e28]:
+              - paragraph [ref=e29]: Research query
+              - paragraph [ref=e30]: $0.05 USDC
+            - generic [ref=e31]:
+              - paragraph [ref=e32]: Limx brief
+              - paragraph [ref=e33]: $0.25 USDC
+            - generic [ref=e34]:
+              - paragraph [ref=e35]: Ecosystem
+              - paragraph [ref=e36]: 100,000,000,000 BCC est. circulating
+            - generic [ref=e37]:
+              - paragraph [ref=e38]: Agent activity (24h)
+              - paragraph [ref=e39]: —
+          - generic [ref=e40]:
+            - heading "Agent fleet" [level=2] [ref=e41]
+            - generic [ref=e42]:
+              - article [ref=e43]:
+                - generic [ref=e44]:
+                  - heading "Limx Revenue Agent" [level=3] [ref=e45]
+                  - generic [ref=e46]: Live
+                - paragraph [ref=e47]: Grants, partnerships, sponsors, and growth opportunities
+                - paragraph [ref=e48]: Find grant programs, strategic partners, sponsors, and revenue pathways for Building Culture.
+                - generic [ref=e49]:
+                  - paragraph [ref=e50]: "Price: $0.25 / brief (USDC → Limx wallet)"
+                  - paragraph [ref=e51]: "Approval: Research-only (no outbound)"
+                  - link "Request opportunity brief →" [ref=e52] [cursor=pointer]:
+                    - /url: /agent-os#limx-agent
+              - article [ref=e53]:
+                - generic [ref=e54]:
+                  - heading "Research Agent" [level=3] [ref=e55]
+                  - generic [ref=e56]: Live
+                - paragraph [ref=e57]: Web3, AI, ecosystem and competitor research
+                - paragraph [ref=e58]: Research projects, markets, competitors, grants, and product strategies.
+                - generic [ref=e59]:
+                  - paragraph [ref=e60]: "Price: $0.05 / query (USDC on Base)"
+                  - paragraph [ref=e61]: "Approval: Research-only (no outbound)"
+                  - link "Run research →" [ref=e62] [cursor=pointer]:
+                    - /url: /agent-os
+              - article [ref=e63]:
+                - generic [ref=e64]:
+                  - heading "Marketing Agent" [level=3] [ref=e65]
+                  - generic [ref=e66]: Beta
+                - paragraph [ref=e67]: Social, campaigns, and onchain marketing (Grove)
+                - paragraph [ref=e68]: Draft and schedule Farcaster, X, and campaign posts with human approval.
+                - generic [ref=e69]:
+                  - paragraph [ref=e70]: "Price: Coming soon"
+                  - paragraph [ref=e71]: "Approval: Human approval for outbound actions"
+                  - link "Agent OS →" [ref=e72] [cursor=pointer]:
+                    - /url: /agent-os
+              - article [ref=e73]:
+                - generic [ref=e74]:
+                  - heading "Grant Agent" [level=3] [ref=e75]
+                  - generic [ref=e76]: Live
+                - paragraph [ref=e77]: Find grants, sponsorships, ecosystem funding
+                - paragraph [ref=e78]: Create grant-ready proof pages and application drafts.
+                - generic [ref=e79]:
+                  - paragraph [ref=e80]: "Price: 100 BCC / run"
+                  - paragraph [ref=e81]: "Approval: Human approval for outbound actions"
+                  - link "Run Grant Agent →" [ref=e82] [cursor=pointer]:
+                    - /url: /agent-os#grant-agent
+              - article [ref=e83]:
+                - generic [ref=e84]:
+                  - heading "Builder Agent" [level=3] [ref=e85]
+                  - generic [ref=e86]: Beta
+                - paragraph [ref=e87]: Ship projects, pages, and proof artifacts (BC Studio)
+                - paragraph [ref=e88]: Generate project pages, proof artifacts, and builder deliverables.
+                - generic [ref=e89]:
+                  - paragraph [ref=e90]: "Price: Coming soon"
+                  - paragraph [ref=e91]: "Approval: Human approval for outbound actions"
+                  - link "BC Studio →" [ref=e92] [cursor=pointer]:
+                    - /url: /studio
+          - generic [ref=e93]:
+            - generic [ref=e94]:
+              - img [ref=e95]
+              - generic [ref=e98]:
+                - heading "Limx Revenue Agent — live" [level=2] [ref=e99]
+                - paragraph [ref=e100]: Grants, partnerships, sponsors, and growth opportunities for Building Culture. Pay $0.25 in USDC on Base per brief via x402. Settlement goes directly to the non-custodial Limx wallet.
+                - paragraph [ref=e101]: 0xf424d598…0c4f584b
+            - generic [ref=e102]:
+              - link "Pay Limx directly" [ref=e103] [cursor=pointer]:
+                - /url: https://wallet.blockchain0x.com/a/limx
+                - text: Pay Limx directly
+                - img
+              - link "View on BaseScan" [ref=e104] [cursor=pointer]:
+                - /url: https://basescan.org/address/0xf424d59831fff6d3f404abf22ec23cdb0c4f584b
+            - textbox "e.g. Which sponsors and grant programs fit a Web3 + AI community platform on Base?" [ref=e105]: What Base ecosystem grants, partnerships, and sponsors fit Building Culture — an AI + community identity product?
+            - generic [ref=e106]:
+              - button "Get opportunity brief ($0.25 USDC)" [ref=e107]
+              - paragraph [ref=e108]: Research only — outbound outreach stays human-approved.
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - img [ref=e111]
+              - generic [ref=e114]:
+                - heading "Grant Agent — MVP" [level=2] [ref=e115]
+                - paragraph [ref=e116]:
+                  - text: Describe your project. Pay
+                  - generic [ref=e117]: 100 BCC
+                  - text: to treasury — the agent finds matching grants and drafts your application outline.
+                - paragraph [ref=e118]:
+                  - text: Org grant verification lives at
+                  - link "/grant-proof" [ref=e119] [cursor=pointer]:
+                    - /url: /grant-proof
+                  - text: (separate from this user agent).
+            - textbox "Project name, mission, who you serve, what funding you need, and timeline…" [ref=e120]
+            - paragraph [ref=e121]: Connect wallet to pay with BCC.
+            - generic [ref=e122]:
+              - heading "Grant Agent access" [level=3] [ref=e123]
+              - list [ref=e124]:
+                - listitem [ref=e125]:
+                  - img [ref=e126]
+                  - generic [ref=e129]:
+                    - paragraph [ref=e130]: Grant Agent
+                    - paragraph [ref=e131]: Run grant-ready briefs and application drafts.
+                    - paragraph [ref=e132]: "Requires: contributor"
+                  - link "Go →" [ref=e133] [cursor=pointer]:
+                    - /url: /agent-os#grant-agent
+          - generic [ref=e134]:
+            - generic [ref=e135]:
+              - img [ref=e136]
+              - generic [ref=e139]:
+                - heading "Research Agent — live" [level=2] [ref=e140]
+                - paragraph [ref=e141]: Ask about Web3, AI, grants, or ecosystem strategy. Pay $0.05 in USDC on Base per query via x402. No outbound actions — research only.
+            - textbox "e.g. What Base ecosystem grants fit an AI + community product in 2026?" [ref=e142]
+            - generic [ref=e143]:
+              - button "Ask ($0.05 USDC)" [disabled]
+              - paragraph [ref=e144]: Connect wallet on Base. Human approval not required.
+          - generic [ref=e145]:
+            - heading "Paid APIs & identity" [level=2] [ref=e146]
+            - list [ref=e147]:
+              - listitem [ref=e148]:
+                - link "Trading agent" [ref=e149] [cursor=pointer]:
+                  - /url: /trading-agent
+                - paragraph [ref=e150]: Aerodrome quotes on Base — x402 per call
+              - listitem [ref=e151]:
+                - link "Machine-readable offers" [ref=e152] [cursor=pointer]:
+                  - /url: /.well-known/agent.json
+                  - text: Machine-readable offers
+                  - img [ref=e153]
+                - paragraph [ref=e157]: ERC-8004 / A2A discovery for other agents
+              - listitem [ref=e158]:
+                - link "Limx agent wallet" [ref=e159] [cursor=pointer]:
+                  - /url: https://wallet.blockchain0x.com/a/limx
+                  - text: Limx agent wallet
+                  - img [ref=e160]
+                - paragraph [ref=e164]: Non-custodial USDC wallet on Base — pay or scan to fund Limx
+              - listitem [ref=e165]:
+                - link "0G Agent ID" [ref=e166] [cursor=pointer]:
+                  - /url: /0g/agentid
+                - paragraph [ref=e167]: On-chain agent identity proof
+              - listitem [ref=e168]:
+                - link "Grant Proof" [ref=e169] [cursor=pointer]:
+                  - /url: /grant-proof
+                - paragraph [ref=e170]: Contribution proof for funding applications
+          - generic [ref=e171]:
+            - link "AI agents product" [ref=e172] [cursor=pointer]:
+              - /url: /products/ai-agents
+            - link "Ops dashboard (internal)" [ref=e173] [cursor=pointer]:
+              - /url: /agent-fleet
+            - link "FAQ" [ref=e174] [cursor=pointer]:
+              - /url: /faq
+    - contentinfo [ref=e175]:
+      - generic [ref=e176]:
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - generic [ref=e179]:
+              - img "Building Culture" [ref=e180]
+              - generic [ref=e181]: Building Culture
+            - paragraph [ref=e182]: Building Culture is the trust layer where people, communities, businesses, and AI agents build reputation, earn credentials, and unlock access together.
+            - generic [ref=e183]:
+              - link "X @buildingcultu3" [ref=e184] [cursor=pointer]:
+                - /url: https://x.com/buildingcultu3
+                - img [ref=e185]
+              - link "Telegram" [ref=e187] [cursor=pointer]:
+                - /url: https://t.me/+4zFH7-2tyW0yOTBk
+                - img [ref=e188]
+              - link "Discord" [ref=e191] [cursor=pointer]:
+                - /url: https://discord.gg/geUpHt3eSb
+                - img [ref=e192]
+          - generic [ref=e194]:
+            - generic [ref=e195]:
+              - paragraph [ref=e196]: Product
+              - list [ref=e197]:
+                - listitem [ref=e198]:
+                  - link "Culture ID" [ref=e199] [cursor=pointer]:
+                    - /url: /pass
+                    - img [ref=e201]
+                    - text: Culture ID
+                - listitem [ref=e210]:
+                  - link "Credentials" [ref=e211] [cursor=pointer]:
+                    - /url: /credentials
+                    - img [ref=e213]
+                    - text: Credentials
+                - listitem [ref=e215]:
+                  - link "Reputation" [ref=e216] [cursor=pointer]:
+                    - /url: /credentials/leaderboard
+                    - img [ref=e218]
+                    - text: Reputation
+            - generic [ref=e224]:
+              - paragraph [ref=e225]: Community
+              - list [ref=e226]:
+                - listitem [ref=e227]:
+                  - link "Mission" [ref=e228] [cursor=pointer]:
+                    - /url: /mission
+                    - img [ref=e230]
+                    - text: Mission
+                - listitem [ref=e232]:
+                  - link "Story" [ref=e233] [cursor=pointer]:
+                    - /url: /story
+                    - img [ref=e235]
+                    - text: Story
+                - listitem [ref=e237]:
+                  - link "Team" [ref=e238] [cursor=pointer]:
+                    - /url: /team
+                    - img [ref=e240]
+                    - text: Team
+                - listitem [ref=e245]:
+                  - link "FAQ" [ref=e246] [cursor=pointer]:
+                    - /url: /faq
+                    - img [ref=e248]
+                    - text: FAQ
+                - listitem [ref=e251]:
+                  - link "Site guide" [ref=e252] [cursor=pointer]:
+                    - /url: /guide
+                    - img [ref=e254]
+                    - text: Site guide
+            - generic [ref=e257]:
+              - paragraph [ref=e258]: Ecosystem
+              - list [ref=e259]:
+                - listitem [ref=e260]:
+                  - link "Ecosystem Hub" [ref=e261] [cursor=pointer]:
+                    - /url: /ecosystem
+                    - img [ref=e263]
+                    - text: Ecosystem Hub
+            - generic [ref=e267]:
+              - paragraph [ref=e268]: Capital
+              - list [ref=e269]:
+                - listitem [ref=e270]:
+                  - link "BCC" [ref=e271] [cursor=pointer]:
+                    - /url: /bcc/dashboard
+                    - img [ref=e273]
+                    - text: BCC
+                - listitem [ref=e278]:
+                  - link "Investors" [ref=e279] [cursor=pointer]:
+                    - /url: /investors
+                    - img [ref=e281]
+                    - text: Investors
+        - generic [ref=e284]:
+          - paragraph [ref=e285]: © 2026 BUILDING CULTURE — BUILT BY PEOPLE.
+          - generic [ref=e286]:
+            - link "Terms" [ref=e287] [cursor=pointer]:
+              - /url: /legal/terms
+            - link "Privacy" [ref=e288] [cursor=pointer]:
+              - /url: /legal/privacy
+            - link "Imprint" [ref=e289] [cursor=pointer]:
+              - /url: /legal/imprint
+            - link "Contact" [ref=e290] [cursor=pointer]:
+              - /url: mailto:hello@buildingcultureid.space
+          - paragraph [ref=e291]: Vienna · Austria · Worldwide
+    - navigation:
+      - generic [ref=e293]:
+        - link "Hub" [ref=e294] [cursor=pointer]:
+          - /url: /forest
+          - img [ref=e295]
+          - generic [ref=e300]: Hub
+        - link "Play" [ref=e301] [cursor=pointer]:
+          - /url: /play
+          - img [ref=e302]
+          - generic [ref=e304]: Play
+        - link "Connect" [ref=e305] [cursor=pointer]:
+          - /url: /connect
+          - img [ref=e306]
+          - generic [ref=e311]: Connect
+        - link "Agents" [ref=e312] [cursor=pointer]:
+          - /url: /agents/inbox
+          - img [ref=e313]
+          - generic [ref=e316]: Agents
+        - link "You" [ref=e317] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e318]
+          - generic [ref=e321]: You
+  - button "Buy $BCC" [ref=e322]
+  - button "Open Panic Switch" [ref=e324]:
+    - generic [ref=e326]: Ready
+    - generic: Panic
+  - region "Notifications alt+T"
+```

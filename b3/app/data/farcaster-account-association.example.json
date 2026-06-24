@@ -1,0 +1,6 @@
+{
+  "header": "PASTE_HEADER_FROM_WARPCAST",
+  "payload": "PASTE_PAYLOAD_FROM_WARPCAST",
+  "signature": "PASTE_SIGNATURE_FROM_WARPCAST",
+  "_instructions": "Copy to data/farcaster-account-association.json. Sign at https://farcaster.xyz/~/developers/mini-apps/manifest for app.buildingcultureid.space"
+}

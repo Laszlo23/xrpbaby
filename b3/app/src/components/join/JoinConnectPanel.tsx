@@ -151,9 +151,7 @@ export function JoinConnectPanel() {
   const braveConnector = findBraveConnector(connectors);
   const busy = isPending || isConnecting;
   const pendingId =
-    variables?.connector &&
-    typeof variables.connector === "object" &&
-    "id" in variables.connector
+    variables?.connector && typeof variables.connector === "object" && "id" in variables.connector
       ? (variables.connector as Connector).id
       : undefined;
 

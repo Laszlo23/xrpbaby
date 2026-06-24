@@ -519,6 +519,16 @@ function ProfilePage() {
 
       <UnifiedPointsSummary localXp={xp} />
 
+      <Link
+        to="/wallet/packs"
+        className="glass block rounded-xl border border-[#C5FF41]/30 bg-[#C5FF41]/5 p-5 transition hover:border-[#C5FF41]/50"
+      >
+        <p className="font-heading font-semibold text-foreground">Culture packs & subscription</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Buy Culture Points with card ($0.70–$7.7M tiers) or subscribe to Culture Monthly (€7/mo).
+        </p>
+      </Link>
+
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <CulturePowerReactor />
         <CultureScoreSummary compact />

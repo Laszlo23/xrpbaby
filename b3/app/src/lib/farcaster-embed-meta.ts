@@ -2,6 +2,7 @@ import { getDropBySlug, type HomeDrop } from "@/content/home-drops";
 import { loadMergedDropBySlug } from "@/lib/home-drops-merge";
 import { getServerPublicOrigin } from "@/lib/app-origin";
 import { getDefaultOgImageUrl, getOgImageForPath } from "@/lib/seo";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 
 export type FarcasterMiniAppButton = {
   title: string;
@@ -31,7 +32,7 @@ export function buildFarcasterMiniAppMetaContent(
   options?: FarcasterMiniAppMetaOptions,
 ): string {
   const buttonTitle = (options?.buttonTitle ?? "Open").slice(0, 80);
-  const miniAppName = options?.miniAppName ?? "BUILDCHAIN";
+  const miniAppName = options?.miniAppName ?? "Building Culture";
   const payload: {
     version: "1";
     imageUrl: string;
@@ -92,6 +93,27 @@ export async function buildPathAwareFarcasterEmbedMetaAsync(pathname: string): P
     return buildFarcasterMiniAppMetaContent(`${origin}/campaign`, absFromPath("/campaign"), {
       buttonTitle: "Agent shares & referrals",
     });
+  }
+
+  if (pathname === "/pass" || pathname.startsWith("/pass/")) {
+    return buildFarcasterMiniAppMetaContent(
+      `${origin}/pass?ref=${IDENTITY_LAUNCH_REFERRAL_CODE}`,
+      absFromPath("/pass"),
+      { buttonTitle: "Claim .culture name" },
+    );
+  }
+
+  if (pathname.startsWith("/id/")) {
+    const namePart = pathname.slice("/id/".length).split("/")[0] ?? "";
+    const dotIndex = namePart.lastIndexOf(".");
+    if (dotIndex > 0) {
+      const handle = namePart.slice(0, dotIndex);
+      const tld = namePart.slice(dotIndex);
+      const launchUrl = `${origin}/pass?name=${encodeURIComponent(handle)}&tld=${encodeURIComponent(tld)}&ref=${IDENTITY_LAUNCH_REFERRAL_CODE}`;
+      return buildFarcasterMiniAppMetaContent(launchUrl, absFromPath(pathname), {
+        buttonTitle: "Claim .culture name",
+      });
+    }
   }
 
   const pathForOg = pathname.startsWith("/") ? pathname : `/${pathname}`;

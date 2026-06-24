@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { ForestDailyCard } from "@/components/forest-dashboard/ForestDailyCard";
 import { ForestLeaderboardPanel } from "@/components/forest-dashboard/ForestLeaderboardPanel";
 import { ForestReferralCard } from "@/components/forest-dashboard/ForestReferralCard";
 import { CultureGrovePanel } from "@/components/culture-grove/CultureGrovePanel";
+import { IdentityMintBand } from "@/components/identity/IdentityMintBand";
 import { ForestStatsHeader } from "@/components/forest-dashboard/ForestStatsHeader";
 import { ForestTasksGrid } from "@/components/forest-dashboard/ForestTasksGrid";
 import { MemberGettingStartedChecklist } from "@/components/MemberGettingStartedChecklist";
@@ -16,6 +17,8 @@ import { UnifiedQuestHub } from "@/components/quests/UnifiedQuestHub";
 import { CULTURE_LAYERS } from "@/lib/culture-layers";
 import { useForestMemberTasks } from "@/hooks/useForestMemberTasks";
 import { useChronicleProgress } from "@/hooks/useChronicleProgress";
+import { useWalletCultureIdentities } from "@/hooks/useWalletCultureIdentities";
+import { platformModules } from "@/lib/modules";
 import type { LandingEcosystemApp } from "@/lib/landing-ecosystem";
 
 type Props = {
@@ -38,7 +41,9 @@ export function ForestMemberDashboard({
   const { summary, claimingSlug, signing, loadState, refresh, claimInline, completedSlugs } =
     useForestMemberTasks();
   const chronicleProgress = useChronicleProgress();
+  const { identities, isLoading: identitiesLoading } = useWalletCultureIdentities();
   const [modulesOpen, setModulesOpen] = useState(false);
+  const handleBalanceRefresh = useCallback(() => void refresh({ silent: true }), [refresh]);
 
   if (loadState === "db_down") {
     return (
@@ -49,7 +54,7 @@ export function ForestMemberDashboard({
     );
   }
 
-  if (loadState === "loading" || !summary) {
+  if (!summary && loadState !== "error") {
     return (
       <div className="rounded-2xl border border-white/10 bg-zinc-950/60 p-8 text-center text-sm text-zinc-500">
         Loading your dashboard…
@@ -68,8 +73,23 @@ export function ForestMemberDashboard({
     );
   }
 
+  if (!summary) {
+    return (
+      <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-6 text-sm text-red-100">
+        Could not load dashboard summary.{" "}
+        <button type="button" className="underline" onClick={() => void refresh()}>
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
+      {platformModules.identity && !identitiesLoading && identities.length === 0 ? (
+        <IdentityMintBand />
+      ) : null}
+
       <ForestStatsHeader summary={summary} address={address} />
 
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -113,7 +133,7 @@ export function ForestMemberDashboard({
       </Link>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <ForestDailyCard onBalanceRefresh={() => void refresh()} />
+        <ForestDailyCard onBalanceRefresh={handleBalanceRefresh} />
         <ForestReferralCard address={address} />
       </div>
 

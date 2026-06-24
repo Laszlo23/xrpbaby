@@ -11,6 +11,7 @@ import { NetworkSelector } from "@/components/wallet/NetworkSelector";
 import { ModuleShell } from "@/components/ModuleShell";
 import { WalletControls } from "@/components/WalletControls";
 import { pageHead } from "@/lib/seo";
+import { CultureMonthlySubscribe } from "@/components/wallet/CultureMonthlySubscribe";
 import { privyEnabled } from "@/lib/privy-env";
 
 type PacksSearch = {
@@ -32,6 +33,28 @@ export const Route = createFileRoute("/wallet/packs")({
     }),
   component: WalletPacksPage,
 });
+
+function StripeConfigBanner() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (import.meta.env.VITE_SHOW_STRIPE_BANNER !== "1") return;
+    void fetch("/api/billing/stripe/health")
+      .then((r) => r.json())
+      .then((data: { configured?: boolean }) => {
+        if (!data.configured) setShow(true);
+      })
+      .catch(() => {});
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-center text-xs text-amber-100">
+      Card checkout is not configured on this environment. See docs/STRIPE_PAYMENTS.md.
+    </div>
+  );
+}
 
 function WalletPacksPage() {
   const search = Route.useSearch();
@@ -80,7 +103,15 @@ function WalletPacksPage() {
           are non-refundable loyalty credits.
         </p>
 
-        {privyEnabled ? <PackCheckoutActionsPrivy /> : <PackCheckoutActionsLegacy />}
+        <StripeConfigBanner />
+
+        <CultureMonthlySubscribe />
+
+        {privyEnabled ? (
+          <PackCheckoutActionsPrivy highlightSlug={search.pack} />
+        ) : (
+          <PackCheckoutActionsLegacy highlightSlug={search.pack} />
+        )}
 
         <p className="text-center text-[10px] text-zinc-600">
           Whale tier ($7,777,777) may require manual Stripe account approval before going live.

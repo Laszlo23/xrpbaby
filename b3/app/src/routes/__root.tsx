@@ -7,11 +7,12 @@ import {
   Scripts,
   useLocation,
 } from "@tanstack/react-router";
-import { useAccount } from "wagmi";
 import { BottomNav } from "@/components/BottomNav";
 import { AppFooter } from "@/components/AppFooter";
 import { AppTopConnect } from "@/components/layout/AppTopConnect";
 import { LoggedInShell } from "@/components/layout/LoggedInShell";
+import { useShowLoggedInShell } from "@/hooks/useShowLoggedInShell";
+import { useWalletSession } from "@/hooks/useWalletSession";
 import { Web3Provider } from "@/components/Web3Provider";
 import { NetworkGuard } from "@/components/NetworkGuard";
 import { Toaster } from "@/components/ui/sonner";
@@ -27,6 +28,7 @@ import { buildPathAwareFarcasterEmbedMetaAsync } from "@/lib/farcaster-embed-met
 import { AnalyticsRouteTracker } from "@/components/AnalyticsRouteTracker";
 import { FarcasterMiniAppReady } from "@/components/FarcasterMiniAppReady";
 import { TelegramMiniAppReady } from "@/components/TelegramMiniAppReady";
+import { GoogleAnalyticsScripts } from "@/components/GoogleAnalyticsScripts";
 import { JsonLd } from "@/components/JsonLd";
 import { BuilderVoicePrompt } from "@/components/BuilderVoicePrompt";
 import {
@@ -103,6 +105,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <GoogleAnalyticsScripts />
       </head>
       <body>
         <JsonLd id="jsonld-website" data={buildWebsiteJsonLd()} />
@@ -113,23 +116,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function useShowLoggedInShell(): boolean {
-  const { pathname } = useLocation();
-  const { isConnected } = useAccount();
-  if (!isConnected) return false;
-  if (pathname === "/") return false;
-  if (pathname.startsWith("/join")) return false;
-  if (pathname.startsWith("/welcome")) return false;
-  if (pathname.startsWith("/tg")) return false;
-  if (pathname.startsWith("/intelligence")) return false;
-  if (pathname.startsWith("/id")) return false;
-  return true;
-}
-
 function useHideBottomNav(): boolean {
   const { pathname } = useLocation();
+  const { wasConnected } = useWalletSession();
   if (pathname === "/") return true;
-  if (pathname.startsWith("/join")) return true;
+  if (pathname.startsWith("/join") && !wasConnected) return true;
   if (pathname.startsWith("/welcome")) return true;
   if (pathname.startsWith("/tg")) return true;
   if (pathname.startsWith("/intelligence")) return true;

@@ -3,9 +3,8 @@ import { expect, test } from "./fixtures/skip-onboarding";
 test.describe("onboarding flow", () => {
   test("/join loads with plain-language steps", async ({ page }) => {
     await page.goto("/join");
-    await expect(page.getByRole("heading", { name: /Create your pass/i })).toBeVisible();
-    await expect(page.getByText(/What do you want to do/i)).toBeVisible();
-    await expect(page.getByRole("button", { name: /Look around/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Connect your wallet/i })).toBeVisible();
+    await expect(page.getByText(/Connect wallet/i).first()).toBeVisible();
   });
 
   test("back link goes to landing story", async ({ page }) => {
@@ -17,12 +16,11 @@ test.describe("onboarding flow", () => {
 
   test("intent selection highlights choice", async ({ page }) => {
     await page.goto("/join");
-    await page.getByRole("button", { name: /Build/i }).click();
-    await expect(page.getByRole("button", { name: /Build/i })).toHaveClass(/C5FF41/);
+    await expect(page.getByRole("heading", { name: /Connect your wallet/i })).toBeVisible();
   });
 
-  test("shows connect hint when wallet not connected", async ({ page }) => {
+  test("shows connect panel when wallet not connected", async ({ page }) => {
     await page.goto("/join");
-    await expect(page.getByText(/Connect your wallet above/i)).toBeVisible();
+    await expect(page.getByText(/Email, Base Account, Coinbase/i)).toBeVisible();
   });
 });

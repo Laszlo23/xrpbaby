@@ -9,6 +9,7 @@ import { InvestorTreasuryBalances } from "@/components/investors/InvestorTreasur
 import { ProductMap } from "@/components/investors/ProductMap";
 import { TreasuryEntityArchitecture } from "@/components/investors/TreasuryEntityArchitecture";
 import { XrplTestnetIntakePanel } from "@/components/investors/XrplTestnetIntakePanel";
+import { HowWePartnerSection } from "@/components/partner-deals/HowWePartnerSection";
 import { TREASURY_REVENUE_RULES } from "@/lib/treasury-revenue-rules";
 
 export const Route = createFileRoute("/investors")({
@@ -74,6 +75,7 @@ function InvestorsPage() {
         <ChainlinkComplianceStrip />
 
         <InvestorCapitalRails />
+        <HowWePartnerSection variant="compact" />
         <InvestorTreasuryBalances />
         <XrplTestnetIntakePanel />
 

@@ -17,6 +17,7 @@ import { WorldMiniAppBridge } from "@/components/WorldMiniAppBridge";
 import { PrivyMemberSync } from "@/components/PrivyMemberSync";
 import { PrivyWagmiSync } from "@/components/PrivyWagmiSync";
 import { CultureNetworkProvider } from "@/contexts/CultureNetworkContext";
+import { WalletSessionProvider } from "@/contexts/WalletSessionContext";
 import { thirdwebClient } from "@/lib/thirdweb-client";
 
 function Web3Core({ children }: { children: React.ReactNode }) {
@@ -30,7 +31,9 @@ function Web3Core({ children }: { children: React.ReactNode }) {
           <PrivyMemberSync />
         </>
       ) : null}
-      <CultureNetworkProvider>{children}</CultureNetworkProvider>
+      <WalletSessionProvider privyMode={privyEnabled}>
+        <CultureNetworkProvider>{children}</CultureNetworkProvider>
+      </WalletSessionProvider>
     </>
   );
 }

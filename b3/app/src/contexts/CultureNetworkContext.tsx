@@ -7,8 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { useSwitchChain } from "wagmi";
 import { getIdentityConfigForNetwork } from "@/lib/identity/config";
+import { useSwitchIdentityChain } from "@/hooks/useSwitchIdentityChain";
 import {
   DEFAULT_IDENTITY_NETWORK_ID,
   getIdentityNetwork,
@@ -37,7 +37,7 @@ function readStoredNetwork(): IdentityNetworkId {
 
 export function CultureNetworkProvider({ children }: { children: ReactNode }) {
   const [activeNetworkId, setActiveNetworkIdState] = useState<IdentityNetworkId>(readStoredNetwork);
-  const { switchChainAsync } = useSwitchChain();
+  const switchIdentityChain = useSwitchIdentityChain();
 
   const setActiveNetworkId = useCallback((id: IdentityNetworkId) => {
     setActiveNetworkIdState(id);
@@ -58,11 +58,10 @@ export function CultureNetworkProvider({ children }: { children: ReactNode }) {
 
   const switchToActiveChain = useCallback(
     async (networkId?: IdentityNetworkId) => {
-      if (!switchChainAsync) return;
       const chainId = getIdentityNetwork(networkId ?? activeNetworkId).chainId;
-      await switchChainAsync({ chainId });
+      await switchIdentityChain(chainId);
     },
-    [switchChainAsync, activeNetworkId],
+    [switchIdentityChain, activeNetworkId],
   );
 
   const value = useMemo(

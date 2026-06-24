@@ -64,7 +64,7 @@ export function BottomNav() {
                   strokeWidth={isActive ? 2.25 : 1.75}
                 />
                 <span className="font-mono text-[9px] font-medium uppercase tracking-[0.18em] md:text-[10px]">
-                  {item.label}
+                  {isProfile && primaryName ? primaryName.split(".")[0] : item.label}
                 </span>
               </Link>
             );

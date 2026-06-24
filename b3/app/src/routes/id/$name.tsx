@@ -43,7 +43,8 @@ export const Route = createFileRoute("/id/$name")({
         : resolved?.status === "available"
           ? `${title} is available to mint on the Culture Layer.`
           : "Culture Layer identity profile.";
-    const founder = isFounderShowcaseProfile(title);
+    const founder =
+      isFounderShowcaseProfile(title) || isFounderShowcaseProfile(params.name);
     const founderConfig = founder ? getFounderShowcaseConfig(title) : null;
     return pageHead({
       title: `${title} — Culture name`,

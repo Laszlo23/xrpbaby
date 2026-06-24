@@ -2,6 +2,7 @@ import { http, webSocket, fallback, createConfig, createStorage, cookieStorage }
 import type { Chain } from "wagmi/chains";
 import { worldApp } from "@worldcoin/minikit-js/wagmi";
 import { baseAccount, coinbaseWallet, injected, metaMask, walletConnect } from "wagmi/connectors";
+import { farcasterMiniApp } from "@farcaster/miniapp-wagmi-connector";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { bsc, getAllWagmiChains, getDefaultChain } from "@/lib/chains";
 
@@ -38,6 +39,7 @@ export const wagmiConfig = createConfig({
   chains,
   multiInjectedProviderDiscovery: true,
   connectors: [
+    farcasterMiniApp(),
     worldApp({ name: "World App" }),
     baseAccount({ appName: BRAND_DISPLAY_NAME }),
     injected({ target: "braveWallet" }),

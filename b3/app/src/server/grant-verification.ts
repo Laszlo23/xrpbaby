@@ -1,5 +1,6 @@
 import fs from "node:fs";
 
+import { MERCH_DROPS } from "@/content/marketplace-merch";
 import addressesData from "@/data/addresses.json";
 import { OG_AGENT_ID_DEFAULTS } from "@/lib/og-hackathon";
 import { TALENTAPP_PROJECT_VERIFICATION } from "@/lib/seo";
@@ -169,12 +170,28 @@ export async function buildGrantVerificationPayload(
   });
 
   const homeHtml = await fetchText(base, "/");
+  const talentappOk =
+    homeHtml.includes(TALENTAPP_PROJECT_VERIFICATION) &&
+    homeHtml.includes("talentapp:project_verification");
   checks.push({
     id: "talentapp_verification",
     label: "Talent Protocol project verification meta",
-    status: homeHtml.includes(TALENTAPP_PROJECT_VERIFICATION) ? "pass" : "fail",
+    status: talentappOk ? "pass" : "fail",
     url: `${base}/`,
     detail: "talentapp:project_verification",
+  });
+
+  const founderHtml = await fetchText(base, "/id/laszlo.culture");
+  const founderShowcaseOk =
+    /Building Culture Metrics|Turning identity into proof|bc:founder-showcase|bc:founder-tagline|bc:founder-metrics/i.test(
+      founderHtml,
+    );
+  checks.push({
+    id: "founder_showcase_v2",
+    label: "Founder showcase (laszlo.culture)",
+    status: founderShowcaseOk ? "pass" : "fail",
+    url: `${base}/id/laszlo.culture`,
+    detail: "SSR body or bc:founder-* meta",
   });
 
   const ogHtml = await fetchText(base, "/0g/agentid");
@@ -333,10 +350,11 @@ export async function buildGrantVerificationPayload(
     Array.isArray((merchCatalog as { drops?: unknown[] }).drops)
       ? (merchCatalog as { drops: unknown[] }).drops
       : [];
+  const expectedMerchDrops = MERCH_DROPS.length;
   checks.push({
     id: "merch_catalog_api",
-    label: "Culture merch catalog API (4 drops)",
-    status: merchDrops.length === 4 ? "pass" : "fail",
+    label: `Culture merch catalog API (${expectedMerchDrops} drops)`,
+    status: merchDrops.length === expectedMerchDrops ? "pass" : "fail",
     url: `${base}/api/marketplace/merch/catalog`,
     detail: `${merchDrops.length} drops`,
   });

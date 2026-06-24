@@ -1,8 +1,12 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAccount, useReadContract } from "wagmi";
 import type { Address } from "viem";
-import { getStoredIdentities } from "@/lib/identity/identityStorage";
+import {
+  getActiveIdentity,
+  getStoredIdentities,
+  saveIdentityForWallet,
+} from "@/lib/identity/identityStorage";
 import { cultureLayerIdentityAbi } from "@/lib/identity/identityAbi";
 import { getIdentityConfigForNetwork } from "@/lib/identity/config";
 import { cultureProfilePath } from "@/lib/identity/urls";
@@ -17,10 +21,26 @@ export type WalletCultureIdentity = {
   isLoading: boolean;
 };
 
-function resolveCandidate(address: string | undefined): string | null {
+async function resolveCandidate(address: string | undefined): Promise<string | null> {
   if (!address) return null;
   const stored = getStoredIdentities(address);
-  return stored[0] ?? null;
+  const active = getActiveIdentity(address);
+  if (active && stored.includes(active)) return active;
+  if (active) return active;
+
+  if (stored[0]) return stored[0];
+
+  try {
+    const res = await fetch(`/api/identity/by-wallet?address=${encodeURIComponent(address)}`);
+    if (!res.ok) return null;
+    const data = (await res.json()) as { ok?: boolean; handle?: string | null };
+    if (data.ok && typeof data.handle === "string" && data.handle.includes(".")) {
+      return data.handle.toLowerCase();
+    }
+  } catch {
+    /* best-effort */
+  }
+  return null;
 }
 
 export function walletCultureIdentityQueryKey(address?: string) {
@@ -64,11 +84,11 @@ export function useWalletCultureIdentity(): WalletCultureIdentity {
     | Address
     | undefined;
 
-  const { data: candidate, isLoading: storedLoading } = useQuery({
+  const { data: candidate, isLoading: candidateLoading } = useQuery({
     queryKey: walletCultureIdentityQueryKey(address),
     queryFn: () => resolveCandidate(address),
     enabled: Boolean(address),
-    staleTime: 30_000,
+    staleTime: 60_000,
   });
   const parsed = useMemo(() => (candidate ? parseIdentityFullName(candidate) : null), [candidate]);
 
@@ -99,19 +119,46 @@ export function useWalletCultureIdentity(): WalletCultureIdentity {
   });
 
   const isLoading = Boolean(
-    address && (storedLoading || (parsed && (tokenLoading || (hasToken && ownerLoading)))),
+    address && (candidateLoading || (parsed && (tokenLoading || (hasToken && ownerLoading)))),
   );
 
-  if (!address || !parsed || !candidate) {
+  const ownerMatch =
+    hasToken &&
+    owner &&
+    typeof owner === "string" &&
+    owner.toLowerCase() === address?.toLowerCase();
+
+  useEffect(() => {
+    if (address && candidate && ownerMatch) {
+      saveIdentityForWallet(address, candidate);
+    }
+  }, [address, candidate, ownerMatch]);
+
+  if (!address) {
     return { primaryName: null, profilePath: null, isVerified: false, isLoading: false };
+  }
+
+  if (candidateLoading) {
+    return { primaryName: null, profilePath: null, isVerified: false, isLoading: true };
+  }
+
+  if (!parsed || !candidate) {
+    return { primaryName: null, profilePath: null, isVerified: false, isLoading: false };
+  }
+
+  if (!contract) {
+    const fullName = `${parsed.handle}.${parsed.tld}`;
+    return {
+      primaryName: fullName,
+      profilePath: cultureProfilePath(fullName),
+      isVerified: false,
+      isLoading: false,
+    };
   }
 
   if (isLoading) {
     return { primaryName: null, profilePath: null, isVerified: false, isLoading: true };
   }
-
-  const ownerMatch =
-    hasToken && owner && typeof owner === "string" && owner.toLowerCase() === address.toLowerCase();
 
   if (ownerMatch) {
     return resolveVerifiedCultureIdentity({

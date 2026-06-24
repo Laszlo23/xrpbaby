@@ -5,8 +5,9 @@ import {
   x402TradingQuotePrice,
   x402TradingSwapPreviewPrice,
 } from "@/lib/trading-agent-offer";
+import { paidOrInternalOrStripe } from "@/server/billing/paid-access";
 import { proxyTradingAgent } from "@/server/trading-agent-proxy";
-import { handleX402Options, settleX402Get, x402CorsHeadersFor } from "@/server/x402-settle";
+import { handleX402Options, x402CorsHeadersFor } from "@/server/x402-settle";
 
 function badRequest(message: string, request: Request): Response {
   return Response.json({ error: message }, { status: 400, headers: x402CorsHeadersFor(request) });
@@ -55,24 +56,19 @@ export async function handleTradingHealthGet(request: Request): Promise<Response
 
 async function paidOrInternal(
   request: Request,
-  opts: { price: string; description: string },
+  opts: { sku: string; price: string; description: string },
   buildPaidBody: () => Promise<object>,
 ): Promise<Response> {
-  if (isTradingInternalRequest(request)) {
-    try {
-      return Response.json(await buildPaidBody(), { headers: x402CorsHeadersFor(request) });
-    } catch (e) {
-      const message = e instanceof Error ? e.message : "Trading request failed";
-      return upstreamError(message, request);
-    }
-  }
-
-  try {
-    return await settleX402Get(request, opts, () => buildPaidBody() as object);
-  } catch (e) {
-    const message = e instanceof Error ? e.message : "x402 configuration or settlement failed";
-    return Response.json({ error: message }, { status: 503, headers: x402CorsHeadersFor(request) });
-  }
+  return paidOrInternalOrStripe(
+    request,
+    {
+      sku: opts.sku,
+      price: opts.price,
+      description: opts.description,
+      isInternal: isTradingInternalRequest,
+    },
+    buildPaidBody,
+  );
 }
 
 export async function handleTradingQuoteGet(request: Request): Promise<Response> {
@@ -89,6 +85,7 @@ export async function handleTradingQuoteGet(request: Request): Promise<Response>
   return paidOrInternal(
     request,
     {
+      sku: "buildchain_trading_quote_v1",
       price: x402TradingQuotePrice(),
       description: "Aerodrome swap quote on Base (BUILDCHAIN trading agent, x402)",
     },
@@ -125,6 +122,7 @@ export async function handleTradingPoolsGet(request: Request): Promise<Response>
   return paidOrInternal(
     request,
     {
+      sku: "buildchain_trading_pools_v1",
       price: x402TradingPoolsPrice(),
       description: "Aerodrome pool list for token on Base (BUILDCHAIN trading agent, x402)",
     },
@@ -150,6 +148,7 @@ export async function handleTradingQuoteBccGet(request: Request): Promise<Respon
   return paidOrInternal(
     request,
     {
+      sku: "buildchain_trading_quote_bcc_v1",
       price: x402TradingQuotePrice(),
       description:
         "ETH→BCC path with Aerodrome or Uniswap fallback (BUILDCHAIN trading agent, x402)",
@@ -183,6 +182,7 @@ export async function handleTradingArbitrageScanGet(request: Request): Promise<R
   return paidOrInternal(
     request,
     {
+      sku: "buildchain_trading_arbitrage_scan_v1",
       price: x402TradingQuotePrice(),
       description:
         "Multichain BCC arbitrage scan: Base Aerodrome/Uniswap vs Solana Jupiter (read-only, x402)",
@@ -217,6 +217,7 @@ export async function handleTradingSwapPreviewGet(request: Request): Promise<Res
   return paidOrInternal(
     request,
     {
+      sku: "buildchain_trading_swap_preview_v1",
       price: x402TradingSwapPreviewPrice(),
       description: "Unsigned Aerodrome swap txs on Base (BUILDCHAIN trading agent, x402)",
     },

@@ -6,6 +6,12 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 ROOT_DIR="$(cd "$APP_DIR/.." && pwd)"
 
+if [[ -f /tmp/NO_DEPLOY ]]; then
+  echo "error: deploy paused on this host (/tmp/NO_DEPLOY). Remove it to resume builds."
+  cat /tmp/NO_DEPLOY 2>/dev/null || true
+  exit 1
+fi
+
 cd "$APP_DIR"
 mkdir -p docker
 if [[ ! -f .env ]]; then

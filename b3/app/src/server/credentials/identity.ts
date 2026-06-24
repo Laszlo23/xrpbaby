@@ -76,6 +76,44 @@ export async function findCultureIdentityByOwner(ownerAddress: string) {
   });
 }
 
+/** Resolve all Culture Layer handles indexed for a wallet. */
+export async function findCultureHandlesForWallet(walletAddress: string): Promise<string[]> {
+  const prisma = getPrisma();
+  if (!prisma) return [];
+  const normalized = walletAddress.toLowerCase();
+  const handles = new Set<string>();
+
+  const owned = await prisma.cultureIdentity.findMany({
+    where: { ownerAddress: normalized },
+    select: { handle: true },
+    orderBy: { createdAt: "desc" },
+  });
+  for (const row of owned) {
+    if (row.handle) handles.add(row.handle.toLowerCase());
+  }
+
+  const links = await prisma.linkedWallet.findMany({
+    where: { chain: "evm", address: normalized },
+    select: { identity: { select: { handle: true } } },
+  });
+  for (const link of links) {
+    if (link.identity?.handle) handles.add(link.identity.handle.toLowerCase());
+  }
+
+  const { findBcidByOwner } = await import("@/server/bcid/identity");
+  const bcid = await findBcidByOwner(normalized);
+  const bridged = bcid?.bridgeLink?.cultureHandle?.toLowerCase();
+  if (bridged) handles.add(bridged);
+
+  return [...handles];
+}
+
+/** Resolve a wallet's primary Culture Layer handle from Postgres (owner, linked wallet, or BCID bridge). */
+export async function findCultureHandleForWallet(walletAddress: string): Promise<string | null> {
+  const handles = await findCultureHandlesForWallet(walletAddress);
+  return handles[0] ?? null;
+}
+
 export async function linkMemberToIdentity(memberId: string, handle: string): Promise<void> {
   const prisma = getPrisma();
   if (!prisma) return;

@@ -2,10 +2,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { useCallback, useEffect, useState } from "react";
 
 import { BRAVE_WALLET_CONNECT_OPTIONS } from "@bc/culture-auth";
-import {
-  detectAuthSurfaceEnv,
-  type AuthSurfaceEnv,
-} from "@/lib/auth-surface-env";
+import { detectAuthSurfaceEnv, type AuthSurfaceEnv } from "@/lib/auth-surface-env";
 import {
   loginMethodsForSurface,
   primaryLoginLabel,

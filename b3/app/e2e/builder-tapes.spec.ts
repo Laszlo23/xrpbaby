@@ -31,7 +31,10 @@ test.describe("Builder Tapes", () => {
     await expect(page.getByRole("heading", { name: "Dial-Up Whispers" })).toBeVisible({
       timeout: 15000,
     });
-    await expect(page.locator("audio")).toHaveAttribute("src", /\/api\/media\/builder-tapes\/Dial-Up/);
+    await expect(page.locator("audio")).toHaveAttribute(
+      "src",
+      /\/api\/media\/builder-tapes\/Dial-Up/,
+    );
     await expect(page.getByText(/Connect wallet after load|Listen to 80%/i)).toBeVisible();
     await expect(page.getByText("Share this tape")).toBeVisible();
 

@@ -128,7 +128,7 @@ function PresaleRoundStats() {
 }
 
 function PresalePage() {
-  const { openGetBcd } = useBcdEconomy();
+  const { openGetBcdPresale } = useBcdEconomy();
 
   return (
     <MarketingShell
@@ -149,9 +149,9 @@ function PresalePage() {
           type="button"
           size="lg"
           className="rounded-full bg-amber-500/90 px-8 text-sm font-medium text-zinc-950 shadow-[0_0_40px_-8px_rgb(245_158_11/60%)] hover:bg-amber-400"
-          onClick={openGetBcd}
+          onClick={openGetBcdPresale}
         >
-          Open purchase flow
+          Buy in presale (smart contract)
         </Button>
       }
     >

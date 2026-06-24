@@ -30,6 +30,7 @@ import {
   Trophy,
   UserCircle,
   Users,
+  Wallet,
   Zap,
   Gem,
 } from "lucide-react";
@@ -72,10 +73,15 @@ export const footerProductLinks: InternalFooterLink[] = [
   { to: "/products/grant-proof", label: "Grant Proof", icon: Shield },
   { to: "/play", label: "Campaign Hub app", icon: Zap },
   { to: "/join", label: "Join", icon: Fingerprint },
+  { to: "/wallet", label: "Wallet & payments", icon: Wallet },
+  { to: "/wallet/packs", label: "Culture packs", icon: Coins },
+  { to: "/billing", label: "API billing", icon: Zap },
+  { to: "/presale", label: "BCC presale", icon: Rocket },
   { to: "/pass", label: "Claim your .culture name", icon: Fingerprint },
   { to: "/forest", label: "Community hub", icon: Rocket },
   { to: "/voice", label: "Builder Voice", icon: MessageSquareQuote },
   { to: "/marketplace", label: "Marketplace", icon: Building2 },
+  { to: "/how-we-partner", label: "How we partner", icon: Shield },
   { to: "/explorer", label: "Explorer for humans", icon: Compass },
   { to: "/collections", label: "Collections", icon: Layers },
   { to: "/campaign", label: "Agent shares", icon: Rocket },
@@ -117,6 +123,7 @@ export const footerCompanyLinks: { to: string; label: string; icon: LucideIcon }
   { to: "/story", label: "Builder chronicle", icon: BookOpen },
   { to: "/liquidity", label: "BCC liquidity", icon: PieChart },
   { to: "/investors", label: "Investors", icon: PieChart },
+  { to: "/how-we-partner", label: "Partner escrow", icon: Shield },
   { to: "/hq", label: "Culture HQ 77777", icon: Building2 },
   { to: "/triple-333", label: "Triple 333 raffle", icon: Trophy },
   { to: "/roadmap", label: "Roadmap", icon: MapPin },
@@ -197,6 +204,10 @@ export const landingFooterEcosystemColumn: FooterHrefLink[] = [
 
 /** Focused landing footer — Capital column. */
 export const landingFooterCapitalColumn: FooterHrefLink[] = [
+  { label: "Wallet hub", href: "/wallet", icon: Wallet },
+  { label: "Culture packs", href: "/wallet/packs", icon: Coins },
+  { label: "On-chain presale", href: "/presale", icon: Rocket },
+  { label: "API billing", href: "/billing", icon: Zap },
   { label: "BCC", href: "/bcc/dashboard", icon: Coins },
   { label: "Investors", href: "/investors", icon: PieChart },
 ];

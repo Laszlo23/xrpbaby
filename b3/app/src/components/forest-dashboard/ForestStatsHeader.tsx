@@ -3,6 +3,7 @@ import { Sprout } from "lucide-react";
 
 import { getLevel } from "@/components/LevelBadge";
 import type { ForestMemberSummary } from "@/hooks/useForestMemberTasks";
+import { useWalletCultureIdentity } from "@/hooks/useWalletCultureIdentity";
 import { WalletIdentityBar } from "@/components/identity/WalletIdentityBar";
 
 type Props = {
@@ -10,9 +11,15 @@ type Props = {
   address: string;
 };
 
+function shortAddress(address: string): string {
+  return `${address.slice(0, 6)}…${address.slice(-4)}`;
+}
+
 export function ForestStatsHeader({ summary, address }: Props) {
+  const { primaryName, isLoading: identityLoading } = useWalletCultureIdentity();
   const lvl = getLevel(summary.culturePoints);
   const pct = Math.min(100, Math.round(lvl.progress));
+  const displayId = identityLoading ? "…" : (primaryName ?? shortAddress(address));
 
   return (
     <header className="rounded-2xl border border-[#C5FF41]/20 bg-zinc-950/80 p-4 sm:p-5">
@@ -23,7 +30,18 @@ export function ForestStatsHeader({ summary, address }: Props) {
           </div>
           <div>
             <p className="mono-label !text-zinc-500">Your dashboard</p>
-            <p className="font-display text-lg font-semibold capitalize text-white">
+            {primaryName && !identityLoading ? (
+              <Link
+                to="/id/$name"
+                params={{ name: primaryName }}
+                className="font-display text-lg font-semibold text-[var(--vault-gold)] hover:underline"
+              >
+                {primaryName}
+              </Link>
+            ) : (
+              <p className="font-display text-lg font-semibold text-white">{displayId}</p>
+            )}
+            <p className="mt-0.5 text-sm capitalize text-zinc-400">
               {summary.forestStage} · {summary.supporterTier}
             </p>
             <p className="text-xs text-zinc-500">

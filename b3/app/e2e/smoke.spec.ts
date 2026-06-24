@@ -99,10 +99,16 @@ test.describe("smoke", () => {
   test("sitemap.xml returns urls", async ({ request }) => {
     const res = await request.get("/sitemap.xml");
     expect(res.ok()).toBeTruthy();
+    expect(res.headers()["content-type"]).toMatch(/application\/xml/i);
     const xml = await res.text();
+    expect(xml).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(xml).toContain("<urlset");
     expect(xml).toContain("<loc>");
+    expect(xml).toContain("<changefreq>");
+    expect(xml).toContain("<priority>");
     expect(xml).toMatch(/\/faq|\/presale|\/mission/);
+    expect(xml).toContain("/how-we-partner");
+    expect(xml).toContain("app.buildingcultureid.space");
   });
 
   test("robots.txt allows crawling", async ({ request }) => {

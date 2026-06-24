@@ -70,7 +70,6 @@ export function DailyOnChainCheckIn({
       const r = await fetchBalance({ data: { address } });
       if (r.ok) {
         setLedgerDoneToday(r.dailyCheckInToday === true);
-        if (typeof r.balance === "number") onBalance?.(r.balance);
       }
     } catch {
       /* best-effort */

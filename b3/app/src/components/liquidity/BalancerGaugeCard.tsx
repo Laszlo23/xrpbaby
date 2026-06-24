@@ -26,8 +26,8 @@ export function BalancerGaugeCard({
         <div className="min-w-0 flex-1">
           <h3 className="font-heading text-lg font-semibold text-white">DAO treasury pool</h3>
           <p className="mt-2 text-sm text-zinc-400">
-            <strong className="text-zinc-300">Protocol:</strong> Balancer BCC/WETH pool owned by
-            the multisig — swap fees + gauge incentives when funded.{" "}
+            <strong className="text-zinc-300">Protocol:</strong> Balancer BCC/WETH pool owned by the
+            multisig — swap fees + gauge incentives when funded.{" "}
             <strong className="text-zinc-300">Community:</strong> stake BPT in a Balancer gauge for
             DAO-funded rewards; Culture Power counts Aerodrome or Balancer LP.
           </p>
@@ -62,8 +62,8 @@ export function BalancerGaugeCard({
           </div>
           {!poolLive && (enabled || poolConfigured) ? (
             <p className="mt-4 text-xs text-zinc-600">
-              Balancer link is live in app — Safe seeds BCC + WETH, then set gauge in deploy env. See
-              docs/BCC_BALANCER_LIQUIDITY.md.
+              Balancer link is live in app — Safe seeds BCC + WETH, then set gauge in deploy env.
+              See docs/BCC_BALANCER_LIQUIDITY.md.
             </p>
           ) : !enabled && !poolConfigured ? (
             <p className="mt-4 text-xs text-zinc-600">

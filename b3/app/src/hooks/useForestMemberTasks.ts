@@ -25,56 +25,59 @@ export function useForestMemberTasks() {
   const [claimingSlug, setClaimingSlug] = useState<string | null>(null);
   const [loadState, setLoadState] = useState<ForestMemberLoadState>("idle");
 
-  const refresh = useCallback(async () => {
-    if (!address) {
-      setSummary(null);
-      setCompletedSlugs([]);
-      setLoadState("idle");
-      return;
-    }
-    setLoadState("loading");
-    try {
-      const [meRes, rewardsRes] = await Promise.all([
-        fetch(`/api/member/me?address=${encodeURIComponent(address)}`),
-        fetch(`/api/rewards/summary?address=${encodeURIComponent(address)}`),
-      ]);
-
-      if (rewardsRes.status === 503 || meRes.status === 503) {
+  const refresh = useCallback(
+    async (opts?: { silent?: boolean }) => {
+      if (!address) {
         setSummary(null);
         setCompletedSlugs([]);
-        setLoadState("db_down");
+        setLoadState("idle");
         return;
       }
+      setLoadState((prev) => (opts?.silent && prev === "ready" ? "ready" : "loading"));
+      try {
+        const [meRes, rewardsRes] = await Promise.all([
+          fetch(`/api/member/me?address=${encodeURIComponent(address)}`),
+          fetch(`/api/rewards/summary?address=${encodeURIComponent(address)}`),
+        ]);
 
-      const meData = (await meRes.json()) as {
-        ok?: boolean;
-        member?: { completedSlugs?: string[] } | null;
-      };
-      const rewardsData = (await rewardsRes.json()) as {
-        ok?: boolean;
-        culturePoints?: number;
-        forestStage?: string;
-        supporterTier?: string;
-      };
+        if (rewardsRes.status === 503 || meRes.status === 503) {
+          setSummary(null);
+          setCompletedSlugs([]);
+          setLoadState("db_down");
+          return;
+        }
 
-      if (rewardsData.ok) {
-        setSummary({
-          culturePoints: rewardsData.culturePoints ?? 0,
-          forestStage: rewardsData.forestStage ?? "seedling",
-          supporterTier: rewardsData.supporterTier ?? "guest",
-        });
-      } else {
+        const meData = (await meRes.json()) as {
+          ok?: boolean;
+          member?: { completedSlugs?: string[] } | null;
+        };
+        const rewardsData = (await rewardsRes.json()) as {
+          ok?: boolean;
+          culturePoints?: number;
+          forestStage?: string;
+          supporterTier?: string;
+        };
+
+        if (rewardsData.ok) {
+          setSummary({
+            culturePoints: rewardsData.culturePoints ?? 0,
+            forestStage: rewardsData.forestStage ?? "seedling",
+            supporterTier: rewardsData.supporterTier ?? "guest",
+          });
+        } else {
+          setSummary(null);
+        }
+
+        setCompletedSlugs(meData.member?.completedSlugs ?? []);
+        setLoadState(rewardsData.ok ? "ready" : "error");
+      } catch {
         setSummary(null);
+        setCompletedSlugs([]);
+        setLoadState("error");
       }
-
-      setCompletedSlugs(meData.member?.completedSlugs ?? []);
-      setLoadState(rewardsData.ok ? "ready" : "error");
-    } catch {
-      setSummary(null);
-      setCompletedSlugs([]);
-      setLoadState("error");
-    }
-  }, [address]);
+    },
+    [address],
+  );
 
   useEffect(() => {
     void refresh();
@@ -108,7 +111,7 @@ export function useForestMemberTasks() {
             body: JSON.stringify({ wallet: address, type: "quest_claim", questId: slug }),
           }).catch(() => undefined);
         }
-        await refresh();
+        await refresh({ silent: true });
       } finally {
         setClaimingSlug(null);
       }

@@ -9,13 +9,12 @@ import {
   limxAgentWalletAddress,
   x402LimxPrice,
 } from "@/lib/limx-agent-config";
-import { resolveX402ResourceUrl } from "@/lib/x402-resource-url";
-import { getX402SettlementChain } from "@/lib/x402-network";
+import { paidOrInternalOrStripe } from "@/server/billing/paid-access";
 import { getPrisma } from "@/server/db/prisma";
 import { runInference } from "@/server/llm/inference";
-import { getX402Facilitator, handleX402Options, x402CorsHeadersFor } from "@/server/x402-settle";
-import { settlePayment } from "thirdweb/x402";
+import { handleX402Options, x402CorsHeadersFor } from "@/server/x402-settle";
 
+const LIMX_SKU = "limx_revenue_brief_v1";
 const MAX_QUERY_LEN = 2000;
 
 function badRequest(message: string, request: Request): Response {
@@ -109,51 +108,20 @@ export async function handleLimxX402Get(request: Request): Promise<Response> {
   }
 
   const price = x402LimxPrice();
-  const cors = x402CorsHeadersFor(request);
 
-  try {
-    const paymentData =
-      request.headers.get("payment-signature") ?? request.headers.get("x-payment");
-    const resourceUrl = resolveX402ResourceUrl(request);
-
-    const result = await settlePayment({
-      resourceUrl,
-      method: "GET",
-      paymentData,
-      network: getX402SettlementChain(),
+  return paidOrInternalOrStripe(
+    request,
+    {
+      sku: LIMX_SKU,
       price,
-      facilitator: getX402Facilitator(),
+      description:
+        "Limx Revenue Agent — grants, partnerships, sponsors, and growth opportunity brief (JSON)",
       payTo: limxAgentWalletAddress(),
-      routeConfig: {
-        description:
-          "Limx Revenue Agent — grants, partnerships, sponsors, and growth opportunity brief (JSON)",
-        mimeType: "application/json",
-      },
-    });
-
-    if (result.status !== 200) {
-      return new Response(JSON.stringify(result.responseBody), {
-        status: result.status,
-        headers: {
-          "Content-Type": "application/json",
-          ...result.responseHeaders,
-          ...cors,
-        },
-      });
-    }
-
-    const outcome = await runLimxBrief(q);
-    const body = outcome.ok
-      ? {
-          ok: true as const,
-          agent: "limx" as const,
-          wallet: limxAgentWalletAddress(),
-          query: q,
-          brief: outcome.brief,
-          source: outcome.source,
-          generatedAt: new Date().toISOString(),
-        }
-      : {
+    },
+    async () => {
+      const outcome = await runLimxBrief(q);
+      if (!outcome.ok) {
+        return {
           ok: false as const,
           agent: "limx" as const,
           wallet: limxAgentWalletAddress(),
@@ -162,12 +130,16 @@ export async function handleLimxX402Get(request: Request): Promise<Response> {
           source: outcome.source ?? null,
           generatedAt: new Date().toISOString(),
         };
-
-    return Response.json(body, {
-      headers: { ...cors, ...result.responseHeaders },
-    });
-  } catch (e) {
-    const message = e instanceof Error ? e.message : "x402 configuration or settlement failed";
-    return Response.json({ error: message }, { status: 503, headers: cors });
-  }
+      }
+      return {
+        ok: true as const,
+        agent: "limx" as const,
+        wallet: limxAgentWalletAddress(),
+        query: q,
+        brief: outcome.brief,
+        source: outcome.source,
+        generatedAt: new Date().toISOString(),
+      };
+    },
+  );
 }

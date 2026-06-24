@@ -3,6 +3,7 @@ import { motion } from "@/components/landing/motion";
 import { ArrowUpRight } from "lucide-react";
 
 import { FOUNDER_SHOWCASE_NAME, LASZLO_SHOWCASE } from "@/lib/profile/founder-showcase";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 
 const EXAMPLE_CREDENTIALS = ["Builder", "Community Leader", "Trusted Agent"] as const;
 
@@ -34,9 +35,10 @@ export function LandingCultureIdExample() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/pass"
-                className="inline-flex items-center gap-2 rounded-full bg-[#C5FF41] px-5 py-2.5 text-sm font-semibold text-black hover:bg-white"
+                search={{ ref: IDENTITY_LAUNCH_REFERRAL_CODE }}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#C5FF41] px-5 py-3 text-sm font-semibold text-black hover:bg-white"
               >
-                Claim yours
+                Claim .culture name
                 <ArrowUpRight size={14} aria-hidden />
               </Link>
               <Link

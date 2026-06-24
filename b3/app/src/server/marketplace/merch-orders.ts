@@ -158,7 +158,11 @@ export async function getMerchCatalogLive() {
 
   await ensureMerchDrops(prisma);
   await releaseExpiredMerchReservations(prisma);
-  const rows = await prisma.merchDrop.findMany({ orderBy: { slug: "asc" } });
+  const catalogSlugs = new Set(MERCH_DROPS.map((d) => d.slug));
+  const rows = await prisma.merchDrop.findMany({
+    where: { slug: { in: [...catalogSlugs] } },
+    orderBy: { slug: "asc" },
+  });
 
   const drops = await Promise.all(
     rows.map(async (row) => {

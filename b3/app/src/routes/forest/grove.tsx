@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useAccount } from "wagmi";
 
 import { CultureGrovePanel } from "@/components/culture-grove/CultureGrovePanel";
 import { LandingNav } from "@/components/landing/LandingNav";
+import { useShowLoggedInShell } from "@/hooks/useShowLoggedInShell";
+import { useWalletSession } from "@/hooks/useWalletSession";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/forest/grove")({
@@ -17,16 +18,17 @@ export const Route = createFileRoute("/forest/grove")({
 });
 
 function CultureGrovePage() {
-  const { address, isConnected } = useAccount();
+  const { address, wasConnected } = useWalletSession();
+  const showLoggedInShell = useShowLoggedInShell();
 
   return (
     <div className="bc-surface min-h-screen pb-nav-safe">
-      <LandingNav compact />
-      <main className="mx-auto max-w-3xl px-5 pt-28 pb-16 sm:px-8">
+      {!showLoggedInShell ? <LandingNav compact /> : null}
+      <main className={`mx-auto max-w-3xl px-5 pb-16 sm:px-8 ${showLoggedInShell ? "pt-4" : "pt-28"}`}>
         <Link to="/forest" className="text-sm text-zinc-500 hover:text-white">
           ← Forest hub
         </Link>
-        {isConnected && address ? (
+        {wasConnected && address ? (
           <div className="mt-6">
             <CultureGrovePanel address={address} />
           </div>

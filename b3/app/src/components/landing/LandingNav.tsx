@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { useAccount } from "wagmi";
 import { HeaderConnectButton } from "@/components/HeaderConnectButton";
-import { WalletIdentityBar } from "@/components/identity/WalletIdentityBar";
+import { WalletAccountMenu } from "@/components/wallet/WalletAccountMenu";
+import { useWalletSession } from "@/hooks/useWalletSession";
 import { AnimatePresence, motion } from "@/components/landing/motion";
 import {
   Fingerprint,
@@ -41,7 +41,7 @@ type LandingNavProps = {
 export function LandingNav({ compact = false }: LandingNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { isConnected } = useAccount();
+  const { wasConnected } = useWalletSession();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -50,10 +50,10 @@ export function LandingNav({ compact = false }: LandingNavProps) {
   }, []);
 
   const items = compact
-    ? isConnected
+    ? wasConnected
       ? CONNECTED_NAV.map((i) => ({ label: i.label, href: i.to, icon: i.icon, external: true }))
       : NAV_ITEMS.filter((i) => ["Identity", "Ecosystem"].includes(i.label))
-    : isConnected
+    : wasConnected
       ? CONNECTED_NAV.map((i) => ({ label: i.label, href: i.to, icon: i.icon, external: true }))
       : NAV_ITEMS;
 
@@ -122,14 +122,14 @@ export function LandingNav({ compact = false }: LandingNavProps) {
           </nav>
 
           <motion.div className="flex items-center gap-2">
-            {isConnected ? (
+            {wasConnected ? (
               <div className="hidden sm:block">
-                <WalletIdentityBar />
+                <WalletAccountMenu showIdentityBar />
               </div>
             ) : (
               <HeaderConnectButton />
             )}
-            {isConnected ? (
+            {wasConnected ? (
               <Link
                 to="/forest"
                 className="hidden items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-[13px] font-semibold text-white transition hover:border-[#C5FF41]/40 sm:inline-flex"
@@ -192,18 +192,18 @@ export function LandingNav({ compact = false }: LandingNavProps) {
                     </a>
                   );
                 })}
-                {!isConnected ? (
+                {!wasConnected ? (
                   <div className="mt-2 sm:hidden">
                     <HeaderConnectButton className="w-full justify-center" />
                   </div>
                 ) : null}
                 <Link
-                  to={isConnected ? "/forest" : "/join"}
+                  to={wasConnected ? "/forest" : "/join"}
                   onClick={() => setOpen(false)}
                   className="mt-2 inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-[13px] font-semibold text-white"
                 >
                   <UserPlus size={16} strokeWidth={2.25} aria-hidden />
-                  {isConnected ? "Open dashboard" : "Join Building Culture"}
+                  {wasConnected ? "Open dashboard" : "Join Building Culture"}
                 </Link>
               </div>
             </motion.div>

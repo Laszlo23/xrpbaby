@@ -281,7 +281,8 @@ function JoinPage() {
         <div className="mt-8 rounded-xl border border-[#C5FF41]/25 bg-[#C5FF41]/[0.06] p-4 text-left">
           <p className="text-sm font-medium text-zinc-100">Culture packs from $0.70</p>
           <p className="mt-1 text-xs text-zinc-400">
-            Buy Culture Points with card after sign-in — no crypto required for the Starter pack.
+            Pay with card (Stripe) — no crypto payment required. Connect your wallet so we can link
+            Culture Points to your profile after checkout.
           </p>
           <Link
             to="/wallet/packs"

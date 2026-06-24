@@ -7,13 +7,17 @@ import {
   PROMO_MIN_LEN,
   validateHandleForPromoMintWallet,
 } from "@/lib/identity/handle-policy";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 import { ensureWalletAndMember } from "@/server/platform/member";
 import { recordCultureMemoryEvent } from "@/server/memory/timeline";
 import { ensureDefaultTasks } from "@/server/points/tasks";
 
 export const IDENTITY_REFERRAL_CODES_PER_BATCH = 7;
-export const IDENTITY_LAUNCH_REFERRAL_CODE = "BUILD77";
+export { IDENTITY_LAUNCH_REFERRAL_CODE };
 export const IDENTITY_REFERRAL_BCC_LOCKED_KIND = "identity_referral_bcc_locked";
+
+/** Server-only team code — never expose in client bundles; override via env in production. */
+const DEFAULT_TEAM_REFERRAL_CODE = "CULT4K7XM9";
 
 export type ReferralValidateResult =
   | {
@@ -50,6 +54,16 @@ export function launchReferralCode(): string {
   );
 }
 
+export function teamReferralCode(): string {
+  return (
+    process.env.IDENTITY_TEAM_REFERRAL_CODE?.trim().toUpperCase() || DEFAULT_TEAM_REFERRAL_CODE
+  );
+}
+
+export function isTeamReferralCode(code: string): boolean {
+  return normalizeCode(code) === teamReferralCode();
+}
+
 export function referralBccWeiPerSuccess(): bigint {
   const raw = process.env.IDENTITY_REFERRAL_BCC_WEI?.trim() || "770000000000000000";
   try {
@@ -83,12 +97,29 @@ export async function ensureLaunchReferralCode(prisma: PrismaClient): Promise<vo
   });
 }
 
+export async function ensureTeamReferralCode(prisma: PrismaClient): Promise<void> {
+  const code = teamReferralCode();
+  const owner =
+    process.env.IDENTITY_REFERRAL_TEAM_OWNER?.trim().toLowerCase() ||
+    "0x0000000000000000000000000000000000000000";
+
+  await prisma.identityReferralCode.upsert({
+    where: { code },
+    create: {
+      id: `team_${code.toLowerCase()}`,
+      code,
+      ownerWallet: owner,
+      batchIndex: -2,
+      status: "active",
+    },
+    update: { status: "active" },
+  });
+}
+
 export async function validateReferralForMint(
   prisma: PrismaClient,
   input: { wallet: string; code: string; handle: string },
 ): Promise<ReferralValidateResult> {
-  await ensureLaunchReferralCode(prisma);
-
   const policy = validateHandleForPromoMintWallet(
     input.handle.split(".")[0] ?? input.handle,
     input.wallet,
@@ -99,6 +130,12 @@ export async function validateReferralForMint(
 
   const wallet = normalizeWallet(input.wallet);
   const code = normalizeCode(input.code);
+
+  if (isTeamReferralCode(code)) {
+    return { ok: false, error: "code_invalid" };
+  }
+
+  await ensureLaunchReferralCode(prisma);
 
   const existingRedemption = await prisma.identityReferralRedemption.findUnique({
     where: { wallet },
@@ -253,9 +290,25 @@ export async function consumeReferralOnSync(
   await ensureDefaultTasks(prisma);
 
   const wallet = normalizeWallet(input.wallet);
+  const code = normalizeCode(input.code);
   const handlePart = input.mintHandle.split(".")[0] ?? input.mintHandle;
   if (handlePart.length < PROMO_MIN_LEN && !isIdentityTeamWallet(wallet)) {
     return { ok: false, error: "handle_too_short" };
+  }
+
+  if (isTeamReferralCode(code)) {
+    return { ok: false, error: "code_invalid" };
+  }
+
+  if (isIdentityTeamWallet(wallet)) {
+    return {
+      ok: true,
+      referrerWallet: "0x0000000000000000000000000000000000000000",
+      codesIssued: 0,
+      batchComplete: false,
+      lockedBccWei: "0",
+      referralMintPoints: 0,
+    };
   }
 
   const existingRedemption = await prisma.identityReferralRedemption.findUnique({

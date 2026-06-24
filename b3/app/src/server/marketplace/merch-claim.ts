@@ -5,7 +5,7 @@ import { ensureWalletAndMember } from "@/server/platform/member";
 import { recordReputationEvent } from "@/server/reputation/events";
 import { recordCultureMemoryEvent } from "@/server/memory/timeline";
 import { creditMerchHolderClaim } from "@/server/points/merch-holder-claim-credit";
-import { getMerchOrderByClaimCode, markMerchOrderClaimed } from "@/server/marketplace/merch-orders";
+import { getMerchOrderByClaimCode } from "@/server/marketplace/merch-orders";
 
 export type MerchClaimResult =
   | {
@@ -121,8 +121,31 @@ export async function claimMerchByCode(input: {
 
   const { member } = await ensureWalletAndMember(prisma, wallet);
 
-  const claimed = await markMerchOrderClaimed(order.id);
-  if (!claimed.ok) return { ok: false, error: claimed.error ?? "claim_failed" };
+  const claimResult = await prisma.$transaction(async (tx) => {
+    const updated = await tx.merchOrder.updateMany({
+      where: { id: order.id, claimedAt: null },
+      data: { status: "claimed", claimedAt: new Date() },
+    });
+
+    let alreadyClaimed = false;
+    if (updated.count === 0) {
+      const current = await tx.merchOrder.findUnique({ where: { id: order.id } });
+      if (!current?.claimedAt) {
+        return { ok: false as const, error: "claim_failed" as const };
+      }
+      alreadyClaimed = true;
+    }
+
+    const points = await creditMerchHolderClaim(tx, {
+      evmAddress: wallet,
+      orderId: order.id,
+      memberId: member?.id,
+    });
+
+    return { ok: true as const, alreadyClaimed, points };
+  });
+
+  if (!claimResult.ok) return { ok: false, error: claimResult.error };
 
   const credential = await grantLimitedMerchCredential({
     walletAddress: wallet,
@@ -130,12 +153,6 @@ export async function claimMerchByCode(input: {
     orderId: order.id,
     dropSlug: order.dropSlug,
     unitNumber: order.unitNumber,
-  });
-
-  const points = await creditMerchHolderClaim(prisma, {
-    evmAddress: wallet,
-    orderId: order.id,
-    memberId: member?.id,
   });
 
   await recordCultureMemoryEvent({
@@ -146,18 +163,18 @@ export async function claimMerchByCode(input: {
       dropSlug: order.dropSlug,
       unitNumber: order.unitNumber,
       credentialGranted: credential.ok,
-      pointsGranted: points.pointsGranted,
+      pointsGranted: claimResult.points.pointsGranted,
     },
   });
 
   return {
     ok: true,
-    alreadyClaimed: claimed.alreadyClaimed,
+    alreadyClaimed: claimResult.alreadyClaimed,
     orderId: order.id,
     dropSlug: order.dropSlug,
     unitNumber: order.unitNumber,
     credentialGranted: credential.ok,
-    pointsGranted: points.pointsGranted,
+    pointsGranted: claimResult.points.pointsGranted,
     holderChannelUrl: merchHolderChannelUrl(),
   };
 }

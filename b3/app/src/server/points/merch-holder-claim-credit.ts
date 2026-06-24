@@ -1,7 +1,8 @@
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 
 import { ensureDefaultTasks } from "@/server/points/tasks";
 import { ensureWalletAndMember } from "@/server/platform/member";
+import { creditPointsIdempotent } from "@/server/points/credit-idempotent";
 
 export const MERCH_HOLDER_CLAIM_TASK_SLUG = "merch-holder-claim";
 
@@ -13,7 +14,7 @@ export type MerchHolderClaimCreditResult = {
 };
 
 export async function creditMerchHolderClaim(
-  prisma: PrismaClient,
+  prisma: Prisma.TransactionClient | PrismaClient,
   input: { evmAddress: string; orderId: string; memberId?: string | null },
 ): Promise<MerchHolderClaimCreditResult> {
   await ensureDefaultTasks(prisma);
@@ -26,32 +27,27 @@ export async function creditMerchHolderClaim(
   }
 
   const { wallet } = await ensureWalletAndMember(prisma, input.evmAddress);
-  const existing = await prisma.pointLedger.findFirst({
-    where: {
-      walletId: wallet.id,
-      taskSlug: MERCH_HOLDER_CLAIM_TASK_SLUG,
-      metadata: { path: ["orderId"], equals: input.orderId },
-    },
+
+  const credit = await creditPointsIdempotent(prisma, {
+    walletId: wallet.id,
+    delta: task.points,
+    reason: "task_completion",
+    taskSlug: MERCH_HOLDER_CLAIM_TASK_SLUG,
+    idempotencyKey: `merch-claim:${input.orderId}`,
+    metadata: { orderId: input.orderId },
   });
-  if (existing) {
-    return { ok: true, pointsGranted: 0, alreadyCredited: true };
+
+  if (credit.credited) {
+    const { logTaskCompletionActivity } = await import("@/server/points/task-completion-events");
+    await logTaskCompletionActivity(prisma, {
+      memberId: input.memberId ?? undefined,
+      taskSlug: MERCH_HOLDER_CLAIM_TASK_SLUG,
+    });
   }
 
-  await prisma.pointLedger.create({
-    data: {
-      walletId: wallet.id,
-      delta: task.points,
-      reason: "task_completion",
-      taskSlug: MERCH_HOLDER_CLAIM_TASK_SLUG,
-      metadata: { orderId: input.orderId },
-    },
-  });
-
-  const { logTaskCompletionActivity } = await import("@/server/points/task-completion-events");
-  await logTaskCompletionActivity(prisma, {
-    memberId: input.memberId ?? undefined,
-    taskSlug: MERCH_HOLDER_CLAIM_TASK_SLUG,
-  });
-
-  return { ok: true, pointsGranted: task.points, alreadyCredited: false };
+  return {
+    ok: true,
+    pointsGranted: credit.credited ? credit.pointsGranted : 0,
+    alreadyCredited: credit.alreadyCredited,
+  };
 }

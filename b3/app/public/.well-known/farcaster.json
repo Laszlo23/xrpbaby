@@ -1,0 +1,34 @@
+{
+  "miniapp": {
+    "version": "1",
+    "name": "Building Culture",
+    "iconUrl": "https://app.buildingcultureid.space/brand/miniapp-icon.svg",
+    "homeUrl": "https://app.buildingcultureid.space/",
+    "splashImageUrl": "https://app.buildingcultureid.space/brand/miniapp-icon.svg",
+    "splashBackgroundColor": "#0c0d12",
+    "subtitle": "Culture ID on Base",
+    "description": "Mint your .culture name, earn points, and explore the Building Culture ecosystem on Base.",
+    "heroImageUrl": "https://app.buildingcultureid.space/meta/home-meta-og.png",
+    "tagline": "Your name on-chain",
+    "ogTitle": "Building Culture",
+    "ogDescription": "Claim your Culture Layer identity on Base — invite USHINE77, from $0.07.",
+    "ogImageUrl": "https://app.buildingcultureid.space/meta/home-meta-og.png",
+    "primaryCategory": "social",
+    "tags": [
+      "base",
+      "culture",
+      "identity",
+      "builder",
+      "rwa"
+    ],
+    "requiredChains": [
+      "eip155:8453"
+    ],
+    "canonicalDomain": "app.buildingcultureid.space"
+  },
+  "accountAssociation": {
+    "header": "eyJmaWQiOjg3Mzk0NCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDUwMmNlOUZCMTgxNGNiMDM4NDM5NjdFQzVFMEQ4RjZBQTNBM0MyZTEifQ",
+    "payload": "eyJkb21haW4iOiJhcHAuYnVpbGRpbmdjdWx0dXJlaWQuc3BhY2UifQ",
+    "signature": "FXl0U6hQ7m5vJ2qpIDA3uvY5zBJoC319L/fkZAwAgndJrD6+71E8HHJpRxCO3i2vwMPvL704Oj0NxvWMKYaJEhw="
+  }
+}

@@ -18,7 +18,7 @@ export function BuilderVoicePrompt({ pathname }: { pathname: string }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (pathname === "/voice") return;
+    if (pathname === "/voice" || pathname.startsWith("/pass")) return;
     const dismissed = Number(localStorage.getItem(COOLDOWN_KEY) ?? "0");
     if (Date.now() - dismissed < COOLDOWN_MS) return;
 

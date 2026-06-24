@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "@tanstack/react-router";
 import {
   BCC_ADDRESS,
   BCC_DISCOUNT_LABEL,
@@ -49,6 +50,7 @@ type BnbRouteResponse = {
  * Floating "Buy BCC" button + modal. In-app Base swap + BNB/Solana bridge paths.
  */
 export function BuyBccButton() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [solanaData, setSolanaData] = useState<SolanaRouteResponse | null>(null);
@@ -75,12 +77,17 @@ export function BuyBccButton() {
   const jumperSolHref = solanaData?.recommended?.href ?? buildJumperSolToBccUrl("SOL");
   const jumperBnbHref = bnbData?.recommended?.href ?? buildJumperBnbToBccUrl("BNB");
 
+  if (pathname === "/pass" || pathname.startsWith("/pass/") || pathname.startsWith("/id")) {
+    return null;
+  }
+
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed bottom-floating-high left-4 z-30 rounded-full bg-gradient-to-r from-[#C5FF41] to-[#00E5FF] px-4 py-2 text-xs font-bold text-black shadow-lg transition hover:opacity-90 sm:left-auto sm:right-4 sm:bottom-floating-safe"
+        data-testid="buy-bcc-fab"
+        className="fixed bottom-floating-high left-4 z-30 min-h-11 rounded-full bg-gradient-to-r from-[#C5FF41] to-[#00E5FF] px-5 py-3 text-sm font-bold text-black shadow-lg transition hover:opacity-90 sm:left-auto sm:right-4 sm:bottom-floating-safe"
         aria-label={`Buy ${BCC_SYMBOL}`}
       >
         Buy {BCC_SYMBOL}

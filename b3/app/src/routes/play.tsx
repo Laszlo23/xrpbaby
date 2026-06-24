@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 import { ArrowUpRight } from "lucide-react";
 import { pageHead } from "@/lib/seo";
 import { plainLabels } from "@/lib/plain-labels";
@@ -64,9 +65,10 @@ function PlayPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               to="/pass"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white hover:border-[#C5FF41]/50"
+              search={{ ref: IDENTITY_LAUNCH_REFERRAL_CODE }}
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/15 px-4 py-3 text-sm font-semibold text-white hover:border-[#C5FF41]/50"
             >
-              Claim Culture ID
+              Claim .culture name
               <ArrowUpRight size={12} />
             </Link>
             <Link

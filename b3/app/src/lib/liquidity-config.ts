@@ -103,7 +103,12 @@ export function buildLiquidityDexLinks(): LiquidityDexLinks {
           ? BCC_AERODROME.depositUrl
           : null,
     aerodromeSwap: enabled || pool ? BCC_AERODROME.swapUrl : null,
-    balancerDeposit: balEnabled || balPool ? (balPool ? balancerPoolUrl(balPool) : BCC_BALANCER.createPoolUrl) : null,
+    balancerDeposit:
+      balEnabled || balPool
+        ? balPool
+          ? balancerPoolUrl(balPool)
+          : BCC_BALANCER.createPoolUrl
+        : null,
     balancerGauge: balGauge
       ? balancerGaugeUrl(balGauge)
       : balPool

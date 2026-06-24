@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { IdentityGraphPanel } from "@/components/identity/IdentityGraphPanel";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 import type { CultureIdentityGraph } from "@/lib/identity/identity-graph-types";
 import { DEFAULT_LANDING_GRAPH_IDENTITY } from "@/lib/identity/landing-graph";
 
@@ -66,9 +67,10 @@ export function LandingIdentityGraph() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link
             to="/pass"
-            className="inline-flex rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
+            search={{ ref: IDENTITY_LAUNCH_REFERRAL_CODE }}
+            className="inline-flex min-h-11 items-center rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
           >
-            Mint your .culture name
+            Claim .culture name
           </Link>
           <a
             href={`https://web3.bio/?s=${encodeURIComponent(demoName)}#graph`}

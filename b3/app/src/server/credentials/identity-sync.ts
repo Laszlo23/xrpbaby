@@ -63,7 +63,10 @@ export async function syncCultureIdentityFromHandle(input: {
         pointsGranted += referralMintPoints;
       }
     } else if (!existingRedemption) {
-      return { ok: false, error: "referral_required" };
+      const { isIdentityTeamWallet } = await import("@/lib/identity/handle-policy");
+      if (!isIdentityTeamWallet(wallet)) {
+        return { ok: false, error: "referral_required" };
+      }
     }
 
     if (resolved.tokenId) {

@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useAccount, useChainId } from "wagmi";
+import { useChainId } from "wagmi";
 import { useState } from "react";
 
 import { ForestMemberDashboard } from "@/components/forest-dashboard/ForestMemberDashboard";
 import { LandingNav } from "@/components/landing/LandingNav";
 import { IdentityMintBand } from "@/components/identity/IdentityMintBand";
+import { IDENTITY_LAUNCH_REFERRAL_CODE } from "@/lib/identity/referral-constants";
 import { PostJoinPackPrompt } from "@/components/PostJoinPackPrompt";
 import { SectionErrorBoundary } from "@/components/SectionErrorBoundary";
 import { bcdStagingHint } from "@/lib/bcd-configured";
@@ -14,6 +15,8 @@ import { COMMUNITY_MODULES, type LandingEcosystemApp } from "@/lib/landing-ecosy
 import { platformModules } from "@/lib/modules";
 import { pageHead } from "@/lib/seo";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
+import { useShowLoggedInShell } from "@/hooks/useShowLoggedInShell";
+import { useWalletSession } from "@/hooks/useWalletSession";
 
 type ForestSearch = {
   welcome?: string;
@@ -67,9 +70,16 @@ function ForestGuestHero() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             to="/join"
-            className="inline-flex items-center rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
+            className="inline-flex min-h-11 items-center rounded-full bg-[#C5FF41] px-6 py-3 text-sm font-semibold text-black hover:bg-white"
           >
             Create your pass
+          </Link>
+          <Link
+            to="/pass"
+            search={{ ref: IDENTITY_LAUNCH_REFERRAL_CODE }}
+            className="inline-flex min-h-11 items-center rounded-full border border-[#C5FF41]/40 px-6 py-3 text-sm font-semibold text-[#C5FF41] hover:bg-[#C5FF41]/10"
+          >
+            Claim .culture name →
           </Link>
           <Link
             to="/play"
@@ -109,17 +119,18 @@ function ForestGuestHero() {
 
 function CommunityHubPage() {
   const chainId = useChainId();
-  const { address, isConnected } = useAccount();
+  const { address } = useWalletSession();
+  const showLoggedInShell = useShowLoggedInShell();
   const { welcome } = Route.useSearch();
   const bcdHint = bcdStagingHint(chainId);
   const modules = filterModules(COMMUNITY_MODULES);
   const justJoined = welcome === "1";
   const [packOpen, setPackOpen] = useState(justJoined);
-  const showDashboard = isConnected && Boolean(address);
+  const showDashboard = showLoggedInShell && Boolean(address);
 
   return (
     <div className="bc-surface min-h-screen pb-nav-safe">
-      {!showDashboard ? <LandingNav compact /> : null}
+      {!showLoggedInShell ? <LandingNav compact /> : null}
       <PostJoinPackPrompt open={packOpen} onOpenChange={setPackOpen} />
       <main className={showDashboard ? "pb-16" : "pt-28 pb-16"}>
         {showDashboard ? (
