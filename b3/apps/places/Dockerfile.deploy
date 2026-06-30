@@ -5,6 +5,9 @@ WORKDIR /repo
 COPY packages/bcc-kit packages/bcc-kit
 COPY packages/culture-auth packages/culture-auth
 COPY packages/places-portfolio packages/places-portfolio
+WORKDIR /repo/packages/places-portfolio
+RUN npm install && npm run build
+WORKDIR /repo
 COPY apps/places/web/package.json apps/places/web/package-lock.json apps/places/web/
 WORKDIR /repo/apps/places/web
 RUN npm ci

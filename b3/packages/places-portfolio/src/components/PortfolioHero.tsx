@@ -1,15 +1,17 @@
 import type { PortfolioHeroProps } from "../types.js";
+import { PortfolioImage } from "./PortfolioImage.js";
 import { resolveLink } from "./link.js";
 
 export function PortfolioHero({ heroImageUrl, flagshipHref, LinkComponent }: PortfolioHeroProps) {
   const Link = resolveLink(LinkComponent);
 
   return (
-    <section className="relative flex min-h-[720px] h-screen flex-col items-center justify-center overflow-hidden px-4 text-center">
+    <section className="relative flex min-h-[min(720px,calc(100dvh-4rem))] flex-col items-center justify-center overflow-hidden px-4 py-16 text-center">
       <div className="absolute inset-0 z-0">
-        <img
+        <PortfolioImage
           src={heroImageUrl}
           alt="Building Culture Places — flagship portfolio"
+          loading="eager"
           className="h-full w-full object-cover opacity-65"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(0_0%_5%/0.4)] via-transparent to-[hsl(0_0%_5%)]" />
@@ -29,20 +31,20 @@ export function PortfolioHero({ heroImageUrl, flagshipHref, LinkComponent }: Por
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="#portfolio-grid"
-            className="min-w-[220px] border border-[hsl(0_0%_100%/0.2)] px-8 py-4 text-[11px] uppercase tracking-[0.2em] backdrop-blur-sm transition-colors hover:border-[hsl(0_0%_100%/0.5)]"
+            className="inline-flex min-h-11 min-w-[220px] items-center justify-center border border-[hsl(0_0%_100%/0.2)] px-8 py-4 text-[11px] uppercase tracking-[0.2em] backdrop-blur-sm transition-colors hover:border-[hsl(0_0%_100%/0.5)]"
           >
             Explore properties
           </Link>
           <Link
             href={flagshipHref}
-            className="min-w-[220px] bg-[hsl(30_15%_92%)] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-[hsl(0_0%_5%)] transition-all hover:bg-[hsl(38_25%_48%)] hover:text-[hsl(0_0%_5%)]"
+            className="inline-flex min-h-11 min-w-[220px] items-center justify-center bg-[hsl(30_15%_92%)] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-[hsl(0_0%_5%)] transition-all hover:bg-[hsl(38_25%_48%)] hover:text-[hsl(0_0%_5%)]"
           >
             Berggasse flagship
           </Link>
         </div>
       </div>
 
-      <div className="pp-mono absolute bottom-10 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-[hsl(30_10%_92%/0.5)]">
+      <div className="pp-mono absolute bottom-10 left-1/2 hidden -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-[hsl(30_10%_92%/0.5)] sm:block">
         Scroll · Portfolio yields
       </div>
     </section>

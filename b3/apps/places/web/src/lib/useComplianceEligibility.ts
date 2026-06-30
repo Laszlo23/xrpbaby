@@ -20,9 +20,19 @@ export function useComplianceEligibility(): Eligibility | null {
       return;
     }
     const app = getAppOrigin();
-    void fetch(`${app}/api/compliance/eligibility?wallet=${address}`)
-      .then((r) => r.json())
-      .then((data: Eligibility) => setEligibility(data))
+    void fetch(`${app}/api/compliance/eligibility?wallet=${encodeURIComponent(address)}`)
+      .then(async (response) => {
+        if (!response.ok) {
+          setEligibility(null);
+          return;
+        }
+        const data = (await response.json()) as Eligibility & { ok?: boolean };
+        if (data.ok === false) {
+          setEligibility(null);
+          return;
+        }
+        setEligibility(data);
+      })
       .catch(() => setEligibility(null));
   }, [address]);
 

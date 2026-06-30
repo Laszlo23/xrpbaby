@@ -1,8 +1,14 @@
 import type { PortfolioGridProps } from "../types.js";
+import { PortfolioImage } from "./PortfolioImage.js";
 import { resolveLink } from "./link.js";
+
+function isExternalHref(href: string): boolean {
+  return href.startsWith("http") || href.startsWith("//");
+}
 
 export function PortfolioGrid({ cards, LinkComponent, onViewAllHref }: PortfolioGridProps) {
   const Link = resolveLink(LinkComponent);
+  const viewAllExternal = onViewAllHref ? isExternalHref(onViewAllHref) : false;
 
   return (
     <section id="portfolio-grid" className="bg-[hsl(0_0%_5%)] px-8 py-32">
@@ -48,10 +54,9 @@ export function PortfolioGrid({ cards, LinkComponent, onViewAllHref }: Portfolio
                 </div>
               </div>
               <div className="mb-6 aspect-[4/3] overflow-hidden">
-                <img
+                <PortfolioImage
                   src={p.heroImageUrl}
                   alt={p.headline}
-                  loading="lazy"
                   className="h-full w-full object-cover grayscale transition-all duration-[1200ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105 group-hover:grayscale-0"
                 />
               </div>
@@ -80,12 +85,23 @@ export function PortfolioGrid({ cards, LinkComponent, onViewAllHref }: Portfolio
 
       {onViewAllHref ? (
         <div className="mt-12 flex justify-center">
-          <Link
-            href={onViewAllHref}
-            className="border border-[hsl(0_0%_100%/0.1)] px-8 py-3 text-[11px] uppercase tracking-[0.2em] transition-colors hover:border-[hsl(38_25%_48%/0.6)]"
-          >
-            View full portfolio →
-          </Link>
+          {viewAllExternal ? (
+            <a
+              href={onViewAllHref}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="border border-[hsl(0_0%_100%/0.1)] px-8 py-3 text-[11px] uppercase tracking-[0.2em] transition-colors hover:border-[hsl(38_25%_48%/0.6)]"
+            >
+              View full portfolio ↗
+            </a>
+          ) : (
+            <Link
+              href={onViewAllHref}
+              className="border border-[hsl(0_0%_100%/0.1)] px-8 py-3 text-[11px] uppercase tracking-[0.2em] transition-colors hover:border-[hsl(38_25%_48%/0.6)]"
+            >
+              View full portfolio →
+            </Link>
+          )}
         </div>
       ) : null}
     </section>

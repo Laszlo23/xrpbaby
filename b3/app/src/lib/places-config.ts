@@ -19,8 +19,17 @@ export function placesTransparencyUrl(): string {
   return `${PLACES_SITE_URL.replace(/\/$/, "")}/transparency`;
 }
 
+export function placesMarketplaceUrl(): string {
+  return `${PLACES_SITE_URL.replace(/\/$/, "")}/marketplace`;
+}
+
+export function placesMarketplacePropertyUrl(propertyId: number): string {
+  return `${placesMarketplaceUrl()}/${propertyId}`;
+}
+
+/** Full catalog on the Places site (canonical /marketplace — /properties redirects). */
 export function placesFullPortfolioUrl(): string {
-  return `${PLACES_SITE_URL.replace(/\/$/, "")}/properties`;
+  return placesMarketplaceUrl();
 }
 
 export function appPropertyDetailPath(propertyId: number): string {

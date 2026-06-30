@@ -1,39 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { useMemo } from "react";
 import {
-  FEATURED_PROPERTY_IDS,
   PortfolioGrid,
   PortfolioMarquee,
-  buildPortfolioCard,
   buildPortfolioMarqueeStats,
-  getCatalogEntry,
 } from "@bc/places-portfolio";
 
+import { FeaturedPortfolioStrip } from "@/components/portfolio/FeaturedPortfolioStrip";
 import { NextPortfolioLink } from "@/components/portfolio/NextPortfolioLink";
-import { getPlacesMediaOrigin } from "@/lib/places-origins";
-import { usePropertyShareList } from "@/lib/usePropertyShareList";
+import { useFeaturedPortfolioCards } from "@/components/portfolio/useFeaturedPortfolioCards";
+import Link from "next/link";
 
 export function HomePortfolioSection() {
-  const mediaOrigin = getPlacesMediaOrigin();
-  const { chainRows } = usePropertyShareList();
-
-  const cards = useMemo(() => {
-    return FEATURED_PROPERTY_IDS.map((propertyId) => {
-      const row = chainRows.find((r) => r.id === BigInt(propertyId));
-      const sharesLabel = row
-        ? `${getCatalogEntry(propertyId)?.symbol ?? row.symbol} · on-chain`
-        : `${getCatalogEntry(propertyId)?.symbol ?? "OG"} · on-chain`;
-
-      return buildPortfolioCard({
-        propertyId,
-        placesSiteOrigin: mediaOrigin,
-        detailHref: `/marketplace/${propertyId}`,
-        sharesLabel,
-      });
-    }).filter(Boolean) as NonNullable<ReturnType<typeof buildPortfolioCard>>[];
-  }, [chainRows, mediaOrigin]);
+  const cards = useFeaturedPortfolioCards("/marketplace");
 
   return (
     <section className="places-portfolio relative z-10 overflow-hidden rounded-2xl border border-white/[0.08] bg-[hsl(0_0%_5%)]">

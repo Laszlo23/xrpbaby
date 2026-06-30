@@ -14,6 +14,7 @@ import { CommunityOwnershipSection } from "@/components/home/CommunityOwnershipS
 import { HomeFinalCta } from "@/components/home/HomeFinalCta";
 import { HomeDisclaimerStrip } from "@/components/home/HomeDisclaimerStrip";
 import { HomeFeaturedProperties } from "@/components/home/HomeFeaturedProperties";
+import { HomePortfolioEditorialBand } from "@/components/portfolio/HomePortfolioEditorialBand";
 import { HomeHowItWorksSimple } from "@/components/home/HomeHowItWorksSimple";
 import { CulturalEcosystemFlow } from "@/components/home/CulturalEcosystemFlow";
 import { RealWorldOnChainSection } from "@/components/home/RealWorldOnChainSection";
@@ -79,6 +80,8 @@ export default function Home() {
             propertiesOnboarded={platform.propertiesFunded}
           />
         </div>
+
+        <HomePortfolioEditorialBand />
 
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
           <ButtonLink href="/culture-land">Explore Culture Land portfolio</ButtonLink>

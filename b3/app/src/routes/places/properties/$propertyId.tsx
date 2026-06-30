@@ -15,25 +15,39 @@ import "@bc/places-portfolio/theme.css";
 import { useLinkedWalletAddress } from "@/hooks/useLinkedWalletAddress";
 import { chainlinkComplianceCopy } from "@/lib/chainlink-compliance-copy";
 import { complianceHint } from "@/lib/compliance-eligibility-copy";
+import {
+  fetchComplianceEligibility,
+  type ComplianceEligibilityResponse,
+} from "@/lib/fetch-compliance-eligibility";
 import { getPublicAppOrigin } from "@/lib/app-origin";
 import {
   PLACES_SITE_URL,
-  appPropertyDetailPath,
   placesInvestUrl,
+  placesMarketplacePropertyUrl,
   placesTradeUrl,
   placesTransparencyUrl,
 } from "@/lib/places-config";
 import { pageHead } from "@/lib/seo";
 
-type Eligibility = {
-  canHoldRestrictedShares?: boolean;
-  status?: string;
-};
+type Eligibility = ComplianceEligibilityResponse;
 
 function RouterPortfolioLink({ href, className, style, children }: PortfolioLinkProps) {
-  if (href.startsWith("http") || href.startsWith("#")) {
+  if (href.startsWith("#")) {
     return (
       <a href={href} className={className} style={style}>
+        {children}
+      </a>
+    );
+  }
+  if (href.startsWith("http") || href.startsWith("//")) {
+    return (
+      <a
+        href={href}
+        className={className}
+        style={style}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
         {children}
       </a>
     );
@@ -72,10 +86,7 @@ function PlacesPropertyDetailPage() {
       setEligibility(null);
       return;
     }
-    void fetch(`/api/compliance/eligibility?wallet=${address}`)
-      .then((r) => r.json())
-      .then((data: Eligibility) => setEligibility(data))
-      .catch(() => setEligibility(null));
+    void fetchComplianceEligibility(address).then(setEligibility);
   }, [address]);
 
   const galleryUrls = useMemo(() => {
@@ -177,11 +188,12 @@ function PlacesPropertyDetailPage() {
         transparencyHref={placesTransparencyUrl()}
         matrixHref={chainlinkComplianceCopy.matrixHref}
         appPlacesHref="/places"
+        LinkComponent={RouterPortfolioLink}
       />
 
       <div className="border-t border-[hsl(0_0%_100%/0.1)] px-8 py-10 text-center">
         <a
-          href={`${PLACES_SITE_URL}/properties/${propertyId}`}
+          href={placesMarketplacePropertyUrl(propertyId)}
           target="_blank"
           rel="noreferrer noopener"
           className="pp-mono text-[11px] uppercase tracking-[0.2em] text-[hsl(38_25%_48%)] hover:underline"

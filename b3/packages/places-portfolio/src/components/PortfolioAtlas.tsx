@@ -52,7 +52,7 @@ export function PortfolioAtlas({ markers, detailHrefForId, LinkComponent }: Prop
               <div className="relative">
                 <div className="size-2 rounded-full bg-[hsl(38_25%_48%)] shadow-[0_0_20px_rgba(170,140,90,0.8)]" />
                 <div className="pp-pulse absolute inset-0 size-2 rounded-full bg-[hsl(38_25%_48%)]" />
-                <span className="pp-mono absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] uppercase tracking-widest text-[hsl(38_25%_48%)]">
+                <span className="pp-mono absolute left-4 top-1/2 max-w-[min(140px,38vw)] -translate-y-1/2 truncate text-[9px] uppercase tracking-widest text-[hsl(38_25%_48%)] sm:max-w-none sm:whitespace-nowrap sm:text-[10px]">
                   {m.label}
                 </span>
               </div>

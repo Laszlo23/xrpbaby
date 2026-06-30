@@ -55,7 +55,7 @@ DEPLOY_HOST="$DEPLOY_HOST" DEPLOY_PATH="$DEPLOY_PATH" APP_PORT="$APP_PORT" SSH_K
 SSH_OPTS=( -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes )
 rsync -avz -e "ssh ${SSH_OPTS[*]}" "$DEPLOY_ENV" "$DEPLOY_HOST:$DEPLOY_PATH/app/.env"
 
-echo "==> Remote: merge Grove env + recreate web on port $APP_PORT"
+echo "==> Remote: merge Grove env + recreate stack (postgres + web) on port $APP_PORT"
 ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes "$DEPLOY_HOST" bash -s -- "$DEPLOY_PATH" "$APP_PORT" <<'REMOTE'
 set -euo pipefail
 RDIR="$1"
@@ -65,7 +65,9 @@ grep -q '^GROVE_MARKETING_ADMIN_SECRET=' "$ENV" || {
   echo "warn: GROVE_MARKETING_ADMIN_SECRET missing on server — copy from deploy/.env"
 }
 cd "$RDIR"
-APP_PORT="$PORT" docker compose -f app/docker-compose.stack.yml --env-file app/.env up -d --force-recreate web
+# Remove legacy standalone web container (outside compose network — causes 502 when postgres is down).
+docker rm -f buildingculture-web 2>/dev/null || true
+APP_PORT="$PORT" docker compose -f app/docker-compose.stack.yml --env-file app/.env up -d --force-recreate postgres web
 REMOTE
 
 # shellcheck disable=SC1090

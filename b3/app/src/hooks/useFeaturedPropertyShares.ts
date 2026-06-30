@@ -19,36 +19,34 @@ export function useFeaturedPropertyShares(): {
   stats: FeaturedShareStat[];
   loading: boolean;
 } {
-  const contracts = useMemo(
+  const indexedContracts = useMemo(
     () =>
-      FEATURED_PROPERTY_IDS.map((id) => {
-        const entry = getCatalogEntry(id);
+      FEATURED_PROPERTY_IDS.map((propertyId) => {
+        const entry = getCatalogEntry(propertyId);
         const token = entry?.shareToken as `0x${string}` | undefined;
-        return token
-          ? ({
-              chainId: PLACES_CHAIN_ID,
-              address: token,
-              abi: erc20Abi,
-              functionName: "totalSupply" as const,
-            } as const)
-          : null;
-      }).filter(Boolean),
+        if (!token) return null;
+        return {
+          propertyId,
+          contract: {
+            chainId: PLACES_CHAIN_ID,
+            address: token,
+            abi: erc20Abi,
+            functionName: "totalSupply" as const,
+          } as const,
+        };
+      }).filter((row): row is NonNullable<typeof row> => row != null),
     [],
   );
 
   const { data, isPending } = useReadContracts({
-    contracts: contracts as {
-      chainId: number;
-      address: `0x${string}`;
-      abi: typeof erc20Abi;
-      functionName: "totalSupply";
-    }[],
+    contracts: indexedContracts.map((row) => row.contract),
     query: { staleTime: 60_000 },
   });
 
   const stats = useMemo(() => {
-    return FEATURED_PROPERTY_IDS.map((propertyId, index) => {
-      const row = data?.[index];
+    return FEATURED_PROPERTY_IDS.map((propertyId) => {
+      const contractIndex = indexedContracts.findIndex((row) => row.propertyId === propertyId);
+      const row = contractIndex >= 0 ? data?.[contractIndex] : undefined;
       const totalSupply =
         row?.status === "success" && typeof row.result === "bigint" ? row.result : null;
       const issued = totalSupply ?? 0n;
@@ -58,7 +56,7 @@ export function useFeaturedPropertyShares(): {
           : `${getCatalogEntry(propertyId)?.symbol ?? "OG"} · on-chain`;
       return { propertyId, totalSupply, sharesLabel };
     });
-  }, [data]);
+  }, [data, indexedContracts]);
 
   return { stats, loading: isPending && !data };
 }

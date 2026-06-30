@@ -19,16 +19,22 @@ test.describe("RWA compliance flows", () => {
     expect(data.chainlink?.matrixDoc).toContain("CHAINLINK");
   });
 
-  test("places portfolio hub loads editorial grid and Berggasse", async ({ page }) => {
+  test("places portfolio hub loads editorial grid with four properties", async ({ page }) => {
     await page.goto("/places");
     await expect(page.getByRole("heading", { name: /Own heritage/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /Berggasse flagship/i })).toBeVisible();
     await expect(page.getByText(/Chainlink RWA alignment/i).first()).toBeVisible();
+
+    const grid = page.locator("#portfolio-grid article");
+    await expect(grid).toHaveCount(4);
     await expect(page.getByText(/Berggasse/i).first()).toBeVisible();
+    await expect(page.getByText(/Jagdschlossgasse|Jagdschloss/i).first()).toBeVisible();
   });
 
-  test("places property detail shows REOC and Chainlink strip", async ({ page }) => {
-    await page.goto("/places/properties/1");
+  test("places Berggasse card links to property detail", async ({ page }) => {
+    await page.goto("/places");
+    await page.locator("#portfolio-grid article").first().click();
+    await expect(page).toHaveURL(/\/places\/properties\/1$/);
     await expect(page.getByRole("heading", { name: /Berggasse/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /REOC metadata JSON/i })).toBeVisible();
     await expect(page.getByText(/Chainlink RWA alignment/i).first()).toBeVisible();

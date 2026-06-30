@@ -1,5 +1,9 @@
 export {
   FEATURED_PROPERTY_IDS,
+  type FeaturedPropertyId,
+} from "./featured.js";
+
+export {
   REFERENCE_YIELD_BAND,
   PROPERTY_CATALOG,
   PORTFOLIO_PRESENTATIONS,
@@ -41,4 +45,5 @@ export { PortfolioGrid } from "./components/PortfolioGrid.js";
 export { PortfolioAtlas } from "./components/PortfolioAtlas.js";
 export { PortfolioChainlinkStrip } from "./components/PortfolioChainlinkStrip.js";
 export { PortfolioDetailHero } from "./components/PortfolioDetailHero.js";
+export { PortfolioImage } from "./components/PortfolioImage.js";
 export { DefaultPortfolioLink, resolveLink } from "./components/link.js";

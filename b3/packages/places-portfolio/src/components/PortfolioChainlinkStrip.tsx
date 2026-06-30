@@ -1,5 +1,6 @@
 import { basescanAddress } from "../chainlink-modules.js";
 import type { PortfolioChainlinkStripProps } from "../types.js";
+import { resolveLink } from "./link.js";
 
 export function PortfolioChainlinkStrip({
   modules,
@@ -9,12 +10,15 @@ export function PortfolioChainlinkStrip({
   transparencyHref,
   matrixHref,
   appPlacesHref,
+  LinkComponent,
 }: PortfolioChainlinkStripProps) {
+  const Link = resolveLink(LinkComponent);
+
   return (
     <section className="border-t border-[hsl(0_0%_100%/0.1)] bg-[hsl(0_0%_5%)] px-8 py-20">
       <div className="mx-auto max-w-6xl">
         <span className="pp-mono mb-4 block text-[10px] uppercase tracking-[0.3em] text-[hsl(38_25%_48%)]">
-          Chainlink RWA alignment
+          RWA compliance
         </span>
         <h2 className="pp-display text-3xl tracking-tight md:text-4xl">{complianceHeadline}</h2>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[hsl(30_10%_92%/0.5)]">
@@ -66,9 +70,12 @@ export function PortfolioChainlinkStrip({
             </a>
           ) : null}
           {appPlacesHref ? (
-            <a href={appPlacesHref} className="text-[hsl(30_10%_92%/0.5)] hover:text-[hsl(30_15%_92%)]">
+            <Link
+              href={appPlacesHref}
+              className="text-[hsl(30_10%_92%/0.5)] hover:text-[hsl(30_15%_92%)]"
+            >
               Unified Places hub
-            </a>
+            </Link>
           ) : null}
         </div>
       </div>

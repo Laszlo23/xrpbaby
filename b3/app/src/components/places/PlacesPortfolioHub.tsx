@@ -21,6 +21,10 @@ import { useLinkedWalletAddress } from "@/hooks/useLinkedWalletAddress";
 import { useFeaturedPropertyShares } from "@/hooks/useFeaturedPropertyShares";
 import { chainlinkComplianceCopy } from "@/lib/chainlink-compliance-copy";
 import { complianceHint, complianceStatusLabel } from "@/lib/compliance-eligibility-copy";
+import {
+  fetchComplianceEligibility,
+  type ComplianceEligibilityResponse,
+} from "@/lib/fetch-compliance-eligibility";
 import { platformModules } from "@/lib/modules";
 import {
   PLACES_SITE_URL,
@@ -30,18 +34,25 @@ import {
 } from "@/lib/places-config";
 import { getPublicAppOrigin } from "@/lib/app-origin";
 
-type Eligibility = {
-  ok?: boolean;
-  configured?: boolean;
-  status?: string;
-  canHoldRestrictedShares?: boolean;
-  placesUrl?: string;
-};
+type Eligibility = ComplianceEligibilityResponse;
 
 function RouterPortfolioLink({ href, className, style, children }: PortfolioLinkProps) {
-  if (href.startsWith("http") || href.startsWith("#")) {
+  if (href.startsWith("#")) {
     return (
       <a href={href} className={className} style={style}>
+        {children}
+      </a>
+    );
+  }
+  if (href.startsWith("http") || href.startsWith("//")) {
+    return (
+      <a
+        href={href}
+        className={className}
+        style={style}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
         {children}
       </a>
     );
@@ -63,10 +74,7 @@ export function PlacesPortfolioHub() {
       setEligibility(null);
       return;
     }
-    void fetch(`/api/compliance/eligibility?wallet=${address}`)
-      .then((r) => r.json())
-      .then((data: Eligibility) => setEligibility(data))
-      .catch(() => setEligibility(null));
+    void fetchComplianceEligibility(address).then(setEligibility);
   }, [address]);
 
   const cards = useMemo(() => {
@@ -137,6 +145,7 @@ export function PlacesPortfolioHub() {
           transparencyHref={placesTransparencyUrl()}
           matrixHref={chainlinkComplianceCopy.matrixHref}
           appPlacesHref="/places"
+          LinkComponent={RouterPortfolioLink}
         />
 
         <section className="border-t border-[hsl(0_0%_100%/0.1)] px-8 py-16">

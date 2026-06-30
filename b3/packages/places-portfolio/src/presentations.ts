@@ -1,7 +1,8 @@
 import type { PortfolioPresentation, PropertyCatalog, PropertyCatalogEntry } from "./types.js";
 import catalogJson from "./data/property-catalog.json";
+import { FEATURED_PROPERTY_IDS } from "./featured.js";
 
-export const FEATURED_PROPERTY_IDS = [1, 2, 4, 5] as const;
+export { FEATURED_PROPERTY_IDS } from "./featured.js";
 
 export const REFERENCE_YIELD_BAND = "7–10%";
 

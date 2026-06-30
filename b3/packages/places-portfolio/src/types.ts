@@ -100,6 +100,7 @@ export type PortfolioChainlinkStripProps = {
   transparencyHref?: string;
   matrixHref?: string;
   appPlacesHref?: string;
+  LinkComponent?: ComponentType<PortfolioLinkProps>;
 };
 
 export type PortfolioDetailHeroProps = {

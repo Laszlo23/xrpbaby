@@ -10,7 +10,7 @@ import { PropertyCardSkeleton } from "@/components/PropertyCardSkeleton";
 import { TrustSection } from "@/components/TrustSection";
 import { FilterBar, type FilterState } from "@/components/rwa/FilterBar";
 import { MarketplaceHero } from "@/components/rwa/MarketplaceHero";
-import { FEATURED_PROPERTY_IDS } from "@/lib/featured-listings";
+import { MarketplaceFeaturedPortfolio } from "@/components/portfolio/MarketplaceFeaturedPortfolio";
 import { getEstimatedYieldPercent } from "@/lib/demo-properties";
 import { getFundingStats, getGlobalFundingMeter } from "@/lib/funding-stats";
 import {
@@ -105,11 +105,6 @@ function MarketplaceBrowseContent() {
     return rows;
   }, [enriched, selectedMarket, primaryStrict, filters]);
 
-  const featuredRows = useMemo(
-    () => enriched.filter((r) => FEATURED_PROPERTY_IDS.includes(r.id.toString())),
-    [enriched],
-  );
-
   const countries = useMemo(() => {
     const set = new Set<string>();
     for (const r of enriched) {
@@ -203,24 +198,7 @@ function MarketplaceBrowseContent() {
         </p>
       ) : (
         <>
-          {featuredRows.length > 0 ? (
-            <section className="space-y-4">
-              <h2 className="font-display text-xl font-semibold text-white">Featured</h2>
-              <div className="flex gap-4 overflow-x-auto pb-2">
-                {featuredRows.map((row) => (
-                  <div key={row.tokenAddress} className="min-w-[280px] max-w-[320px] shrink-0">
-                    <PropertyCard
-                      propertyId={row.id}
-                      tokenAddress={row.tokenAddress}
-                      name={row.name}
-                      symbol={row.symbol}
-                      demo={row.demo}
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-          ) : null}
+          <MarketplaceFeaturedPortfolio />
 
           <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
             <FilterBar filters={filters} onChange={setFilters} countries={countries} cities={cities} />

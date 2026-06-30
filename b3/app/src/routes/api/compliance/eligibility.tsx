@@ -21,9 +21,16 @@ export type ComplianceEligibility = {
   };
 };
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+} as const;
+
 export const Route = createFileRoute("/api/compliance/eligibility")({
   server: {
     handlers: {
+      OPTIONS: async () => new Response(null, { status: 204, headers: corsHeaders }),
       GET: async ({ request }) => {
         const url = new URL(request.url);
         const wallet = url.searchParams.get("wallet")?.trim();
@@ -104,6 +111,10 @@ export const Route = createFileRoute("/api/compliance/eligibility")({
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { "Content-Type": "application/json", "Cache-Control": "private, max-age=15" },
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "private, max-age=15",
+      ...corsHeaders,
+    },
   });
 }

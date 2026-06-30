@@ -14,5 +14,6 @@
     "resolveJsonModule": true,
     "noEmit": false
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"],
+  "exclude": ["src/**/*.test.ts"]
 }

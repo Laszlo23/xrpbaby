@@ -12,6 +12,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./featured": {
+      "types": "./dist/featured.d.ts",
+      "import": "./dist/featured.js",
+      "default": "./dist/featured.js"
+    },
     "./theme.css": "./src/placesPortfolioTheme.css"
   },
   "scripts": {
