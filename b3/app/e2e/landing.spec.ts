@@ -55,6 +55,14 @@ test.describe("landing flow", () => {
     await expect(page.locator("#join").getByText(/valid email/i)).toBeVisible();
   });
 
+  test("places section surfaces REOC spotlight and CTA", async ({ page }) => {
+    await page.goto("/#places");
+    await expect(page.locator("#places")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("link", { name: /Explore Places/i }).first()).toBeVisible();
+    await expect(page.getByText(/PLACES · RWA/i)).toBeVisible();
+    await expect(page.getByText(/tokenized real estate/i).first()).toBeVisible();
+  });
+
   test("culture layer explorer shows sub-items and navigates", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { name: /Who are you/i })).toBeVisible();

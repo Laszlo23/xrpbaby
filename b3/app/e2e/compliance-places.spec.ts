@@ -19,16 +19,24 @@ test.describe("RWA compliance flows", () => {
     expect(data.chainlink?.matrixDoc).toContain("CHAINLINK");
   });
 
-  test("places hub loads with invest links", async ({ page }) => {
+  test("places portfolio hub loads editorial grid and Berggasse", async ({ page }) => {
     await page.goto("/places");
-    await expect(page.getByRole("heading", { name: /Own the Future/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /RWA Marketplace/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /Transparency/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Own heritage/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Berggasse flagship/i })).toBeVisible();
+    await expect(page.getByText(/Chainlink RWA alignment/i).first()).toBeVisible();
+    await expect(page.getByText(/Berggasse/i).first()).toBeVisible();
+  });
+
+  test("places property detail shows REOC and Chainlink strip", async ({ page }) => {
+    await page.goto("/places/properties/1");
+    await expect(page.getByRole("heading", { name: /Berggasse/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /REOC metadata JSON/i })).toBeVisible();
+    await expect(page.getByText(/Chainlink RWA alignment/i).first()).toBeVisible();
   });
 
   test("investors page shows Chainlink compliance strip", async ({ page }) => {
     await page.goto("/investors");
-    await expect(page.getByText(/Chainlink RWA alignment/i)).toBeVisible();
+    await expect(page.getByText(/Chainlink RWA alignment/i).first()).toBeVisible();
     await expect(page.getByRole("link", { name: /Places transparency/i })).toBeVisible();
   });
 });

@@ -27,6 +27,8 @@ frontend/docker/dotenv-for-build
 # Test and build artifacts
 test-results/
 **/test-results/
+playwright-report/
+**/playwright-report/
 contracts/out/
 apps/**/out/
 apps/**/cache/

@@ -5,7 +5,7 @@ const empty = path.join(process.cwd(), "src/shims/npm-empty.js");
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  transpilePackages: ["@bc/culture-auth", "@bc/bcc-kit"],
+  transpilePackages: ["@bc/culture-auth", "@bc/bcc-kit", "@bc/places-portfolio"],
   experimental: {
     optimizePackageImports: ["recharts"],
   },

@@ -2,6 +2,31 @@
 
 One app, one story: community, drops, onchain identity, and real-estate tokenization — with clear separation between **Play drops**, **NFT marketplace**, and **Places (REOC) securities**.
 
+## What this repo is
+
+**Building Culture** is a community-owned growth platform on **Base**: Culture Layer identity (`.culture` names), quests and points, experience drops, NFT marketplace, investor surfaces, and **fractional real estate (REOC)** via Places. The unified TanStack app at [`app/`](app/) is production; satellite apps extend contracts and specialized UIs.
+
+```mermaid
+flowchart LR
+  App[app TanStack SSR]
+  PlacesApp[apps/places Next.js]
+  Packages[packages e.g. places-portfolio]
+  Contracts[contracts + places Foundry]
+  App -->|"/places hub"| PlacesApp
+  App --> Packages
+  PlacesApp --> Contracts
+```
+
+## Three product lanes (where to click)
+
+| Lane | Route | You get |
+|------|-------|---------|
+| **Play** | [`/play`](https://app.buildingcultureid.space/play) | Experience/raffle drops — stays, art, venues (not property shares) |
+| **Marketplace** | [`/marketplace`](https://app.buildingcultureid.space/marketplace) | ERC-721 secondary NFT market |
+| **Places** | [`/places`](https://app.buildingcultureid.space/places) | REOC property portfolio hub → full invest/trade at [places.buildingcultureid.space](https://places.buildingcultureid.space) |
+
+Story landing (`/`) mounts **Places · RWA** spotlight; Forest ecosystem lists the Places module when `VITE_MODULE_PLACES` is on (default).
+
 ## Production URLs
 
 | URL | What you get |
@@ -43,8 +68,19 @@ cd contracts && forge test --match-contract AgentId
 | [`apps/art/contracts/`](apps/art/contracts/) | Art drop hub contracts (UI in `app/` at `/drops/art`) |
 | [`contracts/`](contracts/) | BCC, raffles (`RaffleTicketCampaignVrf` for Chainlink VRF) |
 | [`cms/`](cms/) | Strapi CMS |
-| [`packages/`](packages/) | Shared `@bc/*` SDKs |
+| [`packages/places-portfolio/`](packages/places-portfolio/) | Shared `@bc/places-portfolio` — Places hub UI (hero, grid, Chainlink strip) for `app` + `apps/places/web` |
+| [`packages/`](packages/) | Other shared `@bc/*` SDKs (identity, culture-auth, contracts-sdk, …) |
 | [`docs/`](docs/) | Runbooks — [docs/README.md](docs/README.md) |
+
+### Satellite apps
+
+| Path | Role |
+|------|------|
+| [`apps/bc-mobile/`](apps/bc-mobile/) | Capacitor shell (WebView → production URL) |
+| [`apps/Ankommen/`](apps/Ankommen/) | Newcomer AI companion (Austria) |
+| [`onboarding/`](onboarding/) | **Deprecated** CRA stack — see `onboarding/DEPRECATED.md` |
+
+**Legacy landing (archive):** historical CRA repo `buildingculturelanding-main` — do not deploy; canonical UI is `app/` at `/`.
 
 ## Quick start (local)
 
@@ -101,3 +137,9 @@ Full gate: `cd app && npm run test:all` (lint, typecheck, build, unit, all e2e).
 Places targets **REOC profile D**: uRWA transfer checks, DTA subscribe/redeem, NAV oracle adapter, PoR mint caps. Partner onboarding: [CHAINLINK_PARTNER_ONBOARDING.md](docs/CHAINLINK_PARTNER_ONBOARDING.md).
 
 Do **not** claim full Chainlink ACE/DTA certification until partner sandbox + audit evidence is published.
+
+## Deprecated / removed paths
+
+- **`onboarding/`** — old CRA+FastAPI landing; use `app/` at `/`
+- **`newrwa/`**, **`placesmarket/`** — Lovable stubs (removed); use `apps/places` and `/places`
+- Root artifacts `ecorwa.zip`, `home-meta.png` — removed (stale)

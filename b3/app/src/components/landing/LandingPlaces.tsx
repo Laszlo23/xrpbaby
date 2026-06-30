@@ -7,6 +7,7 @@ import { trackLandingEvent } from "@/lib/landing-api";
 import { PLACES_LANE } from "@/lib/landing-copy";
 import { LANDING_MEDIA, INVESTOR_DECK_PDF } from "@/lib/landing-media";
 import { fmtProofInt } from "@/lib/public-proof-format";
+import { TokenizedReportShowcase } from "@/components/landing/LandingInvestors";
 
 const PLACES_PILLARS = [
   { label: "Real Estate", desc: "Tangible assets with verified ownership" },
@@ -119,6 +120,8 @@ export function LandingPlaces() {
             </div>
           </div>
         </div>
+
+        <TokenizedReportShowcase />
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
+import "@bc/places-portfolio/theme.css";
 import { Providers } from "./providers";
 import { SiteChrome } from "@/components/SiteChrome";
 import { REFERENCE_YIELD_BAND_LABEL } from "@/lib/demo-properties";

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Compass, Sparkles, Trophy, UserRound, Users } from "lucide-react";
+import { Building2, Compass, Sparkles, Trophy, UserRound, Users } from "lucide-react";
 import { useAiCoach } from "@/contexts/AiCoachContext";
 import { BCD_SYMBOL } from "@/lib/bcd-config";
 
@@ -22,10 +22,18 @@ const tiles = [
     iconClass: "text-amber-300",
   },
   {
+    to: "/places",
+    icon: Building2,
+    title: "Places",
+    subtitle: "Tokenized property · REOC",
+    accent: "from-[rgb(196_124_89/0.18)] to-transparent",
+    iconClass: "text-[#C47C59]",
+  },
+  {
     to: "/experiences",
     icon: Compass,
     title: "Experiences",
-    subtitle: "Spotlight drops & IRL loops",
+    subtitle: "IRL drops & winner stories",
     accent: "from-cyan-500/12 to-transparent",
     iconClass: "text-cyan-300",
   },
@@ -79,7 +87,7 @@ export function CommunityPulse() {
           </span>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {tiles.map(({ to, icon: Icon, title, subtitle, accent, iconClass }) => (
             <Link
               key={to}

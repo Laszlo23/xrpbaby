@@ -44,21 +44,23 @@ export function Providers({ children }: { children: React.ReactNode }) {
         appName: "Build Culture Places",
         clientId: process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID ?? DEFAULT_PRIVY_CLIENT_ID,
         walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
-        supportedChains,
+        // culture-auth resolves viem from monorepo root; Places web may hoist a duplicate copy
+        supportedChains: supportedChains as never,
         createOnLogin: "users-without-wallets",
       }),
     [supportedChains],
   );
 
   const wagmiConfigPrivy = useMemo(
-    () => createCultureWagmiConfig({ chains: supportedChains }),
+    () =>
+      createCultureWagmiConfig({ chains: supportedChains as never }),
     [supportedChains],
   );
 
   const inner = (
     <QueryClientProvider client={queryClient}>
       {privyEnabled ? (
-        <WagmiProviderPrivy config={wagmiConfigPrivy}>
+        <WagmiProviderPrivy config={wagmiConfigPrivy as never}>
           <CultureMemberSync syncApiOrigin={SYNC_API_ORIGIN} />
           <AnalyticsRouteListener />
           {children}
@@ -79,7 +81,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <PrivyProvider appId={privyAppId} config={privyConfig}>
+    <PrivyProvider appId={privyAppId} config={privyConfig as never}>
       {inner}
     </PrivyProvider>
   );

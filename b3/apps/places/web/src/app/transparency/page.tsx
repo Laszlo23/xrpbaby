@@ -5,6 +5,11 @@ import { zeroAddress } from "viem";
 import { base } from "viem/chains";
 import { useChainId } from "wagmi";
 import { FOUNDER_VS_PROTOCOL, PROTOCOL_FEES, TREASURY_POLICY } from "@/lib/protocol-fees";
+import {
+  CHAINLINK_MODULES,
+  basescanAddress,
+} from "@bc/places-portfolio";
+import { chainlinkComplianceCopy } from "@/lib/chainlink-compliance-copy";
 import { useProtocolAddresses } from "@/lib/use-protocol-addresses";
 
 function ExplorerLink({
@@ -93,6 +98,36 @@ export default function TransparencyPage() {
           <span className="font-mono">oracle-migration-mainnet.md</span>. SimpleLendingPool is not deployed on mainnet
           until NAV + PoR gates pass.
         </p>
+        <div className="mt-6 grid gap-2 sm:grid-cols-2">
+          {CHAINLINK_MODULES.map((m) => (
+            <a
+              key={m.id}
+              href={basescanAddress(m.explorerBase, m.address)}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg border border-white/[0.08] bg-black/40 px-3 py-2 text-xs hover:border-amber-500/30"
+            >
+              <span className="text-zinc-300">{m.label}</span>
+              <span className="mt-1 block truncate font-mono text-[10px] text-gold-400">{m.address}</span>
+            </a>
+          ))}
+        </div>
+        <div className="mt-6 flex flex-wrap gap-4 text-sm">
+          <a
+            href="https://app.buildingcultureid.space/places"
+            className="font-medium text-gold-400 hover:underline"
+          >
+            Unified portfolio hub (main app) ↗
+          </a>
+          <a
+            href={chainlinkComplianceCopy.matrixHref}
+            target="_blank"
+            rel="noreferrer"
+            className="text-zinc-400 hover:text-white"
+          >
+            Compliance matrix ↗
+          </a>
+        </div>
       </section>
 
       <section className="rounded-2xl border border-white/[0.06] bg-black/30 p-6">

@@ -127,6 +127,7 @@ import { Route as MarketplaceMerchIndexRouteImport } from './routes/marketplace/
 import { Route as DaoPartnerDealsIndexRouteImport } from './routes/dao/partner-deals/index'
 import { Route as ApiPartnerDealsIndexRouteImport } from './routes/api/partner-deals/index'
 import { Route as StoriesTapesSlugRouteImport } from './routes/stories/tapes/$slug'
+import { Route as PlacesPropertiesPropertyIdRouteImport } from './routes/places/properties/$propertyId'
 import { Route as MerchClaimCodeRouteImport } from './routes/merch/claim/$code'
 import { Route as MarketplaceServicesSlugRouteImport } from './routes/marketplace/services/$slug'
 import { Route as MarketplaceMerchOpsRouteImport } from './routes/marketplace/merch/ops'
@@ -933,6 +934,12 @@ const StoriesTapesSlugRoute = StoriesTapesSlugRouteImport.update({
   path: '/stories/tapes/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlacesPropertiesPropertyIdRoute =
+  PlacesPropertiesPropertyIdRouteImport.update({
+    id: '/places/properties/$propertyId',
+    path: '/places/properties/$propertyId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const MerchClaimCodeRoute = MerchClaimCodeRouteImport.update({
   id: '/merch/claim/$code',
   path: '/merch/claim/$code',
@@ -2292,6 +2299,7 @@ export interface FileRoutesByFullPath {
   '/marketplace/merch/ops': typeof MarketplaceMerchOpsRoute
   '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
   '/merch/claim/$code': typeof MerchClaimCodeRoute
+  '/places/properties/$propertyId': typeof PlacesPropertiesPropertyIdRoute
   '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
   '/api/partner-deals/': typeof ApiPartnerDealsIndexRoute
   '/dao/partner-deals/': typeof DaoPartnerDealsIndexRoute
@@ -2622,6 +2630,7 @@ export interface FileRoutesByTo {
   '/marketplace/merch/ops': typeof MarketplaceMerchOpsRoute
   '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
   '/merch/claim/$code': typeof MerchClaimCodeRoute
+  '/places/properties/$propertyId': typeof PlacesPropertiesPropertyIdRoute
   '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
   '/api/partner-deals': typeof ApiPartnerDealsIndexRoute
   '/dao/partner-deals': typeof DaoPartnerDealsIndexRoute
@@ -2955,6 +2964,7 @@ export interface FileRoutesById {
   '/marketplace/merch/ops': typeof MarketplaceMerchOpsRoute
   '/marketplace/services/$slug': typeof MarketplaceServicesSlugRoute
   '/merch/claim/$code': typeof MerchClaimCodeRoute
+  '/places/properties/$propertyId': typeof PlacesPropertiesPropertyIdRoute
   '/stories/tapes/$slug': typeof StoriesTapesSlugRoute
   '/api/partner-deals/': typeof ApiPartnerDealsIndexRoute
   '/dao/partner-deals/': typeof DaoPartnerDealsIndexRoute
@@ -3289,6 +3299,7 @@ export interface FileRouteTypes {
     | '/marketplace/merch/ops'
     | '/marketplace/services/$slug'
     | '/merch/claim/$code'
+    | '/places/properties/$propertyId'
     | '/stories/tapes/$slug'
     | '/api/partner-deals/'
     | '/dao/partner-deals/'
@@ -3619,6 +3630,7 @@ export interface FileRouteTypes {
     | '/marketplace/merch/ops'
     | '/marketplace/services/$slug'
     | '/merch/claim/$code'
+    | '/places/properties/$propertyId'
     | '/stories/tapes/$slug'
     | '/api/partner-deals'
     | '/dao/partner-deals'
@@ -3951,6 +3963,7 @@ export interface FileRouteTypes {
     | '/marketplace/merch/ops'
     | '/marketplace/services/$slug'
     | '/merch/claim/$code'
+    | '/places/properties/$propertyId'
     | '/stories/tapes/$slug'
     | '/api/partner-deals/'
     | '/dao/partner-deals/'
@@ -4265,6 +4278,7 @@ export interface RootRouteChildren {
   DaoPartnerDealsIdRoute: typeof DaoPartnerDealsIdRoute
   DaoPartnerDealsNewRoute: typeof DaoPartnerDealsNewRoute
   MerchClaimCodeRoute: typeof MerchClaimCodeRoute
+  PlacesPropertiesPropertyIdRoute: typeof PlacesPropertiesPropertyIdRoute
   StoriesTapesSlugRoute: typeof StoriesTapesSlugRoute
   ApiPartnerDealsIndexRoute: typeof ApiPartnerDealsIndexRoute
   DaoPartnerDealsIndexRoute: typeof DaoPartnerDealsIndexRoute
@@ -5175,6 +5189,13 @@ declare module '@tanstack/react-router' {
       path: '/stories/tapes/$slug'
       fullPath: '/stories/tapes/$slug'
       preLoaderRoute: typeof StoriesTapesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/places/properties/$propertyId': {
+      id: '/places/properties/$propertyId'
+      path: '/places/properties/$propertyId'
+      fullPath: '/places/properties/$propertyId'
+      preLoaderRoute: typeof PlacesPropertiesPropertyIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/merch/claim/$code': {
@@ -7092,6 +7113,7 @@ const rootRouteChildren: RootRouteChildren = {
   DaoPartnerDealsIdRoute: DaoPartnerDealsIdRoute,
   DaoPartnerDealsNewRoute: DaoPartnerDealsNewRoute,
   MerchClaimCodeRoute: MerchClaimCodeRoute,
+  PlacesPropertiesPropertyIdRoute: PlacesPropertiesPropertyIdRoute,
   StoriesTapesSlugRoute: StoriesTapesSlugRoute,
   ApiPartnerDealsIndexRoute: ApiPartnerDealsIndexRoute,
   DaoPartnerDealsIndexRoute: DaoPartnerDealsIndexRoute,

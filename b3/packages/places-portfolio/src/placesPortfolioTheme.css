@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap");
+
+.places-portfolio {
+  --pp-background: hsl(0 0% 5%);
+  --pp-foreground: hsl(30 15% 92%);
+  --pp-primary: hsl(38 25% 48%);
+  --pp-muted: hsl(30 10% 92% / 0.5);
+  --pp-border: hsl(0 0% 100% / 0.1);
+  --pp-font-display: "Playfair Display", serif;
+  --pp-font-body: "Inter", sans-serif;
+  --pp-font-mono: "JetBrains Mono", monospace;
+  background: var(--pp-background);
+  color: var(--pp-foreground);
+  font-family: var(--pp-font-body);
+}
+
+.places-portfolio .pp-display {
+  font-family: var(--pp-font-display);
+}
+
+.places-portfolio .pp-mono {
+  font-family: var(--pp-font-mono);
+}
+
+.places-portfolio .pp-animate-reveal {
+  animation: pp-reveal-up 0.9s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@keyframes pp-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pp-soft-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.places-portfolio .pp-pulse {
+  animation: pp-soft-pulse 2.4s ease-out infinite;
+}

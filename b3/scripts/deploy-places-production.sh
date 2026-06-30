@@ -40,6 +40,9 @@ rsync -avz --delete -e "$RSYNC_SSH" \
 rsync -avz --delete -e "$RSYNC_SSH" \
   --exclude 'node_modules' \
   "$ROOT/packages/culture-auth/" "${DEPLOY_HOST}:${REMOTE_ROOT}/packages/culture-auth/"
+rsync -avz --delete -e "$RSYNC_SSH" \
+  --exclude 'node_modules' --exclude 'dist' \
+  "$ROOT/packages/places-portfolio/" "${DEPLOY_HOST}:${REMOTE_ROOT}/packages/places-portfolio/"
 rsync -avz -e "$RSYNC_SSH" \
   "$ROOT/apps/places/data/" "${DEPLOY_HOST}:${REMOTE_ROOT}/apps/places/data/"
 rsync -avz -e "$RSYNC_SSH" \

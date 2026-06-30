@@ -39,6 +39,7 @@ import { usePropertyShareList } from "@/lib/usePropertyShareList";
 import { PropertyWatchlistButton } from "@/components/rwa/PropertyWatchlistButton";
 import { VerifiedBadge } from "@/components/rwa/VerifiedBadge";
 import { getSiteUrl } from "@/lib/site-url";
+import { PropertyEditorialHeroBand } from "@/components/portfolio/PropertyEditorialHeroBand";
 import { track } from "@/lib/analytics";
 
 export default function PropertyDetailPage() {
@@ -184,6 +185,7 @@ export default function PropertyDetailPage() {
           }
         />
       ) : null}
+      <PropertyEditorialHeroBand propertyId={Number(idStr)} />
       <div className="group relative overflow-hidden rounded-3xl border border-white/[0.08]">
         <div className="relative w-full bg-zinc-900">
           {demo ? (

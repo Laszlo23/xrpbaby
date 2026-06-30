@@ -8,6 +8,7 @@ import { LandingEcosystemFlow } from "@/components/landing/LandingEcosystemFlow"
 import { LandingWhyNow } from "@/components/landing/LandingWhyNow";
 import { LandingFounderTimeline } from "@/components/landing/LandingFounderTimeline";
 import { LandingProducts } from "@/components/landing/LandingProducts";
+import { LandingPlaces } from "@/components/landing/LandingPlaces";
 import { LandingSuccessStories } from "@/components/landing/LandingSuccessStories";
 import { LandingEcosystemTeaser } from "@/components/landing/LandingEcosystemTeaser";
 import { LandingFinalCta } from "@/components/landing/LandingFinalCta";
@@ -49,6 +50,7 @@ export function LandingPage() {
           <LandingCultureIdExample />
           <LandingEcosystemFlow />
           <LandingProducts />
+          <LandingPlaces />
           <LandingWhyNow />
           <LandingSuccessStories />
           <LandingFounderTimeline />

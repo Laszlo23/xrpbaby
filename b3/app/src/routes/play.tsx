@@ -10,6 +10,7 @@ import { HomeRwaDropsSection } from "@/components/HomeRwaDropsSection";
 import { HomeLivePulse } from "@/components/HomeLivePulse";
 import { SectionErrorBoundary } from "@/components/SectionErrorBoundary";
 import { SpinningWellPanel } from "@/components/play/SpinningWellPanel";
+import { PlayPlacesBand } from "@/components/play/PlayPlacesBand";
 
 export const Route = createFileRoute("/play")({
   head: () =>
@@ -44,6 +45,9 @@ function PlayPage() {
       </SectionErrorBoundary>
       <SectionErrorBoundary label="RWA drops">
         <HomeRwaDropsSection />
+      </SectionErrorBoundary>
+      <SectionErrorBoundary label="Places lane">
+        <PlayPlacesBand />
       </SectionErrorBoundary>
       <SectionErrorBoundary label="Live pulse">
         <HomeLivePulse />

@@ -4,6 +4,15 @@ Living tracker for the unified TanStack app. Update when closing or discovering 
 
 Strategic companion: [ECOSYSTEM_GOALS_AND_ROADMAP.md](./ECOSYSTEM_GOALS_AND_ROADMAP.md). Every open item below should map to an ecosystem KPI or objective.
 
+## Fixed (2026-06-30 — Places spotlight + cleanup)
+
+- **`@bc/places-portfolio`** package — shared REOC hub UI (hero, grid, Chainlink strip, property catalog)
+- **`/places`** portfolio hub + **`/places/properties/$id`** detail in unified app
+- **Landing `/`** — `LandingPlaces` section mounted (RWA spotlight, tokenized report, CTAs to `/places` and `/investors`)
+- **`/play`** — Places band clarifies drops vs property shares; hero REAL ESTATE slide adds Explore Places CTA; CommunityPulse includes Places tile
+- Removed Lovable stubs `newrwa/`, `placesmarket/` and root zip/png artifacts
+- README architecture map + deprecated paths documented
+
 ## Fixed (2026-06-05 cleanup wave)
 
 - Satellite SPAs removed (`apps/eco`, `apps/hub`, `apps/signal`, `onboarding/frontend`, `apps/founding/frontend`); contract trees kept at `apps/identity/contracts`, `apps/art/contracts`

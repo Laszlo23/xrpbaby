@@ -34,7 +34,7 @@ const REPORT_HIGHLIGHTS = [
   { Icon: LineChart, label: "Market outlook" },
 ] as const;
 
-function TokenizedReportShowcase() {
+export function TokenizedReportShowcase() {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   const openPreview = () => {

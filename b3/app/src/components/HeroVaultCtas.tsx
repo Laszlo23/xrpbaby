@@ -2,7 +2,11 @@ import { Link } from "@tanstack/react-router";
 import { useGenesisVaultHighestTier } from "@/hooks/useGenesisVaultHighestTier";
 
 /** Hero primary CTAs + optional hint when no Genesis vault pass detected. */
-export function HeroVaultCtas(props: { onBeginJourney?: () => void }) {
+export function HeroVaultCtas(props: {
+  onBeginJourney?: () => void;
+  /** When true (REAL ESTATE carousel slide), surface Places hub alongside vault CTAs. */
+  showPlacesCta?: boolean;
+}) {
   const { holdsAny, isPending } = useGenesisVaultHighestTier();
   const onBegin = props.onBeginJourney;
 
@@ -21,6 +25,14 @@ export function HeroVaultCtas(props: { onBeginJourney?: () => void }) {
         >
           View live drops
         </a>
+        {props.showPlacesCta ? (
+          <Link
+            to="/places"
+            className="inline-flex items-center justify-center rounded-full border border-amber-500/35 bg-amber-500/10 px-7 py-3 text-sm font-medium text-amber-50 backdrop-blur-md transition hover:border-amber-500/50 hover:bg-amber-500/18 active:scale-[0.98]"
+          >
+            Explore Places
+          </Link>
+        ) : null}
         {onBegin ? (
           <button
             type="button"

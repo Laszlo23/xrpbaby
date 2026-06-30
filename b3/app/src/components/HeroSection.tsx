@@ -559,7 +559,10 @@ export function HeroSection() {
                           ))}
                         </div>
 
-                        <HeroVaultCtas onBeginJourney={() => setIntentOpen(true)} />
+                        <HeroVaultCtas
+                          onBeginJourney={() => setIntentOpen(true)}
+                          showPlacesCta={slide.eyebrow === "REAL ESTATE"}
+                        />
                       </div>
 
                       <HeroHudAside

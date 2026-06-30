@@ -5,6 +5,7 @@ import { WalletAccountMenu } from "@/components/wallet/WalletAccountMenu";
 import { useWalletSession } from "@/hooks/useWalletSession";
 import { AnimatePresence, motion } from "@/components/landing/motion";
 import {
+  Building2,
   Fingerprint,
   Layers,
   Menu,
@@ -20,6 +21,7 @@ import { LANDING_MEDIA } from "@/lib/landing-media";
 
 const NAV_ITEMS: { label: string; href: string; icon: LucideIcon; external?: boolean }[] = [
   { label: "Identity", href: "/pass", icon: Fingerprint },
+  { label: "Places", href: "/places", icon: Building2 },
   { label: "Credentials", href: "/credentials", icon: Shield },
   { label: "Reputation", href: "/credentials/leaderboard", icon: Star },
   { label: "Connect", href: "/connect", icon: Unlock, external: true },
