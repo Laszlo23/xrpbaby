@@ -11,6 +11,8 @@ from trading_agent.config import base_rpc_uri, default_bcc_address, trading_pape
 from trading_agent.manifest import build_manifest
 from trading_agent.arbitrage import arbitrage_scan
 from trading_agent.service import TradingService
+from trading_agent.xt_config import xt_health_meta
+from trading_agent.xt_routes import router as xt_router
 
 logger = logging.getLogger("trading_agent")
 _service = TradingService()
@@ -36,6 +38,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.include_router(xt_router)
+
 
 class QuoteBody(BaseModel):
     from_token: str = Field(..., description="Symbol (eth) or 0x address")
@@ -59,6 +63,7 @@ async def health() -> dict:
         "rpc": base_rpc_uri()[:56] + ("…" if len(base_rpc_uri()) > 56 else ""),
         "warmup": _warmup,
         "rentableVia": "x402 on BUILDCHAIN /api/trading/*",
+        "xt": xt_health_meta(),
     }
 
 

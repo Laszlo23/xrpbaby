@@ -45,6 +45,9 @@ rsync -avz --delete \
   --exclude '**/node_modules' \
   --exclude '**/dist' \
   --exclude '**/.git' \
+  --exclude '**/.venv' \
+  --exclude '**/__pycache__' \
+  --exclude '**/*.pyc' \
   --exclude 'app/.env' \
   --exclude 'app/docker/dotenv-for-build' \
   --include 'package.json' \
@@ -80,6 +83,13 @@ export IMAGE_NAME APP_PORT
 
 chmod +x app/scripts/docker-build.sh app/scripts/docker-entrypoint.sh 2>/dev/null || true
 export DOCKER_BUILD_ARGS
+
+# Free disk before building — large images previously failed on a full disk.
+echo "==> Pre-build disk:" && df -h / | tail -1
+docker builder prune -af >/dev/null 2>&1 || true
+docker image prune -f >/dev/null 2>&1 || true
+echo "==> After prune:" && df -h / | tail -1
+
 ./app/scripts/docker-build.sh
 
 if [[ "$USE_COMPOSE" == "1" ]] && [[ -f app/docker-compose.stack.yml ]]; then

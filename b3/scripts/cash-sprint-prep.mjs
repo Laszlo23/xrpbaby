@@ -23,6 +23,7 @@ console.log(`\n=== Cash sprint prep: ${base} ===\n`);
 
 const checks = [
   await probe("/api/agents/research?q=smoke", [402, 200]),
+  await probe("/api/billing/stripe/health", [200]),
   await probe("/grant-proof", [200]),
   await probe("/wallet/packs", [200]),
   await probe("/docs/bcid", [200]),
@@ -37,7 +38,7 @@ const stripeConfigured = Boolean(
 );
 
 console.log(`\nStripe: ${stripeConfigured ? "keys present locally" : "NOT configured — see docs/CASH_SPRINT_OPERATOR.md §3"}`);
-console.log(`Operator checklist: docs/CASH_SPRINT_OPERATOR.md`);
+console.log(`Operator checklist: docs/STRIPE_PAYMENTS.md`);
 console.log(`Amplify copy: docs/CASH_SPRINT_AMPLIFY.md`);
 
 const logPath = resolve(root, "proof-bundles/submission-log.txt");

@@ -9,6 +9,8 @@ from trading_agent.prices import (
     fetch_sol_usd,
 )
 from trading_agent.service import TradingService
+from trading_agent.xt_config import xt_bcc_symbol
+from trading_agent.xt_service import spot_ticker_price
 
 
 # Estimated bridge + second-leg friction (bps) for Solana → Base → BCC modeling.
@@ -31,6 +33,19 @@ async def arbitrage_scan(
     bcc_usd = await fetch_bcc_usd_on_base()
     sol_usd = await fetch_sol_usd()
     jup_sol_usdc = await fetch_jupiter_sol_to_usdc_quote(sol_amount=sol_amount)
+
+    cex: dict[str, Any] = {"symbol": xt_bcc_symbol()}
+    try:
+        xt_price = spot_ticker_price(xt_bcc_symbol())
+        cex["xtBccUsd"] = xt_price
+        if xt_price and bcc_usd and bcc_usd.get("usd"):
+            dex_usd = float(bcc_usd["usd"])
+            if dex_usd > 0:
+                spread_bps = int((xt_price / dex_usd - 1.0) * 10_000)
+                cex["spreadBpsVsDexscreener"] = spread_bps
+                cex["dexBccUsd"] = dex_usd
+    except Exception as e:
+        cex["error"] = str(e)
 
     base_eth_usdc: dict[str, Any] | None = None
     base_eth_bcc: dict[str, Any] | None = None
@@ -168,6 +183,7 @@ async def arbitrage_scan(
         "opportunities": opportunities,
         "actionableCount": len(actionable),
         "errors": base_errors,
+        "cex": cex,
         "agentNotes": [
             "Read-only scan. Execute via signed txs on each chain; bridge latency and fees are estimates.",
             "Solana path: use Jumper/deBridge links in market API / bcc-kit for user-facing buy flow.",

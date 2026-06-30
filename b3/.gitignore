@@ -39,3 +39,5 @@ reports/cleanup-inventory.txt
 # Secret-bearing deploy env (use .env.example templates)
 apps/**/deploy/.env.production
 apps/**/deploy/.env
+
+xrpbaby_-_CLI_Quickstart-oauth-credentials.txt

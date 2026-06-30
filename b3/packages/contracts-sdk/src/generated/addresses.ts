@@ -15,6 +15,7 @@ export const deploymentAddresses8453 = {
   "CulturePassBccRewards": "0xaae3eb068026cab39a841c2628f983c559ad6c10" as const,
   "PanicSwitchAttestation": "0x3f60465e70042b52e3fe95fec8e80680b6830b6a" as const,
   "CultureChronicles1155": "0x667a11c6e05e37652e57a962059310384e71258a" as const,
+  "ServiceDealEscrow": "0xb0a44fc3f52eb3b575b113ef7ef8d778a55b5dfb" as const,
   "BccRootsStaking": "0x42355c509743a92ebd6f2f7259d4f677eca18b4d" as const,
   "MockBccUsdOracle": "0x46c96e0a459ea441873fa8c3077f42b5e1e9cb4f" as const,
   "CultureLayerIdentityV2": "0x9942095ab0a9512e432aeacd623e929cfb474058" as const,
