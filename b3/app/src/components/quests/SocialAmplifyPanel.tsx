@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useAccount } from "wagmi";
 import { useServerFn } from "@tanstack/react-start";
 import { Check, Loader2, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useLinkedWalletAddress } from "@/hooks/useLinkedWalletAddress";
 import { usePointsSiweSign } from "@/hooks/usePointsSiweSign";
 import { BRAND_DISPLAY_NAME } from "@/lib/brand";
 import { farcasterFollowProfileUrl } from "@/lib/community-links";
@@ -58,7 +58,8 @@ export function SocialAmplifyPanel({
   className,
   shareComposeOverride,
 }: Props) {
-  const { isConnected } = useAccount();
+  const address = useLinkedWalletAddress();
+  const isConnected = Boolean(address);
   const { signSiwe, signing: siweSigning } = usePointsSiweSign();
   const completeFarcaster = useServerFn(postCompleteFarcasterSocialTask);
   const completeXProof = useServerFn(postCompleteXProofTask);
@@ -97,7 +98,6 @@ export function SocialAmplifyPanel({
     : xShareComposeUrl();
 
   const taskDone = useCallback((slug: string) => completedSlugs.includes(slug), [completedSlugs]);
-  const shareDoneToday = taskDone("daily-share-post");
   const claimDisabled = !isConnected || claiming || siweSigning;
 
   async function requireSiwe() {
@@ -331,16 +331,9 @@ export function SocialAmplifyPanel({
         </ul>
       )}
 
-      <div
-        className={cn(
-          "mt-8 rounded-xl border p-5",
-          shareDoneToday
-            ? "border-emerald-500/25 bg-emerald-500/[0.04]"
-            : "border-[#C5FF41]/25 bg-black/30",
-        )}
-      >
+      <div className="mt-8 rounded-xl border border-[#C5FF41]/25 bg-black/30 p-5">
         <p className="font-display text-lg font-semibold text-white">
-          Share your story {shareDoneToday ? "— credited today" : "— daily quest"}
+          Share your story — daily quest
         </p>
         <p className="mt-1 text-sm text-zinc-400">
           Original posts and quotes earn the most. Agent review may add a bonus for thoughtful
@@ -395,7 +388,7 @@ export function SocialAmplifyPanel({
           <Button
             type="button"
             className="shrink-0 rounded-full bg-[#C5FF41] text-black hover:bg-[#b8eb3a]"
-            disabled={claimDisabled || shareDoneToday}
+            disabled={claimDisabled}
             onClick={() => void claimShareStory()}
           >
             {claiming ? (

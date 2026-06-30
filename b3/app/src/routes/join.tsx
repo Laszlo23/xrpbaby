@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -74,6 +75,7 @@ function JoinSteps({ activeStep }: { activeStep: 1 | 2 | 3 }) {
 
 function JoinPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const address = useLinkedWalletAddress();
   const { signPlatformSiwe, signing } = usePlatformSiweSign();
   const { data: member, isLoading: memberLoading } = useMemberProfile(address);
@@ -124,9 +126,19 @@ function JoinPage() {
         groveLinked?: boolean;
       };
       if (!res.ok || !data.ok) {
-        setError(plainLabels.join.errors.saveFailed);
+        console.error("[join] onboarding-complete failed", res.status, data.error);
+        setError(
+          data.error
+            ? `${plainLabels.join.errors.saveFailed} (${data.error})`
+            : plainLabels.join.errors.saveFailed,
+        );
         return;
       }
+      // Intent is now persisted — drop the cached profile so the /forest guard
+      // sees the onboarded state instead of bouncing back to "choose your path".
+      await queryClient.invalidateQueries({
+        queryKey: ["member-profile", signedAddress.toLowerCase()],
+      });
       if (data.groveLinked) {
         toast.success("Culture DNA linked!", {
           description: "+25 Culture Points — you joined through a friend's grove.",

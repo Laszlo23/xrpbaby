@@ -45,6 +45,7 @@
     "pulse:seed": "tsx scripts/pulse-seed.ts",
     "pulse:attest": "tsx scripts/pulse-daily-attest.ts",
     "social:sync-scores": "tsx scripts/sync-support-scores.ts",
+    "qa:test-user": "tsx scripts/create-test-user.ts",
     "bcc:settlement-keeper": "node scripts/bcc-settlement-keeper.mjs",
     "bcc:roots-rewards-keeper": "node scripts/bcc-roots-rewards-keeper.mjs",
     "points:airdrop-snapshot": "node scripts/airdrop-snapshot.mjs"

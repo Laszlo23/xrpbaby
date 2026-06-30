@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useAccount } from "wagmi";
 import { Check, Loader2, MessageSquareQuote, Shield } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -27,6 +26,7 @@ import { NeynarConnectBoundary } from "@/components/NeynarConnectBoundary";
 import { Input } from "@/components/ui/input";
 import { PointsRedeemSection } from "@/components/PointsRedeemSection";
 import { WeeklyBccClaimPanel } from "@/components/WeeklyBccClaimPanel";
+import { useLinkedWalletAddress } from "@/hooks/useLinkedWalletAddress";
 
 function formatXProofError(code?: string): string {
   switch (code) {
@@ -42,7 +42,7 @@ function formatXProofError(code?: string): string {
 }
 
 export function PointsLedgerSection() {
-  const { address, isConnected } = useAccount();
+  const address = useLinkedWalletAddress();
   const { signSiwe, signing: siweSigning } = usePointsSiweSign();
   const fetchBalance = useServerFn(postPointsBalance);
   const completeTask = useServerFn(postCompleteTaskWithSiwe);
@@ -282,7 +282,7 @@ export function PointsLedgerSection() {
     `Building with ${BRAND_DISPLAY_NAME} — ${getPublicAppOrigin()}/`,
   );
 
-  if (!isConnected || !address) {
+  if (!address) {
     return (
       <section className="rounded-3xl border border-white/[0.08] bg-white/[0.02] p-6 md:p-10">
         <div className="flex items-start gap-3">

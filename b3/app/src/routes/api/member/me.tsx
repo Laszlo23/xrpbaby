@@ -82,7 +82,8 @@ function json(data: unknown, status = 200) {
     status,
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "private, max-age=30",
+      // No HTTP cache: onboarding intent / task completion must reflect immediately.
+      "Cache-Control": "no-store",
     },
   });
 }
