@@ -17,6 +17,7 @@ RUN npm ci --legacy-peer-deps
 RUN node -e "const fs=require('fs');const p='/repo/node_modules/@noble/hashes/package.json';const j=JSON.parse(fs.readFileSync(p,'utf8'));j.exports=j.exports||{};const alias={ './sha3':'./sha3.js','./sha256':'./sha2.js','./sha512':'./sha2.js','./sha2':'./sha2.js','./utils':'./utils.js','./hmac':'./hmac.js' };for (const [k,v] of Object.entries(alias)) if(!j.exports[k]) j.exports[k]=v;fs.writeFileSync(p,JSON.stringify(j,null,2));"
 
 RUN npm -w @bc/contracts-sdk run build \
+  && npm -w @bc/places-portfolio run build \
   && npm -w @bc/wallet-kit run build \
   && npm -w @bc/identity run build \
   && npm -w @bc/proof run build \
