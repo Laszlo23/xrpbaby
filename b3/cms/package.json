@@ -22,7 +22,7 @@
     "@solana/web3.js": "^1.98.4",
     "@strapi/plugin-cloud": "5.44.0",
     "@strapi/plugin-users-permissions": "5.44.0",
-    "@strapi/strapi": "5.44.0",
+    "@strapi/strapi": "5.49.0",
     "axios": "1.16.0",
     "better-sqlite3": "11.3.0",
     "bs58": "^6.0.0",
