@@ -62,7 +62,7 @@
     "@bc/proof": "*",
     "@bc/registry": "*",
     "@bc/support-score": "*",
-    "@cloudflare/vite-plugin": "^1.25.5",
+    "@cloudflare/vite-plugin": "^1.44.0",
     "@crossmarkio/sdk": "^0.4.0",
     "@farcaster/miniapp-sdk": "^0.3.0",
     "@farcaster/miniapp-wagmi-connector": "^2.0.0",
