@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "overrides": {
-    "axios": "^1.15.0"
+    "axios": "^1.18.1"
   },
   "scripts": {
     "dev": "next dev",
