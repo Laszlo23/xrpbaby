@@ -14,7 +14,7 @@ It contains:
   - `/pass` — mint Culture Layer names on Base (~$1.11 in ETH)
   - `/marketplace` — ERC-721 marketplace (not fractional real estate)
   - `/places` — hub that links into Places (buildingculture.capital)
-- **Places (real estate):** `https://buildingculture.capital`
+- **Places (real estate):** `https://rwa.buildingcultureid.space`
 
 ## Repo map
 
